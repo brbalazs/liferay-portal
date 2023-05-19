@@ -325,16 +325,11 @@ public class OAuthApplicationModelImpl
 
 	private static final Map<String, Function<OAuthApplication, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<OAuthApplication, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<OAuthApplication, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<OAuthApplication, Object>>();
-		Map<String, BiConsumer<OAuthApplication, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<OAuthApplication, ?>>();
 
 		attributeGetterFunctions.put(
 			"oAuthApplicationId",
@@ -346,6 +341,159 @@ public class OAuthApplicationModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"consumerKey",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getConsumerKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"consumerSecret",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getConsumerSecret();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessLevel",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getAccessLevel();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"logoId",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getLogoId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"shareableAccessToken",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getShareableAccessToken();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"callbackURI",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getCallbackURI();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"websiteURL",
+			new Function<OAuthApplication, Object>() {
+
+				@Override
+				public Object apply(OAuthApplication oAuthApplication) {
+					return oAuthApplication.getWebsiteURL();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<OAuthApplication, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<OAuthApplication, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<OAuthApplication, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"oAuthApplicationId",
 			new BiConsumer<OAuthApplication, Object>() {
@@ -357,16 +505,6 @@ public class OAuthApplicationModelImpl
 
 					oAuthApplication.setOAuthApplicationId(
 						(Long)oAuthApplicationIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getCompanyId();
 				}
 
 			});
@@ -382,16 +520,6 @@ public class OAuthApplicationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<OAuthApplication, Object>() {
@@ -404,16 +532,6 @@ public class OAuthApplicationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<OAuthApplication, Object>() {
@@ -423,16 +541,6 @@ public class OAuthApplicationModelImpl
 					OAuthApplication oAuthApplication, Object userNameObject) {
 
 					oAuthApplication.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getCreateDate();
 				}
 
 			});
@@ -449,16 +557,6 @@ public class OAuthApplicationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<OAuthApplication, Object>() {
@@ -472,16 +570,6 @@ public class OAuthApplicationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<OAuthApplication, Object>() {
@@ -491,16 +579,6 @@ public class OAuthApplicationModelImpl
 					OAuthApplication oAuthApplication, Object nameObject) {
 
 					oAuthApplication.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getDescription();
 				}
 
 			});
@@ -517,16 +595,6 @@ public class OAuthApplicationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"consumerKey",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getConsumerKey();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"consumerKey",
 			new BiConsumer<OAuthApplication, Object>() {
@@ -537,16 +605,6 @@ public class OAuthApplicationModelImpl
 					Object consumerKeyObject) {
 
 					oAuthApplication.setConsumerKey((String)consumerKeyObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"consumerSecret",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getConsumerSecret();
 				}
 
 			});
@@ -564,16 +622,6 @@ public class OAuthApplicationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"accessLevel",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getAccessLevel();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"accessLevel",
 			new BiConsumer<OAuthApplication, Object>() {
@@ -587,16 +635,6 @@ public class OAuthApplicationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"logoId",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getLogoId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"logoId",
 			new BiConsumer<OAuthApplication, Object>() {
@@ -606,16 +644,6 @@ public class OAuthApplicationModelImpl
 					OAuthApplication oAuthApplication, Object logoIdObject) {
 
 					oAuthApplication.setLogoId((Long)logoIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"shareableAccessToken",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getShareableAccessToken();
 				}
 
 			});
@@ -633,16 +661,6 @@ public class OAuthApplicationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"callbackURI",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getCallbackURI();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"callbackURI",
 			new BiConsumer<OAuthApplication, Object>() {
@@ -653,16 +671,6 @@ public class OAuthApplicationModelImpl
 					Object callbackURIObject) {
 
 					oAuthApplication.setCallbackURI((String)callbackURIObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"websiteURL",
-			new Function<OAuthApplication, Object>() {
-
-				@Override
-				public Object apply(OAuthApplication oAuthApplication) {
-					return oAuthApplication.getWebsiteURL();
 				}
 
 			});
@@ -680,8 +688,6 @@ public class OAuthApplicationModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

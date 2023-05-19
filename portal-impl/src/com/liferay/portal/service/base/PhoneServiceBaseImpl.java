@@ -35,8 +35,6 @@ import com.liferay.portal.kernel.service.persistence.UserFinder;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -367,11 +365,11 @@ public abstract class PhoneServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(phoneService);
+		PhoneServiceUtil.setService(phoneService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		PhoneServiceUtil.setService(null);
 	}
 
 	/**
@@ -413,19 +411,6 @@ public abstract class PhoneServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(PhoneService phoneService) {
-		try {
-			Field field = PhoneServiceUtil.class.getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, phoneService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -1550,6 +1550,10 @@ public class PhoneUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(PhonePersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile PhonePersistence _persistence;
 
 }

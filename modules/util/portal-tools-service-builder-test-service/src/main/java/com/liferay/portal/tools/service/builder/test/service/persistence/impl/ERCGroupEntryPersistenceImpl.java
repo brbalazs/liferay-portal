@@ -2725,33 +2725,17 @@ public class ERCGroupEntryPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_ERC",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setERCGroupEntryUtilPersistence(this);
+		ERCGroupEntryUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setERCGroupEntryUtilPersistence(null);
+		ERCGroupEntryUtil.setPersistence(null);
 
 		entityCache.removeCache(ERCGroupEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setERCGroupEntryUtilPersistence(
-		ERCGroupEntryPersistence ercGroupEntryPersistence) {
-
-		try {
-			Field field = ERCGroupEntryUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, ercGroupEntryPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

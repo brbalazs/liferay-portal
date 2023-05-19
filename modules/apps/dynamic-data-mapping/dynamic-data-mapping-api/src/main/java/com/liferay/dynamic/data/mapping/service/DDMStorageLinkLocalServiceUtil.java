@@ -379,6 +379,10 @@ public class DDMStorageLinkLocalServiceUtil {
 		return _service;
 	}
 
+	public static void setService(DDMStorageLinkLocalService service) {
+		_service = service;
+	}
+
 	private static volatile DDMStorageLinkLocalService _service;
 
 }

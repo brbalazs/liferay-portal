@@ -52,8 +52,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -646,14 +644,14 @@ public abstract class FolderLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.mail.reader.model.Folder", folderLocalService);
 
-		_setLocalServiceUtilService(folderLocalService);
+		FolderLocalServiceUtil.setService(folderLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.mail.reader.model.Folder");
 
-		_setLocalServiceUtilService(null);
+		FolderLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -695,22 +693,6 @@ public abstract class FolderLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		FolderLocalService folderLocalService) {
-
-		try {
-			Field field = FolderLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, folderLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

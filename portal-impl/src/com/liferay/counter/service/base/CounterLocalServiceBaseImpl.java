@@ -44,8 +44,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -364,14 +362,14 @@ public abstract class CounterLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.counter.kernel.model.Counter", counterLocalService);
 
-		_setLocalServiceUtilService(counterLocalService);
+		CounterLocalServiceUtil.setService(counterLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.counter.kernel.model.Counter");
 
-		_setLocalServiceUtilService(null);
+		CounterLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -413,22 +411,6 @@ public abstract class CounterLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		CounterLocalService counterLocalService) {
-
-		try {
-			Field field = CounterLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, counterLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -50,8 +50,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -584,14 +582,15 @@ public abstract class WeDeployAuthTokenLocalServiceBaseImpl
 			"com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthToken",
 			weDeployAuthTokenLocalService);
 
-		_setLocalServiceUtilService(weDeployAuthTokenLocalService);
+		WeDeployAuthTokenLocalServiceUtil.setService(
+			weDeployAuthTokenLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.portal.security.wedeploy.auth.model.WeDeployAuthToken");
 
-		_setLocalServiceUtilService(null);
+		WeDeployAuthTokenLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -634,23 +633,6 @@ public abstract class WeDeployAuthTokenLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		WeDeployAuthTokenLocalService weDeployAuthTokenLocalService) {
-
-		try {
-			Field field =
-				WeDeployAuthTokenLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, weDeployAuthTokenLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

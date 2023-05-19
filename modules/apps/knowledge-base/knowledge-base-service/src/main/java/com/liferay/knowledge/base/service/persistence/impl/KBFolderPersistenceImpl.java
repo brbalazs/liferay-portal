@@ -4105,32 +4105,17 @@ public class KBFolderPersistenceImpl
 				String.class.getName()
 			});
 
-		_setKBFolderUtilPersistence(this);
+		KBFolderUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setKBFolderUtilPersistence(null);
+		KBFolderUtil.setPersistence(null);
 
 		entityCache.removeCache(KBFolderImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setKBFolderUtilPersistence(
-		KBFolderPersistence kbFolderPersistence) {
-
-		try {
-			Field field = KBFolderUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, kbFolderPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

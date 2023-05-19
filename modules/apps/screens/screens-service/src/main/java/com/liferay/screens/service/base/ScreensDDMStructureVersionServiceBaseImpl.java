@@ -33,8 +33,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.screens.service.ScreensDDMStructureVersionService;
 import com.liferay.screens.service.ScreensDDMStructureVersionServiceUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -435,11 +433,12 @@ public abstract class ScreensDDMStructureVersionServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(screensDDMStructureVersionService);
+		ScreensDDMStructureVersionServiceUtil.setService(
+			screensDDMStructureVersionService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		ScreensDDMStructureVersionServiceUtil.setService(null);
 	}
 
 	/**
@@ -473,23 +472,6 @@ public abstract class ScreensDDMStructureVersionServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		ScreensDDMStructureVersionService screensDDMStructureVersionService) {
-
-		try {
-			Field field =
-				ScreensDDMStructureVersionServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, screensDDMStructureVersionService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

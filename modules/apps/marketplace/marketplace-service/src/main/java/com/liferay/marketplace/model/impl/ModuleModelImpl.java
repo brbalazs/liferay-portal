@@ -247,14 +247,10 @@ public class ModuleModelImpl
 
 	private static final Map<String, Function<Module, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Module, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Module, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Module, Object>>();
-		Map<String, BiConsumer<Module, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Module, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -263,16 +259,6 @@ public class ModuleModelImpl
 				@Override
 				public Object apply(Module module) {
 					return module.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Module, Object>() {
-
-				@Override
-				public void accept(Module module, Object uuidObject) {
-					module.setUuid((String)uuidObject);
 				}
 
 			});
@@ -286,16 +272,6 @@ public class ModuleModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"moduleId",
-			new BiConsumer<Module, Object>() {
-
-				@Override
-				public void accept(Module module, Object moduleIdObject) {
-					module.setModuleId((Long)moduleIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<Module, Object>() {
@@ -303,16 +279,6 @@ public class ModuleModelImpl
 				@Override
 				public Object apply(Module module) {
 					return module.getCompanyId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Module, Object>() {
-
-				@Override
-				public void accept(Module module, Object companyIdObject) {
-					module.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -326,16 +292,6 @@ public class ModuleModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"appId",
-			new BiConsumer<Module, Object>() {
-
-				@Override
-				public void accept(Module module, Object appIdObject) {
-					module.setAppId((Long)appIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"bundleSymbolicName",
 			new Function<Module, Object>() {
@@ -343,6 +299,78 @@ public class ModuleModelImpl
 				@Override
 				public Object apply(Module module) {
 					return module.getBundleSymbolicName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"bundleVersion",
+			new Function<Module, Object>() {
+
+				@Override
+				public Object apply(Module module) {
+					return module.getBundleVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"contextName",
+			new Function<Module, Object>() {
+
+				@Override
+				public Object apply(Module module) {
+					return module.getContextName();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Module, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Module, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Module, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Module, Object>() {
+
+				@Override
+				public void accept(Module module, Object uuidObject) {
+					module.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"moduleId",
+			new BiConsumer<Module, Object>() {
+
+				@Override
+				public void accept(Module module, Object moduleIdObject) {
+					module.setModuleId((Long)moduleIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Module, Object>() {
+
+				@Override
+				public void accept(Module module, Object companyIdObject) {
+					module.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"appId",
+			new BiConsumer<Module, Object>() {
+
+				@Override
+				public void accept(Module module, Object appIdObject) {
+					module.setAppId((Long)appIdObject);
 				}
 
 			});
@@ -359,16 +387,6 @@ public class ModuleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"bundleVersion",
-			new Function<Module, Object>() {
-
-				@Override
-				public Object apply(Module module) {
-					return module.getBundleVersion();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"bundleVersion",
 			new BiConsumer<Module, Object>() {
@@ -376,16 +394,6 @@ public class ModuleModelImpl
 				@Override
 				public void accept(Module module, Object bundleVersionObject) {
 					module.setBundleVersion((String)bundleVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"contextName",
-			new Function<Module, Object>() {
-
-				@Override
-				public Object apply(Module module) {
-					return module.getContextName();
 				}
 
 			});
@@ -400,8 +408,6 @@ public class ModuleModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

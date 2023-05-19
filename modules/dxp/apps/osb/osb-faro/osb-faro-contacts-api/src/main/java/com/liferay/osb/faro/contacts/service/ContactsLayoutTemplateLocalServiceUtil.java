@@ -325,6 +325,10 @@ public class ContactsLayoutTemplateLocalServiceUtil {
 		return _service;
 	}
 
+	public static void setService(ContactsLayoutTemplateLocalService service) {
+		_service = service;
+	}
+
 	private static volatile ContactsLayoutTemplateLocalService _service;
 
 }

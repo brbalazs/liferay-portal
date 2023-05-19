@@ -264,14 +264,10 @@ public class OAuthTokenModelImpl
 
 	private static final Map<String, Function<OAuthToken, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<OAuthToken, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<OAuthToken, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<OAuthToken, Object>>();
-		Map<String, BiConsumer<OAuthToken, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<OAuthToken, ?>>();
 
 		attributeGetterFunctions.put(
 			"oAuthTokenId",
@@ -283,6 +279,148 @@ public class OAuthTokenModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"gadgetKey",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getGadgetKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"serviceName",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getServiceName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"moduleId",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getModuleId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessToken",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getAccessToken();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"tokenName",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getTokenName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"tokenSecret",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getTokenSecret();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sessionHandle",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getSessionHandle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"expiration",
+			new Function<OAuthToken, Object>() {
+
+				@Override
+				public Object apply(OAuthToken oAuthToken) {
+					return oAuthToken.getExpiration();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<OAuthToken, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<OAuthToken, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<OAuthToken, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"oAuthTokenId",
 			new BiConsumer<OAuthToken, Object>() {
@@ -292,16 +430,6 @@ public class OAuthTokenModelImpl
 					OAuthToken oAuthToken, Object oAuthTokenIdObject) {
 
 					oAuthToken.setOAuthTokenId((Long)oAuthTokenIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getCompanyId();
 				}
 
 			});
@@ -317,16 +445,6 @@ public class OAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<OAuthToken, Object>() {
@@ -334,16 +452,6 @@ public class OAuthTokenModelImpl
 				@Override
 				public void accept(OAuthToken oAuthToken, Object userIdObject) {
 					oAuthToken.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getUserName();
 				}
 
 			});
@@ -359,16 +467,6 @@ public class OAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<OAuthToken, Object>() {
@@ -378,16 +476,6 @@ public class OAuthTokenModelImpl
 					OAuthToken oAuthToken, Object createDateObject) {
 
 					oAuthToken.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getModifiedDate();
 				}
 
 			});
@@ -403,16 +491,6 @@ public class OAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"gadgetKey",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getGadgetKey();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"gadgetKey",
 			new BiConsumer<OAuthToken, Object>() {
@@ -422,16 +500,6 @@ public class OAuthTokenModelImpl
 					OAuthToken oAuthToken, Object gadgetKeyObject) {
 
 					oAuthToken.setGadgetKey((String)gadgetKeyObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"serviceName",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getServiceName();
 				}
 
 			});
@@ -447,16 +515,6 @@ public class OAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"moduleId",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getModuleId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"moduleId",
 			new BiConsumer<OAuthToken, Object>() {
@@ -466,16 +524,6 @@ public class OAuthTokenModelImpl
 					OAuthToken oAuthToken, Object moduleIdObject) {
 
 					oAuthToken.setModuleId((Long)moduleIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"accessToken",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getAccessToken();
 				}
 
 			});
@@ -491,16 +539,6 @@ public class OAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"tokenName",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getTokenName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"tokenName",
 			new BiConsumer<OAuthToken, Object>() {
@@ -510,16 +548,6 @@ public class OAuthTokenModelImpl
 					OAuthToken oAuthToken, Object tokenNameObject) {
 
 					oAuthToken.setTokenName((String)tokenNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"tokenSecret",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getTokenSecret();
 				}
 
 			});
@@ -535,16 +563,6 @@ public class OAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"sessionHandle",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getSessionHandle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"sessionHandle",
 			new BiConsumer<OAuthToken, Object>() {
@@ -554,16 +572,6 @@ public class OAuthTokenModelImpl
 					OAuthToken oAuthToken, Object sessionHandleObject) {
 
 					oAuthToken.setSessionHandle((String)sessionHandleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"expiration",
-			new Function<OAuthToken, Object>() {
-
-				@Override
-				public Object apply(OAuthToken oAuthToken) {
-					return oAuthToken.getExpiration();
 				}
 
 			});
@@ -580,8 +588,6 @@ public class OAuthTokenModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -246,14 +246,10 @@ public class MBStatsUserModelImpl
 
 	private static final Map<String, Function<MBStatsUser, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MBStatsUser, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MBStatsUser, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<MBStatsUser, Object>>();
-		Map<String, BiConsumer<MBStatsUser, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MBStatsUser, ?>>();
 
 		attributeGetterFunctions.put(
 			"statsUserId",
@@ -265,6 +261,68 @@ public class MBStatsUserModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<MBStatsUser, Object>() {
+
+				@Override
+				public Object apply(MBStatsUser mbStatsUser) {
+					return mbStatsUser.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MBStatsUser, Object>() {
+
+				@Override
+				public Object apply(MBStatsUser mbStatsUser) {
+					return mbStatsUser.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MBStatsUser, Object>() {
+
+				@Override
+				public Object apply(MBStatsUser mbStatsUser) {
+					return mbStatsUser.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"messageCount",
+			new Function<MBStatsUser, Object>() {
+
+				@Override
+				public Object apply(MBStatsUser mbStatsUser) {
+					return mbStatsUser.getMessageCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPostDate",
+			new Function<MBStatsUser, Object>() {
+
+				@Override
+				public Object apply(MBStatsUser mbStatsUser) {
+					return mbStatsUser.getLastPostDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MBStatsUser, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MBStatsUser, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MBStatsUser, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"statsUserId",
 			new BiConsumer<MBStatsUser, Object>() {
@@ -274,16 +332,6 @@ public class MBStatsUserModelImpl
 					MBStatsUser mbStatsUser, Object statsUserIdObject) {
 
 					mbStatsUser.setStatsUserId((Long)statsUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<MBStatsUser, Object>() {
-
-				@Override
-				public Object apply(MBStatsUser mbStatsUser) {
-					return mbStatsUser.getGroupId();
 				}
 
 			});
@@ -299,16 +347,6 @@ public class MBStatsUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MBStatsUser, Object>() {
-
-				@Override
-				public Object apply(MBStatsUser mbStatsUser) {
-					return mbStatsUser.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<MBStatsUser, Object>() {
@@ -318,16 +356,6 @@ public class MBStatsUserModelImpl
 					MBStatsUser mbStatsUser, Object companyIdObject) {
 
 					mbStatsUser.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MBStatsUser, Object>() {
-
-				@Override
-				public Object apply(MBStatsUser mbStatsUser) {
-					return mbStatsUser.getUserId();
 				}
 
 			});
@@ -343,16 +371,6 @@ public class MBStatsUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"messageCount",
-			new Function<MBStatsUser, Object>() {
-
-				@Override
-				public Object apply(MBStatsUser mbStatsUser) {
-					return mbStatsUser.getMessageCount();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"messageCount",
 			new BiConsumer<MBStatsUser, Object>() {
@@ -362,16 +380,6 @@ public class MBStatsUserModelImpl
 					MBStatsUser mbStatsUser, Object messageCountObject) {
 
 					mbStatsUser.setMessageCount((Integer)messageCountObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPostDate",
-			new Function<MBStatsUser, Object>() {
-
-				@Override
-				public Object apply(MBStatsUser mbStatsUser) {
-					return mbStatsUser.getLastPostDate();
 				}
 
 			});
@@ -388,8 +396,6 @@ public class MBStatsUserModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -317,14 +317,10 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 
 	private static final Map<String, Function<Phone, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Phone, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Phone, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Phone, Object>>();
-		Map<String, BiConsumer<Phone, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Phone, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -333,16 +329,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				@Override
 				public Object apply(Phone phone) {
 					return phone.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object mvccVersionObject) {
-					phone.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -356,16 +342,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object uuidObject) {
-					phone.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"phoneId",
 			new Function<Phone, Object>() {
@@ -373,16 +349,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				@Override
 				public Object apply(Phone phone) {
 					return phone.getPhoneId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"phoneId",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object phoneIdObject) {
-					phone.setPhoneId((Long)phoneIdObject);
 				}
 
 			});
@@ -396,16 +362,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object companyIdObject) {
-					phone.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Phone, Object>() {
@@ -413,16 +369,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				@Override
 				public Object apply(Phone phone) {
 					return phone.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object userIdObject) {
-					phone.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -436,16 +382,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object userNameObject) {
-					phone.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Phone, Object>() {
@@ -453,16 +389,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				@Override
 				public Object apply(Phone phone) {
 					return phone.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object createDateObject) {
-					phone.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -476,16 +402,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object modifiedDateObject) {
-					phone.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"classNameId",
 			new Function<Phone, Object>() {
@@ -493,16 +409,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				@Override
 				public Object apply(Phone phone) {
 					return phone.getClassNameId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"classNameId",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object classNameIdObject) {
-					phone.setClassNameId((Long)classNameIdObject);
 				}
 
 			});
@@ -516,16 +422,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"classPK",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object classPKObject) {
-					phone.setClassPK((Long)classPKObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"number",
 			new Function<Phone, Object>() {
@@ -533,16 +429,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				@Override
 				public Object apply(Phone phone) {
 					return phone.getNumber();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"number",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object numberObject) {
-					phone.setNumber((String)numberObject);
 				}
 
 			});
@@ -556,16 +442,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"extension",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object extensionObject) {
-					phone.setExtension((String)extensionObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"typeId",
 			new Function<Phone, Object>() {
@@ -576,16 +452,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"typeId",
-			new BiConsumer<Phone, Object>() {
-
-				@Override
-				public void accept(Phone phone, Object typeIdObject) {
-					phone.setTypeId((Long)typeIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"primary",
 			new Function<Phone, Object>() {
@@ -593,6 +459,148 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 				@Override
 				public Object apply(Phone phone) {
 					return phone.getPrimary();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Phone, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Phone, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Phone, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object mvccVersionObject) {
+					phone.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object uuidObject) {
+					phone.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"phoneId",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object phoneIdObject) {
+					phone.setPhoneId((Long)phoneIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object companyIdObject) {
+					phone.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object userIdObject) {
+					phone.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object userNameObject) {
+					phone.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object createDateObject) {
+					phone.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object modifiedDateObject) {
+					phone.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classNameId",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object classNameIdObject) {
+					phone.setClassNameId((Long)classNameIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classPK",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object classPKObject) {
+					phone.setClassPK((Long)classPKObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"number",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object numberObject) {
+					phone.setNumber((String)numberObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"extension",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object extensionObject) {
+					phone.setExtension((String)extensionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"typeId",
+			new BiConsumer<Phone, Object>() {
+
+				@Override
+				public void accept(Phone phone, Object typeIdObject) {
+					phone.setTypeId((Long)typeIdObject);
 				}
 
 			});
@@ -607,8 +615,6 @@ public class PhoneModelImpl extends BaseModelImpl<Phone> implements PhoneModel {
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

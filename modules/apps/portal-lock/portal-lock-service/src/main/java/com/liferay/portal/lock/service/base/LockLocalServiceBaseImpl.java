@@ -48,8 +48,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -476,14 +474,14 @@ public abstract class LockLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.portal.lock.model.Lock", lockLocalService);
 
-		_setLocalServiceUtilService(lockLocalService);
+		LockLocalServiceUtil.setService(lockLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.portal.lock.model.Lock");
 
-		_setLocalServiceUtilService(null);
+		LockLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -525,22 +523,6 @@ public abstract class LockLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		LockLocalService lockLocalService) {
-
-		try {
-			Field field = LockLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, lockLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

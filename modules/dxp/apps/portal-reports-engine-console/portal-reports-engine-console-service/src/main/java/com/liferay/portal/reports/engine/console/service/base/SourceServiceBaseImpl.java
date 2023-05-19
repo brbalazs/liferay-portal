@@ -38,8 +38,6 @@ import com.liferay.portal.reports.engine.console.service.persistence.SourceFinde
 import com.liferay.portal.reports.engine.console.service.persistence.SourcePersistence;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -478,11 +476,11 @@ public abstract class SourceServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(sourceService);
+		SourceServiceUtil.setService(sourceService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		SourceServiceUtil.setService(null);
 	}
 
 	/**
@@ -524,19 +522,6 @@ public abstract class SourceServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(SourceService sourceService) {
-		try {
-			Field field = SourceServiceUtil.class.getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, sourceService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

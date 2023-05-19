@@ -3527,11 +3527,11 @@ public class CalendarNotificationTemplatePersistenceImpl
 				String.class.getName()
 			});
 
-		_setCalendarNotificationTemplateUtilPersistence(this);
+		CalendarNotificationTemplateUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setCalendarNotificationTemplateUtilPersistence(null);
+		CalendarNotificationTemplateUtil.setPersistence(null);
 
 		entityCache.removeCache(
 			CalendarNotificationTemplateImpl.class.getName());
@@ -3539,24 +3539,6 @@ public class CalendarNotificationTemplatePersistenceImpl
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setCalendarNotificationTemplateUtilPersistence(
-		CalendarNotificationTemplatePersistence
-			calendarNotificationTemplatePersistence) {
-
-		try {
-			Field field =
-				CalendarNotificationTemplateUtil.class.getDeclaredField(
-					"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, calendarNotificationTemplatePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

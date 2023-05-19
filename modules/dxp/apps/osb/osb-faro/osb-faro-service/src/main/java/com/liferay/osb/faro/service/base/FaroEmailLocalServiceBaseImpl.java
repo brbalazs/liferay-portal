@@ -30,8 +30,6 @@ import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -99,11 +97,11 @@ public abstract class FaroEmailLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setLocalServiceUtilService(faroEmailLocalService);
+		FaroEmailLocalServiceUtil.setService(faroEmailLocalService);
 	}
 
 	public void destroy() {
-		_setLocalServiceUtilService(null);
+		FaroEmailLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -137,22 +135,6 @@ public abstract class FaroEmailLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		FaroEmailLocalService faroEmailLocalService) {
-
-		try {
-			Field field = FaroEmailLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, faroEmailLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

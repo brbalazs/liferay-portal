@@ -2932,30 +2932,17 @@ public class LockPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_K",
 			new String[] {String.class.getName(), String.class.getName()});
 
-		_setLockUtilPersistence(this);
+		LockUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setLockUtilPersistence(null);
+		LockUtil.setPersistence(null);
 
 		entityCache.removeCache(LockImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setLockUtilPersistence(LockPersistence lockPersistence) {
-		try {
-			Field field = LockUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, lockPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

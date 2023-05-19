@@ -43,8 +43,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -723,11 +721,11 @@ public abstract class DDMStructureServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(ddmStructureService);
+		DDMStructureServiceUtil.setService(ddmStructureService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		DDMStructureServiceUtil.setService(null);
 	}
 
 	/**
@@ -769,22 +767,6 @@ public abstract class DDMStructureServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		DDMStructureService ddmStructureService) {
-
-		try {
-			Field field = DDMStructureServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddmStructureService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

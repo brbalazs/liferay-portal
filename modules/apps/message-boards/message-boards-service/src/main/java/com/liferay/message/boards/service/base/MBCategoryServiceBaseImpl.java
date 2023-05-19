@@ -41,8 +41,6 @@ import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashEntryPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashVersionPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -612,11 +610,11 @@ public abstract class MBCategoryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(mbCategoryService);
+		MBCategoryServiceUtil.setService(mbCategoryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		MBCategoryServiceUtil.setService(null);
 	}
 
 	/**
@@ -658,20 +656,6 @@ public abstract class MBCategoryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(MBCategoryService mbCategoryService) {
-		try {
-			Field field = MBCategoryServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, mbCategoryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

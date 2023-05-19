@@ -1361,32 +1361,17 @@ public class AttachmentPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByMessageId",
 			new String[] {Long.class.getName()});
 
-		_setAttachmentUtilPersistence(this);
+		AttachmentUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setAttachmentUtilPersistence(null);
+		AttachmentUtil.setPersistence(null);
 
 		entityCache.removeCache(AttachmentImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setAttachmentUtilPersistence(
-		AttachmentPersistence attachmentPersistence) {
-
-		try {
-			Field field = AttachmentUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, attachmentPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

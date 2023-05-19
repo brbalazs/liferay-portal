@@ -528,6 +528,10 @@ public class FragmentEntryLocalServiceUtil {
 		return _service;
 	}
 
+	public static void setService(FragmentEntryLocalService service) {
+		_service = service;
+	}
+
 	private static volatile FragmentEntryLocalService _service;
 
 }

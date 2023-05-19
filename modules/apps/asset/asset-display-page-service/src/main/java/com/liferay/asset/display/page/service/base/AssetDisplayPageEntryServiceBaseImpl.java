@@ -32,8 +32,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -209,11 +207,12 @@ public abstract class AssetDisplayPageEntryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(assetDisplayPageEntryService);
+		AssetDisplayPageEntryServiceUtil.setService(
+			assetDisplayPageEntryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		AssetDisplayPageEntryServiceUtil.setService(null);
 	}
 
 	/**
@@ -256,23 +255,6 @@ public abstract class AssetDisplayPageEntryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		AssetDisplayPageEntryService assetDisplayPageEntryService) {
-
-		try {
-			Field field =
-				AssetDisplayPageEntryServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, assetDisplayPageEntryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

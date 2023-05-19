@@ -61,8 +61,6 @@ import com.liferay.social.kernel.service.persistence.SocialActivityPersistence;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -882,14 +880,14 @@ public abstract class KBTemplateLocalServiceBaseImpl
 			"com.liferay.knowledge.base.model.KBTemplate",
 			kbTemplateLocalService);
 
-		_setLocalServiceUtilService(kbTemplateLocalService);
+		KBTemplateLocalServiceUtil.setService(kbTemplateLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.knowledge.base.model.KBTemplate");
 
-		_setLocalServiceUtilService(null);
+		KBTemplateLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -931,22 +929,6 @@ public abstract class KBTemplateLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		KBTemplateLocalService kbTemplateLocalService) {
-
-		try {
-			Field field = KBTemplateLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, kbTemplateLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

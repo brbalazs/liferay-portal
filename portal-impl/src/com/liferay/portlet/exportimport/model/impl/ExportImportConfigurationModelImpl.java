@@ -340,19 +340,12 @@ public class ExportImportConfigurationModelImpl
 	private static final Map
 		<String, Function<ExportImportConfiguration, Object>>
 			_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<ExportImportConfiguration, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ExportImportConfiguration, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<ExportImportConfiguration, Object>>();
-		Map<String, BiConsumer<ExportImportConfiguration, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<ExportImportConfiguration, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -366,6 +359,202 @@ public class ExportImportConfigurationModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"exportImportConfigurationId",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.
+						getExportImportConfigurationId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"settings",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<ExportImportConfiguration, Object>() {
+
+				@Override
+				public Object apply(
+					ExportImportConfiguration exportImportConfiguration) {
+
+					return exportImportConfiguration.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<ExportImportConfiguration, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ExportImportConfiguration, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<ExportImportConfiguration, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<ExportImportConfiguration, Object>() {
@@ -377,19 +566,6 @@ public class ExportImportConfigurationModelImpl
 
 					exportImportConfiguration.setMvccVersion(
 						(Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"exportImportConfigurationId",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.
-						getExportImportConfigurationId();
 				}
 
 			});
@@ -407,18 +583,6 @@ public class ExportImportConfigurationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<ExportImportConfiguration, Object>() {
@@ -429,18 +593,6 @@ public class ExportImportConfigurationModelImpl
 					Object groupIdObject) {
 
 					exportImportConfiguration.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getCompanyId();
 				}
 
 			});
@@ -458,18 +610,6 @@ public class ExportImportConfigurationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<ExportImportConfiguration, Object>() {
@@ -480,18 +620,6 @@ public class ExportImportConfigurationModelImpl
 					Object userIdObject) {
 
 					exportImportConfiguration.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getUserName();
 				}
 
 			});
@@ -509,18 +637,6 @@ public class ExportImportConfigurationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<ExportImportConfiguration, Object>() {
@@ -532,18 +648,6 @@ public class ExportImportConfigurationModelImpl
 
 					exportImportConfiguration.setCreateDate(
 						(Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getModifiedDate();
 				}
 
 			});
@@ -561,18 +665,6 @@ public class ExportImportConfigurationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<ExportImportConfiguration, Object>() {
@@ -583,18 +675,6 @@ public class ExportImportConfigurationModelImpl
 					Object nameObject) {
 
 					exportImportConfiguration.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getDescription();
 				}
 
 			});
@@ -612,18 +692,6 @@ public class ExportImportConfigurationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<ExportImportConfiguration, Object>() {
@@ -634,18 +702,6 @@ public class ExportImportConfigurationModelImpl
 					Object typeObject) {
 
 					exportImportConfiguration.setType((Integer)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"settings",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getSettings();
 				}
 
 			});
@@ -663,18 +719,6 @@ public class ExportImportConfigurationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<ExportImportConfiguration, Object>() {
@@ -685,18 +729,6 @@ public class ExportImportConfigurationModelImpl
 					Object statusObject) {
 
 					exportImportConfiguration.setStatus((Integer)statusObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getStatusByUserId();
 				}
 
 			});
@@ -714,18 +746,6 @@ public class ExportImportConfigurationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getStatusByUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserName",
 			new BiConsumer<ExportImportConfiguration, Object>() {
@@ -737,18 +757,6 @@ public class ExportImportConfigurationModelImpl
 
 					exportImportConfiguration.setStatusByUserName(
 						(String)statusByUserNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<ExportImportConfiguration, Object>() {
-
-				@Override
-				public Object apply(
-					ExportImportConfiguration exportImportConfiguration) {
-
-					return exportImportConfiguration.getStatusDate();
 				}
 
 			});
@@ -767,8 +775,6 @@ public class ExportImportConfigurationModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

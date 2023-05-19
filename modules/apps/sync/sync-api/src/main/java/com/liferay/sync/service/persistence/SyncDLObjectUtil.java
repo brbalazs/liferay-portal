@@ -2245,6 +2245,10 @@ public class SyncDLObjectUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(SyncDLObjectPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile SyncDLObjectPersistence _persistence;
 
 }

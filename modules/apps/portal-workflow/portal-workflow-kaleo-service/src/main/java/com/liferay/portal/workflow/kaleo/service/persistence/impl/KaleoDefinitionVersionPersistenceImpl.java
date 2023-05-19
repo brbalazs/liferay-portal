@@ -43,7 +43,6 @@ import com.liferay.portal.workflow.kaleo.service.persistence.KaleoDefinitionVers
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -2467,33 +2466,17 @@ public class KaleoDefinitionVersionPersistenceImpl
 				String.class.getName()
 			});
 
-		_setKaleoDefinitionVersionUtilPersistence(this);
+		KaleoDefinitionVersionUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setKaleoDefinitionVersionUtilPersistence(null);
+		KaleoDefinitionVersionUtil.setPersistence(null);
 
 		entityCache.removeCache(KaleoDefinitionVersionImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setKaleoDefinitionVersionUtilPersistence(
-		KaleoDefinitionVersionPersistence kaleoDefinitionVersionPersistence) {
-
-		try {
-			Field field = KaleoDefinitionVersionUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, kaleoDefinitionVersionPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

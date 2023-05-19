@@ -14023,33 +14023,17 @@ public class BookmarksEntryPersistenceImpl
 				Long.class.getName(), Integer.class.getName()
 			});
 
-		_setBookmarksEntryUtilPersistence(this);
+		BookmarksEntryUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setBookmarksEntryUtilPersistence(null);
+		BookmarksEntryUtil.setPersistence(null);
 
 		entityCache.removeCache(BookmarksEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setBookmarksEntryUtilPersistence(
-		BookmarksEntryPersistence bookmarksEntryPersistence) {
-
-		try {
-			Field field = BookmarksEntryUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, bookmarksEntryPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

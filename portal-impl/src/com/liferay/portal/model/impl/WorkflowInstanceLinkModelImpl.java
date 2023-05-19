@@ -263,18 +263,12 @@ public class WorkflowInstanceLinkModelImpl
 
 	private static final Map<String, Function<WorkflowInstanceLink, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<WorkflowInstanceLink, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<WorkflowInstanceLink, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<WorkflowInstanceLink, Object>>();
-		Map<String, BiConsumer<WorkflowInstanceLink, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<WorkflowInstanceLink, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -286,6 +280,120 @@ public class WorkflowInstanceLinkModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"workflowInstanceLinkId",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getWorkflowInstanceLinkId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"workflowInstanceId",
+			new Function<WorkflowInstanceLink, Object>() {
+
+				@Override
+				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
+					return workflowInstanceLink.getWorkflowInstanceId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<WorkflowInstanceLink, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<WorkflowInstanceLink, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<WorkflowInstanceLink, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<WorkflowInstanceLink, Object>() {
@@ -297,16 +405,6 @@ public class WorkflowInstanceLinkModelImpl
 
 					workflowInstanceLink.setMvccVersion(
 						(Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"workflowInstanceLinkId",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getWorkflowInstanceLinkId();
 				}
 
 			});
@@ -324,16 +422,6 @@ public class WorkflowInstanceLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<WorkflowInstanceLink, Object>() {
@@ -344,16 +432,6 @@ public class WorkflowInstanceLinkModelImpl
 					Object groupIdObject) {
 
 					workflowInstanceLink.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getCompanyId();
 				}
 
 			});
@@ -370,16 +448,6 @@ public class WorkflowInstanceLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<WorkflowInstanceLink, Object>() {
@@ -390,16 +458,6 @@ public class WorkflowInstanceLinkModelImpl
 					Object userIdObject) {
 
 					workflowInstanceLink.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getUserName();
 				}
 
 			});
@@ -416,16 +474,6 @@ public class WorkflowInstanceLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<WorkflowInstanceLink, Object>() {
@@ -436,16 +484,6 @@ public class WorkflowInstanceLinkModelImpl
 					Object createDateObject) {
 
 					workflowInstanceLink.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getModifiedDate();
 				}
 
 			});
@@ -463,16 +501,6 @@ public class WorkflowInstanceLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<WorkflowInstanceLink, Object>() {
@@ -487,16 +515,6 @@ public class WorkflowInstanceLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<WorkflowInstanceLink, Object>() {
@@ -507,16 +525,6 @@ public class WorkflowInstanceLinkModelImpl
 					Object classPKObject) {
 
 					workflowInstanceLink.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"workflowInstanceId",
-			new Function<WorkflowInstanceLink, Object>() {
-
-				@Override
-				public Object apply(WorkflowInstanceLink workflowInstanceLink) {
-					return workflowInstanceLink.getWorkflowInstanceId();
 				}
 
 			});
@@ -535,8 +543,6 @@ public class WorkflowInstanceLinkModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -3085,33 +3085,17 @@ public class FriendlyURLEntryPersistenceImpl
 				Long.class.getName(), Long.class.getName(), Long.class.getName()
 			});
 
-		_setFriendlyURLEntryUtilPersistence(this);
+		FriendlyURLEntryUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setFriendlyURLEntryUtilPersistence(null);
+		FriendlyURLEntryUtil.setPersistence(null);
 
 		entityCache.removeCache(FriendlyURLEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setFriendlyURLEntryUtilPersistence(
-		FriendlyURLEntryPersistence friendlyURLEntryPersistence) {
-
-		try {
-			Field field = FriendlyURLEntryUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, friendlyURLEntryPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -315,14 +315,10 @@ public class AuditEventModelImpl
 
 	private static final Map<String, Function<AuditEvent, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AuditEvent, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AuditEvent, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<AuditEvent, Object>>();
-		Map<String, BiConsumer<AuditEvent, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<AuditEvent, ?>>();
 
 		attributeGetterFunctions.put(
 			"auditEventId",
@@ -334,6 +330,158 @@ public class AuditEventModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"eventType",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getEventType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"className",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getClassName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"message",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getMessage();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"clientHost",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getClientHost();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"clientIP",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getClientIP();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"serverName",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getServerName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"serverPort",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getServerPort();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sessionID",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getSessionID();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"additionalInfo",
+			new Function<AuditEvent, Object>() {
+
+				@Override
+				public Object apply(AuditEvent auditEvent) {
+					return auditEvent.getAdditionalInfo();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AuditEvent, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AuditEvent, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<AuditEvent, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"auditEventId",
 			new BiConsumer<AuditEvent, Object>() {
@@ -343,16 +491,6 @@ public class AuditEventModelImpl
 					AuditEvent auditEvent, Object auditEventIdObject) {
 
 					auditEvent.setAuditEventId((Long)auditEventIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getCompanyId();
 				}
 
 			});
@@ -368,16 +506,6 @@ public class AuditEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<AuditEvent, Object>() {
@@ -385,16 +513,6 @@ public class AuditEventModelImpl
 				@Override
 				public void accept(AuditEvent auditEvent, Object userIdObject) {
 					auditEvent.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getUserName();
 				}
 
 			});
@@ -410,16 +528,6 @@ public class AuditEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<AuditEvent, Object>() {
@@ -429,16 +537,6 @@ public class AuditEventModelImpl
 					AuditEvent auditEvent, Object createDateObject) {
 
 					auditEvent.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"eventType",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getEventType();
 				}
 
 			});
@@ -454,16 +552,6 @@ public class AuditEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"className",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getClassName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"className",
 			new BiConsumer<AuditEvent, Object>() {
@@ -473,16 +561,6 @@ public class AuditEventModelImpl
 					AuditEvent auditEvent, Object classNameObject) {
 
 					auditEvent.setClassName((String)classNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getClassPK();
 				}
 
 			});
@@ -498,16 +576,6 @@ public class AuditEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"message",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getMessage();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"message",
 			new BiConsumer<AuditEvent, Object>() {
@@ -517,16 +585,6 @@ public class AuditEventModelImpl
 					AuditEvent auditEvent, Object messageObject) {
 
 					auditEvent.setMessage((String)messageObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"clientHost",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getClientHost();
 				}
 
 			});
@@ -542,16 +600,6 @@ public class AuditEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"clientIP",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getClientIP();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"clientIP",
 			new BiConsumer<AuditEvent, Object>() {
@@ -561,16 +609,6 @@ public class AuditEventModelImpl
 					AuditEvent auditEvent, Object clientIPObject) {
 
 					auditEvent.setClientIP((String)clientIPObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"serverName",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getServerName();
 				}
 
 			});
@@ -586,16 +624,6 @@ public class AuditEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"serverPort",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getServerPort();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"serverPort",
 			new BiConsumer<AuditEvent, Object>() {
@@ -608,16 +636,6 @@ public class AuditEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"sessionID",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getSessionID();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"sessionID",
 			new BiConsumer<AuditEvent, Object>() {
@@ -627,16 +645,6 @@ public class AuditEventModelImpl
 					AuditEvent auditEvent, Object sessionIDObject) {
 
 					auditEvent.setSessionID((String)sessionIDObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"additionalInfo",
-			new Function<AuditEvent, Object>() {
-
-				@Override
-				public Object apply(AuditEvent auditEvent) {
-					return auditEvent.getAdditionalInfo();
 				}
 
 			});
@@ -653,8 +661,6 @@ public class AuditEventModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

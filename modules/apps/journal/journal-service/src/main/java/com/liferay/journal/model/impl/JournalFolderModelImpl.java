@@ -341,14 +341,10 @@ public class JournalFolderModelImpl
 
 	private static final Map<String, Function<JournalFolder, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<JournalFolder, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<JournalFolder, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<JournalFolder, Object>>();
-		Map<String, BiConsumer<JournalFolder, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<JournalFolder, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -360,6 +356,188 @@ public class JournalFolderModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"folderId",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getFolderId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentFolderId",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getParentFolderId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"treePath",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getTreePath();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"restrictionType",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getRestrictionType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<JournalFolder, Object>() {
+
+				@Override
+				public Object apply(JournalFolder journalFolder) {
+					return journalFolder.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<JournalFolder, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<JournalFolder, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<JournalFolder, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<JournalFolder, Object>() {
@@ -369,16 +547,6 @@ public class JournalFolderModelImpl
 					JournalFolder journalFolder, Object uuidObject) {
 
 					journalFolder.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"folderId",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getFolderId();
 				}
 
 			});
@@ -394,16 +562,6 @@ public class JournalFolderModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<JournalFolder, Object>() {
@@ -413,16 +571,6 @@ public class JournalFolderModelImpl
 					JournalFolder journalFolder, Object groupIdObject) {
 
 					journalFolder.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getCompanyId();
 				}
 
 			});
@@ -438,16 +586,6 @@ public class JournalFolderModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<JournalFolder, Object>() {
@@ -457,16 +595,6 @@ public class JournalFolderModelImpl
 					JournalFolder journalFolder, Object userIdObject) {
 
 					journalFolder.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getUserName();
 				}
 
 			});
@@ -482,16 +610,6 @@ public class JournalFolderModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<JournalFolder, Object>() {
@@ -501,16 +619,6 @@ public class JournalFolderModelImpl
 					JournalFolder journalFolder, Object createDateObject) {
 
 					journalFolder.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getModifiedDate();
 				}
 
 			});
@@ -526,16 +634,6 @@ public class JournalFolderModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"parentFolderId",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getParentFolderId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"parentFolderId",
 			new BiConsumer<JournalFolder, Object>() {
@@ -545,16 +643,6 @@ public class JournalFolderModelImpl
 					JournalFolder journalFolder, Object parentFolderIdObject) {
 
 					journalFolder.setParentFolderId((Long)parentFolderIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"treePath",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getTreePath();
 				}
 
 			});
@@ -570,16 +658,6 @@ public class JournalFolderModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<JournalFolder, Object>() {
@@ -592,16 +670,6 @@ public class JournalFolderModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<JournalFolder, Object>() {
@@ -611,16 +679,6 @@ public class JournalFolderModelImpl
 					JournalFolder journalFolder, Object descriptionObject) {
 
 					journalFolder.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"restrictionType",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getRestrictionType();
 				}
 
 			});
@@ -637,16 +695,6 @@ public class JournalFolderModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getLastPublishDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastPublishDate",
 			new BiConsumer<JournalFolder, Object>() {
@@ -657,16 +705,6 @@ public class JournalFolderModelImpl
 
 					journalFolder.setLastPublishDate(
 						(Date)lastPublishDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getStatus();
 				}
 
 			});
@@ -682,16 +720,6 @@ public class JournalFolderModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getStatusByUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserId",
 			new BiConsumer<JournalFolder, Object>() {
@@ -701,16 +729,6 @@ public class JournalFolderModelImpl
 					JournalFolder journalFolder, Object statusByUserIdObject) {
 
 					journalFolder.setStatusByUserId((Long)statusByUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getStatusByUserName();
 				}
 
 			});
@@ -728,16 +746,6 @@ public class JournalFolderModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<JournalFolder, Object>() {
-
-				@Override
-				public Object apply(JournalFolder journalFolder) {
-					return journalFolder.getStatusDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusDate",
 			new BiConsumer<JournalFolder, Object>() {
@@ -751,8 +759,6 @@ public class JournalFolderModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

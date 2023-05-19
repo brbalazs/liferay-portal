@@ -56,8 +56,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -659,14 +657,14 @@ public abstract class PollsChoiceLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.polls.model.PollsChoice", pollsChoiceLocalService);
 
-		_setLocalServiceUtilService(pollsChoiceLocalService);
+		PollsChoiceLocalServiceUtil.setService(pollsChoiceLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.polls.model.PollsChoice");
 
-		_setLocalServiceUtilService(null);
+		PollsChoiceLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -708,22 +706,6 @@ public abstract class PollsChoiceLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		PollsChoiceLocalService pollsChoiceLocalService) {
-
-		try {
-			Field field = PollsChoiceLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, pollsChoiceLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

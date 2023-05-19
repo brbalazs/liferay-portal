@@ -344,14 +344,10 @@ public class JournalFeedModelImpl
 
 	private static final Map<String, Function<JournalFeed, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<JournalFeed, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<JournalFeed, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<JournalFeed, Object>>();
-		Map<String, BiConsumer<JournalFeed, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<JournalFeed, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -360,16 +356,6 @@ public class JournalFeedModelImpl
 				@Override
 				public Object apply(JournalFeed journalFeed) {
 					return journalFeed.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<JournalFeed, Object>() {
-
-				@Override
-				public void accept(JournalFeed journalFeed, Object uuidObject) {
-					journalFeed.setUuid((String)uuidObject);
 				}
 
 			});
@@ -383,16 +369,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"id",
-			new BiConsumer<JournalFeed, Object>() {
-
-				@Override
-				public void accept(JournalFeed journalFeed, Object idObject) {
-					journalFeed.setId((Long)idObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupId",
 			new Function<JournalFeed, Object>() {
@@ -400,6 +376,238 @@ public class JournalFeedModelImpl
 				@Override
 				public Object apply(JournalFeed journalFeed) {
 					return journalFeed.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"feedId",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getFeedId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"DDMStructureKey",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getDDMStructureKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"DDMTemplateKey",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getDDMTemplateKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"DDMRendererTemplateKey",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getDDMRendererTemplateKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"delta",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getDelta();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"orderByCol",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getOrderByCol();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"orderByType",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getOrderByType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"targetLayoutFriendlyUrl",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getTargetLayoutFriendlyUrl();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"targetPortletId",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getTargetPortletId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"contentField",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getContentField();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"feedFormat",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getFeedFormat();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"feedVersion",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getFeedVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<JournalFeed, Object>() {
+
+				@Override
+				public Object apply(JournalFeed journalFeed) {
+					return journalFeed.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<JournalFeed, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<JournalFeed, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<JournalFeed, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<JournalFeed, Object>() {
+
+				@Override
+				public void accept(JournalFeed journalFeed, Object uuidObject) {
+					journalFeed.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"id",
+			new BiConsumer<JournalFeed, Object>() {
+
+				@Override
+				public void accept(JournalFeed journalFeed, Object idObject) {
+					journalFeed.setId((Long)idObject);
 				}
 
 			});
@@ -415,16 +623,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<JournalFeed, Object>() {
@@ -434,16 +632,6 @@ public class JournalFeedModelImpl
 					JournalFeed journalFeed, Object companyIdObject) {
 
 					journalFeed.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getUserId();
 				}
 
 			});
@@ -459,16 +647,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<JournalFeed, Object>() {
@@ -478,16 +656,6 @@ public class JournalFeedModelImpl
 					JournalFeed journalFeed, Object userNameObject) {
 
 					journalFeed.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getCreateDate();
 				}
 
 			});
@@ -503,16 +671,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<JournalFeed, Object>() {
@@ -522,16 +680,6 @@ public class JournalFeedModelImpl
 					JournalFeed journalFeed, Object modifiedDateObject) {
 
 					journalFeed.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"feedId",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getFeedId();
 				}
 
 			});
@@ -547,16 +695,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<JournalFeed, Object>() {
@@ -564,16 +702,6 @@ public class JournalFeedModelImpl
 				@Override
 				public void accept(JournalFeed journalFeed, Object nameObject) {
 					journalFeed.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getDescription();
 				}
 
 			});
@@ -586,16 +714,6 @@ public class JournalFeedModelImpl
 					JournalFeed journalFeed, Object descriptionObject) {
 
 					journalFeed.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"DDMStructureKey",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getDDMStructureKey();
 				}
 
 			});
@@ -612,16 +730,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"DDMTemplateKey",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getDDMTemplateKey();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"DDMTemplateKey",
 			new BiConsumer<JournalFeed, Object>() {
@@ -631,16 +739,6 @@ public class JournalFeedModelImpl
 					JournalFeed journalFeed, Object DDMTemplateKeyObject) {
 
 					journalFeed.setDDMTemplateKey((String)DDMTemplateKeyObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"DDMRendererTemplateKey",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getDDMRendererTemplateKey();
 				}
 
 			});
@@ -658,16 +756,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"delta",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getDelta();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"delta",
 			new BiConsumer<JournalFeed, Object>() {
@@ -677,16 +765,6 @@ public class JournalFeedModelImpl
 					JournalFeed journalFeed, Object deltaObject) {
 
 					journalFeed.setDelta((Integer)deltaObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"orderByCol",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getOrderByCol();
 				}
 
 			});
@@ -702,16 +780,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"orderByType",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getOrderByType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"orderByType",
 			new BiConsumer<JournalFeed, Object>() {
@@ -721,16 +789,6 @@ public class JournalFeedModelImpl
 					JournalFeed journalFeed, Object orderByTypeObject) {
 
 					journalFeed.setOrderByType((String)orderByTypeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"targetLayoutFriendlyUrl",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getTargetLayoutFriendlyUrl();
 				}
 
 			});
@@ -748,16 +806,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"targetPortletId",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getTargetPortletId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"targetPortletId",
 			new BiConsumer<JournalFeed, Object>() {
@@ -768,16 +816,6 @@ public class JournalFeedModelImpl
 
 					journalFeed.setTargetPortletId(
 						(String)targetPortletIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"contentField",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getContentField();
 				}
 
 			});
@@ -793,16 +831,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"feedFormat",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getFeedFormat();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"feedFormat",
 			new BiConsumer<JournalFeed, Object>() {
@@ -815,16 +843,6 @@ public class JournalFeedModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"feedVersion",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getFeedVersion();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"feedVersion",
 			new BiConsumer<JournalFeed, Object>() {
@@ -834,16 +852,6 @@ public class JournalFeedModelImpl
 					JournalFeed journalFeed, Object feedVersionObject) {
 
 					journalFeed.setFeedVersion((Double)feedVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<JournalFeed, Object>() {
-
-				@Override
-				public Object apply(JournalFeed journalFeed) {
-					return journalFeed.getLastPublishDate();
 				}
 
 			});
@@ -860,8 +868,6 @@ public class JournalFeedModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

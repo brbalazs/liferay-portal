@@ -60,8 +60,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -929,14 +927,15 @@ public abstract class FriendlyURLEntryLocalServiceBaseImpl
 			"com.liferay.friendly.url.model.FriendlyURLEntry",
 			friendlyURLEntryLocalService);
 
-		_setLocalServiceUtilService(friendlyURLEntryLocalService);
+		FriendlyURLEntryLocalServiceUtil.setService(
+			friendlyURLEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.friendly.url.model.FriendlyURLEntry");
 
-		_setLocalServiceUtilService(null);
+		FriendlyURLEntryLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -978,23 +977,6 @@ public abstract class FriendlyURLEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		FriendlyURLEntryLocalService friendlyURLEntryLocalService) {
-
-		try {
-			Field field =
-				FriendlyURLEntryLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, friendlyURLEntryLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

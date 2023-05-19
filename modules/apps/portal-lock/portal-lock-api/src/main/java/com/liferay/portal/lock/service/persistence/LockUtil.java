@@ -846,6 +846,10 @@ public class LockUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(LockPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile LockPersistence _persistence;
 
 }

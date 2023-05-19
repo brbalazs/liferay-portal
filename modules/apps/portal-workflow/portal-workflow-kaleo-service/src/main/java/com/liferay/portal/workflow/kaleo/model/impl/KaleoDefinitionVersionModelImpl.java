@@ -277,18 +277,12 @@ public class KaleoDefinitionVersionModelImpl
 
 	private static final Map<String, Function<KaleoDefinitionVersion, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KaleoDefinitionVersion, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<KaleoDefinitionVersion, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<KaleoDefinitionVersion, Object>>();
-		Map<String, BiConsumer<KaleoDefinitionVersion, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<KaleoDefinitionVersion, ?>>();
 
 		attributeGetterFunctions.put(
 			"kaleoDefinitionVersionId",
@@ -302,6 +296,212 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getStatusDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"content",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"version",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"startKaleoNodeId",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getStartKaleoNodeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<KaleoDefinitionVersion, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoDefinitionVersion kaleoDefinitionVersion) {
+
+					return kaleoDefinitionVersion.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<KaleoDefinitionVersion, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<KaleoDefinitionVersion, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<KaleoDefinitionVersion, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"kaleoDefinitionVersionId",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -313,18 +513,6 @@ public class KaleoDefinitionVersionModelImpl
 
 					kaleoDefinitionVersion.setKaleoDefinitionVersionId(
 						(Long)kaleoDefinitionVersionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getGroupId();
 				}
 
 			});
@@ -341,18 +529,6 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -363,18 +539,6 @@ public class KaleoDefinitionVersionModelImpl
 					Object companyIdObject) {
 
 					kaleoDefinitionVersion.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getUserId();
 				}
 
 			});
@@ -391,18 +555,6 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -413,18 +565,6 @@ public class KaleoDefinitionVersionModelImpl
 					Object userNameObject) {
 
 					kaleoDefinitionVersion.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getStatusByUserId();
 				}
 
 			});
@@ -442,18 +582,6 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getStatusByUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserName",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -465,18 +593,6 @@ public class KaleoDefinitionVersionModelImpl
 
 					kaleoDefinitionVersion.setStatusByUserName(
 						(String)statusByUserNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getStatusDate();
 				}
 
 			});
@@ -494,18 +610,6 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -517,18 +621,6 @@ public class KaleoDefinitionVersionModelImpl
 
 					kaleoDefinitionVersion.setCreateDate(
 						(Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getModifiedDate();
 				}
 
 			});
@@ -546,18 +638,6 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -571,18 +651,6 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getTitle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"title",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -593,18 +661,6 @@ public class KaleoDefinitionVersionModelImpl
 					Object titleObject) {
 
 					kaleoDefinitionVersion.setTitle((String)titleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getDescription();
 				}
 
 			});
@@ -622,18 +678,6 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"content",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getContent();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"content",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -647,18 +691,6 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"version",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getVersion();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"version",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -669,18 +701,6 @@ public class KaleoDefinitionVersionModelImpl
 					Object versionObject) {
 
 					kaleoDefinitionVersion.setVersion((String)versionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"startKaleoNodeId",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getStartKaleoNodeId();
 				}
 
 			});
@@ -698,18 +718,6 @@ public class KaleoDefinitionVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<KaleoDefinitionVersion, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoDefinitionVersion kaleoDefinitionVersion) {
-
-					return kaleoDefinitionVersion.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<KaleoDefinitionVersion, Object>() {
@@ -724,8 +732,6 @@ public class KaleoDefinitionVersionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

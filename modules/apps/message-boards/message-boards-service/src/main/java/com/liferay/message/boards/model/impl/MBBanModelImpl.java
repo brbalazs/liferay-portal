@@ -303,14 +303,10 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 
 	private static final Map<String, Function<MBBan, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MBBan, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MBBan, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<MBBan, Object>>();
-		Map<String, BiConsumer<MBBan, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MBBan, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -319,16 +315,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				@Override
 				public Object apply(MBBan mbBan) {
 					return mbBan.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<MBBan, Object>() {
-
-				@Override
-				public void accept(MBBan mbBan, Object uuidObject) {
-					mbBan.setUuid((String)uuidObject);
 				}
 
 			});
@@ -342,16 +328,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"banId",
-			new BiConsumer<MBBan, Object>() {
-
-				@Override
-				public void accept(MBBan mbBan, Object banIdObject) {
-					mbBan.setBanId((Long)banIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupId",
 			new Function<MBBan, Object>() {
@@ -359,16 +335,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				@Override
 				public Object apply(MBBan mbBan) {
 					return mbBan.getGroupId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<MBBan, Object>() {
-
-				@Override
-				public void accept(MBBan mbBan, Object groupIdObject) {
-					mbBan.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -382,16 +348,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<MBBan, Object>() {
-
-				@Override
-				public void accept(MBBan mbBan, Object companyIdObject) {
-					mbBan.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<MBBan, Object>() {
@@ -399,16 +355,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				@Override
 				public Object apply(MBBan mbBan) {
 					return mbBan.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<MBBan, Object>() {
-
-				@Override
-				public void accept(MBBan mbBan, Object userIdObject) {
-					mbBan.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -422,16 +368,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<MBBan, Object>() {
-
-				@Override
-				public void accept(MBBan mbBan, Object userNameObject) {
-					mbBan.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<MBBan, Object>() {
@@ -439,16 +375,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				@Override
 				public Object apply(MBBan mbBan) {
 					return mbBan.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<MBBan, Object>() {
-
-				@Override
-				public void accept(MBBan mbBan, Object createDateObject) {
-					mbBan.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -462,16 +388,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<MBBan, Object>() {
-
-				@Override
-				public void accept(MBBan mbBan, Object modifiedDateObject) {
-					mbBan.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"banUserId",
 			new Function<MBBan, Object>() {
@@ -482,16 +398,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"banUserId",
-			new BiConsumer<MBBan, Object>() {
-
-				@Override
-				public void accept(MBBan mbBan, Object banUserIdObject) {
-					mbBan.setBanUserId((Long)banUserIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"lastPublishDate",
 			new Function<MBBan, Object>() {
@@ -499,6 +405,108 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 				@Override
 				public Object apply(MBBan mbBan) {
 					return mbBan.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MBBan, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MBBan, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MBBan, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<MBBan, Object>() {
+
+				@Override
+				public void accept(MBBan mbBan, Object uuidObject) {
+					mbBan.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"banId",
+			new BiConsumer<MBBan, Object>() {
+
+				@Override
+				public void accept(MBBan mbBan, Object banIdObject) {
+					mbBan.setBanId((Long)banIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<MBBan, Object>() {
+
+				@Override
+				public void accept(MBBan mbBan, Object groupIdObject) {
+					mbBan.setGroupId((Long)groupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<MBBan, Object>() {
+
+				@Override
+				public void accept(MBBan mbBan, Object companyIdObject) {
+					mbBan.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<MBBan, Object>() {
+
+				@Override
+				public void accept(MBBan mbBan, Object userIdObject) {
+					mbBan.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<MBBan, Object>() {
+
+				@Override
+				public void accept(MBBan mbBan, Object userNameObject) {
+					mbBan.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<MBBan, Object>() {
+
+				@Override
+				public void accept(MBBan mbBan, Object createDateObject) {
+					mbBan.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<MBBan, Object>() {
+
+				@Override
+				public void accept(MBBan mbBan, Object modifiedDateObject) {
+					mbBan.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"banUserId",
+			new BiConsumer<MBBan, Object>() {
+
+				@Override
+				public void accept(MBBan mbBan, Object banUserIdObject) {
+					mbBan.setBanUserId((Long)banUserIdObject);
 				}
 
 			});
@@ -513,8 +521,6 @@ public class MBBanModelImpl extends BaseModelImpl<MBBan> implements MBBanModel {
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

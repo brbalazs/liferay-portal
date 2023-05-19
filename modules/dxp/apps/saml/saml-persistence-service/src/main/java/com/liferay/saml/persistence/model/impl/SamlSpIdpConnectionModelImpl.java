@@ -269,17 +269,12 @@ public class SamlSpIdpConnectionModelImpl
 
 	private static final Map<String, Function<SamlSpIdpConnection, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SamlSpIdpConnection, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SamlSpIdpConnection, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SamlSpIdpConnection, Object>>();
-		Map<String, BiConsumer<SamlSpIdpConnection, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<SamlSpIdpConnection, ?>>();
 
 		attributeGetterFunctions.put(
 			"samlSpIdpConnectionId",
@@ -291,6 +286,199 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"samlIdpEntityId",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getSamlIdpEntityId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assertionSignatureRequired",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getAssertionSignatureRequired();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"clockSkew",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getClockSkew();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"enabled",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getEnabled();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"forceAuthn",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getForceAuthn();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ldapImportEnabled",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getLdapImportEnabled();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"metadataUrl",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getMetadataUrl();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"metadataXml",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getMetadataXml();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"metadataUpdatedDate",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getMetadataUpdatedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"nameIdFormat",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getNameIdFormat();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"signAuthnRequest",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getSignAuthnRequest();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userAttributeMappings",
+			new Function<SamlSpIdpConnection, Object>() {
+
+				@Override
+				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
+					return samlSpIdpConnection.getUserAttributeMappings();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SamlSpIdpConnection, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SamlSpIdpConnection, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<SamlSpIdpConnection, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"samlSpIdpConnectionId",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -302,16 +490,6 @@ public class SamlSpIdpConnectionModelImpl
 
 					samlSpIdpConnection.setSamlSpIdpConnectionId(
 						(Long)samlSpIdpConnectionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getCompanyId();
 				}
 
 			});
@@ -328,16 +506,6 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -348,16 +516,6 @@ public class SamlSpIdpConnectionModelImpl
 					Object userIdObject) {
 
 					samlSpIdpConnection.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getUserName();
 				}
 
 			});
@@ -374,16 +532,6 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -394,16 +542,6 @@ public class SamlSpIdpConnectionModelImpl
 					Object createDateObject) {
 
 					samlSpIdpConnection.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getModifiedDate();
 				}
 
 			});
@@ -421,16 +559,6 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"samlIdpEntityId",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getSamlIdpEntityId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"samlIdpEntityId",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -442,16 +570,6 @@ public class SamlSpIdpConnectionModelImpl
 
 					samlSpIdpConnection.setSamlIdpEntityId(
 						(String)samlIdpEntityIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"assertionSignatureRequired",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getAssertionSignatureRequired();
 				}
 
 			});
@@ -469,16 +587,6 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"clockSkew",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getClockSkew();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"clockSkew",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -492,16 +600,6 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"enabled",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getEnabled();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"enabled",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -512,16 +610,6 @@ public class SamlSpIdpConnectionModelImpl
 					Object enabledObject) {
 
 					samlSpIdpConnection.setEnabled((Boolean)enabledObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"forceAuthn",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getForceAuthn();
 				}
 
 			});
@@ -539,16 +627,6 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"ldapImportEnabled",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getLdapImportEnabled();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"ldapImportEnabled",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -560,16 +638,6 @@ public class SamlSpIdpConnectionModelImpl
 
 					samlSpIdpConnection.setLdapImportEnabled(
 						(Boolean)ldapImportEnabledObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"metadataUrl",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getMetadataUrl();
 				}
 
 			});
@@ -587,16 +655,6 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"metadataXml",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getMetadataXml();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"metadataXml",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -608,16 +666,6 @@ public class SamlSpIdpConnectionModelImpl
 
 					samlSpIdpConnection.setMetadataXml(
 						(String)metadataXmlObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"metadataUpdatedDate",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getMetadataUpdatedDate();
 				}
 
 			});
@@ -635,16 +683,6 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -655,16 +693,6 @@ public class SamlSpIdpConnectionModelImpl
 					Object nameObject) {
 
 					samlSpIdpConnection.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"nameIdFormat",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getNameIdFormat();
 				}
 
 			});
@@ -682,16 +710,6 @@ public class SamlSpIdpConnectionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"signAuthnRequest",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getSignAuthnRequest();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"signAuthnRequest",
 			new BiConsumer<SamlSpIdpConnection, Object>() {
@@ -703,16 +721,6 @@ public class SamlSpIdpConnectionModelImpl
 
 					samlSpIdpConnection.setSignAuthnRequest(
 						(Boolean)signAuthnRequestObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userAttributeMappings",
-			new Function<SamlSpIdpConnection, Object>() {
-
-				@Override
-				public Object apply(SamlSpIdpConnection samlSpIdpConnection) {
-					return samlSpIdpConnection.getUserAttributeMappings();
 				}
 
 			});
@@ -731,8 +739,6 @@ public class SamlSpIdpConnectionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

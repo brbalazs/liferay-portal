@@ -254,17 +254,12 @@ public class WeDeployAuthTokenModelImpl
 
 	private static final Map<String, Function<WeDeployAuthToken, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<WeDeployAuthToken, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<WeDeployAuthToken, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<WeDeployAuthToken, Object>>();
-		Map<String, BiConsumer<WeDeployAuthToken, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<WeDeployAuthToken, ?>>();
 
 		attributeGetterFunctions.put(
 			"weDeployAuthTokenId",
@@ -276,6 +271,99 @@ public class WeDeployAuthTokenModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<WeDeployAuthToken, Object>() {
+
+				@Override
+				public Object apply(WeDeployAuthToken weDeployAuthToken) {
+					return weDeployAuthToken.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<WeDeployAuthToken, Object>() {
+
+				@Override
+				public Object apply(WeDeployAuthToken weDeployAuthToken) {
+					return weDeployAuthToken.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<WeDeployAuthToken, Object>() {
+
+				@Override
+				public Object apply(WeDeployAuthToken weDeployAuthToken) {
+					return weDeployAuthToken.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<WeDeployAuthToken, Object>() {
+
+				@Override
+				public Object apply(WeDeployAuthToken weDeployAuthToken) {
+					return weDeployAuthToken.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<WeDeployAuthToken, Object>() {
+
+				@Override
+				public Object apply(WeDeployAuthToken weDeployAuthToken) {
+					return weDeployAuthToken.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"clientId",
+			new Function<WeDeployAuthToken, Object>() {
+
+				@Override
+				public Object apply(WeDeployAuthToken weDeployAuthToken) {
+					return weDeployAuthToken.getClientId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"token",
+			new Function<WeDeployAuthToken, Object>() {
+
+				@Override
+				public Object apply(WeDeployAuthToken weDeployAuthToken) {
+					return weDeployAuthToken.getToken();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<WeDeployAuthToken, Object>() {
+
+				@Override
+				public Object apply(WeDeployAuthToken weDeployAuthToken) {
+					return weDeployAuthToken.getType();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<WeDeployAuthToken, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<WeDeployAuthToken, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<WeDeployAuthToken, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"weDeployAuthTokenId",
 			new BiConsumer<WeDeployAuthToken, Object>() {
@@ -287,16 +375,6 @@ public class WeDeployAuthTokenModelImpl
 
 					weDeployAuthToken.setWeDeployAuthTokenId(
 						(Long)weDeployAuthTokenIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<WeDeployAuthToken, Object>() {
-
-				@Override
-				public Object apply(WeDeployAuthToken weDeployAuthToken) {
-					return weDeployAuthToken.getCompanyId();
 				}
 
 			});
@@ -313,16 +391,6 @@ public class WeDeployAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<WeDeployAuthToken, Object>() {
-
-				@Override
-				public Object apply(WeDeployAuthToken weDeployAuthToken) {
-					return weDeployAuthToken.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<WeDeployAuthToken, Object>() {
@@ -332,16 +400,6 @@ public class WeDeployAuthTokenModelImpl
 					WeDeployAuthToken weDeployAuthToken, Object userIdObject) {
 
 					weDeployAuthToken.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<WeDeployAuthToken, Object>() {
-
-				@Override
-				public Object apply(WeDeployAuthToken weDeployAuthToken) {
-					return weDeployAuthToken.getUserName();
 				}
 
 			});
@@ -358,16 +416,6 @@ public class WeDeployAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<WeDeployAuthToken, Object>() {
-
-				@Override
-				public Object apply(WeDeployAuthToken weDeployAuthToken) {
-					return weDeployAuthToken.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<WeDeployAuthToken, Object>() {
@@ -378,16 +426,6 @@ public class WeDeployAuthTokenModelImpl
 					Object createDateObject) {
 
 					weDeployAuthToken.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<WeDeployAuthToken, Object>() {
-
-				@Override
-				public Object apply(WeDeployAuthToken weDeployAuthToken) {
-					return weDeployAuthToken.getModifiedDate();
 				}
 
 			});
@@ -404,16 +442,6 @@ public class WeDeployAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"clientId",
-			new Function<WeDeployAuthToken, Object>() {
-
-				@Override
-				public Object apply(WeDeployAuthToken weDeployAuthToken) {
-					return weDeployAuthToken.getClientId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"clientId",
 			new BiConsumer<WeDeployAuthToken, Object>() {
@@ -427,16 +455,6 @@ public class WeDeployAuthTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"token",
-			new Function<WeDeployAuthToken, Object>() {
-
-				@Override
-				public Object apply(WeDeployAuthToken weDeployAuthToken) {
-					return weDeployAuthToken.getToken();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"token",
 			new BiConsumer<WeDeployAuthToken, Object>() {
@@ -446,16 +464,6 @@ public class WeDeployAuthTokenModelImpl
 					WeDeployAuthToken weDeployAuthToken, Object tokenObject) {
 
 					weDeployAuthToken.setToken((String)tokenObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<WeDeployAuthToken, Object>() {
-
-				@Override
-				public Object apply(WeDeployAuthToken weDeployAuthToken) {
-					return weDeployAuthToken.getType();
 				}
 
 			});
@@ -472,8 +480,6 @@ public class WeDeployAuthTokenModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

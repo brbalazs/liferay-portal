@@ -35475,33 +35475,17 @@ public class JournalArticlePersistenceImpl
 				Integer.class.getName()
 			});
 
-		_setJournalArticleUtilPersistence(this);
+		JournalArticleUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setJournalArticleUtilPersistence(null);
+		JournalArticleUtil.setPersistence(null);
 
 		entityCache.removeCache(JournalArticleImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setJournalArticleUtilPersistence(
-		JournalArticlePersistence journalArticlePersistence) {
-
-		try {
-			Field field = JournalArticleUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, journalArticlePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

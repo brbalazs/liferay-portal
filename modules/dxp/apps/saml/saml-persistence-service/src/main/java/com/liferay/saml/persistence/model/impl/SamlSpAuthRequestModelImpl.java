@@ -244,17 +244,12 @@ public class SamlSpAuthRequestModelImpl
 
 	private static final Map<String, Function<SamlSpAuthRequest, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SamlSpAuthRequest, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SamlSpAuthRequest, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SamlSpAuthRequest, Object>>();
-		Map<String, BiConsumer<SamlSpAuthRequest, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<SamlSpAuthRequest, ?>>();
 
 		attributeGetterFunctions.put(
 			"samlSpAuthnRequestId",
@@ -266,6 +261,59 @@ public class SamlSpAuthRequestModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SamlSpAuthRequest, Object>() {
+
+				@Override
+				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
+					return samlSpAuthRequest.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SamlSpAuthRequest, Object>() {
+
+				@Override
+				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
+					return samlSpAuthRequest.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"samlIdpEntityId",
+			new Function<SamlSpAuthRequest, Object>() {
+
+				@Override
+				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
+					return samlSpAuthRequest.getSamlIdpEntityId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"samlSpAuthRequestKey",
+			new Function<SamlSpAuthRequest, Object>() {
+
+				@Override
+				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
+					return samlSpAuthRequest.getSamlSpAuthRequestKey();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SamlSpAuthRequest, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SamlSpAuthRequest, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<SamlSpAuthRequest, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"samlSpAuthnRequestId",
 			new BiConsumer<SamlSpAuthRequest, Object>() {
@@ -277,16 +325,6 @@ public class SamlSpAuthRequestModelImpl
 
 					samlSpAuthRequest.setSamlSpAuthnRequestId(
 						(Long)samlSpAuthnRequestIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
-					return samlSpAuthRequest.getCompanyId();
 				}
 
 			});
@@ -303,16 +341,6 @@ public class SamlSpAuthRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
-					return samlSpAuthRequest.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<SamlSpAuthRequest, Object>() {
@@ -323,16 +351,6 @@ public class SamlSpAuthRequestModelImpl
 					Object createDateObject) {
 
 					samlSpAuthRequest.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"samlIdpEntityId",
-			new Function<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
-					return samlSpAuthRequest.getSamlIdpEntityId();
 				}
 
 			});
@@ -347,16 +365,6 @@ public class SamlSpAuthRequestModelImpl
 
 					samlSpAuthRequest.setSamlIdpEntityId(
 						(String)samlIdpEntityIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"samlSpAuthRequestKey",
-			new Function<SamlSpAuthRequest, Object>() {
-
-				@Override
-				public Object apply(SamlSpAuthRequest samlSpAuthRequest) {
-					return samlSpAuthRequest.getSamlSpAuthRequestKey();
 				}
 
 			});
@@ -375,8 +383,6 @@ public class SamlSpAuthRequestModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

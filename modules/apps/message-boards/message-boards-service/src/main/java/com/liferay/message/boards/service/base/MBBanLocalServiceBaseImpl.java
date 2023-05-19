@@ -53,8 +53,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -541,14 +539,14 @@ public abstract class MBBanLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.message.boards.model.MBBan", mbBanLocalService);
 
-		_setLocalServiceUtilService(mbBanLocalService);
+		MBBanLocalServiceUtil.setService(mbBanLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.message.boards.model.MBBan");
 
-		_setLocalServiceUtilService(null);
+		MBBanLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -590,22 +588,6 @@ public abstract class MBBanLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		MBBanLocalService mbBanLocalService) {
-
-		try {
-			Field field = MBBanLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, mbBanLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -43,7 +43,6 @@ import com.liferay.portal.workflow.kaleo.service.persistence.KaleoTaskAssignment
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -5168,11 +5167,11 @@ public class KaleoTaskAssignmentInstancePersistenceImpl
 			"countByACN_ACPK",
 			new String[] {String.class.getName(), Long.class.getName()});
 
-		_setKaleoTaskAssignmentInstanceUtilPersistence(this);
+		KaleoTaskAssignmentInstanceUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setKaleoTaskAssignmentInstanceUtilPersistence(null);
+		KaleoTaskAssignmentInstanceUtil.setPersistence(null);
 
 		entityCache.removeCache(
 			KaleoTaskAssignmentInstanceImpl.class.getName());
@@ -5180,24 +5179,6 @@ public class KaleoTaskAssignmentInstancePersistenceImpl
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setKaleoTaskAssignmentInstanceUtilPersistence(
-		KaleoTaskAssignmentInstancePersistence
-			kaleoTaskAssignmentInstancePersistence) {
-
-		try {
-			Field field =
-				KaleoTaskAssignmentInstanceUtil.class.getDeclaredField(
-					"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, kaleoTaskAssignmentInstancePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

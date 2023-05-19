@@ -262,15 +262,11 @@ public class BigDecimalEntryModelImpl
 
 	private static final Map<String, Function<BigDecimalEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<BigDecimalEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<BigDecimalEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<BigDecimalEntry, Object>>();
-		Map<String, BiConsumer<BigDecimalEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<BigDecimalEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"bigDecimalEntryId",
@@ -282,6 +278,38 @@ public class BigDecimalEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<BigDecimalEntry, Object>() {
+
+				@Override
+				public Object apply(BigDecimalEntry bigDecimalEntry) {
+					return bigDecimalEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"bigDecimalValue",
+			new Function<BigDecimalEntry, Object>() {
+
+				@Override
+				public Object apply(BigDecimalEntry bigDecimalEntry) {
+					return bigDecimalEntry.getBigDecimalValue();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<BigDecimalEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<BigDecimalEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<BigDecimalEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"bigDecimalEntryId",
 			new BiConsumer<BigDecimalEntry, Object>() {
@@ -296,16 +324,6 @@ public class BigDecimalEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<BigDecimalEntry, Object>() {
-
-				@Override
-				public Object apply(BigDecimalEntry bigDecimalEntry) {
-					return bigDecimalEntry.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<BigDecimalEntry, Object>() {
@@ -315,16 +333,6 @@ public class BigDecimalEntryModelImpl
 					BigDecimalEntry bigDecimalEntry, Object companyIdObject) {
 
 					bigDecimalEntry.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"bigDecimalValue",
-			new Function<BigDecimalEntry, Object>() {
-
-				@Override
-				public Object apply(BigDecimalEntry bigDecimalEntry) {
-					return bigDecimalEntry.getBigDecimalValue();
 				}
 
 			});
@@ -343,8 +351,6 @@ public class BigDecimalEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

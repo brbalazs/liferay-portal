@@ -2658,33 +2658,17 @@ public class MemberRequestPersistenceImpl
 				Integer.class.getName()
 			});
 
-		_setMemberRequestUtilPersistence(this);
+		MemberRequestUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setMemberRequestUtilPersistence(null);
+		MemberRequestUtil.setPersistence(null);
 
 		entityCache.removeCache(MemberRequestImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setMemberRequestUtilPersistence(
-		MemberRequestPersistence memberRequestPersistence) {
-
-		try {
-			Field field = MemberRequestUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, memberRequestPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

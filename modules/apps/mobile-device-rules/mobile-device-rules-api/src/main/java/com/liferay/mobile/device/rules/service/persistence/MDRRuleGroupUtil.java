@@ -1087,6 +1087,10 @@ public class MDRRuleGroupUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(MDRRuleGroupPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile MDRRuleGroupPersistence _persistence;
 
 }

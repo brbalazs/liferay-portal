@@ -246,15 +246,11 @@ public class ERCCompanyEntryModelImpl
 
 	private static final Map<String, Function<ERCCompanyEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ERCCompanyEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ERCCompanyEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<ERCCompanyEntry, Object>>();
-		Map<String, BiConsumer<ERCCompanyEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ERCCompanyEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -266,6 +262,48 @@ public class ERCCompanyEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"externalReferenceCode",
+			new Function<ERCCompanyEntry, Object>() {
+
+				@Override
+				public Object apply(ERCCompanyEntry ercCompanyEntry) {
+					return ercCompanyEntry.getExternalReferenceCode();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ercCompanyEntryId",
+			new Function<ERCCompanyEntry, Object>() {
+
+				@Override
+				public Object apply(ERCCompanyEntry ercCompanyEntry) {
+					return ercCompanyEntry.getErcCompanyEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<ERCCompanyEntry, Object>() {
+
+				@Override
+				public Object apply(ERCCompanyEntry ercCompanyEntry) {
+					return ercCompanyEntry.getCompanyId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ERCCompanyEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ERCCompanyEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<ERCCompanyEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<ERCCompanyEntry, Object>() {
@@ -275,16 +313,6 @@ public class ERCCompanyEntryModelImpl
 					ERCCompanyEntry ercCompanyEntry, Object uuidObject) {
 
 					ercCompanyEntry.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"externalReferenceCode",
-			new Function<ERCCompanyEntry, Object>() {
-
-				@Override
-				public Object apply(ERCCompanyEntry ercCompanyEntry) {
-					return ercCompanyEntry.getExternalReferenceCode();
 				}
 
 			});
@@ -302,16 +330,6 @@ public class ERCCompanyEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"ercCompanyEntryId",
-			new Function<ERCCompanyEntry, Object>() {
-
-				@Override
-				public Object apply(ERCCompanyEntry ercCompanyEntry) {
-					return ercCompanyEntry.getErcCompanyEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"ercCompanyEntryId",
 			new BiConsumer<ERCCompanyEntry, Object>() {
@@ -323,16 +341,6 @@ public class ERCCompanyEntryModelImpl
 
 					ercCompanyEntry.setErcCompanyEntryId(
 						(Long)ercCompanyEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<ERCCompanyEntry, Object>() {
-
-				@Override
-				public Object apply(ERCCompanyEntry ercCompanyEntry) {
-					return ercCompanyEntry.getCompanyId();
 				}
 
 			});
@@ -349,8 +357,6 @@ public class ERCCompanyEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

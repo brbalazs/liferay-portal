@@ -306,19 +306,12 @@ public class PushNotificationsDeviceModelImpl
 
 	private static final Map<String, Function<PushNotificationsDevice, Object>>
 		_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<PushNotificationsDevice, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<PushNotificationsDevice, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<PushNotificationsDevice, Object>>();
-		Map<String, BiConsumer<PushNotificationsDevice, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<PushNotificationsDevice, ?>>();
 
 		attributeGetterFunctions.put(
 			"pushNotificationsDeviceId",
@@ -333,6 +326,81 @@ public class PushNotificationsDeviceModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<PushNotificationsDevice, Object>() {
+
+				@Override
+				public Object apply(
+					PushNotificationsDevice pushNotificationsDevice) {
+
+					return pushNotificationsDevice.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<PushNotificationsDevice, Object>() {
+
+				@Override
+				public Object apply(
+					PushNotificationsDevice pushNotificationsDevice) {
+
+					return pushNotificationsDevice.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<PushNotificationsDevice, Object>() {
+
+				@Override
+				public Object apply(
+					PushNotificationsDevice pushNotificationsDevice) {
+
+					return pushNotificationsDevice.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"platform",
+			new Function<PushNotificationsDevice, Object>() {
+
+				@Override
+				public Object apply(
+					PushNotificationsDevice pushNotificationsDevice) {
+
+					return pushNotificationsDevice.getPlatform();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"token",
+			new Function<PushNotificationsDevice, Object>() {
+
+				@Override
+				public Object apply(
+					PushNotificationsDevice pushNotificationsDevice) {
+
+					return pushNotificationsDevice.getToken();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<PushNotificationsDevice, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<PushNotificationsDevice, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<PushNotificationsDevice, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"pushNotificationsDeviceId",
 			new BiConsumer<PushNotificationsDevice, Object>() {
@@ -344,18 +412,6 @@ public class PushNotificationsDeviceModelImpl
 
 					pushNotificationsDevice.setPushNotificationsDeviceId(
 						(Long)pushNotificationsDeviceIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<PushNotificationsDevice, Object>() {
-
-				@Override
-				public Object apply(
-					PushNotificationsDevice pushNotificationsDevice) {
-
-					return pushNotificationsDevice.getCompanyId();
 				}
 
 			});
@@ -372,18 +428,6 @@ public class PushNotificationsDeviceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<PushNotificationsDevice, Object>() {
-
-				@Override
-				public Object apply(
-					PushNotificationsDevice pushNotificationsDevice) {
-
-					return pushNotificationsDevice.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<PushNotificationsDevice, Object>() {
@@ -394,18 +438,6 @@ public class PushNotificationsDeviceModelImpl
 					Object userIdObject) {
 
 					pushNotificationsDevice.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<PushNotificationsDevice, Object>() {
-
-				@Override
-				public Object apply(
-					PushNotificationsDevice pushNotificationsDevice) {
-
-					return pushNotificationsDevice.getCreateDate();
 				}
 
 			});
@@ -423,18 +455,6 @@ public class PushNotificationsDeviceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"platform",
-			new Function<PushNotificationsDevice, Object>() {
-
-				@Override
-				public Object apply(
-					PushNotificationsDevice pushNotificationsDevice) {
-
-					return pushNotificationsDevice.getPlatform();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"platform",
 			new BiConsumer<PushNotificationsDevice, Object>() {
@@ -445,18 +465,6 @@ public class PushNotificationsDeviceModelImpl
 					Object platformObject) {
 
 					pushNotificationsDevice.setPlatform((String)platformObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"token",
-			new Function<PushNotificationsDevice, Object>() {
-
-				@Override
-				public Object apply(
-					PushNotificationsDevice pushNotificationsDevice) {
-
-					return pushNotificationsDevice.getToken();
 				}
 
 			});
@@ -474,8 +482,6 @@ public class PushNotificationsDeviceModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

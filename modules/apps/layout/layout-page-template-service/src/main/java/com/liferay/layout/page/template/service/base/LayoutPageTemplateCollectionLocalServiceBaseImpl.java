@@ -55,8 +55,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -729,14 +727,15 @@ public abstract class LayoutPageTemplateCollectionLocalServiceBaseImpl
 			"com.liferay.layout.page.template.model.LayoutPageTemplateCollection",
 			layoutPageTemplateCollectionLocalService);
 
-		_setLocalServiceUtilService(layoutPageTemplateCollectionLocalService);
+		LayoutPageTemplateCollectionLocalServiceUtil.setService(
+			layoutPageTemplateCollectionLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.layout.page.template.model.LayoutPageTemplateCollection");
 
-		_setLocalServiceUtilService(null);
+		LayoutPageTemplateCollectionLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -779,24 +778,6 @@ public abstract class LayoutPageTemplateCollectionLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		LayoutPageTemplateCollectionLocalService
-			layoutPageTemplateCollectionLocalService) {
-
-		try {
-			Field field =
-				LayoutPageTemplateCollectionLocalServiceUtil.class.
-					getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, layoutPageTemplateCollectionLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -1518,6 +1518,10 @@ public class FaroNotificationUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(FaroNotificationPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile FaroNotificationPersistence _persistence;
 
 }

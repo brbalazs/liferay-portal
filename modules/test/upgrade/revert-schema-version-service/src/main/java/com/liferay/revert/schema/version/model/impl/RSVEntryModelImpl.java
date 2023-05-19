@@ -229,14 +229,10 @@ public class RSVEntryModelImpl
 
 	private static final Map<String, Function<RSVEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<RSVEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<RSVEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<RSVEntry, Object>>();
-		Map<String, BiConsumer<RSVEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<RSVEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -245,18 +241,6 @@ public class RSVEntryModelImpl
 				@Override
 				public Object apply(RSVEntry rsvEntry) {
 					return rsvEntry.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<RSVEntry, Object>() {
-
-				@Override
-				public void accept(
-					RSVEntry rsvEntry, Object mvccVersionObject) {
-
-					rsvEntry.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -270,16 +254,6 @@ public class RSVEntryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"rsvEntryId",
-			new BiConsumer<RSVEntry, Object>() {
-
-				@Override
-				public void accept(RSVEntry rsvEntry, Object rsvEntryIdObject) {
-					rsvEntry.setRsvEntryId((Long)rsvEntryIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<RSVEntry, Object>() {
@@ -287,6 +261,40 @@ public class RSVEntryModelImpl
 				@Override
 				public Object apply(RSVEntry rsvEntry) {
 					return rsvEntry.getCompanyId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<RSVEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<RSVEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<RSVEntry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<RSVEntry, Object>() {
+
+				@Override
+				public void accept(
+					RSVEntry rsvEntry, Object mvccVersionObject) {
+
+					rsvEntry.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"rsvEntryId",
+			new BiConsumer<RSVEntry, Object>() {
+
+				@Override
+				public void accept(RSVEntry rsvEntry, Object rsvEntryIdObject) {
+					rsvEntry.setRsvEntryId((Long)rsvEntryIdObject);
 				}
 
 			});
@@ -301,8 +309,6 @@ public class RSVEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

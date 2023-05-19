@@ -2707,33 +2707,17 @@ public class WikiPageResourcePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByN_T",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setWikiPageResourceUtilPersistence(this);
+		WikiPageResourceUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setWikiPageResourceUtilPersistence(null);
+		WikiPageResourceUtil.setPersistence(null);
 
 		entityCache.removeCache(WikiPageResourceImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setWikiPageResourceUtilPersistence(
-		WikiPageResourcePersistence wikiPageResourcePersistence) {
-
-		try {
-			Field field = WikiPageResourceUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, wikiPageResourcePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

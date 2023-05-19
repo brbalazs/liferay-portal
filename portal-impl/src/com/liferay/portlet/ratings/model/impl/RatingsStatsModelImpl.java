@@ -247,14 +247,10 @@ public class RatingsStatsModelImpl
 
 	private static final Map<String, Function<RatingsStats, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<RatingsStats, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<RatingsStats, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<RatingsStats, Object>>();
-		Map<String, BiConsumer<RatingsStats, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<RatingsStats, ?>>();
 
 		attributeGetterFunctions.put(
 			"statsId",
@@ -266,6 +262,78 @@ public class RatingsStatsModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<RatingsStats, Object>() {
+
+				@Override
+				public Object apply(RatingsStats ratingsStats) {
+					return ratingsStats.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<RatingsStats, Object>() {
+
+				@Override
+				public Object apply(RatingsStats ratingsStats) {
+					return ratingsStats.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<RatingsStats, Object>() {
+
+				@Override
+				public Object apply(RatingsStats ratingsStats) {
+					return ratingsStats.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"totalEntries",
+			new Function<RatingsStats, Object>() {
+
+				@Override
+				public Object apply(RatingsStats ratingsStats) {
+					return ratingsStats.getTotalEntries();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"totalScore",
+			new Function<RatingsStats, Object>() {
+
+				@Override
+				public Object apply(RatingsStats ratingsStats) {
+					return ratingsStats.getTotalScore();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"averageScore",
+			new Function<RatingsStats, Object>() {
+
+				@Override
+				public Object apply(RatingsStats ratingsStats) {
+					return ratingsStats.getAverageScore();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<RatingsStats, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<RatingsStats, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<RatingsStats, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"statsId",
 			new BiConsumer<RatingsStats, Object>() {
@@ -275,16 +343,6 @@ public class RatingsStatsModelImpl
 					RatingsStats ratingsStats, Object statsIdObject) {
 
 					ratingsStats.setStatsId((Long)statsIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<RatingsStats, Object>() {
-
-				@Override
-				public Object apply(RatingsStats ratingsStats) {
-					return ratingsStats.getCompanyId();
 				}
 
 			});
@@ -300,16 +358,6 @@ public class RatingsStatsModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<RatingsStats, Object>() {
-
-				@Override
-				public Object apply(RatingsStats ratingsStats) {
-					return ratingsStats.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<RatingsStats, Object>() {
@@ -319,16 +367,6 @@ public class RatingsStatsModelImpl
 					RatingsStats ratingsStats, Object classNameIdObject) {
 
 					ratingsStats.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<RatingsStats, Object>() {
-
-				@Override
-				public Object apply(RatingsStats ratingsStats) {
-					return ratingsStats.getClassPK();
 				}
 
 			});
@@ -344,16 +382,6 @@ public class RatingsStatsModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"totalEntries",
-			new Function<RatingsStats, Object>() {
-
-				@Override
-				public Object apply(RatingsStats ratingsStats) {
-					return ratingsStats.getTotalEntries();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"totalEntries",
 			new BiConsumer<RatingsStats, Object>() {
@@ -366,16 +394,6 @@ public class RatingsStatsModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"totalScore",
-			new Function<RatingsStats, Object>() {
-
-				@Override
-				public Object apply(RatingsStats ratingsStats) {
-					return ratingsStats.getTotalScore();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"totalScore",
 			new BiConsumer<RatingsStats, Object>() {
@@ -385,16 +403,6 @@ public class RatingsStatsModelImpl
 					RatingsStats ratingsStats, Object totalScoreObject) {
 
 					ratingsStats.setTotalScore((Double)totalScoreObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"averageScore",
-			new Function<RatingsStats, Object>() {
-
-				@Override
-				public Object apply(RatingsStats ratingsStats) {
-					return ratingsStats.getAverageScore();
 				}
 
 			});
@@ -411,8 +419,6 @@ public class RatingsStatsModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

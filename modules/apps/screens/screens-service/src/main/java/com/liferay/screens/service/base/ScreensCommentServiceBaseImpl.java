@@ -34,8 +34,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.screens.service.ScreensCommentService;
 import com.liferay.screens.service.ScreensCommentServiceUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -492,11 +490,11 @@ public abstract class ScreensCommentServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(screensCommentService);
+		ScreensCommentServiceUtil.setService(screensCommentService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		ScreensCommentServiceUtil.setService(null);
 	}
 
 	/**
@@ -530,22 +528,6 @@ public abstract class ScreensCommentServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		ScreensCommentService screensCommentService) {
-
-		try {
-			Field field = ScreensCommentServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, screensCommentService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

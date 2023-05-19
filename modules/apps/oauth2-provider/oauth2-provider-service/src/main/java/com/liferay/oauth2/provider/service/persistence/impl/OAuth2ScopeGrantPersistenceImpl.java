@@ -2320,11 +2320,11 @@ public class OAuth2ScopeGrantPersistenceImpl
 				String.class.getName()
 			});
 
-		_setOAuth2ScopeGrantUtilPersistence(this);
+		OAuth2ScopeGrantUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setOAuth2ScopeGrantUtilPersistence(null);
+		OAuth2ScopeGrantUtil.setPersistence(null);
 
 		entityCache.removeCache(OAuth2ScopeGrantImpl.class.getName());
 
@@ -2333,22 +2333,6 @@ public class OAuth2ScopeGrantPersistenceImpl
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		TableMapperFactory.removeTableMapper("OA2Auths_OA2ScopeGrants");
-	}
-
-	private void _setOAuth2ScopeGrantUtilPersistence(
-		OAuth2ScopeGrantPersistence oAuth2ScopeGrantPersistence) {
-
-		try {
-			Field field = OAuth2ScopeGrantUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, oAuth2ScopeGrantPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

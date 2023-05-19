@@ -257,14 +257,10 @@ public class AMImageEntryModelImpl
 
 	private static final Map<String, Function<AMImageEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AMImageEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AMImageEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<AMImageEntry, Object>>();
-		Map<String, BiConsumer<AMImageEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<AMImageEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -276,6 +272,118 @@ public class AMImageEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"amImageEntryId",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getAmImageEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"configurationUuid",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getConfigurationUuid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileVersionId",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getFileVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"mimeType",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getMimeType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"height",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getHeight();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"width",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getWidth();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"size",
+			new Function<AMImageEntry, Object>() {
+
+				@Override
+				public Object apply(AMImageEntry amImageEntry) {
+					return amImageEntry.getSize();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AMImageEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AMImageEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<AMImageEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<AMImageEntry, Object>() {
@@ -285,16 +393,6 @@ public class AMImageEntryModelImpl
 					AMImageEntry amImageEntry, Object uuidObject) {
 
 					amImageEntry.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"amImageEntryId",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getAmImageEntryId();
 				}
 
 			});
@@ -310,16 +408,6 @@ public class AMImageEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<AMImageEntry, Object>() {
@@ -329,16 +417,6 @@ public class AMImageEntryModelImpl
 					AMImageEntry amImageEntry, Object groupIdObject) {
 
 					amImageEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getCompanyId();
 				}
 
 			});
@@ -354,16 +432,6 @@ public class AMImageEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<AMImageEntry, Object>() {
@@ -373,16 +441,6 @@ public class AMImageEntryModelImpl
 					AMImageEntry amImageEntry, Object createDateObject) {
 
 					amImageEntry.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"configurationUuid",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getConfigurationUuid();
 				}
 
 			});
@@ -399,16 +457,6 @@ public class AMImageEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"fileVersionId",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getFileVersionId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"fileVersionId",
 			new BiConsumer<AMImageEntry, Object>() {
@@ -418,16 +466,6 @@ public class AMImageEntryModelImpl
 					AMImageEntry amImageEntry, Object fileVersionIdObject) {
 
 					amImageEntry.setFileVersionId((Long)fileVersionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"mimeType",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getMimeType();
 				}
 
 			});
@@ -443,16 +481,6 @@ public class AMImageEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"height",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getHeight();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"height",
 			new BiConsumer<AMImageEntry, Object>() {
@@ -465,16 +493,6 @@ public class AMImageEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"width",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getWidth();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"width",
 			new BiConsumer<AMImageEntry, Object>() {
@@ -484,16 +502,6 @@ public class AMImageEntryModelImpl
 					AMImageEntry amImageEntry, Object widthObject) {
 
 					amImageEntry.setWidth((Integer)widthObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"size",
-			new Function<AMImageEntry, Object>() {
-
-				@Override
-				public Object apply(AMImageEntry amImageEntry) {
-					return amImageEntry.getSize();
 				}
 
 			});
@@ -510,8 +518,6 @@ public class AMImageEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

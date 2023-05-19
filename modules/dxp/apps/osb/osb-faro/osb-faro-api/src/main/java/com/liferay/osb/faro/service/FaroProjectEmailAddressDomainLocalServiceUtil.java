@@ -332,6 +332,12 @@ public class FaroProjectEmailAddressDomainLocalServiceUtil {
 		return _service;
 	}
 
+	public static void setService(
+		FaroProjectEmailAddressDomainLocalService service) {
+
+		_service = service;
+	}
+
 	private static volatile FaroProjectEmailAddressDomainLocalService _service;
 
 }

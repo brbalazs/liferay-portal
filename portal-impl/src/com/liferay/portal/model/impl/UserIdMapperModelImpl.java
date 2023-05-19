@@ -250,14 +250,10 @@ public class UserIdMapperModelImpl
 
 	private static final Map<String, Function<UserIdMapper, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<UserIdMapper, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<UserIdMapper, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<UserIdMapper, Object>>();
-		Map<String, BiConsumer<UserIdMapper, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<UserIdMapper, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -269,6 +265,78 @@ public class UserIdMapperModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"userIdMapperId",
+			new Function<UserIdMapper, Object>() {
+
+				@Override
+				public Object apply(UserIdMapper userIdMapper) {
+					return userIdMapper.getUserIdMapperId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<UserIdMapper, Object>() {
+
+				@Override
+				public Object apply(UserIdMapper userIdMapper) {
+					return userIdMapper.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<UserIdMapper, Object>() {
+
+				@Override
+				public Object apply(UserIdMapper userIdMapper) {
+					return userIdMapper.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<UserIdMapper, Object>() {
+
+				@Override
+				public Object apply(UserIdMapper userIdMapper) {
+					return userIdMapper.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<UserIdMapper, Object>() {
+
+				@Override
+				public Object apply(UserIdMapper userIdMapper) {
+					return userIdMapper.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"externalUserId",
+			new Function<UserIdMapper, Object>() {
+
+				@Override
+				public Object apply(UserIdMapper userIdMapper) {
+					return userIdMapper.getExternalUserId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<UserIdMapper, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<UserIdMapper, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<UserIdMapper, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<UserIdMapper, Object>() {
@@ -278,16 +346,6 @@ public class UserIdMapperModelImpl
 					UserIdMapper userIdMapper, Object mvccVersionObject) {
 
 					userIdMapper.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userIdMapperId",
-			new Function<UserIdMapper, Object>() {
-
-				@Override
-				public Object apply(UserIdMapper userIdMapper) {
-					return userIdMapper.getUserIdMapperId();
 				}
 
 			});
@@ -303,16 +361,6 @@ public class UserIdMapperModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<UserIdMapper, Object>() {
-
-				@Override
-				public Object apply(UserIdMapper userIdMapper) {
-					return userIdMapper.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<UserIdMapper, Object>() {
@@ -322,16 +370,6 @@ public class UserIdMapperModelImpl
 					UserIdMapper userIdMapper, Object companyIdObject) {
 
 					userIdMapper.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<UserIdMapper, Object>() {
-
-				@Override
-				public Object apply(UserIdMapper userIdMapper) {
-					return userIdMapper.getUserId();
 				}
 
 			});
@@ -347,16 +385,6 @@ public class UserIdMapperModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<UserIdMapper, Object>() {
-
-				@Override
-				public Object apply(UserIdMapper userIdMapper) {
-					return userIdMapper.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<UserIdMapper, Object>() {
@@ -369,16 +397,6 @@ public class UserIdMapperModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<UserIdMapper, Object>() {
-
-				@Override
-				public Object apply(UserIdMapper userIdMapper) {
-					return userIdMapper.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<UserIdMapper, Object>() {
@@ -388,16 +406,6 @@ public class UserIdMapperModelImpl
 					UserIdMapper userIdMapper, Object descriptionObject) {
 
 					userIdMapper.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"externalUserId",
-			new Function<UserIdMapper, Object>() {
-
-				@Override
-				public Object apply(UserIdMapper userIdMapper) {
-					return userIdMapper.getExternalUserId();
 				}
 
 			});
@@ -415,8 +423,6 @@ public class UserIdMapperModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

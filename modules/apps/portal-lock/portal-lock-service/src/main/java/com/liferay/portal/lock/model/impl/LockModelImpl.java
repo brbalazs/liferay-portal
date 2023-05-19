@@ -252,14 +252,10 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 
 	private static final Map<String, Function<Lock, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Lock, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Lock, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Lock, Object>>();
-		Map<String, BiConsumer<Lock, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Lock, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -268,16 +264,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				@Override
 				public Object apply(Lock lock) {
 					return lock.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object mvccVersionObject) {
-					lock.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -291,16 +277,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object uuidObject) {
-					lock.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"lockId",
 			new Function<Lock, Object>() {
@@ -308,16 +284,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				@Override
 				public Object apply(Lock lock) {
 					return lock.getLockId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"lockId",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object lockIdObject) {
-					lock.setLockId((Long)lockIdObject);
 				}
 
 			});
@@ -331,16 +297,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object companyIdObject) {
-					lock.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Lock, Object>() {
@@ -348,16 +304,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				@Override
 				public Object apply(Lock lock) {
 					return lock.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object userIdObject) {
-					lock.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -371,16 +317,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object userNameObject) {
-					lock.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Lock, Object>() {
@@ -388,16 +324,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				@Override
 				public Object apply(Lock lock) {
 					return lock.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object createDateObject) {
-					lock.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -411,16 +337,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"className",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object classNameObject) {
-					lock.setClassName((String)classNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"key",
 			new Function<Lock, Object>() {
@@ -428,16 +344,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				@Override
 				public Object apply(Lock lock) {
 					return lock.getKey();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"key",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object keyObject) {
-					lock.setKey((String)keyObject);
 				}
 
 			});
@@ -451,16 +357,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"owner",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object ownerObject) {
-					lock.setOwner((String)ownerObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"inheritable",
 			new Function<Lock, Object>() {
@@ -471,16 +367,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"inheritable",
-			new BiConsumer<Lock, Object>() {
-
-				@Override
-				public void accept(Lock lock, Object inheritableObject) {
-					lock.setInheritable((Boolean)inheritableObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"expirationDate",
 			new Function<Lock, Object>() {
@@ -488,6 +374,128 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 				@Override
 				public Object apply(Lock lock) {
 					return lock.getExpirationDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Lock, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Lock, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Lock, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object mvccVersionObject) {
+					lock.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object uuidObject) {
+					lock.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"lockId",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object lockIdObject) {
+					lock.setLockId((Long)lockIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object companyIdObject) {
+					lock.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object userIdObject) {
+					lock.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object userNameObject) {
+					lock.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object createDateObject) {
+					lock.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"className",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object classNameObject) {
+					lock.setClassName((String)classNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"key",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object keyObject) {
+					lock.setKey((String)keyObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"owner",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object ownerObject) {
+					lock.setOwner((String)ownerObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"inheritable",
+			new BiConsumer<Lock, Object>() {
+
+				@Override
+				public void accept(Lock lock, Object inheritableObject) {
+					lock.setInheritable((Boolean)inheritableObject);
 				}
 
 			});
@@ -502,8 +510,6 @@ public class LockModelImpl extends BaseModelImpl<Lock> implements LockModel {
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -326,14 +326,10 @@ public class AssetTagModelImpl
 
 	private static final Map<String, Function<AssetTag, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AssetTag, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AssetTag, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<AssetTag, Object>>();
-		Map<String, BiConsumer<AssetTag, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<AssetTag, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -342,16 +338,6 @@ public class AssetTagModelImpl
 				@Override
 				public Object apply(AssetTag assetTag) {
 					return assetTag.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<AssetTag, Object>() {
-
-				@Override
-				public void accept(AssetTag assetTag, Object uuidObject) {
-					assetTag.setUuid((String)uuidObject);
 				}
 
 			});
@@ -365,16 +351,6 @@ public class AssetTagModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"tagId",
-			new BiConsumer<AssetTag, Object>() {
-
-				@Override
-				public void accept(AssetTag assetTag, Object tagIdObject) {
-					assetTag.setTagId((Long)tagIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupId",
 			new Function<AssetTag, Object>() {
@@ -382,16 +358,6 @@ public class AssetTagModelImpl
 				@Override
 				public Object apply(AssetTag assetTag) {
 					return assetTag.getGroupId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<AssetTag, Object>() {
-
-				@Override
-				public void accept(AssetTag assetTag, Object groupIdObject) {
-					assetTag.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -405,16 +371,6 @@ public class AssetTagModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<AssetTag, Object>() {
-
-				@Override
-				public void accept(AssetTag assetTag, Object companyIdObject) {
-					assetTag.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<AssetTag, Object>() {
@@ -422,16 +378,6 @@ public class AssetTagModelImpl
 				@Override
 				public Object apply(AssetTag assetTag) {
 					return assetTag.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<AssetTag, Object>() {
-
-				@Override
-				public void accept(AssetTag assetTag, Object userIdObject) {
-					assetTag.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -445,16 +391,6 @@ public class AssetTagModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<AssetTag, Object>() {
-
-				@Override
-				public void accept(AssetTag assetTag, Object userNameObject) {
-					assetTag.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<AssetTag, Object>() {
@@ -465,16 +401,6 @@ public class AssetTagModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<AssetTag, Object>() {
-
-				@Override
-				public void accept(AssetTag assetTag, Object createDateObject) {
-					assetTag.setCreateDate((Date)createDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedDate",
 			new Function<AssetTag, Object>() {
@@ -482,6 +408,118 @@ public class AssetTagModelImpl
 				@Override
 				public Object apply(AssetTag assetTag) {
 					return assetTag.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<AssetTag, Object>() {
+
+				@Override
+				public Object apply(AssetTag assetTag) {
+					return assetTag.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assetCount",
+			new Function<AssetTag, Object>() {
+
+				@Override
+				public Object apply(AssetTag assetTag) {
+					return assetTag.getAssetCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<AssetTag, Object>() {
+
+				@Override
+				public Object apply(AssetTag assetTag) {
+					return assetTag.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AssetTag, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AssetTag, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<AssetTag, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<AssetTag, Object>() {
+
+				@Override
+				public void accept(AssetTag assetTag, Object uuidObject) {
+					assetTag.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"tagId",
+			new BiConsumer<AssetTag, Object>() {
+
+				@Override
+				public void accept(AssetTag assetTag, Object tagIdObject) {
+					assetTag.setTagId((Long)tagIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<AssetTag, Object>() {
+
+				@Override
+				public void accept(AssetTag assetTag, Object groupIdObject) {
+					assetTag.setGroupId((Long)groupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<AssetTag, Object>() {
+
+				@Override
+				public void accept(AssetTag assetTag, Object companyIdObject) {
+					assetTag.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<AssetTag, Object>() {
+
+				@Override
+				public void accept(AssetTag assetTag, Object userIdObject) {
+					assetTag.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<AssetTag, Object>() {
+
+				@Override
+				public void accept(AssetTag assetTag, Object userNameObject) {
+					assetTag.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<AssetTag, Object>() {
+
+				@Override
+				public void accept(AssetTag assetTag, Object createDateObject) {
+					assetTag.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -497,16 +535,6 @@ public class AssetTagModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<AssetTag, Object>() {
-
-				@Override
-				public Object apply(AssetTag assetTag) {
-					return assetTag.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<AssetTag, Object>() {
@@ -517,16 +545,6 @@ public class AssetTagModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"assetCount",
-			new Function<AssetTag, Object>() {
-
-				@Override
-				public Object apply(AssetTag assetTag) {
-					return assetTag.getAssetCount();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"assetCount",
 			new BiConsumer<AssetTag, Object>() {
@@ -534,16 +552,6 @@ public class AssetTagModelImpl
 				@Override
 				public void accept(AssetTag assetTag, Object assetCountObject) {
 					assetTag.setAssetCount((Integer)assetCountObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<AssetTag, Object>() {
-
-				@Override
-				public Object apply(AssetTag assetTag) {
-					return assetTag.getLastPublishDate();
 				}
 
 			});
@@ -560,8 +568,6 @@ public class AssetTagModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

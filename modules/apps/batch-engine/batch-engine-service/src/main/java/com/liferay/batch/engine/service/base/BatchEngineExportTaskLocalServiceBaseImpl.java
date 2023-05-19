@@ -60,8 +60,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import java.io.InputStream;
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.sql.Blob;
 
 import java.util.List;
@@ -625,14 +623,15 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 			_useTempFile = true;
 		}
 
-		_setLocalServiceUtilService(batchEngineExportTaskLocalService);
+		BatchEngineExportTaskLocalServiceUtil.setService(
+			batchEngineExportTaskLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.batch.engine.model.BatchEngineExportTask");
 
-		_setLocalServiceUtilService(null);
+		BatchEngineExportTaskLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -675,23 +674,6 @@ public abstract class BatchEngineExportTaskLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		BatchEngineExportTaskLocalService batchEngineExportTaskLocalService) {
-
-		try {
-			Field field =
-				BatchEngineExportTaskLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, batchEngineExportTaskLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

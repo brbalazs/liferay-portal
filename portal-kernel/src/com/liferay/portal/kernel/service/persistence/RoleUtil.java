@@ -3087,6 +3087,10 @@ public class RoleUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(RolePersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile RolePersistence _persistence;
 
 }

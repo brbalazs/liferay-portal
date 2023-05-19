@@ -261,14 +261,10 @@ public class FaroUserModelImpl
 
 	private static final Map<String, Function<FaroUser, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<FaroUser, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<FaroUser, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<FaroUser, Object>>();
-		Map<String, BiConsumer<FaroUser, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<FaroUser, ?>>();
 
 		attributeGetterFunctions.put(
 			"faroUserId",
@@ -277,16 +273,6 @@ public class FaroUserModelImpl
 				@Override
 				public Object apply(FaroUser faroUser) {
 					return faroUser.getFaroUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"faroUserId",
-			new BiConsumer<FaroUser, Object>() {
-
-				@Override
-				public void accept(FaroUser faroUser, Object faroUserIdObject) {
-					faroUser.setFaroUserId((Long)faroUserIdObject);
 				}
 
 			});
@@ -300,16 +286,6 @@ public class FaroUserModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<FaroUser, Object>() {
-
-				@Override
-				public void accept(FaroUser faroUser, Object groupIdObject) {
-					faroUser.setGroupId((Long)groupIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<FaroUser, Object>() {
@@ -317,16 +293,6 @@ public class FaroUserModelImpl
 				@Override
 				public Object apply(FaroUser faroUser) {
 					return faroUser.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<FaroUser, Object>() {
-
-				@Override
-				public void accept(FaroUser faroUser, Object userIdObject) {
-					faroUser.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -340,16 +306,6 @@ public class FaroUserModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<FaroUser, Object>() {
-
-				@Override
-				public void accept(FaroUser faroUser, Object userNameObject) {
-					faroUser.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createTime",
 			new Function<FaroUser, Object>() {
@@ -360,16 +316,6 @@ public class FaroUserModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createTime",
-			new BiConsumer<FaroUser, Object>() {
-
-				@Override
-				public void accept(FaroUser faroUser, Object createTimeObject) {
-					faroUser.setCreateTime((Long)createTimeObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedTime",
 			new Function<FaroUser, Object>() {
@@ -377,6 +323,118 @@ public class FaroUserModelImpl
 				@Override
 				public Object apply(FaroUser faroUser) {
 					return faroUser.getModifiedTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"liveUserId",
+			new Function<FaroUser, Object>() {
+
+				@Override
+				public Object apply(FaroUser faroUser) {
+					return faroUser.getLiveUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"roleId",
+			new Function<FaroUser, Object>() {
+
+				@Override
+				public Object apply(FaroUser faroUser) {
+					return faroUser.getRoleId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"emailAddress",
+			new Function<FaroUser, Object>() {
+
+				@Override
+				public Object apply(FaroUser faroUser) {
+					return faroUser.getEmailAddress();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"key",
+			new Function<FaroUser, Object>() {
+
+				@Override
+				public Object apply(FaroUser faroUser) {
+					return faroUser.getKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<FaroUser, Object>() {
+
+				@Override
+				public Object apply(FaroUser faroUser) {
+					return faroUser.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<FaroUser, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<FaroUser, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<FaroUser, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"faroUserId",
+			new BiConsumer<FaroUser, Object>() {
+
+				@Override
+				public void accept(FaroUser faroUser, Object faroUserIdObject) {
+					faroUser.setFaroUserId((Long)faroUserIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<FaroUser, Object>() {
+
+				@Override
+				public void accept(FaroUser faroUser, Object groupIdObject) {
+					faroUser.setGroupId((Long)groupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<FaroUser, Object>() {
+
+				@Override
+				public void accept(FaroUser faroUser, Object userIdObject) {
+					faroUser.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<FaroUser, Object>() {
+
+				@Override
+				public void accept(FaroUser faroUser, Object userNameObject) {
+					faroUser.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createTime",
+			new BiConsumer<FaroUser, Object>() {
+
+				@Override
+				public void accept(FaroUser faroUser, Object createTimeObject) {
+					faroUser.setCreateTime((Long)createTimeObject);
 				}
 
 			});
@@ -392,16 +450,6 @@ public class FaroUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"liveUserId",
-			new Function<FaroUser, Object>() {
-
-				@Override
-				public Object apply(FaroUser faroUser) {
-					return faroUser.getLiveUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"liveUserId",
 			new BiConsumer<FaroUser, Object>() {
@@ -412,16 +460,6 @@ public class FaroUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"roleId",
-			new Function<FaroUser, Object>() {
-
-				@Override
-				public Object apply(FaroUser faroUser) {
-					return faroUser.getRoleId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"roleId",
 			new BiConsumer<FaroUser, Object>() {
@@ -429,16 +467,6 @@ public class FaroUserModelImpl
 				@Override
 				public void accept(FaroUser faroUser, Object roleIdObject) {
 					faroUser.setRoleId((Long)roleIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"emailAddress",
-			new Function<FaroUser, Object>() {
-
-				@Override
-				public Object apply(FaroUser faroUser) {
-					return faroUser.getEmailAddress();
 				}
 
 			});
@@ -454,16 +482,6 @@ public class FaroUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"key",
-			new Function<FaroUser, Object>() {
-
-				@Override
-				public Object apply(FaroUser faroUser) {
-					return faroUser.getKey();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"key",
 			new BiConsumer<FaroUser, Object>() {
@@ -471,16 +489,6 @@ public class FaroUserModelImpl
 				@Override
 				public void accept(FaroUser faroUser, Object keyObject) {
 					faroUser.setKey((String)keyObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<FaroUser, Object>() {
-
-				@Override
-				public Object apply(FaroUser faroUser) {
-					return faroUser.getStatus();
 				}
 
 			});
@@ -495,8 +503,6 @@ public class FaroUserModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -34,8 +34,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.screens.service.ScreensJournalArticleService;
 import com.liferay.screens.service.ScreensJournalArticleServiceUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -480,11 +478,12 @@ public abstract class ScreensJournalArticleServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(screensJournalArticleService);
+		ScreensJournalArticleServiceUtil.setService(
+			screensJournalArticleService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		ScreensJournalArticleServiceUtil.setService(null);
 	}
 
 	/**
@@ -518,23 +517,6 @@ public abstract class ScreensJournalArticleServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		ScreensJournalArticleService screensJournalArticleService) {
-
-		try {
-			Field field =
-				ScreensJournalArticleServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, screensJournalArticleService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

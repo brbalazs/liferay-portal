@@ -53,8 +53,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -557,14 +555,14 @@ public abstract class MBMailingListLocalServiceBaseImpl
 			"com.liferay.message.boards.model.MBMailingList",
 			mbMailingListLocalService);
 
-		_setLocalServiceUtilService(mbMailingListLocalService);
+		MBMailingListLocalServiceUtil.setService(mbMailingListLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.message.boards.model.MBMailingList");
 
-		_setLocalServiceUtilService(null);
+		MBMailingListLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -606,22 +604,6 @@ public abstract class MBMailingListLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		MBMailingListLocalService mbMailingListLocalService) {
-
-		try {
-			Field field = MBMailingListLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, mbMailingListLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

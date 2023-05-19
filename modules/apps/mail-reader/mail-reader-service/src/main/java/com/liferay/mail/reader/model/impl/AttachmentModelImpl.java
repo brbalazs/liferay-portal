@@ -248,14 +248,10 @@ public class AttachmentModelImpl
 
 	private static final Map<String, Function<Attachment, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Attachment, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Attachment, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Attachment, Object>>();
-		Map<String, BiConsumer<Attachment, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Attachment, ?>>();
 
 		attributeGetterFunctions.put(
 			"attachmentId",
@@ -267,6 +263,98 @@ public class AttachmentModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<Attachment, Object>() {
+
+				@Override
+				public Object apply(Attachment attachment) {
+					return attachment.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<Attachment, Object>() {
+
+				@Override
+				public Object apply(Attachment attachment) {
+					return attachment.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accountId",
+			new Function<Attachment, Object>() {
+
+				@Override
+				public Object apply(Attachment attachment) {
+					return attachment.getAccountId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"folderId",
+			new Function<Attachment, Object>() {
+
+				@Override
+				public Object apply(Attachment attachment) {
+					return attachment.getFolderId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"messageId",
+			new Function<Attachment, Object>() {
+
+				@Override
+				public Object apply(Attachment attachment) {
+					return attachment.getMessageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"contentPath",
+			new Function<Attachment, Object>() {
+
+				@Override
+				public Object apply(Attachment attachment) {
+					return attachment.getContentPath();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileName",
+			new Function<Attachment, Object>() {
+
+				@Override
+				public Object apply(Attachment attachment) {
+					return attachment.getFileName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"size",
+			new Function<Attachment, Object>() {
+
+				@Override
+				public Object apply(Attachment attachment) {
+					return attachment.getSize();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Attachment, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Attachment, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Attachment, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"attachmentId",
 			new BiConsumer<Attachment, Object>() {
@@ -276,16 +364,6 @@ public class AttachmentModelImpl
 					Attachment attachment, Object attachmentIdObject) {
 
 					attachment.setAttachmentId((Long)attachmentIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<Attachment, Object>() {
-
-				@Override
-				public Object apply(Attachment attachment) {
-					return attachment.getCompanyId();
 				}
 
 			});
@@ -301,16 +379,6 @@ public class AttachmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<Attachment, Object>() {
-
-				@Override
-				public Object apply(Attachment attachment) {
-					return attachment.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<Attachment, Object>() {
@@ -318,16 +386,6 @@ public class AttachmentModelImpl
 				@Override
 				public void accept(Attachment attachment, Object userIdObject) {
 					attachment.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"accountId",
-			new Function<Attachment, Object>() {
-
-				@Override
-				public Object apply(Attachment attachment) {
-					return attachment.getAccountId();
 				}
 
 			});
@@ -343,16 +401,6 @@ public class AttachmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"folderId",
-			new Function<Attachment, Object>() {
-
-				@Override
-				public Object apply(Attachment attachment) {
-					return attachment.getFolderId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"folderId",
 			new BiConsumer<Attachment, Object>() {
@@ -362,16 +410,6 @@ public class AttachmentModelImpl
 					Attachment attachment, Object folderIdObject) {
 
 					attachment.setFolderId((Long)folderIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"messageId",
-			new Function<Attachment, Object>() {
-
-				@Override
-				public Object apply(Attachment attachment) {
-					return attachment.getMessageId();
 				}
 
 			});
@@ -387,16 +425,6 @@ public class AttachmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"contentPath",
-			new Function<Attachment, Object>() {
-
-				@Override
-				public Object apply(Attachment attachment) {
-					return attachment.getContentPath();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"contentPath",
 			new BiConsumer<Attachment, Object>() {
@@ -406,16 +434,6 @@ public class AttachmentModelImpl
 					Attachment attachment, Object contentPathObject) {
 
 					attachment.setContentPath((String)contentPathObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fileName",
-			new Function<Attachment, Object>() {
-
-				@Override
-				public Object apply(Attachment attachment) {
-					return attachment.getFileName();
 				}
 
 			});
@@ -431,16 +449,6 @@ public class AttachmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"size",
-			new Function<Attachment, Object>() {
-
-				@Override
-				public Object apply(Attachment attachment) {
-					return attachment.getSize();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"size",
 			new BiConsumer<Attachment, Object>() {
@@ -452,8 +460,6 @@ public class AttachmentModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

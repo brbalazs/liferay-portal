@@ -235,14 +235,10 @@ public class LocalizedEntryModelImpl
 
 	private static final Map<String, Function<LocalizedEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<LocalizedEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<LocalizedEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<LocalizedEntry, Object>>();
-		Map<String, BiConsumer<LocalizedEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<LocalizedEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"defaultLanguageId",
@@ -254,6 +250,28 @@ public class LocalizedEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"localizedEntryId",
+			new Function<LocalizedEntry, Object>() {
+
+				@Override
+				public Object apply(LocalizedEntry localizedEntry) {
+					return localizedEntry.getLocalizedEntryId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<LocalizedEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<LocalizedEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<LocalizedEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"defaultLanguageId",
 			new BiConsumer<LocalizedEntry, Object>() {
@@ -265,16 +283,6 @@ public class LocalizedEntryModelImpl
 
 					localizedEntry.setDefaultLanguageId(
 						(String)defaultLanguageIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"localizedEntryId",
-			new Function<LocalizedEntry, Object>() {
-
-				@Override
-				public Object apply(LocalizedEntry localizedEntry) {
-					return localizedEntry.getLocalizedEntryId();
 				}
 
 			});
@@ -293,8 +301,6 @@ public class LocalizedEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

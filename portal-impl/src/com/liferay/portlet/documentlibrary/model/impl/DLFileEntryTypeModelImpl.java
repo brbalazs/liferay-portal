@@ -344,15 +344,11 @@ public class DLFileEntryTypeModelImpl
 
 	private static final Map<String, Function<DLFileEntryType, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DLFileEntryType, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DLFileEntryType, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<DLFileEntryType, Object>>();
-		Map<String, BiConsumer<DLFileEntryType, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<DLFileEntryType, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -364,6 +360,128 @@ public class DLFileEntryTypeModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"fileEntryTypeId",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getFileEntryTypeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileEntryTypeKey",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getFileEntryTypeKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<DLFileEntryType, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryType dlFileEntryType) {
+					return dlFileEntryType.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DLFileEntryType, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DLFileEntryType, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<DLFileEntryType, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<DLFileEntryType, Object>() {
@@ -373,16 +491,6 @@ public class DLFileEntryTypeModelImpl
 					DLFileEntryType dlFileEntryType, Object uuidObject) {
 
 					dlFileEntryType.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fileEntryTypeId",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getFileEntryTypeId();
 				}
 
 			});
@@ -400,16 +508,6 @@ public class DLFileEntryTypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<DLFileEntryType, Object>() {
@@ -419,16 +517,6 @@ public class DLFileEntryTypeModelImpl
 					DLFileEntryType dlFileEntryType, Object groupIdObject) {
 
 					dlFileEntryType.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getCompanyId();
 				}
 
 			});
@@ -444,16 +532,6 @@ public class DLFileEntryTypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<DLFileEntryType, Object>() {
@@ -463,16 +541,6 @@ public class DLFileEntryTypeModelImpl
 					DLFileEntryType dlFileEntryType, Object userIdObject) {
 
 					dlFileEntryType.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getUserName();
 				}
 
 			});
@@ -488,16 +556,6 @@ public class DLFileEntryTypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<DLFileEntryType, Object>() {
@@ -507,16 +565,6 @@ public class DLFileEntryTypeModelImpl
 					DLFileEntryType dlFileEntryType, Object createDateObject) {
 
 					dlFileEntryType.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getModifiedDate();
 				}
 
 			});
@@ -530,16 +578,6 @@ public class DLFileEntryTypeModelImpl
 					Object modifiedDateObject) {
 
 					dlFileEntryType.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fileEntryTypeKey",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getFileEntryTypeKey();
 				}
 
 			});
@@ -557,16 +595,6 @@ public class DLFileEntryTypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<DLFileEntryType, Object>() {
@@ -579,16 +607,6 @@ public class DLFileEntryTypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<DLFileEntryType, Object>() {
@@ -598,16 +616,6 @@ public class DLFileEntryTypeModelImpl
 					DLFileEntryType dlFileEntryType, Object descriptionObject) {
 
 					dlFileEntryType.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<DLFileEntryType, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryType dlFileEntryType) {
-					return dlFileEntryType.getLastPublishDate();
 				}
 
 			});
@@ -626,8 +634,6 @@ public class DLFileEntryTypeModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

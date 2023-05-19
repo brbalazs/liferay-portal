@@ -319,17 +319,12 @@ public class PowwowParticipantModelImpl
 
 	private static final Map<String, Function<PowwowParticipant, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PowwowParticipant, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<PowwowParticipant, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<PowwowParticipant, Object>>();
-		Map<String, BiConsumer<PowwowParticipant, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<PowwowParticipant, ?>>();
 
 		attributeGetterFunctions.put(
 			"powwowParticipantId",
@@ -341,6 +336,139 @@ public class PowwowParticipantModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"powwowMeetingId",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getPowwowMeetingId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"participantUserId",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getParticipantUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"emailAddress",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getEmailAddress();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<PowwowParticipant, Object>() {
+
+				@Override
+				public Object apply(PowwowParticipant powwowParticipant) {
+					return powwowParticipant.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<PowwowParticipant, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<PowwowParticipant, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<PowwowParticipant, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"powwowParticipantId",
 			new BiConsumer<PowwowParticipant, Object>() {
@@ -355,16 +483,6 @@ public class PowwowParticipantModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<PowwowParticipant, Object>() {
@@ -374,16 +492,6 @@ public class PowwowParticipantModelImpl
 					PowwowParticipant powwowParticipant, Object groupIdObject) {
 
 					powwowParticipant.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getCompanyId();
 				}
 
 			});
@@ -400,16 +508,6 @@ public class PowwowParticipantModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<PowwowParticipant, Object>() {
@@ -419,16 +517,6 @@ public class PowwowParticipantModelImpl
 					PowwowParticipant powwowParticipant, Object userIdObject) {
 
 					powwowParticipant.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getUserName();
 				}
 
 			});
@@ -445,16 +533,6 @@ public class PowwowParticipantModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<PowwowParticipant, Object>() {
@@ -468,16 +546,6 @@ public class PowwowParticipantModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<PowwowParticipant, Object>() {
@@ -488,16 +556,6 @@ public class PowwowParticipantModelImpl
 					Object modifiedDateObject) {
 
 					powwowParticipant.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"powwowMeetingId",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getPowwowMeetingId();
 				}
 
 			});
@@ -515,16 +573,6 @@ public class PowwowParticipantModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<PowwowParticipant, Object>() {
@@ -534,16 +582,6 @@ public class PowwowParticipantModelImpl
 					PowwowParticipant powwowParticipant, Object nameObject) {
 
 					powwowParticipant.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"participantUserId",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getParticipantUserId();
 				}
 
 			});
@@ -561,16 +599,6 @@ public class PowwowParticipantModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"emailAddress",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getEmailAddress();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"emailAddress",
 			new BiConsumer<PowwowParticipant, Object>() {
@@ -585,16 +613,6 @@ public class PowwowParticipantModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<PowwowParticipant, Object>() {
@@ -604,16 +622,6 @@ public class PowwowParticipantModelImpl
 					PowwowParticipant powwowParticipant, Object typeObject) {
 
 					powwowParticipant.setType((Integer)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<PowwowParticipant, Object>() {
-
-				@Override
-				public Object apply(PowwowParticipant powwowParticipant) {
-					return powwowParticipant.getStatus();
 				}
 
 			});
@@ -630,8 +638,6 @@ public class PowwowParticipantModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

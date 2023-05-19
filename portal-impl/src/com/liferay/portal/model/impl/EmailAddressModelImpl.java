@@ -325,14 +325,10 @@ public class EmailAddressModelImpl
 
 	private static final Map<String, Function<EmailAddress, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<EmailAddress, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<EmailAddress, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<EmailAddress, Object>>();
-		Map<String, BiConsumer<EmailAddress, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<EmailAddress, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -344,6 +340,138 @@ public class EmailAddressModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"uuid",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getUuid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"emailAddressId",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getEmailAddressId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"address",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getAddress();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typeId",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getTypeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"primary",
+			new Function<EmailAddress, Object>() {
+
+				@Override
+				public Object apply(EmailAddress emailAddress) {
+					return emailAddress.getPrimary();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<EmailAddress, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<EmailAddress, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<EmailAddress, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<EmailAddress, Object>() {
@@ -353,16 +481,6 @@ public class EmailAddressModelImpl
 					EmailAddress emailAddress, Object mvccVersionObject) {
 
 					emailAddress.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"uuid",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getUuid();
 				}
 
 			});
@@ -378,16 +496,6 @@ public class EmailAddressModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"emailAddressId",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getEmailAddressId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"emailAddressId",
 			new BiConsumer<EmailAddress, Object>() {
@@ -397,16 +505,6 @@ public class EmailAddressModelImpl
 					EmailAddress emailAddress, Object emailAddressIdObject) {
 
 					emailAddress.setEmailAddressId((Long)emailAddressIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getCompanyId();
 				}
 
 			});
@@ -422,16 +520,6 @@ public class EmailAddressModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<EmailAddress, Object>() {
@@ -441,16 +529,6 @@ public class EmailAddressModelImpl
 					EmailAddress emailAddress, Object userIdObject) {
 
 					emailAddress.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getUserName();
 				}
 
 			});
@@ -466,16 +544,6 @@ public class EmailAddressModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<EmailAddress, Object>() {
@@ -485,16 +553,6 @@ public class EmailAddressModelImpl
 					EmailAddress emailAddress, Object createDateObject) {
 
 					emailAddress.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getModifiedDate();
 				}
 
 			});
@@ -510,16 +568,6 @@ public class EmailAddressModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<EmailAddress, Object>() {
@@ -529,16 +577,6 @@ public class EmailAddressModelImpl
 					EmailAddress emailAddress, Object classNameIdObject) {
 
 					emailAddress.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getClassPK();
 				}
 
 			});
@@ -554,16 +592,6 @@ public class EmailAddressModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"address",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getAddress();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"address",
 			new BiConsumer<EmailAddress, Object>() {
@@ -576,16 +604,6 @@ public class EmailAddressModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"typeId",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getTypeId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"typeId",
 			new BiConsumer<EmailAddress, Object>() {
@@ -595,16 +613,6 @@ public class EmailAddressModelImpl
 					EmailAddress emailAddress, Object typeIdObject) {
 
 					emailAddress.setTypeId((Long)typeIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"primary",
-			new Function<EmailAddress, Object>() {
-
-				@Override
-				public Object apply(EmailAddress emailAddress) {
-					return emailAddress.getPrimary();
 				}
 
 			});
@@ -621,8 +629,6 @@ public class EmailAddressModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

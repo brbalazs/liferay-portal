@@ -52,8 +52,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -652,14 +650,14 @@ public abstract class AttachmentLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.mail.reader.model.Attachment", attachmentLocalService);
 
-		_setLocalServiceUtilService(attachmentLocalService);
+		AttachmentLocalServiceUtil.setService(attachmentLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.mail.reader.model.Attachment");
 
-		_setLocalServiceUtilService(null);
+		AttachmentLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -701,22 +699,6 @@ public abstract class AttachmentLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		AttachmentLocalService attachmentLocalService) {
-
-		try {
-			Field field = AttachmentLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, attachmentLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

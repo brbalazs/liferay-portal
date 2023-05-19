@@ -2324,6 +2324,10 @@ public class SocialRequestUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(SocialRequestPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile SocialRequestPersistence _persistence;
 
 }

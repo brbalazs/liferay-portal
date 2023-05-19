@@ -64,8 +64,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -948,14 +946,15 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 			"com.liferay.calendar.model.CalendarResource",
 			calendarResourceLocalService);
 
-		_setLocalServiceUtilService(calendarResourceLocalService);
+		CalendarResourceLocalServiceUtil.setService(
+			calendarResourceLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.calendar.model.CalendarResource");
 
-		_setLocalServiceUtilService(null);
+		CalendarResourceLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -997,23 +996,6 @@ public abstract class CalendarResourceLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		CalendarResourceLocalService calendarResourceLocalService) {
-
-		try {
-			Field field =
-				CalendarResourceLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, calendarResourceLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -321,14 +321,10 @@ public class OrgLaborModelImpl
 
 	private static final Map<String, Function<OrgLabor, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<OrgLabor, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<OrgLabor, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<OrgLabor, Object>>();
-		Map<String, BiConsumer<OrgLabor, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<OrgLabor, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -337,18 +333,6 @@ public class OrgLaborModelImpl
 				@Override
 				public Object apply(OrgLabor orgLabor) {
 					return orgLabor.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<OrgLabor, Object>() {
-
-				@Override
-				public void accept(
-					OrgLabor orgLabor, Object mvccVersionObject) {
-
-					orgLabor.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -362,16 +346,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"orgLaborId",
-			new BiConsumer<OrgLabor, Object>() {
-
-				@Override
-				public void accept(OrgLabor orgLabor, Object orgLaborIdObject) {
-					orgLabor.setOrgLaborId((Long)orgLaborIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<OrgLabor, Object>() {
@@ -382,16 +356,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<OrgLabor, Object>() {
-
-				@Override
-				public void accept(OrgLabor orgLabor, Object companyIdObject) {
-					orgLabor.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"organizationId",
 			new Function<OrgLabor, Object>() {
@@ -399,6 +363,200 @@ public class OrgLaborModelImpl
 				@Override
 				public Object apply(OrgLabor orgLabor) {
 					return orgLabor.getOrganizationId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typeId",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getTypeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sunOpen",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getSunOpen();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sunClose",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getSunClose();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"monOpen",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getMonOpen();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"monClose",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getMonClose();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"tueOpen",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getTueOpen();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"tueClose",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getTueClose();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"wedOpen",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getWedOpen();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"wedClose",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getWedClose();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"thuOpen",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getThuOpen();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"thuClose",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getThuClose();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"friOpen",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getFriOpen();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"friClose",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getFriClose();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"satOpen",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getSatOpen();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"satClose",
+			new Function<OrgLabor, Object>() {
+
+				@Override
+				public Object apply(OrgLabor orgLabor) {
+					return orgLabor.getSatClose();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<OrgLabor, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<OrgLabor, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<OrgLabor, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<OrgLabor, Object>() {
+
+				@Override
+				public void accept(
+					OrgLabor orgLabor, Object mvccVersionObject) {
+
+					orgLabor.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"orgLaborId",
+			new BiConsumer<OrgLabor, Object>() {
+
+				@Override
+				public void accept(OrgLabor orgLabor, Object orgLaborIdObject) {
+					orgLabor.setOrgLaborId((Long)orgLaborIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<OrgLabor, Object>() {
+
+				@Override
+				public void accept(OrgLabor orgLabor, Object companyIdObject) {
+					orgLabor.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -414,16 +572,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"typeId",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getTypeId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"typeId",
 			new BiConsumer<OrgLabor, Object>() {
@@ -431,16 +579,6 @@ public class OrgLaborModelImpl
 				@Override
 				public void accept(OrgLabor orgLabor, Object typeIdObject) {
 					orgLabor.setTypeId((Long)typeIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"sunOpen",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getSunOpen();
 				}
 
 			});
@@ -454,16 +592,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"sunClose",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getSunClose();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"sunClose",
 			new BiConsumer<OrgLabor, Object>() {
@@ -471,16 +599,6 @@ public class OrgLaborModelImpl
 				@Override
 				public void accept(OrgLabor orgLabor, Object sunCloseObject) {
 					orgLabor.setSunClose((Integer)sunCloseObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"monOpen",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getMonOpen();
 				}
 
 			});
@@ -494,16 +612,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"monClose",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getMonClose();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"monClose",
 			new BiConsumer<OrgLabor, Object>() {
@@ -511,16 +619,6 @@ public class OrgLaborModelImpl
 				@Override
 				public void accept(OrgLabor orgLabor, Object monCloseObject) {
 					orgLabor.setMonClose((Integer)monCloseObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"tueOpen",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getTueOpen();
 				}
 
 			});
@@ -534,16 +632,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"tueClose",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getTueClose();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"tueClose",
 			new BiConsumer<OrgLabor, Object>() {
@@ -551,16 +639,6 @@ public class OrgLaborModelImpl
 				@Override
 				public void accept(OrgLabor orgLabor, Object tueCloseObject) {
 					orgLabor.setTueClose((Integer)tueCloseObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"wedOpen",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getWedOpen();
 				}
 
 			});
@@ -574,16 +652,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"wedClose",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getWedClose();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"wedClose",
 			new BiConsumer<OrgLabor, Object>() {
@@ -591,16 +659,6 @@ public class OrgLaborModelImpl
 				@Override
 				public void accept(OrgLabor orgLabor, Object wedCloseObject) {
 					orgLabor.setWedClose((Integer)wedCloseObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"thuOpen",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getThuOpen();
 				}
 
 			});
@@ -614,16 +672,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"thuClose",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getThuClose();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"thuClose",
 			new BiConsumer<OrgLabor, Object>() {
@@ -631,16 +679,6 @@ public class OrgLaborModelImpl
 				@Override
 				public void accept(OrgLabor orgLabor, Object thuCloseObject) {
 					orgLabor.setThuClose((Integer)thuCloseObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"friOpen",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getFriOpen();
 				}
 
 			});
@@ -654,16 +692,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"friClose",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getFriClose();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"friClose",
 			new BiConsumer<OrgLabor, Object>() {
@@ -674,16 +702,6 @@ public class OrgLaborModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"satOpen",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getSatOpen();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"satOpen",
 			new BiConsumer<OrgLabor, Object>() {
@@ -691,16 +709,6 @@ public class OrgLaborModelImpl
 				@Override
 				public void accept(OrgLabor orgLabor, Object satOpenObject) {
 					orgLabor.setSatOpen((Integer)satOpenObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"satClose",
-			new Function<OrgLabor, Object>() {
-
-				@Override
-				public Object apply(OrgLabor orgLabor) {
-					return orgLabor.getSatClose();
 				}
 
 			});
@@ -715,8 +723,6 @@ public class OrgLaborModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

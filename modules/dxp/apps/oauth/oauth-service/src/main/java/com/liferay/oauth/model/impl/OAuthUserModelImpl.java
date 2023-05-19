@@ -303,14 +303,10 @@ public class OAuthUserModelImpl
 
 	private static final Map<String, Function<OAuthUser, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<OAuthUser, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<OAuthUser, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<OAuthUser, Object>>();
-		Map<String, BiConsumer<OAuthUser, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<OAuthUser, ?>>();
 
 		attributeGetterFunctions.put(
 			"oAuthUserId",
@@ -322,6 +318,98 @@ public class OAuthUserModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"oAuthApplicationId",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getOAuthApplicationId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessToken",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getAccessToken();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessSecret",
+			new Function<OAuthUser, Object>() {
+
+				@Override
+				public Object apply(OAuthUser oAuthUser) {
+					return oAuthUser.getAccessSecret();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<OAuthUser, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<OAuthUser, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<OAuthUser, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"oAuthUserId",
 			new BiConsumer<OAuthUser, Object>() {
@@ -331,16 +419,6 @@ public class OAuthUserModelImpl
 					OAuthUser oAuthUser, Object oAuthUserIdObject) {
 
 					oAuthUser.setOAuthUserId((Long)oAuthUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<OAuthUser, Object>() {
-
-				@Override
-				public Object apply(OAuthUser oAuthUser) {
-					return oAuthUser.getCompanyId();
 				}
 
 			});
@@ -356,16 +434,6 @@ public class OAuthUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<OAuthUser, Object>() {
-
-				@Override
-				public Object apply(OAuthUser oAuthUser) {
-					return oAuthUser.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<OAuthUser, Object>() {
@@ -376,16 +444,6 @@ public class OAuthUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<OAuthUser, Object>() {
-
-				@Override
-				public Object apply(OAuthUser oAuthUser) {
-					return oAuthUser.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<OAuthUser, Object>() {
@@ -393,16 +451,6 @@ public class OAuthUserModelImpl
 				@Override
 				public void accept(OAuthUser oAuthUser, Object userNameObject) {
 					oAuthUser.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<OAuthUser, Object>() {
-
-				@Override
-				public Object apply(OAuthUser oAuthUser) {
-					return oAuthUser.getCreateDate();
 				}
 
 			});
@@ -418,16 +466,6 @@ public class OAuthUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<OAuthUser, Object>() {
-
-				@Override
-				public Object apply(OAuthUser oAuthUser) {
-					return oAuthUser.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<OAuthUser, Object>() {
@@ -437,16 +475,6 @@ public class OAuthUserModelImpl
 					OAuthUser oAuthUser, Object modifiedDateObject) {
 
 					oAuthUser.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"oAuthApplicationId",
-			new Function<OAuthUser, Object>() {
-
-				@Override
-				public Object apply(OAuthUser oAuthUser) {
-					return oAuthUser.getOAuthApplicationId();
 				}
 
 			});
@@ -463,16 +491,6 @@ public class OAuthUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"accessToken",
-			new Function<OAuthUser, Object>() {
-
-				@Override
-				public Object apply(OAuthUser oAuthUser) {
-					return oAuthUser.getAccessToken();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"accessToken",
 			new BiConsumer<OAuthUser, Object>() {
@@ -482,16 +500,6 @@ public class OAuthUserModelImpl
 					OAuthUser oAuthUser, Object accessTokenObject) {
 
 					oAuthUser.setAccessToken((String)accessTokenObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"accessSecret",
-			new Function<OAuthUser, Object>() {
-
-				@Override
-				public Object apply(OAuthUser oAuthUser) {
-					return oAuthUser.getAccessSecret();
 				}
 
 			});
@@ -508,8 +516,6 @@ public class OAuthUserModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

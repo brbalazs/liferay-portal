@@ -306,17 +306,12 @@ public class PortletPreferencesModelImpl
 
 	private static final Map<String, Function<PortletPreferences, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PortletPreferences, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<PortletPreferences, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<PortletPreferences, Object>>();
-		Map<String, BiConsumer<PortletPreferences, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<PortletPreferences, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -328,6 +323,89 @@ public class PortletPreferencesModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"portletPreferencesId",
+			new Function<PortletPreferences, Object>() {
+
+				@Override
+				public Object apply(PortletPreferences portletPreferences) {
+					return portletPreferences.getPortletPreferencesId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<PortletPreferences, Object>() {
+
+				@Override
+				public Object apply(PortletPreferences portletPreferences) {
+					return portletPreferences.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ownerId",
+			new Function<PortletPreferences, Object>() {
+
+				@Override
+				public Object apply(PortletPreferences portletPreferences) {
+					return portletPreferences.getOwnerId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ownerType",
+			new Function<PortletPreferences, Object>() {
+
+				@Override
+				public Object apply(PortletPreferences portletPreferences) {
+					return portletPreferences.getOwnerType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"plid",
+			new Function<PortletPreferences, Object>() {
+
+				@Override
+				public Object apply(PortletPreferences portletPreferences) {
+					return portletPreferences.getPlid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"portletId",
+			new Function<PortletPreferences, Object>() {
+
+				@Override
+				public Object apply(PortletPreferences portletPreferences) {
+					return portletPreferences.getPortletId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"preferences",
+			new Function<PortletPreferences, Object>() {
+
+				@Override
+				public Object apply(PortletPreferences portletPreferences) {
+					return portletPreferences.getPreferences();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<PortletPreferences, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<PortletPreferences, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<PortletPreferences, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<PortletPreferences, Object>() {
@@ -338,16 +416,6 @@ public class PortletPreferencesModelImpl
 					Object mvccVersionObject) {
 
 					portletPreferences.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"portletPreferencesId",
-			new Function<PortletPreferences, Object>() {
-
-				@Override
-				public Object apply(PortletPreferences portletPreferences) {
-					return portletPreferences.getPortletPreferencesId();
 				}
 
 			});
@@ -365,16 +433,6 @@ public class PortletPreferencesModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<PortletPreferences, Object>() {
-
-				@Override
-				public Object apply(PortletPreferences portletPreferences) {
-					return portletPreferences.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<PortletPreferences, Object>() {
@@ -385,16 +443,6 @@ public class PortletPreferencesModelImpl
 					Object companyIdObject) {
 
 					portletPreferences.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"ownerId",
-			new Function<PortletPreferences, Object>() {
-
-				@Override
-				public Object apply(PortletPreferences portletPreferences) {
-					return portletPreferences.getOwnerId();
 				}
 
 			});
@@ -411,16 +459,6 @@ public class PortletPreferencesModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"ownerType",
-			new Function<PortletPreferences, Object>() {
-
-				@Override
-				public Object apply(PortletPreferences portletPreferences) {
-					return portletPreferences.getOwnerType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"ownerType",
 			new BiConsumer<PortletPreferences, Object>() {
@@ -431,16 +469,6 @@ public class PortletPreferencesModelImpl
 					Object ownerTypeObject) {
 
 					portletPreferences.setOwnerType((Integer)ownerTypeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"plid",
-			new Function<PortletPreferences, Object>() {
-
-				@Override
-				public Object apply(PortletPreferences portletPreferences) {
-					return portletPreferences.getPlid();
 				}
 
 			});
@@ -456,16 +484,6 @@ public class PortletPreferencesModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"portletId",
-			new Function<PortletPreferences, Object>() {
-
-				@Override
-				public Object apply(PortletPreferences portletPreferences) {
-					return portletPreferences.getPortletId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"portletId",
 			new BiConsumer<PortletPreferences, Object>() {
@@ -476,16 +494,6 @@ public class PortletPreferencesModelImpl
 					Object portletIdObject) {
 
 					portletPreferences.setPortletId((String)portletIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"preferences",
-			new Function<PortletPreferences, Object>() {
-
-				@Override
-				public Object apply(PortletPreferences portletPreferences) {
-					return portletPreferences.getPreferences();
 				}
 
 			});
@@ -504,8 +512,6 @@ public class PortletPreferencesModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

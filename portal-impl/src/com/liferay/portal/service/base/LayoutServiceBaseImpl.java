@@ -57,8 +57,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.ratings.kernel.service.persistence.RatingsStatsFinder;
 import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -1392,11 +1390,11 @@ public abstract class LayoutServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(layoutService);
+		LayoutServiceUtil.setService(layoutService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		LayoutServiceUtil.setService(null);
 	}
 
 	/**
@@ -1438,19 +1436,6 @@ public abstract class LayoutServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(LayoutService layoutService) {
-		try {
-			Field field = LayoutServiceUtil.class.getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, layoutService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

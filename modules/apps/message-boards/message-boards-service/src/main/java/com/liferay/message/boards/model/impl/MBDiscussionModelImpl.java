@@ -266,14 +266,10 @@ public class MBDiscussionModelImpl
 
 	private static final Map<String, Function<MBDiscussion, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MBDiscussion, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MBDiscussion, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<MBDiscussion, Object>>();
-		Map<String, BiConsumer<MBDiscussion, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MBDiscussion, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -285,6 +281,128 @@ public class MBDiscussionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"discussionId",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getDiscussionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"threadId",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getThreadId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<MBDiscussion, Object>() {
+
+				@Override
+				public Object apply(MBDiscussion mbDiscussion) {
+					return mbDiscussion.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MBDiscussion, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MBDiscussion, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MBDiscussion, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<MBDiscussion, Object>() {
@@ -294,16 +412,6 @@ public class MBDiscussionModelImpl
 					MBDiscussion mbDiscussion, Object uuidObject) {
 
 					mbDiscussion.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"discussionId",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getDiscussionId();
 				}
 
 			});
@@ -319,16 +427,6 @@ public class MBDiscussionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<MBDiscussion, Object>() {
@@ -338,16 +436,6 @@ public class MBDiscussionModelImpl
 					MBDiscussion mbDiscussion, Object groupIdObject) {
 
 					mbDiscussion.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getCompanyId();
 				}
 
 			});
@@ -363,16 +451,6 @@ public class MBDiscussionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<MBDiscussion, Object>() {
@@ -382,16 +460,6 @@ public class MBDiscussionModelImpl
 					MBDiscussion mbDiscussion, Object userIdObject) {
 
 					mbDiscussion.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getUserName();
 				}
 
 			});
@@ -407,16 +475,6 @@ public class MBDiscussionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<MBDiscussion, Object>() {
@@ -426,16 +484,6 @@ public class MBDiscussionModelImpl
 					MBDiscussion mbDiscussion, Object createDateObject) {
 
 					mbDiscussion.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getModifiedDate();
 				}
 
 			});
@@ -451,16 +499,6 @@ public class MBDiscussionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<MBDiscussion, Object>() {
@@ -470,16 +508,6 @@ public class MBDiscussionModelImpl
 					MBDiscussion mbDiscussion, Object classNameIdObject) {
 
 					mbDiscussion.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getClassPK();
 				}
 
 			});
@@ -495,16 +523,6 @@ public class MBDiscussionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"threadId",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getThreadId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"threadId",
 			new BiConsumer<MBDiscussion, Object>() {
@@ -514,16 +532,6 @@ public class MBDiscussionModelImpl
 					MBDiscussion mbDiscussion, Object threadIdObject) {
 
 					mbDiscussion.setThreadId((Long)threadIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<MBDiscussion, Object>() {
-
-				@Override
-				public Object apply(MBDiscussion mbDiscussion) {
-					return mbDiscussion.getLastPublishDate();
 				}
 
 			});
@@ -541,8 +549,6 @@ public class MBDiscussionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

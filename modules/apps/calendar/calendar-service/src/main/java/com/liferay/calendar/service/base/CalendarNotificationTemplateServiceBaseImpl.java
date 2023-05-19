@@ -39,8 +39,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -561,11 +559,12 @@ public abstract class CalendarNotificationTemplateServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(calendarNotificationTemplateService);
+		CalendarNotificationTemplateServiceUtil.setService(
+			calendarNotificationTemplateService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		CalendarNotificationTemplateServiceUtil.setService(null);
 	}
 
 	/**
@@ -608,24 +607,6 @@ public abstract class CalendarNotificationTemplateServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		CalendarNotificationTemplateService
-			calendarNotificationTemplateService) {
-
-		try {
-			Field field =
-				CalendarNotificationTemplateServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, calendarNotificationTemplateService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -221,14 +221,10 @@ public class CounterModelImpl
 
 	private static final Map<String, Function<Counter, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Counter, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Counter, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Counter, Object>>();
-		Map<String, BiConsumer<Counter, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Counter, ?>>();
 
 		attributeGetterFunctions.put(
 			"name",
@@ -240,16 +236,6 @@ public class CounterModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"name",
-			new BiConsumer<Counter, Object>() {
-
-				@Override
-				public void accept(Counter counter, Object nameObject) {
-					counter.setName((String)nameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"currentId",
 			new Function<Counter, Object>() {
@@ -257,6 +243,28 @@ public class CounterModelImpl
 				@Override
 				public Object apply(Counter counter) {
 					return counter.getCurrentId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Counter, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Counter, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Counter, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"name",
+			new BiConsumer<Counter, Object>() {
+
+				@Override
+				public void accept(Counter counter, Object nameObject) {
+					counter.setName((String)nameObject);
 				}
 
 			});
@@ -271,8 +279,6 @@ public class CounterModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

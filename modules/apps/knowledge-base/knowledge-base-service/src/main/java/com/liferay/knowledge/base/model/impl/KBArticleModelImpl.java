@@ -377,14 +377,10 @@ public class KBArticleModelImpl
 
 	private static final Map<String, Function<KBArticle, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KBArticle, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<KBArticle, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<KBArticle, Object>>();
-		Map<String, BiConsumer<KBArticle, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<KBArticle, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -396,16 +392,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<KBArticle, Object>() {
-
-				@Override
-				public void accept(KBArticle kbArticle, Object uuidObject) {
-					kbArticle.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"kbArticleId",
 			new Function<KBArticle, Object>() {
@@ -413,6 +399,298 @@ public class KBArticleModelImpl
 				@Override
 				public Object apply(KBArticle kbArticle) {
 					return kbArticle.getKbArticleId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"resourcePrimKey",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getResourcePrimKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"rootResourcePrimKey",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getRootResourcePrimKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentResourceClassNameId",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getParentResourceClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentResourcePrimKey",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getParentResourcePrimKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kbFolderId",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getKbFolderId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"version",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"urlTitle",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getUrlTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"content",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"priority",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getPriority();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sections",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getSections();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"viewCount",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getViewCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"latest",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getLatest();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"main",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getMain();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sourceURL",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getSourceURL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<KBArticle, Object>() {
+
+				@Override
+				public Object apply(KBArticle kbArticle) {
+					return kbArticle.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<KBArticle, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<KBArticle, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<KBArticle, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<KBArticle, Object>() {
+
+				@Override
+				public void accept(KBArticle kbArticle, Object uuidObject) {
+					kbArticle.setUuid((String)uuidObject);
 				}
 
 			});
@@ -428,16 +706,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"resourcePrimKey",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getResourcePrimKey();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"resourcePrimKey",
 			new BiConsumer<KBArticle, Object>() {
@@ -450,16 +718,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<KBArticle, Object>() {
@@ -467,16 +725,6 @@ public class KBArticleModelImpl
 				@Override
 				public void accept(KBArticle kbArticle, Object groupIdObject) {
 					kbArticle.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getCompanyId();
 				}
 
 			});
@@ -492,16 +740,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<KBArticle, Object>() {
@@ -512,16 +750,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<KBArticle, Object>() {
@@ -529,16 +757,6 @@ public class KBArticleModelImpl
 				@Override
 				public void accept(KBArticle kbArticle, Object userNameObject) {
 					kbArticle.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getCreateDate();
 				}
 
 			});
@@ -554,16 +772,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<KBArticle, Object>() {
@@ -573,16 +781,6 @@ public class KBArticleModelImpl
 					KBArticle kbArticle, Object modifiedDateObject) {
 
 					kbArticle.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"rootResourcePrimKey",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getRootResourcePrimKey();
 				}
 
 			});
@@ -596,16 +794,6 @@ public class KBArticleModelImpl
 
 					kbArticle.setRootResourcePrimKey(
 						(Long)rootResourcePrimKeyObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"parentResourceClassNameId",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getParentResourceClassNameId();
 				}
 
 			});
@@ -623,16 +811,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"parentResourcePrimKey",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getParentResourcePrimKey();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"parentResourcePrimKey",
 			new BiConsumer<KBArticle, Object>() {
@@ -643,16 +821,6 @@ public class KBArticleModelImpl
 
 					kbArticle.setParentResourcePrimKey(
 						(Long)parentResourcePrimKeyObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"kbFolderId",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getKbFolderId();
 				}
 
 			});
@@ -668,16 +836,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"version",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getVersion();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"version",
 			new BiConsumer<KBArticle, Object>() {
@@ -685,16 +843,6 @@ public class KBArticleModelImpl
 				@Override
 				public void accept(KBArticle kbArticle, Object versionObject) {
 					kbArticle.setVersion((Integer)versionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getTitle();
 				}
 
 			});
@@ -708,16 +856,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"urlTitle",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getUrlTitle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"urlTitle",
 			new BiConsumer<KBArticle, Object>() {
@@ -728,16 +866,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"content",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getContent();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"content",
 			new BiConsumer<KBArticle, Object>() {
@@ -745,16 +873,6 @@ public class KBArticleModelImpl
 				@Override
 				public void accept(KBArticle kbArticle, Object contentObject) {
 					kbArticle.setContent((String)contentObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getDescription();
 				}
 
 			});
@@ -770,16 +888,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"priority",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getPriority();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"priority",
 			new BiConsumer<KBArticle, Object>() {
@@ -790,16 +898,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"sections",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getSections();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"sections",
 			new BiConsumer<KBArticle, Object>() {
@@ -807,16 +905,6 @@ public class KBArticleModelImpl
 				@Override
 				public void accept(KBArticle kbArticle, Object sectionsObject) {
 					kbArticle.setSections((String)sectionsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"viewCount",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getViewCount();
 				}
 
 			});
@@ -832,16 +920,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"latest",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getLatest();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"latest",
 			new BiConsumer<KBArticle, Object>() {
@@ -852,16 +930,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"main",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getMain();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"main",
 			new BiConsumer<KBArticle, Object>() {
@@ -869,16 +937,6 @@ public class KBArticleModelImpl
 				@Override
 				public void accept(KBArticle kbArticle, Object mainObject) {
 					kbArticle.setMain((Boolean)mainObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"sourceURL",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getSourceURL();
 				}
 
 			});
@@ -894,16 +952,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getLastPublishDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastPublishDate",
 			new BiConsumer<KBArticle, Object>() {
@@ -913,16 +961,6 @@ public class KBArticleModelImpl
 					KBArticle kbArticle, Object lastPublishDateObject) {
 
 					kbArticle.setLastPublishDate((Date)lastPublishDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getStatus();
 				}
 
 			});
@@ -936,16 +974,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getStatusByUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserId",
 			new BiConsumer<KBArticle, Object>() {
@@ -955,16 +983,6 @@ public class KBArticleModelImpl
 					KBArticle kbArticle, Object statusByUserIdObject) {
 
 					kbArticle.setStatusByUserId((Long)statusByUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getStatusByUserName();
 				}
 
 			});
@@ -981,16 +999,6 @@ public class KBArticleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<KBArticle, Object>() {
-
-				@Override
-				public Object apply(KBArticle kbArticle) {
-					return kbArticle.getStatusDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusDate",
 			new BiConsumer<KBArticle, Object>() {
@@ -1004,8 +1012,6 @@ public class KBArticleModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

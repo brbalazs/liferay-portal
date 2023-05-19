@@ -49,8 +49,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -669,14 +667,15 @@ public abstract class OAuth2ScopeGrantLocalServiceBaseImpl
 			"com.liferay.oauth2.provider.model.OAuth2ScopeGrant",
 			oAuth2ScopeGrantLocalService);
 
-		_setLocalServiceUtilService(oAuth2ScopeGrantLocalService);
+		OAuth2ScopeGrantLocalServiceUtil.setService(
+			oAuth2ScopeGrantLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.oauth2.provider.model.OAuth2ScopeGrant");
 
-		_setLocalServiceUtilService(null);
+		OAuth2ScopeGrantLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -718,23 +717,6 @@ public abstract class OAuth2ScopeGrantLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		OAuth2ScopeGrantLocalService oAuth2ScopeGrantLocalService) {
-
-		try {
-			Field field =
-				OAuth2ScopeGrantLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, oAuth2ScopeGrantLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

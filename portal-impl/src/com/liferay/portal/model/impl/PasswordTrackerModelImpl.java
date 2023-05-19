@@ -245,15 +245,11 @@ public class PasswordTrackerModelImpl
 
 	private static final Map<String, Function<PasswordTracker, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PasswordTracker, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<PasswordTracker, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<PasswordTracker, Object>>();
-		Map<String, BiConsumer<PasswordTracker, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<PasswordTracker, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -265,6 +261,68 @@ public class PasswordTrackerModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"passwordTrackerId",
+			new Function<PasswordTracker, Object>() {
+
+				@Override
+				public Object apply(PasswordTracker passwordTracker) {
+					return passwordTracker.getPasswordTrackerId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<PasswordTracker, Object>() {
+
+				@Override
+				public Object apply(PasswordTracker passwordTracker) {
+					return passwordTracker.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<PasswordTracker, Object>() {
+
+				@Override
+				public Object apply(PasswordTracker passwordTracker) {
+					return passwordTracker.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<PasswordTracker, Object>() {
+
+				@Override
+				public Object apply(PasswordTracker passwordTracker) {
+					return passwordTracker.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"password",
+			new Function<PasswordTracker, Object>() {
+
+				@Override
+				public Object apply(PasswordTracker passwordTracker) {
+					return passwordTracker.getPassword();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<PasswordTracker, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<PasswordTracker, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<PasswordTracker, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<PasswordTracker, Object>() {
@@ -274,16 +332,6 @@ public class PasswordTrackerModelImpl
 					PasswordTracker passwordTracker, Object mvccVersionObject) {
 
 					passwordTracker.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"passwordTrackerId",
-			new Function<PasswordTracker, Object>() {
-
-				@Override
-				public Object apply(PasswordTracker passwordTracker) {
-					return passwordTracker.getPasswordTrackerId();
 				}
 
 			});
@@ -301,16 +349,6 @@ public class PasswordTrackerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<PasswordTracker, Object>() {
-
-				@Override
-				public Object apply(PasswordTracker passwordTracker) {
-					return passwordTracker.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<PasswordTracker, Object>() {
@@ -320,16 +358,6 @@ public class PasswordTrackerModelImpl
 					PasswordTracker passwordTracker, Object companyIdObject) {
 
 					passwordTracker.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<PasswordTracker, Object>() {
-
-				@Override
-				public Object apply(PasswordTracker passwordTracker) {
-					return passwordTracker.getUserId();
 				}
 
 			});
@@ -345,16 +373,6 @@ public class PasswordTrackerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<PasswordTracker, Object>() {
-
-				@Override
-				public Object apply(PasswordTracker passwordTracker) {
-					return passwordTracker.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<PasswordTracker, Object>() {
@@ -364,16 +382,6 @@ public class PasswordTrackerModelImpl
 					PasswordTracker passwordTracker, Object createDateObject) {
 
 					passwordTracker.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"password",
-			new Function<PasswordTracker, Object>() {
-
-				@Override
-				public Object apply(PasswordTracker passwordTracker) {
-					return passwordTracker.getPassword();
 				}
 
 			});
@@ -390,8 +398,6 @@ public class PasswordTrackerModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

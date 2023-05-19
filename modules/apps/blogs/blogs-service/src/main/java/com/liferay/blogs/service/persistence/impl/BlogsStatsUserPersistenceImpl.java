@@ -41,7 +41,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Timestamp;
@@ -3939,33 +3938,17 @@ public class BlogsStatsUserPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_L",
 			new String[] {Long.class.getName(), Date.class.getName()});
 
-		_setBlogsStatsUserUtilPersistence(this);
+		BlogsStatsUserUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setBlogsStatsUserUtilPersistence(null);
+		BlogsStatsUserUtil.setPersistence(null);
 
 		entityCache.removeCache(BlogsStatsUserImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setBlogsStatsUserUtilPersistence(
-		BlogsStatsUserPersistence blogsStatsUserPersistence) {
-
-		try {
-			Field field = BlogsStatsUserUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, blogsStatsUserPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

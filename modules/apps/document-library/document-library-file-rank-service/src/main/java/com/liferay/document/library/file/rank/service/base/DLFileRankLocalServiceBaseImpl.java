@@ -49,8 +49,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -480,14 +478,14 @@ public abstract class DLFileRankLocalServiceBaseImpl
 			"com.liferay.document.library.file.rank.model.DLFileRank",
 			dlFileRankLocalService);
 
-		_setLocalServiceUtilService(dlFileRankLocalService);
+		DLFileRankLocalServiceUtil.setService(dlFileRankLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.document.library.file.rank.model.DLFileRank");
 
-		_setLocalServiceUtilService(null);
+		DLFileRankLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -529,22 +527,6 @@ public abstract class DLFileRankLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DLFileRankLocalService dlFileRankLocalService) {
-
-		try {
-			Field field = DLFileRankLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, dlFileRankLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

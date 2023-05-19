@@ -250,14 +250,10 @@ public class AssetLinkModelImpl
 
 	private static final Map<String, Function<AssetLink, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AssetLink, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AssetLink, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<AssetLink, Object>>();
-		Map<String, BiConsumer<AssetLink, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<AssetLink, ?>>();
 
 		attributeGetterFunctions.put(
 			"linkId",
@@ -269,16 +265,6 @@ public class AssetLinkModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"linkId",
-			new BiConsumer<AssetLink, Object>() {
-
-				@Override
-				public void accept(AssetLink assetLink, Object linkIdObject) {
-					assetLink.setLinkId((Long)linkIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<AssetLink, Object>() {
@@ -286,6 +272,98 @@ public class AssetLinkModelImpl
 				@Override
 				public Object apply(AssetLink assetLink) {
 					return assetLink.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<AssetLink, Object>() {
+
+				@Override
+				public Object apply(AssetLink assetLink) {
+					return assetLink.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<AssetLink, Object>() {
+
+				@Override
+				public Object apply(AssetLink assetLink) {
+					return assetLink.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<AssetLink, Object>() {
+
+				@Override
+				public Object apply(AssetLink assetLink) {
+					return assetLink.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"entryId1",
+			new Function<AssetLink, Object>() {
+
+				@Override
+				public Object apply(AssetLink assetLink) {
+					return assetLink.getEntryId1();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"entryId2",
+			new Function<AssetLink, Object>() {
+
+				@Override
+				public Object apply(AssetLink assetLink) {
+					return assetLink.getEntryId2();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<AssetLink, Object>() {
+
+				@Override
+				public Object apply(AssetLink assetLink) {
+					return assetLink.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"weight",
+			new Function<AssetLink, Object>() {
+
+				@Override
+				public Object apply(AssetLink assetLink) {
+					return assetLink.getWeight();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AssetLink, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AssetLink, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<AssetLink, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"linkId",
+			new BiConsumer<AssetLink, Object>() {
+
+				@Override
+				public void accept(AssetLink assetLink, Object linkIdObject) {
+					assetLink.setLinkId((Long)linkIdObject);
 				}
 
 			});
@@ -301,16 +379,6 @@ public class AssetLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<AssetLink, Object>() {
-
-				@Override
-				public Object apply(AssetLink assetLink) {
-					return assetLink.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<AssetLink, Object>() {
@@ -321,16 +389,6 @@ public class AssetLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<AssetLink, Object>() {
-
-				@Override
-				public Object apply(AssetLink assetLink) {
-					return assetLink.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<AssetLink, Object>() {
@@ -338,16 +396,6 @@ public class AssetLinkModelImpl
 				@Override
 				public void accept(AssetLink assetLink, Object userNameObject) {
 					assetLink.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<AssetLink, Object>() {
-
-				@Override
-				public Object apply(AssetLink assetLink) {
-					return assetLink.getCreateDate();
 				}
 
 			});
@@ -363,16 +411,6 @@ public class AssetLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"entryId1",
-			new Function<AssetLink, Object>() {
-
-				@Override
-				public Object apply(AssetLink assetLink) {
-					return assetLink.getEntryId1();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"entryId1",
 			new BiConsumer<AssetLink, Object>() {
@@ -380,16 +418,6 @@ public class AssetLinkModelImpl
 				@Override
 				public void accept(AssetLink assetLink, Object entryId1Object) {
 					assetLink.setEntryId1((Long)entryId1Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"entryId2",
-			new Function<AssetLink, Object>() {
-
-				@Override
-				public Object apply(AssetLink assetLink) {
-					return assetLink.getEntryId2();
 				}
 
 			});
@@ -403,16 +431,6 @@ public class AssetLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<AssetLink, Object>() {
-
-				@Override
-				public Object apply(AssetLink assetLink) {
-					return assetLink.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<AssetLink, Object>() {
@@ -420,16 +438,6 @@ public class AssetLinkModelImpl
 				@Override
 				public void accept(AssetLink assetLink, Object typeObject) {
 					assetLink.setType((Integer)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"weight",
-			new Function<AssetLink, Object>() {
-
-				@Override
-				public Object apply(AssetLink assetLink) {
-					return assetLink.getWeight();
 				}
 
 			});
@@ -444,8 +452,6 @@ public class AssetLinkModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

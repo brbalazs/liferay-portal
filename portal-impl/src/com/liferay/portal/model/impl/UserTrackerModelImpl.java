@@ -253,14 +253,10 @@ public class UserTrackerModelImpl
 
 	private static final Map<String, Function<UserTracker, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<UserTracker, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<UserTracker, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<UserTracker, Object>>();
-		Map<String, BiConsumer<UserTracker, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<UserTracker, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -272,6 +268,98 @@ public class UserTrackerModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"userTrackerId",
+			new Function<UserTracker, Object>() {
+
+				@Override
+				public Object apply(UserTracker userTracker) {
+					return userTracker.getUserTrackerId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<UserTracker, Object>() {
+
+				@Override
+				public Object apply(UserTracker userTracker) {
+					return userTracker.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<UserTracker, Object>() {
+
+				@Override
+				public Object apply(UserTracker userTracker) {
+					return userTracker.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<UserTracker, Object>() {
+
+				@Override
+				public Object apply(UserTracker userTracker) {
+					return userTracker.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sessionId",
+			new Function<UserTracker, Object>() {
+
+				@Override
+				public Object apply(UserTracker userTracker) {
+					return userTracker.getSessionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"remoteAddr",
+			new Function<UserTracker, Object>() {
+
+				@Override
+				public Object apply(UserTracker userTracker) {
+					return userTracker.getRemoteAddr();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"remoteHost",
+			new Function<UserTracker, Object>() {
+
+				@Override
+				public Object apply(UserTracker userTracker) {
+					return userTracker.getRemoteHost();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userAgent",
+			new Function<UserTracker, Object>() {
+
+				@Override
+				public Object apply(UserTracker userTracker) {
+					return userTracker.getUserAgent();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<UserTracker, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<UserTracker, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<UserTracker, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<UserTracker, Object>() {
@@ -281,16 +369,6 @@ public class UserTrackerModelImpl
 					UserTracker userTracker, Object mvccVersionObject) {
 
 					userTracker.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userTrackerId",
-			new Function<UserTracker, Object>() {
-
-				@Override
-				public Object apply(UserTracker userTracker) {
-					return userTracker.getUserTrackerId();
 				}
 
 			});
@@ -306,16 +384,6 @@ public class UserTrackerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<UserTracker, Object>() {
-
-				@Override
-				public Object apply(UserTracker userTracker) {
-					return userTracker.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<UserTracker, Object>() {
@@ -325,16 +393,6 @@ public class UserTrackerModelImpl
 					UserTracker userTracker, Object companyIdObject) {
 
 					userTracker.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<UserTracker, Object>() {
-
-				@Override
-				public Object apply(UserTracker userTracker) {
-					return userTracker.getUserId();
 				}
 
 			});
@@ -350,16 +408,6 @@ public class UserTrackerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<UserTracker, Object>() {
-
-				@Override
-				public Object apply(UserTracker userTracker) {
-					return userTracker.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<UserTracker, Object>() {
@@ -369,16 +417,6 @@ public class UserTrackerModelImpl
 					UserTracker userTracker, Object modifiedDateObject) {
 
 					userTracker.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"sessionId",
-			new Function<UserTracker, Object>() {
-
-				@Override
-				public Object apply(UserTracker userTracker) {
-					return userTracker.getSessionId();
 				}
 
 			});
@@ -394,16 +432,6 @@ public class UserTrackerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"remoteAddr",
-			new Function<UserTracker, Object>() {
-
-				@Override
-				public Object apply(UserTracker userTracker) {
-					return userTracker.getRemoteAddr();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"remoteAddr",
 			new BiConsumer<UserTracker, Object>() {
@@ -416,16 +444,6 @@ public class UserTrackerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"remoteHost",
-			new Function<UserTracker, Object>() {
-
-				@Override
-				public Object apply(UserTracker userTracker) {
-					return userTracker.getRemoteHost();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"remoteHost",
 			new BiConsumer<UserTracker, Object>() {
@@ -435,16 +453,6 @@ public class UserTrackerModelImpl
 					UserTracker userTracker, Object remoteHostObject) {
 
 					userTracker.setRemoteHost((String)remoteHostObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userAgent",
-			new Function<UserTracker, Object>() {
-
-				@Override
-				public Object apply(UserTracker userTracker) {
-					return userTracker.getUserAgent();
 				}
 
 			});
@@ -461,8 +469,6 @@ public class UserTrackerModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -325,15 +325,11 @@ public class MicroblogsEntryModelImpl
 
 	private static final Map<String, Function<MicroblogsEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MicroblogsEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MicroblogsEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<MicroblogsEntry, Object>>();
-		Map<String, BiConsumer<MicroblogsEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MicroblogsEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"microblogsEntryId",
@@ -345,6 +341,128 @@ public class MicroblogsEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"creatorClassNameId",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getCreatorClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"creatorClassPK",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getCreatorClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"content",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentMicroblogsEntryId",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getParentMicroblogsEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"socialRelationType",
+			new Function<MicroblogsEntry, Object>() {
+
+				@Override
+				public Object apply(MicroblogsEntry microblogsEntry) {
+					return microblogsEntry.getSocialRelationType();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MicroblogsEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MicroblogsEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MicroblogsEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"microblogsEntryId",
 			new BiConsumer<MicroblogsEntry, Object>() {
@@ -356,16 +474,6 @@ public class MicroblogsEntryModelImpl
 
 					microblogsEntry.setMicroblogsEntryId(
 						(Long)microblogsEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getCompanyId();
 				}
 
 			});
@@ -381,16 +489,6 @@ public class MicroblogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<MicroblogsEntry, Object>() {
@@ -400,16 +498,6 @@ public class MicroblogsEntryModelImpl
 					MicroblogsEntry microblogsEntry, Object userIdObject) {
 
 					microblogsEntry.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getUserName();
 				}
 
 			});
@@ -425,16 +513,6 @@ public class MicroblogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<MicroblogsEntry, Object>() {
@@ -444,16 +522,6 @@ public class MicroblogsEntryModelImpl
 					MicroblogsEntry microblogsEntry, Object createDateObject) {
 
 					microblogsEntry.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getModifiedDate();
 				}
 
 			});
@@ -467,16 +535,6 @@ public class MicroblogsEntryModelImpl
 					Object modifiedDateObject) {
 
 					microblogsEntry.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"creatorClassNameId",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getCreatorClassNameId();
 				}
 
 			});
@@ -494,16 +552,6 @@ public class MicroblogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"creatorClassPK",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getCreatorClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"creatorClassPK",
 			new BiConsumer<MicroblogsEntry, Object>() {
@@ -515,16 +563,6 @@ public class MicroblogsEntryModelImpl
 
 					microblogsEntry.setCreatorClassPK(
 						(Long)creatorClassPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"content",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getContent();
 				}
 
 			});
@@ -540,16 +578,6 @@ public class MicroblogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<MicroblogsEntry, Object>() {
@@ -559,16 +587,6 @@ public class MicroblogsEntryModelImpl
 					MicroblogsEntry microblogsEntry, Object typeObject) {
 
 					microblogsEntry.setType((Integer)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"parentMicroblogsEntryId",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getParentMicroblogsEntryId();
 				}
 
 			});
@@ -583,16 +601,6 @@ public class MicroblogsEntryModelImpl
 
 					microblogsEntry.setParentMicroblogsEntryId(
 						(Long)parentMicroblogsEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"socialRelationType",
-			new Function<MicroblogsEntry, Object>() {
-
-				@Override
-				public Object apply(MicroblogsEntry microblogsEntry) {
-					return microblogsEntry.getSocialRelationType();
 				}
 
 			});
@@ -611,8 +619,6 @@ public class MicroblogsEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

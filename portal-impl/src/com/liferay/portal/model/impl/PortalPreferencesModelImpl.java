@@ -242,17 +242,12 @@ public class PortalPreferencesModelImpl
 
 	private static final Map<String, Function<PortalPreferences, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PortalPreferences, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<PortalPreferences, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<PortalPreferences, Object>>();
-		Map<String, BiConsumer<PortalPreferences, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<PortalPreferences, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -264,6 +259,59 @@ public class PortalPreferencesModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"portalPreferencesId",
+			new Function<PortalPreferences, Object>() {
+
+				@Override
+				public Object apply(PortalPreferences portalPreferences) {
+					return portalPreferences.getPortalPreferencesId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ownerId",
+			new Function<PortalPreferences, Object>() {
+
+				@Override
+				public Object apply(PortalPreferences portalPreferences) {
+					return portalPreferences.getOwnerId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ownerType",
+			new Function<PortalPreferences, Object>() {
+
+				@Override
+				public Object apply(PortalPreferences portalPreferences) {
+					return portalPreferences.getOwnerType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"preferences",
+			new Function<PortalPreferences, Object>() {
+
+				@Override
+				public Object apply(PortalPreferences portalPreferences) {
+					return portalPreferences.getPreferences();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<PortalPreferences, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<PortalPreferences, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<PortalPreferences, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<PortalPreferences, Object>() {
@@ -274,16 +322,6 @@ public class PortalPreferencesModelImpl
 					Object mvccVersionObject) {
 
 					portalPreferences.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"portalPreferencesId",
-			new Function<PortalPreferences, Object>() {
-
-				@Override
-				public Object apply(PortalPreferences portalPreferences) {
-					return portalPreferences.getPortalPreferencesId();
 				}
 
 			});
@@ -301,16 +339,6 @@ public class PortalPreferencesModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"ownerId",
-			new Function<PortalPreferences, Object>() {
-
-				@Override
-				public Object apply(PortalPreferences portalPreferences) {
-					return portalPreferences.getOwnerId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"ownerId",
 			new BiConsumer<PortalPreferences, Object>() {
@@ -320,16 +348,6 @@ public class PortalPreferencesModelImpl
 					PortalPreferences portalPreferences, Object ownerIdObject) {
 
 					portalPreferences.setOwnerId((Long)ownerIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"ownerType",
-			new Function<PortalPreferences, Object>() {
-
-				@Override
-				public Object apply(PortalPreferences portalPreferences) {
-					return portalPreferences.getOwnerType();
 				}
 
 			});
@@ -343,16 +361,6 @@ public class PortalPreferencesModelImpl
 					Object ownerTypeObject) {
 
 					portalPreferences.setOwnerType((Integer)ownerTypeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"preferences",
-			new Function<PortalPreferences, Object>() {
-
-				@Override
-				public Object apply(PortalPreferences portalPreferences) {
-					return portalPreferences.getPreferences();
 				}
 
 			});
@@ -370,8 +378,6 @@ public class PortalPreferencesModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

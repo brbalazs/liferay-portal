@@ -362,14 +362,10 @@ public class SyncDLObjectModelImpl
 
 	private static final Map<String, Function<SyncDLObject, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SyncDLObject, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SyncDLObject, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<SyncDLObject, Object>>();
-		Map<String, BiConsumer<SyncDLObject, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<SyncDLObject, ?>>();
 
 		attributeGetterFunctions.put(
 			"syncDLObjectId",
@@ -381,6 +377,288 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createTime",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getCreateTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedTime",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getModifiedTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"repositoryId",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getRepositoryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentFolderId",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getParentFolderId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"treePath",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getTreePath();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"extension",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getExtension();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"mimeType",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getMimeType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"changeLog",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getChangeLog();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"extraSettings",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getExtraSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"version",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"versionId",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"size",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getSize();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"checksum",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getChecksum();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"event",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getEvent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lanTokenKey",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getLanTokenKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPermissionChangeDate",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getLastPermissionChangeDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lockExpirationDate",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getLockExpirationDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lockUserId",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getLockUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lockUserName",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getLockUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typePK",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getTypePK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typeUuid",
+			new Function<SyncDLObject, Object>() {
+
+				@Override
+				public Object apply(SyncDLObject syncDLObject) {
+					return syncDLObject.getTypeUuid();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SyncDLObject, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SyncDLObject, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<SyncDLObject, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"syncDLObjectId",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -390,16 +668,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object syncDLObjectIdObject) {
 
 					syncDLObject.setSyncDLObjectId((Long)syncDLObjectIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getCompanyId();
 				}
 
 			});
@@ -415,16 +683,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -434,16 +692,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object userIdObject) {
 
 					syncDLObject.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getUserName();
 				}
 
 			});
@@ -459,16 +707,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createTime",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getCreateTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createTime",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -478,16 +716,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object createTimeObject) {
 
 					syncDLObject.setCreateTime((Long)createTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedTime",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getModifiedTime();
 				}
 
 			});
@@ -503,16 +731,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"repositoryId",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getRepositoryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"repositoryId",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -522,16 +740,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object repositoryIdObject) {
 
 					syncDLObject.setRepositoryId((Long)repositoryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"parentFolderId",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getParentFolderId();
 				}
 
 			});
@@ -547,16 +755,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"treePath",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getTreePath();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"treePath",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -566,16 +764,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object treePathObject) {
 
 					syncDLObject.setTreePath((String)treePathObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getName();
 				}
 
 			});
@@ -591,16 +779,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"extension",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getExtension();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"extension",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -610,16 +788,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object extensionObject) {
 
 					syncDLObject.setExtension((String)extensionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"mimeType",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getMimeType();
 				}
 
 			});
@@ -635,16 +803,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -654,16 +812,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object descriptionObject) {
 
 					syncDLObject.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"changeLog",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getChangeLog();
 				}
 
 			});
@@ -679,16 +827,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"extraSettings",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getExtraSettings();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"extraSettings",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -698,16 +836,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object extraSettingsObject) {
 
 					syncDLObject.setExtraSettings((String)extraSettingsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"version",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getVersion();
 				}
 
 			});
@@ -723,16 +851,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"versionId",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getVersionId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"versionId",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -742,16 +860,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object versionIdObject) {
 
 					syncDLObject.setVersionId((Long)versionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"size",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getSize();
 				}
 
 			});
@@ -767,16 +875,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"checksum",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getChecksum();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"checksum",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -786,16 +884,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object checksumObject) {
 
 					syncDLObject.setChecksum((String)checksumObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"event",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getEvent();
 				}
 
 			});
@@ -811,16 +899,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lanTokenKey",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getLanTokenKey();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lanTokenKey",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -830,16 +908,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object lanTokenKeyObject) {
 
 					syncDLObject.setLanTokenKey((String)lanTokenKeyObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPermissionChangeDate",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getLastPermissionChangeDate();
 				}
 
 			});
@@ -857,16 +925,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lockExpirationDate",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getLockExpirationDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lockExpirationDate",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -878,16 +936,6 @@ public class SyncDLObjectModelImpl
 
 					syncDLObject.setLockExpirationDate(
 						(Date)lockExpirationDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lockUserId",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getLockUserId();
 				}
 
 			});
@@ -903,16 +951,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lockUserName",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getLockUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lockUserName",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -922,16 +960,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object lockUserNameObject) {
 
 					syncDLObject.setLockUserName((String)lockUserNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getType();
 				}
 
 			});
@@ -947,16 +975,6 @@ public class SyncDLObjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"typePK",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getTypePK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"typePK",
 			new BiConsumer<SyncDLObject, Object>() {
@@ -966,16 +984,6 @@ public class SyncDLObjectModelImpl
 					SyncDLObject syncDLObject, Object typePKObject) {
 
 					syncDLObject.setTypePK((Long)typePKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"typeUuid",
-			new Function<SyncDLObject, Object>() {
-
-				@Override
-				public Object apply(SyncDLObject syncDLObject) {
-					return syncDLObject.getTypeUuid();
 				}
 
 			});
@@ -992,8 +1000,6 @@ public class SyncDLObjectModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

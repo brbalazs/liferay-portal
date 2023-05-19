@@ -244,18 +244,12 @@ public class FinderWhereClauseEntryModelImpl
 
 	private static final Map<String, Function<FinderWhereClauseEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<FinderWhereClauseEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<FinderWhereClauseEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<FinderWhereClauseEntry, Object>>();
-		Map<String, BiConsumer<FinderWhereClauseEntry, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<FinderWhereClauseEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"finderWhereClauseEntryId",
@@ -266,20 +260,6 @@ public class FinderWhereClauseEntryModelImpl
 					FinderWhereClauseEntry finderWhereClauseEntry) {
 
 					return finderWhereClauseEntry.getFinderWhereClauseEntryId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"finderWhereClauseEntryId",
-			new BiConsumer<FinderWhereClauseEntry, Object>() {
-
-				@Override
-				public void accept(
-					FinderWhereClauseEntry finderWhereClauseEntry,
-					Object finderWhereClauseEntryIdObject) {
-
-					finderWhereClauseEntry.setFinderWhereClauseEntryId(
-						(Long)finderWhereClauseEntryIdObject);
 				}
 
 			});
@@ -295,6 +275,46 @@ public class FinderWhereClauseEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"nickname",
+			new Function<FinderWhereClauseEntry, Object>() {
+
+				@Override
+				public Object apply(
+					FinderWhereClauseEntry finderWhereClauseEntry) {
+
+					return finderWhereClauseEntry.getNickname();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<FinderWhereClauseEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<FinderWhereClauseEntry, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<FinderWhereClauseEntry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"finderWhereClauseEntryId",
+			new BiConsumer<FinderWhereClauseEntry, Object>() {
+
+				@Override
+				public void accept(
+					FinderWhereClauseEntry finderWhereClauseEntry,
+					Object finderWhereClauseEntryIdObject) {
+
+					finderWhereClauseEntry.setFinderWhereClauseEntryId(
+						(Long)finderWhereClauseEntryIdObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<FinderWhereClauseEntry, Object>() {
@@ -305,18 +325,6 @@ public class FinderWhereClauseEntryModelImpl
 					Object nameObject) {
 
 					finderWhereClauseEntry.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"nickname",
-			new Function<FinderWhereClauseEntry, Object>() {
-
-				@Override
-				public Object apply(
-					FinderWhereClauseEntry finderWhereClauseEntry) {
-
-					return finderWhereClauseEntry.getNickname();
 				}
 
 			});
@@ -334,8 +342,6 @@ public class FinderWhereClauseEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

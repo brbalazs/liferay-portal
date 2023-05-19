@@ -277,14 +277,10 @@ public class FaroProjectModelImpl
 
 	private static final Map<String, Function<FaroProject, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<FaroProject, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<FaroProject, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<FaroProject, Object>>();
-		Map<String, BiConsumer<FaroProject, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<FaroProject, ?>>();
 
 		attributeGetterFunctions.put(
 			"faroProjectId",
@@ -296,6 +292,218 @@ public class FaroProjectModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createTime",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getCreateTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedTime",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getModifiedTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accountKey",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getAccountKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accountName",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getAccountName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"corpProjectName",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getCorpProjectName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"corpProjectUuid",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getCorpProjectUuid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ipAddresses",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getIpAddresses();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"incidentReportEmailAddresses",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getIncidentReportEmailAddresses();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastAccessTime",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getLastAccessTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"recommendationsEnabled",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getRecommendationsEnabled();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"serverLocation",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getServerLocation();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"services",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getServices();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"state",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getState();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"subscription",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getSubscription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"timeZoneId",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getTimeZoneId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"weDeployKey",
+			new Function<FaroProject, Object>() {
+
+				@Override
+				public Object apply(FaroProject faroProject) {
+					return faroProject.getWeDeployKey();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<FaroProject, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<FaroProject, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<FaroProject, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"faroProjectId",
 			new BiConsumer<FaroProject, Object>() {
@@ -305,16 +513,6 @@ public class FaroProjectModelImpl
 					FaroProject faroProject, Object faroProjectIdObject) {
 
 					faroProject.setFaroProjectId((Long)faroProjectIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getGroupId();
 				}
 
 			});
@@ -330,16 +528,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<FaroProject, Object>() {
@@ -349,16 +537,6 @@ public class FaroProjectModelImpl
 					FaroProject faroProject, Object userIdObject) {
 
 					faroProject.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getUserName();
 				}
 
 			});
@@ -374,16 +552,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createTime",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getCreateTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createTime",
 			new BiConsumer<FaroProject, Object>() {
@@ -393,16 +561,6 @@ public class FaroProjectModelImpl
 					FaroProject faroProject, Object createTimeObject) {
 
 					faroProject.setCreateTime((Long)createTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedTime",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getModifiedTime();
 				}
 
 			});
@@ -418,16 +576,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<FaroProject, Object>() {
@@ -435,16 +583,6 @@ public class FaroProjectModelImpl
 				@Override
 				public void accept(FaroProject faroProject, Object nameObject) {
 					faroProject.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"accountKey",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getAccountKey();
 				}
 
 			});
@@ -460,16 +598,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"accountName",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getAccountName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"accountName",
 			new BiConsumer<FaroProject, Object>() {
@@ -479,16 +607,6 @@ public class FaroProjectModelImpl
 					FaroProject faroProject, Object accountNameObject) {
 
 					faroProject.setAccountName((String)accountNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"corpProjectName",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getCorpProjectName();
 				}
 
 			});
@@ -505,16 +623,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"corpProjectUuid",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getCorpProjectUuid();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"corpProjectUuid",
 			new BiConsumer<FaroProject, Object>() {
@@ -528,16 +636,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"ipAddresses",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getIpAddresses();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"ipAddresses",
 			new BiConsumer<FaroProject, Object>() {
@@ -547,16 +645,6 @@ public class FaroProjectModelImpl
 					FaroProject faroProject, Object ipAddressesObject) {
 
 					faroProject.setIpAddresses((String)ipAddressesObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"incidentReportEmailAddresses",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getIncidentReportEmailAddresses();
 				}
 
 			});
@@ -574,16 +662,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastAccessTime",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getLastAccessTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastAccessTime",
 			new BiConsumer<FaroProject, Object>() {
@@ -593,16 +671,6 @@ public class FaroProjectModelImpl
 					FaroProject faroProject, Object lastAccessTimeObject) {
 
 					faroProject.setLastAccessTime((Long)lastAccessTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"recommendationsEnabled",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getRecommendationsEnabled();
 				}
 
 			});
@@ -620,16 +688,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"serverLocation",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getServerLocation();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"serverLocation",
 			new BiConsumer<FaroProject, Object>() {
@@ -639,16 +697,6 @@ public class FaroProjectModelImpl
 					FaroProject faroProject, Object serverLocationObject) {
 
 					faroProject.setServerLocation((String)serverLocationObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"services",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getServices();
 				}
 
 			});
@@ -664,16 +712,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"state",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getState();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"state",
 			new BiConsumer<FaroProject, Object>() {
@@ -683,16 +721,6 @@ public class FaroProjectModelImpl
 					FaroProject faroProject, Object stateObject) {
 
 					faroProject.setState((String)stateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"subscription",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getSubscription();
 				}
 
 			});
@@ -708,16 +736,6 @@ public class FaroProjectModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"timeZoneId",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getTimeZoneId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"timeZoneId",
 			new BiConsumer<FaroProject, Object>() {
@@ -727,16 +745,6 @@ public class FaroProjectModelImpl
 					FaroProject faroProject, Object timeZoneIdObject) {
 
 					faroProject.setTimeZoneId((String)timeZoneIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"weDeployKey",
-			new Function<FaroProject, Object>() {
-
-				@Override
-				public Object apply(FaroProject faroProject) {
-					return faroProject.getWeDeployKey();
 				}
 
 			});
@@ -753,8 +761,6 @@ public class FaroProjectModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

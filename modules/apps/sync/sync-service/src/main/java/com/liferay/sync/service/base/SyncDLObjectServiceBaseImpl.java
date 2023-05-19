@@ -43,8 +43,6 @@ import com.liferay.sync.service.persistence.SyncDLObjectFinder;
 import com.liferay.sync.service.persistence.SyncDLObjectPersistence;
 import com.liferay.sync.service.persistence.SyncDevicePersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -977,11 +975,11 @@ public abstract class SyncDLObjectServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(syncDLObjectService);
+		SyncDLObjectServiceUtil.setService(syncDLObjectService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		SyncDLObjectServiceUtil.setService(null);
 	}
 
 	/**
@@ -1023,22 +1021,6 @@ public abstract class SyncDLObjectServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		SyncDLObjectService syncDLObjectService) {
-
-		try {
-			Field field = SyncDLObjectServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, syncDLObjectService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -47,8 +47,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -485,14 +483,14 @@ public abstract class AMImageEntryLocalServiceBaseImpl
 			"com.liferay.adaptive.media.image.model.AMImageEntry",
 			amImageEntryLocalService);
 
-		_setLocalServiceUtilService(amImageEntryLocalService);
+		AMImageEntryLocalServiceUtil.setService(amImageEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.adaptive.media.image.model.AMImageEntry");
 
-		_setLocalServiceUtilService(null);
+		AMImageEntryLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -534,22 +532,6 @@ public abstract class AMImageEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		AMImageEntryLocalService amImageEntryLocalService) {
-
-		try {
-			Field field = AMImageEntryLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, amImageEntryLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

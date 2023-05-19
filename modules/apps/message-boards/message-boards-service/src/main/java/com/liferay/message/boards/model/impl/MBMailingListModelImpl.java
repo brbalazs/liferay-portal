@@ -284,14 +284,10 @@ public class MBMailingListModelImpl
 
 	private static final Map<String, Function<MBMailingList, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MBMailingList, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MBMailingList, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<MBMailingList, Object>>();
-		Map<String, BiConsumer<MBMailingList, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MBMailingList, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -303,6 +299,268 @@ public class MBMailingListModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"mailingListId",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getMailingListId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"categoryId",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getCategoryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"emailAddress",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getEmailAddress();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"inProtocol",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getInProtocol();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"inServerName",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getInServerName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"inServerPort",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getInServerPort();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"inUseSSL",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getInUseSSL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"inUserName",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getInUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"inPassword",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getInPassword();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"inReadInterval",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getInReadInterval();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"outEmailAddress",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getOutEmailAddress();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"outCustom",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getOutCustom();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"outServerName",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getOutServerName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"outServerPort",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getOutServerPort();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"outUseSSL",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getOutUseSSL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"outUserName",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getOutUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"outPassword",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getOutPassword();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"allowAnonymous",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getAllowAnonymous();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"active",
+			new Function<MBMailingList, Object>() {
+
+				@Override
+				public Object apply(MBMailingList mbMailingList) {
+					return mbMailingList.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MBMailingList, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MBMailingList, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MBMailingList, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<MBMailingList, Object>() {
@@ -312,16 +570,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object uuidObject) {
 
 					mbMailingList.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"mailingListId",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getMailingListId();
 				}
 
 			});
@@ -337,16 +585,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<MBMailingList, Object>() {
@@ -356,16 +594,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object groupIdObject) {
 
 					mbMailingList.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getCompanyId();
 				}
 
 			});
@@ -381,16 +609,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<MBMailingList, Object>() {
@@ -400,16 +618,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object userIdObject) {
 
 					mbMailingList.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getUserName();
 				}
 
 			});
@@ -425,16 +633,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<MBMailingList, Object>() {
@@ -444,16 +642,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object createDateObject) {
 
 					mbMailingList.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getModifiedDate();
 				}
 
 			});
@@ -469,16 +657,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"categoryId",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getCategoryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"categoryId",
 			new BiConsumer<MBMailingList, Object>() {
@@ -488,16 +666,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object categoryIdObject) {
 
 					mbMailingList.setCategoryId((Long)categoryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"emailAddress",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getEmailAddress();
 				}
 
 			});
@@ -513,16 +681,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"inProtocol",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getInProtocol();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"inProtocol",
 			new BiConsumer<MBMailingList, Object>() {
@@ -532,16 +690,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object inProtocolObject) {
 
 					mbMailingList.setInProtocol((String)inProtocolObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"inServerName",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getInServerName();
 				}
 
 			});
@@ -557,16 +705,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"inServerPort",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getInServerPort();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"inServerPort",
 			new BiConsumer<MBMailingList, Object>() {
@@ -576,16 +714,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object inServerPortObject) {
 
 					mbMailingList.setInServerPort((Integer)inServerPortObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"inUseSSL",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getInUseSSL();
 				}
 
 			});
@@ -601,16 +729,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"inUserName",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getInUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"inUserName",
 			new BiConsumer<MBMailingList, Object>() {
@@ -623,16 +741,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"inPassword",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getInPassword();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"inPassword",
 			new BiConsumer<MBMailingList, Object>() {
@@ -642,16 +750,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object inPasswordObject) {
 
 					mbMailingList.setInPassword((String)inPasswordObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"inReadInterval",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getInReadInterval();
 				}
 
 			});
@@ -668,16 +766,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"outEmailAddress",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getOutEmailAddress();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"outEmailAddress",
 			new BiConsumer<MBMailingList, Object>() {
@@ -688,16 +776,6 @@ public class MBMailingListModelImpl
 
 					mbMailingList.setOutEmailAddress(
 						(String)outEmailAddressObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"outCustom",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getOutCustom();
 				}
 
 			});
@@ -713,16 +791,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"outServerName",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getOutServerName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"outServerName",
 			new BiConsumer<MBMailingList, Object>() {
@@ -732,16 +800,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object outServerNameObject) {
 
 					mbMailingList.setOutServerName((String)outServerNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"outServerPort",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getOutServerPort();
 				}
 
 			});
@@ -758,16 +816,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"outUseSSL",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getOutUseSSL();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"outUseSSL",
 			new BiConsumer<MBMailingList, Object>() {
@@ -777,16 +825,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object outUseSSLObject) {
 
 					mbMailingList.setOutUseSSL((Boolean)outUseSSLObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"outUserName",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getOutUserName();
 				}
 
 			});
@@ -802,16 +840,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"outPassword",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getOutPassword();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"outPassword",
 			new BiConsumer<MBMailingList, Object>() {
@@ -821,16 +849,6 @@ public class MBMailingListModelImpl
 					MBMailingList mbMailingList, Object outPasswordObject) {
 
 					mbMailingList.setOutPassword((String)outPasswordObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"allowAnonymous",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getAllowAnonymous();
 				}
 
 			});
@@ -847,16 +865,6 @@ public class MBMailingListModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"active",
-			new Function<MBMailingList, Object>() {
-
-				@Override
-				public Object apply(MBMailingList mbMailingList) {
-					return mbMailingList.getActive();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"active",
 			new BiConsumer<MBMailingList, Object>() {
@@ -870,8 +878,6 @@ public class MBMailingListModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

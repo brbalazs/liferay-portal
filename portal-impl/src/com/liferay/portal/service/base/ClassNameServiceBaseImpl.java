@@ -31,8 +31,6 @@ import com.liferay.portal.kernel.service.ClassNameServiceUtil;
 import com.liferay.portal.kernel.service.persistence.ClassNamePersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -159,11 +157,11 @@ public abstract class ClassNameServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(classNameService);
+		ClassNameServiceUtil.setService(classNameService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		ClassNameServiceUtil.setService(null);
 	}
 
 	/**
@@ -205,20 +203,6 @@ public abstract class ClassNameServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(ClassNameService classNameService) {
-		try {
-			Field field = ClassNameServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, classNameService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

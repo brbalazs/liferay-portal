@@ -342,14 +342,10 @@ public class FragmentEntryModelImpl
 
 	private static final Map<String, Function<FragmentEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<FragmentEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<FragmentEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<FragmentEntry, Object>>();
-		Map<String, BiConsumer<FragmentEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<FragmentEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -361,6 +357,208 @@ public class FragmentEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"fragmentEntryId",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getFragmentEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fragmentCollectionId",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getFragmentCollectionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fragmentEntryKey",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getFragmentEntryKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"css",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getCss();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"html",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getHtml();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"js",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getJs();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"previewFileEntryId",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getPreviewFileEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<FragmentEntry, Object>() {
+
+				@Override
+				public Object apply(FragmentEntry fragmentEntry) {
+					return fragmentEntry.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<FragmentEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<FragmentEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<FragmentEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -370,16 +568,6 @@ public class FragmentEntryModelImpl
 					FragmentEntry fragmentEntry, Object uuidObject) {
 
 					fragmentEntry.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fragmentEntryId",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getFragmentEntryId();
 				}
 
 			});
@@ -396,16 +584,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -415,16 +593,6 @@ public class FragmentEntryModelImpl
 					FragmentEntry fragmentEntry, Object groupIdObject) {
 
 					fragmentEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getCompanyId();
 				}
 
 			});
@@ -440,16 +608,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -459,16 +617,6 @@ public class FragmentEntryModelImpl
 					FragmentEntry fragmentEntry, Object userIdObject) {
 
 					fragmentEntry.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getUserName();
 				}
 
 			});
@@ -484,16 +632,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -506,16 +644,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -525,16 +653,6 @@ public class FragmentEntryModelImpl
 					FragmentEntry fragmentEntry, Object modifiedDateObject) {
 
 					fragmentEntry.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fragmentCollectionId",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getFragmentCollectionId();
 				}
 
 			});
@@ -552,16 +670,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"fragmentEntryKey",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getFragmentEntryKey();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"fragmentEntryKey",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -573,16 +681,6 @@ public class FragmentEntryModelImpl
 
 					fragmentEntry.setFragmentEntryKey(
 						(String)fragmentEntryKeyObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getName();
 				}
 
 			});
@@ -598,16 +696,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"css",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getCss();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"css",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -617,16 +705,6 @@ public class FragmentEntryModelImpl
 					FragmentEntry fragmentEntry, Object cssObject) {
 
 					fragmentEntry.setCss((String)cssObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"html",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getHtml();
 				}
 
 			});
@@ -642,16 +720,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"js",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getJs();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"js",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -661,16 +729,6 @@ public class FragmentEntryModelImpl
 					FragmentEntry fragmentEntry, Object jsObject) {
 
 					fragmentEntry.setJs((String)jsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"previewFileEntryId",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getPreviewFileEntryId();
 				}
 
 			});
@@ -688,16 +746,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getLastPublishDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastPublishDate",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -708,16 +756,6 @@ public class FragmentEntryModelImpl
 
 					fragmentEntry.setLastPublishDate(
 						(Date)lastPublishDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getStatus();
 				}
 
 			});
@@ -733,16 +771,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getStatusByUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserId",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -752,16 +780,6 @@ public class FragmentEntryModelImpl
 					FragmentEntry fragmentEntry, Object statusByUserIdObject) {
 
 					fragmentEntry.setStatusByUserId((Long)statusByUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getStatusByUserName();
 				}
 
 			});
@@ -779,16 +797,6 @@ public class FragmentEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<FragmentEntry, Object>() {
-
-				@Override
-				public Object apply(FragmentEntry fragmentEntry) {
-					return fragmentEntry.getStatusDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusDate",
 			new BiConsumer<FragmentEntry, Object>() {
@@ -802,8 +810,6 @@ public class FragmentEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

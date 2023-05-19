@@ -47,8 +47,6 @@ import com.liferay.portal.kernel.service.persistence.UserGroupPersistence;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -903,11 +901,11 @@ public abstract class AnnouncementsEntryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(announcementsEntryService);
+		AnnouncementsEntryServiceUtil.setService(announcementsEntryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		AnnouncementsEntryServiceUtil.setService(null);
 	}
 
 	/**
@@ -950,22 +948,6 @@ public abstract class AnnouncementsEntryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		AnnouncementsEntryService announcementsEntryService) {
-
-		try {
-			Field field = AnnouncementsEntryServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, announcementsEntryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

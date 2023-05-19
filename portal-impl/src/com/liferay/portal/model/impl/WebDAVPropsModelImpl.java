@@ -248,14 +248,10 @@ public class WebDAVPropsModelImpl
 
 	private static final Map<String, Function<WebDAVProps, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<WebDAVProps, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<WebDAVProps, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<WebDAVProps, Object>>();
-		Map<String, BiConsumer<WebDAVProps, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<WebDAVProps, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -267,6 +263,88 @@ public class WebDAVPropsModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"webDavPropsId",
+			new Function<WebDAVProps, Object>() {
+
+				@Override
+				public Object apply(WebDAVProps webDAVProps) {
+					return webDAVProps.getWebDavPropsId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<WebDAVProps, Object>() {
+
+				@Override
+				public Object apply(WebDAVProps webDAVProps) {
+					return webDAVProps.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<WebDAVProps, Object>() {
+
+				@Override
+				public Object apply(WebDAVProps webDAVProps) {
+					return webDAVProps.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<WebDAVProps, Object>() {
+
+				@Override
+				public Object apply(WebDAVProps webDAVProps) {
+					return webDAVProps.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<WebDAVProps, Object>() {
+
+				@Override
+				public Object apply(WebDAVProps webDAVProps) {
+					return webDAVProps.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<WebDAVProps, Object>() {
+
+				@Override
+				public Object apply(WebDAVProps webDAVProps) {
+					return webDAVProps.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"props",
+			new Function<WebDAVProps, Object>() {
+
+				@Override
+				public Object apply(WebDAVProps webDAVProps) {
+					return webDAVProps.getProps();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<WebDAVProps, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<WebDAVProps, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<WebDAVProps, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<WebDAVProps, Object>() {
@@ -276,16 +354,6 @@ public class WebDAVPropsModelImpl
 					WebDAVProps webDAVProps, Object mvccVersionObject) {
 
 					webDAVProps.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"webDavPropsId",
-			new Function<WebDAVProps, Object>() {
-
-				@Override
-				public Object apply(WebDAVProps webDAVProps) {
-					return webDAVProps.getWebDavPropsId();
 				}
 
 			});
@@ -301,16 +369,6 @@ public class WebDAVPropsModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<WebDAVProps, Object>() {
-
-				@Override
-				public Object apply(WebDAVProps webDAVProps) {
-					return webDAVProps.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<WebDAVProps, Object>() {
@@ -320,16 +378,6 @@ public class WebDAVPropsModelImpl
 					WebDAVProps webDAVProps, Object companyIdObject) {
 
 					webDAVProps.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<WebDAVProps, Object>() {
-
-				@Override
-				public Object apply(WebDAVProps webDAVProps) {
-					return webDAVProps.getCreateDate();
 				}
 
 			});
@@ -345,16 +393,6 @@ public class WebDAVPropsModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<WebDAVProps, Object>() {
-
-				@Override
-				public Object apply(WebDAVProps webDAVProps) {
-					return webDAVProps.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<WebDAVProps, Object>() {
@@ -364,16 +402,6 @@ public class WebDAVPropsModelImpl
 					WebDAVProps webDAVProps, Object modifiedDateObject) {
 
 					webDAVProps.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<WebDAVProps, Object>() {
-
-				@Override
-				public Object apply(WebDAVProps webDAVProps) {
-					return webDAVProps.getClassNameId();
 				}
 
 			});
@@ -389,16 +417,6 @@ public class WebDAVPropsModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<WebDAVProps, Object>() {
-
-				@Override
-				public Object apply(WebDAVProps webDAVProps) {
-					return webDAVProps.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<WebDAVProps, Object>() {
@@ -408,16 +426,6 @@ public class WebDAVPropsModelImpl
 					WebDAVProps webDAVProps, Object classPKObject) {
 
 					webDAVProps.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"props",
-			new Function<WebDAVProps, Object>() {
-
-				@Override
-				public Object apply(WebDAVProps webDAVProps) {
-					return webDAVProps.getProps();
 				}
 
 			});
@@ -434,8 +442,6 @@ public class WebDAVPropsModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -2404,6 +2404,10 @@ public class LVEntryVersionUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(LVEntryVersionPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile LVEntryVersionPersistence _persistence;
 
 }

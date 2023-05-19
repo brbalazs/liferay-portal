@@ -244,19 +244,12 @@ public class RenameFinderColumnEntryModelImpl
 
 	private static final Map<String, Function<RenameFinderColumnEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<RenameFinderColumnEntry, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<RenameFinderColumnEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<RenameFinderColumnEntry, Object>>();
-		Map<String, BiConsumer<RenameFinderColumnEntry, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<RenameFinderColumnEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"renameFinderColumnEntryId",
@@ -268,20 +261,6 @@ public class RenameFinderColumnEntryModelImpl
 
 					return renameFinderColumnEntry.
 						getRenameFinderColumnEntryId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"renameFinderColumnEntryId",
-			new BiConsumer<RenameFinderColumnEntry, Object>() {
-
-				@Override
-				public void accept(
-					RenameFinderColumnEntry renameFinderColumnEntry,
-					Object renameFinderColumnEntryIdObject) {
-
-					renameFinderColumnEntry.setRenameFinderColumnEntryId(
-						(Long)renameFinderColumnEntryIdObject);
 				}
 
 			});
@@ -297,6 +276,47 @@ public class RenameFinderColumnEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"renamedColumn",
+			new Function<RenameFinderColumnEntry, Object>() {
+
+				@Override
+				public Object apply(
+					RenameFinderColumnEntry renameFinderColumnEntry) {
+
+					return renameFinderColumnEntry.getRenamedColumn();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<RenameFinderColumnEntry, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<RenameFinderColumnEntry, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<RenameFinderColumnEntry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"renameFinderColumnEntryId",
+			new BiConsumer<RenameFinderColumnEntry, Object>() {
+
+				@Override
+				public void accept(
+					RenameFinderColumnEntry renameFinderColumnEntry,
+					Object renameFinderColumnEntryIdObject) {
+
+					renameFinderColumnEntry.setRenameFinderColumnEntryId(
+						(Long)renameFinderColumnEntryIdObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<RenameFinderColumnEntry, Object>() {
@@ -307,18 +327,6 @@ public class RenameFinderColumnEntryModelImpl
 					Object groupIdObject) {
 
 					renameFinderColumnEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"renamedColumn",
-			new Function<RenameFinderColumnEntry, Object>() {
-
-				@Override
-				public Object apply(
-					RenameFinderColumnEntry renameFinderColumnEntry) {
-
-					return renameFinderColumnEntry.getRenamedColumn();
 				}
 
 			});
@@ -337,8 +345,6 @@ public class RenameFinderColumnEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

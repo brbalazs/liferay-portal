@@ -3441,30 +3441,17 @@ public class AppPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCategory",
 			new String[] {String.class.getName()});
 
-		_setAppUtilPersistence(this);
+		AppUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setAppUtilPersistence(null);
+		AppUtil.setPersistence(null);
 
 		entityCache.removeCache(AppImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setAppUtilPersistence(AppPersistence appPersistence) {
-		try {
-			Field field = AppUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, appPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -34,8 +34,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -289,11 +287,11 @@ public abstract class PollsChoiceServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(pollsChoiceService);
+		PollsChoiceServiceUtil.setService(pollsChoiceService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		PollsChoiceServiceUtil.setService(null);
 	}
 
 	/**
@@ -335,20 +333,6 @@ public abstract class PollsChoiceServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(PollsChoiceService pollsChoiceService) {
-		try {
-			Field field = PollsChoiceServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, pollsChoiceService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

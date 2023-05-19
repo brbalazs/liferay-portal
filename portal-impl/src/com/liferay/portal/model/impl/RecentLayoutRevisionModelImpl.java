@@ -257,18 +257,12 @@ public class RecentLayoutRevisionModelImpl
 
 	private static final Map<String, Function<RecentLayoutRevision, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<RecentLayoutRevision, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<RecentLayoutRevision, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<RecentLayoutRevision, Object>>();
-		Map<String, BiConsumer<RecentLayoutRevision, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<RecentLayoutRevision, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -280,6 +274,90 @@ public class RecentLayoutRevisionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"recentLayoutRevisionId",
+			new Function<RecentLayoutRevision, Object>() {
+
+				@Override
+				public Object apply(RecentLayoutRevision recentLayoutRevision) {
+					return recentLayoutRevision.getRecentLayoutRevisionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<RecentLayoutRevision, Object>() {
+
+				@Override
+				public Object apply(RecentLayoutRevision recentLayoutRevision) {
+					return recentLayoutRevision.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<RecentLayoutRevision, Object>() {
+
+				@Override
+				public Object apply(RecentLayoutRevision recentLayoutRevision) {
+					return recentLayoutRevision.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<RecentLayoutRevision, Object>() {
+
+				@Override
+				public Object apply(RecentLayoutRevision recentLayoutRevision) {
+					return recentLayoutRevision.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutRevisionId",
+			new Function<RecentLayoutRevision, Object>() {
+
+				@Override
+				public Object apply(RecentLayoutRevision recentLayoutRevision) {
+					return recentLayoutRevision.getLayoutRevisionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutSetBranchId",
+			new Function<RecentLayoutRevision, Object>() {
+
+				@Override
+				public Object apply(RecentLayoutRevision recentLayoutRevision) {
+					return recentLayoutRevision.getLayoutSetBranchId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"plid",
+			new Function<RecentLayoutRevision, Object>() {
+
+				@Override
+				public Object apply(RecentLayoutRevision recentLayoutRevision) {
+					return recentLayoutRevision.getPlid();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<RecentLayoutRevision, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<RecentLayoutRevision, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<RecentLayoutRevision, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<RecentLayoutRevision, Object>() {
@@ -291,16 +369,6 @@ public class RecentLayoutRevisionModelImpl
 
 					recentLayoutRevision.setMvccVersion(
 						(Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"recentLayoutRevisionId",
-			new Function<RecentLayoutRevision, Object>() {
-
-				@Override
-				public Object apply(RecentLayoutRevision recentLayoutRevision) {
-					return recentLayoutRevision.getRecentLayoutRevisionId();
 				}
 
 			});
@@ -318,16 +386,6 @@ public class RecentLayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<RecentLayoutRevision, Object>() {
-
-				@Override
-				public Object apply(RecentLayoutRevision recentLayoutRevision) {
-					return recentLayoutRevision.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<RecentLayoutRevision, Object>() {
@@ -338,16 +396,6 @@ public class RecentLayoutRevisionModelImpl
 					Object groupIdObject) {
 
 					recentLayoutRevision.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<RecentLayoutRevision, Object>() {
-
-				@Override
-				public Object apply(RecentLayoutRevision recentLayoutRevision) {
-					return recentLayoutRevision.getCompanyId();
 				}
 
 			});
@@ -364,16 +412,6 @@ public class RecentLayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<RecentLayoutRevision, Object>() {
-
-				@Override
-				public Object apply(RecentLayoutRevision recentLayoutRevision) {
-					return recentLayoutRevision.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<RecentLayoutRevision, Object>() {
@@ -384,16 +422,6 @@ public class RecentLayoutRevisionModelImpl
 					Object userIdObject) {
 
 					recentLayoutRevision.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutRevisionId",
-			new Function<RecentLayoutRevision, Object>() {
-
-				@Override
-				public Object apply(RecentLayoutRevision recentLayoutRevision) {
-					return recentLayoutRevision.getLayoutRevisionId();
 				}
 
 			});
@@ -411,16 +439,6 @@ public class RecentLayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"layoutSetBranchId",
-			new Function<RecentLayoutRevision, Object>() {
-
-				@Override
-				public Object apply(RecentLayoutRevision recentLayoutRevision) {
-					return recentLayoutRevision.getLayoutSetBranchId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"layoutSetBranchId",
 			new BiConsumer<RecentLayoutRevision, Object>() {
@@ -432,16 +450,6 @@ public class RecentLayoutRevisionModelImpl
 
 					recentLayoutRevision.setLayoutSetBranchId(
 						(Long)layoutSetBranchIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"plid",
-			new Function<RecentLayoutRevision, Object>() {
-
-				@Override
-				public Object apply(RecentLayoutRevision recentLayoutRevision) {
-					return recentLayoutRevision.getPlid();
 				}
 
 			});
@@ -459,8 +467,6 @@ public class RecentLayoutRevisionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

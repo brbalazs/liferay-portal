@@ -3742,33 +3742,17 @@ public class DDMStorageLinkPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByStructureVersionId",
 			new String[] {Long.class.getName()});
 
-		_setDDMStorageLinkUtilPersistence(this);
+		DDMStorageLinkUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setDDMStorageLinkUtilPersistence(null);
+		DDMStorageLinkUtil.setPersistence(null);
 
 		entityCache.removeCache(DDMStorageLinkImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setDDMStorageLinkUtilPersistence(
-		DDMStorageLinkPersistence ddmStorageLinkPersistence) {
-
-		try {
-			Field field = DDMStorageLinkUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, ddmStorageLinkPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -269,18 +269,12 @@ public class SocialActivityCounterModelImpl
 
 	private static final Map<String, Function<SocialActivityCounter, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SocialActivityCounter, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SocialActivityCounter, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SocialActivityCounter, Object>>();
-		Map<String, BiConsumer<SocialActivityCounter, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<SocialActivityCounter, ?>>();
 
 		attributeGetterFunctions.put(
 			"activityCounterId",
@@ -294,6 +288,164 @@ public class SocialActivityCounterModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ownerType",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getOwnerType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"currentValue",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getCurrentValue();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"totalValue",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getTotalValue();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"graceValue",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getGraceValue();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"startPeriod",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getStartPeriod();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"endPeriod",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getEndPeriod();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"active",
+			new Function<SocialActivityCounter, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityCounter socialActivityCounter) {
+
+					return socialActivityCounter.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SocialActivityCounter, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SocialActivityCounter, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<SocialActivityCounter, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"activityCounterId",
 			new BiConsumer<SocialActivityCounter, Object>() {
@@ -305,18 +457,6 @@ public class SocialActivityCounterModelImpl
 
 					socialActivityCounter.setActivityCounterId(
 						(Long)activityCounterIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getGroupId();
 				}
 
 			});
@@ -333,18 +473,6 @@ public class SocialActivityCounterModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<SocialActivityCounter, Object>() {
@@ -355,18 +483,6 @@ public class SocialActivityCounterModelImpl
 					Object companyIdObject) {
 
 					socialActivityCounter.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getClassNameId();
 				}
 
 			});
@@ -384,18 +500,6 @@ public class SocialActivityCounterModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<SocialActivityCounter, Object>() {
@@ -409,18 +513,6 @@ public class SocialActivityCounterModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<SocialActivityCounter, Object>() {
@@ -431,18 +523,6 @@ public class SocialActivityCounterModelImpl
 					Object nameObject) {
 
 					socialActivityCounter.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"ownerType",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getOwnerType();
 				}
 
 			});
@@ -460,18 +540,6 @@ public class SocialActivityCounterModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"currentValue",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getCurrentValue();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"currentValue",
 			new BiConsumer<SocialActivityCounter, Object>() {
@@ -483,18 +551,6 @@ public class SocialActivityCounterModelImpl
 
 					socialActivityCounter.setCurrentValue(
 						(Integer)currentValueObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"totalValue",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getTotalValue();
 				}
 
 			});
@@ -512,18 +568,6 @@ public class SocialActivityCounterModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"graceValue",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getGraceValue();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"graceValue",
 			new BiConsumer<SocialActivityCounter, Object>() {
@@ -535,18 +579,6 @@ public class SocialActivityCounterModelImpl
 
 					socialActivityCounter.setGraceValue(
 						(Integer)graceValueObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"startPeriod",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getStartPeriod();
 				}
 
 			});
@@ -564,18 +596,6 @@ public class SocialActivityCounterModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"endPeriod",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getEndPeriod();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"endPeriod",
 			new BiConsumer<SocialActivityCounter, Object>() {
@@ -587,18 +607,6 @@ public class SocialActivityCounterModelImpl
 
 					socialActivityCounter.setEndPeriod(
 						(Integer)endPeriodObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"active",
-			new Function<SocialActivityCounter, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityCounter socialActivityCounter) {
-
-					return socialActivityCounter.getActive();
 				}
 
 			});
@@ -616,8 +624,6 @@ public class SocialActivityCounterModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -52,8 +52,6 @@ import com.liferay.trash.service.persistence.TrashVersionPersistence;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -630,14 +628,14 @@ public abstract class TrashEntryLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.trash.model.TrashEntry", trashEntryLocalService);
 
-		_setLocalServiceUtilService(trashEntryLocalService);
+		TrashEntryLocalServiceUtil.setService(trashEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.trash.model.TrashEntry");
 
-		_setLocalServiceUtilService(null);
+		TrashEntryLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -679,22 +677,6 @@ public abstract class TrashEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		TrashEntryLocalService trashEntryLocalService) {
-
-		try {
-			Field field = TrashEntryLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, trashEntryLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

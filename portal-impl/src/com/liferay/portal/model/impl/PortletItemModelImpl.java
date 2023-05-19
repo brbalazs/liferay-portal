@@ -260,14 +260,10 @@ public class PortletItemModelImpl
 
 	private static final Map<String, Function<PortletItem, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PortletItem, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<PortletItem, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<PortletItem, Object>>();
-		Map<String, BiConsumer<PortletItem, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<PortletItem, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -279,6 +275,118 @@ public class PortletItemModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"portletItemId",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getPortletItemId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"portletId",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getPortletId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<PortletItem, Object>() {
+
+				@Override
+				public Object apply(PortletItem portletItem) {
+					return portletItem.getClassNameId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<PortletItem, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<PortletItem, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<PortletItem, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<PortletItem, Object>() {
@@ -288,16 +396,6 @@ public class PortletItemModelImpl
 					PortletItem portletItem, Object mvccVersionObject) {
 
 					portletItem.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"portletItemId",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getPortletItemId();
 				}
 
 			});
@@ -313,16 +411,6 @@ public class PortletItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<PortletItem, Object>() {
@@ -332,16 +420,6 @@ public class PortletItemModelImpl
 					PortletItem portletItem, Object groupIdObject) {
 
 					portletItem.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getCompanyId();
 				}
 
 			});
@@ -357,16 +435,6 @@ public class PortletItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<PortletItem, Object>() {
@@ -376,16 +444,6 @@ public class PortletItemModelImpl
 					PortletItem portletItem, Object userIdObject) {
 
 					portletItem.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getUserName();
 				}
 
 			});
@@ -401,16 +459,6 @@ public class PortletItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<PortletItem, Object>() {
@@ -420,16 +468,6 @@ public class PortletItemModelImpl
 					PortletItem portletItem, Object createDateObject) {
 
 					portletItem.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getModifiedDate();
 				}
 
 			});
@@ -445,16 +483,6 @@ public class PortletItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<PortletItem, Object>() {
@@ -462,16 +490,6 @@ public class PortletItemModelImpl
 				@Override
 				public void accept(PortletItem portletItem, Object nameObject) {
 					portletItem.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"portletId",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getPortletId();
 				}
 
 			});
@@ -484,16 +502,6 @@ public class PortletItemModelImpl
 					PortletItem portletItem, Object portletIdObject) {
 
 					portletItem.setPortletId((String)portletIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<PortletItem, Object>() {
-
-				@Override
-				public Object apply(PortletItem portletItem) {
-					return portletItem.getClassNameId();
 				}
 
 			});
@@ -510,8 +518,6 @@ public class PortletItemModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

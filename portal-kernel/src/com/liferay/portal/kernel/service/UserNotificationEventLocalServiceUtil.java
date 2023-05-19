@@ -709,6 +709,10 @@ public class UserNotificationEventLocalServiceUtil {
 		return _service;
 	}
 
+	public static void setService(UserNotificationEventLocalService service) {
+		_service = service;
+	}
+
 	private static volatile UserNotificationEventLocalService _service;
 
 }

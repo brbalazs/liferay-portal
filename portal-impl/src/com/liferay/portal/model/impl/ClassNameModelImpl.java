@@ -283,14 +283,10 @@ public class ClassNameModelImpl
 
 	private static final Map<String, Function<ClassName, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ClassName, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ClassName, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<ClassName, Object>>();
-		Map<String, BiConsumer<ClassName, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ClassName, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -302,6 +298,38 @@ public class ClassNameModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<ClassName, Object>() {
+
+				@Override
+				public Object apply(ClassName className) {
+					return className.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"value",
+			new Function<ClassName, Object>() {
+
+				@Override
+				public Object apply(ClassName className) {
+					return className.getValue();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ClassName, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ClassName, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<ClassName, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<ClassName, Object>() {
@@ -311,16 +339,6 @@ public class ClassNameModelImpl
 					ClassName className, Object mvccVersionObject) {
 
 					className.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<ClassName, Object>() {
-
-				@Override
-				public Object apply(ClassName className) {
-					return className.getClassNameId();
 				}
 
 			});
@@ -336,16 +354,6 @@ public class ClassNameModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"value",
-			new Function<ClassName, Object>() {
-
-				@Override
-				public Object apply(ClassName className) {
-					return className.getValue();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"value",
 			new BiConsumer<ClassName, Object>() {
@@ -357,8 +365,6 @@ public class ClassNameModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

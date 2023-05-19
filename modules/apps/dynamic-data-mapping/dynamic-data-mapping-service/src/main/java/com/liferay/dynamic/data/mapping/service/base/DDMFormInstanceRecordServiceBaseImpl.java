@@ -38,8 +38,6 @@ import com.liferay.portal.kernel.service.persistence.WorkflowInstanceLinkPersist
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -511,11 +509,12 @@ public abstract class DDMFormInstanceRecordServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(ddmFormInstanceRecordService);
+		DDMFormInstanceRecordServiceUtil.setService(
+			ddmFormInstanceRecordService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		DDMFormInstanceRecordServiceUtil.setService(null);
 	}
 
 	/**
@@ -558,23 +557,6 @@ public abstract class DDMFormInstanceRecordServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		DDMFormInstanceRecordService ddmFormInstanceRecordService) {
-
-		try {
-			Field field =
-				DDMFormInstanceRecordServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddmFormInstanceRecordService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

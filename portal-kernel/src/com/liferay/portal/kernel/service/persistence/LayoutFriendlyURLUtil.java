@@ -1868,6 +1868,12 @@ public class LayoutFriendlyURLUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(
+		LayoutFriendlyURLPersistence persistence) {
+
+		_persistence = persistence;
+	}
+
 	private static volatile LayoutFriendlyURLPersistence _persistence;
 
 }

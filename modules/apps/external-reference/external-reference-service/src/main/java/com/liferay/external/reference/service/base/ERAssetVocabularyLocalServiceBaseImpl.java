@@ -32,8 +32,6 @@ import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -184,11 +182,12 @@ public abstract class ERAssetVocabularyLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setLocalServiceUtilService(erAssetVocabularyLocalService);
+		ERAssetVocabularyLocalServiceUtil.setService(
+			erAssetVocabularyLocalService);
 	}
 
 	public void destroy() {
-		_setLocalServiceUtilService(null);
+		ERAssetVocabularyLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -222,23 +221,6 @@ public abstract class ERAssetVocabularyLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		ERAssetVocabularyLocalService erAssetVocabularyLocalService) {
-
-		try {
-			Field field =
-				ERAssetVocabularyLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, erAssetVocabularyLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

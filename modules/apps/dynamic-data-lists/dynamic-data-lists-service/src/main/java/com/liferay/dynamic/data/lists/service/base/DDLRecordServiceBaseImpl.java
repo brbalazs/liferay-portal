@@ -39,8 +39,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -531,11 +529,11 @@ public abstract class DDLRecordServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(ddlRecordService);
+		DDLRecordServiceUtil.setService(ddlRecordService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		DDLRecordServiceUtil.setService(null);
 	}
 
 	/**
@@ -577,20 +575,6 @@ public abstract class DDLRecordServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(DDLRecordService ddlRecordService) {
-		try {
-			Field field = DDLRecordServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddlRecordService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

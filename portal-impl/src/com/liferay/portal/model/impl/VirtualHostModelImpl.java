@@ -244,14 +244,10 @@ public class VirtualHostModelImpl
 
 	private static final Map<String, Function<VirtualHost, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<VirtualHost, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<VirtualHost, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<VirtualHost, Object>>();
-		Map<String, BiConsumer<VirtualHost, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<VirtualHost, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -263,6 +259,58 @@ public class VirtualHostModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"virtualHostId",
+			new Function<VirtualHost, Object>() {
+
+				@Override
+				public Object apply(VirtualHost virtualHost) {
+					return virtualHost.getVirtualHostId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<VirtualHost, Object>() {
+
+				@Override
+				public Object apply(VirtualHost virtualHost) {
+					return virtualHost.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutSetId",
+			new Function<VirtualHost, Object>() {
+
+				@Override
+				public Object apply(VirtualHost virtualHost) {
+					return virtualHost.getLayoutSetId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"hostname",
+			new Function<VirtualHost, Object>() {
+
+				@Override
+				public Object apply(VirtualHost virtualHost) {
+					return virtualHost.getHostname();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<VirtualHost, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<VirtualHost, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<VirtualHost, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<VirtualHost, Object>() {
@@ -272,16 +320,6 @@ public class VirtualHostModelImpl
 					VirtualHost virtualHost, Object mvccVersionObject) {
 
 					virtualHost.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"virtualHostId",
-			new Function<VirtualHost, Object>() {
-
-				@Override
-				public Object apply(VirtualHost virtualHost) {
-					return virtualHost.getVirtualHostId();
 				}
 
 			});
@@ -297,16 +335,6 @@ public class VirtualHostModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<VirtualHost, Object>() {
-
-				@Override
-				public Object apply(VirtualHost virtualHost) {
-					return virtualHost.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<VirtualHost, Object>() {
@@ -319,16 +347,6 @@ public class VirtualHostModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"layoutSetId",
-			new Function<VirtualHost, Object>() {
-
-				@Override
-				public Object apply(VirtualHost virtualHost) {
-					return virtualHost.getLayoutSetId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"layoutSetId",
 			new BiConsumer<VirtualHost, Object>() {
@@ -338,16 +356,6 @@ public class VirtualHostModelImpl
 					VirtualHost virtualHost, Object layoutSetIdObject) {
 
 					virtualHost.setLayoutSetId((Long)layoutSetIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"hostname",
-			new Function<VirtualHost, Object>() {
-
-				@Override
-				public Object apply(VirtualHost virtualHost) {
-					return virtualHost.getHostname();
 				}
 
 			});
@@ -364,8 +372,6 @@ public class VirtualHostModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

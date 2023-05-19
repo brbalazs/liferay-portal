@@ -365,14 +365,10 @@ public class WikiPageModelImpl
 
 	private static final Map<String, Function<WikiPage, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<WikiPage, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<WikiPage, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<WikiPage, Object>>();
-		Map<String, BiConsumer<WikiPage, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<WikiPage, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -381,16 +377,6 @@ public class WikiPageModelImpl
 				@Override
 				public Object apply(WikiPage wikiPage) {
 					return wikiPage.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<WikiPage, Object>() {
-
-				@Override
-				public void accept(WikiPage wikiPage, Object uuidObject) {
-					wikiPage.setUuid((String)uuidObject);
 				}
 
 			});
@@ -404,16 +390,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"pageId",
-			new BiConsumer<WikiPage, Object>() {
-
-				@Override
-				public void accept(WikiPage wikiPage, Object pageIdObject) {
-					wikiPage.setPageId((Long)pageIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"resourcePrimKey",
 			new Function<WikiPage, Object>() {
@@ -421,6 +397,248 @@ public class WikiPageModelImpl
 				@Override
 				public Object apply(WikiPage wikiPage) {
 					return wikiPage.getResourcePrimKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"nodeId",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getNodeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"version",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"minorEdit",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getMinorEdit();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"content",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"summary",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getSummary();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"format",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getFormat();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"head",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getHead();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentTitle",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getParentTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"redirectTitle",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getRedirectTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<WikiPage, Object>() {
+
+				@Override
+				public Object apply(WikiPage wikiPage) {
+					return wikiPage.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<WikiPage, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<WikiPage, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<WikiPage, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<WikiPage, Object>() {
+
+				@Override
+				public void accept(WikiPage wikiPage, Object uuidObject) {
+					wikiPage.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"pageId",
+			new BiConsumer<WikiPage, Object>() {
+
+				@Override
+				public void accept(WikiPage wikiPage, Object pageIdObject) {
+					wikiPage.setPageId((Long)pageIdObject);
 				}
 
 			});
@@ -436,16 +654,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<WikiPage, Object>() {
@@ -453,16 +661,6 @@ public class WikiPageModelImpl
 				@Override
 				public void accept(WikiPage wikiPage, Object groupIdObject) {
 					wikiPage.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getCompanyId();
 				}
 
 			});
@@ -476,16 +674,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<WikiPage, Object>() {
@@ -493,16 +681,6 @@ public class WikiPageModelImpl
 				@Override
 				public void accept(WikiPage wikiPage, Object userIdObject) {
 					wikiPage.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getUserName();
 				}
 
 			});
@@ -516,16 +694,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<WikiPage, Object>() {
@@ -533,16 +701,6 @@ public class WikiPageModelImpl
 				@Override
 				public void accept(WikiPage wikiPage, Object createDateObject) {
 					wikiPage.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getModifiedDate();
 				}
 
 			});
@@ -558,16 +716,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"nodeId",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getNodeId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"nodeId",
 			new BiConsumer<WikiPage, Object>() {
@@ -575,16 +723,6 @@ public class WikiPageModelImpl
 				@Override
 				public void accept(WikiPage wikiPage, Object nodeIdObject) {
 					wikiPage.setNodeId((Long)nodeIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getTitle();
 				}
 
 			});
@@ -598,16 +736,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"version",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getVersion();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"version",
 			new BiConsumer<WikiPage, Object>() {
@@ -615,16 +743,6 @@ public class WikiPageModelImpl
 				@Override
 				public void accept(WikiPage wikiPage, Object versionObject) {
 					wikiPage.setVersion((Double)versionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"minorEdit",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getMinorEdit();
 				}
 
 			});
@@ -638,16 +756,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"content",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getContent();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"content",
 			new BiConsumer<WikiPage, Object>() {
@@ -655,16 +763,6 @@ public class WikiPageModelImpl
 				@Override
 				public void accept(WikiPage wikiPage, Object contentObject) {
 					wikiPage.setContent((String)contentObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"summary",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getSummary();
 				}
 
 			});
@@ -678,16 +776,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"format",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getFormat();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"format",
 			new BiConsumer<WikiPage, Object>() {
@@ -698,16 +786,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"head",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getHead();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"head",
 			new BiConsumer<WikiPage, Object>() {
@@ -715,16 +793,6 @@ public class WikiPageModelImpl
 				@Override
 				public void accept(WikiPage wikiPage, Object headObject) {
 					wikiPage.setHead((Boolean)headObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"parentTitle",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getParentTitle();
 				}
 
 			});
@@ -740,16 +808,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"redirectTitle",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getRedirectTitle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"redirectTitle",
 			new BiConsumer<WikiPage, Object>() {
@@ -759,16 +817,6 @@ public class WikiPageModelImpl
 					WikiPage wikiPage, Object redirectTitleObject) {
 
 					wikiPage.setRedirectTitle((String)redirectTitleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getLastPublishDate();
 				}
 
 			});
@@ -784,16 +832,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<WikiPage, Object>() {
@@ -801,16 +839,6 @@ public class WikiPageModelImpl
 				@Override
 				public void accept(WikiPage wikiPage, Object statusObject) {
 					wikiPage.setStatus((Integer)statusObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getStatusByUserId();
 				}
 
 			});
@@ -823,16 +851,6 @@ public class WikiPageModelImpl
 					WikiPage wikiPage, Object statusByUserIdObject) {
 
 					wikiPage.setStatusByUserId((Long)statusByUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getStatusByUserName();
 				}
 
 			});
@@ -849,16 +867,6 @@ public class WikiPageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<WikiPage, Object>() {
-
-				@Override
-				public Object apply(WikiPage wikiPage) {
-					return wikiPage.getStatusDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusDate",
 			new BiConsumer<WikiPage, Object>() {
@@ -870,8 +878,6 @@ public class WikiPageModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -6869,33 +6869,17 @@ public class CalendarBookingPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByP_S",
 			new String[] {Long.class.getName(), Integer.class.getName()});
 
-		_setCalendarBookingUtilPersistence(this);
+		CalendarBookingUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setCalendarBookingUtilPersistence(null);
+		CalendarBookingUtil.setPersistence(null);
 
 		entityCache.removeCache(CalendarBookingImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setCalendarBookingUtilPersistence(
-		CalendarBookingPersistence calendarBookingPersistence) {
-
-		try {
-			Field field = CalendarBookingUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, calendarBookingPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

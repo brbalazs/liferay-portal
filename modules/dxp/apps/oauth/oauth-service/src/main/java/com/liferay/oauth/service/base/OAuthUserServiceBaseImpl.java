@@ -34,8 +34,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -357,11 +355,11 @@ public abstract class OAuthUserServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(oAuthUserService);
+		OAuthUserServiceUtil.setService(oAuthUserService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		OAuthUserServiceUtil.setService(null);
 	}
 
 	/**
@@ -403,20 +401,6 @@ public abstract class OAuthUserServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(OAuthUserService oAuthUserService) {
-		try {
-			Field field = OAuthUserServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, oAuthUserService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

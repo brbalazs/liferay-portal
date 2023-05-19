@@ -859,6 +859,10 @@ public class MDRActionUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(MDRActionPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile MDRActionPersistence _persistence;
 
 }

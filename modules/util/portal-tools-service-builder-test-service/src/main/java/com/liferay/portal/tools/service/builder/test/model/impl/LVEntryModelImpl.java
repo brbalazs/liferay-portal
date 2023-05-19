@@ -283,14 +283,10 @@ public class LVEntryModelImpl
 
 	private static final Map<String, Function<LVEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<LVEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<LVEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<LVEntry, Object>>();
-		Map<String, BiConsumer<LVEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<LVEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -299,16 +295,6 @@ public class LVEntryModelImpl
 				@Override
 				public Object apply(LVEntry lvEntry) {
 					return lvEntry.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<LVEntry, Object>() {
-
-				@Override
-				public void accept(LVEntry lvEntry, Object mvccVersionObject) {
-					lvEntry.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -322,16 +308,6 @@ public class LVEntryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<LVEntry, Object>() {
-
-				@Override
-				public void accept(LVEntry lvEntry, Object uuidObject) {
-					lvEntry.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"headId",
 			new Function<LVEntry, Object>() {
@@ -342,16 +318,6 @@ public class LVEntryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"headId",
-			new BiConsumer<LVEntry, Object>() {
-
-				@Override
-				public void accept(LVEntry lvEntry, Object headIdObject) {
-					lvEntry.setHeadId((Long)headIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"defaultLanguageId",
 			new Function<LVEntry, Object>() {
@@ -359,6 +325,88 @@ public class LVEntryModelImpl
 				@Override
 				public Object apply(LVEntry lvEntry) {
 					return lvEntry.getDefaultLanguageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lvEntryId",
+			new Function<LVEntry, Object>() {
+
+				@Override
+				public Object apply(LVEntry lvEntry) {
+					return lvEntry.getLvEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<LVEntry, Object>() {
+
+				@Override
+				public Object apply(LVEntry lvEntry) {
+					return lvEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<LVEntry, Object>() {
+
+				@Override
+				public Object apply(LVEntry lvEntry) {
+					return lvEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"uniqueGroupKey",
+			new Function<LVEntry, Object>() {
+
+				@Override
+				public Object apply(LVEntry lvEntry) {
+					return lvEntry.getUniqueGroupKey();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<LVEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<LVEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<LVEntry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<LVEntry, Object>() {
+
+				@Override
+				public void accept(LVEntry lvEntry, Object mvccVersionObject) {
+					lvEntry.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<LVEntry, Object>() {
+
+				@Override
+				public void accept(LVEntry lvEntry, Object uuidObject) {
+					lvEntry.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"headId",
+			new BiConsumer<LVEntry, Object>() {
+
+				@Override
+				public void accept(LVEntry lvEntry, Object headIdObject) {
+					lvEntry.setHeadId((Long)headIdObject);
 				}
 
 			});
@@ -375,16 +423,6 @@ public class LVEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lvEntryId",
-			new Function<LVEntry, Object>() {
-
-				@Override
-				public Object apply(LVEntry lvEntry) {
-					return lvEntry.getLvEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lvEntryId",
 			new BiConsumer<LVEntry, Object>() {
@@ -392,16 +430,6 @@ public class LVEntryModelImpl
 				@Override
 				public void accept(LVEntry lvEntry, Object lvEntryIdObject) {
 					lvEntry.setLvEntryId((Long)lvEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<LVEntry, Object>() {
-
-				@Override
-				public Object apply(LVEntry lvEntry) {
-					return lvEntry.getGroupId();
 				}
 
 			});
@@ -415,16 +443,6 @@ public class LVEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<LVEntry, Object>() {
-
-				@Override
-				public Object apply(LVEntry lvEntry) {
-					return lvEntry.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<LVEntry, Object>() {
@@ -432,16 +450,6 @@ public class LVEntryModelImpl
 				@Override
 				public void accept(LVEntry lvEntry, Object companyIdObject) {
 					lvEntry.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"uniqueGroupKey",
-			new Function<LVEntry, Object>() {
-
-				@Override
-				public Object apply(LVEntry lvEntry) {
-					return lvEntry.getUniqueGroupKey();
 				}
 
 			});
@@ -458,8 +466,6 @@ public class LVEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

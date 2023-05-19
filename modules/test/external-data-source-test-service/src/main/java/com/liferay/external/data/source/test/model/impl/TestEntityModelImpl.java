@@ -225,14 +225,10 @@ public class TestEntityModelImpl
 
 	private static final Map<String, Function<TestEntity, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<TestEntity, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<TestEntity, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<TestEntity, Object>>();
-		Map<String, BiConsumer<TestEntity, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<TestEntity, ?>>();
 
 		attributeGetterFunctions.put(
 			"id",
@@ -244,16 +240,6 @@ public class TestEntityModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"id",
-			new BiConsumer<TestEntity, Object>() {
-
-				@Override
-				public void accept(TestEntity testEntity, Object idObject) {
-					testEntity.setId((Long)idObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"data",
 			new Function<TestEntity, Object>() {
@@ -261,6 +247,28 @@ public class TestEntityModelImpl
 				@Override
 				public Object apply(TestEntity testEntity) {
 					return testEntity.getData();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<TestEntity, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<TestEntity, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<TestEntity, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"id",
+			new BiConsumer<TestEntity, Object>() {
+
+				@Override
+				public void accept(TestEntity testEntity, Object idObject) {
+					testEntity.setId((Long)idObject);
 				}
 
 			});
@@ -275,8 +283,6 @@ public class TestEntityModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

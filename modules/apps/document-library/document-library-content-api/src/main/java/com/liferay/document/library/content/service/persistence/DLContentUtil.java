@@ -963,6 +963,10 @@ public class DLContentUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(DLContentPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile DLContentPersistence _persistence;
 
 }

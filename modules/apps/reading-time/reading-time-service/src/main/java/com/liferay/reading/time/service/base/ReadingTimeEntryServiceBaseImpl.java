@@ -31,8 +31,6 @@ import com.liferay.reading.time.service.ReadingTimeEntryService;
 import com.liferay.reading.time.service.ReadingTimeEntryServiceUtil;
 import com.liferay.reading.time.service.persistence.ReadingTimeEntryPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -143,11 +141,11 @@ public abstract class ReadingTimeEntryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(readingTimeEntryService);
+		ReadingTimeEntryServiceUtil.setService(readingTimeEntryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		ReadingTimeEntryServiceUtil.setService(null);
 	}
 
 	/**
@@ -189,22 +187,6 @@ public abstract class ReadingTimeEntryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		ReadingTimeEntryService readingTimeEntryService) {
-
-		try {
-			Field field = ReadingTimeEntryServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, readingTimeEntryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

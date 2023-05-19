@@ -323,15 +323,11 @@ public class LayoutPrototypeModelImpl
 
 	private static final Map<String, Function<LayoutPrototype, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<LayoutPrototype, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<LayoutPrototype, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<LayoutPrototype, Object>>();
-		Map<String, BiConsumer<LayoutPrototype, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<LayoutPrototype, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -340,18 +336,6 @@ public class LayoutPrototypeModelImpl
 				@Override
 				public Object apply(LayoutPrototype layoutPrototype) {
 					return layoutPrototype.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<LayoutPrototype, Object>() {
-
-				@Override
-				public void accept(
-					LayoutPrototype layoutPrototype, Object mvccVersionObject) {
-
-					layoutPrototype.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -365,6 +349,130 @@ public class LayoutPrototypeModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"layoutPrototypeId",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getLayoutPrototypeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"settings",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"active",
+			new Function<LayoutPrototype, Object>() {
+
+				@Override
+				public Object apply(LayoutPrototype layoutPrototype) {
+					return layoutPrototype.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<LayoutPrototype, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<LayoutPrototype, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<LayoutPrototype, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<LayoutPrototype, Object>() {
+
+				@Override
+				public void accept(
+					LayoutPrototype layoutPrototype, Object mvccVersionObject) {
+
+					layoutPrototype.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<LayoutPrototype, Object>() {
@@ -374,16 +482,6 @@ public class LayoutPrototypeModelImpl
 					LayoutPrototype layoutPrototype, Object uuidObject) {
 
 					layoutPrototype.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutPrototypeId",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getLayoutPrototypeId();
 				}
 
 			});
@@ -401,16 +499,6 @@ public class LayoutPrototypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<LayoutPrototype, Object>() {
@@ -420,16 +508,6 @@ public class LayoutPrototypeModelImpl
 					LayoutPrototype layoutPrototype, Object companyIdObject) {
 
 					layoutPrototype.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getUserId();
 				}
 
 			});
@@ -445,16 +523,6 @@ public class LayoutPrototypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<LayoutPrototype, Object>() {
@@ -467,16 +535,6 @@ public class LayoutPrototypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<LayoutPrototype, Object>() {
@@ -486,16 +544,6 @@ public class LayoutPrototypeModelImpl
 					LayoutPrototype layoutPrototype, Object createDateObject) {
 
 					layoutPrototype.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getModifiedDate();
 				}
 
 			});
@@ -512,16 +560,6 @@ public class LayoutPrototypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<LayoutPrototype, Object>() {
@@ -531,16 +569,6 @@ public class LayoutPrototypeModelImpl
 					LayoutPrototype layoutPrototype, Object nameObject) {
 
 					layoutPrototype.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getDescription();
 				}
 
 			});
@@ -556,16 +584,6 @@ public class LayoutPrototypeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"settings",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getSettings();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"settings",
 			new BiConsumer<LayoutPrototype, Object>() {
@@ -575,16 +593,6 @@ public class LayoutPrototypeModelImpl
 					LayoutPrototype layoutPrototype, Object settingsObject) {
 
 					layoutPrototype.setSettings((String)settingsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"active",
-			new Function<LayoutPrototype, Object>() {
-
-				@Override
-				public Object apply(LayoutPrototype layoutPrototype) {
-					return layoutPrototype.getActive();
 				}
 
 			});
@@ -601,8 +609,6 @@ public class LayoutPrototypeModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

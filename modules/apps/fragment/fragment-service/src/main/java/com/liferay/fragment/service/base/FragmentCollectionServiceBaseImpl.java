@@ -33,8 +33,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -271,11 +269,11 @@ public abstract class FragmentCollectionServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(fragmentCollectionService);
+		FragmentCollectionServiceUtil.setService(fragmentCollectionService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		FragmentCollectionServiceUtil.setService(null);
 	}
 
 	/**
@@ -318,22 +316,6 @@ public abstract class FragmentCollectionServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		FragmentCollectionService fragmentCollectionService) {
-
-		try {
-			Field field = FragmentCollectionServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, fragmentCollectionService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

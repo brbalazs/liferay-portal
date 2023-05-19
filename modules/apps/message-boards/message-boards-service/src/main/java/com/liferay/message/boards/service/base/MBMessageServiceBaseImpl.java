@@ -45,8 +45,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -851,11 +849,11 @@ public abstract class MBMessageServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(mbMessageService);
+		MBMessageServiceUtil.setService(mbMessageService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		MBMessageServiceUtil.setService(null);
 	}
 
 	/**
@@ -897,20 +895,6 @@ public abstract class MBMessageServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(MBMessageService mbMessageService) {
-		try {
-			Field field = MBMessageServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, mbMessageService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

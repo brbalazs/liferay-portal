@@ -1049,6 +1049,10 @@ public class SystemEventUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(SystemEventPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile SystemEventPersistence _persistence;
 
 }

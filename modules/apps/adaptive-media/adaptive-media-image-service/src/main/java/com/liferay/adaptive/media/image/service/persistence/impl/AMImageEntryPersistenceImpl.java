@@ -5607,33 +5607,17 @@ public class AMImageEntryPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_F",
 			new String[] {String.class.getName(), Long.class.getName()});
 
-		_setAMImageEntryUtilPersistence(this);
+		AMImageEntryUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setAMImageEntryUtilPersistence(null);
+		AMImageEntryUtil.setPersistence(null);
 
 		entityCache.removeCache(AMImageEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setAMImageEntryUtilPersistence(
-		AMImageEntryPersistence amImageEntryPersistence) {
-
-		try {
-			Field field = AMImageEntryUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, amImageEntryPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

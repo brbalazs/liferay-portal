@@ -33,8 +33,6 @@ import com.liferay.push.notifications.service.PushNotificationsDeviceService;
 import com.liferay.push.notifications.service.PushNotificationsDeviceServiceUtil;
 import com.liferay.push.notifications.service.persistence.PushNotificationsDevicePersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -300,11 +298,12 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(pushNotificationsDeviceService);
+		PushNotificationsDeviceServiceUtil.setService(
+			pushNotificationsDeviceService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		PushNotificationsDeviceServiceUtil.setService(null);
 	}
 
 	/**
@@ -347,23 +346,6 @@ public abstract class PushNotificationsDeviceServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		PushNotificationsDeviceService pushNotificationsDeviceService) {
-
-		try {
-			Field field =
-				PushNotificationsDeviceServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, pushNotificationsDeviceService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

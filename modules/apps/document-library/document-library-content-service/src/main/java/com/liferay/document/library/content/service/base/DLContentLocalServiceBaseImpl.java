@@ -54,8 +54,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import java.io.InputStream;
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.sql.Blob;
 
 import java.util.List;
@@ -480,14 +478,14 @@ public abstract class DLContentLocalServiceBaseImpl
 			_useTempFile = true;
 		}
 
-		_setLocalServiceUtilService(dlContentLocalService);
+		DLContentLocalServiceUtil.setService(dlContentLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.document.library.content.model.DLContent");
 
-		_setLocalServiceUtilService(null);
+		DLContentLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -529,22 +527,6 @@ public abstract class DLContentLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DLContentLocalService dlContentLocalService) {
-
-		try {
-			Field field = DLContentLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, dlContentLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

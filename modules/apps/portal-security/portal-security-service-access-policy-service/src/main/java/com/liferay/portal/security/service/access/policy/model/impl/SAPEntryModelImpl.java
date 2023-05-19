@@ -327,14 +327,10 @@ public class SAPEntryModelImpl
 
 	private static final Map<String, Function<SAPEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SAPEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SAPEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<SAPEntry, Object>>();
-		Map<String, BiConsumer<SAPEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<SAPEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -343,16 +339,6 @@ public class SAPEntryModelImpl
 				@Override
 				public Object apply(SAPEntry sapEntry) {
 					return sapEntry.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<SAPEntry, Object>() {
-
-				@Override
-				public void accept(SAPEntry sapEntry, Object uuidObject) {
-					sapEntry.setUuid((String)uuidObject);
 				}
 
 			});
@@ -366,16 +352,6 @@ public class SAPEntryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"sapEntryId",
-			new BiConsumer<SAPEntry, Object>() {
-
-				@Override
-				public void accept(SAPEntry sapEntry, Object sapEntryIdObject) {
-					sapEntry.setSapEntryId((Long)sapEntryIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<SAPEntry, Object>() {
@@ -383,16 +359,6 @@ public class SAPEntryModelImpl
 				@Override
 				public Object apply(SAPEntry sapEntry) {
 					return sapEntry.getCompanyId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<SAPEntry, Object>() {
-
-				@Override
-				public void accept(SAPEntry sapEntry, Object companyIdObject) {
-					sapEntry.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -406,16 +372,6 @@ public class SAPEntryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<SAPEntry, Object>() {
-
-				@Override
-				public void accept(SAPEntry sapEntry, Object userIdObject) {
-					sapEntry.setUserId((Long)userIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userName",
 			new Function<SAPEntry, Object>() {
@@ -423,16 +379,6 @@ public class SAPEntryModelImpl
 				@Override
 				public Object apply(SAPEntry sapEntry) {
 					return sapEntry.getUserName();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<SAPEntry, Object>() {
-
-				@Override
-				public void accept(SAPEntry sapEntry, Object userNameObject) {
-					sapEntry.setUserName((String)userNameObject);
 				}
 
 			});
@@ -446,16 +392,6 @@ public class SAPEntryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<SAPEntry, Object>() {
-
-				@Override
-				public void accept(SAPEntry sapEntry, Object createDateObject) {
-					sapEntry.setCreateDate((Date)createDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedDate",
 			new Function<SAPEntry, Object>() {
@@ -463,6 +399,128 @@ public class SAPEntryModelImpl
 				@Override
 				public Object apply(SAPEntry sapEntry) {
 					return sapEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"allowedServiceSignatures",
+			new Function<SAPEntry, Object>() {
+
+				@Override
+				public Object apply(SAPEntry sapEntry) {
+					return sapEntry.getAllowedServiceSignatures();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"defaultSAPEntry",
+			new Function<SAPEntry, Object>() {
+
+				@Override
+				public Object apply(SAPEntry sapEntry) {
+					return sapEntry.getDefaultSAPEntry();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"enabled",
+			new Function<SAPEntry, Object>() {
+
+				@Override
+				public Object apply(SAPEntry sapEntry) {
+					return sapEntry.getEnabled();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SAPEntry, Object>() {
+
+				@Override
+				public Object apply(SAPEntry sapEntry) {
+					return sapEntry.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<SAPEntry, Object>() {
+
+				@Override
+				public Object apply(SAPEntry sapEntry) {
+					return sapEntry.getTitle();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SAPEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SAPEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<SAPEntry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<SAPEntry, Object>() {
+
+				@Override
+				public void accept(SAPEntry sapEntry, Object uuidObject) {
+					sapEntry.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"sapEntryId",
+			new BiConsumer<SAPEntry, Object>() {
+
+				@Override
+				public void accept(SAPEntry sapEntry, Object sapEntryIdObject) {
+					sapEntry.setSapEntryId((Long)sapEntryIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<SAPEntry, Object>() {
+
+				@Override
+				public void accept(SAPEntry sapEntry, Object companyIdObject) {
+					sapEntry.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<SAPEntry, Object>() {
+
+				@Override
+				public void accept(SAPEntry sapEntry, Object userIdObject) {
+					sapEntry.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<SAPEntry, Object>() {
+
+				@Override
+				public void accept(SAPEntry sapEntry, Object userNameObject) {
+					sapEntry.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<SAPEntry, Object>() {
+
+				@Override
+				public void accept(SAPEntry sapEntry, Object createDateObject) {
+					sapEntry.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -475,16 +533,6 @@ public class SAPEntryModelImpl
 					SAPEntry sapEntry, Object modifiedDateObject) {
 
 					sapEntry.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"allowedServiceSignatures",
-			new Function<SAPEntry, Object>() {
-
-				@Override
-				public Object apply(SAPEntry sapEntry) {
-					return sapEntry.getAllowedServiceSignatures();
 				}
 
 			});
@@ -501,16 +549,6 @@ public class SAPEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"defaultSAPEntry",
-			new Function<SAPEntry, Object>() {
-
-				@Override
-				public Object apply(SAPEntry sapEntry) {
-					return sapEntry.getDefaultSAPEntry();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"defaultSAPEntry",
 			new BiConsumer<SAPEntry, Object>() {
@@ -520,16 +558,6 @@ public class SAPEntryModelImpl
 					SAPEntry sapEntry, Object defaultSAPEntryObject) {
 
 					sapEntry.setDefaultSAPEntry((Boolean)defaultSAPEntryObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"enabled",
-			new Function<SAPEntry, Object>() {
-
-				@Override
-				public Object apply(SAPEntry sapEntry) {
-					return sapEntry.getEnabled();
 				}
 
 			});
@@ -543,16 +571,6 @@ public class SAPEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<SAPEntry, Object>() {
-
-				@Override
-				public Object apply(SAPEntry sapEntry) {
-					return sapEntry.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<SAPEntry, Object>() {
@@ -560,16 +578,6 @@ public class SAPEntryModelImpl
 				@Override
 				public void accept(SAPEntry sapEntry, Object nameObject) {
 					sapEntry.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<SAPEntry, Object>() {
-
-				@Override
-				public Object apply(SAPEntry sapEntry) {
-					return sapEntry.getTitle();
 				}
 
 			});
@@ -584,8 +592,6 @@ public class SAPEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

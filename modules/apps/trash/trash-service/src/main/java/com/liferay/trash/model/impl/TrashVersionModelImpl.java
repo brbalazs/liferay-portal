@@ -249,14 +249,10 @@ public class TrashVersionModelImpl
 
 	private static final Map<String, Function<TrashVersion, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<TrashVersion, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<TrashVersion, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<TrashVersion, Object>>();
-		Map<String, BiConsumer<TrashVersion, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<TrashVersion, ?>>();
 
 		attributeGetterFunctions.put(
 			"versionId",
@@ -268,6 +264,78 @@ public class TrashVersionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<TrashVersion, Object>() {
+
+				@Override
+				public Object apply(TrashVersion trashVersion) {
+					return trashVersion.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"entryId",
+			new Function<TrashVersion, Object>() {
+
+				@Override
+				public Object apply(TrashVersion trashVersion) {
+					return trashVersion.getEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<TrashVersion, Object>() {
+
+				@Override
+				public Object apply(TrashVersion trashVersion) {
+					return trashVersion.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<TrashVersion, Object>() {
+
+				@Override
+				public Object apply(TrashVersion trashVersion) {
+					return trashVersion.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typeSettings",
+			new Function<TrashVersion, Object>() {
+
+				@Override
+				public Object apply(TrashVersion trashVersion) {
+					return trashVersion.getTypeSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<TrashVersion, Object>() {
+
+				@Override
+				public Object apply(TrashVersion trashVersion) {
+					return trashVersion.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<TrashVersion, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<TrashVersion, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<TrashVersion, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"versionId",
 			new BiConsumer<TrashVersion, Object>() {
@@ -277,16 +345,6 @@ public class TrashVersionModelImpl
 					TrashVersion trashVersion, Object versionIdObject) {
 
 					trashVersion.setVersionId((Long)versionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<TrashVersion, Object>() {
-
-				@Override
-				public Object apply(TrashVersion trashVersion) {
-					return trashVersion.getCompanyId();
 				}
 
 			});
@@ -302,16 +360,6 @@ public class TrashVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"entryId",
-			new Function<TrashVersion, Object>() {
-
-				@Override
-				public Object apply(TrashVersion trashVersion) {
-					return trashVersion.getEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"entryId",
 			new BiConsumer<TrashVersion, Object>() {
@@ -321,16 +369,6 @@ public class TrashVersionModelImpl
 					TrashVersion trashVersion, Object entryIdObject) {
 
 					trashVersion.setEntryId((Long)entryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<TrashVersion, Object>() {
-
-				@Override
-				public Object apply(TrashVersion trashVersion) {
-					return trashVersion.getClassNameId();
 				}
 
 			});
@@ -346,16 +384,6 @@ public class TrashVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<TrashVersion, Object>() {
-
-				@Override
-				public Object apply(TrashVersion trashVersion) {
-					return trashVersion.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<TrashVersion, Object>() {
@@ -368,16 +396,6 @@ public class TrashVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"typeSettings",
-			new Function<TrashVersion, Object>() {
-
-				@Override
-				public Object apply(TrashVersion trashVersion) {
-					return trashVersion.getTypeSettings();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"typeSettings",
 			new BiConsumer<TrashVersion, Object>() {
@@ -387,16 +405,6 @@ public class TrashVersionModelImpl
 					TrashVersion trashVersion, Object typeSettingsObject) {
 
 					trashVersion.setTypeSettings((String)typeSettingsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<TrashVersion, Object>() {
-
-				@Override
-				public Object apply(TrashVersion trashVersion) {
-					return trashVersion.getStatus();
 				}
 
 			});
@@ -413,8 +421,6 @@ public class TrashVersionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

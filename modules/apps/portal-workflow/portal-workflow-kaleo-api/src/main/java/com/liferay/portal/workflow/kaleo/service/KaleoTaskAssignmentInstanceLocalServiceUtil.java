@@ -413,6 +413,12 @@ public class KaleoTaskAssignmentInstanceLocalServiceUtil {
 		return _service;
 	}
 
+	public static void setService(
+		KaleoTaskAssignmentInstanceLocalService service) {
+
+		_service = service;
+	}
+
 	private static volatile KaleoTaskAssignmentInstanceLocalService _service;
 
 }

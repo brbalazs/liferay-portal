@@ -320,14 +320,10 @@ public class MDRRuleGroupModelImpl
 
 	private static final Map<String, Function<MDRRuleGroup, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MDRRuleGroup, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MDRRuleGroup, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<MDRRuleGroup, Object>>();
-		Map<String, BiConsumer<MDRRuleGroup, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MDRRuleGroup, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -339,6 +335,118 @@ public class MDRRuleGroupModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"ruleGroupId",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getRuleGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<MDRRuleGroup, Object>() {
+
+				@Override
+				public Object apply(MDRRuleGroup mdrRuleGroup) {
+					return mdrRuleGroup.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MDRRuleGroup, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MDRRuleGroup, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MDRRuleGroup, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<MDRRuleGroup, Object>() {
@@ -348,16 +456,6 @@ public class MDRRuleGroupModelImpl
 					MDRRuleGroup mdrRuleGroup, Object uuidObject) {
 
 					mdrRuleGroup.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"ruleGroupId",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getRuleGroupId();
 				}
 
 			});
@@ -373,16 +471,6 @@ public class MDRRuleGroupModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<MDRRuleGroup, Object>() {
@@ -392,16 +480,6 @@ public class MDRRuleGroupModelImpl
 					MDRRuleGroup mdrRuleGroup, Object groupIdObject) {
 
 					mdrRuleGroup.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getCompanyId();
 				}
 
 			});
@@ -417,16 +495,6 @@ public class MDRRuleGroupModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<MDRRuleGroup, Object>() {
@@ -436,16 +504,6 @@ public class MDRRuleGroupModelImpl
 					MDRRuleGroup mdrRuleGroup, Object userIdObject) {
 
 					mdrRuleGroup.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getUserName();
 				}
 
 			});
@@ -461,16 +519,6 @@ public class MDRRuleGroupModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<MDRRuleGroup, Object>() {
@@ -480,16 +528,6 @@ public class MDRRuleGroupModelImpl
 					MDRRuleGroup mdrRuleGroup, Object createDateObject) {
 
 					mdrRuleGroup.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getModifiedDate();
 				}
 
 			});
@@ -505,16 +543,6 @@ public class MDRRuleGroupModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<MDRRuleGroup, Object>() {
@@ -527,16 +555,6 @@ public class MDRRuleGroupModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<MDRRuleGroup, Object>() {
@@ -546,16 +564,6 @@ public class MDRRuleGroupModelImpl
 					MDRRuleGroup mdrRuleGroup, Object descriptionObject) {
 
 					mdrRuleGroup.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<MDRRuleGroup, Object>() {
-
-				@Override
-				public Object apply(MDRRuleGroup mdrRuleGroup) {
-					return mdrRuleGroup.getLastPublishDate();
 				}
 
 			});
@@ -573,8 +581,6 @@ public class MDRRuleGroupModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

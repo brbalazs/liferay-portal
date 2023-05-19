@@ -245,17 +245,12 @@ public class RedundantIndexEntryModelImpl
 
 	private static final Map<String, Function<RedundantIndexEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<RedundantIndexEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<RedundantIndexEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<RedundantIndexEntry, Object>>();
-		Map<String, BiConsumer<RedundantIndexEntry, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<RedundantIndexEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"redundantIndexEntryId",
@@ -267,6 +262,39 @@ public class RedundantIndexEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<RedundantIndexEntry, Object>() {
+
+				@Override
+				public Object apply(RedundantIndexEntry redundantIndexEntry) {
+					return redundantIndexEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<RedundantIndexEntry, Object>() {
+
+				@Override
+				public Object apply(RedundantIndexEntry redundantIndexEntry) {
+					return redundantIndexEntry.getName();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<RedundantIndexEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<RedundantIndexEntry, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<RedundantIndexEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"redundantIndexEntryId",
 			new BiConsumer<RedundantIndexEntry, Object>() {
@@ -281,16 +309,6 @@ public class RedundantIndexEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<RedundantIndexEntry, Object>() {
-
-				@Override
-				public Object apply(RedundantIndexEntry redundantIndexEntry) {
-					return redundantIndexEntry.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<RedundantIndexEntry, Object>() {
@@ -301,16 +319,6 @@ public class RedundantIndexEntryModelImpl
 					Object companyIdObject) {
 
 					redundantIndexEntry.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<RedundantIndexEntry, Object>() {
-
-				@Override
-				public Object apply(RedundantIndexEntry redundantIndexEntry) {
-					return redundantIndexEntry.getName();
 				}
 
 			});
@@ -328,8 +336,6 @@ public class RedundantIndexEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

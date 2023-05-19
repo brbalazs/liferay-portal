@@ -255,18 +255,12 @@ public class RecentLayoutSetBranchModelImpl
 
 	private static final Map<String, Function<RecentLayoutSetBranch, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<RecentLayoutSetBranch, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<RecentLayoutSetBranch, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<RecentLayoutSetBranch, Object>>();
-		Map<String, BiConsumer<RecentLayoutSetBranch, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<RecentLayoutSetBranch, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -280,6 +274,92 @@ public class RecentLayoutSetBranchModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"recentLayoutSetBranchId",
+			new Function<RecentLayoutSetBranch, Object>() {
+
+				@Override
+				public Object apply(
+					RecentLayoutSetBranch recentLayoutSetBranch) {
+
+					return recentLayoutSetBranch.getRecentLayoutSetBranchId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<RecentLayoutSetBranch, Object>() {
+
+				@Override
+				public Object apply(
+					RecentLayoutSetBranch recentLayoutSetBranch) {
+
+					return recentLayoutSetBranch.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<RecentLayoutSetBranch, Object>() {
+
+				@Override
+				public Object apply(
+					RecentLayoutSetBranch recentLayoutSetBranch) {
+
+					return recentLayoutSetBranch.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<RecentLayoutSetBranch, Object>() {
+
+				@Override
+				public Object apply(
+					RecentLayoutSetBranch recentLayoutSetBranch) {
+
+					return recentLayoutSetBranch.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutSetBranchId",
+			new Function<RecentLayoutSetBranch, Object>() {
+
+				@Override
+				public Object apply(
+					RecentLayoutSetBranch recentLayoutSetBranch) {
+
+					return recentLayoutSetBranch.getLayoutSetBranchId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutSetId",
+			new Function<RecentLayoutSetBranch, Object>() {
+
+				@Override
+				public Object apply(
+					RecentLayoutSetBranch recentLayoutSetBranch) {
+
+					return recentLayoutSetBranch.getLayoutSetId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<RecentLayoutSetBranch, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<RecentLayoutSetBranch, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<RecentLayoutSetBranch, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<RecentLayoutSetBranch, Object>() {
@@ -291,18 +371,6 @@ public class RecentLayoutSetBranchModelImpl
 
 					recentLayoutSetBranch.setMvccVersion(
 						(Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"recentLayoutSetBranchId",
-			new Function<RecentLayoutSetBranch, Object>() {
-
-				@Override
-				public Object apply(
-					RecentLayoutSetBranch recentLayoutSetBranch) {
-
-					return recentLayoutSetBranch.getRecentLayoutSetBranchId();
 				}
 
 			});
@@ -320,18 +388,6 @@ public class RecentLayoutSetBranchModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<RecentLayoutSetBranch, Object>() {
-
-				@Override
-				public Object apply(
-					RecentLayoutSetBranch recentLayoutSetBranch) {
-
-					return recentLayoutSetBranch.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<RecentLayoutSetBranch, Object>() {
@@ -342,18 +398,6 @@ public class RecentLayoutSetBranchModelImpl
 					Object groupIdObject) {
 
 					recentLayoutSetBranch.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<RecentLayoutSetBranch, Object>() {
-
-				@Override
-				public Object apply(
-					RecentLayoutSetBranch recentLayoutSetBranch) {
-
-					return recentLayoutSetBranch.getCompanyId();
 				}
 
 			});
@@ -370,18 +414,6 @@ public class RecentLayoutSetBranchModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<RecentLayoutSetBranch, Object>() {
-
-				@Override
-				public Object apply(
-					RecentLayoutSetBranch recentLayoutSetBranch) {
-
-					return recentLayoutSetBranch.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<RecentLayoutSetBranch, Object>() {
@@ -392,18 +424,6 @@ public class RecentLayoutSetBranchModelImpl
 					Object userIdObject) {
 
 					recentLayoutSetBranch.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutSetBranchId",
-			new Function<RecentLayoutSetBranch, Object>() {
-
-				@Override
-				public Object apply(
-					RecentLayoutSetBranch recentLayoutSetBranch) {
-
-					return recentLayoutSetBranch.getLayoutSetBranchId();
 				}
 
 			});
@@ -418,18 +438,6 @@ public class RecentLayoutSetBranchModelImpl
 
 					recentLayoutSetBranch.setLayoutSetBranchId(
 						(Long)layoutSetBranchIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutSetId",
-			new Function<RecentLayoutSetBranch, Object>() {
-
-				@Override
-				public Object apply(
-					RecentLayoutSetBranch recentLayoutSetBranch) {
-
-					return recentLayoutSetBranch.getLayoutSetId();
 				}
 
 			});
@@ -448,8 +456,6 @@ public class RecentLayoutSetBranchModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

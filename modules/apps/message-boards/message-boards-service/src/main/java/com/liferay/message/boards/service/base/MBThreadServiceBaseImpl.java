@@ -43,8 +43,6 @@ import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashEntryPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashVersionPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -743,11 +741,11 @@ public abstract class MBThreadServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(mbThreadService);
+		MBThreadServiceUtil.setService(mbThreadService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		MBThreadServiceUtil.setService(null);
 	}
 
 	/**
@@ -789,20 +787,6 @@ public abstract class MBThreadServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(MBThreadService mbThreadService) {
-		try {
-			Field field = MBThreadServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, mbThreadService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

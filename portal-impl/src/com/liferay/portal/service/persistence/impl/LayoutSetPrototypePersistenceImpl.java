@@ -4966,33 +4966,17 @@ public class LayoutSetPrototypePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_A",
 			new String[] {Long.class.getName(), Boolean.class.getName()});
 
-		_setLayoutSetPrototypeUtilPersistence(this);
+		LayoutSetPrototypeUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setLayoutSetPrototypeUtilPersistence(null);
+		LayoutSetPrototypeUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(LayoutSetPrototypeImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setLayoutSetPrototypeUtilPersistence(
-		LayoutSetPrototypePersistence layoutSetPrototypePersistence) {
-
-		try {
-			Field field = LayoutSetPrototypeUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, layoutSetPrototypePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	private static final String _SQL_SELECT_LAYOUTSETPROTOTYPE =

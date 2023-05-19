@@ -38,8 +38,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.screens.service.ScreensAssetEntryService;
 import com.liferay.screens.service.ScreensAssetEntryServiceUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -764,11 +762,11 @@ public abstract class ScreensAssetEntryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(screensAssetEntryService);
+		ScreensAssetEntryServiceUtil.setService(screensAssetEntryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		ScreensAssetEntryServiceUtil.setService(null);
 	}
 
 	/**
@@ -802,22 +800,6 @@ public abstract class ScreensAssetEntryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		ScreensAssetEntryService screensAssetEntryService) {
-
-		try {
-			Field field = ScreensAssetEntryServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, screensAssetEntryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

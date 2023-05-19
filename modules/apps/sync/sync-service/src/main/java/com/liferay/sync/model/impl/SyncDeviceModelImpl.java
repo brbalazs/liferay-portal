@@ -314,14 +314,10 @@ public class SyncDeviceModelImpl
 
 	private static final Map<String, Function<SyncDevice, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SyncDevice, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SyncDevice, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<SyncDevice, Object>>();
-		Map<String, BiConsumer<SyncDevice, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<SyncDevice, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -333,16 +329,6 @@ public class SyncDeviceModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<SyncDevice, Object>() {
-
-				@Override
-				public void accept(SyncDevice syncDevice, Object uuidObject) {
-					syncDevice.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"syncDeviceId",
 			new Function<SyncDevice, Object>() {
@@ -350,6 +336,128 @@ public class SyncDeviceModelImpl
 				@Override
 				public Object apply(SyncDevice syncDevice) {
 					return syncDevice.getSyncDeviceId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"buildNumber",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getBuildNumber();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"featureSet",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getFeatureSet();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"hostname",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getHostname();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<SyncDevice, Object>() {
+
+				@Override
+				public Object apply(SyncDevice syncDevice) {
+					return syncDevice.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SyncDevice, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SyncDevice, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<SyncDevice, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<SyncDevice, Object>() {
+
+				@Override
+				public void accept(SyncDevice syncDevice, Object uuidObject) {
+					syncDevice.setUuid((String)uuidObject);
 				}
 
 			});
@@ -365,16 +473,6 @@ public class SyncDeviceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<SyncDevice, Object>() {
@@ -387,16 +485,6 @@ public class SyncDeviceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SyncDevice, Object>() {
@@ -404,16 +492,6 @@ public class SyncDeviceModelImpl
 				@Override
 				public void accept(SyncDevice syncDevice, Object userIdObject) {
 					syncDevice.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getUserName();
 				}
 
 			});
@@ -429,16 +507,6 @@ public class SyncDeviceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<SyncDevice, Object>() {
@@ -448,16 +516,6 @@ public class SyncDeviceModelImpl
 					SyncDevice syncDevice, Object createDateObject) {
 
 					syncDevice.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getModifiedDate();
 				}
 
 			});
@@ -473,16 +531,6 @@ public class SyncDeviceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<SyncDevice, Object>() {
@@ -490,16 +538,6 @@ public class SyncDeviceModelImpl
 				@Override
 				public void accept(SyncDevice syncDevice, Object typeObject) {
 					syncDevice.setType((String)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"buildNumber",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getBuildNumber();
 				}
 
 			});
@@ -515,16 +553,6 @@ public class SyncDeviceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"featureSet",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getFeatureSet();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"featureSet",
 			new BiConsumer<SyncDevice, Object>() {
@@ -534,16 +562,6 @@ public class SyncDeviceModelImpl
 					SyncDevice syncDevice, Object featureSetObject) {
 
 					syncDevice.setFeatureSet((Integer)featureSetObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"hostname",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getHostname();
 				}
 
 			});
@@ -559,16 +577,6 @@ public class SyncDeviceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<SyncDevice, Object>() {
-
-				@Override
-				public Object apply(SyncDevice syncDevice) {
-					return syncDevice.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<SyncDevice, Object>() {
@@ -580,8 +588,6 @@ public class SyncDeviceModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

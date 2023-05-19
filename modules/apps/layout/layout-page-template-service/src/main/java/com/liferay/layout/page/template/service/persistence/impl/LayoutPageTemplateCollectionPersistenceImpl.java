@@ -4859,11 +4859,11 @@ public class LayoutPageTemplateCollectionPersistenceImpl
 			"countByG_LikeN",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setLayoutPageTemplateCollectionUtilPersistence(this);
+		LayoutPageTemplateCollectionUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setLayoutPageTemplateCollectionUtilPersistence(null);
+		LayoutPageTemplateCollectionUtil.setPersistence(null);
 
 		entityCache.removeCache(
 			LayoutPageTemplateCollectionImpl.class.getName());
@@ -4871,24 +4871,6 @@ public class LayoutPageTemplateCollectionPersistenceImpl
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setLayoutPageTemplateCollectionUtilPersistence(
-		LayoutPageTemplateCollectionPersistence
-			layoutPageTemplateCollectionPersistence) {
-
-		try {
-			Field field =
-				LayoutPageTemplateCollectionUtil.class.getDeclaredField(
-					"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, layoutPageTemplateCollectionPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

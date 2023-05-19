@@ -239,17 +239,12 @@ public class NestedSetsTreeEntryModelImpl
 
 	private static final Map<String, Function<NestedSetsTreeEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<NestedSetsTreeEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<NestedSetsTreeEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<NestedSetsTreeEntry, Object>>();
-		Map<String, BiConsumer<NestedSetsTreeEntry, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<NestedSetsTreeEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"nestedSetsTreeEntryId",
@@ -261,6 +256,59 @@ public class NestedSetsTreeEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<NestedSetsTreeEntry, Object>() {
+
+				@Override
+				public Object apply(NestedSetsTreeEntry nestedSetsTreeEntry) {
+					return nestedSetsTreeEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentNestedSetsTreeEntryId",
+			new Function<NestedSetsTreeEntry, Object>() {
+
+				@Override
+				public Object apply(NestedSetsTreeEntry nestedSetsTreeEntry) {
+					return nestedSetsTreeEntry.getParentNestedSetsTreeEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"leftNestedSetsTreeEntryId",
+			new Function<NestedSetsTreeEntry, Object>() {
+
+				@Override
+				public Object apply(NestedSetsTreeEntry nestedSetsTreeEntry) {
+					return nestedSetsTreeEntry.getLeftNestedSetsTreeEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"rightNestedSetsTreeEntryId",
+			new Function<NestedSetsTreeEntry, Object>() {
+
+				@Override
+				public Object apply(NestedSetsTreeEntry nestedSetsTreeEntry) {
+					return nestedSetsTreeEntry.getRightNestedSetsTreeEntryId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<NestedSetsTreeEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<NestedSetsTreeEntry, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<NestedSetsTreeEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"nestedSetsTreeEntryId",
 			new BiConsumer<NestedSetsTreeEntry, Object>() {
@@ -275,16 +323,6 @@ public class NestedSetsTreeEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<NestedSetsTreeEntry, Object>() {
-
-				@Override
-				public Object apply(NestedSetsTreeEntry nestedSetsTreeEntry) {
-					return nestedSetsTreeEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<NestedSetsTreeEntry, Object>() {
@@ -295,16 +333,6 @@ public class NestedSetsTreeEntryModelImpl
 					Object groupIdObject) {
 
 					nestedSetsTreeEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"parentNestedSetsTreeEntryId",
-			new Function<NestedSetsTreeEntry, Object>() {
-
-				@Override
-				public Object apply(NestedSetsTreeEntry nestedSetsTreeEntry) {
-					return nestedSetsTreeEntry.getParentNestedSetsTreeEntryId();
 				}
 
 			});
@@ -322,16 +350,6 @@ public class NestedSetsTreeEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"leftNestedSetsTreeEntryId",
-			new Function<NestedSetsTreeEntry, Object>() {
-
-				@Override
-				public Object apply(NestedSetsTreeEntry nestedSetsTreeEntry) {
-					return nestedSetsTreeEntry.getLeftNestedSetsTreeEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"leftNestedSetsTreeEntryId",
 			new BiConsumer<NestedSetsTreeEntry, Object>() {
@@ -343,16 +361,6 @@ public class NestedSetsTreeEntryModelImpl
 
 					nestedSetsTreeEntry.setLeftNestedSetsTreeEntryId(
 						(Long)leftNestedSetsTreeEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"rightNestedSetsTreeEntryId",
-			new Function<NestedSetsTreeEntry, Object>() {
-
-				@Override
-				public Object apply(NestedSetsTreeEntry nestedSetsTreeEntry) {
-					return nestedSetsTreeEntry.getRightNestedSetsTreeEntryId();
 				}
 
 			});
@@ -371,8 +379,6 @@ public class NestedSetsTreeEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

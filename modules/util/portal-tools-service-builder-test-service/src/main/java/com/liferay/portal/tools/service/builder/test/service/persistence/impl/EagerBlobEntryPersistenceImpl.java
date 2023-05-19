@@ -1735,33 +1735,17 @@ public class EagerBlobEntryPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
 			new String[] {String.class.getName(), Long.class.getName()});
 
-		_setEagerBlobEntryUtilPersistence(this);
+		EagerBlobEntryUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setEagerBlobEntryUtilPersistence(null);
+		EagerBlobEntryUtil.setPersistence(null);
 
 		entityCache.removeCache(EagerBlobEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setEagerBlobEntryUtilPersistence(
-		EagerBlobEntryPersistence eagerBlobEntryPersistence) {
-
-		try {
-			Field field = EagerBlobEntryUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, eagerBlobEntryPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

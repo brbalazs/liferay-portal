@@ -908,6 +908,10 @@ public class FriendlyURLEntryUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(FriendlyURLEntryPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile FriendlyURLEntryPersistence _persistence;
 
 }

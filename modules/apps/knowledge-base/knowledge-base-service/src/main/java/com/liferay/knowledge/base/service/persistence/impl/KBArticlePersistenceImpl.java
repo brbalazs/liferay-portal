@@ -36599,32 +36599,17 @@ public class KBArticlePersistenceImpl
 				String.class.getName(), Integer.class.getName()
 			});
 
-		_setKBArticleUtilPersistence(this);
+		KBArticleUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setKBArticleUtilPersistence(null);
+		KBArticleUtil.setPersistence(null);
 
 		entityCache.removeCache(KBArticleImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setKBArticleUtilPersistence(
-		KBArticlePersistence kbArticlePersistence) {
-
-		try {
-			Field field = KBArticleUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, kbArticlePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

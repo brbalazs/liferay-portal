@@ -323,17 +323,12 @@ public class SiteNavigationMenuModelImpl
 
 	private static final Map<String, Function<SiteNavigationMenu, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SiteNavigationMenu, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SiteNavigationMenu, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SiteNavigationMenu, Object>>();
-		Map<String, BiConsumer<SiteNavigationMenu, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<SiteNavigationMenu, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -345,6 +340,129 @@ public class SiteNavigationMenuModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"siteNavigationMenuId",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getSiteNavigationMenuId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"auto",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getAuto();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<SiteNavigationMenu, Object>() {
+
+				@Override
+				public Object apply(SiteNavigationMenu siteNavigationMenu) {
+					return siteNavigationMenu.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SiteNavigationMenu, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SiteNavigationMenu, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<SiteNavigationMenu, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<SiteNavigationMenu, Object>() {
@@ -354,16 +472,6 @@ public class SiteNavigationMenuModelImpl
 					SiteNavigationMenu siteNavigationMenu, Object uuidObject) {
 
 					siteNavigationMenu.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"siteNavigationMenuId",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getSiteNavigationMenuId();
 				}
 
 			});
@@ -381,16 +489,6 @@ public class SiteNavigationMenuModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<SiteNavigationMenu, Object>() {
@@ -401,16 +499,6 @@ public class SiteNavigationMenuModelImpl
 					Object groupIdObject) {
 
 					siteNavigationMenu.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getCompanyId();
 				}
 
 			});
@@ -427,16 +515,6 @@ public class SiteNavigationMenuModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SiteNavigationMenu, Object>() {
@@ -447,16 +525,6 @@ public class SiteNavigationMenuModelImpl
 					Object userIdObject) {
 
 					siteNavigationMenu.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getUserName();
 				}
 
 			});
@@ -473,16 +541,6 @@ public class SiteNavigationMenuModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<SiteNavigationMenu, Object>() {
@@ -493,16 +551,6 @@ public class SiteNavigationMenuModelImpl
 					Object createDateObject) {
 
 					siteNavigationMenu.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getModifiedDate();
 				}
 
 			});
@@ -520,16 +568,6 @@ public class SiteNavigationMenuModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<SiteNavigationMenu, Object>() {
@@ -539,16 +577,6 @@ public class SiteNavigationMenuModelImpl
 					SiteNavigationMenu siteNavigationMenu, Object nameObject) {
 
 					siteNavigationMenu.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getType();
 				}
 
 			});
@@ -564,16 +592,6 @@ public class SiteNavigationMenuModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"auto",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getAuto();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"auto",
 			new BiConsumer<SiteNavigationMenu, Object>() {
@@ -583,16 +601,6 @@ public class SiteNavigationMenuModelImpl
 					SiteNavigationMenu siteNavigationMenu, Object autoObject) {
 
 					siteNavigationMenu.setAuto((Boolean)autoObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<SiteNavigationMenu, Object>() {
-
-				@Override
-				public Object apply(SiteNavigationMenu siteNavigationMenu) {
-					return siteNavigationMenu.getLastPublishDate();
 				}
 
 			});
@@ -611,8 +619,6 @@ public class SiteNavigationMenuModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

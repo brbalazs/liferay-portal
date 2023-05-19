@@ -272,18 +272,12 @@ public class BatchEngineExportTaskModelImpl
 
 	private static final Map<String, Function<BatchEngineExportTask, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<BatchEngineExportTask, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<BatchEngineExportTask, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<BatchEngineExportTask, Object>>();
-		Map<String, BiConsumer<BatchEngineExportTask, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<BatchEngineExportTask, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -294,20 +288,6 @@ public class BatchEngineExportTaskModelImpl
 					BatchEngineExportTask batchEngineExportTask) {
 
 					return batchEngineExportTask.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<BatchEngineExportTask, Object>() {
-
-				@Override
-				public void accept(
-					BatchEngineExportTask batchEngineExportTask,
-					Object mvccVersionObject) {
-
-					batchEngineExportTask.setMvccVersion(
-						(Long)mvccVersionObject);
 				}
 
 			});
@@ -323,6 +303,226 @@ public class BatchEngineExportTaskModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"batchEngineExportTaskId",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getBatchEngineExportTaskId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"callbackURL",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getCallbackURL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"className",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getClassName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"content",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"contentType",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getContentType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"endTime",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getEndTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"errorMessage",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getErrorMessage();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fieldNames",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getFieldNames();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"executeStatus",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getExecuteStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parameters",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getParameters();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"startTime",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getStartTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"taskItemDelegateName",
+			new Function<BatchEngineExportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineExportTask batchEngineExportTask) {
+
+					return batchEngineExportTask.getTaskItemDelegateName();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<BatchEngineExportTask, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<BatchEngineExportTask, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<BatchEngineExportTask, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<BatchEngineExportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineExportTask batchEngineExportTask,
+					Object mvccVersionObject) {
+
+					batchEngineExportTask.setMvccVersion(
+						(Long)mvccVersionObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<BatchEngineExportTask, Object>() {
@@ -333,18 +533,6 @@ public class BatchEngineExportTaskModelImpl
 					Object uuidObject) {
 
 					batchEngineExportTask.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"batchEngineExportTaskId",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getBatchEngineExportTaskId();
 				}
 
 			});
@@ -362,18 +550,6 @@ public class BatchEngineExportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<BatchEngineExportTask, Object>() {
@@ -384,18 +560,6 @@ public class BatchEngineExportTaskModelImpl
 					Object companyIdObject) {
 
 					batchEngineExportTask.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getUserId();
 				}
 
 			});
@@ -412,18 +576,6 @@ public class BatchEngineExportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<BatchEngineExportTask, Object>() {
@@ -434,18 +586,6 @@ public class BatchEngineExportTaskModelImpl
 					Object createDateObject) {
 
 					batchEngineExportTask.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getModifiedDate();
 				}
 
 			});
@@ -463,18 +603,6 @@ public class BatchEngineExportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"callbackURL",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getCallbackURL();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"callbackURL",
 			new BiConsumer<BatchEngineExportTask, Object>() {
@@ -486,18 +614,6 @@ public class BatchEngineExportTaskModelImpl
 
 					batchEngineExportTask.setCallbackURL(
 						(String)callbackURLObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"className",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getClassName();
 				}
 
 			});
@@ -514,18 +630,6 @@ public class BatchEngineExportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"content",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getContent();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"content",
 			new BiConsumer<BatchEngineExportTask, Object>() {
@@ -536,18 +640,6 @@ public class BatchEngineExportTaskModelImpl
 					Object contentObject) {
 
 					batchEngineExportTask.setContent((Blob)contentObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"contentType",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getContentType();
 				}
 
 			});
@@ -565,18 +657,6 @@ public class BatchEngineExportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"endTime",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getEndTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"endTime",
 			new BiConsumer<BatchEngineExportTask, Object>() {
@@ -587,18 +667,6 @@ public class BatchEngineExportTaskModelImpl
 					Object endTimeObject) {
 
 					batchEngineExportTask.setEndTime((Date)endTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"errorMessage",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getErrorMessage();
 				}
 
 			});
@@ -616,18 +684,6 @@ public class BatchEngineExportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"fieldNames",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getFieldNames();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"fieldNames",
 			new BiConsumer<BatchEngineExportTask, Object>() {
@@ -639,18 +695,6 @@ public class BatchEngineExportTaskModelImpl
 
 					batchEngineExportTask.setFieldNames(
 						(String)fieldNamesObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"executeStatus",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getExecuteStatus();
 				}
 
 			});
@@ -668,18 +712,6 @@ public class BatchEngineExportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"parameters",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getParameters();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"parameters",
 			new BiConsumer<BatchEngineExportTask, Object>() {
@@ -694,18 +726,6 @@ public class BatchEngineExportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"startTime",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getStartTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"startTime",
 			new BiConsumer<BatchEngineExportTask, Object>() {
@@ -716,18 +736,6 @@ public class BatchEngineExportTaskModelImpl
 					Object startTimeObject) {
 
 					batchEngineExportTask.setStartTime((Date)startTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"taskItemDelegateName",
-			new Function<BatchEngineExportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineExportTask batchEngineExportTask) {
-
-					return batchEngineExportTask.getTaskItemDelegateName();
 				}
 
 			});
@@ -746,8 +754,6 @@ public class BatchEngineExportTaskModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

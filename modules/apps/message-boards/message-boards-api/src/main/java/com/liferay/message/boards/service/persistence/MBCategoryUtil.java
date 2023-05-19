@@ -3853,6 +3853,10 @@ public class MBCategoryUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(MBCategoryPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile MBCategoryPersistence _persistence;
 
 }

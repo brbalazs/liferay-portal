@@ -326,16 +326,11 @@ public class ManyColumnsEntryModelImpl
 
 	private static final Map<String, Function<ManyColumnsEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ManyColumnsEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ManyColumnsEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<ManyColumnsEntry, Object>>();
-		Map<String, BiConsumer<ManyColumnsEntry, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<ManyColumnsEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"manyColumnsEntryId",
@@ -347,6 +342,659 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"column1",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn1();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column2",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn2();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column3",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn3();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column4",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn4();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column5",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn5();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column6",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn6();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column7",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn7();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column8",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn8();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column9",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn9();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column10",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn10();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column11",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn11();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column12",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn12();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column13",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn13();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column14",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn14();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column15",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn15();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column16",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn16();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column17",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn17();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column18",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn18();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column19",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn19();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column20",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn20();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column21",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn21();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column22",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn22();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column23",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn23();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column24",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn24();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column25",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn25();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column26",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn26();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column27",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn27();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column28",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn28();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column29",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn29();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column30",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn30();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column31",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn31();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column32",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn32();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column33",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn33();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column34",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn34();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column35",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn35();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column36",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn36();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column37",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn37();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column38",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn38();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column39",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn39();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column40",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn40();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column41",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn41();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column42",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn42();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column43",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn43();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column44",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn44();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column45",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn45();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column46",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn46();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column47",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn47();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column48",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn48();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column49",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn49();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column50",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn50();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column51",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn51();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column52",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn52();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column53",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn53();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column54",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn54();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column55",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn55();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column56",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn56();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column57",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn57();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column58",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn58();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column59",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn59();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column60",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn60();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column61",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn61();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column62",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn62();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column63",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn63();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"column64",
+			new Function<ManyColumnsEntry, Object>() {
+
+				@Override
+				public Object apply(ManyColumnsEntry manyColumnsEntry) {
+					return manyColumnsEntry.getColumn64();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ManyColumnsEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ManyColumnsEntry, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<ManyColumnsEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"manyColumnsEntryId",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -358,16 +1006,6 @@ public class ManyColumnsEntryModelImpl
 
 					manyColumnsEntry.setManyColumnsEntryId(
 						(Long)manyColumnsEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column1",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn1();
 				}
 
 			});
@@ -383,16 +1021,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column2",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn2();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column2",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -402,16 +1030,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column2Object) {
 
 					manyColumnsEntry.setColumn2((Integer)column2Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column3",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn3();
 				}
 
 			});
@@ -427,16 +1045,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column4",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn4();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column4",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -446,16 +1054,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column4Object) {
 
 					manyColumnsEntry.setColumn4((Integer)column4Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column5",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn5();
 				}
 
 			});
@@ -471,16 +1069,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column6",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn6();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column6",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -490,16 +1078,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column6Object) {
 
 					manyColumnsEntry.setColumn6((Integer)column6Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column7",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn7();
 				}
 
 			});
@@ -515,16 +1093,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column8",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn8();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column8",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -534,16 +1102,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column8Object) {
 
 					manyColumnsEntry.setColumn8((Integer)column8Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column9",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn9();
 				}
 
 			});
@@ -559,16 +1117,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column10",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn10();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column10",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -578,16 +1126,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column10Object) {
 
 					manyColumnsEntry.setColumn10((Integer)column10Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column11",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn11();
 				}
 
 			});
@@ -603,16 +1141,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column12",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn12();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column12",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -622,16 +1150,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column12Object) {
 
 					manyColumnsEntry.setColumn12((Integer)column12Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column13",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn13();
 				}
 
 			});
@@ -647,16 +1165,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column14",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn14();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column14",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -666,16 +1174,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column14Object) {
 
 					manyColumnsEntry.setColumn14((Integer)column14Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column15",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn15();
 				}
 
 			});
@@ -691,16 +1189,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column16",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn16();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column16",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -710,16 +1198,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column16Object) {
 
 					manyColumnsEntry.setColumn16((Integer)column16Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column17",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn17();
 				}
 
 			});
@@ -735,16 +1213,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column18",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn18();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column18",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -754,16 +1222,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column18Object) {
 
 					manyColumnsEntry.setColumn18((Integer)column18Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column19",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn19();
 				}
 
 			});
@@ -779,16 +1237,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column20",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn20();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column20",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -798,16 +1246,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column20Object) {
 
 					manyColumnsEntry.setColumn20((Integer)column20Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column21",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn21();
 				}
 
 			});
@@ -823,16 +1261,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column22",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn22();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column22",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -842,16 +1270,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column22Object) {
 
 					manyColumnsEntry.setColumn22((Integer)column22Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column23",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn23();
 				}
 
 			});
@@ -867,16 +1285,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column24",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn24();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column24",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -886,16 +1294,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column24Object) {
 
 					manyColumnsEntry.setColumn24((Integer)column24Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column25",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn25();
 				}
 
 			});
@@ -911,16 +1309,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column26",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn26();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column26",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -930,16 +1318,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column26Object) {
 
 					manyColumnsEntry.setColumn26((Integer)column26Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column27",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn27();
 				}
 
 			});
@@ -955,16 +1333,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column28",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn28();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column28",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -974,16 +1342,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column28Object) {
 
 					manyColumnsEntry.setColumn28((Integer)column28Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column29",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn29();
 				}
 
 			});
@@ -999,16 +1357,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column30",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn30();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column30",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1018,16 +1366,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column30Object) {
 
 					manyColumnsEntry.setColumn30((Integer)column30Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column31",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn31();
 				}
 
 			});
@@ -1043,16 +1381,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column32",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn32();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column32",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1062,16 +1390,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column32Object) {
 
 					manyColumnsEntry.setColumn32((Integer)column32Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column33",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn33();
 				}
 
 			});
@@ -1087,16 +1405,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column34",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn34();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column34",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1106,16 +1414,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column34Object) {
 
 					manyColumnsEntry.setColumn34((Integer)column34Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column35",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn35();
 				}
 
 			});
@@ -1131,16 +1429,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column36",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn36();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column36",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1150,16 +1438,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column36Object) {
 
 					manyColumnsEntry.setColumn36((Integer)column36Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column37",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn37();
 				}
 
 			});
@@ -1175,16 +1453,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column38",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn38();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column38",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1194,16 +1462,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column38Object) {
 
 					manyColumnsEntry.setColumn38((Integer)column38Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column39",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn39();
 				}
 
 			});
@@ -1219,16 +1477,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column40",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn40();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column40",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1238,16 +1486,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column40Object) {
 
 					manyColumnsEntry.setColumn40((Integer)column40Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column41",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn41();
 				}
 
 			});
@@ -1263,16 +1501,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column42",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn42();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column42",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1282,16 +1510,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column42Object) {
 
 					manyColumnsEntry.setColumn42((Integer)column42Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column43",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn43();
 				}
 
 			});
@@ -1307,16 +1525,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column44",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn44();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column44",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1326,16 +1534,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column44Object) {
 
 					manyColumnsEntry.setColumn44((Integer)column44Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column45",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn45();
 				}
 
 			});
@@ -1351,16 +1549,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column46",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn46();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column46",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1370,16 +1558,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column46Object) {
 
 					manyColumnsEntry.setColumn46((Integer)column46Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column47",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn47();
 				}
 
 			});
@@ -1395,16 +1573,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column48",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn48();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column48",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1414,16 +1582,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column48Object) {
 
 					manyColumnsEntry.setColumn48((Integer)column48Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column49",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn49();
 				}
 
 			});
@@ -1439,16 +1597,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column50",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn50();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column50",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1458,16 +1606,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column50Object) {
 
 					manyColumnsEntry.setColumn50((Integer)column50Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column51",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn51();
 				}
 
 			});
@@ -1483,16 +1621,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column52",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn52();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column52",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1502,16 +1630,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column52Object) {
 
 					manyColumnsEntry.setColumn52((Integer)column52Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column53",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn53();
 				}
 
 			});
@@ -1527,16 +1645,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column54",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn54();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column54",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1546,16 +1654,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column54Object) {
 
 					manyColumnsEntry.setColumn54((Integer)column54Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column55",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn55();
 				}
 
 			});
@@ -1571,16 +1669,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column56",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn56();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column56",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1590,16 +1678,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column56Object) {
 
 					manyColumnsEntry.setColumn56((Integer)column56Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column57",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn57();
 				}
 
 			});
@@ -1615,16 +1693,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column58",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn58();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column58",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1634,16 +1702,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column58Object) {
 
 					manyColumnsEntry.setColumn58((Integer)column58Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column59",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn59();
 				}
 
 			});
@@ -1659,16 +1717,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column60",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn60();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column60",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1678,16 +1726,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column60Object) {
 
 					manyColumnsEntry.setColumn60((Integer)column60Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column61",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn61();
 				}
 
 			});
@@ -1703,16 +1741,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column62",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn62();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column62",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1725,16 +1753,6 @@ public class ManyColumnsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"column63",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn63();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"column63",
 			new BiConsumer<ManyColumnsEntry, Object>() {
@@ -1744,16 +1762,6 @@ public class ManyColumnsEntryModelImpl
 					ManyColumnsEntry manyColumnsEntry, Object column63Object) {
 
 					manyColumnsEntry.setColumn63((Integer)column63Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"column64",
-			new Function<ManyColumnsEntry, Object>() {
-
-				@Override
-				public Object apply(ManyColumnsEntry manyColumnsEntry) {
-					return manyColumnsEntry.getColumn64();
 				}
 
 			});
@@ -1770,8 +1778,6 @@ public class ManyColumnsEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

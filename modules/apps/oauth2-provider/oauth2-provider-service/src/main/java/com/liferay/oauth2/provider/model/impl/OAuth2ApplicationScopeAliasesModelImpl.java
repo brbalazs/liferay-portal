@@ -257,19 +257,12 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 	private static final Map
 		<String, Function<OAuth2ApplicationScopeAliases, Object>>
 			_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<OAuth2ApplicationScopeAliases, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<OAuth2ApplicationScopeAliases, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<OAuth2ApplicationScopeAliases, Object>>();
-		Map<String, BiConsumer<OAuth2ApplicationScopeAliases, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<OAuth2ApplicationScopeAliases, ?>>();
 
 		attributeGetterFunctions.put(
 			"oAuth2ApplicationScopeAliasesId",
@@ -282,21 +275,6 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 
 					return oAuth2ApplicationScopeAliases.
 						getOAuth2ApplicationScopeAliasesId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"oAuth2ApplicationScopeAliasesId",
-			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
-
-				@Override
-				public void accept(
-					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
-					Object oAuth2ApplicationScopeAliasesIdObject) {
-
-					oAuth2ApplicationScopeAliases.
-						setOAuth2ApplicationScopeAliasesId(
-							(Long)oAuth2ApplicationScopeAliasesIdObject);
 				}
 
 			});
@@ -313,20 +291,6 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
-
-				@Override
-				public void accept(
-					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
-					Object companyIdObject) {
-
-					oAuth2ApplicationScopeAliases.setCompanyId(
-						(Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<OAuth2ApplicationScopeAliases, Object>() {
@@ -337,19 +301,6 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 						oAuth2ApplicationScopeAliases) {
 
 					return oAuth2ApplicationScopeAliases.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
-
-				@Override
-				public void accept(
-					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
-					Object userIdObject) {
-
-					oAuth2ApplicationScopeAliases.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -366,20 +317,6 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
-
-				@Override
-				public void accept(
-					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
-					Object userNameObject) {
-
-					oAuth2ApplicationScopeAliases.setUserName(
-						(String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<OAuth2ApplicationScopeAliases, Object>() {
@@ -390,20 +327,6 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 						oAuth2ApplicationScopeAliases) {
 
 					return oAuth2ApplicationScopeAliases.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
-
-				@Override
-				public void accept(
-					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
-					Object createDateObject) {
-
-					oAuth2ApplicationScopeAliases.setCreateDate(
-						(Date)createDateObject);
 				}
 
 			});
@@ -421,6 +344,117 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"scopeAliases",
+			new Function<OAuth2ApplicationScopeAliases, Object>() {
+
+				@Override
+				public Object apply(
+					OAuth2ApplicationScopeAliases
+						oAuth2ApplicationScopeAliases) {
+
+					return oAuth2ApplicationScopeAliases.getScopeAliases();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"scopeAliasesHash",
+			new Function<OAuth2ApplicationScopeAliases, Object>() {
+
+				@Override
+				public Object apply(
+					OAuth2ApplicationScopeAliases
+						oAuth2ApplicationScopeAliases) {
+
+					return oAuth2ApplicationScopeAliases.getScopeAliasesHash();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<OAuth2ApplicationScopeAliases, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<OAuth2ApplicationScopeAliases, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<OAuth2ApplicationScopeAliases, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"oAuth2ApplicationScopeAliasesId",
+			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
+
+				@Override
+				public void accept(
+					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
+					Object oAuth2ApplicationScopeAliasesIdObject) {
+
+					oAuth2ApplicationScopeAliases.
+						setOAuth2ApplicationScopeAliasesId(
+							(Long)oAuth2ApplicationScopeAliasesIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
+
+				@Override
+				public void accept(
+					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
+					Object companyIdObject) {
+
+					oAuth2ApplicationScopeAliases.setCompanyId(
+						(Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
+
+				@Override
+				public void accept(
+					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
+					Object userIdObject) {
+
+					oAuth2ApplicationScopeAliases.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
+
+				@Override
+				public void accept(
+					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
+					Object userNameObject) {
+
+					oAuth2ApplicationScopeAliases.setUserName(
+						(String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
+
+				@Override
+				public void accept(
+					OAuth2ApplicationScopeAliases oAuth2ApplicationScopeAliases,
+					Object createDateObject) {
+
+					oAuth2ApplicationScopeAliases.setCreateDate(
+						(Date)createDateObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"oAuth2ApplicationId",
 			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
@@ -435,19 +469,6 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"scopeAliases",
-			new Function<OAuth2ApplicationScopeAliases, Object>() {
-
-				@Override
-				public Object apply(
-					OAuth2ApplicationScopeAliases
-						oAuth2ApplicationScopeAliases) {
-
-					return oAuth2ApplicationScopeAliases.getScopeAliases();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"scopeAliases",
 			new BiConsumer<OAuth2ApplicationScopeAliases, Object>() {
@@ -459,19 +480,6 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 
 					oAuth2ApplicationScopeAliases.setScopeAliases(
 						(String)scopeAliasesObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"scopeAliasesHash",
-			new Function<OAuth2ApplicationScopeAliases, Object>() {
-
-				@Override
-				public Object apply(
-					OAuth2ApplicationScopeAliases
-						oAuth2ApplicationScopeAliases) {
-
-					return oAuth2ApplicationScopeAliases.getScopeAliasesHash();
 				}
 
 			});
@@ -490,8 +498,6 @@ public class OAuth2ApplicationScopeAliasesModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

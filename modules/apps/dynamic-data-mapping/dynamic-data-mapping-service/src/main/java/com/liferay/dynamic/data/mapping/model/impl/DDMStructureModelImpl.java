@@ -351,14 +351,10 @@ public class DDMStructureModelImpl
 
 	private static final Map<String, Function<DDMStructure, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DDMStructure, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DDMStructure, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<DDMStructure, Object>>();
-		Map<String, BiConsumer<DDMStructure, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<DDMStructure, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -370,6 +366,208 @@ public class DDMStructureModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"structureId",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getStructureId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"versionUserId",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getVersionUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"versionUserName",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getVersionUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentStructureId",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getParentStructureId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"structureKey",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getStructureKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"version",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"definition",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getDefinition();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"storageType",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getStorageType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<DDMStructure, Object>() {
+
+				@Override
+				public Object apply(DDMStructure ddmStructure) {
+					return ddmStructure.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DDMStructure, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DDMStructure, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<DDMStructure, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<DDMStructure, Object>() {
@@ -379,16 +577,6 @@ public class DDMStructureModelImpl
 					DDMStructure ddmStructure, Object uuidObject) {
 
 					ddmStructure.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"structureId",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getStructureId();
 				}
 
 			});
@@ -404,16 +592,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<DDMStructure, Object>() {
@@ -423,16 +601,6 @@ public class DDMStructureModelImpl
 					DDMStructure ddmStructure, Object groupIdObject) {
 
 					ddmStructure.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getCompanyId();
 				}
 
 			});
@@ -448,16 +616,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<DDMStructure, Object>() {
@@ -467,16 +625,6 @@ public class DDMStructureModelImpl
 					DDMStructure ddmStructure, Object userIdObject) {
 
 					ddmStructure.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getUserName();
 				}
 
 			});
@@ -492,16 +640,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"versionUserId",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getVersionUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"versionUserId",
 			new BiConsumer<DDMStructure, Object>() {
@@ -511,16 +649,6 @@ public class DDMStructureModelImpl
 					DDMStructure ddmStructure, Object versionUserIdObject) {
 
 					ddmStructure.setVersionUserId((Long)versionUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"versionUserName",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getVersionUserName();
 				}
 
 			});
@@ -537,16 +665,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<DDMStructure, Object>() {
@@ -559,16 +677,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<DDMStructure, Object>() {
@@ -578,16 +686,6 @@ public class DDMStructureModelImpl
 					DDMStructure ddmStructure, Object modifiedDateObject) {
 
 					ddmStructure.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"parentStructureId",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getParentStructureId();
 				}
 
 			});
@@ -604,16 +702,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<DDMStructure, Object>() {
@@ -623,16 +711,6 @@ public class DDMStructureModelImpl
 					DDMStructure ddmStructure, Object classNameIdObject) {
 
 					ddmStructure.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"structureKey",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getStructureKey();
 				}
 
 			});
@@ -648,16 +726,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"version",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getVersion();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"version",
 			new BiConsumer<DDMStructure, Object>() {
@@ -667,16 +735,6 @@ public class DDMStructureModelImpl
 					DDMStructure ddmStructure, Object versionObject) {
 
 					ddmStructure.setVersion((String)versionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getName();
 				}
 
 			});
@@ -692,16 +750,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<DDMStructure, Object>() {
@@ -711,16 +759,6 @@ public class DDMStructureModelImpl
 					DDMStructure ddmStructure, Object descriptionObject) {
 
 					ddmStructure.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"definition",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getDefinition();
 				}
 
 			});
@@ -736,16 +774,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"storageType",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getStorageType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"storageType",
 			new BiConsumer<DDMStructure, Object>() {
@@ -758,16 +786,6 @@ public class DDMStructureModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<DDMStructure, Object>() {
@@ -777,16 +795,6 @@ public class DDMStructureModelImpl
 					DDMStructure ddmStructure, Object typeObject) {
 
 					ddmStructure.setType((Integer)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<DDMStructure, Object>() {
-
-				@Override
-				public Object apply(DDMStructure ddmStructure) {
-					return ddmStructure.getLastPublishDate();
 				}
 
 			});
@@ -804,8 +812,6 @@ public class DDMStructureModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

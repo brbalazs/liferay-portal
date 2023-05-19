@@ -47,8 +47,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -463,14 +461,15 @@ public abstract class DDMFormInstanceRecordVersionLocalServiceBaseImpl
 			"com.liferay.dynamic.data.mapping.model.DDMFormInstanceRecordVersion",
 			ddmFormInstanceRecordVersionLocalService);
 
-		_setLocalServiceUtilService(ddmFormInstanceRecordVersionLocalService);
+		DDMFormInstanceRecordVersionLocalServiceUtil.setService(
+			ddmFormInstanceRecordVersionLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.dynamic.data.mapping.model.DDMFormInstanceRecordVersion");
 
-		_setLocalServiceUtilService(null);
+		DDMFormInstanceRecordVersionLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -513,24 +512,6 @@ public abstract class DDMFormInstanceRecordVersionLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DDMFormInstanceRecordVersionLocalService
-			ddmFormInstanceRecordVersionLocalService) {
-
-		try {
-			Field field =
-				DDMFormInstanceRecordVersionLocalServiceUtil.class.
-					getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddmFormInstanceRecordVersionLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

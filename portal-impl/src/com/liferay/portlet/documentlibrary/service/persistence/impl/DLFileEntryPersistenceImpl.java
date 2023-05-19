@@ -16562,33 +16562,17 @@ public class DLFileEntryPersistenceImpl
 				Long.class.getName(), Long.class.getName()
 			});
 
-		_setDLFileEntryUtilPersistence(this);
+		DLFileEntryUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setDLFileEntryUtilPersistence(null);
+		DLFileEntryUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(DLFileEntryImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setDLFileEntryUtilPersistence(
-		DLFileEntryPersistence dlFileEntryPersistence) {
-
-		try {
-			Field field = DLFileEntryUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, dlFileEntryPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	private static final String _SQL_SELECT_DLFILEENTRY =

@@ -424,14 +424,10 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 
 	private static final Map<String, Function<Group, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Group, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Group, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Group, Object>>();
-		Map<String, BiConsumer<Group, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Group, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -440,16 +436,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public Object apply(Group group) {
 					return group.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object mvccVersionObject) {
-					group.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -463,16 +449,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object uuidObject) {
-					group.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupId",
 			new Function<Group, Object>() {
@@ -480,16 +456,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public Object apply(Group group) {
 					return group.getGroupId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object groupIdObject) {
-					group.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -503,16 +469,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object companyIdObject) {
-					group.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"creatorUserId",
 			new Function<Group, Object>() {
@@ -520,16 +476,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public Object apply(Group group) {
 					return group.getCreatorUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"creatorUserId",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object creatorUserIdObject) {
-					group.setCreatorUserId((Long)creatorUserIdObject);
 				}
 
 			});
@@ -543,16 +489,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"classNameId",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object classNameIdObject) {
-					group.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"classPK",
 			new Function<Group, Object>() {
@@ -560,16 +496,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public Object apply(Group group) {
 					return group.getClassPK();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"classPK",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object classPKObject) {
-					group.setClassPK((Long)classPKObject);
 				}
 
 			});
@@ -583,16 +509,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"parentGroupId",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object parentGroupIdObject) {
-					group.setParentGroupId((Long)parentGroupIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"liveGroupId",
 			new Function<Group, Object>() {
@@ -600,16 +516,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public Object apply(Group group) {
 					return group.getLiveGroupId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"liveGroupId",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object liveGroupIdObject) {
-					group.setLiveGroupId((Long)liveGroupIdObject);
 				}
 
 			});
@@ -623,16 +529,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"treePath",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object treePathObject) {
-					group.setTreePath((String)treePathObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupKey",
 			new Function<Group, Object>() {
@@ -640,16 +536,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public Object apply(Group group) {
 					return group.getGroupKey();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"groupKey",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object groupKeyObject) {
-					group.setGroupKey((String)groupKeyObject);
 				}
 
 			});
@@ -663,16 +549,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"name",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object nameObject) {
-					group.setName((String)nameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"description",
 			new Function<Group, Object>() {
@@ -680,16 +556,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public Object apply(Group group) {
 					return group.getDescription();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"description",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object descriptionObject) {
-					group.setDescription((String)descriptionObject);
 				}
 
 			});
@@ -703,16 +569,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"type",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object typeObject) {
-					group.setType((Integer)typeObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"typeSettings",
 			new Function<Group, Object>() {
@@ -720,16 +576,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public Object apply(Group group) {
 					return group.getTypeSettings();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"typeSettings",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object typeSettingsObject) {
-					group.setTypeSettings((String)typeSettingsObject);
 				}
 
 			});
@@ -743,16 +589,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"manualMembership",
-			new BiConsumer<Group, Object>() {
-
-				@Override
-				public void accept(Group group, Object manualMembershipObject) {
-					group.setManualMembership((Boolean)manualMembershipObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"membershipRestriction",
 			new Function<Group, Object>() {
@@ -760,6 +596,228 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public Object apply(Group group) {
 					return group.getMembershipRestriction();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"friendlyURL",
+			new Function<Group, Object>() {
+
+				@Override
+				public Object apply(Group group) {
+					return group.getFriendlyURL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"site",
+			new Function<Group, Object>() {
+
+				@Override
+				public Object apply(Group group) {
+					return group.getSite();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"remoteStagingGroupCount",
+			new Function<Group, Object>() {
+
+				@Override
+				public Object apply(Group group) {
+					return group.getRemoteStagingGroupCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"inheritContent",
+			new Function<Group, Object>() {
+
+				@Override
+				public Object apply(Group group) {
+					return group.getInheritContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"active",
+			new Function<Group, Object>() {
+
+				@Override
+				public Object apply(Group group) {
+					return group.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Group, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Group, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Group, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object mvccVersionObject) {
+					group.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object uuidObject) {
+					group.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object groupIdObject) {
+					group.setGroupId((Long)groupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object companyIdObject) {
+					group.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"creatorUserId",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object creatorUserIdObject) {
+					group.setCreatorUserId((Long)creatorUserIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classNameId",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object classNameIdObject) {
+					group.setClassNameId((Long)classNameIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classPK",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object classPKObject) {
+					group.setClassPK((Long)classPKObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"parentGroupId",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object parentGroupIdObject) {
+					group.setParentGroupId((Long)parentGroupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"liveGroupId",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object liveGroupIdObject) {
+					group.setLiveGroupId((Long)liveGroupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"treePath",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object treePathObject) {
+					group.setTreePath((String)treePathObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupKey",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object groupKeyObject) {
+					group.setGroupKey((String)groupKeyObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"name",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object nameObject) {
+					group.setName((String)nameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"description",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object descriptionObject) {
+					group.setDescription((String)descriptionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"type",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object typeObject) {
+					group.setType((Integer)typeObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"typeSettings",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object typeSettingsObject) {
+					group.setTypeSettings((String)typeSettingsObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"manualMembership",
+			new BiConsumer<Group, Object>() {
+
+				@Override
+				public void accept(Group group, Object manualMembershipObject) {
+					group.setManualMembership((Boolean)manualMembershipObject);
 				}
 
 			});
@@ -776,16 +834,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"friendlyURL",
-			new Function<Group, Object>() {
-
-				@Override
-				public Object apply(Group group) {
-					return group.getFriendlyURL();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"friendlyURL",
 			new BiConsumer<Group, Object>() {
@@ -796,16 +844,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"site",
-			new Function<Group, Object>() {
-
-				@Override
-				public Object apply(Group group) {
-					return group.getSite();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"site",
 			new BiConsumer<Group, Object>() {
@@ -813,16 +851,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public void accept(Group group, Object siteObject) {
 					group.setSite((Boolean)siteObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"remoteStagingGroupCount",
-			new Function<Group, Object>() {
-
-				@Override
-				public Object apply(Group group) {
-					return group.getRemoteStagingGroupCount();
 				}
 
 			});
@@ -839,16 +867,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"inheritContent",
-			new Function<Group, Object>() {
-
-				@Override
-				public Object apply(Group group) {
-					return group.getInheritContent();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"inheritContent",
 			new BiConsumer<Group, Object>() {
@@ -856,16 +874,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 				@Override
 				public void accept(Group group, Object inheritContentObject) {
 					group.setInheritContent((Boolean)inheritContentObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"active",
-			new Function<Group, Object>() {
-
-				@Override
-				public Object apply(Group group) {
-					return group.getActive();
 				}
 
 			});
@@ -880,8 +888,6 @@ public class GroupModelImpl extends BaseModelImpl<Group> implements GroupModel {
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

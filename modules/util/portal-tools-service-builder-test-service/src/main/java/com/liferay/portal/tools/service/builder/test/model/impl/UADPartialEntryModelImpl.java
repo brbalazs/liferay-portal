@@ -237,15 +237,11 @@ public class UADPartialEntryModelImpl
 
 	private static final Map<String, Function<UADPartialEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<UADPartialEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<UADPartialEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<UADPartialEntry, Object>>();
-		Map<String, BiConsumer<UADPartialEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<UADPartialEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uadPartialEntryId",
@@ -257,6 +253,48 @@ public class UADPartialEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<UADPartialEntry, Object>() {
+
+				@Override
+				public Object apply(UADPartialEntry uadPartialEntry) {
+					return uadPartialEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<UADPartialEntry, Object>() {
+
+				@Override
+				public Object apply(UADPartialEntry uadPartialEntry) {
+					return uadPartialEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"message",
+			new Function<UADPartialEntry, Object>() {
+
+				@Override
+				public Object apply(UADPartialEntry uadPartialEntry) {
+					return uadPartialEntry.getMessage();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<UADPartialEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<UADPartialEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<UADPartialEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uadPartialEntryId",
 			new BiConsumer<UADPartialEntry, Object>() {
@@ -268,16 +306,6 @@ public class UADPartialEntryModelImpl
 
 					uadPartialEntry.setUadPartialEntryId(
 						(Long)uadPartialEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<UADPartialEntry, Object>() {
-
-				@Override
-				public Object apply(UADPartialEntry uadPartialEntry) {
-					return uadPartialEntry.getUserId();
 				}
 
 			});
@@ -293,16 +321,6 @@ public class UADPartialEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<UADPartialEntry, Object>() {
-
-				@Override
-				public Object apply(UADPartialEntry uadPartialEntry) {
-					return uadPartialEntry.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<UADPartialEntry, Object>() {
@@ -312,16 +330,6 @@ public class UADPartialEntryModelImpl
 					UADPartialEntry uadPartialEntry, Object userNameObject) {
 
 					uadPartialEntry.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"message",
-			new Function<UADPartialEntry, Object>() {
-
-				@Override
-				public Object apply(UADPartialEntry uadPartialEntry) {
-					return uadPartialEntry.getMessage();
 				}
 
 			});
@@ -338,8 +346,6 @@ public class UADPartialEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

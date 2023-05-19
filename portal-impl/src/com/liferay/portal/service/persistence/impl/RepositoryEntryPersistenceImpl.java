@@ -3306,33 +3306,17 @@ public class RepositoryEntryPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByR_M",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setRepositoryEntryUtilPersistence(this);
+		RepositoryEntryUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setRepositoryEntryUtilPersistence(null);
+		RepositoryEntryUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(RepositoryEntryImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setRepositoryEntryUtilPersistence(
-		RepositoryEntryPersistence repositoryEntryPersistence) {
-
-		try {
-			Field field = RepositoryEntryUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, repositoryEntryPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	private static final String _SQL_SELECT_REPOSITORYENTRY =

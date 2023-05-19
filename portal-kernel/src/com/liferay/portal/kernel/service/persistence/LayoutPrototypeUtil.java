@@ -1323,6 +1323,10 @@ public class LayoutPrototypeUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(LayoutPrototypePersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile LayoutPrototypePersistence _persistence;
 
 }

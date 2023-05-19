@@ -261,16 +261,11 @@ public class FaroNotificationModelImpl
 
 	private static final Map<String, Function<FaroNotification, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<FaroNotification, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<FaroNotification, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<FaroNotification, Object>>();
-		Map<String, BiConsumer<FaroNotification, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<FaroNotification, ?>>();
 
 		attributeGetterFunctions.put(
 			"faroNotificationId",
@@ -282,6 +277,109 @@ public class FaroNotificationModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<FaroNotification, Object>() {
+
+				@Override
+				public Object apply(FaroNotification faroNotification) {
+					return faroNotification.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<FaroNotification, Object>() {
+
+				@Override
+				public Object apply(FaroNotification faroNotification) {
+					return faroNotification.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createTime",
+			new Function<FaroNotification, Object>() {
+
+				@Override
+				public Object apply(FaroNotification faroNotification) {
+					return faroNotification.getCreateTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedTime",
+			new Function<FaroNotification, Object>() {
+
+				@Override
+				public Object apply(FaroNotification faroNotification) {
+					return faroNotification.getModifiedTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ownerId",
+			new Function<FaroNotification, Object>() {
+
+				@Override
+				public Object apply(FaroNotification faroNotification) {
+					return faroNotification.getOwnerId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"scope",
+			new Function<FaroNotification, Object>() {
+
+				@Override
+				public Object apply(FaroNotification faroNotification) {
+					return faroNotification.getScope();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"read",
+			new Function<FaroNotification, Object>() {
+
+				@Override
+				public Object apply(FaroNotification faroNotification) {
+					return faroNotification.getRead();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<FaroNotification, Object>() {
+
+				@Override
+				public Object apply(FaroNotification faroNotification) {
+					return faroNotification.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"subtype",
+			new Function<FaroNotification, Object>() {
+
+				@Override
+				public Object apply(FaroNotification faroNotification) {
+					return faroNotification.getSubtype();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<FaroNotification, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<FaroNotification, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<FaroNotification, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"faroNotificationId",
 			new BiConsumer<FaroNotification, Object>() {
@@ -293,16 +391,6 @@ public class FaroNotificationModelImpl
 
 					faroNotification.setFaroNotificationId(
 						(Long)faroNotificationIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<FaroNotification, Object>() {
-
-				@Override
-				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getGroupId();
 				}
 
 			});
@@ -318,16 +406,6 @@ public class FaroNotificationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<FaroNotification, Object>() {
-
-				@Override
-				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<FaroNotification, Object>() {
@@ -337,16 +415,6 @@ public class FaroNotificationModelImpl
 					FaroNotification faroNotification, Object userIdObject) {
 
 					faroNotification.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createTime",
-			new Function<FaroNotification, Object>() {
-
-				@Override
-				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getCreateTime();
 				}
 
 			});
@@ -363,16 +431,6 @@ public class FaroNotificationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedTime",
-			new Function<FaroNotification, Object>() {
-
-				@Override
-				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getModifiedTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedTime",
 			new BiConsumer<FaroNotification, Object>() {
@@ -383,16 +441,6 @@ public class FaroNotificationModelImpl
 					Object modifiedTimeObject) {
 
 					faroNotification.setModifiedTime((Long)modifiedTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"ownerId",
-			new Function<FaroNotification, Object>() {
-
-				@Override
-				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getOwnerId();
 				}
 
 			});
@@ -408,16 +456,6 @@ public class FaroNotificationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"scope",
-			new Function<FaroNotification, Object>() {
-
-				@Override
-				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getScope();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"scope",
 			new BiConsumer<FaroNotification, Object>() {
@@ -427,16 +465,6 @@ public class FaroNotificationModelImpl
 					FaroNotification faroNotification, Object scopeObject) {
 
 					faroNotification.setScope((String)scopeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"read",
-			new Function<FaroNotification, Object>() {
-
-				@Override
-				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getRead();
 				}
 
 			});
@@ -452,16 +480,6 @@ public class FaroNotificationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<FaroNotification, Object>() {
-
-				@Override
-				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<FaroNotification, Object>() {
@@ -471,16 +489,6 @@ public class FaroNotificationModelImpl
 					FaroNotification faroNotification, Object typeObject) {
 
 					faroNotification.setType((String)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"subtype",
-			new Function<FaroNotification, Object>() {
-
-				@Override
-				public Object apply(FaroNotification faroNotification) {
-					return faroNotification.getSubtype();
 				}
 
 			});
@@ -497,8 +505,6 @@ public class FaroNotificationModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

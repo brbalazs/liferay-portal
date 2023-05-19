@@ -255,19 +255,12 @@ public class SharepointOAuth2TokenEntryModelImpl
 	private static final Map
 		<String, Function<SharepointOAuth2TokenEntry, Object>>
 			_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<SharepointOAuth2TokenEntry, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SharepointOAuth2TokenEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SharepointOAuth2TokenEntry, Object>>();
-		Map<String, BiConsumer<SharepointOAuth2TokenEntry, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<SharepointOAuth2TokenEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"sharepointOAuth2TokenEntryId",
@@ -279,20 +272,6 @@ public class SharepointOAuth2TokenEntryModelImpl
 
 					return sharepointOAuth2TokenEntry.
 						getSharepointOAuth2TokenEntryId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"sharepointOAuth2TokenEntryId",
-			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
-
-				@Override
-				public void accept(
-					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
-					Object sharepointOAuth2TokenEntryIdObject) {
-
-					sharepointOAuth2TokenEntry.setSharepointOAuth2TokenEntryId(
-						(Long)sharepointOAuth2TokenEntryIdObject);
 				}
 
 			});
@@ -308,6 +287,107 @@ public class SharepointOAuth2TokenEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(
+					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+
+					return sharepointOAuth2TokenEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(
+					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+
+					return sharepointOAuth2TokenEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessToken",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(
+					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+
+					return sharepointOAuth2TokenEntry.getAccessToken();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"configurationPid",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(
+					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+
+					return sharepointOAuth2TokenEntry.getConfigurationPid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"expirationDate",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(
+					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+
+					return sharepointOAuth2TokenEntry.getExpirationDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"refreshToken",
+			new Function<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public Object apply(
+					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
+
+					return sharepointOAuth2TokenEntry.getRefreshToken();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<SharepointOAuth2TokenEntry, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SharepointOAuth2TokenEntry, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<SharepointOAuth2TokenEntry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"sharepointOAuth2TokenEntryId",
+			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
+
+				@Override
+				public void accept(
+					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry,
+					Object sharepointOAuth2TokenEntryIdObject) {
+
+					sharepointOAuth2TokenEntry.setSharepointOAuth2TokenEntryId(
+						(Long)sharepointOAuth2TokenEntryIdObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
@@ -318,18 +398,6 @@ public class SharepointOAuth2TokenEntryModelImpl
 					Object userIdObject) {
 
 					sharepointOAuth2TokenEntry.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<SharepointOAuth2TokenEntry, Object>() {
-
-				@Override
-				public Object apply(
-					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
-
-					return sharepointOAuth2TokenEntry.getUserName();
 				}
 
 			});
@@ -347,18 +415,6 @@ public class SharepointOAuth2TokenEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SharepointOAuth2TokenEntry, Object>() {
-
-				@Override
-				public Object apply(
-					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
-
-					return sharepointOAuth2TokenEntry.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
@@ -370,18 +426,6 @@ public class SharepointOAuth2TokenEntryModelImpl
 
 					sharepointOAuth2TokenEntry.setCreateDate(
 						(Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"accessToken",
-			new Function<SharepointOAuth2TokenEntry, Object>() {
-
-				@Override
-				public Object apply(
-					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
-
-					return sharepointOAuth2TokenEntry.getAccessToken();
 				}
 
 			});
@@ -399,18 +443,6 @@ public class SharepointOAuth2TokenEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"configurationPid",
-			new Function<SharepointOAuth2TokenEntry, Object>() {
-
-				@Override
-				public Object apply(
-					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
-
-					return sharepointOAuth2TokenEntry.getConfigurationPid();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"configurationPid",
 			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
@@ -425,18 +457,6 @@ public class SharepointOAuth2TokenEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"expirationDate",
-			new Function<SharepointOAuth2TokenEntry, Object>() {
-
-				@Override
-				public Object apply(
-					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
-
-					return sharepointOAuth2TokenEntry.getExpirationDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"expirationDate",
 			new BiConsumer<SharepointOAuth2TokenEntry, Object>() {
@@ -448,18 +468,6 @@ public class SharepointOAuth2TokenEntryModelImpl
 
 					sharepointOAuth2TokenEntry.setExpirationDate(
 						(Date)expirationDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"refreshToken",
-			new Function<SharepointOAuth2TokenEntry, Object>() {
-
-				@Override
-				public Object apply(
-					SharepointOAuth2TokenEntry sharepointOAuth2TokenEntry) {
-
-					return sharepointOAuth2TokenEntry.getRefreshToken();
 				}
 
 			});
@@ -478,8 +486,6 @@ public class SharepointOAuth2TokenEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

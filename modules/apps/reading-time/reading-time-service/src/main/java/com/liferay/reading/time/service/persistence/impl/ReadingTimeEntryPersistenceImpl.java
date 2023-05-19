@@ -2747,33 +2747,17 @@ public class ReadingTimeEntryPersistenceImpl
 				Long.class.getName(), Long.class.getName(), Long.class.getName()
 			});
 
-		_setReadingTimeEntryUtilPersistence(this);
+		ReadingTimeEntryUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setReadingTimeEntryUtilPersistence(null);
+		ReadingTimeEntryUtil.setPersistence(null);
 
 		entityCache.removeCache(ReadingTimeEntryImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setReadingTimeEntryUtilPersistence(
-		ReadingTimeEntryPersistence readingTimeEntryPersistence) {
-
-		try {
-			Field field = ReadingTimeEntryUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, readingTimeEntryPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

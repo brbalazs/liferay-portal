@@ -357,14 +357,10 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 
 	private static final Map<String, Function<Role, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Role, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Role, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Role, Object>>();
-		Map<String, BiConsumer<Role, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Role, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -373,16 +369,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				@Override
 				public Object apply(Role role) {
 					return role.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object mvccVersionObject) {
-					role.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -396,16 +382,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object uuidObject) {
-					role.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"roleId",
 			new Function<Role, Object>() {
@@ -413,16 +389,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				@Override
 				public Object apply(Role role) {
 					return role.getRoleId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"roleId",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object roleIdObject) {
-					role.setRoleId((Long)roleIdObject);
 				}
 
 			});
@@ -436,16 +402,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object companyIdObject) {
-					role.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Role, Object>() {
@@ -453,16 +409,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				@Override
 				public Object apply(Role role) {
 					return role.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object userIdObject) {
-					role.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -476,16 +422,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object userNameObject) {
-					role.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Role, Object>() {
@@ -493,16 +429,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				@Override
 				public Object apply(Role role) {
 					return role.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object createDateObject) {
-					role.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -516,16 +442,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object modifiedDateObject) {
-					role.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"classNameId",
 			new Function<Role, Object>() {
@@ -533,16 +449,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				@Override
 				public Object apply(Role role) {
 					return role.getClassNameId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"classNameId",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object classNameIdObject) {
-					role.setClassNameId((Long)classNameIdObject);
 				}
 
 			});
@@ -556,16 +462,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"classPK",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object classPKObject) {
-					role.setClassPK((Long)classPKObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"name",
 			new Function<Role, Object>() {
@@ -573,16 +469,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				@Override
 				public Object apply(Role role) {
 					return role.getName();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"name",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object nameObject) {
-					role.setName((String)nameObject);
 				}
 
 			});
@@ -596,16 +482,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"title",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object titleObject) {
-					role.setTitle((String)titleObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"description",
 			new Function<Role, Object>() {
@@ -613,16 +489,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				@Override
 				public Object apply(Role role) {
 					return role.getDescription();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"description",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object descriptionObject) {
-					role.setDescription((String)descriptionObject);
 				}
 
 			});
@@ -636,16 +502,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"type",
-			new BiConsumer<Role, Object>() {
-
-				@Override
-				public void accept(Role role, Object typeObject) {
-					role.setType((Integer)typeObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"subtype",
 			new Function<Role, Object>() {
@@ -653,6 +509,158 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 				@Override
 				public Object apply(Role role) {
 					return role.getSubtype();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Role, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Role, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Role, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object mvccVersionObject) {
+					role.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object uuidObject) {
+					role.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"roleId",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object roleIdObject) {
+					role.setRoleId((Long)roleIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object companyIdObject) {
+					role.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object userIdObject) {
+					role.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object userNameObject) {
+					role.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object createDateObject) {
+					role.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object modifiedDateObject) {
+					role.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classNameId",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object classNameIdObject) {
+					role.setClassNameId((Long)classNameIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classPK",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object classPKObject) {
+					role.setClassPK((Long)classPKObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"name",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object nameObject) {
+					role.setName((String)nameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"title",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object titleObject) {
+					role.setTitle((String)titleObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"description",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object descriptionObject) {
+					role.setDescription((String)descriptionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"type",
+			new BiConsumer<Role, Object>() {
+
+				@Override
+				public void accept(Role role, Object typeObject) {
+					role.setType((Integer)typeObject);
 				}
 
 			});
@@ -667,8 +675,6 @@ public class RoleModelImpl extends BaseModelImpl<Role> implements RoleModel {
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

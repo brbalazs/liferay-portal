@@ -1927,6 +1927,10 @@ public class FragmentEntryUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(FragmentEntryPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile FragmentEntryPersistence _persistence;
 
 }

@@ -244,14 +244,10 @@ public class FolderModelImpl
 
 	private static final Map<String, Function<Folder, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Folder, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Folder, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Folder, Object>>();
-		Map<String, BiConsumer<Folder, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Folder, ?>>();
 
 		attributeGetterFunctions.put(
 			"folderId",
@@ -260,16 +256,6 @@ public class FolderModelImpl
 				@Override
 				public Object apply(Folder folder) {
 					return folder.getFolderId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"folderId",
-			new BiConsumer<Folder, Object>() {
-
-				@Override
-				public void accept(Folder folder, Object folderIdObject) {
-					folder.setFolderId((Long)folderIdObject);
 				}
 
 			});
@@ -283,16 +269,6 @@ public class FolderModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Folder, Object>() {
-
-				@Override
-				public void accept(Folder folder, Object companyIdObject) {
-					folder.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Folder, Object>() {
@@ -300,16 +276,6 @@ public class FolderModelImpl
 				@Override
 				public Object apply(Folder folder) {
 					return folder.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Folder, Object>() {
-
-				@Override
-				public void accept(Folder folder, Object userIdObject) {
-					folder.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -323,16 +289,6 @@ public class FolderModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Folder, Object>() {
-
-				@Override
-				public void accept(Folder folder, Object userNameObject) {
-					folder.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Folder, Object>() {
@@ -340,16 +296,6 @@ public class FolderModelImpl
 				@Override
 				public Object apply(Folder folder) {
 					return folder.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Folder, Object>() {
-
-				@Override
-				public void accept(Folder folder, Object createDateObject) {
-					folder.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -363,16 +309,6 @@ public class FolderModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Folder, Object>() {
-
-				@Override
-				public void accept(Folder folder, Object modifiedDateObject) {
-					folder.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"accountId",
 			new Function<Folder, Object>() {
@@ -380,16 +316,6 @@ public class FolderModelImpl
 				@Override
 				public Object apply(Folder folder) {
 					return folder.getAccountId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"accountId",
-			new BiConsumer<Folder, Object>() {
-
-				@Override
-				public void accept(Folder folder, Object accountIdObject) {
-					folder.setAccountId((Long)accountIdObject);
 				}
 
 			});
@@ -403,16 +329,6 @@ public class FolderModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"fullName",
-			new BiConsumer<Folder, Object>() {
-
-				@Override
-				public void accept(Folder folder, Object fullNameObject) {
-					folder.setFullName((String)fullNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"displayName",
 			new Function<Folder, Object>() {
@@ -423,16 +339,6 @@ public class FolderModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"displayName",
-			new BiConsumer<Folder, Object>() {
-
-				@Override
-				public void accept(Folder folder, Object displayNameObject) {
-					folder.setDisplayName((String)displayNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"remoteMessageCount",
 			new Function<Folder, Object>() {
@@ -440,6 +346,108 @@ public class FolderModelImpl
 				@Override
 				public Object apply(Folder folder) {
 					return folder.getRemoteMessageCount();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Folder, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Folder, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Folder, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"folderId",
+			new BiConsumer<Folder, Object>() {
+
+				@Override
+				public void accept(Folder folder, Object folderIdObject) {
+					folder.setFolderId((Long)folderIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Folder, Object>() {
+
+				@Override
+				public void accept(Folder folder, Object companyIdObject) {
+					folder.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Folder, Object>() {
+
+				@Override
+				public void accept(Folder folder, Object userIdObject) {
+					folder.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Folder, Object>() {
+
+				@Override
+				public void accept(Folder folder, Object userNameObject) {
+					folder.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Folder, Object>() {
+
+				@Override
+				public void accept(Folder folder, Object createDateObject) {
+					folder.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Folder, Object>() {
+
+				@Override
+				public void accept(Folder folder, Object modifiedDateObject) {
+					folder.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"accountId",
+			new BiConsumer<Folder, Object>() {
+
+				@Override
+				public void accept(Folder folder, Object accountIdObject) {
+					folder.setAccountId((Long)accountIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"fullName",
+			new BiConsumer<Folder, Object>() {
+
+				@Override
+				public void accept(Folder folder, Object fullNameObject) {
+					folder.setFullName((String)fullNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"displayName",
+			new BiConsumer<Folder, Object>() {
+
+				@Override
+				public void accept(Folder folder, Object displayNameObject) {
+					folder.setDisplayName((String)displayNameObject);
 				}
 
 			});
@@ -457,8 +465,6 @@ public class FolderModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

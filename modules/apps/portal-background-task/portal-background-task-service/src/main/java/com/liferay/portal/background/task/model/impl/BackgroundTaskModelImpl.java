@@ -332,14 +332,10 @@ public class BackgroundTaskModelImpl
 
 	private static final Map<String, Function<BackgroundTask, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<BackgroundTask, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<BackgroundTask, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<BackgroundTask, Object>>();
-		Map<String, BiConsumer<BackgroundTask, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<BackgroundTask, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -351,6 +347,168 @@ public class BackgroundTaskModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"backgroundTaskId",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getBackgroundTaskId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"servletContextNames",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getServletContextNames();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"taskExecutorClassName",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getTaskExecutorClassName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"taskContextMap",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getTaskContextMap();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"completed",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getCompleted();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"completionDate",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getCompletionDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusMessage",
+			new Function<BackgroundTask, Object>() {
+
+				@Override
+				public Object apply(BackgroundTask backgroundTask) {
+					return backgroundTask.getStatusMessage();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<BackgroundTask, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<BackgroundTask, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<BackgroundTask, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<BackgroundTask, Object>() {
@@ -360,16 +518,6 @@ public class BackgroundTaskModelImpl
 					BackgroundTask backgroundTask, Object mvccVersionObject) {
 
 					backgroundTask.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"backgroundTaskId",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getBackgroundTaskId();
 				}
 
 			});
@@ -387,16 +535,6 @@ public class BackgroundTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<BackgroundTask, Object>() {
@@ -406,16 +544,6 @@ public class BackgroundTaskModelImpl
 					BackgroundTask backgroundTask, Object groupIdObject) {
 
 					backgroundTask.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getCompanyId();
 				}
 
 			});
@@ -431,16 +559,6 @@ public class BackgroundTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<BackgroundTask, Object>() {
@@ -450,16 +568,6 @@ public class BackgroundTaskModelImpl
 					BackgroundTask backgroundTask, Object userIdObject) {
 
 					backgroundTask.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getUserName();
 				}
 
 			});
@@ -475,16 +583,6 @@ public class BackgroundTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<BackgroundTask, Object>() {
@@ -494,16 +592,6 @@ public class BackgroundTaskModelImpl
 					BackgroundTask backgroundTask, Object createDateObject) {
 
 					backgroundTask.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getModifiedDate();
 				}
 
 			});
@@ -519,16 +607,6 @@ public class BackgroundTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<BackgroundTask, Object>() {
@@ -538,16 +616,6 @@ public class BackgroundTaskModelImpl
 					BackgroundTask backgroundTask, Object nameObject) {
 
 					backgroundTask.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"servletContextNames",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getServletContextNames();
 				}
 
 			});
@@ -565,16 +633,6 @@ public class BackgroundTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"taskExecutorClassName",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getTaskExecutorClassName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"taskExecutorClassName",
 			new BiConsumer<BackgroundTask, Object>() {
@@ -586,16 +644,6 @@ public class BackgroundTaskModelImpl
 
 					backgroundTask.setTaskExecutorClassName(
 						(String)taskExecutorClassNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"taskContextMap",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getTaskContextMap();
 				}
 
 			});
@@ -613,16 +661,6 @@ public class BackgroundTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"completed",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getCompleted();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"completed",
 			new BiConsumer<BackgroundTask, Object>() {
@@ -632,16 +670,6 @@ public class BackgroundTaskModelImpl
 					BackgroundTask backgroundTask, Object completedObject) {
 
 					backgroundTask.setCompleted((Boolean)completedObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"completionDate",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getCompletionDate();
 				}
 
 			});
@@ -659,16 +687,6 @@ public class BackgroundTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<BackgroundTask, Object>() {
@@ -678,16 +696,6 @@ public class BackgroundTaskModelImpl
 					BackgroundTask backgroundTask, Object statusObject) {
 
 					backgroundTask.setStatus((Integer)statusObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusMessage",
-			new Function<BackgroundTask, Object>() {
-
-				@Override
-				public Object apply(BackgroundTask backgroundTask) {
-					return backgroundTask.getStatusMessage();
 				}
 
 			});
@@ -705,8 +713,6 @@ public class BackgroundTaskModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

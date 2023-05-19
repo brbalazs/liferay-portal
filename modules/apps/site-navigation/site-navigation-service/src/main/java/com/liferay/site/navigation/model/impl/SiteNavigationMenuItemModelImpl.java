@@ -338,18 +338,12 @@ public class SiteNavigationMenuItemModelImpl
 
 	private static final Map<String, Function<SiteNavigationMenuItem, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SiteNavigationMenuItem, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SiteNavigationMenuItem, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SiteNavigationMenuItem, Object>>();
-		Map<String, BiConsumer<SiteNavigationMenuItem, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<SiteNavigationMenuItem, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -363,6 +357,189 @@ public class SiteNavigationMenuItemModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"siteNavigationMenuItemId",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getSiteNavigationMenuItemId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"siteNavigationMenuId",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getSiteNavigationMenuId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentSiteNavigationMenuItemId",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.
+						getParentSiteNavigationMenuItemId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typeSettings",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getTypeSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"order",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getOrder();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<SiteNavigationMenuItem, Object>() {
+
+				@Override
+				public Object apply(
+					SiteNavigationMenuItem siteNavigationMenuItem) {
+
+					return siteNavigationMenuItem.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SiteNavigationMenuItem, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SiteNavigationMenuItem, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<SiteNavigationMenuItem, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<SiteNavigationMenuItem, Object>() {
@@ -373,18 +550,6 @@ public class SiteNavigationMenuItemModelImpl
 					Object uuidObject) {
 
 					siteNavigationMenuItem.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"siteNavigationMenuItemId",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getSiteNavigationMenuItemId();
 				}
 
 			});
@@ -402,18 +567,6 @@ public class SiteNavigationMenuItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<SiteNavigationMenuItem, Object>() {
@@ -424,18 +577,6 @@ public class SiteNavigationMenuItemModelImpl
 					Object groupIdObject) {
 
 					siteNavigationMenuItem.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getCompanyId();
 				}
 
 			});
@@ -452,18 +593,6 @@ public class SiteNavigationMenuItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SiteNavigationMenuItem, Object>() {
@@ -477,18 +606,6 @@ public class SiteNavigationMenuItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<SiteNavigationMenuItem, Object>() {
@@ -499,18 +616,6 @@ public class SiteNavigationMenuItemModelImpl
 					Object userNameObject) {
 
 					siteNavigationMenuItem.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getCreateDate();
 				}
 
 			});
@@ -528,18 +633,6 @@ public class SiteNavigationMenuItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<SiteNavigationMenuItem, Object>() {
@@ -551,18 +644,6 @@ public class SiteNavigationMenuItemModelImpl
 
 					siteNavigationMenuItem.setModifiedDate(
 						(Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"siteNavigationMenuId",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getSiteNavigationMenuId();
 				}
 
 			});
@@ -580,19 +661,6 @@ public class SiteNavigationMenuItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"parentSiteNavigationMenuItemId",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.
-						getParentSiteNavigationMenuItemId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"parentSiteNavigationMenuItemId",
 			new BiConsumer<SiteNavigationMenuItem, Object>() {
@@ -604,18 +672,6 @@ public class SiteNavigationMenuItemModelImpl
 
 					siteNavigationMenuItem.setParentSiteNavigationMenuItemId(
 						(Long)parentSiteNavigationMenuItemIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getName();
 				}
 
 			});
@@ -632,18 +688,6 @@ public class SiteNavigationMenuItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<SiteNavigationMenuItem, Object>() {
@@ -654,18 +698,6 @@ public class SiteNavigationMenuItemModelImpl
 					Object typeObject) {
 
 					siteNavigationMenuItem.setType((String)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"typeSettings",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getTypeSettings();
 				}
 
 			});
@@ -683,18 +715,6 @@ public class SiteNavigationMenuItemModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"order",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getOrder();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"order",
 			new BiConsumer<SiteNavigationMenuItem, Object>() {
@@ -705,18 +725,6 @@ public class SiteNavigationMenuItemModelImpl
 					Object orderObject) {
 
 					siteNavigationMenuItem.setOrder((Integer)orderObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<SiteNavigationMenuItem, Object>() {
-
-				@Override
-				public Object apply(
-					SiteNavigationMenuItem siteNavigationMenuItem) {
-
-					return siteNavigationMenuItem.getLastPublishDate();
 				}
 
 			});
@@ -735,8 +743,6 @@ public class SiteNavigationMenuItemModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -47,8 +47,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -450,14 +448,15 @@ public abstract class ContactsCardTemplateLocalServiceBaseImpl
 			"com.liferay.osb.faro.contacts.model.ContactsCardTemplate",
 			contactsCardTemplateLocalService);
 
-		_setLocalServiceUtilService(contactsCardTemplateLocalService);
+		ContactsCardTemplateLocalServiceUtil.setService(
+			contactsCardTemplateLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.osb.faro.contacts.model.ContactsCardTemplate");
 
-		_setLocalServiceUtilService(null);
+		ContactsCardTemplateLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -500,23 +499,6 @@ public abstract class ContactsCardTemplateLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		ContactsCardTemplateLocalService contactsCardTemplateLocalService) {
-
-		try {
-			Field field =
-				ContactsCardTemplateLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, contactsCardTemplateLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

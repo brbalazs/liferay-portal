@@ -251,18 +251,12 @@ public class ContactsCardTemplateModelImpl
 
 	private static final Map<String, Function<ContactsCardTemplate, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ContactsCardTemplate, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ContactsCardTemplate, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<ContactsCardTemplate, Object>>();
-		Map<String, BiConsumer<ContactsCardTemplate, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<ContactsCardTemplate, ?>>();
 
 		attributeGetterFunctions.put(
 			"contactsCardTemplateId",
@@ -274,6 +268,100 @@ public class ContactsCardTemplateModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<ContactsCardTemplate, Object>() {
+
+				@Override
+				public Object apply(ContactsCardTemplate contactsCardTemplate) {
+					return contactsCardTemplate.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<ContactsCardTemplate, Object>() {
+
+				@Override
+				public Object apply(ContactsCardTemplate contactsCardTemplate) {
+					return contactsCardTemplate.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<ContactsCardTemplate, Object>() {
+
+				@Override
+				public Object apply(ContactsCardTemplate contactsCardTemplate) {
+					return contactsCardTemplate.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createTime",
+			new Function<ContactsCardTemplate, Object>() {
+
+				@Override
+				public Object apply(ContactsCardTemplate contactsCardTemplate) {
+					return contactsCardTemplate.getCreateTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedTime",
+			new Function<ContactsCardTemplate, Object>() {
+
+				@Override
+				public Object apply(ContactsCardTemplate contactsCardTemplate) {
+					return contactsCardTemplate.getModifiedTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<ContactsCardTemplate, Object>() {
+
+				@Override
+				public Object apply(ContactsCardTemplate contactsCardTemplate) {
+					return contactsCardTemplate.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"settings",
+			new Function<ContactsCardTemplate, Object>() {
+
+				@Override
+				public Object apply(ContactsCardTemplate contactsCardTemplate) {
+					return contactsCardTemplate.getSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<ContactsCardTemplate, Object>() {
+
+				@Override
+				public Object apply(ContactsCardTemplate contactsCardTemplate) {
+					return contactsCardTemplate.getType();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ContactsCardTemplate, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ContactsCardTemplate, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<ContactsCardTemplate, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"contactsCardTemplateId",
 			new BiConsumer<ContactsCardTemplate, Object>() {
@@ -285,16 +373,6 @@ public class ContactsCardTemplateModelImpl
 
 					contactsCardTemplate.setContactsCardTemplateId(
 						(Long)contactsCardTemplateIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<ContactsCardTemplate, Object>() {
-
-				@Override
-				public Object apply(ContactsCardTemplate contactsCardTemplate) {
-					return contactsCardTemplate.getGroupId();
 				}
 
 			});
@@ -311,16 +389,6 @@ public class ContactsCardTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<ContactsCardTemplate, Object>() {
-
-				@Override
-				public Object apply(ContactsCardTemplate contactsCardTemplate) {
-					return contactsCardTemplate.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<ContactsCardTemplate, Object>() {
@@ -331,16 +399,6 @@ public class ContactsCardTemplateModelImpl
 					Object userIdObject) {
 
 					contactsCardTemplate.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<ContactsCardTemplate, Object>() {
-
-				@Override
-				public Object apply(ContactsCardTemplate contactsCardTemplate) {
-					return contactsCardTemplate.getUserName();
 				}
 
 			});
@@ -357,16 +415,6 @@ public class ContactsCardTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createTime",
-			new Function<ContactsCardTemplate, Object>() {
-
-				@Override
-				public Object apply(ContactsCardTemplate contactsCardTemplate) {
-					return contactsCardTemplate.getCreateTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createTime",
 			new BiConsumer<ContactsCardTemplate, Object>() {
@@ -377,16 +425,6 @@ public class ContactsCardTemplateModelImpl
 					Object createTimeObject) {
 
 					contactsCardTemplate.setCreateTime((Long)createTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedTime",
-			new Function<ContactsCardTemplate, Object>() {
-
-				@Override
-				public Object apply(ContactsCardTemplate contactsCardTemplate) {
-					return contactsCardTemplate.getModifiedTime();
 				}
 
 			});
@@ -404,16 +442,6 @@ public class ContactsCardTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<ContactsCardTemplate, Object>() {
-
-				@Override
-				public Object apply(ContactsCardTemplate contactsCardTemplate) {
-					return contactsCardTemplate.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<ContactsCardTemplate, Object>() {
@@ -427,16 +455,6 @@ public class ContactsCardTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"settings",
-			new Function<ContactsCardTemplate, Object>() {
-
-				@Override
-				public Object apply(ContactsCardTemplate contactsCardTemplate) {
-					return contactsCardTemplate.getSettings();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"settings",
 			new BiConsumer<ContactsCardTemplate, Object>() {
@@ -447,16 +465,6 @@ public class ContactsCardTemplateModelImpl
 					Object settingsObject) {
 
 					contactsCardTemplate.setSettings((String)settingsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<ContactsCardTemplate, Object>() {
-
-				@Override
-				public Object apply(ContactsCardTemplate contactsCardTemplate) {
-					return contactsCardTemplate.getType();
 				}
 
 			});
@@ -474,8 +482,6 @@ public class ContactsCardTemplateModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

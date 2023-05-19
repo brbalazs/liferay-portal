@@ -311,14 +311,10 @@ public class KBTemplateModelImpl
 
 	private static final Map<String, Function<KBTemplate, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KBTemplate, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<KBTemplate, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<KBTemplate, Object>>();
-		Map<String, BiConsumer<KBTemplate, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<KBTemplate, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -330,16 +326,6 @@ public class KBTemplateModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<KBTemplate, Object>() {
-
-				@Override
-				public void accept(KBTemplate kbTemplate, Object uuidObject) {
-					kbTemplate.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"kbTemplateId",
 			new Function<KBTemplate, Object>() {
@@ -347,6 +333,118 @@ public class KBTemplateModelImpl
 				@Override
 				public Object apply(KBTemplate kbTemplate) {
 					return kbTemplate.getKbTemplateId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<KBTemplate, Object>() {
+
+				@Override
+				public Object apply(KBTemplate kbTemplate) {
+					return kbTemplate.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<KBTemplate, Object>() {
+
+				@Override
+				public Object apply(KBTemplate kbTemplate) {
+					return kbTemplate.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<KBTemplate, Object>() {
+
+				@Override
+				public Object apply(KBTemplate kbTemplate) {
+					return kbTemplate.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<KBTemplate, Object>() {
+
+				@Override
+				public Object apply(KBTemplate kbTemplate) {
+					return kbTemplate.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<KBTemplate, Object>() {
+
+				@Override
+				public Object apply(KBTemplate kbTemplate) {
+					return kbTemplate.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<KBTemplate, Object>() {
+
+				@Override
+				public Object apply(KBTemplate kbTemplate) {
+					return kbTemplate.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<KBTemplate, Object>() {
+
+				@Override
+				public Object apply(KBTemplate kbTemplate) {
+					return kbTemplate.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"content",
+			new Function<KBTemplate, Object>() {
+
+				@Override
+				public Object apply(KBTemplate kbTemplate) {
+					return kbTemplate.getContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<KBTemplate, Object>() {
+
+				@Override
+				public Object apply(KBTemplate kbTemplate) {
+					return kbTemplate.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<KBTemplate, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<KBTemplate, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<KBTemplate, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<KBTemplate, Object>() {
+
+				@Override
+				public void accept(KBTemplate kbTemplate, Object uuidObject) {
+					kbTemplate.setUuid((String)uuidObject);
 				}
 
 			});
@@ -362,16 +460,6 @@ public class KBTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<KBTemplate, Object>() {
-
-				@Override
-				public Object apply(KBTemplate kbTemplate) {
-					return kbTemplate.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<KBTemplate, Object>() {
@@ -381,16 +469,6 @@ public class KBTemplateModelImpl
 					KBTemplate kbTemplate, Object groupIdObject) {
 
 					kbTemplate.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<KBTemplate, Object>() {
-
-				@Override
-				public Object apply(KBTemplate kbTemplate) {
-					return kbTemplate.getCompanyId();
 				}
 
 			});
@@ -406,16 +484,6 @@ public class KBTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<KBTemplate, Object>() {
-
-				@Override
-				public Object apply(KBTemplate kbTemplate) {
-					return kbTemplate.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<KBTemplate, Object>() {
@@ -423,16 +491,6 @@ public class KBTemplateModelImpl
 				@Override
 				public void accept(KBTemplate kbTemplate, Object userIdObject) {
 					kbTemplate.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<KBTemplate, Object>() {
-
-				@Override
-				public Object apply(KBTemplate kbTemplate) {
-					return kbTemplate.getUserName();
 				}
 
 			});
@@ -448,16 +506,6 @@ public class KBTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<KBTemplate, Object>() {
-
-				@Override
-				public Object apply(KBTemplate kbTemplate) {
-					return kbTemplate.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<KBTemplate, Object>() {
@@ -467,16 +515,6 @@ public class KBTemplateModelImpl
 					KBTemplate kbTemplate, Object createDateObject) {
 
 					kbTemplate.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<KBTemplate, Object>() {
-
-				@Override
-				public Object apply(KBTemplate kbTemplate) {
-					return kbTemplate.getModifiedDate();
 				}
 
 			});
@@ -492,16 +530,6 @@ public class KBTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<KBTemplate, Object>() {
-
-				@Override
-				public Object apply(KBTemplate kbTemplate) {
-					return kbTemplate.getTitle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"title",
 			new BiConsumer<KBTemplate, Object>() {
@@ -509,16 +537,6 @@ public class KBTemplateModelImpl
 				@Override
 				public void accept(KBTemplate kbTemplate, Object titleObject) {
 					kbTemplate.setTitle((String)titleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"content",
-			new Function<KBTemplate, Object>() {
-
-				@Override
-				public Object apply(KBTemplate kbTemplate) {
-					return kbTemplate.getContent();
 				}
 
 			});
@@ -531,16 +549,6 @@ public class KBTemplateModelImpl
 					KBTemplate kbTemplate, Object contentObject) {
 
 					kbTemplate.setContent((String)contentObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<KBTemplate, Object>() {
-
-				@Override
-				public Object apply(KBTemplate kbTemplate) {
-					return kbTemplate.getLastPublishDate();
 				}
 
 			});
@@ -557,8 +565,6 @@ public class KBTemplateModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

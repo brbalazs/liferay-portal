@@ -1102,6 +1102,10 @@ public class SourceUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(SourcePersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile SourcePersistence _persistence;
 
 }

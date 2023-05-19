@@ -59,8 +59,6 @@ import com.liferay.sync.service.persistence.SyncDevicePersistence;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -991,14 +989,14 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.sync.model.SyncDLObject", syncDLObjectLocalService);
 
-		_setLocalServiceUtilService(syncDLObjectLocalService);
+		SyncDLObjectLocalServiceUtil.setService(syncDLObjectLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.sync.model.SyncDLObject");
 
-		_setLocalServiceUtilService(null);
+		SyncDLObjectLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -1040,22 +1038,6 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		SyncDLObjectLocalService syncDLObjectLocalService) {
-
-		try {
-			Field field = SyncDLObjectLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, syncDLObjectLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

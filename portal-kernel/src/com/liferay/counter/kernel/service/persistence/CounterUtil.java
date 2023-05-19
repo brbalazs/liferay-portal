@@ -270,6 +270,10 @@ public class CounterUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(CounterPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile CounterPersistence _persistence;
 
 }

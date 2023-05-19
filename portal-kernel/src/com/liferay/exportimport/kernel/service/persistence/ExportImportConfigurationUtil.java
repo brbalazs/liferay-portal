@@ -1228,6 +1228,12 @@ public class ExportImportConfigurationUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(
+		ExportImportConfigurationPersistence persistence) {
+
+		_persistence = persistence;
+	}
+
 	private static volatile ExportImportConfigurationPersistence _persistence;
 
 }

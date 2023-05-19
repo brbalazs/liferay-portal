@@ -35,8 +35,6 @@ import com.liferay.portal.security.service.access.policy.service.SAPEntryService
 import com.liferay.portal.security.service.access.policy.service.persistence.SAPEntryPersistence;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -419,11 +417,11 @@ public abstract class SAPEntryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(sapEntryService);
+		SAPEntryServiceUtil.setService(sapEntryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		SAPEntryServiceUtil.setService(null);
 	}
 
 	/**
@@ -465,20 +463,6 @@ public abstract class SAPEntryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(SAPEntryService sapEntryService) {
-		try {
-			Field field = SAPEntryServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, sapEntryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

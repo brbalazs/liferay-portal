@@ -262,14 +262,10 @@ public class SubscriptionModelImpl
 
 	private static final Map<String, Function<Subscription, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Subscription, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Subscription, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Subscription, Object>>();
-		Map<String, BiConsumer<Subscription, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Subscription, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -281,6 +277,118 @@ public class SubscriptionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"subscriptionId",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getSubscriptionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"frequency",
+			new Function<Subscription, Object>() {
+
+				@Override
+				public Object apply(Subscription subscription) {
+					return subscription.getFrequency();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Subscription, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Subscription, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Subscription, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<Subscription, Object>() {
@@ -290,16 +398,6 @@ public class SubscriptionModelImpl
 					Subscription subscription, Object mvccVersionObject) {
 
 					subscription.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"subscriptionId",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getSubscriptionId();
 				}
 
 			});
@@ -315,16 +413,6 @@ public class SubscriptionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<Subscription, Object>() {
@@ -334,16 +422,6 @@ public class SubscriptionModelImpl
 					Subscription subscription, Object groupIdObject) {
 
 					subscription.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getCompanyId();
 				}
 
 			});
@@ -359,16 +437,6 @@ public class SubscriptionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<Subscription, Object>() {
@@ -378,16 +446,6 @@ public class SubscriptionModelImpl
 					Subscription subscription, Object userIdObject) {
 
 					subscription.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getUserName();
 				}
 
 			});
@@ -403,16 +461,6 @@ public class SubscriptionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<Subscription, Object>() {
@@ -422,16 +470,6 @@ public class SubscriptionModelImpl
 					Subscription subscription, Object createDateObject) {
 
 					subscription.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getModifiedDate();
 				}
 
 			});
@@ -447,16 +485,6 @@ public class SubscriptionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<Subscription, Object>() {
@@ -469,16 +497,6 @@ public class SubscriptionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<Subscription, Object>() {
@@ -488,16 +506,6 @@ public class SubscriptionModelImpl
 					Subscription subscription, Object classPKObject) {
 
 					subscription.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"frequency",
-			new Function<Subscription, Object>() {
-
-				@Override
-				public Object apply(Subscription subscription) {
-					return subscription.getFrequency();
 				}
 
 			});
@@ -514,8 +522,6 @@ public class SubscriptionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

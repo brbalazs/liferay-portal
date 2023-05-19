@@ -369,14 +369,10 @@ public class BlogsEntryModelImpl
 
 	private static final Map<String, Function<BlogsEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<BlogsEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<BlogsEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<BlogsEntry, Object>>();
-		Map<String, BiConsumer<BlogsEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<BlogsEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -388,16 +384,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<BlogsEntry, Object>() {
-
-				@Override
-				public void accept(BlogsEntry blogsEntry, Object uuidObject) {
-					blogsEntry.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"entryId",
 			new Function<BlogsEntry, Object>() {
@@ -405,6 +391,298 @@ public class BlogsEntryModelImpl
 				@Override
 				public Object apply(BlogsEntry blogsEntry) {
 					return blogsEntry.getEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"subtitle",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getSubtitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"urlTitle",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getUrlTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"content",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"displayDate",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getDisplayDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"allowPingbacks",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getAllowPingbacks();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"allowTrackbacks",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getAllowTrackbacks();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"trackbacks",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getTrackbacks();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"coverImageCaption",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getCoverImageCaption();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"coverImageFileEntryId",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getCoverImageFileEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"coverImageURL",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getCoverImageURL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"smallImage",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getSmallImage();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"smallImageFileEntryId",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getSmallImageFileEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"smallImageId",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getSmallImageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"smallImageURL",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getSmallImageURL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<BlogsEntry, Object>() {
+
+				@Override
+				public Object apply(BlogsEntry blogsEntry) {
+					return blogsEntry.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<BlogsEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<BlogsEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<BlogsEntry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<BlogsEntry, Object>() {
+
+				@Override
+				public void accept(BlogsEntry blogsEntry, Object uuidObject) {
+					blogsEntry.setUuid((String)uuidObject);
 				}
 
 			});
@@ -420,16 +698,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -439,16 +707,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object groupIdObject) {
 
 					blogsEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getCompanyId();
 				}
 
 			});
@@ -464,16 +722,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -481,16 +729,6 @@ public class BlogsEntryModelImpl
 				@Override
 				public void accept(BlogsEntry blogsEntry, Object userIdObject) {
 					blogsEntry.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getUserName();
 				}
 
 			});
@@ -506,16 +744,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -525,16 +753,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object createDateObject) {
 
 					blogsEntry.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getModifiedDate();
 				}
 
 			});
@@ -550,16 +768,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getTitle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"title",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -567,16 +775,6 @@ public class BlogsEntryModelImpl
 				@Override
 				public void accept(BlogsEntry blogsEntry, Object titleObject) {
 					blogsEntry.setTitle((String)titleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"subtitle",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getSubtitle();
 				}
 
 			});
@@ -592,16 +790,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"urlTitle",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getUrlTitle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"urlTitle",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -611,16 +799,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object urlTitleObject) {
 
 					blogsEntry.setUrlTitle((String)urlTitleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getDescription();
 				}
 
 			});
@@ -636,16 +814,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"content",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getContent();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"content",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -655,16 +823,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object contentObject) {
 
 					blogsEntry.setContent((String)contentObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"displayDate",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getDisplayDate();
 				}
 
 			});
@@ -680,16 +838,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"allowPingbacks",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getAllowPingbacks();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"allowPingbacks",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -699,16 +847,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object allowPingbacksObject) {
 
 					blogsEntry.setAllowPingbacks((Boolean)allowPingbacksObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"allowTrackbacks",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getAllowTrackbacks();
 				}
 
 			});
@@ -725,16 +863,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"trackbacks",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getTrackbacks();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"trackbacks",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -744,16 +872,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object trackbacksObject) {
 
 					blogsEntry.setTrackbacks((String)trackbacksObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"coverImageCaption",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getCoverImageCaption();
 				}
 
 			});
@@ -770,16 +888,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"coverImageFileEntryId",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getCoverImageFileEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"coverImageFileEntryId",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -790,16 +898,6 @@ public class BlogsEntryModelImpl
 
 					blogsEntry.setCoverImageFileEntryId(
 						(Long)coverImageFileEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"coverImageURL",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getCoverImageURL();
 				}
 
 			});
@@ -815,16 +913,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"smallImage",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getSmallImage();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"smallImage",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -834,16 +922,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object smallImageObject) {
 
 					blogsEntry.setSmallImage((Boolean)smallImageObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"smallImageFileEntryId",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getSmallImageFileEntryId();
 				}
 
 			});
@@ -860,16 +938,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"smallImageId",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getSmallImageId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"smallImageId",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -879,16 +947,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object smallImageIdObject) {
 
 					blogsEntry.setSmallImageId((Long)smallImageIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"smallImageURL",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getSmallImageURL();
 				}
 
 			});
@@ -904,16 +962,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getLastPublishDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastPublishDate",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -923,16 +971,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object lastPublishDateObject) {
 
 					blogsEntry.setLastPublishDate((Date)lastPublishDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getStatus();
 				}
 
 			});
@@ -946,16 +984,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getStatusByUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserId",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -965,16 +993,6 @@ public class BlogsEntryModelImpl
 					BlogsEntry blogsEntry, Object statusByUserIdObject) {
 
 					blogsEntry.setStatusByUserId((Long)statusByUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getStatusByUserName();
 				}
 
 			});
@@ -991,16 +1009,6 @@ public class BlogsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<BlogsEntry, Object>() {
-
-				@Override
-				public Object apply(BlogsEntry blogsEntry) {
-					return blogsEntry.getStatusDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusDate",
 			new BiConsumer<BlogsEntry, Object>() {
@@ -1014,8 +1022,6 @@ public class BlogsEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

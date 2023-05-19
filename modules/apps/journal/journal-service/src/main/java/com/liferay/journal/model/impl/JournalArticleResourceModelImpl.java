@@ -249,18 +249,12 @@ public class JournalArticleResourceModelImpl
 
 	private static final Map<String, Function<JournalArticleResource, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<JournalArticleResource, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<JournalArticleResource, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<JournalArticleResource, Object>>();
-		Map<String, BiConsumer<JournalArticleResource, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<JournalArticleResource, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -274,6 +268,68 @@ public class JournalArticleResourceModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"resourcePrimKey",
+			new Function<JournalArticleResource, Object>() {
+
+				@Override
+				public Object apply(
+					JournalArticleResource journalArticleResource) {
+
+					return journalArticleResource.getResourcePrimKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<JournalArticleResource, Object>() {
+
+				@Override
+				public Object apply(
+					JournalArticleResource journalArticleResource) {
+
+					return journalArticleResource.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<JournalArticleResource, Object>() {
+
+				@Override
+				public Object apply(
+					JournalArticleResource journalArticleResource) {
+
+					return journalArticleResource.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"articleId",
+			new Function<JournalArticleResource, Object>() {
+
+				@Override
+				public Object apply(
+					JournalArticleResource journalArticleResource) {
+
+					return journalArticleResource.getArticleId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<JournalArticleResource, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<JournalArticleResource, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<JournalArticleResource, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<JournalArticleResource, Object>() {
@@ -284,18 +340,6 @@ public class JournalArticleResourceModelImpl
 					Object uuidObject) {
 
 					journalArticleResource.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resourcePrimKey",
-			new Function<JournalArticleResource, Object>() {
-
-				@Override
-				public Object apply(
-					JournalArticleResource journalArticleResource) {
-
-					return journalArticleResource.getResourcePrimKey();
 				}
 
 			});
@@ -313,18 +357,6 @@ public class JournalArticleResourceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<JournalArticleResource, Object>() {
-
-				@Override
-				public Object apply(
-					JournalArticleResource journalArticleResource) {
-
-					return journalArticleResource.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<JournalArticleResource, Object>() {
@@ -338,18 +370,6 @@ public class JournalArticleResourceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<JournalArticleResource, Object>() {
-
-				@Override
-				public Object apply(
-					JournalArticleResource journalArticleResource) {
-
-					return journalArticleResource.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<JournalArticleResource, Object>() {
@@ -360,18 +380,6 @@ public class JournalArticleResourceModelImpl
 					Object companyIdObject) {
 
 					journalArticleResource.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"articleId",
-			new Function<JournalArticleResource, Object>() {
-
-				@Override
-				public Object apply(
-					JournalArticleResource journalArticleResource) {
-
-					return journalArticleResource.getArticleId();
 				}
 
 			});
@@ -390,8 +398,6 @@ public class JournalArticleResourceModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

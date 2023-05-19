@@ -31,8 +31,6 @@ import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.service.persistence.AccountPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -156,11 +154,11 @@ public abstract class AccountServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(accountService);
+		AccountServiceUtil.setService(accountService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		AccountServiceUtil.setService(null);
 	}
 
 	/**
@@ -202,19 +200,6 @@ public abstract class AccountServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(AccountService accountService) {
-		try {
-			Field field = AccountServiceUtil.class.getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, accountService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -32,8 +32,6 @@ import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -144,11 +142,11 @@ public abstract class OAuth2AuthorizationServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(oAuth2AuthorizationService);
+		OAuth2AuthorizationServiceUtil.setService(oAuth2AuthorizationService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		OAuth2AuthorizationServiceUtil.setService(null);
 	}
 
 	/**
@@ -191,22 +189,6 @@ public abstract class OAuth2AuthorizationServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		OAuth2AuthorizationService oAuth2AuthorizationService) {
-
-		try {
-			Field field = OAuth2AuthorizationServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, oAuth2AuthorizationService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

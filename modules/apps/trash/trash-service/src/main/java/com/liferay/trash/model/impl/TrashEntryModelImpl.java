@@ -313,14 +313,10 @@ public class TrashEntryModelImpl
 
 	private static final Map<String, Function<TrashEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<TrashEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<TrashEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<TrashEntry, Object>>();
-		Map<String, BiConsumer<TrashEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<TrashEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"entryId",
@@ -332,6 +328,118 @@ public class TrashEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"systemEventSetKey",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getSystemEventSetKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typeSettings",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getTypeSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<TrashEntry, Object>() {
+
+				@Override
+				public Object apply(TrashEntry trashEntry) {
+					return trashEntry.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<TrashEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<TrashEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<TrashEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"entryId",
 			new BiConsumer<TrashEntry, Object>() {
@@ -341,16 +449,6 @@ public class TrashEntryModelImpl
 					TrashEntry trashEntry, Object entryIdObject) {
 
 					trashEntry.setEntryId((Long)entryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getGroupId();
 				}
 
 			});
@@ -366,16 +464,6 @@ public class TrashEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<TrashEntry, Object>() {
@@ -388,16 +476,6 @@ public class TrashEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<TrashEntry, Object>() {
@@ -405,16 +483,6 @@ public class TrashEntryModelImpl
 				@Override
 				public void accept(TrashEntry trashEntry, Object userIdObject) {
 					trashEntry.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getUserName();
 				}
 
 			});
@@ -430,16 +498,6 @@ public class TrashEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<TrashEntry, Object>() {
@@ -449,16 +507,6 @@ public class TrashEntryModelImpl
 					TrashEntry trashEntry, Object createDateObject) {
 
 					trashEntry.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getClassNameId();
 				}
 
 			});
@@ -474,16 +522,6 @@ public class TrashEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<TrashEntry, Object>() {
@@ -493,16 +531,6 @@ public class TrashEntryModelImpl
 					TrashEntry trashEntry, Object classPKObject) {
 
 					trashEntry.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"systemEventSetKey",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getSystemEventSetKey();
 				}
 
 			});
@@ -519,16 +547,6 @@ public class TrashEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"typeSettings",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getTypeSettings();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"typeSettings",
 			new BiConsumer<TrashEntry, Object>() {
@@ -538,16 +556,6 @@ public class TrashEntryModelImpl
 					TrashEntry trashEntry, Object typeSettingsObject) {
 
 					trashEntry.setTypeSettings((String)typeSettingsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<TrashEntry, Object>() {
-
-				@Override
-				public Object apply(TrashEntry trashEntry) {
-					return trashEntry.getStatus();
 				}
 
 			});
@@ -562,8 +570,6 @@ public class TrashEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

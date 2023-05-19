@@ -260,14 +260,10 @@ public class MBThreadFlagModelImpl
 
 	private static final Map<String, Function<MBThreadFlag, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MBThreadFlag, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MBThreadFlag, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<MBThreadFlag, Object>>();
-		Map<String, BiConsumer<MBThreadFlag, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MBThreadFlag, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -279,6 +275,108 @@ public class MBThreadFlagModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"threadFlagId",
+			new Function<MBThreadFlag, Object>() {
+
+				@Override
+				public Object apply(MBThreadFlag mbThreadFlag) {
+					return mbThreadFlag.getThreadFlagId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<MBThreadFlag, Object>() {
+
+				@Override
+				public Object apply(MBThreadFlag mbThreadFlag) {
+					return mbThreadFlag.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MBThreadFlag, Object>() {
+
+				@Override
+				public Object apply(MBThreadFlag mbThreadFlag) {
+					return mbThreadFlag.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MBThreadFlag, Object>() {
+
+				@Override
+				public Object apply(MBThreadFlag mbThreadFlag) {
+					return mbThreadFlag.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<MBThreadFlag, Object>() {
+
+				@Override
+				public Object apply(MBThreadFlag mbThreadFlag) {
+					return mbThreadFlag.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<MBThreadFlag, Object>() {
+
+				@Override
+				public Object apply(MBThreadFlag mbThreadFlag) {
+					return mbThreadFlag.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<MBThreadFlag, Object>() {
+
+				@Override
+				public Object apply(MBThreadFlag mbThreadFlag) {
+					return mbThreadFlag.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"threadId",
+			new Function<MBThreadFlag, Object>() {
+
+				@Override
+				public Object apply(MBThreadFlag mbThreadFlag) {
+					return mbThreadFlag.getThreadId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<MBThreadFlag, Object>() {
+
+				@Override
+				public Object apply(MBThreadFlag mbThreadFlag) {
+					return mbThreadFlag.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MBThreadFlag, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MBThreadFlag, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MBThreadFlag, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<MBThreadFlag, Object>() {
@@ -288,16 +386,6 @@ public class MBThreadFlagModelImpl
 					MBThreadFlag mbThreadFlag, Object uuidObject) {
 
 					mbThreadFlag.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"threadFlagId",
-			new Function<MBThreadFlag, Object>() {
-
-				@Override
-				public Object apply(MBThreadFlag mbThreadFlag) {
-					return mbThreadFlag.getThreadFlagId();
 				}
 
 			});
@@ -313,16 +401,6 @@ public class MBThreadFlagModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<MBThreadFlag, Object>() {
-
-				@Override
-				public Object apply(MBThreadFlag mbThreadFlag) {
-					return mbThreadFlag.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<MBThreadFlag, Object>() {
@@ -332,16 +410,6 @@ public class MBThreadFlagModelImpl
 					MBThreadFlag mbThreadFlag, Object groupIdObject) {
 
 					mbThreadFlag.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MBThreadFlag, Object>() {
-
-				@Override
-				public Object apply(MBThreadFlag mbThreadFlag) {
-					return mbThreadFlag.getCompanyId();
 				}
 
 			});
@@ -357,16 +425,6 @@ public class MBThreadFlagModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MBThreadFlag, Object>() {
-
-				@Override
-				public Object apply(MBThreadFlag mbThreadFlag) {
-					return mbThreadFlag.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<MBThreadFlag, Object>() {
@@ -376,16 +434,6 @@ public class MBThreadFlagModelImpl
 					MBThreadFlag mbThreadFlag, Object userIdObject) {
 
 					mbThreadFlag.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<MBThreadFlag, Object>() {
-
-				@Override
-				public Object apply(MBThreadFlag mbThreadFlag) {
-					return mbThreadFlag.getUserName();
 				}
 
 			});
@@ -401,16 +449,6 @@ public class MBThreadFlagModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MBThreadFlag, Object>() {
-
-				@Override
-				public Object apply(MBThreadFlag mbThreadFlag) {
-					return mbThreadFlag.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<MBThreadFlag, Object>() {
@@ -420,16 +458,6 @@ public class MBThreadFlagModelImpl
 					MBThreadFlag mbThreadFlag, Object createDateObject) {
 
 					mbThreadFlag.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<MBThreadFlag, Object>() {
-
-				@Override
-				public Object apply(MBThreadFlag mbThreadFlag) {
-					return mbThreadFlag.getModifiedDate();
 				}
 
 			});
@@ -445,16 +473,6 @@ public class MBThreadFlagModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"threadId",
-			new Function<MBThreadFlag, Object>() {
-
-				@Override
-				public Object apply(MBThreadFlag mbThreadFlag) {
-					return mbThreadFlag.getThreadId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"threadId",
 			new BiConsumer<MBThreadFlag, Object>() {
@@ -464,16 +482,6 @@ public class MBThreadFlagModelImpl
 					MBThreadFlag mbThreadFlag, Object threadIdObject) {
 
 					mbThreadFlag.setThreadId((Long)threadIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<MBThreadFlag, Object>() {
-
-				@Override
-				public Object apply(MBThreadFlag mbThreadFlag) {
-					return mbThreadFlag.getLastPublishDate();
 				}
 
 			});
@@ -491,8 +499,6 @@ public class MBThreadFlagModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

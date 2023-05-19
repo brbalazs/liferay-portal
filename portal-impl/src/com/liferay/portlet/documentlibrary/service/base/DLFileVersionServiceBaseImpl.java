@@ -35,8 +35,6 @@ import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiServic
 import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.util.PortalUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -333,11 +331,11 @@ public abstract class DLFileVersionServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(dlFileVersionService);
+		DLFileVersionServiceUtil.setService(dlFileVersionService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		DLFileVersionServiceUtil.setService(null);
 	}
 
 	/**
@@ -379,22 +377,6 @@ public abstract class DLFileVersionServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		DLFileVersionService dlFileVersionService) {
-
-		try {
-			Field field = DLFileVersionServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, dlFileVersionService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

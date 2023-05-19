@@ -376,14 +376,10 @@ public class PasswordPolicyModelImpl
 
 	private static final Map<String, Function<PasswordPolicy, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PasswordPolicy, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<PasswordPolicy, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<PasswordPolicy, Object>>();
-		Map<String, BiConsumer<PasswordPolicy, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<PasswordPolicy, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -392,18 +388,6 @@ public class PasswordPolicyModelImpl
 				@Override
 				public Object apply(PasswordPolicy passwordPolicy) {
 					return passwordPolicy.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<PasswordPolicy, Object>() {
-
-				@Override
-				public void accept(
-					PasswordPolicy passwordPolicy, Object mvccVersionObject) {
-
-					passwordPolicy.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -417,6 +401,360 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"passwordPolicyId",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getPasswordPolicyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"defaultPolicy",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getDefaultPolicy();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"changeable",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getChangeable();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"changeRequired",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getChangeRequired();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"minAge",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getMinAge();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"checkSyntax",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getCheckSyntax();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"allowDictionaryWords",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getAllowDictionaryWords();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"minAlphanumeric",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getMinAlphanumeric();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"minLength",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getMinLength();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"minLowerCase",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getMinLowerCase();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"minNumbers",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getMinNumbers();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"minSymbols",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getMinSymbols();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"minUpperCase",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getMinUpperCase();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"regex",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getRegex();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"history",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getHistory();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"historyCount",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getHistoryCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"expireable",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getExpireable();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"maxAge",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getMaxAge();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"warningTime",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getWarningTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"graceLimit",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getGraceLimit();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lockout",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getLockout();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"maxFailure",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getMaxFailure();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lockoutDuration",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getLockoutDuration();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"requireUnlock",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getRequireUnlock();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"resetFailureCount",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getResetFailureCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"resetTicketMaxAge",
+			new Function<PasswordPolicy, Object>() {
+
+				@Override
+				public Object apply(PasswordPolicy passwordPolicy) {
+					return passwordPolicy.getResetTicketMaxAge();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<PasswordPolicy, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<PasswordPolicy, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<PasswordPolicy, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<PasswordPolicy, Object>() {
+
+				@Override
+				public void accept(
+					PasswordPolicy passwordPolicy, Object mvccVersionObject) {
+
+					passwordPolicy.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -426,16 +764,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object uuidObject) {
 
 					passwordPolicy.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"passwordPolicyId",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getPasswordPolicyId();
 				}
 
 			});
@@ -453,16 +781,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -472,16 +790,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object companyIdObject) {
 
 					passwordPolicy.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getUserId();
 				}
 
 			});
@@ -497,16 +805,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -516,16 +814,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object userNameObject) {
 
 					passwordPolicy.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getCreateDate();
 				}
 
 			});
@@ -541,16 +829,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -560,16 +838,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object modifiedDateObject) {
 
 					passwordPolicy.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"defaultPolicy",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getDefaultPolicy();
 				}
 
 			});
@@ -586,16 +854,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -605,16 +863,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object nameObject) {
 
 					passwordPolicy.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getDescription();
 				}
 
 			});
@@ -630,16 +878,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"changeable",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getChangeable();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"changeable",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -649,16 +887,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object changeableObject) {
 
 					passwordPolicy.setChangeable((Boolean)changeableObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"changeRequired",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getChangeRequired();
 				}
 
 			});
@@ -676,16 +904,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"minAge",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getMinAge();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"minAge",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -698,16 +916,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"checkSyntax",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getCheckSyntax();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"checkSyntax",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -717,16 +925,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object checkSyntaxObject) {
 
 					passwordPolicy.setCheckSyntax((Boolean)checkSyntaxObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"allowDictionaryWords",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getAllowDictionaryWords();
 				}
 
 			});
@@ -744,16 +942,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"minAlphanumeric",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getMinAlphanumeric();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"minAlphanumeric",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -765,16 +953,6 @@ public class PasswordPolicyModelImpl
 
 					passwordPolicy.setMinAlphanumeric(
 						(Integer)minAlphanumericObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"minLength",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getMinLength();
 				}
 
 			});
@@ -790,16 +968,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"minLowerCase",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getMinLowerCase();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"minLowerCase",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -809,16 +977,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object minLowerCaseObject) {
 
 					passwordPolicy.setMinLowerCase((Integer)minLowerCaseObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"minNumbers",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getMinNumbers();
 				}
 
 			});
@@ -834,16 +992,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"minSymbols",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getMinSymbols();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"minSymbols",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -853,16 +1001,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object minSymbolsObject) {
 
 					passwordPolicy.setMinSymbols((Integer)minSymbolsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"minUpperCase",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getMinUpperCase();
 				}
 
 			});
@@ -878,16 +1016,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"regex",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getRegex();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"regex",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -897,16 +1025,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object regexObject) {
 
 					passwordPolicy.setRegex((String)regexObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"history",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getHistory();
 				}
 
 			});
@@ -922,16 +1040,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"historyCount",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getHistoryCount();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"historyCount",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -941,16 +1049,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object historyCountObject) {
 
 					passwordPolicy.setHistoryCount((Integer)historyCountObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"expireable",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getExpireable();
 				}
 
 			});
@@ -966,16 +1064,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"maxAge",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getMaxAge();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"maxAge",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -985,16 +1073,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object maxAgeObject) {
 
 					passwordPolicy.setMaxAge((Long)maxAgeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"warningTime",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getWarningTime();
 				}
 
 			});
@@ -1010,16 +1088,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"graceLimit",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getGraceLimit();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"graceLimit",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -1029,16 +1097,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object graceLimitObject) {
 
 					passwordPolicy.setGraceLimit((Integer)graceLimitObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lockout",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getLockout();
 				}
 
 			});
@@ -1054,16 +1112,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"maxFailure",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getMaxFailure();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"maxFailure",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -1073,16 +1121,6 @@ public class PasswordPolicyModelImpl
 					PasswordPolicy passwordPolicy, Object maxFailureObject) {
 
 					passwordPolicy.setMaxFailure((Integer)maxFailureObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lockoutDuration",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getLockoutDuration();
 				}
 
 			});
@@ -1100,16 +1138,6 @@ public class PasswordPolicyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"requireUnlock",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getRequireUnlock();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"requireUnlock",
 			new BiConsumer<PasswordPolicy, Object>() {
@@ -1120,16 +1148,6 @@ public class PasswordPolicyModelImpl
 
 					passwordPolicy.setRequireUnlock(
 						(Boolean)requireUnlockObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resetFailureCount",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getResetFailureCount();
 				}
 
 			});
@@ -1144,16 +1162,6 @@ public class PasswordPolicyModelImpl
 
 					passwordPolicy.setResetFailureCount(
 						(Long)resetFailureCountObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resetTicketMaxAge",
-			new Function<PasswordPolicy, Object>() {
-
-				@Override
-				public Object apply(PasswordPolicy passwordPolicy) {
-					return passwordPolicy.getResetTicketMaxAge();
 				}
 
 			});
@@ -1172,8 +1180,6 @@ public class PasswordPolicyModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

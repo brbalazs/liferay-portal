@@ -294,14 +294,10 @@ public class LazyBlobEntryModelImpl
 
 	private static final Map<String, Function<LazyBlobEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<LazyBlobEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<LazyBlobEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<LazyBlobEntry, Object>>();
-		Map<String, BiConsumer<LazyBlobEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<LazyBlobEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -313,6 +309,58 @@ public class LazyBlobEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"lazyBlobEntryId",
+			new Function<LazyBlobEntry, Object>() {
+
+				@Override
+				public Object apply(LazyBlobEntry lazyBlobEntry) {
+					return lazyBlobEntry.getLazyBlobEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<LazyBlobEntry, Object>() {
+
+				@Override
+				public Object apply(LazyBlobEntry lazyBlobEntry) {
+					return lazyBlobEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"blob1",
+			new Function<LazyBlobEntry, Object>() {
+
+				@Override
+				public Object apply(LazyBlobEntry lazyBlobEntry) {
+					return lazyBlobEntry.getBlob1();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"blob2",
+			new Function<LazyBlobEntry, Object>() {
+
+				@Override
+				public Object apply(LazyBlobEntry lazyBlobEntry) {
+					return lazyBlobEntry.getBlob2();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<LazyBlobEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<LazyBlobEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<LazyBlobEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<LazyBlobEntry, Object>() {
@@ -322,16 +370,6 @@ public class LazyBlobEntryModelImpl
 					LazyBlobEntry lazyBlobEntry, Object uuidObject) {
 
 					lazyBlobEntry.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lazyBlobEntryId",
-			new Function<LazyBlobEntry, Object>() {
-
-				@Override
-				public Object apply(LazyBlobEntry lazyBlobEntry) {
-					return lazyBlobEntry.getLazyBlobEntryId();
 				}
 
 			});
@@ -348,16 +386,6 @@ public class LazyBlobEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<LazyBlobEntry, Object>() {
-
-				@Override
-				public Object apply(LazyBlobEntry lazyBlobEntry) {
-					return lazyBlobEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<LazyBlobEntry, Object>() {
@@ -370,16 +398,6 @@ public class LazyBlobEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"blob1",
-			new Function<LazyBlobEntry, Object>() {
-
-				@Override
-				public Object apply(LazyBlobEntry lazyBlobEntry) {
-					return lazyBlobEntry.getBlob1();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"blob1",
 			new BiConsumer<LazyBlobEntry, Object>() {
@@ -389,16 +407,6 @@ public class LazyBlobEntryModelImpl
 					LazyBlobEntry lazyBlobEntry, Object blob1Object) {
 
 					lazyBlobEntry.setBlob1((Blob)blob1Object);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"blob2",
-			new Function<LazyBlobEntry, Object>() {
-
-				@Override
-				public Object apply(LazyBlobEntry lazyBlobEntry) {
-					return lazyBlobEntry.getBlob2();
 				}
 
 			});
@@ -415,8 +423,6 @@ public class LazyBlobEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

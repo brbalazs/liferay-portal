@@ -316,14 +316,10 @@ public class RatingsEntryModelImpl
 
 	private static final Map<String, Function<RatingsEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<RatingsEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<RatingsEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<RatingsEntry, Object>>();
-		Map<String, BiConsumer<RatingsEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<RatingsEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -335,6 +331,108 @@ public class RatingsEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"entryId",
+			new Function<RatingsEntry, Object>() {
+
+				@Override
+				public Object apply(RatingsEntry ratingsEntry) {
+					return ratingsEntry.getEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<RatingsEntry, Object>() {
+
+				@Override
+				public Object apply(RatingsEntry ratingsEntry) {
+					return ratingsEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<RatingsEntry, Object>() {
+
+				@Override
+				public Object apply(RatingsEntry ratingsEntry) {
+					return ratingsEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<RatingsEntry, Object>() {
+
+				@Override
+				public Object apply(RatingsEntry ratingsEntry) {
+					return ratingsEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<RatingsEntry, Object>() {
+
+				@Override
+				public Object apply(RatingsEntry ratingsEntry) {
+					return ratingsEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<RatingsEntry, Object>() {
+
+				@Override
+				public Object apply(RatingsEntry ratingsEntry) {
+					return ratingsEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<RatingsEntry, Object>() {
+
+				@Override
+				public Object apply(RatingsEntry ratingsEntry) {
+					return ratingsEntry.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<RatingsEntry, Object>() {
+
+				@Override
+				public Object apply(RatingsEntry ratingsEntry) {
+					return ratingsEntry.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"score",
+			new Function<RatingsEntry, Object>() {
+
+				@Override
+				public Object apply(RatingsEntry ratingsEntry) {
+					return ratingsEntry.getScore();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<RatingsEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<RatingsEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<RatingsEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<RatingsEntry, Object>() {
@@ -344,16 +442,6 @@ public class RatingsEntryModelImpl
 					RatingsEntry ratingsEntry, Object uuidObject) {
 
 					ratingsEntry.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"entryId",
-			new Function<RatingsEntry, Object>() {
-
-				@Override
-				public Object apply(RatingsEntry ratingsEntry) {
-					return ratingsEntry.getEntryId();
 				}
 
 			});
@@ -369,16 +457,6 @@ public class RatingsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<RatingsEntry, Object>() {
-
-				@Override
-				public Object apply(RatingsEntry ratingsEntry) {
-					return ratingsEntry.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<RatingsEntry, Object>() {
@@ -388,16 +466,6 @@ public class RatingsEntryModelImpl
 					RatingsEntry ratingsEntry, Object companyIdObject) {
 
 					ratingsEntry.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<RatingsEntry, Object>() {
-
-				@Override
-				public Object apply(RatingsEntry ratingsEntry) {
-					return ratingsEntry.getUserId();
 				}
 
 			});
@@ -413,16 +481,6 @@ public class RatingsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<RatingsEntry, Object>() {
-
-				@Override
-				public Object apply(RatingsEntry ratingsEntry) {
-					return ratingsEntry.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<RatingsEntry, Object>() {
@@ -432,16 +490,6 @@ public class RatingsEntryModelImpl
 					RatingsEntry ratingsEntry, Object userNameObject) {
 
 					ratingsEntry.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<RatingsEntry, Object>() {
-
-				@Override
-				public Object apply(RatingsEntry ratingsEntry) {
-					return ratingsEntry.getCreateDate();
 				}
 
 			});
@@ -457,16 +505,6 @@ public class RatingsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<RatingsEntry, Object>() {
-
-				@Override
-				public Object apply(RatingsEntry ratingsEntry) {
-					return ratingsEntry.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<RatingsEntry, Object>() {
@@ -476,16 +514,6 @@ public class RatingsEntryModelImpl
 					RatingsEntry ratingsEntry, Object modifiedDateObject) {
 
 					ratingsEntry.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<RatingsEntry, Object>() {
-
-				@Override
-				public Object apply(RatingsEntry ratingsEntry) {
-					return ratingsEntry.getClassNameId();
 				}
 
 			});
@@ -501,16 +529,6 @@ public class RatingsEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<RatingsEntry, Object>() {
-
-				@Override
-				public Object apply(RatingsEntry ratingsEntry) {
-					return ratingsEntry.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<RatingsEntry, Object>() {
@@ -520,16 +538,6 @@ public class RatingsEntryModelImpl
 					RatingsEntry ratingsEntry, Object classPKObject) {
 
 					ratingsEntry.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"score",
-			new Function<RatingsEntry, Object>() {
-
-				@Override
-				public Object apply(RatingsEntry ratingsEntry) {
-					return ratingsEntry.getScore();
 				}
 
 			});
@@ -546,8 +554,6 @@ public class RatingsEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

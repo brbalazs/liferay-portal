@@ -247,14 +247,10 @@ public class ReleaseModelImpl
 
 	private static final Map<String, Function<Release, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Release, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Release, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Release, Object>>();
-		Map<String, BiConsumer<Release, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Release, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -263,16 +259,6 @@ public class ReleaseModelImpl
 				@Override
 				public Object apply(Release release) {
 					return release.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Release, Object>() {
-
-				@Override
-				public void accept(Release release, Object mvccVersionObject) {
-					release.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -286,16 +272,6 @@ public class ReleaseModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"releaseId",
-			new BiConsumer<Release, Object>() {
-
-				@Override
-				public void accept(Release release, Object releaseIdObject) {
-					release.setReleaseId((Long)releaseIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Release, Object>() {
@@ -303,16 +279,6 @@ public class ReleaseModelImpl
 				@Override
 				public Object apply(Release release) {
 					return release.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Release, Object>() {
-
-				@Override
-				public void accept(Release release, Object createDateObject) {
-					release.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -326,16 +292,6 @@ public class ReleaseModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Release, Object>() {
-
-				@Override
-				public void accept(Release release, Object modifiedDateObject) {
-					release.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"servletContextName",
 			new Function<Release, Object>() {
@@ -343,6 +299,118 @@ public class ReleaseModelImpl
 				@Override
 				public Object apply(Release release) {
 					return release.getServletContextName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"schemaVersion",
+			new Function<Release, Object>() {
+
+				@Override
+				public Object apply(Release release) {
+					return release.getSchemaVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"buildNumber",
+			new Function<Release, Object>() {
+
+				@Override
+				public Object apply(Release release) {
+					return release.getBuildNumber();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"buildDate",
+			new Function<Release, Object>() {
+
+				@Override
+				public Object apply(Release release) {
+					return release.getBuildDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"verified",
+			new Function<Release, Object>() {
+
+				@Override
+				public Object apply(Release release) {
+					return release.getVerified();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"state",
+			new Function<Release, Object>() {
+
+				@Override
+				public Object apply(Release release) {
+					return release.getState();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"testString",
+			new Function<Release, Object>() {
+
+				@Override
+				public Object apply(Release release) {
+					return release.getTestString();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Release, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Release, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Release, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Release, Object>() {
+
+				@Override
+				public void accept(Release release, Object mvccVersionObject) {
+					release.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"releaseId",
+			new BiConsumer<Release, Object>() {
+
+				@Override
+				public void accept(Release release, Object releaseIdObject) {
+					release.setReleaseId((Long)releaseIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Release, Object>() {
+
+				@Override
+				public void accept(Release release, Object createDateObject) {
+					release.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Release, Object>() {
+
+				@Override
+				public void accept(Release release, Object modifiedDateObject) {
+					release.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -359,16 +427,6 @@ public class ReleaseModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"schemaVersion",
-			new Function<Release, Object>() {
-
-				@Override
-				public Object apply(Release release) {
-					return release.getSchemaVersion();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"schemaVersion",
 			new BiConsumer<Release, Object>() {
@@ -378,16 +436,6 @@ public class ReleaseModelImpl
 					Release release, Object schemaVersionObject) {
 
 					release.setSchemaVersion((String)schemaVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"buildNumber",
-			new Function<Release, Object>() {
-
-				@Override
-				public Object apply(Release release) {
-					return release.getBuildNumber();
 				}
 
 			});
@@ -401,16 +449,6 @@ public class ReleaseModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"buildDate",
-			new Function<Release, Object>() {
-
-				@Override
-				public Object apply(Release release) {
-					return release.getBuildDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"buildDate",
 			new BiConsumer<Release, Object>() {
@@ -418,16 +456,6 @@ public class ReleaseModelImpl
 				@Override
 				public void accept(Release release, Object buildDateObject) {
 					release.setBuildDate((Date)buildDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"verified",
-			new Function<Release, Object>() {
-
-				@Override
-				public Object apply(Release release) {
-					return release.getVerified();
 				}
 
 			});
@@ -441,16 +469,6 @@ public class ReleaseModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"state",
-			new Function<Release, Object>() {
-
-				@Override
-				public Object apply(Release release) {
-					return release.getState();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"state",
 			new BiConsumer<Release, Object>() {
@@ -458,16 +476,6 @@ public class ReleaseModelImpl
 				@Override
 				public void accept(Release release, Object stateObject) {
 					release.setState((Integer)stateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"testString",
-			new Function<Release, Object>() {
-
-				@Override
-				public Object apply(Release release) {
-					return release.getTestString();
 				}
 
 			});
@@ -482,8 +490,6 @@ public class ReleaseModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

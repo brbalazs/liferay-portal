@@ -8059,33 +8059,17 @@ public class BookmarksFolderPersistenceImpl
 				Long.class.getName(), Integer.class.getName()
 			});
 
-		_setBookmarksFolderUtilPersistence(this);
+		BookmarksFolderUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setBookmarksFolderUtilPersistence(null);
+		BookmarksFolderUtil.setPersistence(null);
 
 		entityCache.removeCache(BookmarksFolderImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setBookmarksFolderUtilPersistence(
-		BookmarksFolderPersistence bookmarksFolderPersistence) {
-
-		try {
-			Field field = BookmarksFolderUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, bookmarksFolderPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

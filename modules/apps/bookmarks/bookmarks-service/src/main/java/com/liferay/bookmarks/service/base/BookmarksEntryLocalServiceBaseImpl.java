@@ -73,8 +73,6 @@ import com.liferay.social.kernel.service.persistence.SocialActivityPersistence;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -1081,14 +1079,14 @@ public abstract class BookmarksEntryLocalServiceBaseImpl
 			"com.liferay.bookmarks.model.BookmarksEntry",
 			bookmarksEntryLocalService);
 
-		_setLocalServiceUtilService(bookmarksEntryLocalService);
+		BookmarksEntryLocalServiceUtil.setService(bookmarksEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.bookmarks.model.BookmarksEntry");
 
-		_setLocalServiceUtilService(null);
+		BookmarksEntryLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -1130,22 +1128,6 @@ public abstract class BookmarksEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		BookmarksEntryLocalService bookmarksEntryLocalService) {
-
-		try {
-			Field field = BookmarksEntryLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, bookmarksEntryLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

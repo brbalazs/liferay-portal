@@ -8120,11 +8120,11 @@ public class UserGroupPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_ERC",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setUserGroupUtilPersistence(this);
+		UserGroupUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setUserGroupUtilPersistence(null);
+		UserGroupUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(UserGroupImpl.class.getName());
 
@@ -8135,21 +8135,6 @@ public class UserGroupPersistenceImpl
 		TableMapperFactory.removeTableMapper("Groups_UserGroups");
 		TableMapperFactory.removeTableMapper("UserGroups_Teams");
 		TableMapperFactory.removeTableMapper("Users_UserGroups");
-	}
-
-	private void _setUserGroupUtilPersistence(
-		UserGroupPersistence userGroupPersistence) {
-
-		try {
-			Field field = UserGroupUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, userGroupPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@BeanReference(type = GroupPersistence.class)

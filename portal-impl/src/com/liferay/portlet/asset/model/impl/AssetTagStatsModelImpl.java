@@ -247,14 +247,10 @@ public class AssetTagStatsModelImpl
 
 	private static final Map<String, Function<AssetTagStats, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AssetTagStats, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AssetTagStats, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<AssetTagStats, Object>>();
-		Map<String, BiConsumer<AssetTagStats, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<AssetTagStats, ?>>();
 
 		attributeGetterFunctions.put(
 			"tagStatsId",
@@ -266,6 +262,58 @@ public class AssetTagStatsModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<AssetTagStats, Object>() {
+
+				@Override
+				public Object apply(AssetTagStats assetTagStats) {
+					return assetTagStats.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"tagId",
+			new Function<AssetTagStats, Object>() {
+
+				@Override
+				public Object apply(AssetTagStats assetTagStats) {
+					return assetTagStats.getTagId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<AssetTagStats, Object>() {
+
+				@Override
+				public Object apply(AssetTagStats assetTagStats) {
+					return assetTagStats.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assetCount",
+			new Function<AssetTagStats, Object>() {
+
+				@Override
+				public Object apply(AssetTagStats assetTagStats) {
+					return assetTagStats.getAssetCount();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AssetTagStats, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AssetTagStats, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<AssetTagStats, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"tagStatsId",
 			new BiConsumer<AssetTagStats, Object>() {
@@ -275,16 +323,6 @@ public class AssetTagStatsModelImpl
 					AssetTagStats assetTagStats, Object tagStatsIdObject) {
 
 					assetTagStats.setTagStatsId((Long)tagStatsIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<AssetTagStats, Object>() {
-
-				@Override
-				public Object apply(AssetTagStats assetTagStats) {
-					return assetTagStats.getCompanyId();
 				}
 
 			});
@@ -300,16 +338,6 @@ public class AssetTagStatsModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"tagId",
-			new Function<AssetTagStats, Object>() {
-
-				@Override
-				public Object apply(AssetTagStats assetTagStats) {
-					return assetTagStats.getTagId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"tagId",
 			new BiConsumer<AssetTagStats, Object>() {
@@ -322,16 +350,6 @@ public class AssetTagStatsModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<AssetTagStats, Object>() {
-
-				@Override
-				public Object apply(AssetTagStats assetTagStats) {
-					return assetTagStats.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<AssetTagStats, Object>() {
@@ -341,16 +359,6 @@ public class AssetTagStatsModelImpl
 					AssetTagStats assetTagStats, Object classNameIdObject) {
 
 					assetTagStats.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"assetCount",
-			new Function<AssetTagStats, Object>() {
-
-				@Override
-				public Object apply(AssetTagStats assetTagStats) {
-					return assetTagStats.getAssetCount();
 				}
 
 			});
@@ -367,8 +375,6 @@ public class AssetTagStatsModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

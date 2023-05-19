@@ -249,19 +249,12 @@ public class ResourceBlockPermissionModelImpl
 
 	private static final Map<String, Function<ResourceBlockPermission, Object>>
 		_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<ResourceBlockPermission, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ResourceBlockPermission, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<ResourceBlockPermission, Object>>();
-		Map<String, BiConsumer<ResourceBlockPermission, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<ResourceBlockPermission, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -275,6 +268,82 @@ public class ResourceBlockPermissionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"resourceBlockPermissionId",
+			new Function<ResourceBlockPermission, Object>() {
+
+				@Override
+				public Object apply(
+					ResourceBlockPermission resourceBlockPermission) {
+
+					return resourceBlockPermission.
+						getResourceBlockPermissionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<ResourceBlockPermission, Object>() {
+
+				@Override
+				public Object apply(
+					ResourceBlockPermission resourceBlockPermission) {
+
+					return resourceBlockPermission.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"resourceBlockId",
+			new Function<ResourceBlockPermission, Object>() {
+
+				@Override
+				public Object apply(
+					ResourceBlockPermission resourceBlockPermission) {
+
+					return resourceBlockPermission.getResourceBlockId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"roleId",
+			new Function<ResourceBlockPermission, Object>() {
+
+				@Override
+				public Object apply(
+					ResourceBlockPermission resourceBlockPermission) {
+
+					return resourceBlockPermission.getRoleId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"actionIds",
+			new Function<ResourceBlockPermission, Object>() {
+
+				@Override
+				public Object apply(
+					ResourceBlockPermission resourceBlockPermission) {
+
+					return resourceBlockPermission.getActionIds();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<ResourceBlockPermission, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ResourceBlockPermission, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<ResourceBlockPermission, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<ResourceBlockPermission, Object>() {
@@ -286,19 +355,6 @@ public class ResourceBlockPermissionModelImpl
 
 					resourceBlockPermission.setMvccVersion(
 						(Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resourceBlockPermissionId",
-			new Function<ResourceBlockPermission, Object>() {
-
-				@Override
-				public Object apply(
-					ResourceBlockPermission resourceBlockPermission) {
-
-					return resourceBlockPermission.
-						getResourceBlockPermissionId();
 				}
 
 			});
@@ -316,18 +372,6 @@ public class ResourceBlockPermissionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<ResourceBlockPermission, Object>() {
-
-				@Override
-				public Object apply(
-					ResourceBlockPermission resourceBlockPermission) {
-
-					return resourceBlockPermission.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<ResourceBlockPermission, Object>() {
@@ -338,18 +382,6 @@ public class ResourceBlockPermissionModelImpl
 					Object companyIdObject) {
 
 					resourceBlockPermission.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resourceBlockId",
-			new Function<ResourceBlockPermission, Object>() {
-
-				@Override
-				public Object apply(
-					ResourceBlockPermission resourceBlockPermission) {
-
-					return resourceBlockPermission.getResourceBlockId();
 				}
 
 			});
@@ -367,18 +399,6 @@ public class ResourceBlockPermissionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"roleId",
-			new Function<ResourceBlockPermission, Object>() {
-
-				@Override
-				public Object apply(
-					ResourceBlockPermission resourceBlockPermission) {
-
-					return resourceBlockPermission.getRoleId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"roleId",
 			new BiConsumer<ResourceBlockPermission, Object>() {
@@ -389,18 +409,6 @@ public class ResourceBlockPermissionModelImpl
 					Object roleIdObject) {
 
 					resourceBlockPermission.setRoleId((Long)roleIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"actionIds",
-			new Function<ResourceBlockPermission, Object>() {
-
-				@Override
-				public Object apply(
-					ResourceBlockPermission resourceBlockPermission) {
-
-					return resourceBlockPermission.getActionIds();
 				}
 
 			});
@@ -418,8 +426,6 @@ public class ResourceBlockPermissionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

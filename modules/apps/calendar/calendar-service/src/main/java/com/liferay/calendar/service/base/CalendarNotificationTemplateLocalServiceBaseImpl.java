@@ -61,8 +61,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -913,14 +911,15 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 			"com.liferay.calendar.model.CalendarNotificationTemplate",
 			calendarNotificationTemplateLocalService);
 
-		_setLocalServiceUtilService(calendarNotificationTemplateLocalService);
+		CalendarNotificationTemplateLocalServiceUtil.setService(
+			calendarNotificationTemplateLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.calendar.model.CalendarNotificationTemplate");
 
-		_setLocalServiceUtilService(null);
+		CalendarNotificationTemplateLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -963,24 +962,6 @@ public abstract class CalendarNotificationTemplateLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		CalendarNotificationTemplateLocalService
-			calendarNotificationTemplateLocalService) {
-
-		try {
-			Field field =
-				CalendarNotificationTemplateLocalServiceUtil.class.
-					getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, calendarNotificationTemplateLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

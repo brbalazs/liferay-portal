@@ -245,14 +245,10 @@ public class StatusModelImpl
 
 	private static final Map<String, Function<Status, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Status, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Status, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Status, Object>>();
-		Map<String, BiConsumer<Status, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Status, ?>>();
 
 		attributeGetterFunctions.put(
 			"statusId",
@@ -261,16 +257,6 @@ public class StatusModelImpl
 				@Override
 				public Object apply(Status status) {
 					return status.getStatusId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"statusId",
-			new BiConsumer<Status, Object>() {
-
-				@Override
-				public void accept(Status status, Object statusIdObject) {
-					status.setStatusId((Long)statusIdObject);
 				}
 
 			});
@@ -284,16 +270,6 @@ public class StatusModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Status, Object>() {
-
-				@Override
-				public void accept(Status status, Object userIdObject) {
-					status.setUserId((Long)userIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedDate",
 			new Function<Status, Object>() {
@@ -301,16 +277,6 @@ public class StatusModelImpl
 				@Override
 				public Object apply(Status status) {
 					return status.getModifiedDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Status, Object>() {
-
-				@Override
-				public void accept(Status status, Object modifiedDateObject) {
-					status.setModifiedDate((Long)modifiedDateObject);
 				}
 
 			});
@@ -324,16 +290,6 @@ public class StatusModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"online",
-			new BiConsumer<Status, Object>() {
-
-				@Override
-				public void accept(Status status, Object onlineObject) {
-					status.setOnline((Boolean)onlineObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"awake",
 			new Function<Status, Object>() {
@@ -341,16 +297,6 @@ public class StatusModelImpl
 				@Override
 				public Object apply(Status status) {
 					return status.getAwake();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"awake",
-			new BiConsumer<Status, Object>() {
-
-				@Override
-				public void accept(Status status, Object awakeObject) {
-					status.setAwake((Boolean)awakeObject);
 				}
 
 			});
@@ -364,16 +310,6 @@ public class StatusModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"activePanelIds",
-			new BiConsumer<Status, Object>() {
-
-				@Override
-				public void accept(Status status, Object activePanelIdsObject) {
-					status.setActivePanelIds((String)activePanelIdsObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"message",
 			new Function<Status, Object>() {
@@ -384,16 +320,6 @@ public class StatusModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"message",
-			new BiConsumer<Status, Object>() {
-
-				@Override
-				public void accept(Status status, Object messageObject) {
-					status.setMessage((String)messageObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"playSound",
 			new Function<Status, Object>() {
@@ -401,6 +327,88 @@ public class StatusModelImpl
 				@Override
 				public Object apply(Status status) {
 					return status.getPlaySound();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Status, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Status, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Status, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"statusId",
+			new BiConsumer<Status, Object>() {
+
+				@Override
+				public void accept(Status status, Object statusIdObject) {
+					status.setStatusId((Long)statusIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Status, Object>() {
+
+				@Override
+				public void accept(Status status, Object userIdObject) {
+					status.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Status, Object>() {
+
+				@Override
+				public void accept(Status status, Object modifiedDateObject) {
+					status.setModifiedDate((Long)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"online",
+			new BiConsumer<Status, Object>() {
+
+				@Override
+				public void accept(Status status, Object onlineObject) {
+					status.setOnline((Boolean)onlineObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"awake",
+			new BiConsumer<Status, Object>() {
+
+				@Override
+				public void accept(Status status, Object awakeObject) {
+					status.setAwake((Boolean)awakeObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"activePanelIds",
+			new BiConsumer<Status, Object>() {
+
+				@Override
+				public void accept(Status status, Object activePanelIdsObject) {
+					status.setActivePanelIds((String)activePanelIdsObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"message",
+			new BiConsumer<Status, Object>() {
+
+				@Override
+				public void accept(Status status, Object messageObject) {
+					status.setMessage((String)messageObject);
 				}
 
 			});
@@ -415,8 +423,6 @@ public class StatusModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

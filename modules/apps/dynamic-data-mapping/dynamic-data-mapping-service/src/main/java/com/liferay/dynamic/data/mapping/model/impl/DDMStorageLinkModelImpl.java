@@ -253,14 +253,10 @@ public class DDMStorageLinkModelImpl
 
 	private static final Map<String, Function<DDMStorageLink, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DDMStorageLink, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DDMStorageLink, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<DDMStorageLink, Object>>();
-		Map<String, BiConsumer<DDMStorageLink, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<DDMStorageLink, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -272,6 +268,78 @@ public class DDMStorageLinkModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"storageLinkId",
+			new Function<DDMStorageLink, Object>() {
+
+				@Override
+				public Object apply(DDMStorageLink ddmStorageLink) {
+					return ddmStorageLink.getStorageLinkId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DDMStorageLink, Object>() {
+
+				@Override
+				public Object apply(DDMStorageLink ddmStorageLink) {
+					return ddmStorageLink.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<DDMStorageLink, Object>() {
+
+				@Override
+				public Object apply(DDMStorageLink ddmStorageLink) {
+					return ddmStorageLink.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<DDMStorageLink, Object>() {
+
+				@Override
+				public Object apply(DDMStorageLink ddmStorageLink) {
+					return ddmStorageLink.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"structureId",
+			new Function<DDMStorageLink, Object>() {
+
+				@Override
+				public Object apply(DDMStorageLink ddmStorageLink) {
+					return ddmStorageLink.getStructureId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"structureVersionId",
+			new Function<DDMStorageLink, Object>() {
+
+				@Override
+				public Object apply(DDMStorageLink ddmStorageLink) {
+					return ddmStorageLink.getStructureVersionId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DDMStorageLink, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DDMStorageLink, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<DDMStorageLink, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<DDMStorageLink, Object>() {
@@ -281,16 +349,6 @@ public class DDMStorageLinkModelImpl
 					DDMStorageLink ddmStorageLink, Object uuidObject) {
 
 					ddmStorageLink.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"storageLinkId",
-			new Function<DDMStorageLink, Object>() {
-
-				@Override
-				public Object apply(DDMStorageLink ddmStorageLink) {
-					return ddmStorageLink.getStorageLinkId();
 				}
 
 			});
@@ -306,16 +364,6 @@ public class DDMStorageLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DDMStorageLink, Object>() {
-
-				@Override
-				public Object apply(DDMStorageLink ddmStorageLink) {
-					return ddmStorageLink.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<DDMStorageLink, Object>() {
@@ -325,16 +373,6 @@ public class DDMStorageLinkModelImpl
 					DDMStorageLink ddmStorageLink, Object companyIdObject) {
 
 					ddmStorageLink.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<DDMStorageLink, Object>() {
-
-				@Override
-				public Object apply(DDMStorageLink ddmStorageLink) {
-					return ddmStorageLink.getClassNameId();
 				}
 
 			});
@@ -350,16 +388,6 @@ public class DDMStorageLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<DDMStorageLink, Object>() {
-
-				@Override
-				public Object apply(DDMStorageLink ddmStorageLink) {
-					return ddmStorageLink.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<DDMStorageLink, Object>() {
@@ -372,16 +400,6 @@ public class DDMStorageLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"structureId",
-			new Function<DDMStorageLink, Object>() {
-
-				@Override
-				public Object apply(DDMStorageLink ddmStorageLink) {
-					return ddmStorageLink.getStructureId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"structureId",
 			new BiConsumer<DDMStorageLink, Object>() {
@@ -391,16 +409,6 @@ public class DDMStorageLinkModelImpl
 					DDMStorageLink ddmStorageLink, Object structureIdObject) {
 
 					ddmStorageLink.setStructureId((Long)structureIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"structureVersionId",
-			new Function<DDMStorageLink, Object>() {
-
-				@Override
-				public Object apply(DDMStorageLink ddmStorageLink) {
-					return ddmStorageLink.getStructureVersionId();
 				}
 
 			});
@@ -419,8 +427,6 @@ public class DDMStorageLinkModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

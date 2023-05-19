@@ -286,6 +286,10 @@ public class ClusterGroupLocalServiceUtil {
 		return _service;
 	}
 
+	public static void setService(ClusterGroupLocalService service) {
+		_service = service;
+	}
+
 	private static volatile ClusterGroupLocalService _service;
 
 }

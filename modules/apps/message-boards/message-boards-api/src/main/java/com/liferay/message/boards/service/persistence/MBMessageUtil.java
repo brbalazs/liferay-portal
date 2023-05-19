@@ -6601,6 +6601,10 @@ public class MBMessageUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(MBMessagePersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile MBMessagePersistence _persistence;
 
 }

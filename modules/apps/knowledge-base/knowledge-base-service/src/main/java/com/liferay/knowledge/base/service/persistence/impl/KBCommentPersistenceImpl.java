@@ -6340,32 +6340,17 @@ public class KBCommentPersistenceImpl
 				Integer.class.getName()
 			});
 
-		_setKBCommentUtilPersistence(this);
+		KBCommentUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setKBCommentUtilPersistence(null);
+		KBCommentUtil.setPersistence(null);
 
 		entityCache.removeCache(KBCommentImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setKBCommentUtilPersistence(
-		KBCommentPersistence kbCommentPersistence) {
-
-		try {
-			Field field = KBCommentUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, kbCommentPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

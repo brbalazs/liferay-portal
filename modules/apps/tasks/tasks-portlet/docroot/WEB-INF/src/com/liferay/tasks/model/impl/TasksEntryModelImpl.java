@@ -324,14 +324,10 @@ public class TasksEntryModelImpl
 
 	private static final Map<String, Function<TasksEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<TasksEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<TasksEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<TasksEntry, Object>>();
-		Map<String, BiConsumer<TasksEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<TasksEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"tasksEntryId",
@@ -343,6 +339,148 @@ public class TasksEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"priority",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getPriority();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assigneeUserId",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getAssigneeUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"resolverUserId",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getResolverUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"dueDate",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getDueDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"finishDate",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getFinishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<TasksEntry, Object>() {
+
+				@Override
+				public Object apply(TasksEntry tasksEntry) {
+					return tasksEntry.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<TasksEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<TasksEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<TasksEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"tasksEntryId",
 			new BiConsumer<TasksEntry, Object>() {
@@ -352,16 +490,6 @@ public class TasksEntryModelImpl
 					TasksEntry tasksEntry, Object tasksEntryIdObject) {
 
 					tasksEntry.setTasksEntryId((Long)tasksEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getGroupId();
 				}
 
 			});
@@ -377,16 +505,6 @@ public class TasksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<TasksEntry, Object>() {
@@ -399,16 +517,6 @@ public class TasksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<TasksEntry, Object>() {
@@ -416,16 +524,6 @@ public class TasksEntryModelImpl
 				@Override
 				public void accept(TasksEntry tasksEntry, Object userIdObject) {
 					tasksEntry.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getUserName();
 				}
 
 			});
@@ -441,16 +539,6 @@ public class TasksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<TasksEntry, Object>() {
@@ -460,16 +548,6 @@ public class TasksEntryModelImpl
 					TasksEntry tasksEntry, Object createDateObject) {
 
 					tasksEntry.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getModifiedDate();
 				}
 
 			});
@@ -485,16 +563,6 @@ public class TasksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getTitle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"title",
 			new BiConsumer<TasksEntry, Object>() {
@@ -502,16 +570,6 @@ public class TasksEntryModelImpl
 				@Override
 				public void accept(TasksEntry tasksEntry, Object titleObject) {
 					tasksEntry.setTitle((String)titleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"priority",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getPriority();
 				}
 
 			});
@@ -527,16 +585,6 @@ public class TasksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"assigneeUserId",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getAssigneeUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"assigneeUserId",
 			new BiConsumer<TasksEntry, Object>() {
@@ -546,16 +594,6 @@ public class TasksEntryModelImpl
 					TasksEntry tasksEntry, Object assigneeUserIdObject) {
 
 					tasksEntry.setAssigneeUserId((Long)assigneeUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resolverUserId",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getResolverUserId();
 				}
 
 			});
@@ -571,16 +609,6 @@ public class TasksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"dueDate",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getDueDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"dueDate",
 			new BiConsumer<TasksEntry, Object>() {
@@ -590,16 +618,6 @@ public class TasksEntryModelImpl
 					TasksEntry tasksEntry, Object dueDateObject) {
 
 					tasksEntry.setDueDate((Date)dueDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"finishDate",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getFinishDate();
 				}
 
 			});
@@ -615,16 +633,6 @@ public class TasksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<TasksEntry, Object>() {
-
-				@Override
-				public Object apply(TasksEntry tasksEntry) {
-					return tasksEntry.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<TasksEntry, Object>() {
@@ -636,8 +644,6 @@ public class TasksEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

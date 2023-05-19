@@ -1933,6 +1933,12 @@ public class PortletPreferencesUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(
+		PortletPreferencesPersistence persistence) {
+
+		_persistence = persistence;
+	}
+
 	private static volatile PortletPreferencesPersistence _persistence;
 
 }

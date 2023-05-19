@@ -266,14 +266,10 @@ public class MessageModelImpl
 
 	private static final Map<String, Function<Message, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Message, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Message, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Message, Object>>();
-		Map<String, BiConsumer<Message, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Message, ?>>();
 
 		attributeGetterFunctions.put(
 			"messageId",
@@ -282,16 +278,6 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getMessageId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"messageId",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object messageIdObject) {
-					message.setMessageId((Long)messageIdObject);
 				}
 
 			});
@@ -305,16 +291,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object companyIdObject) {
-					message.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Message, Object>() {
@@ -322,16 +298,6 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object userIdObject) {
-					message.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -345,16 +311,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object userNameObject) {
-					message.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Message, Object>() {
@@ -362,16 +318,6 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object createDateObject) {
-					message.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -385,16 +331,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object modifiedDateObject) {
-					message.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"accountId",
 			new Function<Message, Object>() {
@@ -402,16 +338,6 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getAccountId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"accountId",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object accountIdObject) {
-					message.setAccountId((Long)accountIdObject);
 				}
 
 			});
@@ -425,16 +351,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"folderId",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object folderIdObject) {
-					message.setFolderId((Long)folderIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"sender",
 			new Function<Message, Object>() {
@@ -442,16 +358,6 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getSender();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"sender",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object senderObject) {
-					message.setSender((String)senderObject);
 				}
 
 			});
@@ -465,16 +371,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"to",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object toObject) {
-					message.setTo((String)toObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"cc",
 			new Function<Message, Object>() {
@@ -482,16 +378,6 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getCc();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"cc",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object ccObject) {
-					message.setCc((String)ccObject);
 				}
 
 			});
@@ -505,16 +391,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"bcc",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object bccObject) {
-					message.setBcc((String)bccObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"sentDate",
 			new Function<Message, Object>() {
@@ -522,16 +398,6 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getSentDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"sentDate",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object sentDateObject) {
-					message.setSentDate((Date)sentDateObject);
 				}
 
 			});
@@ -545,16 +411,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"subject",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object subjectObject) {
-					message.setSubject((String)subjectObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"preview",
 			new Function<Message, Object>() {
@@ -562,16 +418,6 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getPreview();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"preview",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object previewObject) {
-					message.setPreview((String)previewObject);
 				}
 
 			});
@@ -585,16 +431,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"body",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object bodyObject) {
-					message.setBody((String)bodyObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"flags",
 			new Function<Message, Object>() {
@@ -602,16 +438,6 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getFlags();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"flags",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object flagsObject) {
-					message.setFlags((String)flagsObject);
 				}
 
 			});
@@ -625,16 +451,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"size",
-			new BiConsumer<Message, Object>() {
-
-				@Override
-				public void accept(Message message, Object sizeObject) {
-					message.setSize((Long)sizeObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"remoteMessageId",
 			new Function<Message, Object>() {
@@ -642,6 +458,208 @@ public class MessageModelImpl
 				@Override
 				public Object apply(Message message) {
 					return message.getRemoteMessageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"contentType",
+			new Function<Message, Object>() {
+
+				@Override
+				public Object apply(Message message) {
+					return message.getContentType();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Message, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Message, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Message, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"messageId",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object messageIdObject) {
+					message.setMessageId((Long)messageIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object companyIdObject) {
+					message.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object userIdObject) {
+					message.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object userNameObject) {
+					message.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object createDateObject) {
+					message.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object modifiedDateObject) {
+					message.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"accountId",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object accountIdObject) {
+					message.setAccountId((Long)accountIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"folderId",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object folderIdObject) {
+					message.setFolderId((Long)folderIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"sender",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object senderObject) {
+					message.setSender((String)senderObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"to",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object toObject) {
+					message.setTo((String)toObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"cc",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object ccObject) {
+					message.setCc((String)ccObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"bcc",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object bccObject) {
+					message.setBcc((String)bccObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"sentDate",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object sentDateObject) {
+					message.setSentDate((Date)sentDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"subject",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object subjectObject) {
+					message.setSubject((String)subjectObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"preview",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object previewObject) {
+					message.setPreview((String)previewObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"body",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object bodyObject) {
+					message.setBody((String)bodyObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"flags",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object flagsObject) {
+					message.setFlags((String)flagsObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"size",
+			new BiConsumer<Message, Object>() {
+
+				@Override
+				public void accept(Message message, Object sizeObject) {
+					message.setSize((Long)sizeObject);
 				}
 
 			});
@@ -657,16 +675,6 @@ public class MessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"contentType",
-			new Function<Message, Object>() {
-
-				@Override
-				public Object apply(Message message) {
-					return message.getContentType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"contentType",
 			new BiConsumer<Message, Object>() {
@@ -678,8 +686,6 @@ public class MessageModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

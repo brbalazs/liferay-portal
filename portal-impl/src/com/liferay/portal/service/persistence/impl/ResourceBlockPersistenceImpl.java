@@ -40,7 +40,6 @@ import com.liferay.portal.model.impl.ResourceBlockModelImpl;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -2561,33 +2560,17 @@ public class ResourceBlockPersistenceImpl
 				String.class.getName(), String.class.getName()
 			});
 
-		_setResourceBlockUtilPersistence(this);
+		ResourceBlockUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setResourceBlockUtilPersistence(null);
+		ResourceBlockUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(ResourceBlockImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setResourceBlockUtilPersistence(
-		ResourceBlockPersistence resourceBlockPersistence) {
-
-		try {
-			Field field = ResourceBlockUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, resourceBlockPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	private static final String _SQL_SELECT_RESOURCEBLOCK =

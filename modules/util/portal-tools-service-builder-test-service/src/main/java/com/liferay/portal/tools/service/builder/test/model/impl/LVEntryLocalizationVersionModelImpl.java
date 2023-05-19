@@ -259,19 +259,12 @@ public class LVEntryLocalizationVersionModelImpl
 	private static final Map
 		<String, Function<LVEntryLocalizationVersion, Object>>
 			_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<LVEntryLocalizationVersion, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<LVEntryLocalizationVersion, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<LVEntryLocalizationVersion, Object>>();
-		Map<String, BiConsumer<LVEntryLocalizationVersion, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<LVEntryLocalizationVersion, ?>>();
 
 		attributeGetterFunctions.put(
 			"lvEntryLocalizationVersionId",
@@ -286,6 +279,106 @@ public class LVEntryLocalizationVersionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"version",
+			new Function<LVEntryLocalizationVersion, Object>() {
+
+				@Override
+				public Object apply(
+					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
+
+					return lvEntryLocalizationVersion.getVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lvEntryLocalizationId",
+			new Function<LVEntryLocalizationVersion, Object>() {
+
+				@Override
+				public Object apply(
+					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
+
+					return lvEntryLocalizationVersion.
+						getLvEntryLocalizationId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<LVEntryLocalizationVersion, Object>() {
+
+				@Override
+				public Object apply(
+					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
+
+					return lvEntryLocalizationVersion.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lvEntryId",
+			new Function<LVEntryLocalizationVersion, Object>() {
+
+				@Override
+				public Object apply(
+					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
+
+					return lvEntryLocalizationVersion.getLvEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"languageId",
+			new Function<LVEntryLocalizationVersion, Object>() {
+
+				@Override
+				public Object apply(
+					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
+
+					return lvEntryLocalizationVersion.getLanguageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<LVEntryLocalizationVersion, Object>() {
+
+				@Override
+				public Object apply(
+					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
+
+					return lvEntryLocalizationVersion.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"content",
+			new Function<LVEntryLocalizationVersion, Object>() {
+
+				@Override
+				public Object apply(
+					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
+
+					return lvEntryLocalizationVersion.getContent();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<LVEntryLocalizationVersion, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<LVEntryLocalizationVersion, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<LVEntryLocalizationVersion, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"lvEntryLocalizationVersionId",
 			new BiConsumer<LVEntryLocalizationVersion, Object>() {
@@ -297,18 +390,6 @@ public class LVEntryLocalizationVersionModelImpl
 
 					lvEntryLocalizationVersion.setLvEntryLocalizationVersionId(
 						(Long)lvEntryLocalizationVersionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"version",
-			new Function<LVEntryLocalizationVersion, Object>() {
-
-				@Override
-				public Object apply(
-					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
-
-					return lvEntryLocalizationVersion.getVersion();
 				}
 
 			});
@@ -326,19 +407,6 @@ public class LVEntryLocalizationVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lvEntryLocalizationId",
-			new Function<LVEntryLocalizationVersion, Object>() {
-
-				@Override
-				public Object apply(
-					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
-
-					return lvEntryLocalizationVersion.
-						getLvEntryLocalizationId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lvEntryLocalizationId",
 			new BiConsumer<LVEntryLocalizationVersion, Object>() {
@@ -350,18 +418,6 @@ public class LVEntryLocalizationVersionModelImpl
 
 					lvEntryLocalizationVersion.setLvEntryLocalizationId(
 						(Long)lvEntryLocalizationIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<LVEntryLocalizationVersion, Object>() {
-
-				@Override
-				public Object apply(
-					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
-
-					return lvEntryLocalizationVersion.getCompanyId();
 				}
 
 			});
@@ -379,18 +435,6 @@ public class LVEntryLocalizationVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lvEntryId",
-			new Function<LVEntryLocalizationVersion, Object>() {
-
-				@Override
-				public Object apply(
-					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
-
-					return lvEntryLocalizationVersion.getLvEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lvEntryId",
 			new BiConsumer<LVEntryLocalizationVersion, Object>() {
@@ -402,18 +446,6 @@ public class LVEntryLocalizationVersionModelImpl
 
 					lvEntryLocalizationVersion.setLvEntryId(
 						(Long)lvEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"languageId",
-			new Function<LVEntryLocalizationVersion, Object>() {
-
-				@Override
-				public Object apply(
-					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
-
-					return lvEntryLocalizationVersion.getLanguageId();
 				}
 
 			});
@@ -431,18 +463,6 @@ public class LVEntryLocalizationVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<LVEntryLocalizationVersion, Object>() {
-
-				@Override
-				public Object apply(
-					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
-
-					return lvEntryLocalizationVersion.getTitle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"title",
 			new BiConsumer<LVEntryLocalizationVersion, Object>() {
@@ -453,18 +473,6 @@ public class LVEntryLocalizationVersionModelImpl
 					Object titleObject) {
 
 					lvEntryLocalizationVersion.setTitle((String)titleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"content",
-			new Function<LVEntryLocalizationVersion, Object>() {
-
-				@Override
-				public Object apply(
-					LVEntryLocalizationVersion lvEntryLocalizationVersion) {
-
-					return lvEntryLocalizationVersion.getContent();
 				}
 
 			});
@@ -483,8 +491,6 @@ public class LVEntryLocalizationVersionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

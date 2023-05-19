@@ -49,8 +49,6 @@ import com.liferay.push.notifications.service.persistence.PushNotificationsDevic
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -567,14 +565,15 @@ public abstract class PushNotificationsDeviceLocalServiceBaseImpl
 			"com.liferay.push.notifications.model.PushNotificationsDevice",
 			pushNotificationsDeviceLocalService);
 
-		_setLocalServiceUtilService(pushNotificationsDeviceLocalService);
+		PushNotificationsDeviceLocalServiceUtil.setService(
+			pushNotificationsDeviceLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.push.notifications.model.PushNotificationsDevice");
 
-		_setLocalServiceUtilService(null);
+		PushNotificationsDeviceLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -617,24 +616,6 @@ public abstract class PushNotificationsDeviceLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		PushNotificationsDeviceLocalService
-			pushNotificationsDeviceLocalService) {
-
-		try {
-			Field field =
-				PushNotificationsDeviceLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, pushNotificationsDeviceLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

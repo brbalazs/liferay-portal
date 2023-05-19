@@ -249,16 +249,11 @@ public class WikiPageResourceModelImpl
 
 	private static final Map<String, Function<WikiPageResource, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<WikiPageResource, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<WikiPageResource, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<WikiPageResource, Object>>();
-		Map<String, BiConsumer<WikiPageResource, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<WikiPageResource, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -270,6 +265,69 @@ public class WikiPageResourceModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"resourcePrimKey",
+			new Function<WikiPageResource, Object>() {
+
+				@Override
+				public Object apply(WikiPageResource wikiPageResource) {
+					return wikiPageResource.getResourcePrimKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<WikiPageResource, Object>() {
+
+				@Override
+				public Object apply(WikiPageResource wikiPageResource) {
+					return wikiPageResource.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<WikiPageResource, Object>() {
+
+				@Override
+				public Object apply(WikiPageResource wikiPageResource) {
+					return wikiPageResource.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"nodeId",
+			new Function<WikiPageResource, Object>() {
+
+				@Override
+				public Object apply(WikiPageResource wikiPageResource) {
+					return wikiPageResource.getNodeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<WikiPageResource, Object>() {
+
+				@Override
+				public Object apply(WikiPageResource wikiPageResource) {
+					return wikiPageResource.getTitle();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<WikiPageResource, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<WikiPageResource, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<WikiPageResource, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<WikiPageResource, Object>() {
@@ -279,16 +337,6 @@ public class WikiPageResourceModelImpl
 					WikiPageResource wikiPageResource, Object uuidObject) {
 
 					wikiPageResource.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resourcePrimKey",
-			new Function<WikiPageResource, Object>() {
-
-				@Override
-				public Object apply(WikiPageResource wikiPageResource) {
-					return wikiPageResource.getResourcePrimKey();
 				}
 
 			});
@@ -306,16 +354,6 @@ public class WikiPageResourceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<WikiPageResource, Object>() {
-
-				@Override
-				public Object apply(WikiPageResource wikiPageResource) {
-					return wikiPageResource.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<WikiPageResource, Object>() {
@@ -325,16 +363,6 @@ public class WikiPageResourceModelImpl
 					WikiPageResource wikiPageResource, Object groupIdObject) {
 
 					wikiPageResource.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<WikiPageResource, Object>() {
-
-				@Override
-				public Object apply(WikiPageResource wikiPageResource) {
-					return wikiPageResource.getCompanyId();
 				}
 
 			});
@@ -350,16 +378,6 @@ public class WikiPageResourceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"nodeId",
-			new Function<WikiPageResource, Object>() {
-
-				@Override
-				public Object apply(WikiPageResource wikiPageResource) {
-					return wikiPageResource.getNodeId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"nodeId",
 			new BiConsumer<WikiPageResource, Object>() {
@@ -369,16 +387,6 @@ public class WikiPageResourceModelImpl
 					WikiPageResource wikiPageResource, Object nodeIdObject) {
 
 					wikiPageResource.setNodeId((Long)nodeIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<WikiPageResource, Object>() {
-
-				@Override
-				public Object apply(WikiPageResource wikiPageResource) {
-					return wikiPageResource.getTitle();
 				}
 
 			});
@@ -395,8 +403,6 @@ public class WikiPageResourceModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -75,8 +75,6 @@ import com.liferay.wiki.service.persistence.WikiPageResourcePersistence;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -1157,14 +1155,14 @@ public abstract class WikiPageLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.wiki.model.WikiPage", wikiPageLocalService);
 
-		_setLocalServiceUtilService(wikiPageLocalService);
+		WikiPageLocalServiceUtil.setService(wikiPageLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.wiki.model.WikiPage");
 
-		_setLocalServiceUtilService(null);
+		WikiPageLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -1206,22 +1204,6 @@ public abstract class WikiPageLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		WikiPageLocalService wikiPageLocalService) {
-
-		try {
-			Field field = WikiPageLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, wikiPageLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

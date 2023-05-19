@@ -241,14 +241,10 @@ public class DLSyncEventModelImpl
 
 	private static final Map<String, Function<DLSyncEvent, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DLSyncEvent, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DLSyncEvent, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<DLSyncEvent, Object>>();
-		Map<String, BiConsumer<DLSyncEvent, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<DLSyncEvent, ?>>();
 
 		attributeGetterFunctions.put(
 			"syncEventId",
@@ -260,6 +256,68 @@ public class DLSyncEventModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DLSyncEvent, Object>() {
+
+				@Override
+				public Object apply(DLSyncEvent dlSyncEvent) {
+					return dlSyncEvent.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedTime",
+			new Function<DLSyncEvent, Object>() {
+
+				@Override
+				public Object apply(DLSyncEvent dlSyncEvent) {
+					return dlSyncEvent.getModifiedTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"event",
+			new Function<DLSyncEvent, Object>() {
+
+				@Override
+				public Object apply(DLSyncEvent dlSyncEvent) {
+					return dlSyncEvent.getEvent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<DLSyncEvent, Object>() {
+
+				@Override
+				public Object apply(DLSyncEvent dlSyncEvent) {
+					return dlSyncEvent.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typePK",
+			new Function<DLSyncEvent, Object>() {
+
+				@Override
+				public Object apply(DLSyncEvent dlSyncEvent) {
+					return dlSyncEvent.getTypePK();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DLSyncEvent, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DLSyncEvent, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<DLSyncEvent, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"syncEventId",
 			new BiConsumer<DLSyncEvent, Object>() {
@@ -269,16 +327,6 @@ public class DLSyncEventModelImpl
 					DLSyncEvent dlSyncEvent, Object syncEventIdObject) {
 
 					dlSyncEvent.setSyncEventId((Long)syncEventIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DLSyncEvent, Object>() {
-
-				@Override
-				public Object apply(DLSyncEvent dlSyncEvent) {
-					return dlSyncEvent.getCompanyId();
 				}
 
 			});
@@ -294,16 +342,6 @@ public class DLSyncEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedTime",
-			new Function<DLSyncEvent, Object>() {
-
-				@Override
-				public Object apply(DLSyncEvent dlSyncEvent) {
-					return dlSyncEvent.getModifiedTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedTime",
 			new BiConsumer<DLSyncEvent, Object>() {
@@ -313,16 +351,6 @@ public class DLSyncEventModelImpl
 					DLSyncEvent dlSyncEvent, Object modifiedTimeObject) {
 
 					dlSyncEvent.setModifiedTime((Long)modifiedTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"event",
-			new Function<DLSyncEvent, Object>() {
-
-				@Override
-				public Object apply(DLSyncEvent dlSyncEvent) {
-					return dlSyncEvent.getEvent();
 				}
 
 			});
@@ -338,16 +366,6 @@ public class DLSyncEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<DLSyncEvent, Object>() {
-
-				@Override
-				public Object apply(DLSyncEvent dlSyncEvent) {
-					return dlSyncEvent.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<DLSyncEvent, Object>() {
@@ -355,16 +373,6 @@ public class DLSyncEventModelImpl
 				@Override
 				public void accept(DLSyncEvent dlSyncEvent, Object typeObject) {
 					dlSyncEvent.setType((String)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"typePK",
-			new Function<DLSyncEvent, Object>() {
-
-				@Override
-				public Object apply(DLSyncEvent dlSyncEvent) {
-					return dlSyncEvent.getTypePK();
 				}
 
 			});
@@ -381,8 +389,6 @@ public class DLSyncEventModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

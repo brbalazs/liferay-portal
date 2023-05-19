@@ -47,8 +47,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -450,14 +448,15 @@ public abstract class DLFileVersionPreviewLocalServiceBaseImpl
 			"com.liferay.document.library.model.DLFileVersionPreview",
 			dlFileVersionPreviewLocalService);
 
-		_setLocalServiceUtilService(dlFileVersionPreviewLocalService);
+		DLFileVersionPreviewLocalServiceUtil.setService(
+			dlFileVersionPreviewLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.document.library.model.DLFileVersionPreview");
 
-		_setLocalServiceUtilService(null);
+		DLFileVersionPreviewLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -500,23 +499,6 @@ public abstract class DLFileVersionPreviewLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DLFileVersionPreviewLocalService dlFileVersionPreviewLocalService) {
-
-		try {
-			Field field =
-				DLFileVersionPreviewLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, dlFileVersionPreviewLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -263,19 +263,12 @@ public class UserNotificationDeliveryModelImpl
 
 	private static final Map<String, Function<UserNotificationDelivery, Object>>
 		_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<UserNotificationDelivery, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<UserNotificationDelivery, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<UserNotificationDelivery, Object>>();
-		Map<String, BiConsumer<UserNotificationDelivery, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<UserNotificationDelivery, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -289,6 +282,118 @@ public class UserNotificationDeliveryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"userNotificationDeliveryId",
+			new Function<UserNotificationDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					UserNotificationDelivery userNotificationDelivery) {
+
+					return userNotificationDelivery.
+						getUserNotificationDeliveryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<UserNotificationDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					UserNotificationDelivery userNotificationDelivery) {
+
+					return userNotificationDelivery.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<UserNotificationDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					UserNotificationDelivery userNotificationDelivery) {
+
+					return userNotificationDelivery.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"portletId",
+			new Function<UserNotificationDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					UserNotificationDelivery userNotificationDelivery) {
+
+					return userNotificationDelivery.getPortletId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<UserNotificationDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					UserNotificationDelivery userNotificationDelivery) {
+
+					return userNotificationDelivery.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"notificationType",
+			new Function<UserNotificationDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					UserNotificationDelivery userNotificationDelivery) {
+
+					return userNotificationDelivery.getNotificationType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"deliveryType",
+			new Function<UserNotificationDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					UserNotificationDelivery userNotificationDelivery) {
+
+					return userNotificationDelivery.getDeliveryType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"deliver",
+			new Function<UserNotificationDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					UserNotificationDelivery userNotificationDelivery) {
+
+					return userNotificationDelivery.getDeliver();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<UserNotificationDelivery, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<UserNotificationDelivery, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<UserNotificationDelivery, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<UserNotificationDelivery, Object>() {
@@ -300,19 +405,6 @@ public class UserNotificationDeliveryModelImpl
 
 					userNotificationDelivery.setMvccVersion(
 						(Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userNotificationDeliveryId",
-			new Function<UserNotificationDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					UserNotificationDelivery userNotificationDelivery) {
-
-					return userNotificationDelivery.
-						getUserNotificationDeliveryId();
 				}
 
 			});
@@ -330,18 +422,6 @@ public class UserNotificationDeliveryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<UserNotificationDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					UserNotificationDelivery userNotificationDelivery) {
-
-					return userNotificationDelivery.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<UserNotificationDelivery, Object>() {
@@ -356,18 +436,6 @@ public class UserNotificationDeliveryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<UserNotificationDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					UserNotificationDelivery userNotificationDelivery) {
-
-					return userNotificationDelivery.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<UserNotificationDelivery, Object>() {
@@ -378,18 +446,6 @@ public class UserNotificationDeliveryModelImpl
 					Object userIdObject) {
 
 					userNotificationDelivery.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"portletId",
-			new Function<UserNotificationDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					UserNotificationDelivery userNotificationDelivery) {
-
-					return userNotificationDelivery.getPortletId();
 				}
 
 			});
@@ -407,18 +463,6 @@ public class UserNotificationDeliveryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<UserNotificationDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					UserNotificationDelivery userNotificationDelivery) {
-
-					return userNotificationDelivery.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<UserNotificationDelivery, Object>() {
@@ -430,18 +474,6 @@ public class UserNotificationDeliveryModelImpl
 
 					userNotificationDelivery.setClassNameId(
 						(Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"notificationType",
-			new Function<UserNotificationDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					UserNotificationDelivery userNotificationDelivery) {
-
-					return userNotificationDelivery.getNotificationType();
 				}
 
 			});
@@ -459,18 +491,6 @@ public class UserNotificationDeliveryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"deliveryType",
-			new Function<UserNotificationDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					UserNotificationDelivery userNotificationDelivery) {
-
-					return userNotificationDelivery.getDeliveryType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"deliveryType",
 			new BiConsumer<UserNotificationDelivery, Object>() {
@@ -482,18 +502,6 @@ public class UserNotificationDeliveryModelImpl
 
 					userNotificationDelivery.setDeliveryType(
 						(Integer)deliveryTypeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"deliver",
-			new Function<UserNotificationDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					UserNotificationDelivery userNotificationDelivery) {
-
-					return userNotificationDelivery.getDeliver();
 				}
 
 			});
@@ -511,8 +519,6 @@ public class UserNotificationDeliveryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

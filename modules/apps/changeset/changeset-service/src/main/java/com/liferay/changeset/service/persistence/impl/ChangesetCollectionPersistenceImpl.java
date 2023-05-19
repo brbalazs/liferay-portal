@@ -43,7 +43,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -3543,33 +3542,17 @@ public class ChangesetCollectionPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_N",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setChangesetCollectionUtilPersistence(this);
+		ChangesetCollectionUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setChangesetCollectionUtilPersistence(null);
+		ChangesetCollectionUtil.setPersistence(null);
 
 		entityCache.removeCache(ChangesetCollectionImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setChangesetCollectionUtilPersistence(
-		ChangesetCollectionPersistence changesetCollectionPersistence) {
-
-		try {
-			Field field = ChangesetCollectionUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, changesetCollectionPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

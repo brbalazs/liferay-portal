@@ -256,14 +256,10 @@ public class BlogsStatsUserModelImpl
 
 	private static final Map<String, Function<BlogsStatsUser, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<BlogsStatsUser, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<BlogsStatsUser, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<BlogsStatsUser, Object>>();
-		Map<String, BiConsumer<BlogsStatsUser, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<BlogsStatsUser, ?>>();
 
 		attributeGetterFunctions.put(
 			"statsUserId",
@@ -275,6 +271,98 @@ public class BlogsStatsUserModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<BlogsStatsUser, Object>() {
+
+				@Override
+				public Object apply(BlogsStatsUser blogsStatsUser) {
+					return blogsStatsUser.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<BlogsStatsUser, Object>() {
+
+				@Override
+				public Object apply(BlogsStatsUser blogsStatsUser) {
+					return blogsStatsUser.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<BlogsStatsUser, Object>() {
+
+				@Override
+				public Object apply(BlogsStatsUser blogsStatsUser) {
+					return blogsStatsUser.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"entryCount",
+			new Function<BlogsStatsUser, Object>() {
+
+				@Override
+				public Object apply(BlogsStatsUser blogsStatsUser) {
+					return blogsStatsUser.getEntryCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPostDate",
+			new Function<BlogsStatsUser, Object>() {
+
+				@Override
+				public Object apply(BlogsStatsUser blogsStatsUser) {
+					return blogsStatsUser.getLastPostDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ratingsTotalEntries",
+			new Function<BlogsStatsUser, Object>() {
+
+				@Override
+				public Object apply(BlogsStatsUser blogsStatsUser) {
+					return blogsStatsUser.getRatingsTotalEntries();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ratingsTotalScore",
+			new Function<BlogsStatsUser, Object>() {
+
+				@Override
+				public Object apply(BlogsStatsUser blogsStatsUser) {
+					return blogsStatsUser.getRatingsTotalScore();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ratingsAverageScore",
+			new Function<BlogsStatsUser, Object>() {
+
+				@Override
+				public Object apply(BlogsStatsUser blogsStatsUser) {
+					return blogsStatsUser.getRatingsAverageScore();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<BlogsStatsUser, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<BlogsStatsUser, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<BlogsStatsUser, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"statsUserId",
 			new BiConsumer<BlogsStatsUser, Object>() {
@@ -284,16 +372,6 @@ public class BlogsStatsUserModelImpl
 					BlogsStatsUser blogsStatsUser, Object statsUserIdObject) {
 
 					blogsStatsUser.setStatsUserId((Long)statsUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<BlogsStatsUser, Object>() {
-
-				@Override
-				public Object apply(BlogsStatsUser blogsStatsUser) {
-					return blogsStatsUser.getGroupId();
 				}
 
 			});
@@ -309,16 +387,6 @@ public class BlogsStatsUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<BlogsStatsUser, Object>() {
-
-				@Override
-				public Object apply(BlogsStatsUser blogsStatsUser) {
-					return blogsStatsUser.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<BlogsStatsUser, Object>() {
@@ -328,16 +396,6 @@ public class BlogsStatsUserModelImpl
 					BlogsStatsUser blogsStatsUser, Object companyIdObject) {
 
 					blogsStatsUser.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<BlogsStatsUser, Object>() {
-
-				@Override
-				public Object apply(BlogsStatsUser blogsStatsUser) {
-					return blogsStatsUser.getUserId();
 				}
 
 			});
@@ -353,16 +411,6 @@ public class BlogsStatsUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"entryCount",
-			new Function<BlogsStatsUser, Object>() {
-
-				@Override
-				public Object apply(BlogsStatsUser blogsStatsUser) {
-					return blogsStatsUser.getEntryCount();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"entryCount",
 			new BiConsumer<BlogsStatsUser, Object>() {
@@ -375,16 +423,6 @@ public class BlogsStatsUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastPostDate",
-			new Function<BlogsStatsUser, Object>() {
-
-				@Override
-				public Object apply(BlogsStatsUser blogsStatsUser) {
-					return blogsStatsUser.getLastPostDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastPostDate",
 			new BiConsumer<BlogsStatsUser, Object>() {
@@ -394,16 +432,6 @@ public class BlogsStatsUserModelImpl
 					BlogsStatsUser blogsStatsUser, Object lastPostDateObject) {
 
 					blogsStatsUser.setLastPostDate((Date)lastPostDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"ratingsTotalEntries",
-			new Function<BlogsStatsUser, Object>() {
-
-				@Override
-				public Object apply(BlogsStatsUser blogsStatsUser) {
-					return blogsStatsUser.getRatingsTotalEntries();
 				}
 
 			});
@@ -421,16 +449,6 @@ public class BlogsStatsUserModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"ratingsTotalScore",
-			new Function<BlogsStatsUser, Object>() {
-
-				@Override
-				public Object apply(BlogsStatsUser blogsStatsUser) {
-					return blogsStatsUser.getRatingsTotalScore();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"ratingsTotalScore",
 			new BiConsumer<BlogsStatsUser, Object>() {
@@ -442,16 +460,6 @@ public class BlogsStatsUserModelImpl
 
 					blogsStatsUser.setRatingsTotalScore(
 						(Double)ratingsTotalScoreObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"ratingsAverageScore",
-			new Function<BlogsStatsUser, Object>() {
-
-				@Override
-				public Object apply(BlogsStatsUser blogsStatsUser) {
-					return blogsStatsUser.getRatingsAverageScore();
 				}
 
 			});
@@ -470,8 +478,6 @@ public class BlogsStatsUserModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

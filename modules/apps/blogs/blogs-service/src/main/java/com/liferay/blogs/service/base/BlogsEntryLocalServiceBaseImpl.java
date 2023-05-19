@@ -75,8 +75,6 @@ import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -1159,14 +1157,14 @@ public abstract class BlogsEntryLocalServiceBaseImpl
 		persistedModelLocalServiceRegistry.register(
 			"com.liferay.blogs.model.BlogsEntry", blogsEntryLocalService);
 
-		_setLocalServiceUtilService(blogsEntryLocalService);
+		BlogsEntryLocalServiceUtil.setService(blogsEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.blogs.model.BlogsEntry");
 
-		_setLocalServiceUtilService(null);
+		BlogsEntryLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -1208,22 +1206,6 @@ public abstract class BlogsEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		BlogsEntryLocalService blogsEntryLocalService) {
-
-		try {
-			Field field = BlogsEntryLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, blogsEntryLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

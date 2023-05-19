@@ -318,14 +318,10 @@ public class KaleoProcessModelImpl
 
 	private static final Map<String, Function<KaleoProcess, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KaleoProcess, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<KaleoProcess, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<KaleoProcess, Object>>();
-		Map<String, BiConsumer<KaleoProcess, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<KaleoProcess, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -337,6 +333,128 @@ public class KaleoProcessModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"kaleoProcessId",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getKaleoProcessId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"DDLRecordSetId",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getDDLRecordSetId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"DDMTemplateId",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getDDMTemplateId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"workflowDefinitionName",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getWorkflowDefinitionName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"workflowDefinitionVersion",
+			new Function<KaleoProcess, Object>() {
+
+				@Override
+				public Object apply(KaleoProcess kaleoProcess) {
+					return kaleoProcess.getWorkflowDefinitionVersion();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<KaleoProcess, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<KaleoProcess, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<KaleoProcess, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<KaleoProcess, Object>() {
@@ -346,16 +464,6 @@ public class KaleoProcessModelImpl
 					KaleoProcess kaleoProcess, Object uuidObject) {
 
 					kaleoProcess.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"kaleoProcessId",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getKaleoProcessId();
 				}
 
 			});
@@ -371,16 +479,6 @@ public class KaleoProcessModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<KaleoProcess, Object>() {
@@ -390,16 +488,6 @@ public class KaleoProcessModelImpl
 					KaleoProcess kaleoProcess, Object groupIdObject) {
 
 					kaleoProcess.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getCompanyId();
 				}
 
 			});
@@ -415,16 +503,6 @@ public class KaleoProcessModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<KaleoProcess, Object>() {
@@ -434,16 +512,6 @@ public class KaleoProcessModelImpl
 					KaleoProcess kaleoProcess, Object userIdObject) {
 
 					kaleoProcess.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getUserName();
 				}
 
 			});
@@ -459,16 +527,6 @@ public class KaleoProcessModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<KaleoProcess, Object>() {
@@ -478,16 +536,6 @@ public class KaleoProcessModelImpl
 					KaleoProcess kaleoProcess, Object createDateObject) {
 
 					kaleoProcess.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getModifiedDate();
 				}
 
 			});
@@ -503,16 +551,6 @@ public class KaleoProcessModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"DDLRecordSetId",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getDDLRecordSetId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"DDLRecordSetId",
 			new BiConsumer<KaleoProcess, Object>() {
@@ -522,16 +560,6 @@ public class KaleoProcessModelImpl
 					KaleoProcess kaleoProcess, Object DDLRecordSetIdObject) {
 
 					kaleoProcess.setDDLRecordSetId((Long)DDLRecordSetIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"DDMTemplateId",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getDDMTemplateId();
 				}
 
 			});
@@ -547,16 +575,6 @@ public class KaleoProcessModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"workflowDefinitionName",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getWorkflowDefinitionName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"workflowDefinitionName",
 			new BiConsumer<KaleoProcess, Object>() {
@@ -568,16 +586,6 @@ public class KaleoProcessModelImpl
 
 					kaleoProcess.setWorkflowDefinitionName(
 						(String)workflowDefinitionNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"workflowDefinitionVersion",
-			new Function<KaleoProcess, Object>() {
-
-				@Override
-				public Object apply(KaleoProcess kaleoProcess) {
-					return kaleoProcess.getWorkflowDefinitionVersion();
 				}
 
 			});
@@ -596,8 +604,6 @@ public class KaleoProcessModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

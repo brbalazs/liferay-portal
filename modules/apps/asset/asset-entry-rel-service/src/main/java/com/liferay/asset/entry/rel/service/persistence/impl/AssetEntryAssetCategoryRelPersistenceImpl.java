@@ -41,7 +41,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -2330,34 +2329,17 @@ public class AssetEntryAssetCategoryRelPersistenceImpl
 			Long.class, FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByA_A",
 			new String[] {Long.class.getName(), Long.class.getName()});
 
-		_setAssetEntryAssetCategoryRelUtilPersistence(this);
+		AssetEntryAssetCategoryRelUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setAssetEntryAssetCategoryRelUtilPersistence(null);
+		AssetEntryAssetCategoryRelUtil.setPersistence(null);
 
 		entityCache.removeCache(AssetEntryAssetCategoryRelImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setAssetEntryAssetCategoryRelUtilPersistence(
-		AssetEntryAssetCategoryRelPersistence
-			assetEntryAssetCategoryRelPersistence) {
-
-		try {
-			Field field = AssetEntryAssetCategoryRelUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, assetEntryAssetCategoryRelPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

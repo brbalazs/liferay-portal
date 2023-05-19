@@ -33,8 +33,6 @@ import com.liferay.site.navigation.service.SiteNavigationMenuItemServiceUtil;
 import com.liferay.site.navigation.service.persistence.SiteNavigationMenuItemPersistence;
 import com.liferay.site.navigation.service.persistence.SiteNavigationMenuPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -276,11 +274,12 @@ public abstract class SiteNavigationMenuItemServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(siteNavigationMenuItemService);
+		SiteNavigationMenuItemServiceUtil.setService(
+			siteNavigationMenuItemService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		SiteNavigationMenuItemServiceUtil.setService(null);
 	}
 
 	/**
@@ -323,23 +322,6 @@ public abstract class SiteNavigationMenuItemServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		SiteNavigationMenuItemService siteNavigationMenuItemService) {
-
-		try {
-			Field field =
-				SiteNavigationMenuItemServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, siteNavigationMenuItemService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

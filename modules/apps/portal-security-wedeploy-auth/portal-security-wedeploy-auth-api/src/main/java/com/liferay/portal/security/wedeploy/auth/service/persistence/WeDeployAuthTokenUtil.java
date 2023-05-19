@@ -424,6 +424,12 @@ public class WeDeployAuthTokenUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(
+		WeDeployAuthTokenPersistence persistence) {
+
+		_persistence = persistence;
+	}
+
 	private static volatile WeDeployAuthTokenPersistence _persistence;
 
 }

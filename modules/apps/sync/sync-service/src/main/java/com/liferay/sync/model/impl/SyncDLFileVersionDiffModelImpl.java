@@ -253,18 +253,12 @@ public class SyncDLFileVersionDiffModelImpl
 
 	private static final Map<String, Function<SyncDLFileVersionDiff, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SyncDLFileVersionDiff, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SyncDLFileVersionDiff, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SyncDLFileVersionDiff, Object>>();
-		Map<String, BiConsumer<SyncDLFileVersionDiff, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<SyncDLFileVersionDiff, ?>>();
 
 		attributeGetterFunctions.put(
 			"syncDLFileVersionDiffId",
@@ -278,6 +272,92 @@ public class SyncDLFileVersionDiffModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"fileEntryId",
+			new Function<SyncDLFileVersionDiff, Object>() {
+
+				@Override
+				public Object apply(
+					SyncDLFileVersionDiff syncDLFileVersionDiff) {
+
+					return syncDLFileVersionDiff.getFileEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sourceFileVersionId",
+			new Function<SyncDLFileVersionDiff, Object>() {
+
+				@Override
+				public Object apply(
+					SyncDLFileVersionDiff syncDLFileVersionDiff) {
+
+					return syncDLFileVersionDiff.getSourceFileVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"targetFileVersionId",
+			new Function<SyncDLFileVersionDiff, Object>() {
+
+				@Override
+				public Object apply(
+					SyncDLFileVersionDiff syncDLFileVersionDiff) {
+
+					return syncDLFileVersionDiff.getTargetFileVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"dataFileEntryId",
+			new Function<SyncDLFileVersionDiff, Object>() {
+
+				@Override
+				public Object apply(
+					SyncDLFileVersionDiff syncDLFileVersionDiff) {
+
+					return syncDLFileVersionDiff.getDataFileEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"size",
+			new Function<SyncDLFileVersionDiff, Object>() {
+
+				@Override
+				public Object apply(
+					SyncDLFileVersionDiff syncDLFileVersionDiff) {
+
+					return syncDLFileVersionDiff.getSize();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"expirationDate",
+			new Function<SyncDLFileVersionDiff, Object>() {
+
+				@Override
+				public Object apply(
+					SyncDLFileVersionDiff syncDLFileVersionDiff) {
+
+					return syncDLFileVersionDiff.getExpirationDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SyncDLFileVersionDiff, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SyncDLFileVersionDiff, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<SyncDLFileVersionDiff, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"syncDLFileVersionDiffId",
 			new BiConsumer<SyncDLFileVersionDiff, Object>() {
@@ -289,18 +369,6 @@ public class SyncDLFileVersionDiffModelImpl
 
 					syncDLFileVersionDiff.setSyncDLFileVersionDiffId(
 						(Long)syncDLFileVersionDiffIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fileEntryId",
-			new Function<SyncDLFileVersionDiff, Object>() {
-
-				@Override
-				public Object apply(
-					SyncDLFileVersionDiff syncDLFileVersionDiff) {
-
-					return syncDLFileVersionDiff.getFileEntryId();
 				}
 
 			});
@@ -318,18 +386,6 @@ public class SyncDLFileVersionDiffModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"sourceFileVersionId",
-			new Function<SyncDLFileVersionDiff, Object>() {
-
-				@Override
-				public Object apply(
-					SyncDLFileVersionDiff syncDLFileVersionDiff) {
-
-					return syncDLFileVersionDiff.getSourceFileVersionId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"sourceFileVersionId",
 			new BiConsumer<SyncDLFileVersionDiff, Object>() {
@@ -341,18 +397,6 @@ public class SyncDLFileVersionDiffModelImpl
 
 					syncDLFileVersionDiff.setSourceFileVersionId(
 						(Long)sourceFileVersionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"targetFileVersionId",
-			new Function<SyncDLFileVersionDiff, Object>() {
-
-				@Override
-				public Object apply(
-					SyncDLFileVersionDiff syncDLFileVersionDiff) {
-
-					return syncDLFileVersionDiff.getTargetFileVersionId();
 				}
 
 			});
@@ -370,18 +414,6 @@ public class SyncDLFileVersionDiffModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"dataFileEntryId",
-			new Function<SyncDLFileVersionDiff, Object>() {
-
-				@Override
-				public Object apply(
-					SyncDLFileVersionDiff syncDLFileVersionDiff) {
-
-					return syncDLFileVersionDiff.getDataFileEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"dataFileEntryId",
 			new BiConsumer<SyncDLFileVersionDiff, Object>() {
@@ -396,18 +428,6 @@ public class SyncDLFileVersionDiffModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"size",
-			new Function<SyncDLFileVersionDiff, Object>() {
-
-				@Override
-				public Object apply(
-					SyncDLFileVersionDiff syncDLFileVersionDiff) {
-
-					return syncDLFileVersionDiff.getSize();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"size",
 			new BiConsumer<SyncDLFileVersionDiff, Object>() {
@@ -418,18 +438,6 @@ public class SyncDLFileVersionDiffModelImpl
 					Object sizeObject) {
 
 					syncDLFileVersionDiff.setSize((Long)sizeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"expirationDate",
-			new Function<SyncDLFileVersionDiff, Object>() {
-
-				@Override
-				public Object apply(
-					SyncDLFileVersionDiff syncDLFileVersionDiff) {
-
-					return syncDLFileVersionDiff.getExpirationDate();
 				}
 
 			});
@@ -448,8 +456,6 @@ public class SyncDLFileVersionDiffModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

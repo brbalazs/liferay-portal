@@ -48,8 +48,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -499,14 +497,14 @@ public abstract class DDMStorageLinkLocalServiceBaseImpl
 			"com.liferay.dynamic.data.mapping.model.DDMStorageLink",
 			ddmStorageLinkLocalService);
 
-		_setLocalServiceUtilService(ddmStorageLinkLocalService);
+		DDMStorageLinkLocalServiceUtil.setService(ddmStorageLinkLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.dynamic.data.mapping.model.DDMStorageLink");
 
-		_setLocalServiceUtilService(null);
+		DDMStorageLinkLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -548,22 +546,6 @@ public abstract class DDMStorageLinkLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DDMStorageLinkLocalService ddmStorageLinkLocalService) {
-
-		try {
-			Field field = DDMStorageLinkLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddmStorageLinkLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

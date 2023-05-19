@@ -1097,6 +1097,10 @@ public class SiteFriendlyURLUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(SiteFriendlyURLPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile SiteFriendlyURLPersistence _persistence;
 
 }

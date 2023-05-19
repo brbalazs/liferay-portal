@@ -2079,6 +2079,10 @@ public class DLFileVersionUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(DLFileVersionPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile DLFileVersionPersistence _persistence;
 
 }

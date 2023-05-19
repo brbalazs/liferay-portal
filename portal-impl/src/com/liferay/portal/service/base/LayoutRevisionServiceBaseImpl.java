@@ -40,8 +40,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.service.persistence.WorkflowInstanceLinkPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -571,11 +569,11 @@ public abstract class LayoutRevisionServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(layoutRevisionService);
+		LayoutRevisionServiceUtil.setService(layoutRevisionService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		LayoutRevisionServiceUtil.setService(null);
 	}
 
 	/**
@@ -617,22 +615,6 @@ public abstract class LayoutRevisionServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		LayoutRevisionService layoutRevisionService) {
-
-		try {
-			Field field = LayoutRevisionServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, layoutRevisionService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

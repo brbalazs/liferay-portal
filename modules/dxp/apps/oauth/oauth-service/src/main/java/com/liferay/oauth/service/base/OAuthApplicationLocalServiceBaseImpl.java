@@ -51,8 +51,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -625,14 +623,15 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 			"com.liferay.oauth.model.OAuthApplication",
 			oAuthApplicationLocalService);
 
-		_setLocalServiceUtilService(oAuthApplicationLocalService);
+		OAuthApplicationLocalServiceUtil.setService(
+			oAuthApplicationLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.oauth.model.OAuthApplication");
 
-		_setLocalServiceUtilService(null);
+		OAuthApplicationLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -674,23 +673,6 @@ public abstract class OAuthApplicationLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		OAuthApplicationLocalService oAuthApplicationLocalService) {
-
-		try {
-			Field field =
-				OAuthApplicationLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, oAuthApplicationLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

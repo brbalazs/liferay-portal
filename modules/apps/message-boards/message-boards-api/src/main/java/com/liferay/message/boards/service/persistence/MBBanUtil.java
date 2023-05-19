@@ -1231,6 +1231,10 @@ public class MBBanUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(MBBanPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile MBBanPersistence _persistence;
 
 }

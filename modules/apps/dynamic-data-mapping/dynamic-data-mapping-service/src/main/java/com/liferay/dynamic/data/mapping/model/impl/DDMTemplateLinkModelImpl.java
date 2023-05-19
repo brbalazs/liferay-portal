@@ -246,15 +246,11 @@ public class DDMTemplateLinkModelImpl
 
 	private static final Map<String, Function<DDMTemplateLink, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DDMTemplateLink, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DDMTemplateLink, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<DDMTemplateLink, Object>>();
-		Map<String, BiConsumer<DDMTemplateLink, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<DDMTemplateLink, ?>>();
 
 		attributeGetterFunctions.put(
 			"templateLinkId",
@@ -266,6 +262,58 @@ public class DDMTemplateLinkModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DDMTemplateLink, Object>() {
+
+				@Override
+				public Object apply(DDMTemplateLink ddmTemplateLink) {
+					return ddmTemplateLink.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<DDMTemplateLink, Object>() {
+
+				@Override
+				public Object apply(DDMTemplateLink ddmTemplateLink) {
+					return ddmTemplateLink.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<DDMTemplateLink, Object>() {
+
+				@Override
+				public Object apply(DDMTemplateLink ddmTemplateLink) {
+					return ddmTemplateLink.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"templateId",
+			new Function<DDMTemplateLink, Object>() {
+
+				@Override
+				public Object apply(DDMTemplateLink ddmTemplateLink) {
+					return ddmTemplateLink.getTemplateId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DDMTemplateLink, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DDMTemplateLink, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<DDMTemplateLink, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"templateLinkId",
 			new BiConsumer<DDMTemplateLink, Object>() {
@@ -277,16 +325,6 @@ public class DDMTemplateLinkModelImpl
 
 					ddmTemplateLink.setTemplateLinkId(
 						(Long)templateLinkIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DDMTemplateLink, Object>() {
-
-				@Override
-				public Object apply(DDMTemplateLink ddmTemplateLink) {
-					return ddmTemplateLink.getCompanyId();
 				}
 
 			});
@@ -302,16 +340,6 @@ public class DDMTemplateLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<DDMTemplateLink, Object>() {
-
-				@Override
-				public Object apply(DDMTemplateLink ddmTemplateLink) {
-					return ddmTemplateLink.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<DDMTemplateLink, Object>() {
@@ -324,16 +352,6 @@ public class DDMTemplateLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<DDMTemplateLink, Object>() {
-
-				@Override
-				public Object apply(DDMTemplateLink ddmTemplateLink) {
-					return ddmTemplateLink.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<DDMTemplateLink, Object>() {
@@ -343,16 +361,6 @@ public class DDMTemplateLinkModelImpl
 					DDMTemplateLink ddmTemplateLink, Object classPKObject) {
 
 					ddmTemplateLink.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"templateId",
-			new Function<DDMTemplateLink, Object>() {
-
-				@Override
-				public Object apply(DDMTemplateLink ddmTemplateLink) {
-					return ddmTemplateLink.getTemplateId();
 				}
 
 			});
@@ -369,8 +377,6 @@ public class DDMTemplateLinkModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -273,17 +273,12 @@ public class KaleoTaskAssignmentModelImpl
 
 	private static final Map<String, Function<KaleoTaskAssignment, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KaleoTaskAssignment, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<KaleoTaskAssignment, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<KaleoTaskAssignment, Object>>();
-		Map<String, BiConsumer<KaleoTaskAssignment, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<KaleoTaskAssignment, ?>>();
 
 		attributeGetterFunctions.put(
 			"kaleoTaskAssignmentId",
@@ -295,6 +290,180 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoClassName",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getKaleoClassName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoClassPK",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getKaleoClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoDefinitionVersionId",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getKaleoDefinitionVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoNodeId",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getKaleoNodeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assigneeClassName",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getAssigneeClassName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assigneeClassPK",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getAssigneeClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assigneeActionId",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getAssigneeActionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assigneeScript",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getAssigneeScript();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assigneeScriptLanguage",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.getAssigneeScriptLanguage();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"assigneeScriptRequiredContexts",
+			new Function<KaleoTaskAssignment, Object>() {
+
+				@Override
+				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
+					return kaleoTaskAssignment.
+						getAssigneeScriptRequiredContexts();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<KaleoTaskAssignment, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<KaleoTaskAssignment, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<KaleoTaskAssignment, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"kaleoTaskAssignmentId",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -306,16 +475,6 @@ public class KaleoTaskAssignmentModelImpl
 
 					kaleoTaskAssignment.setKaleoTaskAssignmentId(
 						(Long)kaleoTaskAssignmentIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getGroupId();
 				}
 
 			});
@@ -332,16 +491,6 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -352,16 +501,6 @@ public class KaleoTaskAssignmentModelImpl
 					Object companyIdObject) {
 
 					kaleoTaskAssignment.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getUserId();
 				}
 
 			});
@@ -378,16 +517,6 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -401,16 +530,6 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -421,16 +540,6 @@ public class KaleoTaskAssignmentModelImpl
 					Object createDateObject) {
 
 					kaleoTaskAssignment.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getModifiedDate();
 				}
 
 			});
@@ -448,16 +557,6 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"kaleoClassName",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getKaleoClassName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"kaleoClassName",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -469,16 +568,6 @@ public class KaleoTaskAssignmentModelImpl
 
 					kaleoTaskAssignment.setKaleoClassName(
 						(String)kaleoClassNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"kaleoClassPK",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getKaleoClassPK();
 				}
 
 			});
@@ -496,16 +585,6 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"kaleoDefinitionVersionId",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getKaleoDefinitionVersionId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"kaleoDefinitionVersionId",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -520,16 +599,6 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"kaleoNodeId",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getKaleoNodeId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"kaleoNodeId",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -540,16 +609,6 @@ public class KaleoTaskAssignmentModelImpl
 					Object kaleoNodeIdObject) {
 
 					kaleoTaskAssignment.setKaleoNodeId((Long)kaleoNodeIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"assigneeClassName",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getAssigneeClassName();
 				}
 
 			});
@@ -567,16 +626,6 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"assigneeClassPK",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getAssigneeClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"assigneeClassPK",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -588,16 +637,6 @@ public class KaleoTaskAssignmentModelImpl
 
 					kaleoTaskAssignment.setAssigneeClassPK(
 						(Long)assigneeClassPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"assigneeActionId",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getAssigneeActionId();
 				}
 
 			});
@@ -615,16 +654,6 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"assigneeScript",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getAssigneeScript();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"assigneeScript",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -639,16 +668,6 @@ public class KaleoTaskAssignmentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"assigneeScriptLanguage",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.getAssigneeScriptLanguage();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"assigneeScriptLanguage",
 			new BiConsumer<KaleoTaskAssignment, Object>() {
@@ -660,17 +679,6 @@ public class KaleoTaskAssignmentModelImpl
 
 					kaleoTaskAssignment.setAssigneeScriptLanguage(
 						(String)assigneeScriptLanguageObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"assigneeScriptRequiredContexts",
-			new Function<KaleoTaskAssignment, Object>() {
-
-				@Override
-				public Object apply(KaleoTaskAssignment kaleoTaskAssignment) {
-					return kaleoTaskAssignment.
-						getAssigneeScriptRequiredContexts();
 				}
 
 			});
@@ -689,8 +697,6 @@ public class KaleoTaskAssignmentModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

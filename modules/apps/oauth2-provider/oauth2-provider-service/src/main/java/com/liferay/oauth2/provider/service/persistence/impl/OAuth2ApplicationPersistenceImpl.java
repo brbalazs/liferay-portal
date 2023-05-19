@@ -2145,33 +2145,17 @@ public class OAuth2ApplicationPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_C",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setOAuth2ApplicationUtilPersistence(this);
+		OAuth2ApplicationUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setOAuth2ApplicationUtilPersistence(null);
+		OAuth2ApplicationUtil.setPersistence(null);
 
 		entityCache.removeCache(OAuth2ApplicationImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setOAuth2ApplicationUtilPersistence(
-		OAuth2ApplicationPersistence oAuth2ApplicationPersistence) {
-
-		try {
-			Field field = OAuth2ApplicationUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, oAuth2ApplicationPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

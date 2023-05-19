@@ -248,17 +248,12 @@ public class SamlIdpSsoSessionModelImpl
 
 	private static final Map<String, Function<SamlIdpSsoSession, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SamlIdpSsoSession, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SamlIdpSsoSession, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SamlIdpSsoSession, Object>>();
-		Map<String, BiConsumer<SamlIdpSsoSession, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<SamlIdpSsoSession, ?>>();
 
 		attributeGetterFunctions.put(
 			"samlIdpSsoSessionId",
@@ -270,6 +265,79 @@ public class SamlIdpSsoSessionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"samlIdpSsoSessionKey",
+			new Function<SamlIdpSsoSession, Object>() {
+
+				@Override
+				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
+					return samlIdpSsoSession.getSamlIdpSsoSessionKey();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SamlIdpSsoSession, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SamlIdpSsoSession, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<SamlIdpSsoSession, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"samlIdpSsoSessionId",
 			new BiConsumer<SamlIdpSsoSession, Object>() {
@@ -281,16 +349,6 @@ public class SamlIdpSsoSessionModelImpl
 
 					samlIdpSsoSession.setSamlIdpSsoSessionId(
 						(Long)samlIdpSsoSessionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SamlIdpSsoSession, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
-					return samlIdpSsoSession.getCompanyId();
 				}
 
 			});
@@ -307,16 +365,6 @@ public class SamlIdpSsoSessionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SamlIdpSsoSession, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
-					return samlIdpSsoSession.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SamlIdpSsoSession, Object>() {
@@ -326,16 +374,6 @@ public class SamlIdpSsoSessionModelImpl
 					SamlIdpSsoSession samlIdpSsoSession, Object userIdObject) {
 
 					samlIdpSsoSession.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<SamlIdpSsoSession, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
-					return samlIdpSsoSession.getUserName();
 				}
 
 			});
@@ -352,16 +390,6 @@ public class SamlIdpSsoSessionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SamlIdpSsoSession, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
-					return samlIdpSsoSession.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<SamlIdpSsoSession, Object>() {
@@ -375,16 +403,6 @@ public class SamlIdpSsoSessionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<SamlIdpSsoSession, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
-					return samlIdpSsoSession.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<SamlIdpSsoSession, Object>() {
@@ -395,16 +413,6 @@ public class SamlIdpSsoSessionModelImpl
 					Object modifiedDateObject) {
 
 					samlIdpSsoSession.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"samlIdpSsoSessionKey",
-			new Function<SamlIdpSsoSession, Object>() {
-
-				@Override
-				public Object apply(SamlIdpSsoSession samlIdpSsoSession) {
-					return samlIdpSsoSession.getSamlIdpSsoSessionKey();
 				}
 
 			});
@@ -423,8 +431,6 @@ public class SamlIdpSsoSessionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

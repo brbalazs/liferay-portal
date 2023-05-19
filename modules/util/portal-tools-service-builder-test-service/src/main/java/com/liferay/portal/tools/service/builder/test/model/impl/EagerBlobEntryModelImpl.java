@@ -273,14 +273,10 @@ public class EagerBlobEntryModelImpl
 
 	private static final Map<String, Function<EagerBlobEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<EagerBlobEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<EagerBlobEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<EagerBlobEntry, Object>>();
-		Map<String, BiConsumer<EagerBlobEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<EagerBlobEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -292,6 +288,48 @@ public class EagerBlobEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"eagerBlobEntryId",
+			new Function<EagerBlobEntry, Object>() {
+
+				@Override
+				public Object apply(EagerBlobEntry eagerBlobEntry) {
+					return eagerBlobEntry.getEagerBlobEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<EagerBlobEntry, Object>() {
+
+				@Override
+				public Object apply(EagerBlobEntry eagerBlobEntry) {
+					return eagerBlobEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"blob",
+			new Function<EagerBlobEntry, Object>() {
+
+				@Override
+				public Object apply(EagerBlobEntry eagerBlobEntry) {
+					return eagerBlobEntry.getBlob();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<EagerBlobEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<EagerBlobEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<EagerBlobEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<EagerBlobEntry, Object>() {
@@ -301,16 +339,6 @@ public class EagerBlobEntryModelImpl
 					EagerBlobEntry eagerBlobEntry, Object uuidObject) {
 
 					eagerBlobEntry.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"eagerBlobEntryId",
-			new Function<EagerBlobEntry, Object>() {
-
-				@Override
-				public Object apply(EagerBlobEntry eagerBlobEntry) {
-					return eagerBlobEntry.getEagerBlobEntryId();
 				}
 
 			});
@@ -328,16 +356,6 @@ public class EagerBlobEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<EagerBlobEntry, Object>() {
-
-				@Override
-				public Object apply(EagerBlobEntry eagerBlobEntry) {
-					return eagerBlobEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<EagerBlobEntry, Object>() {
@@ -347,16 +365,6 @@ public class EagerBlobEntryModelImpl
 					EagerBlobEntry eagerBlobEntry, Object groupIdObject) {
 
 					eagerBlobEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"blob",
-			new Function<EagerBlobEntry, Object>() {
-
-				@Override
-				public Object apply(EagerBlobEntry eagerBlobEntry) {
-					return eagerBlobEntry.getBlob();
 				}
 
 			});
@@ -373,8 +381,6 @@ public class EagerBlobEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

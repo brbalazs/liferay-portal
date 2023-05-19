@@ -2228,32 +2228,17 @@ public class MessagePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByF_R",
 			new String[] {Long.class.getName(), Long.class.getName()});
 
-		_setMessageUtilPersistence(this);
+		MessageUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setMessageUtilPersistence(null);
+		MessageUtil.setPersistence(null);
 
 		entityCache.removeCache(MessageImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setMessageUtilPersistence(
-		MessagePersistence messagePersistence) {
-
-		try {
-			Field field = MessageUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, messagePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

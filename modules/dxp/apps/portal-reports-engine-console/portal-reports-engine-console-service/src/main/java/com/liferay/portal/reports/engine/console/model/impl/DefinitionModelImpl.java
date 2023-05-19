@@ -325,14 +325,10 @@ public class DefinitionModelImpl
 
 	private static final Map<String, Function<Definition, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Definition, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Definition, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Definition, Object>>();
-		Map<String, BiConsumer<Definition, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Definition, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -344,16 +340,6 @@ public class DefinitionModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Definition, Object>() {
-
-				@Override
-				public void accept(Definition definition, Object uuidObject) {
-					definition.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"definitionId",
 			new Function<Definition, Object>() {
@@ -361,6 +347,148 @@ public class DefinitionModelImpl
 				@Override
 				public Object apply(Definition definition) {
 					return definition.getDefinitionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sourceId",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getSourceId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"reportName",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getReportName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"reportParameters",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getReportParameters();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<Definition, Object>() {
+
+				@Override
+				public Object apply(Definition definition) {
+					return definition.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Definition, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Definition, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Definition, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Definition, Object>() {
+
+				@Override
+				public void accept(Definition definition, Object uuidObject) {
+					definition.setUuid((String)uuidObject);
 				}
 
 			});
@@ -376,16 +504,6 @@ public class DefinitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<Definition, Object>() {
@@ -395,16 +513,6 @@ public class DefinitionModelImpl
 					Definition definition, Object groupIdObject) {
 
 					definition.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getCompanyId();
 				}
 
 			});
@@ -420,16 +528,6 @@ public class DefinitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<Definition, Object>() {
@@ -437,16 +535,6 @@ public class DefinitionModelImpl
 				@Override
 				public void accept(Definition definition, Object userIdObject) {
 					definition.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getUserName();
 				}
 
 			});
@@ -462,16 +550,6 @@ public class DefinitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<Definition, Object>() {
@@ -481,16 +559,6 @@ public class DefinitionModelImpl
 					Definition definition, Object createDateObject) {
 
 					definition.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getModifiedDate();
 				}
 
 			});
@@ -506,16 +574,6 @@ public class DefinitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<Definition, Object>() {
@@ -523,16 +581,6 @@ public class DefinitionModelImpl
 				@Override
 				public void accept(Definition definition, Object nameObject) {
 					definition.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getDescription();
 				}
 
 			});
@@ -548,16 +596,6 @@ public class DefinitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"sourceId",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getSourceId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"sourceId",
 			new BiConsumer<Definition, Object>() {
@@ -570,16 +608,6 @@ public class DefinitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"reportName",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getReportName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"reportName",
 			new BiConsumer<Definition, Object>() {
@@ -589,16 +617,6 @@ public class DefinitionModelImpl
 					Definition definition, Object reportNameObject) {
 
 					definition.setReportName((String)reportNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"reportParameters",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getReportParameters();
 				}
 
 			});
@@ -615,16 +633,6 @@ public class DefinitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<Definition, Object>() {
-
-				@Override
-				public Object apply(Definition definition) {
-					return definition.getLastPublishDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastPublishDate",
 			new BiConsumer<Definition, Object>() {
@@ -638,8 +646,6 @@ public class DefinitionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -790,6 +790,10 @@ public class FaroProjectUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(FaroProjectPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile FaroProjectPersistence _persistence;
 
 }

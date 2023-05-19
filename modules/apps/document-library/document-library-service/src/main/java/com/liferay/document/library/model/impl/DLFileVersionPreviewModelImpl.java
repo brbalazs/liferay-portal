@@ -246,18 +246,12 @@ public class DLFileVersionPreviewModelImpl
 
 	private static final Map<String, Function<DLFileVersionPreview, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DLFileVersionPreview, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DLFileVersionPreview, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<DLFileVersionPreview, Object>>();
-		Map<String, BiConsumer<DLFileVersionPreview, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<DLFileVersionPreview, ?>>();
 
 		attributeGetterFunctions.put(
 			"dlFileVersionPreviewId",
@@ -269,6 +263,60 @@ public class DLFileVersionPreviewModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<DLFileVersionPreview, Object>() {
+
+				@Override
+				public Object apply(DLFileVersionPreview dlFileVersionPreview) {
+					return dlFileVersionPreview.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileEntryId",
+			new Function<DLFileVersionPreview, Object>() {
+
+				@Override
+				public Object apply(DLFileVersionPreview dlFileVersionPreview) {
+					return dlFileVersionPreview.getFileEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileVersionId",
+			new Function<DLFileVersionPreview, Object>() {
+
+				@Override
+				public Object apply(DLFileVersionPreview dlFileVersionPreview) {
+					return dlFileVersionPreview.getFileVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"previewStatus",
+			new Function<DLFileVersionPreview, Object>() {
+
+				@Override
+				public Object apply(DLFileVersionPreview dlFileVersionPreview) {
+					return dlFileVersionPreview.getPreviewStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DLFileVersionPreview, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DLFileVersionPreview, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<DLFileVersionPreview, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"dlFileVersionPreviewId",
 			new BiConsumer<DLFileVersionPreview, Object>() {
@@ -283,16 +331,6 @@ public class DLFileVersionPreviewModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<DLFileVersionPreview, Object>() {
-
-				@Override
-				public Object apply(DLFileVersionPreview dlFileVersionPreview) {
-					return dlFileVersionPreview.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<DLFileVersionPreview, Object>() {
@@ -303,16 +341,6 @@ public class DLFileVersionPreviewModelImpl
 					Object groupIdObject) {
 
 					dlFileVersionPreview.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fileEntryId",
-			new Function<DLFileVersionPreview, Object>() {
-
-				@Override
-				public Object apply(DLFileVersionPreview dlFileVersionPreview) {
-					return dlFileVersionPreview.getFileEntryId();
 				}
 
 			});
@@ -330,16 +358,6 @@ public class DLFileVersionPreviewModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"fileVersionId",
-			new Function<DLFileVersionPreview, Object>() {
-
-				@Override
-				public Object apply(DLFileVersionPreview dlFileVersionPreview) {
-					return dlFileVersionPreview.getFileVersionId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"fileVersionId",
 			new BiConsumer<DLFileVersionPreview, Object>() {
@@ -351,16 +369,6 @@ public class DLFileVersionPreviewModelImpl
 
 					dlFileVersionPreview.setFileVersionId(
 						(Long)fileVersionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"previewStatus",
-			new Function<DLFileVersionPreview, Object>() {
-
-				@Override
-				public Object apply(DLFileVersionPreview dlFileVersionPreview) {
-					return dlFileVersionPreview.getPreviewStatus();
 				}
 
 			});
@@ -379,8 +387,6 @@ public class DLFileVersionPreviewModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

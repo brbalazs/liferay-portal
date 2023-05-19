@@ -296,14 +296,10 @@ public class CountryModelImpl
 
 	private static final Map<String, Function<Country, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Country, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Country, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Country, Object>>();
-		Map<String, BiConsumer<Country, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Country, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -312,16 +308,6 @@ public class CountryModelImpl
 				@Override
 				public Object apply(Country country) {
 					return country.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Country, Object>() {
-
-				@Override
-				public void accept(Country country, Object mvccVersionObject) {
-					country.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -335,16 +321,6 @@ public class CountryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"countryId",
-			new BiConsumer<Country, Object>() {
-
-				@Override
-				public void accept(Country country, Object countryIdObject) {
-					country.setCountryId((Long)countryIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"name",
 			new Function<Country, Object>() {
@@ -352,16 +328,6 @@ public class CountryModelImpl
 				@Override
 				public Object apply(Country country) {
 					return country.getName();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"name",
-			new BiConsumer<Country, Object>() {
-
-				@Override
-				public void accept(Country country, Object nameObject) {
-					country.setName((String)nameObject);
 				}
 
 			});
@@ -375,16 +341,6 @@ public class CountryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"a2",
-			new BiConsumer<Country, Object>() {
-
-				@Override
-				public void accept(Country country, Object a2Object) {
-					country.setA2((String)a2Object);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"a3",
 			new Function<Country, Object>() {
@@ -392,16 +348,6 @@ public class CountryModelImpl
 				@Override
 				public Object apply(Country country) {
 					return country.getA3();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"a3",
-			new BiConsumer<Country, Object>() {
-
-				@Override
-				public void accept(Country country, Object a3Object) {
-					country.setA3((String)a3Object);
 				}
 
 			});
@@ -415,16 +361,6 @@ public class CountryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"number",
-			new BiConsumer<Country, Object>() {
-
-				@Override
-				public void accept(Country country, Object numberObject) {
-					country.setNumber((String)numberObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"idd",
 			new Function<Country, Object>() {
@@ -432,16 +368,6 @@ public class CountryModelImpl
 				@Override
 				public Object apply(Country country) {
 					return country.getIdd();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"idd",
-			new BiConsumer<Country, Object>() {
-
-				@Override
-				public void accept(Country country, Object iddObject) {
-					country.setIdd((String)iddObject);
 				}
 
 			});
@@ -455,16 +381,6 @@ public class CountryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"zipRequired",
-			new BiConsumer<Country, Object>() {
-
-				@Override
-				public void accept(Country country, Object zipRequiredObject) {
-					country.setZipRequired((Boolean)zipRequiredObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"active",
 			new Function<Country, Object>() {
@@ -472,6 +388,98 @@ public class CountryModelImpl
 				@Override
 				public Object apply(Country country) {
 					return country.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Country, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Country, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Country, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Country, Object>() {
+
+				@Override
+				public void accept(Country country, Object mvccVersionObject) {
+					country.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"countryId",
+			new BiConsumer<Country, Object>() {
+
+				@Override
+				public void accept(Country country, Object countryIdObject) {
+					country.setCountryId((Long)countryIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"name",
+			new BiConsumer<Country, Object>() {
+
+				@Override
+				public void accept(Country country, Object nameObject) {
+					country.setName((String)nameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"a2",
+			new BiConsumer<Country, Object>() {
+
+				@Override
+				public void accept(Country country, Object a2Object) {
+					country.setA2((String)a2Object);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"a3",
+			new BiConsumer<Country, Object>() {
+
+				@Override
+				public void accept(Country country, Object a3Object) {
+					country.setA3((String)a3Object);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"number",
+			new BiConsumer<Country, Object>() {
+
+				@Override
+				public void accept(Country country, Object numberObject) {
+					country.setNumber((String)numberObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"idd",
+			new BiConsumer<Country, Object>() {
+
+				@Override
+				public void accept(Country country, Object iddObject) {
+					country.setIdd((String)iddObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"zipRequired",
+			new BiConsumer<Country, Object>() {
+
+				@Override
+				public void accept(Country country, Object zipRequiredObject) {
+					country.setZipRequired((Boolean)zipRequiredObject);
 				}
 
 			});
@@ -486,8 +494,6 @@ public class CountryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

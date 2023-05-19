@@ -318,17 +318,12 @@ public class ResourcePermissionModelImpl
 
 	private static final Map<String, Function<ResourcePermission, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ResourcePermission, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ResourcePermission, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<ResourcePermission, Object>>();
-		Map<String, BiConsumer<ResourcePermission, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<ResourcePermission, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -340,6 +335,119 @@ public class ResourcePermissionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"resourcePermissionId",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getResourcePermissionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"scope",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getScope();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"primKey",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getPrimKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"primKeyId",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getPrimKeyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"roleId",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getRoleId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ownerId",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getOwnerId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"actionIds",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getActionIds();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"viewActionId",
+			new Function<ResourcePermission, Object>() {
+
+				@Override
+				public Object apply(ResourcePermission resourcePermission) {
+					return resourcePermission.getViewActionId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ResourcePermission, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ResourcePermission, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<ResourcePermission, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<ResourcePermission, Object>() {
@@ -350,16 +458,6 @@ public class ResourcePermissionModelImpl
 					Object mvccVersionObject) {
 
 					resourcePermission.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resourcePermissionId",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getResourcePermissionId();
 				}
 
 			});
@@ -377,16 +475,6 @@ public class ResourcePermissionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<ResourcePermission, Object>() {
@@ -397,16 +485,6 @@ public class ResourcePermissionModelImpl
 					Object companyIdObject) {
 
 					resourcePermission.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getName();
 				}
 
 			});
@@ -422,16 +500,6 @@ public class ResourcePermissionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"scope",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getScope();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"scope",
 			new BiConsumer<ResourcePermission, Object>() {
@@ -441,16 +509,6 @@ public class ResourcePermissionModelImpl
 					ResourcePermission resourcePermission, Object scopeObject) {
 
 					resourcePermission.setScope((Integer)scopeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"primKey",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getPrimKey();
 				}
 
 			});
@@ -467,16 +525,6 @@ public class ResourcePermissionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"primKeyId",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getPrimKeyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"primKeyId",
 			new BiConsumer<ResourcePermission, Object>() {
@@ -487,16 +535,6 @@ public class ResourcePermissionModelImpl
 					Object primKeyIdObject) {
 
 					resourcePermission.setPrimKeyId((Long)primKeyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"roleId",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getRoleId();
 				}
 
 			});
@@ -513,16 +551,6 @@ public class ResourcePermissionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"ownerId",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getOwnerId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"ownerId",
 			new BiConsumer<ResourcePermission, Object>() {
@@ -536,16 +564,6 @@ public class ResourcePermissionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"actionIds",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getActionIds();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"actionIds",
 			new BiConsumer<ResourcePermission, Object>() {
@@ -556,16 +574,6 @@ public class ResourcePermissionModelImpl
 					Object actionIdsObject) {
 
 					resourcePermission.setActionIds((Long)actionIdsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"viewActionId",
-			new Function<ResourcePermission, Object>() {
-
-				@Override
-				public Object apply(ResourcePermission resourcePermission) {
-					return resourcePermission.getViewActionId();
 				}
 
 			});
@@ -584,8 +592,6 @@ public class ResourcePermissionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

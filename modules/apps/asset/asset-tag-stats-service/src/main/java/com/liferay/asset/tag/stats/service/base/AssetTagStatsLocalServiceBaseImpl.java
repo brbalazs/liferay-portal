@@ -48,8 +48,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -465,14 +463,14 @@ public abstract class AssetTagStatsLocalServiceBaseImpl
 			"com.liferay.asset.tag.stats.model.AssetTagStats",
 			assetTagStatsLocalService);
 
-		_setLocalServiceUtilService(assetTagStatsLocalService);
+		AssetTagStatsLocalServiceUtil.setService(assetTagStatsLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.asset.tag.stats.model.AssetTagStats");
 
-		_setLocalServiceUtilService(null);
+		AssetTagStatsLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -514,22 +512,6 @@ public abstract class AssetTagStatsLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		AssetTagStatsLocalService assetTagStatsLocalService) {
-
-		try {
-			Field field = AssetTagStatsLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, assetTagStatsLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

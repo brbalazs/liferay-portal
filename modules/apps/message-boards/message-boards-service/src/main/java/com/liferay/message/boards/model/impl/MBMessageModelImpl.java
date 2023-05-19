@@ -371,14 +371,10 @@ public class MBMessageModelImpl
 
 	private static final Map<String, Function<MBMessage, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MBMessage, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MBMessage, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<MBMessage, Object>>();
-		Map<String, BiConsumer<MBMessage, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MBMessage, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -390,16 +386,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<MBMessage, Object>() {
-
-				@Override
-				public void accept(MBMessage mbMessage, Object uuidObject) {
-					mbMessage.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"messageId",
 			new Function<MBMessage, Object>() {
@@ -407,6 +393,268 @@ public class MBMessageModelImpl
 				@Override
 				public Object apply(MBMessage mbMessage) {
 					return mbMessage.getMessageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"categoryId",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getCategoryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"threadId",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getThreadId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"rootMessageId",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getRootMessageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentMessageId",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getParentMessageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"subject",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getSubject();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"body",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getBody();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"format",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getFormat();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"anonymous",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getAnonymous();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"priority",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getPriority();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"allowPingbacks",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getAllowPingbacks();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"answer",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getAnswer();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<MBMessage, Object>() {
+
+				@Override
+				public Object apply(MBMessage mbMessage) {
+					return mbMessage.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MBMessage, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MBMessage, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MBMessage, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<MBMessage, Object>() {
+
+				@Override
+				public void accept(MBMessage mbMessage, Object uuidObject) {
+					mbMessage.setUuid((String)uuidObject);
 				}
 
 			});
@@ -422,16 +670,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<MBMessage, Object>() {
@@ -439,16 +677,6 @@ public class MBMessageModelImpl
 				@Override
 				public void accept(MBMessage mbMessage, Object groupIdObject) {
 					mbMessage.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getCompanyId();
 				}
 
 			});
@@ -464,16 +692,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<MBMessage, Object>() {
@@ -484,16 +702,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<MBMessage, Object>() {
@@ -501,16 +709,6 @@ public class MBMessageModelImpl
 				@Override
 				public void accept(MBMessage mbMessage, Object userNameObject) {
 					mbMessage.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getCreateDate();
 				}
 
 			});
@@ -526,16 +724,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<MBMessage, Object>() {
@@ -545,16 +733,6 @@ public class MBMessageModelImpl
 					MBMessage mbMessage, Object modifiedDateObject) {
 
 					mbMessage.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getClassNameId();
 				}
 
 			});
@@ -570,16 +748,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<MBMessage, Object>() {
@@ -587,16 +755,6 @@ public class MBMessageModelImpl
 				@Override
 				public void accept(MBMessage mbMessage, Object classPKObject) {
 					mbMessage.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"categoryId",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getCategoryId();
 				}
 
 			});
@@ -612,16 +770,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"threadId",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getThreadId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"threadId",
 			new BiConsumer<MBMessage, Object>() {
@@ -629,16 +777,6 @@ public class MBMessageModelImpl
 				@Override
 				public void accept(MBMessage mbMessage, Object threadIdObject) {
 					mbMessage.setThreadId((Long)threadIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"rootMessageId",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getRootMessageId();
 				}
 
 			});
@@ -654,16 +792,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"parentMessageId",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getParentMessageId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"parentMessageId",
 			new BiConsumer<MBMessage, Object>() {
@@ -673,16 +801,6 @@ public class MBMessageModelImpl
 					MBMessage mbMessage, Object parentMessageIdObject) {
 
 					mbMessage.setParentMessageId((Long)parentMessageIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"subject",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getSubject();
 				}
 
 			});
@@ -696,16 +814,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"body",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getBody();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"body",
 			new BiConsumer<MBMessage, Object>() {
@@ -716,16 +824,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"format",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getFormat();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"format",
 			new BiConsumer<MBMessage, Object>() {
@@ -733,16 +831,6 @@ public class MBMessageModelImpl
 				@Override
 				public void accept(MBMessage mbMessage, Object formatObject) {
 					mbMessage.setFormat((String)formatObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"anonymous",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getAnonymous();
 				}
 
 			});
@@ -758,16 +846,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"priority",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getPriority();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"priority",
 			new BiConsumer<MBMessage, Object>() {
@@ -775,16 +853,6 @@ public class MBMessageModelImpl
 				@Override
 				public void accept(MBMessage mbMessage, Object priorityObject) {
 					mbMessage.setPriority((Double)priorityObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"allowPingbacks",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getAllowPingbacks();
 				}
 
 			});
@@ -800,16 +868,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"answer",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getAnswer();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"answer",
 			new BiConsumer<MBMessage, Object>() {
@@ -817,16 +875,6 @@ public class MBMessageModelImpl
 				@Override
 				public void accept(MBMessage mbMessage, Object answerObject) {
 					mbMessage.setAnswer((Boolean)answerObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getLastPublishDate();
 				}
 
 			});
@@ -842,16 +890,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<MBMessage, Object>() {
@@ -859,16 +897,6 @@ public class MBMessageModelImpl
 				@Override
 				public void accept(MBMessage mbMessage, Object statusObject) {
 					mbMessage.setStatus((Integer)statusObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getStatusByUserId();
 				}
 
 			});
@@ -881,16 +909,6 @@ public class MBMessageModelImpl
 					MBMessage mbMessage, Object statusByUserIdObject) {
 
 					mbMessage.setStatusByUserId((Long)statusByUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getStatusByUserName();
 				}
 
 			});
@@ -907,16 +925,6 @@ public class MBMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<MBMessage, Object>() {
-
-				@Override
-				public Object apply(MBMessage mbMessage) {
-					return mbMessage.getStatusDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusDate",
 			new BiConsumer<MBMessage, Object>() {
@@ -930,8 +938,6 @@ public class MBMessageModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

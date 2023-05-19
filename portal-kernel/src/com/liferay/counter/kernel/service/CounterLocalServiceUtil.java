@@ -287,6 +287,10 @@ public class CounterLocalServiceUtil {
 		return _service;
 	}
 
+	public static void setService(CounterLocalService service) {
+		_service = service;
+	}
+
 	private static volatile CounterLocalService _service;
 
 }

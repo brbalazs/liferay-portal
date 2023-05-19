@@ -6865,11 +6865,11 @@ public class AssetTagPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByG_LikeN",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setAssetTagUtilPersistence(this);
+		AssetTagUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setAssetTagUtilPersistence(null);
+		AssetTagUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(AssetTagImpl.class.getName());
 
@@ -6878,21 +6878,6 @@ public class AssetTagPersistenceImpl
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		TableMapperFactory.removeTableMapper("AssetEntries_AssetTags");
-	}
-
-	private void _setAssetTagUtilPersistence(
-		AssetTagPersistence assetTagPersistence) {
-
-		try {
-			Field field = AssetTagUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, assetTagPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@BeanReference(type = AssetEntryPersistence.class)

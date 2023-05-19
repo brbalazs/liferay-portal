@@ -1815,6 +1815,12 @@ public class SiteNavigationMenuUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(
+		SiteNavigationMenuPersistence persistence) {
+
+		_persistence = persistence;
+	}
+
 	private static volatile SiteNavigationMenuPersistence _persistence;
 
 }

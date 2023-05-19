@@ -60,8 +60,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -843,14 +841,14 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 			"com.liferay.dynamic.data.lists.model.DDLRecordSet",
 			ddlRecordSetLocalService);
 
-		_setLocalServiceUtilService(ddlRecordSetLocalService);
+		DDLRecordSetLocalServiceUtil.setService(ddlRecordSetLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.dynamic.data.lists.model.DDLRecordSet");
 
-		_setLocalServiceUtilService(null);
+		DDLRecordSetLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -892,22 +890,6 @@ public abstract class DDLRecordSetLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DDLRecordSetLocalService ddlRecordSetLocalService) {
-
-		try {
-			Field field = DDLRecordSetLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddlRecordSetLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

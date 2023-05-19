@@ -44,8 +44,6 @@ import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -807,11 +805,11 @@ public abstract class BlogsEntryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(blogsEntryService);
+		BlogsEntryServiceUtil.setService(blogsEntryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		BlogsEntryServiceUtil.setService(null);
 	}
 
 	/**
@@ -853,20 +851,6 @@ public abstract class BlogsEntryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(BlogsEntryService blogsEntryService) {
-		try {
-			Field field = BlogsEntryServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, blogsEntryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

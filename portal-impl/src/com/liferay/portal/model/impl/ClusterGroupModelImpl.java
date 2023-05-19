@@ -233,14 +233,10 @@ public class ClusterGroupModelImpl
 
 	private static final Map<String, Function<ClusterGroup, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ClusterGroup, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ClusterGroup, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<ClusterGroup, Object>>();
-		Map<String, BiConsumer<ClusterGroup, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ClusterGroup, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -252,6 +248,58 @@ public class ClusterGroupModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"clusterGroupId",
+			new Function<ClusterGroup, Object>() {
+
+				@Override
+				public Object apply(ClusterGroup clusterGroup) {
+					return clusterGroup.getClusterGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<ClusterGroup, Object>() {
+
+				@Override
+				public Object apply(ClusterGroup clusterGroup) {
+					return clusterGroup.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"clusterNodeIds",
+			new Function<ClusterGroup, Object>() {
+
+				@Override
+				public Object apply(ClusterGroup clusterGroup) {
+					return clusterGroup.getClusterNodeIds();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"wholeCluster",
+			new Function<ClusterGroup, Object>() {
+
+				@Override
+				public Object apply(ClusterGroup clusterGroup) {
+					return clusterGroup.getWholeCluster();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ClusterGroup, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ClusterGroup, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<ClusterGroup, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<ClusterGroup, Object>() {
@@ -261,16 +309,6 @@ public class ClusterGroupModelImpl
 					ClusterGroup clusterGroup, Object mvccVersionObject) {
 
 					clusterGroup.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"clusterGroupId",
-			new Function<ClusterGroup, Object>() {
-
-				@Override
-				public Object apply(ClusterGroup clusterGroup) {
-					return clusterGroup.getClusterGroupId();
 				}
 
 			});
@@ -286,16 +324,6 @@ public class ClusterGroupModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<ClusterGroup, Object>() {
-
-				@Override
-				public Object apply(ClusterGroup clusterGroup) {
-					return clusterGroup.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<ClusterGroup, Object>() {
@@ -305,16 +333,6 @@ public class ClusterGroupModelImpl
 					ClusterGroup clusterGroup, Object nameObject) {
 
 					clusterGroup.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"clusterNodeIds",
-			new Function<ClusterGroup, Object>() {
-
-				@Override
-				public Object apply(ClusterGroup clusterGroup) {
-					return clusterGroup.getClusterNodeIds();
 				}
 
 			});
@@ -331,16 +349,6 @@ public class ClusterGroupModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"wholeCluster",
-			new Function<ClusterGroup, Object>() {
-
-				@Override
-				public Object apply(ClusterGroup clusterGroup) {
-					return clusterGroup.getWholeCluster();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"wholeCluster",
 			new BiConsumer<ClusterGroup, Object>() {
@@ -354,8 +362,6 @@ public class ClusterGroupModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

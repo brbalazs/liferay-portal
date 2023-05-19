@@ -4732,32 +4732,17 @@ public class DDLRecordPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByR_R",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setDDLRecordUtilPersistence(this);
+		DDLRecordUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setDDLRecordUtilPersistence(null);
+		DDLRecordUtil.setPersistence(null);
 
 		entityCache.removeCache(DDLRecordImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setDDLRecordUtilPersistence(
-		DDLRecordPersistence ddlRecordPersistence) {
-
-		try {
-			Field field = DDLRecordUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, ddlRecordPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

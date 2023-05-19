@@ -247,14 +247,10 @@ public class DLContentModelImpl
 
 	private static final Map<String, Function<DLContent, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DLContent, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DLContent, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<DLContent, Object>>();
-		Map<String, BiConsumer<DLContent, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<DLContent, ?>>();
 
 		attributeGetterFunctions.put(
 			"contentId",
@@ -263,18 +259,6 @@ public class DLContentModelImpl
 				@Override
 				public Object apply(DLContent dlContent) {
 					return dlContent.getContentId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"contentId",
-			new BiConsumer<DLContent, Object>() {
-
-				@Override
-				public void accept(
-					DLContent dlContent, Object contentIdObject) {
-
-					dlContent.setContentId((Long)contentIdObject);
 				}
 
 			});
@@ -288,16 +272,6 @@ public class DLContentModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<DLContent, Object>() {
-
-				@Override
-				public void accept(DLContent dlContent, Object groupIdObject) {
-					dlContent.setGroupId((Long)groupIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<DLContent, Object>() {
@@ -305,6 +279,90 @@ public class DLContentModelImpl
 				@Override
 				public Object apply(DLContent dlContent) {
 					return dlContent.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"repositoryId",
+			new Function<DLContent, Object>() {
+
+				@Override
+				public Object apply(DLContent dlContent) {
+					return dlContent.getRepositoryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"path",
+			new Function<DLContent, Object>() {
+
+				@Override
+				public Object apply(DLContent dlContent) {
+					return dlContent.getPath();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"version",
+			new Function<DLContent, Object>() {
+
+				@Override
+				public Object apply(DLContent dlContent) {
+					return dlContent.getVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"data",
+			new Function<DLContent, Object>() {
+
+				@Override
+				public Object apply(DLContent dlContent) {
+					return dlContent.getData();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"size",
+			new Function<DLContent, Object>() {
+
+				@Override
+				public Object apply(DLContent dlContent) {
+					return dlContent.getSize();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DLContent, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DLContent, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<DLContent, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"contentId",
+			new BiConsumer<DLContent, Object>() {
+
+				@Override
+				public void accept(
+					DLContent dlContent, Object contentIdObject) {
+
+					dlContent.setContentId((Long)contentIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<DLContent, Object>() {
+
+				@Override
+				public void accept(DLContent dlContent, Object groupIdObject) {
+					dlContent.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -320,16 +378,6 @@ public class DLContentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"repositoryId",
-			new Function<DLContent, Object>() {
-
-				@Override
-				public Object apply(DLContent dlContent) {
-					return dlContent.getRepositoryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"repositoryId",
 			new BiConsumer<DLContent, Object>() {
@@ -339,16 +387,6 @@ public class DLContentModelImpl
 					DLContent dlContent, Object repositoryIdObject) {
 
 					dlContent.setRepositoryId((Long)repositoryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"path",
-			new Function<DLContent, Object>() {
-
-				@Override
-				public Object apply(DLContent dlContent) {
-					return dlContent.getPath();
 				}
 
 			});
@@ -362,16 +400,6 @@ public class DLContentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"version",
-			new Function<DLContent, Object>() {
-
-				@Override
-				public Object apply(DLContent dlContent) {
-					return dlContent.getVersion();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"version",
 			new BiConsumer<DLContent, Object>() {
@@ -382,16 +410,6 @@ public class DLContentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"data",
-			new Function<DLContent, Object>() {
-
-				@Override
-				public Object apply(DLContent dlContent) {
-					return dlContent.getData();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"data",
 			new BiConsumer<DLContent, Object>() {
@@ -399,16 +417,6 @@ public class DLContentModelImpl
 				@Override
 				public void accept(DLContent dlContent, Object dataObject) {
 					dlContent.setData((Blob)dataObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"size",
-			new Function<DLContent, Object>() {
-
-				@Override
-				public Object apply(DLContent dlContent) {
-					return dlContent.getSize();
 				}
 
 			});
@@ -423,8 +431,6 @@ public class DLContentModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -54,8 +54,6 @@ import com.liferay.social.kernel.service.persistence.SocialActivityPersistence;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -734,14 +732,14 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 			"com.liferay.microblogs.model.MicroblogsEntry",
 			microblogsEntryLocalService);
 
-		_setLocalServiceUtilService(microblogsEntryLocalService);
+		MicroblogsEntryLocalServiceUtil.setService(microblogsEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.microblogs.model.MicroblogsEntry");
 
-		_setLocalServiceUtilService(null);
+		MicroblogsEntryLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -783,23 +781,6 @@ public abstract class MicroblogsEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		MicroblogsEntryLocalService microblogsEntryLocalService) {
-
-		try {
-			Field field =
-				MicroblogsEntryLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, microblogsEntryLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -4495,32 +4495,17 @@ public class ModulePersistenceImpl
 				String.class.getName()
 			});
 
-		_setModuleUtilPersistence(this);
+		ModuleUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setModuleUtilPersistence(null);
+		ModuleUtil.setPersistence(null);
 
 		entityCache.removeCache(ModuleImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setModuleUtilPersistence(
-		ModulePersistence modulePersistence) {
-
-		try {
-			Field field = ModuleUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, modulePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

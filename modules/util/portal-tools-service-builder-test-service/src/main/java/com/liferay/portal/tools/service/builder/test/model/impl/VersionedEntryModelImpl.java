@@ -249,14 +249,10 @@ public class VersionedEntryModelImpl
 
 	private static final Map<String, Function<VersionedEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<VersionedEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<VersionedEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<VersionedEntry, Object>>();
-		Map<String, BiConsumer<VersionedEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<VersionedEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -265,18 +261,6 @@ public class VersionedEntryModelImpl
 				@Override
 				public Object apply(VersionedEntry versionedEntry) {
 					return versionedEntry.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<VersionedEntry, Object>() {
-
-				@Override
-				public void accept(
-					VersionedEntry versionedEntry, Object mvccVersionObject) {
-
-					versionedEntry.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -290,6 +274,50 @@ public class VersionedEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"versionedEntryId",
+			new Function<VersionedEntry, Object>() {
+
+				@Override
+				public Object apply(VersionedEntry versionedEntry) {
+					return versionedEntry.getVersionedEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<VersionedEntry, Object>() {
+
+				@Override
+				public Object apply(VersionedEntry versionedEntry) {
+					return versionedEntry.getGroupId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<VersionedEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<VersionedEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<VersionedEntry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<VersionedEntry, Object>() {
+
+				@Override
+				public void accept(
+					VersionedEntry versionedEntry, Object mvccVersionObject) {
+
+					versionedEntry.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"headId",
 			new BiConsumer<VersionedEntry, Object>() {
@@ -299,16 +327,6 @@ public class VersionedEntryModelImpl
 					VersionedEntry versionedEntry, Object headIdObject) {
 
 					versionedEntry.setHeadId((Long)headIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"versionedEntryId",
-			new Function<VersionedEntry, Object>() {
-
-				@Override
-				public Object apply(VersionedEntry versionedEntry) {
-					return versionedEntry.getVersionedEntryId();
 				}
 
 			});
@@ -326,16 +344,6 @@ public class VersionedEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<VersionedEntry, Object>() {
-
-				@Override
-				public Object apply(VersionedEntry versionedEntry) {
-					return versionedEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<VersionedEntry, Object>() {
@@ -349,8 +357,6 @@ public class VersionedEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

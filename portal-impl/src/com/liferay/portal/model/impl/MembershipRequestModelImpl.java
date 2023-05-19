@@ -313,17 +313,12 @@ public class MembershipRequestModelImpl
 
 	private static final Map<String, Function<MembershipRequest, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MembershipRequest, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MembershipRequest, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<MembershipRequest, Object>>();
-		Map<String, BiConsumer<MembershipRequest, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<MembershipRequest, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -335,6 +330,119 @@ public class MembershipRequestModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"membershipRequestId",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getMembershipRequestId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"comments",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getComments();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"replyComments",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getReplyComments();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"replyDate",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getReplyDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"replierUserId",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getReplierUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusId",
+			new Function<MembershipRequest, Object>() {
+
+				@Override
+				public Object apply(MembershipRequest membershipRequest) {
+					return membershipRequest.getStatusId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MembershipRequest, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MembershipRequest, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<MembershipRequest, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<MembershipRequest, Object>() {
@@ -345,16 +453,6 @@ public class MembershipRequestModelImpl
 					Object mvccVersionObject) {
 
 					membershipRequest.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"membershipRequestId",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getMembershipRequestId();
 				}
 
 			});
@@ -372,16 +470,6 @@ public class MembershipRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<MembershipRequest, Object>() {
@@ -391,16 +479,6 @@ public class MembershipRequestModelImpl
 					MembershipRequest membershipRequest, Object groupIdObject) {
 
 					membershipRequest.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getCompanyId();
 				}
 
 			});
@@ -417,16 +495,6 @@ public class MembershipRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<MembershipRequest, Object>() {
@@ -436,16 +504,6 @@ public class MembershipRequestModelImpl
 					MembershipRequest membershipRequest, Object userIdObject) {
 
 					membershipRequest.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getCreateDate();
 				}
 
 			});
@@ -462,16 +520,6 @@ public class MembershipRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"comments",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getComments();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"comments",
 			new BiConsumer<MembershipRequest, Object>() {
@@ -482,16 +530,6 @@ public class MembershipRequestModelImpl
 					Object commentsObject) {
 
 					membershipRequest.setComments((String)commentsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"replyComments",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getReplyComments();
 				}
 
 			});
@@ -509,16 +547,6 @@ public class MembershipRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"replyDate",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getReplyDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"replyDate",
 			new BiConsumer<MembershipRequest, Object>() {
@@ -529,16 +557,6 @@ public class MembershipRequestModelImpl
 					Object replyDateObject) {
 
 					membershipRequest.setReplyDate((Date)replyDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"replierUserId",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getReplierUserId();
 				}
 
 			});
@@ -556,16 +574,6 @@ public class MembershipRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusId",
-			new Function<MembershipRequest, Object>() {
-
-				@Override
-				public Object apply(MembershipRequest membershipRequest) {
-					return membershipRequest.getStatusId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusId",
 			new BiConsumer<MembershipRequest, Object>() {
@@ -580,8 +588,6 @@ public class MembershipRequestModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

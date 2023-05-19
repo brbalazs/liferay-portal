@@ -278,14 +278,10 @@ public class LVEntryVersionModelImpl
 
 	private static final Map<String, Function<LVEntryVersion, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<LVEntryVersion, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<LVEntryVersion, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<LVEntryVersion, Object>>();
-		Map<String, BiConsumer<LVEntryVersion, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<LVEntryVersion, ?>>();
 
 		attributeGetterFunctions.put(
 			"lvEntryVersionId",
@@ -297,6 +293,88 @@ public class LVEntryVersionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"version",
+			new Function<LVEntryVersion, Object>() {
+
+				@Override
+				public Object apply(LVEntryVersion lvEntryVersion) {
+					return lvEntryVersion.getVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"uuid",
+			new Function<LVEntryVersion, Object>() {
+
+				@Override
+				public Object apply(LVEntryVersion lvEntryVersion) {
+					return lvEntryVersion.getUuid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"defaultLanguageId",
+			new Function<LVEntryVersion, Object>() {
+
+				@Override
+				public Object apply(LVEntryVersion lvEntryVersion) {
+					return lvEntryVersion.getDefaultLanguageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lvEntryId",
+			new Function<LVEntryVersion, Object>() {
+
+				@Override
+				public Object apply(LVEntryVersion lvEntryVersion) {
+					return lvEntryVersion.getLvEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<LVEntryVersion, Object>() {
+
+				@Override
+				public Object apply(LVEntryVersion lvEntryVersion) {
+					return lvEntryVersion.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<LVEntryVersion, Object>() {
+
+				@Override
+				public Object apply(LVEntryVersion lvEntryVersion) {
+					return lvEntryVersion.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"uniqueGroupKey",
+			new Function<LVEntryVersion, Object>() {
+
+				@Override
+				public Object apply(LVEntryVersion lvEntryVersion) {
+					return lvEntryVersion.getUniqueGroupKey();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<LVEntryVersion, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<LVEntryVersion, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<LVEntryVersion, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"lvEntryVersionId",
 			new BiConsumer<LVEntryVersion, Object>() {
@@ -308,16 +386,6 @@ public class LVEntryVersionModelImpl
 
 					lvEntryVersion.setLvEntryVersionId(
 						(Long)lvEntryVersionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"version",
-			new Function<LVEntryVersion, Object>() {
-
-				@Override
-				public Object apply(LVEntryVersion lvEntryVersion) {
-					return lvEntryVersion.getVersion();
 				}
 
 			});
@@ -333,16 +401,6 @@ public class LVEntryVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"uuid",
-			new Function<LVEntryVersion, Object>() {
-
-				@Override
-				public Object apply(LVEntryVersion lvEntryVersion) {
-					return lvEntryVersion.getUuid();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<LVEntryVersion, Object>() {
@@ -352,16 +410,6 @@ public class LVEntryVersionModelImpl
 					LVEntryVersion lvEntryVersion, Object uuidObject) {
 
 					lvEntryVersion.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"defaultLanguageId",
-			new Function<LVEntryVersion, Object>() {
-
-				@Override
-				public Object apply(LVEntryVersion lvEntryVersion) {
-					return lvEntryVersion.getDefaultLanguageId();
 				}
 
 			});
@@ -379,16 +427,6 @@ public class LVEntryVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lvEntryId",
-			new Function<LVEntryVersion, Object>() {
-
-				@Override
-				public Object apply(LVEntryVersion lvEntryVersion) {
-					return lvEntryVersion.getLvEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lvEntryId",
 			new BiConsumer<LVEntryVersion, Object>() {
@@ -398,16 +436,6 @@ public class LVEntryVersionModelImpl
 					LVEntryVersion lvEntryVersion, Object lvEntryIdObject) {
 
 					lvEntryVersion.setLvEntryId((Long)lvEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<LVEntryVersion, Object>() {
-
-				@Override
-				public Object apply(LVEntryVersion lvEntryVersion) {
-					return lvEntryVersion.getGroupId();
 				}
 
 			});
@@ -423,16 +451,6 @@ public class LVEntryVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<LVEntryVersion, Object>() {
-
-				@Override
-				public Object apply(LVEntryVersion lvEntryVersion) {
-					return lvEntryVersion.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<LVEntryVersion, Object>() {
@@ -442,16 +460,6 @@ public class LVEntryVersionModelImpl
 					LVEntryVersion lvEntryVersion, Object companyIdObject) {
 
 					lvEntryVersion.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"uniqueGroupKey",
-			new Function<LVEntryVersion, Object>() {
-
-				@Override
-				public Object apply(LVEntryVersion lvEntryVersion) {
-					return lvEntryVersion.getUniqueGroupKey();
 				}
 
 			});
@@ -470,8 +478,6 @@ public class LVEntryVersionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -31,8 +31,6 @@ import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -144,11 +142,11 @@ public abstract class DDLRecordSetVersionServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(ddlRecordSetVersionService);
+		DDLRecordSetVersionServiceUtil.setService(ddlRecordSetVersionService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		DDLRecordSetVersionServiceUtil.setService(null);
 	}
 
 	/**
@@ -191,22 +189,6 @@ public abstract class DDLRecordSetVersionServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		DDLRecordSetVersionService ddlRecordSetVersionService) {
-
-		try {
-			Field field = DDLRecordSetVersionServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddlRecordSetVersionService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

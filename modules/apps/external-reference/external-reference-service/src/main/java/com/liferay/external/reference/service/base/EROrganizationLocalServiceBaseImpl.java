@@ -32,8 +32,6 @@ import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -184,11 +182,11 @@ public abstract class EROrganizationLocalServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setLocalServiceUtilService(erOrganizationLocalService);
+		EROrganizationLocalServiceUtil.setService(erOrganizationLocalService);
 	}
 
 	public void destroy() {
-		_setLocalServiceUtilService(null);
+		EROrganizationLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -222,22 +220,6 @@ public abstract class EROrganizationLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		EROrganizationLocalService erOrganizationLocalService) {
-
-		try {
-			Field field = EROrganizationLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, erOrganizationLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

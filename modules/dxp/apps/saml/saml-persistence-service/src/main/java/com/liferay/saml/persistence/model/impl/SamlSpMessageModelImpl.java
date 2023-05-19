@@ -246,14 +246,10 @@ public class SamlSpMessageModelImpl
 
 	private static final Map<String, Function<SamlSpMessage, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SamlSpMessage, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SamlSpMessage, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<SamlSpMessage, Object>>();
-		Map<String, BiConsumer<SamlSpMessage, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<SamlSpMessage, ?>>();
 
 		attributeGetterFunctions.put(
 			"samlSpMessageId",
@@ -265,6 +261,68 @@ public class SamlSpMessageModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SamlSpMessage, Object>() {
+
+				@Override
+				public Object apply(SamlSpMessage samlSpMessage) {
+					return samlSpMessage.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SamlSpMessage, Object>() {
+
+				@Override
+				public Object apply(SamlSpMessage samlSpMessage) {
+					return samlSpMessage.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"samlIdpEntityId",
+			new Function<SamlSpMessage, Object>() {
+
+				@Override
+				public Object apply(SamlSpMessage samlSpMessage) {
+					return samlSpMessage.getSamlIdpEntityId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"samlIdpResponseKey",
+			new Function<SamlSpMessage, Object>() {
+
+				@Override
+				public Object apply(SamlSpMessage samlSpMessage) {
+					return samlSpMessage.getSamlIdpResponseKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"expirationDate",
+			new Function<SamlSpMessage, Object>() {
+
+				@Override
+				public Object apply(SamlSpMessage samlSpMessage) {
+					return samlSpMessage.getExpirationDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SamlSpMessage, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SamlSpMessage, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<SamlSpMessage, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"samlSpMessageId",
 			new BiConsumer<SamlSpMessage, Object>() {
@@ -275,16 +333,6 @@ public class SamlSpMessageModelImpl
 
 					samlSpMessage.setSamlSpMessageId(
 						(Long)samlSpMessageIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getCompanyId();
 				}
 
 			});
@@ -300,16 +348,6 @@ public class SamlSpMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<SamlSpMessage, Object>() {
@@ -319,16 +357,6 @@ public class SamlSpMessageModelImpl
 					SamlSpMessage samlSpMessage, Object createDateObject) {
 
 					samlSpMessage.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"samlIdpEntityId",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getSamlIdpEntityId();
 				}
 
 			});
@@ -342,16 +370,6 @@ public class SamlSpMessageModelImpl
 
 					samlSpMessage.setSamlIdpEntityId(
 						(String)samlIdpEntityIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"samlIdpResponseKey",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getSamlIdpResponseKey();
 				}
 
 			});
@@ -369,16 +387,6 @@ public class SamlSpMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"expirationDate",
-			new Function<SamlSpMessage, Object>() {
-
-				@Override
-				public Object apply(SamlSpMessage samlSpMessage) {
-					return samlSpMessage.getExpirationDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"expirationDate",
 			new BiConsumer<SamlSpMessage, Object>() {
@@ -392,8 +400,6 @@ public class SamlSpMessageModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

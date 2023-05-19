@@ -32,8 +32,6 @@ import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -247,11 +245,11 @@ public abstract class FlagsEntryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(flagsEntryService);
+		FlagsEntryServiceUtil.setService(flagsEntryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		FlagsEntryServiceUtil.setService(null);
 	}
 
 	/**
@@ -285,20 +283,6 @@ public abstract class FlagsEntryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(FlagsEntryService flagsEntryService) {
-		try {
-			Field field = FlagsEntryServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, flagsEntryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

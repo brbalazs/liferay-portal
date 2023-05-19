@@ -4063,33 +4063,17 @@ public class SiteFriendlyURLPersistenceImpl
 				String.class.getName()
 			});
 
-		_setSiteFriendlyURLUtilPersistence(this);
+		SiteFriendlyURLUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setSiteFriendlyURLUtilPersistence(null);
+		SiteFriendlyURLUtil.setPersistence(null);
 
 		entityCache.removeCache(SiteFriendlyURLImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setSiteFriendlyURLUtilPersistence(
-		SiteFriendlyURLPersistence siteFriendlyURLPersistence) {
-
-		try {
-			Field field = SiteFriendlyURLUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, siteFriendlyURLPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

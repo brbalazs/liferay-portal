@@ -241,18 +241,12 @@ public class NullConvertibleEntryModelImpl
 
 	private static final Map<String, Function<NullConvertibleEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<NullConvertibleEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<NullConvertibleEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<NullConvertibleEntry, Object>>();
-		Map<String, BiConsumer<NullConvertibleEntry, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<NullConvertibleEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"nullConvertibleEntryId",
@@ -264,6 +258,30 @@ public class NullConvertibleEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<NullConvertibleEntry, Object>() {
+
+				@Override
+				public Object apply(NullConvertibleEntry nullConvertibleEntry) {
+					return nullConvertibleEntry.getName();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<NullConvertibleEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<NullConvertibleEntry, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<NullConvertibleEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"nullConvertibleEntryId",
 			new BiConsumer<NullConvertibleEntry, Object>() {
@@ -275,16 +293,6 @@ public class NullConvertibleEntryModelImpl
 
 					nullConvertibleEntry.setNullConvertibleEntryId(
 						(Long)nullConvertibleEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<NullConvertibleEntry, Object>() {
-
-				@Override
-				public Object apply(NullConvertibleEntry nullConvertibleEntry) {
-					return nullConvertibleEntry.getName();
 				}
 
 			});
@@ -302,8 +310,6 @@ public class NullConvertibleEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

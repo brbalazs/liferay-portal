@@ -270,17 +270,12 @@ public class LayoutFriendlyURLModelImpl
 
 	private static final Map<String, Function<LayoutFriendlyURL, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<LayoutFriendlyURL, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<LayoutFriendlyURL, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<LayoutFriendlyURL, Object>>();
-		Map<String, BiConsumer<LayoutFriendlyURL, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<LayoutFriendlyURL, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -289,19 +284,6 @@ public class LayoutFriendlyURLModelImpl
 				@Override
 				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
 					return layoutFriendlyURL.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public void accept(
-					LayoutFriendlyURL layoutFriendlyURL,
-					Object mvccVersionObject) {
-
-					layoutFriendlyURL.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -315,6 +297,152 @@ public class LayoutFriendlyURLModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"layoutFriendlyURLId",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getLayoutFriendlyURLId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"plid",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getPlid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"privateLayout",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getPrivateLayout();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"friendlyURL",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getFriendlyURL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"languageId",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getLanguageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
+					return layoutFriendlyURL.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<LayoutFriendlyURL, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<LayoutFriendlyURL, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<LayoutFriendlyURL, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<LayoutFriendlyURL, Object>() {
+
+				@Override
+				public void accept(
+					LayoutFriendlyURL layoutFriendlyURL,
+					Object mvccVersionObject) {
+
+					layoutFriendlyURL.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<LayoutFriendlyURL, Object>() {
@@ -324,16 +452,6 @@ public class LayoutFriendlyURLModelImpl
 					LayoutFriendlyURL layoutFriendlyURL, Object uuidObject) {
 
 					layoutFriendlyURL.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutFriendlyURLId",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getLayoutFriendlyURLId();
 				}
 
 			});
@@ -351,16 +469,6 @@ public class LayoutFriendlyURLModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<LayoutFriendlyURL, Object>() {
@@ -370,16 +478,6 @@ public class LayoutFriendlyURLModelImpl
 					LayoutFriendlyURL layoutFriendlyURL, Object groupIdObject) {
 
 					layoutFriendlyURL.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getCompanyId();
 				}
 
 			});
@@ -396,16 +494,6 @@ public class LayoutFriendlyURLModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<LayoutFriendlyURL, Object>() {
@@ -415,16 +503,6 @@ public class LayoutFriendlyURLModelImpl
 					LayoutFriendlyURL layoutFriendlyURL, Object userIdObject) {
 
 					layoutFriendlyURL.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getUserName();
 				}
 
 			});
@@ -441,16 +519,6 @@ public class LayoutFriendlyURLModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<LayoutFriendlyURL, Object>() {
@@ -461,16 +529,6 @@ public class LayoutFriendlyURLModelImpl
 					Object createDateObject) {
 
 					layoutFriendlyURL.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getModifiedDate();
 				}
 
 			});
@@ -487,16 +545,6 @@ public class LayoutFriendlyURLModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"plid",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getPlid();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"plid",
 			new BiConsumer<LayoutFriendlyURL, Object>() {
@@ -506,16 +554,6 @@ public class LayoutFriendlyURLModelImpl
 					LayoutFriendlyURL layoutFriendlyURL, Object plidObject) {
 
 					layoutFriendlyURL.setPlid((Long)plidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"privateLayout",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getPrivateLayout();
 				}
 
 			});
@@ -533,16 +571,6 @@ public class LayoutFriendlyURLModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"friendlyURL",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getFriendlyURL();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"friendlyURL",
 			new BiConsumer<LayoutFriendlyURL, Object>() {
@@ -556,16 +584,6 @@ public class LayoutFriendlyURLModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"languageId",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getLanguageId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"languageId",
 			new BiConsumer<LayoutFriendlyURL, Object>() {
@@ -576,16 +594,6 @@ public class LayoutFriendlyURLModelImpl
 					Object languageIdObject) {
 
 					layoutFriendlyURL.setLanguageId((String)languageIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<LayoutFriendlyURL, Object>() {
-
-				@Override
-				public Object apply(LayoutFriendlyURL layoutFriendlyURL) {
-					return layoutFriendlyURL.getLastPublishDate();
 				}
 
 			});
@@ -604,8 +612,6 @@ public class LayoutFriendlyURLModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

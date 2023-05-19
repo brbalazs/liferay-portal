@@ -3160,32 +3160,17 @@ public class DLContentPersistenceImpl
 				String.class.getName(), String.class.getName()
 			});
 
-		_setDLContentUtilPersistence(this);
+		DLContentUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setDLContentUtilPersistence(null);
+		DLContentUtil.setPersistence(null);
 
 		entityCache.removeCache(DLContentImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setDLContentUtilPersistence(
-		DLContentPersistence dlContentPersistence) {
-
-		try {
-			Field field = DLContentUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, dlContentPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -33,8 +33,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -273,11 +271,11 @@ public abstract class MDRActionServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(mdrActionService);
+		MDRActionServiceUtil.setService(mdrActionService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		MDRActionServiceUtil.setService(null);
 	}
 
 	/**
@@ -319,20 +317,6 @@ public abstract class MDRActionServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(MDRActionService mdrActionService) {
-		try {
-			Field field = MDRActionServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, mdrActionService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

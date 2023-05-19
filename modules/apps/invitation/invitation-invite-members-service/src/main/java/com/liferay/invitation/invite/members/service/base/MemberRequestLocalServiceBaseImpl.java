@@ -51,8 +51,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -615,14 +613,14 @@ public abstract class MemberRequestLocalServiceBaseImpl
 			"com.liferay.invitation.invite.members.model.MemberRequest",
 			memberRequestLocalService);
 
-		_setLocalServiceUtilService(memberRequestLocalService);
+		MemberRequestLocalServiceUtil.setService(memberRequestLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.invitation.invite.members.model.MemberRequest");
 
-		_setLocalServiceUtilService(null);
+		MemberRequestLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -664,22 +662,6 @@ public abstract class MemberRequestLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		MemberRequestLocalService memberRequestLocalService) {
-
-		try {
-			Field field = MemberRequestLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, memberRequestLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

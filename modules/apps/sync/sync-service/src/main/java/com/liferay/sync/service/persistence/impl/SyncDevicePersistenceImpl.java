@@ -3208,32 +3208,17 @@ public class SyncDevicePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "countByC_U",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setSyncDeviceUtilPersistence(this);
+		SyncDeviceUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setSyncDeviceUtilPersistence(null);
+		SyncDeviceUtil.setPersistence(null);
 
 		entityCache.removeCache(SyncDeviceImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setSyncDeviceUtilPersistence(
-		SyncDevicePersistence syncDevicePersistence) {
-
-		try {
-			Field field = SyncDeviceUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, syncDevicePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -368,14 +368,10 @@ public class DLFileVersionModelImpl
 
 	private static final Map<String, Function<DLFileVersion, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DLFileVersion, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DLFileVersion, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<DLFileVersion, Object>>();
-		Map<String, BiConsumer<DLFileVersion, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<DLFileVersion, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -387,6 +383,288 @@ public class DLFileVersionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"fileVersionId",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getFileVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"repositoryId",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getRepositoryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"folderId",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getFolderId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileEntryId",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getFileEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"treePath",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getTreePath();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileName",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getFileName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"extension",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getExtension();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"mimeType",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getMimeType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"changeLog",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getChangeLog();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"extraSettings",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getExtraSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileEntryTypeId",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getFileEntryTypeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"version",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getVersion();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"size",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getSize();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"checksum",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getChecksum();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<DLFileVersion, Object>() {
+
+				@Override
+				public Object apply(DLFileVersion dlFileVersion) {
+					return dlFileVersion.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DLFileVersion, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DLFileVersion, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<DLFileVersion, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -396,16 +674,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object uuidObject) {
 
 					dlFileVersion.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fileVersionId",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getFileVersionId();
 				}
 
 			});
@@ -421,16 +689,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -440,16 +698,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object groupIdObject) {
 
 					dlFileVersion.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getCompanyId();
 				}
 
 			});
@@ -465,16 +713,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -484,16 +722,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object userIdObject) {
 
 					dlFileVersion.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getUserName();
 				}
 
 			});
@@ -509,16 +737,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -528,16 +746,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object createDateObject) {
 
 					dlFileVersion.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getModifiedDate();
 				}
 
 			});
@@ -553,16 +761,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"repositoryId",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getRepositoryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"repositoryId",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -572,16 +770,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object repositoryIdObject) {
 
 					dlFileVersion.setRepositoryId((Long)repositoryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"folderId",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getFolderId();
 				}
 
 			});
@@ -597,16 +785,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"fileEntryId",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getFileEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"fileEntryId",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -616,16 +794,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object fileEntryIdObject) {
 
 					dlFileVersion.setFileEntryId((Long)fileEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"treePath",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getTreePath();
 				}
 
 			});
@@ -641,16 +809,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"fileName",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getFileName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"fileName",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -660,16 +818,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object fileNameObject) {
 
 					dlFileVersion.setFileName((String)fileNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"extension",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getExtension();
 				}
 
 			});
@@ -685,16 +833,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"mimeType",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getMimeType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"mimeType",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -704,16 +842,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object mimeTypeObject) {
 
 					dlFileVersion.setMimeType((String)mimeTypeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getTitle();
 				}
 
 			});
@@ -729,16 +857,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -748,16 +866,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object descriptionObject) {
 
 					dlFileVersion.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"changeLog",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getChangeLog();
 				}
 
 			});
@@ -773,16 +881,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"extraSettings",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getExtraSettings();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"extraSettings",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -792,16 +890,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object extraSettingsObject) {
 
 					dlFileVersion.setExtraSettings((String)extraSettingsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fileEntryTypeId",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getFileEntryTypeId();
 				}
 
 			});
@@ -818,16 +906,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"version",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getVersion();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"version",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -837,16 +915,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object versionObject) {
 
 					dlFileVersion.setVersion((String)versionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"size",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getSize();
 				}
 
 			});
@@ -862,16 +930,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"checksum",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getChecksum();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"checksum",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -881,16 +939,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object checksumObject) {
 
 					dlFileVersion.setChecksum((String)checksumObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getLastPublishDate();
 				}
 
 			});
@@ -907,16 +955,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -929,16 +967,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getStatusByUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserId",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -948,16 +976,6 @@ public class DLFileVersionModelImpl
 					DLFileVersion dlFileVersion, Object statusByUserIdObject) {
 
 					dlFileVersion.setStatusByUserId((Long)statusByUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getStatusByUserName();
 				}
 
 			});
@@ -975,16 +993,6 @@ public class DLFileVersionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<DLFileVersion, Object>() {
-
-				@Override
-				public Object apply(DLFileVersion dlFileVersion) {
-					return dlFileVersion.getStatusDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusDate",
 			new BiConsumer<DLFileVersion, Object>() {
@@ -998,8 +1006,6 @@ public class DLFileVersionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

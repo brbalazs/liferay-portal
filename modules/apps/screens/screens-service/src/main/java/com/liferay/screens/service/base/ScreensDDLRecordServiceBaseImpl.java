@@ -33,8 +33,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import com.liferay.screens.service.ScreensDDLRecordService;
 import com.liferay.screens.service.ScreensDDLRecordServiceUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -432,11 +430,11 @@ public abstract class ScreensDDLRecordServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(screensDDLRecordService);
+		ScreensDDLRecordServiceUtil.setService(screensDDLRecordService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		ScreensDDLRecordServiceUtil.setService(null);
 	}
 
 	/**
@@ -470,22 +468,6 @@ public abstract class ScreensDDLRecordServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		ScreensDDLRecordService screensDDLRecordService) {
-
-		try {
-			Field field = ScreensDDLRecordServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, screensDDLRecordService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

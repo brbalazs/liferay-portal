@@ -34,8 +34,6 @@ import com.liferay.ratings.kernel.service.persistence.RatingsEntryPersistence;
 import com.liferay.screens.service.ScreensRatingsEntryService;
 import com.liferay.screens.service.ScreensRatingsEntryServiceUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -498,11 +496,11 @@ public abstract class ScreensRatingsEntryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(screensRatingsEntryService);
+		ScreensRatingsEntryServiceUtil.setService(screensRatingsEntryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		ScreensRatingsEntryServiceUtil.setService(null);
 	}
 
 	/**
@@ -536,22 +534,6 @@ public abstract class ScreensRatingsEntryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		ScreensRatingsEntryService screensRatingsEntryService) {
-
-		try {
-			Field field = ScreensRatingsEntryServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, screensRatingsEntryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

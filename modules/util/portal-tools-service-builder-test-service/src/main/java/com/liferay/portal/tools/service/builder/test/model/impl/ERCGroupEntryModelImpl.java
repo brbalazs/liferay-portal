@@ -250,14 +250,10 @@ public class ERCGroupEntryModelImpl
 
 	private static final Map<String, Function<ERCGroupEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ERCGroupEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ERCGroupEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<ERCGroupEntry, Object>>();
-		Map<String, BiConsumer<ERCGroupEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ERCGroupEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -269,6 +265,58 @@ public class ERCGroupEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"externalReferenceCode",
+			new Function<ERCGroupEntry, Object>() {
+
+				@Override
+				public Object apply(ERCGroupEntry ercGroupEntry) {
+					return ercGroupEntry.getExternalReferenceCode();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ercGroupEntryId",
+			new Function<ERCGroupEntry, Object>() {
+
+				@Override
+				public Object apply(ERCGroupEntry ercGroupEntry) {
+					return ercGroupEntry.getErcGroupEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<ERCGroupEntry, Object>() {
+
+				@Override
+				public Object apply(ERCGroupEntry ercGroupEntry) {
+					return ercGroupEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<ERCGroupEntry, Object>() {
+
+				@Override
+				public Object apply(ERCGroupEntry ercGroupEntry) {
+					return ercGroupEntry.getCompanyId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ERCGroupEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ERCGroupEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<ERCGroupEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<ERCGroupEntry, Object>() {
@@ -278,16 +326,6 @@ public class ERCGroupEntryModelImpl
 					ERCGroupEntry ercGroupEntry, Object uuidObject) {
 
 					ercGroupEntry.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"externalReferenceCode",
-			new Function<ERCGroupEntry, Object>() {
-
-				@Override
-				public Object apply(ERCGroupEntry ercGroupEntry) {
-					return ercGroupEntry.getExternalReferenceCode();
 				}
 
 			});
@@ -305,16 +343,6 @@ public class ERCGroupEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"ercGroupEntryId",
-			new Function<ERCGroupEntry, Object>() {
-
-				@Override
-				public Object apply(ERCGroupEntry ercGroupEntry) {
-					return ercGroupEntry.getErcGroupEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"ercGroupEntryId",
 			new BiConsumer<ERCGroupEntry, Object>() {
@@ -328,16 +356,6 @@ public class ERCGroupEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<ERCGroupEntry, Object>() {
-
-				@Override
-				public Object apply(ERCGroupEntry ercGroupEntry) {
-					return ercGroupEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<ERCGroupEntry, Object>() {
@@ -347,16 +365,6 @@ public class ERCGroupEntryModelImpl
 					ERCGroupEntry ercGroupEntry, Object groupIdObject) {
 
 					ercGroupEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<ERCGroupEntry, Object>() {
-
-				@Override
-				public Object apply(ERCGroupEntry ercGroupEntry) {
-					return ercGroupEntry.getCompanyId();
 				}
 
 			});
@@ -373,8 +381,6 @@ public class ERCGroupEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

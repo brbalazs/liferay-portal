@@ -246,19 +246,12 @@ public class DDMDataProviderInstanceLinkModelImpl
 	private static final Map
 		<String, Function<DDMDataProviderInstanceLink, Object>>
 			_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<DDMDataProviderInstanceLink, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DDMDataProviderInstanceLink, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<DDMDataProviderInstanceLink, Object>>();
-		Map<String, BiConsumer<DDMDataProviderInstanceLink, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<DDMDataProviderInstanceLink, ?>>();
 
 		attributeGetterFunctions.put(
 			"dataProviderInstanceLinkId",
@@ -273,6 +266,58 @@ public class DDMDataProviderInstanceLinkModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DDMDataProviderInstanceLink, Object>() {
+
+				@Override
+				public Object apply(
+					DDMDataProviderInstanceLink ddmDataProviderInstanceLink) {
+
+					return ddmDataProviderInstanceLink.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"dataProviderInstanceId",
+			new Function<DDMDataProviderInstanceLink, Object>() {
+
+				@Override
+				public Object apply(
+					DDMDataProviderInstanceLink ddmDataProviderInstanceLink) {
+
+					return ddmDataProviderInstanceLink.
+						getDataProviderInstanceId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"structureId",
+			new Function<DDMDataProviderInstanceLink, Object>() {
+
+				@Override
+				public Object apply(
+					DDMDataProviderInstanceLink ddmDataProviderInstanceLink) {
+
+					return ddmDataProviderInstanceLink.getStructureId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<DDMDataProviderInstanceLink, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DDMDataProviderInstanceLink, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<DDMDataProviderInstanceLink, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"dataProviderInstanceLinkId",
 			new BiConsumer<DDMDataProviderInstanceLink, Object>() {
@@ -284,18 +329,6 @@ public class DDMDataProviderInstanceLinkModelImpl
 
 					ddmDataProviderInstanceLink.setDataProviderInstanceLinkId(
 						(Long)dataProviderInstanceLinkIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DDMDataProviderInstanceLink, Object>() {
-
-				@Override
-				public Object apply(
-					DDMDataProviderInstanceLink ddmDataProviderInstanceLink) {
-
-					return ddmDataProviderInstanceLink.getCompanyId();
 				}
 
 			});
@@ -313,19 +346,6 @@ public class DDMDataProviderInstanceLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"dataProviderInstanceId",
-			new Function<DDMDataProviderInstanceLink, Object>() {
-
-				@Override
-				public Object apply(
-					DDMDataProviderInstanceLink ddmDataProviderInstanceLink) {
-
-					return ddmDataProviderInstanceLink.
-						getDataProviderInstanceId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"dataProviderInstanceId",
 			new BiConsumer<DDMDataProviderInstanceLink, Object>() {
@@ -337,18 +357,6 @@ public class DDMDataProviderInstanceLinkModelImpl
 
 					ddmDataProviderInstanceLink.setDataProviderInstanceId(
 						(Long)dataProviderInstanceIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"structureId",
-			new Function<DDMDataProviderInstanceLink, Object>() {
-
-				@Override
-				public Object apply(
-					DDMDataProviderInstanceLink ddmDataProviderInstanceLink) {
-
-					return ddmDataProviderInstanceLink.getStructureId();
 				}
 
 			});
@@ -367,8 +375,6 @@ public class DDMDataProviderInstanceLinkModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

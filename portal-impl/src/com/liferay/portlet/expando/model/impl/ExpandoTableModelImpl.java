@@ -243,14 +243,10 @@ public class ExpandoTableModelImpl
 
 	private static final Map<String, Function<ExpandoTable, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ExpandoTable, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ExpandoTable, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<ExpandoTable, Object>>();
-		Map<String, BiConsumer<ExpandoTable, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ExpandoTable, ?>>();
 
 		attributeGetterFunctions.put(
 			"tableId",
@@ -262,6 +258,48 @@ public class ExpandoTableModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<ExpandoTable, Object>() {
+
+				@Override
+				public Object apply(ExpandoTable expandoTable) {
+					return expandoTable.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<ExpandoTable, Object>() {
+
+				@Override
+				public Object apply(ExpandoTable expandoTable) {
+					return expandoTable.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<ExpandoTable, Object>() {
+
+				@Override
+				public Object apply(ExpandoTable expandoTable) {
+					return expandoTable.getName();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ExpandoTable, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ExpandoTable, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<ExpandoTable, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"tableId",
 			new BiConsumer<ExpandoTable, Object>() {
@@ -271,16 +309,6 @@ public class ExpandoTableModelImpl
 					ExpandoTable expandoTable, Object tableIdObject) {
 
 					expandoTable.setTableId((Long)tableIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<ExpandoTable, Object>() {
-
-				@Override
-				public Object apply(ExpandoTable expandoTable) {
-					return expandoTable.getCompanyId();
 				}
 
 			});
@@ -296,16 +324,6 @@ public class ExpandoTableModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<ExpandoTable, Object>() {
-
-				@Override
-				public Object apply(ExpandoTable expandoTable) {
-					return expandoTable.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<ExpandoTable, Object>() {
@@ -315,16 +333,6 @@ public class ExpandoTableModelImpl
 					ExpandoTable expandoTable, Object classNameIdObject) {
 
 					expandoTable.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<ExpandoTable, Object>() {
-
-				@Override
-				public Object apply(ExpandoTable expandoTable) {
-					return expandoTable.getName();
 				}
 
 			});
@@ -341,8 +349,6 @@ public class ExpandoTableModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

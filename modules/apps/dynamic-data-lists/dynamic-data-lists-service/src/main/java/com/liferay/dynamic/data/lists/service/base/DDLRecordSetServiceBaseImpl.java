@@ -38,8 +38,6 @@ import com.liferay.portal.kernel.service.persistence.WorkflowDefinitionLinkPersi
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -514,11 +512,11 @@ public abstract class DDLRecordSetServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(ddlRecordSetService);
+		DDLRecordSetServiceUtil.setService(ddlRecordSetService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		DDLRecordSetServiceUtil.setService(null);
 	}
 
 	/**
@@ -560,22 +558,6 @@ public abstract class DDLRecordSetServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		DDLRecordSetService ddlRecordSetService) {
-
-		try {
-			Field field = DDLRecordSetServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddlRecordSetService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

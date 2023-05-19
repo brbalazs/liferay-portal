@@ -37,8 +37,6 @@ import com.liferay.portal.model.impl.ClusterGroupModelImpl;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -762,33 +760,17 @@ public class ClusterGroupPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
 			new String[0]);
 
-		_setClusterGroupUtilPersistence(this);
+		ClusterGroupUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setClusterGroupUtilPersistence(null);
+		ClusterGroupUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(ClusterGroupImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setClusterGroupUtilPersistence(
-		ClusterGroupPersistence clusterGroupPersistence) {
-
-		try {
-			Field field = ClusterGroupUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, clusterGroupPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	private static final String _SQL_SELECT_CLUSTERGROUP =

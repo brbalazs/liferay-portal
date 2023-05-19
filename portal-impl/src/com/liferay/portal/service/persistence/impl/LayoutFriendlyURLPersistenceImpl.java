@@ -6639,33 +6639,17 @@ public class LayoutFriendlyURLPersistenceImpl
 				String.class.getName(), String.class.getName()
 			});
 
-		_setLayoutFriendlyURLUtilPersistence(this);
+		LayoutFriendlyURLUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setLayoutFriendlyURLUtilPersistence(null);
+		LayoutFriendlyURLUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(LayoutFriendlyURLImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setLayoutFriendlyURLUtilPersistence(
-		LayoutFriendlyURLPersistence layoutFriendlyURLPersistence) {
-
-		try {
-			Field field = LayoutFriendlyURLUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, layoutFriendlyURLPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	private static final String _SQL_SELECT_LAYOUTFRIENDLYURL =

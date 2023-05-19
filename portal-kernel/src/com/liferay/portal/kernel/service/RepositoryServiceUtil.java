@@ -122,6 +122,10 @@ public class RepositoryServiceUtil {
 		return _service;
 	}
 
+	public static void setService(RepositoryService service) {
+		_service = service;
+	}
+
 	private static volatile RepositoryService _service;
 
 }

@@ -2019,33 +2019,17 @@ public class UserIdMapperPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByT_E",
 			new String[] {String.class.getName(), String.class.getName()});
 
-		_setUserIdMapperUtilPersistence(this);
+		UserIdMapperUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setUserIdMapperUtilPersistence(null);
+		UserIdMapperUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(UserIdMapperImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setUserIdMapperUtilPersistence(
-		UserIdMapperPersistence userIdMapperPersistence) {
-
-		try {
-			Field field = UserIdMapperUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, userIdMapperPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	private static final String _SQL_SELECT_USERIDMAPPER =

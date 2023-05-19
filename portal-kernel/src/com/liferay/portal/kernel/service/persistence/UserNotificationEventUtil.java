@@ -3085,6 +3085,12 @@ public class UserNotificationEventUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(
+		UserNotificationEventPersistence persistence) {
+
+		_persistence = persistence;
+	}
+
 	private static volatile UserNotificationEventPersistence _persistence;
 
 }

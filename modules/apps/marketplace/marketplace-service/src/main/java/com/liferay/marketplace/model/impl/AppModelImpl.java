@@ -312,14 +312,10 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 
 	private static final Map<String, Function<App, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<App, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<App, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<App, Object>>();
-		Map<String, BiConsumer<App, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<App, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -328,16 +324,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				@Override
 				public Object apply(App app) {
 					return app.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object uuidObject) {
-					app.setUuid((String)uuidObject);
 				}
 
 			});
@@ -351,16 +337,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"appId",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object appIdObject) {
-					app.setAppId((Long)appIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<App, Object>() {
@@ -368,16 +344,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				@Override
 				public Object apply(App app) {
 					return app.getCompanyId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object companyIdObject) {
-					app.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -391,16 +357,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object userIdObject) {
-					app.setUserId((Long)userIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userName",
 			new Function<App, Object>() {
@@ -408,16 +364,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				@Override
 				public Object apply(App app) {
 					return app.getUserName();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object userNameObject) {
-					app.setUserName((String)userNameObject);
 				}
 
 			});
@@ -431,16 +377,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object createDateObject) {
-					app.setCreateDate((Date)createDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedDate",
 			new Function<App, Object>() {
@@ -448,16 +384,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				@Override
 				public Object apply(App app) {
 					return app.getModifiedDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object modifiedDateObject) {
-					app.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -471,16 +397,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"remoteAppId",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object remoteAppIdObject) {
-					app.setRemoteAppId((Long)remoteAppIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"title",
 			new Function<App, Object>() {
@@ -488,16 +404,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				@Override
 				public Object apply(App app) {
 					return app.getTitle();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"title",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object titleObject) {
-					app.setTitle((String)titleObject);
 				}
 
 			});
@@ -511,16 +417,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"description",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object descriptionObject) {
-					app.setDescription((String)descriptionObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"category",
 			new Function<App, Object>() {
@@ -528,16 +424,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				@Override
 				public Object apply(App app) {
 					return app.getCategory();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"category",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object categoryObject) {
-					app.setCategory((String)categoryObject);
 				}
 
 			});
@@ -551,16 +437,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"iconURL",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object iconURLObject) {
-					app.setIconURL((String)iconURLObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"version",
 			new Function<App, Object>() {
@@ -571,16 +447,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"version",
-			new BiConsumer<App, Object>() {
-
-				@Override
-				public void accept(App app, Object versionObject) {
-					app.setVersion((String)versionObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"required",
 			new Function<App, Object>() {
@@ -588,6 +454,148 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 				@Override
 				public Object apply(App app) {
 					return app.getRequired();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<App, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<App, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<App, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object uuidObject) {
+					app.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"appId",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object appIdObject) {
+					app.setAppId((Long)appIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object companyIdObject) {
+					app.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object userIdObject) {
+					app.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object userNameObject) {
+					app.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object createDateObject) {
+					app.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object modifiedDateObject) {
+					app.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"remoteAppId",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object remoteAppIdObject) {
+					app.setRemoteAppId((Long)remoteAppIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"title",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object titleObject) {
+					app.setTitle((String)titleObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"description",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object descriptionObject) {
+					app.setDescription((String)descriptionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"category",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object categoryObject) {
+					app.setCategory((String)categoryObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"iconURL",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object iconURLObject) {
+					app.setIconURL((String)iconURLObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"version",
+			new BiConsumer<App, Object>() {
+
+				@Override
+				public void accept(App app, Object versionObject) {
+					app.setVersion((String)versionObject);
 				}
 
 			});
@@ -602,8 +610,6 @@ public class AppModelImpl extends BaseModelImpl<App> implements AppModel {
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

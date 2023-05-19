@@ -4498,11 +4498,11 @@ public class DLFileEntryTypePersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_F",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setDLFileEntryTypeUtilPersistence(this);
+		DLFileEntryTypeUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setDLFileEntryTypeUtilPersistence(null);
+		DLFileEntryTypeUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(DLFileEntryTypeImpl.class.getName());
 
@@ -4511,22 +4511,6 @@ public class DLFileEntryTypePersistenceImpl
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		TableMapperFactory.removeTableMapper("DLFileEntryTypes_DLFolders");
-	}
-
-	private void _setDLFileEntryTypeUtilPersistence(
-		DLFileEntryTypePersistence dlFileEntryTypePersistence) {
-
-		try {
-			Field field = DLFileEntryTypeUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, dlFileEntryTypePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@BeanReference(type = DLFolderPersistence.class)

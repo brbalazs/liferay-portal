@@ -256,19 +256,12 @@ public class SocialActivityAchievementModelImpl
 	private static final Map
 		<String, Function<SocialActivityAchievement, Object>>
 			_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<SocialActivityAchievement, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SocialActivityAchievement, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SocialActivityAchievement, Object>>();
-		Map<String, BiConsumer<SocialActivityAchievement, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<SocialActivityAchievement, ?>>();
 
 		attributeGetterFunctions.put(
 			"activityAchievementId",
@@ -279,20 +272,6 @@ public class SocialActivityAchievementModelImpl
 					SocialActivityAchievement socialActivityAchievement) {
 
 					return socialActivityAchievement.getActivityAchievementId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"activityAchievementId",
-			new BiConsumer<SocialActivityAchievement, Object>() {
-
-				@Override
-				public void accept(
-					SocialActivityAchievement socialActivityAchievement,
-					Object activityAchievementIdObject) {
-
-					socialActivityAchievement.setActivityAchievementId(
-						(Long)activityAchievementIdObject);
 				}
 
 			});
@@ -308,6 +287,95 @@ public class SocialActivityAchievementModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SocialActivityAchievement, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityAchievement socialActivityAchievement) {
+
+					return socialActivityAchievement.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SocialActivityAchievement, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityAchievement socialActivityAchievement) {
+
+					return socialActivityAchievement.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SocialActivityAchievement, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityAchievement socialActivityAchievement) {
+
+					return socialActivityAchievement.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SocialActivityAchievement, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityAchievement socialActivityAchievement) {
+
+					return socialActivityAchievement.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"firstInGroup",
+			new Function<SocialActivityAchievement, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivityAchievement socialActivityAchievement) {
+
+					return socialActivityAchievement.getFirstInGroup();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<SocialActivityAchievement, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SocialActivityAchievement, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<SocialActivityAchievement, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"activityAchievementId",
+			new BiConsumer<SocialActivityAchievement, Object>() {
+
+				@Override
+				public void accept(
+					SocialActivityAchievement socialActivityAchievement,
+					Object activityAchievementIdObject) {
+
+					socialActivityAchievement.setActivityAchievementId(
+						(Long)activityAchievementIdObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<SocialActivityAchievement, Object>() {
@@ -318,18 +386,6 @@ public class SocialActivityAchievementModelImpl
 					Object groupIdObject) {
 
 					socialActivityAchievement.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SocialActivityAchievement, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityAchievement socialActivityAchievement) {
-
-					return socialActivityAchievement.getCompanyId();
 				}
 
 			});
@@ -347,18 +403,6 @@ public class SocialActivityAchievementModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SocialActivityAchievement, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityAchievement socialActivityAchievement) {
-
-					return socialActivityAchievement.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SocialActivityAchievement, Object>() {
@@ -369,18 +413,6 @@ public class SocialActivityAchievementModelImpl
 					Object userIdObject) {
 
 					socialActivityAchievement.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SocialActivityAchievement, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityAchievement socialActivityAchievement) {
-
-					return socialActivityAchievement.getCreateDate();
 				}
 
 			});
@@ -398,18 +430,6 @@ public class SocialActivityAchievementModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<SocialActivityAchievement, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityAchievement socialActivityAchievement) {
-
-					return socialActivityAchievement.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<SocialActivityAchievement, Object>() {
@@ -420,18 +440,6 @@ public class SocialActivityAchievementModelImpl
 					Object nameObject) {
 
 					socialActivityAchievement.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"firstInGroup",
-			new Function<SocialActivityAchievement, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivityAchievement socialActivityAchievement) {
-
-					return socialActivityAchievement.getFirstInGroup();
 				}
 
 			});
@@ -450,8 +458,6 @@ public class SocialActivityAchievementModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

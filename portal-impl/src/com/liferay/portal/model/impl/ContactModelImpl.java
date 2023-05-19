@@ -356,14 +356,10 @@ public class ContactModelImpl
 
 	private static final Map<String, Function<Contact, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Contact, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Contact, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Contact, Object>>();
-		Map<String, BiConsumer<Contact, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Contact, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -372,16 +368,6 @@ public class ContactModelImpl
 				@Override
 				public Object apply(Contact contact) {
 					return contact.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object mvccVersionObject) {
-					contact.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -395,16 +381,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"contactId",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object contactIdObject) {
-					contact.setContactId((Long)contactIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<Contact, Object>() {
@@ -412,16 +388,6 @@ public class ContactModelImpl
 				@Override
 				public Object apply(Contact contact) {
 					return contact.getCompanyId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object companyIdObject) {
-					contact.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -435,16 +401,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object userIdObject) {
-					contact.setUserId((Long)userIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userName",
 			new Function<Contact, Object>() {
@@ -452,16 +408,6 @@ public class ContactModelImpl
 				@Override
 				public Object apply(Contact contact) {
 					return contact.getUserName();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object userNameObject) {
-					contact.setUserName((String)userNameObject);
 				}
 
 			});
@@ -475,16 +421,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object createDateObject) {
-					contact.setCreateDate((Date)createDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedDate",
 			new Function<Contact, Object>() {
@@ -492,16 +428,6 @@ public class ContactModelImpl
 				@Override
 				public Object apply(Contact contact) {
 					return contact.getModifiedDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object modifiedDateObject) {
-					contact.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -515,16 +441,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"classNameId",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object classNameIdObject) {
-					contact.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"classPK",
 			new Function<Contact, Object>() {
@@ -532,16 +448,6 @@ public class ContactModelImpl
 				@Override
 				public Object apply(Contact contact) {
 					return contact.getClassPK();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"classPK",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object classPKObject) {
-					contact.setClassPK((Long)classPKObject);
 				}
 
 			});
@@ -555,16 +461,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"accountId",
-			new BiConsumer<Contact, Object>() {
-
-				@Override
-				public void accept(Contact contact, Object accountIdObject) {
-					contact.setAccountId((Long)accountIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"parentContactId",
 			new Function<Contact, Object>() {
@@ -572,6 +468,298 @@ public class ContactModelImpl
 				@Override
 				public Object apply(Contact contact) {
 					return contact.getParentContactId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"emailAddress",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getEmailAddress();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"firstName",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getFirstName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"middleName",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getMiddleName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastName",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getLastName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"prefixId",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getPrefixId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"suffixId",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getSuffixId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"male",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getMale();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"birthday",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getBirthday();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"smsSn",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getSmsSn();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"facebookSn",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getFacebookSn();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"jabberSn",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getJabberSn();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"skypeSn",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getSkypeSn();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"twitterSn",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getTwitterSn();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"employeeStatusId",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getEmployeeStatusId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"employeeNumber",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getEmployeeNumber();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"jobTitle",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getJobTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"jobClass",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getJobClass();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"hoursOfOperation",
+			new Function<Contact, Object>() {
+
+				@Override
+				public Object apply(Contact contact) {
+					return contact.getHoursOfOperation();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Contact, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Contact, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Contact, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object mvccVersionObject) {
+					contact.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"contactId",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object contactIdObject) {
+					contact.setContactId((Long)contactIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object companyIdObject) {
+					contact.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object userIdObject) {
+					contact.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object userNameObject) {
+					contact.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object createDateObject) {
+					contact.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object modifiedDateObject) {
+					contact.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classNameId",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object classNameIdObject) {
+					contact.setClassNameId((Long)classNameIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classPK",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object classPKObject) {
+					contact.setClassPK((Long)classPKObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"accountId",
+			new BiConsumer<Contact, Object>() {
+
+				@Override
+				public void accept(Contact contact, Object accountIdObject) {
+					contact.setAccountId((Long)accountIdObject);
 				}
 
 			});
@@ -587,16 +775,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"emailAddress",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getEmailAddress();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"emailAddress",
 			new BiConsumer<Contact, Object>() {
@@ -604,16 +782,6 @@ public class ContactModelImpl
 				@Override
 				public void accept(Contact contact, Object emailAddressObject) {
 					contact.setEmailAddress((String)emailAddressObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"firstName",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getFirstName();
 				}
 
 			});
@@ -627,16 +795,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"middleName",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getMiddleName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"middleName",
 			new BiConsumer<Contact, Object>() {
@@ -644,16 +802,6 @@ public class ContactModelImpl
 				@Override
 				public void accept(Contact contact, Object middleNameObject) {
 					contact.setMiddleName((String)middleNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastName",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getLastName();
 				}
 
 			});
@@ -667,16 +815,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"prefixId",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getPrefixId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"prefixId",
 			new BiConsumer<Contact, Object>() {
@@ -684,16 +822,6 @@ public class ContactModelImpl
 				@Override
 				public void accept(Contact contact, Object prefixIdObject) {
 					contact.setPrefixId((Long)prefixIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"suffixId",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getSuffixId();
 				}
 
 			});
@@ -707,16 +835,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"male",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getMale();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"male",
 			new BiConsumer<Contact, Object>() {
@@ -724,16 +842,6 @@ public class ContactModelImpl
 				@Override
 				public void accept(Contact contact, Object maleObject) {
 					contact.setMale((Boolean)maleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"birthday",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getBirthday();
 				}
 
 			});
@@ -747,16 +855,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"smsSn",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getSmsSn();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"smsSn",
 			new BiConsumer<Contact, Object>() {
@@ -764,16 +862,6 @@ public class ContactModelImpl
 				@Override
 				public void accept(Contact contact, Object smsSnObject) {
 					contact.setSmsSn((String)smsSnObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"facebookSn",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getFacebookSn();
 				}
 
 			});
@@ -787,16 +875,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"jabberSn",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getJabberSn();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"jabberSn",
 			new BiConsumer<Contact, Object>() {
@@ -804,16 +882,6 @@ public class ContactModelImpl
 				@Override
 				public void accept(Contact contact, Object jabberSnObject) {
 					contact.setJabberSn((String)jabberSnObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"skypeSn",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getSkypeSn();
 				}
 
 			});
@@ -827,16 +895,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"twitterSn",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getTwitterSn();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"twitterSn",
 			new BiConsumer<Contact, Object>() {
@@ -844,16 +902,6 @@ public class ContactModelImpl
 				@Override
 				public void accept(Contact contact, Object twitterSnObject) {
 					contact.setTwitterSn((String)twitterSnObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"employeeStatusId",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getEmployeeStatusId();
 				}
 
 			});
@@ -869,16 +917,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"employeeNumber",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getEmployeeNumber();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"employeeNumber",
 			new BiConsumer<Contact, Object>() {
@@ -888,16 +926,6 @@ public class ContactModelImpl
 					Contact contact, Object employeeNumberObject) {
 
 					contact.setEmployeeNumber((String)employeeNumberObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"jobTitle",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getJobTitle();
 				}
 
 			});
@@ -911,16 +939,6 @@ public class ContactModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"jobClass",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getJobClass();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"jobClass",
 			new BiConsumer<Contact, Object>() {
@@ -928,16 +946,6 @@ public class ContactModelImpl
 				@Override
 				public void accept(Contact contact, Object jobClassObject) {
 					contact.setJobClass((String)jobClassObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"hoursOfOperation",
-			new Function<Contact, Object>() {
-
-				@Override
-				public Object apply(Contact contact) {
-					return contact.getHoursOfOperation();
 				}
 
 			});
@@ -954,8 +962,6 @@ public class ContactModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

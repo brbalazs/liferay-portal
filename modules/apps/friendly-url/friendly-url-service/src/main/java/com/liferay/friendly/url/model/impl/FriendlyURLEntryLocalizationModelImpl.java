@@ -263,19 +263,12 @@ public class FriendlyURLEntryLocalizationModelImpl
 	private static final Map
 		<String, Function<FriendlyURLEntryLocalization, Object>>
 			_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<FriendlyURLEntryLocalization, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<FriendlyURLEntryLocalization, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<FriendlyURLEntryLocalization, Object>>();
-		Map<String, BiConsumer<FriendlyURLEntryLocalization, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<FriendlyURLEntryLocalization, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -289,6 +282,118 @@ public class FriendlyURLEntryLocalizationModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"friendlyURLEntryLocalizationId",
+			new Function<FriendlyURLEntryLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
+
+					return friendlyURLEntryLocalization.
+						getFriendlyURLEntryLocalizationId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<FriendlyURLEntryLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
+
+					return friendlyURLEntryLocalization.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"friendlyURLEntryId",
+			new Function<FriendlyURLEntryLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
+
+					return friendlyURLEntryLocalization.getFriendlyURLEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"languageId",
+			new Function<FriendlyURLEntryLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
+
+					return friendlyURLEntryLocalization.getLanguageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"urlTitle",
+			new Function<FriendlyURLEntryLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
+
+					return friendlyURLEntryLocalization.getUrlTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<FriendlyURLEntryLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
+
+					return friendlyURLEntryLocalization.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<FriendlyURLEntryLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
+
+					return friendlyURLEntryLocalization.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<FriendlyURLEntryLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
+
+					return friendlyURLEntryLocalization.getClassPK();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<FriendlyURLEntryLocalization, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<FriendlyURLEntryLocalization, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<FriendlyURLEntryLocalization, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<FriendlyURLEntryLocalization, Object>() {
@@ -300,19 +405,6 @@ public class FriendlyURLEntryLocalizationModelImpl
 
 					friendlyURLEntryLocalization.setMvccVersion(
 						(Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"friendlyURLEntryLocalizationId",
-			new Function<FriendlyURLEntryLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
-
-					return friendlyURLEntryLocalization.
-						getFriendlyURLEntryLocalizationId();
 				}
 
 			});
@@ -331,18 +423,6 @@ public class FriendlyURLEntryLocalizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<FriendlyURLEntryLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
-
-					return friendlyURLEntryLocalization.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<FriendlyURLEntryLocalization, Object>() {
@@ -354,18 +434,6 @@ public class FriendlyURLEntryLocalizationModelImpl
 
 					friendlyURLEntryLocalization.setCompanyId(
 						(Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"friendlyURLEntryId",
-			new Function<FriendlyURLEntryLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
-
-					return friendlyURLEntryLocalization.getFriendlyURLEntryId();
 				}
 
 			});
@@ -383,18 +451,6 @@ public class FriendlyURLEntryLocalizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"languageId",
-			new Function<FriendlyURLEntryLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
-
-					return friendlyURLEntryLocalization.getLanguageId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"languageId",
 			new BiConsumer<FriendlyURLEntryLocalization, Object>() {
@@ -406,18 +462,6 @@ public class FriendlyURLEntryLocalizationModelImpl
 
 					friendlyURLEntryLocalization.setLanguageId(
 						(String)languageIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"urlTitle",
-			new Function<FriendlyURLEntryLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
-
-					return friendlyURLEntryLocalization.getUrlTitle();
 				}
 
 			});
@@ -435,18 +479,6 @@ public class FriendlyURLEntryLocalizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<FriendlyURLEntryLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
-
-					return friendlyURLEntryLocalization.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<FriendlyURLEntryLocalization, Object>() {
@@ -461,18 +493,6 @@ public class FriendlyURLEntryLocalizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<FriendlyURLEntryLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
-
-					return friendlyURLEntryLocalization.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<FriendlyURLEntryLocalization, Object>() {
@@ -484,18 +504,6 @@ public class FriendlyURLEntryLocalizationModelImpl
 
 					friendlyURLEntryLocalization.setClassNameId(
 						(Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<FriendlyURLEntryLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					FriendlyURLEntryLocalization friendlyURLEntryLocalization) {
-
-					return friendlyURLEntryLocalization.getClassPK();
 				}
 
 			});
@@ -514,8 +522,6 @@ public class FriendlyURLEntryLocalizationModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

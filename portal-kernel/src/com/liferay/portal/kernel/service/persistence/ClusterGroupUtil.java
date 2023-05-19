@@ -270,6 +270,10 @@ public class ClusterGroupUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(ClusterGroupPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile ClusterGroupPersistence _persistence;
 
 }

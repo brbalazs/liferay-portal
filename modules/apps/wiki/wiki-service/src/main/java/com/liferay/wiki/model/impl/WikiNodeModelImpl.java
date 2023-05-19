@@ -327,14 +327,10 @@ public class WikiNodeModelImpl
 
 	private static final Map<String, Function<WikiNode, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<WikiNode, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<WikiNode, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<WikiNode, Object>>();
-		Map<String, BiConsumer<WikiNode, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<WikiNode, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -343,16 +339,6 @@ public class WikiNodeModelImpl
 				@Override
 				public Object apply(WikiNode wikiNode) {
 					return wikiNode.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<WikiNode, Object>() {
-
-				@Override
-				public void accept(WikiNode wikiNode, Object uuidObject) {
-					wikiNode.setUuid((String)uuidObject);
 				}
 
 			});
@@ -366,16 +352,6 @@ public class WikiNodeModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"nodeId",
-			new BiConsumer<WikiNode, Object>() {
-
-				@Override
-				public void accept(WikiNode wikiNode, Object nodeIdObject) {
-					wikiNode.setNodeId((Long)nodeIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupId",
 			new Function<WikiNode, Object>() {
@@ -383,16 +359,6 @@ public class WikiNodeModelImpl
 				@Override
 				public Object apply(WikiNode wikiNode) {
 					return wikiNode.getGroupId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<WikiNode, Object>() {
-
-				@Override
-				public void accept(WikiNode wikiNode, Object groupIdObject) {
-					wikiNode.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -406,16 +372,6 @@ public class WikiNodeModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<WikiNode, Object>() {
-
-				@Override
-				public void accept(WikiNode wikiNode, Object companyIdObject) {
-					wikiNode.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<WikiNode, Object>() {
@@ -423,16 +379,6 @@ public class WikiNodeModelImpl
 				@Override
 				public Object apply(WikiNode wikiNode) {
 					return wikiNode.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<WikiNode, Object>() {
-
-				@Override
-				public void accept(WikiNode wikiNode, Object userIdObject) {
-					wikiNode.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -446,16 +392,6 @@ public class WikiNodeModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<WikiNode, Object>() {
-
-				@Override
-				public void accept(WikiNode wikiNode, Object userNameObject) {
-					wikiNode.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<WikiNode, Object>() {
@@ -466,16 +402,6 @@ public class WikiNodeModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<WikiNode, Object>() {
-
-				@Override
-				public void accept(WikiNode wikiNode, Object createDateObject) {
-					wikiNode.setCreateDate((Date)createDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedDate",
 			new Function<WikiNode, Object>() {
@@ -483,6 +409,168 @@ public class WikiNodeModelImpl
 				@Override
 				public Object apply(WikiNode wikiNode) {
 					return wikiNode.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<WikiNode, Object>() {
+
+				@Override
+				public Object apply(WikiNode wikiNode) {
+					return wikiNode.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<WikiNode, Object>() {
+
+				@Override
+				public Object apply(WikiNode wikiNode) {
+					return wikiNode.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPostDate",
+			new Function<WikiNode, Object>() {
+
+				@Override
+				public Object apply(WikiNode wikiNode) {
+					return wikiNode.getLastPostDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<WikiNode, Object>() {
+
+				@Override
+				public Object apply(WikiNode wikiNode) {
+					return wikiNode.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<WikiNode, Object>() {
+
+				@Override
+				public Object apply(WikiNode wikiNode) {
+					return wikiNode.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<WikiNode, Object>() {
+
+				@Override
+				public Object apply(WikiNode wikiNode) {
+					return wikiNode.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<WikiNode, Object>() {
+
+				@Override
+				public Object apply(WikiNode wikiNode) {
+					return wikiNode.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<WikiNode, Object>() {
+
+				@Override
+				public Object apply(WikiNode wikiNode) {
+					return wikiNode.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<WikiNode, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<WikiNode, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<WikiNode, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<WikiNode, Object>() {
+
+				@Override
+				public void accept(WikiNode wikiNode, Object uuidObject) {
+					wikiNode.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"nodeId",
+			new BiConsumer<WikiNode, Object>() {
+
+				@Override
+				public void accept(WikiNode wikiNode, Object nodeIdObject) {
+					wikiNode.setNodeId((Long)nodeIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<WikiNode, Object>() {
+
+				@Override
+				public void accept(WikiNode wikiNode, Object groupIdObject) {
+					wikiNode.setGroupId((Long)groupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<WikiNode, Object>() {
+
+				@Override
+				public void accept(WikiNode wikiNode, Object companyIdObject) {
+					wikiNode.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<WikiNode, Object>() {
+
+				@Override
+				public void accept(WikiNode wikiNode, Object userIdObject) {
+					wikiNode.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<WikiNode, Object>() {
+
+				@Override
+				public void accept(WikiNode wikiNode, Object userNameObject) {
+					wikiNode.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<WikiNode, Object>() {
+
+				@Override
+				public void accept(WikiNode wikiNode, Object createDateObject) {
+					wikiNode.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -498,16 +586,6 @@ public class WikiNodeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<WikiNode, Object>() {
-
-				@Override
-				public Object apply(WikiNode wikiNode) {
-					return wikiNode.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<WikiNode, Object>() {
@@ -515,16 +593,6 @@ public class WikiNodeModelImpl
 				@Override
 				public void accept(WikiNode wikiNode, Object nameObject) {
 					wikiNode.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<WikiNode, Object>() {
-
-				@Override
-				public Object apply(WikiNode wikiNode) {
-					return wikiNode.getDescription();
 				}
 
 			});
@@ -540,16 +608,6 @@ public class WikiNodeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastPostDate",
-			new Function<WikiNode, Object>() {
-
-				@Override
-				public Object apply(WikiNode wikiNode) {
-					return wikiNode.getLastPostDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastPostDate",
 			new BiConsumer<WikiNode, Object>() {
@@ -559,16 +617,6 @@ public class WikiNodeModelImpl
 					WikiNode wikiNode, Object lastPostDateObject) {
 
 					wikiNode.setLastPostDate((Date)lastPostDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<WikiNode, Object>() {
-
-				@Override
-				public Object apply(WikiNode wikiNode) {
-					return wikiNode.getLastPublishDate();
 				}
 
 			});
@@ -584,16 +632,6 @@ public class WikiNodeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<WikiNode, Object>() {
-
-				@Override
-				public Object apply(WikiNode wikiNode) {
-					return wikiNode.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<WikiNode, Object>() {
@@ -601,16 +639,6 @@ public class WikiNodeModelImpl
 				@Override
 				public void accept(WikiNode wikiNode, Object statusObject) {
 					wikiNode.setStatus((Integer)statusObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<WikiNode, Object>() {
-
-				@Override
-				public Object apply(WikiNode wikiNode) {
-					return wikiNode.getStatusByUserId();
 				}
 
 			});
@@ -623,16 +651,6 @@ public class WikiNodeModelImpl
 					WikiNode wikiNode, Object statusByUserIdObject) {
 
 					wikiNode.setStatusByUserId((Long)statusByUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<WikiNode, Object>() {
-
-				@Override
-				public Object apply(WikiNode wikiNode) {
-					return wikiNode.getStatusByUserName();
 				}
 
 			});
@@ -649,16 +667,6 @@ public class WikiNodeModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<WikiNode, Object>() {
-
-				@Override
-				public Object apply(WikiNode wikiNode) {
-					return wikiNode.getStatusDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusDate",
 			new BiConsumer<WikiNode, Object>() {
@@ -670,8 +678,6 @@ public class WikiNodeModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

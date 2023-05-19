@@ -34,8 +34,6 @@ import com.liferay.portal.security.wedeploy.auth.service.persistence.WeDeployAut
 import com.liferay.portal.security.wedeploy.auth.service.persistence.WeDeployAuthTokenPersistence;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -337,11 +335,11 @@ public abstract class WeDeployAuthAppServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(weDeployAuthAppService);
+		WeDeployAuthAppServiceUtil.setService(weDeployAuthAppService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		WeDeployAuthAppServiceUtil.setService(null);
 	}
 
 	/**
@@ -383,22 +381,6 @@ public abstract class WeDeployAuthAppServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		WeDeployAuthAppService weDeployAuthAppService) {
-
-		try {
-			Field field = WeDeployAuthAppServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, weDeployAuthAppService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

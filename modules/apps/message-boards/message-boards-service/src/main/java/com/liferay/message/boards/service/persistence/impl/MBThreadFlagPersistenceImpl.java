@@ -3765,33 +3765,17 @@ public class MBThreadFlagPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_T",
 			new String[] {Long.class.getName(), Long.class.getName()});
 
-		_setMBThreadFlagUtilPersistence(this);
+		MBThreadFlagUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setMBThreadFlagUtilPersistence(null);
+		MBThreadFlagUtil.setPersistence(null);
 
 		entityCache.removeCache(MBThreadFlagImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setMBThreadFlagUtilPersistence(
-		MBThreadFlagPersistence mbThreadFlagPersistence) {
-
-		try {
-			Field field = MBThreadFlagUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, mbThreadFlagPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

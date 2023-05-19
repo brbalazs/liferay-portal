@@ -406,14 +406,10 @@ public class AssetEntryModelImpl
 
 	private static final Map<String, Function<AssetEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AssetEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AssetEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<AssetEntry, Object>>();
-		Map<String, BiConsumer<AssetEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<AssetEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"entryId",
@@ -425,6 +421,278 @@ public class AssetEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classUuid",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getClassUuid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classTypeId",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getClassTypeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"listable",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getListable();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"visible",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getVisible();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"startDate",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getStartDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"endDate",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getEndDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"publishDate",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"expirationDate",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getExpirationDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"mimeType",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getMimeType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"summary",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getSummary();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"url",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getUrl();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutUuid",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getLayoutUuid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"height",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getHeight();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"width",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getWidth();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"priority",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getPriority();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"viewCount",
+			new Function<AssetEntry, Object>() {
+
+				@Override
+				public Object apply(AssetEntry assetEntry) {
+					return assetEntry.getViewCount();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AssetEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AssetEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<AssetEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"entryId",
 			new BiConsumer<AssetEntry, Object>() {
@@ -434,16 +702,6 @@ public class AssetEntryModelImpl
 					AssetEntry assetEntry, Object entryIdObject) {
 
 					assetEntry.setEntryId((Long)entryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getGroupId();
 				}
 
 			});
@@ -459,16 +717,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<AssetEntry, Object>() {
@@ -481,16 +729,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<AssetEntry, Object>() {
@@ -498,16 +736,6 @@ public class AssetEntryModelImpl
 				@Override
 				public void accept(AssetEntry assetEntry, Object userIdObject) {
 					assetEntry.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getUserName();
 				}
 
 			});
@@ -523,16 +751,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<AssetEntry, Object>() {
@@ -542,16 +760,6 @@ public class AssetEntryModelImpl
 					AssetEntry assetEntry, Object createDateObject) {
 
 					assetEntry.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getModifiedDate();
 				}
 
 			});
@@ -567,16 +775,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<AssetEntry, Object>() {
@@ -586,16 +784,6 @@ public class AssetEntryModelImpl
 					AssetEntry assetEntry, Object classNameIdObject) {
 
 					assetEntry.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getClassPK();
 				}
 
 			});
@@ -611,16 +799,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classUuid",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getClassUuid();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classUuid",
 			new BiConsumer<AssetEntry, Object>() {
@@ -630,16 +808,6 @@ public class AssetEntryModelImpl
 					AssetEntry assetEntry, Object classUuidObject) {
 
 					assetEntry.setClassUuid((String)classUuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classTypeId",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getClassTypeId();
 				}
 
 			});
@@ -655,16 +823,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"listable",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getListable();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"listable",
 			new BiConsumer<AssetEntry, Object>() {
@@ -674,16 +832,6 @@ public class AssetEntryModelImpl
 					AssetEntry assetEntry, Object listableObject) {
 
 					assetEntry.setListable((Boolean)listableObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"visible",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getVisible();
 				}
 
 			});
@@ -699,16 +847,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"startDate",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getStartDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"startDate",
 			new BiConsumer<AssetEntry, Object>() {
@@ -718,16 +856,6 @@ public class AssetEntryModelImpl
 					AssetEntry assetEntry, Object startDateObject) {
 
 					assetEntry.setStartDate((Date)startDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"endDate",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getEndDate();
 				}
 
 			});
@@ -743,16 +871,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"publishDate",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getPublishDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"publishDate",
 			new BiConsumer<AssetEntry, Object>() {
@@ -762,16 +880,6 @@ public class AssetEntryModelImpl
 					AssetEntry assetEntry, Object publishDateObject) {
 
 					assetEntry.setPublishDate((Date)publishDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"expirationDate",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getExpirationDate();
 				}
 
 			});
@@ -787,16 +895,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"mimeType",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getMimeType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"mimeType",
 			new BiConsumer<AssetEntry, Object>() {
@@ -809,16 +907,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getTitle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"title",
 			new BiConsumer<AssetEntry, Object>() {
@@ -826,16 +914,6 @@ public class AssetEntryModelImpl
 				@Override
 				public void accept(AssetEntry assetEntry, Object titleObject) {
 					assetEntry.setTitle((String)titleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getDescription();
 				}
 
 			});
@@ -851,16 +929,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"summary",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getSummary();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"summary",
 			new BiConsumer<AssetEntry, Object>() {
@@ -873,16 +941,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"url",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getUrl();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"url",
 			new BiConsumer<AssetEntry, Object>() {
@@ -890,16 +948,6 @@ public class AssetEntryModelImpl
 				@Override
 				public void accept(AssetEntry assetEntry, Object urlObject) {
 					assetEntry.setUrl((String)urlObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutUuid",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getLayoutUuid();
 				}
 
 			});
@@ -915,16 +963,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"height",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getHeight();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"height",
 			new BiConsumer<AssetEntry, Object>() {
@@ -932,16 +970,6 @@ public class AssetEntryModelImpl
 				@Override
 				public void accept(AssetEntry assetEntry, Object heightObject) {
 					assetEntry.setHeight((Integer)heightObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"width",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getWidth();
 				}
 
 			});
@@ -955,16 +983,6 @@ public class AssetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"priority",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getPriority();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"priority",
 			new BiConsumer<AssetEntry, Object>() {
@@ -974,16 +992,6 @@ public class AssetEntryModelImpl
 					AssetEntry assetEntry, Object priorityObject) {
 
 					assetEntry.setPriority((Double)priorityObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"viewCount",
-			new Function<AssetEntry, Object>() {
-
-				@Override
-				public Object apply(AssetEntry assetEntry) {
-					return assetEntry.getViewCount();
 				}
 
 			});
@@ -1000,8 +1008,6 @@ public class AssetEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

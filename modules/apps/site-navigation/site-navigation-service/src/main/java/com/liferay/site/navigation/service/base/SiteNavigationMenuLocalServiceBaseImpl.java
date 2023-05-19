@@ -57,8 +57,6 @@ import com.liferay.site.navigation.service.persistence.SiteNavigationMenuPersist
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -777,14 +775,15 @@ public abstract class SiteNavigationMenuLocalServiceBaseImpl
 			"com.liferay.site.navigation.model.SiteNavigationMenu",
 			siteNavigationMenuLocalService);
 
-		_setLocalServiceUtilService(siteNavigationMenuLocalService);
+		SiteNavigationMenuLocalServiceUtil.setService(
+			siteNavigationMenuLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.site.navigation.model.SiteNavigationMenu");
 
-		_setLocalServiceUtilService(null);
+		SiteNavigationMenuLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -827,23 +826,6 @@ public abstract class SiteNavigationMenuLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		SiteNavigationMenuLocalService siteNavigationMenuLocalService) {
-
-		try {
-			Field field =
-				SiteNavigationMenuLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, siteNavigationMenuLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

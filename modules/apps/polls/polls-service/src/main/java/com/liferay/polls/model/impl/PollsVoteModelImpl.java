@@ -316,14 +316,10 @@ public class PollsVoteModelImpl
 
 	private static final Map<String, Function<PollsVote, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PollsVote, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<PollsVote, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<PollsVote, Object>>();
-		Map<String, BiConsumer<PollsVote, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<PollsVote, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -332,16 +328,6 @@ public class PollsVoteModelImpl
 				@Override
 				public Object apply(PollsVote pollsVote) {
 					return pollsVote.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<PollsVote, Object>() {
-
-				@Override
-				public void accept(PollsVote pollsVote, Object uuidObject) {
-					pollsVote.setUuid((String)uuidObject);
 				}
 
 			});
@@ -355,16 +341,6 @@ public class PollsVoteModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"voteId",
-			new BiConsumer<PollsVote, Object>() {
-
-				@Override
-				public void accept(PollsVote pollsVote, Object voteIdObject) {
-					pollsVote.setVoteId((Long)voteIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupId",
 			new Function<PollsVote, Object>() {
@@ -375,16 +351,6 @@ public class PollsVoteModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<PollsVote, Object>() {
-
-				@Override
-				public void accept(PollsVote pollsVote, Object groupIdObject) {
-					pollsVote.setGroupId((Long)groupIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<PollsVote, Object>() {
@@ -392,6 +358,128 @@ public class PollsVoteModelImpl
 				@Override
 				public Object apply(PollsVote pollsVote) {
 					return pollsVote.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<PollsVote, Object>() {
+
+				@Override
+				public Object apply(PollsVote pollsVote) {
+					return pollsVote.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<PollsVote, Object>() {
+
+				@Override
+				public Object apply(PollsVote pollsVote) {
+					return pollsVote.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<PollsVote, Object>() {
+
+				@Override
+				public Object apply(PollsVote pollsVote) {
+					return pollsVote.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<PollsVote, Object>() {
+
+				@Override
+				public Object apply(PollsVote pollsVote) {
+					return pollsVote.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"questionId",
+			new Function<PollsVote, Object>() {
+
+				@Override
+				public Object apply(PollsVote pollsVote) {
+					return pollsVote.getQuestionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"choiceId",
+			new Function<PollsVote, Object>() {
+
+				@Override
+				public Object apply(PollsVote pollsVote) {
+					return pollsVote.getChoiceId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<PollsVote, Object>() {
+
+				@Override
+				public Object apply(PollsVote pollsVote) {
+					return pollsVote.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"voteDate",
+			new Function<PollsVote, Object>() {
+
+				@Override
+				public Object apply(PollsVote pollsVote) {
+					return pollsVote.getVoteDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<PollsVote, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<PollsVote, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<PollsVote, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<PollsVote, Object>() {
+
+				@Override
+				public void accept(PollsVote pollsVote, Object uuidObject) {
+					pollsVote.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"voteId",
+			new BiConsumer<PollsVote, Object>() {
+
+				@Override
+				public void accept(PollsVote pollsVote, Object voteIdObject) {
+					pollsVote.setVoteId((Long)voteIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<PollsVote, Object>() {
+
+				@Override
+				public void accept(PollsVote pollsVote, Object groupIdObject) {
+					pollsVote.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -407,16 +495,6 @@ public class PollsVoteModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<PollsVote, Object>() {
-
-				@Override
-				public Object apply(PollsVote pollsVote) {
-					return pollsVote.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<PollsVote, Object>() {
@@ -427,16 +505,6 @@ public class PollsVoteModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<PollsVote, Object>() {
-
-				@Override
-				public Object apply(PollsVote pollsVote) {
-					return pollsVote.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<PollsVote, Object>() {
@@ -444,16 +512,6 @@ public class PollsVoteModelImpl
 				@Override
 				public void accept(PollsVote pollsVote, Object userNameObject) {
 					pollsVote.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<PollsVote, Object>() {
-
-				@Override
-				public Object apply(PollsVote pollsVote) {
-					return pollsVote.getCreateDate();
 				}
 
 			});
@@ -469,16 +527,6 @@ public class PollsVoteModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<PollsVote, Object>() {
-
-				@Override
-				public Object apply(PollsVote pollsVote) {
-					return pollsVote.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<PollsVote, Object>() {
@@ -488,16 +536,6 @@ public class PollsVoteModelImpl
 					PollsVote pollsVote, Object modifiedDateObject) {
 
 					pollsVote.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"questionId",
-			new Function<PollsVote, Object>() {
-
-				@Override
-				public Object apply(PollsVote pollsVote) {
-					return pollsVote.getQuestionId();
 				}
 
 			});
@@ -513,16 +551,6 @@ public class PollsVoteModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"choiceId",
-			new Function<PollsVote, Object>() {
-
-				@Override
-				public Object apply(PollsVote pollsVote) {
-					return pollsVote.getChoiceId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"choiceId",
 			new BiConsumer<PollsVote, Object>() {
@@ -530,16 +558,6 @@ public class PollsVoteModelImpl
 				@Override
 				public void accept(PollsVote pollsVote, Object choiceIdObject) {
 					pollsVote.setChoiceId((Long)choiceIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<PollsVote, Object>() {
-
-				@Override
-				public Object apply(PollsVote pollsVote) {
-					return pollsVote.getLastPublishDate();
 				}
 
 			});
@@ -555,16 +573,6 @@ public class PollsVoteModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"voteDate",
-			new Function<PollsVote, Object>() {
-
-				@Override
-				public Object apply(PollsVote pollsVote) {
-					return pollsVote.getVoteDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"voteDate",
 			new BiConsumer<PollsVote, Object>() {
@@ -576,8 +584,6 @@ public class PollsVoteModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

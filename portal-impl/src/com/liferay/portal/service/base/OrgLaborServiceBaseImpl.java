@@ -32,8 +32,6 @@ import com.liferay.portal.kernel.service.persistence.ListTypePersistence;
 import com.liferay.portal.kernel.service.persistence.OrgLaborPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -225,11 +223,11 @@ public abstract class OrgLaborServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(orgLaborService);
+		OrgLaborServiceUtil.setService(orgLaborService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		OrgLaborServiceUtil.setService(null);
 	}
 
 	/**
@@ -271,20 +269,6 @@ public abstract class OrgLaborServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(OrgLaborService orgLaborService) {
-		try {
-			Field field = OrgLaborServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, orgLaborService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

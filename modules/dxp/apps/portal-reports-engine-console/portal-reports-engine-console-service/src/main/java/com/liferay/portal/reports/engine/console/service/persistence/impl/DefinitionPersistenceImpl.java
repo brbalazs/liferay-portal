@@ -3863,32 +3863,17 @@ public class DefinitionPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
 			new String[] {Long.class.getName()});
 
-		_setDefinitionUtilPersistence(this);
+		DefinitionUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setDefinitionUtilPersistence(null);
+		DefinitionUtil.setPersistence(null);
 
 		entityCache.removeCache(DefinitionImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setDefinitionUtilPersistence(
-		DefinitionPersistence definitionPersistence) {
-
-		try {
-			Field field = DefinitionUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, definitionPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

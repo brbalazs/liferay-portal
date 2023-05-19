@@ -33,8 +33,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -225,11 +223,11 @@ public abstract class BackgroundTaskServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(backgroundTaskService);
+		BackgroundTaskServiceUtil.setService(backgroundTaskService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		BackgroundTaskServiceUtil.setService(null);
 	}
 
 	/**
@@ -271,22 +269,6 @@ public abstract class BackgroundTaskServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		BackgroundTaskService backgroundTaskService) {
-
-		try {
-			Field field = BackgroundTaskServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, backgroundTaskService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

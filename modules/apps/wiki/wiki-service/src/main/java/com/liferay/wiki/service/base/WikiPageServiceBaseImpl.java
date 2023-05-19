@@ -43,8 +43,6 @@ import com.liferay.wiki.service.persistence.WikiPageFinder;
 import com.liferay.wiki.service.persistence.WikiPagePersistence;
 import com.liferay.wiki.service.persistence.WikiPageResourcePersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -772,11 +770,11 @@ public abstract class WikiPageServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(wikiPageService);
+		WikiPageServiceUtil.setService(wikiPageService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		WikiPageServiceUtil.setService(null);
 	}
 
 	/**
@@ -818,20 +816,6 @@ public abstract class WikiPageServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(WikiPageService wikiPageService) {
-		try {
-			Field field = WikiPageServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, wikiPageService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

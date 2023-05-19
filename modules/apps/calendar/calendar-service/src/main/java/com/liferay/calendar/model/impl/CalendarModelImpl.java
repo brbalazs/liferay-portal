@@ -334,14 +334,10 @@ public class CalendarModelImpl
 
 	private static final Map<String, Function<Calendar, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Calendar, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Calendar, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Calendar, Object>>();
-		Map<String, BiConsumer<Calendar, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Calendar, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -350,16 +346,6 @@ public class CalendarModelImpl
 				@Override
 				public Object apply(Calendar calendar) {
 					return calendar.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Calendar, Object>() {
-
-				@Override
-				public void accept(Calendar calendar, Object uuidObject) {
-					calendar.setUuid((String)uuidObject);
 				}
 
 			});
@@ -373,16 +359,6 @@ public class CalendarModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"calendarId",
-			new BiConsumer<Calendar, Object>() {
-
-				@Override
-				public void accept(Calendar calendar, Object calendarIdObject) {
-					calendar.setCalendarId((Long)calendarIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupId",
 			new Function<Calendar, Object>() {
@@ -390,16 +366,6 @@ public class CalendarModelImpl
 				@Override
 				public Object apply(Calendar calendar) {
 					return calendar.getGroupId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<Calendar, Object>() {
-
-				@Override
-				public void accept(Calendar calendar, Object groupIdObject) {
-					calendar.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -413,16 +379,6 @@ public class CalendarModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Calendar, Object>() {
-
-				@Override
-				public void accept(Calendar calendar, Object companyIdObject) {
-					calendar.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Calendar, Object>() {
@@ -430,16 +386,6 @@ public class CalendarModelImpl
 				@Override
 				public Object apply(Calendar calendar) {
 					return calendar.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Calendar, Object>() {
-
-				@Override
-				public void accept(Calendar calendar, Object userIdObject) {
-					calendar.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -453,16 +399,6 @@ public class CalendarModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Calendar, Object>() {
-
-				@Override
-				public void accept(Calendar calendar, Object userNameObject) {
-					calendar.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Calendar, Object>() {
@@ -470,16 +406,6 @@ public class CalendarModelImpl
 				@Override
 				public Object apply(Calendar calendar) {
 					return calendar.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Calendar, Object>() {
-
-				@Override
-				public void accept(Calendar calendar, Object createDateObject) {
-					calendar.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -493,6 +419,178 @@ public class CalendarModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"calendarResourceId",
+			new Function<Calendar, Object>() {
+
+				@Override
+				public Object apply(Calendar calendar) {
+					return calendar.getCalendarResourceId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<Calendar, Object>() {
+
+				@Override
+				public Object apply(Calendar calendar) {
+					return calendar.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<Calendar, Object>() {
+
+				@Override
+				public Object apply(Calendar calendar) {
+					return calendar.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"timeZoneId",
+			new Function<Calendar, Object>() {
+
+				@Override
+				public Object apply(Calendar calendar) {
+					return calendar.getTimeZoneId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"color",
+			new Function<Calendar, Object>() {
+
+				@Override
+				public Object apply(Calendar calendar) {
+					return calendar.getColor();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"defaultCalendar",
+			new Function<Calendar, Object>() {
+
+				@Override
+				public Object apply(Calendar calendar) {
+					return calendar.getDefaultCalendar();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"enableComments",
+			new Function<Calendar, Object>() {
+
+				@Override
+				public Object apply(Calendar calendar) {
+					return calendar.getEnableComments();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"enableRatings",
+			new Function<Calendar, Object>() {
+
+				@Override
+				public Object apply(Calendar calendar) {
+					return calendar.getEnableRatings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<Calendar, Object>() {
+
+				@Override
+				public Object apply(Calendar calendar) {
+					return calendar.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Calendar, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Calendar, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Calendar, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Calendar, Object>() {
+
+				@Override
+				public void accept(Calendar calendar, Object uuidObject) {
+					calendar.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"calendarId",
+			new BiConsumer<Calendar, Object>() {
+
+				@Override
+				public void accept(Calendar calendar, Object calendarIdObject) {
+					calendar.setCalendarId((Long)calendarIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<Calendar, Object>() {
+
+				@Override
+				public void accept(Calendar calendar, Object groupIdObject) {
+					calendar.setGroupId((Long)groupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Calendar, Object>() {
+
+				@Override
+				public void accept(Calendar calendar, Object companyIdObject) {
+					calendar.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Calendar, Object>() {
+
+				@Override
+				public void accept(Calendar calendar, Object userIdObject) {
+					calendar.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Calendar, Object>() {
+
+				@Override
+				public void accept(Calendar calendar, Object userNameObject) {
+					calendar.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Calendar, Object>() {
+
+				@Override
+				public void accept(Calendar calendar, Object createDateObject) {
+					calendar.setCreateDate((Date)createDateObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<Calendar, Object>() {
@@ -502,16 +600,6 @@ public class CalendarModelImpl
 					Calendar calendar, Object modifiedDateObject) {
 
 					calendar.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"calendarResourceId",
-			new Function<Calendar, Object>() {
-
-				@Override
-				public Object apply(Calendar calendar) {
-					return calendar.getCalendarResourceId();
 				}
 
 			});
@@ -528,16 +616,6 @@ public class CalendarModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<Calendar, Object>() {
-
-				@Override
-				public Object apply(Calendar calendar) {
-					return calendar.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<Calendar, Object>() {
@@ -545,16 +623,6 @@ public class CalendarModelImpl
 				@Override
 				public void accept(Calendar calendar, Object nameObject) {
 					calendar.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<Calendar, Object>() {
-
-				@Override
-				public Object apply(Calendar calendar) {
-					return calendar.getDescription();
 				}
 
 			});
@@ -570,16 +638,6 @@ public class CalendarModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"timeZoneId",
-			new Function<Calendar, Object>() {
-
-				@Override
-				public Object apply(Calendar calendar) {
-					return calendar.getTimeZoneId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"timeZoneId",
 			new BiConsumer<Calendar, Object>() {
@@ -590,16 +648,6 @@ public class CalendarModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"color",
-			new Function<Calendar, Object>() {
-
-				@Override
-				public Object apply(Calendar calendar) {
-					return calendar.getColor();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"color",
 			new BiConsumer<Calendar, Object>() {
@@ -607,16 +655,6 @@ public class CalendarModelImpl
 				@Override
 				public void accept(Calendar calendar, Object colorObject) {
 					calendar.setColor((Integer)colorObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"defaultCalendar",
-			new Function<Calendar, Object>() {
-
-				@Override
-				public Object apply(Calendar calendar) {
-					return calendar.getDefaultCalendar();
 				}
 
 			});
@@ -632,16 +670,6 @@ public class CalendarModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"enableComments",
-			new Function<Calendar, Object>() {
-
-				@Override
-				public Object apply(Calendar calendar) {
-					return calendar.getEnableComments();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"enableComments",
 			new BiConsumer<Calendar, Object>() {
@@ -654,16 +682,6 @@ public class CalendarModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"enableRatings",
-			new Function<Calendar, Object>() {
-
-				@Override
-				public Object apply(Calendar calendar) {
-					return calendar.getEnableRatings();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"enableRatings",
 			new BiConsumer<Calendar, Object>() {
@@ -673,16 +691,6 @@ public class CalendarModelImpl
 					Calendar calendar, Object enableRatingsObject) {
 
 					calendar.setEnableRatings((Boolean)enableRatingsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<Calendar, Object>() {
-
-				@Override
-				public Object apply(Calendar calendar) {
-					return calendar.getLastPublishDate();
 				}
 
 			});
@@ -699,8 +707,6 @@ public class CalendarModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

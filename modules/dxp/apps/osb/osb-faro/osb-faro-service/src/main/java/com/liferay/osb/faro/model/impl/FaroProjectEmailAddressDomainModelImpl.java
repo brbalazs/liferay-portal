@@ -248,19 +248,12 @@ public class FaroProjectEmailAddressDomainModelImpl
 	private static final Map
 		<String, Function<FaroProjectEmailAddressDomain, Object>>
 			_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<FaroProjectEmailAddressDomain, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<FaroProjectEmailAddressDomain, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<FaroProjectEmailAddressDomain, Object>>();
-		Map<String, BiConsumer<FaroProjectEmailAddressDomain, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<FaroProjectEmailAddressDomain, ?>>();
 
 		attributeGetterFunctions.put(
 			"faroProjectEmailAddressDomainId",
@@ -276,6 +269,61 @@ public class FaroProjectEmailAddressDomainModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<FaroProjectEmailAddressDomain, Object>() {
+
+				@Override
+				public Object apply(
+					FaroProjectEmailAddressDomain
+						faroProjectEmailAddressDomain) {
+
+					return faroProjectEmailAddressDomain.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"faroProjectId",
+			new Function<FaroProjectEmailAddressDomain, Object>() {
+
+				@Override
+				public Object apply(
+					FaroProjectEmailAddressDomain
+						faroProjectEmailAddressDomain) {
+
+					return faroProjectEmailAddressDomain.getFaroProjectId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"emailAddressDomain",
+			new Function<FaroProjectEmailAddressDomain, Object>() {
+
+				@Override
+				public Object apply(
+					FaroProjectEmailAddressDomain
+						faroProjectEmailAddressDomain) {
+
+					return faroProjectEmailAddressDomain.
+						getEmailAddressDomain();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<FaroProjectEmailAddressDomain, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<FaroProjectEmailAddressDomain, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<FaroProjectEmailAddressDomain, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"faroProjectEmailAddressDomainId",
 			new BiConsumer<FaroProjectEmailAddressDomain, Object>() {
@@ -288,19 +336,6 @@ public class FaroProjectEmailAddressDomainModelImpl
 					faroProjectEmailAddressDomain.
 						setFaroProjectEmailAddressDomainId(
 							(Long)faroProjectEmailAddressDomainIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<FaroProjectEmailAddressDomain, Object>() {
-
-				@Override
-				public Object apply(
-					FaroProjectEmailAddressDomain
-						faroProjectEmailAddressDomain) {
-
-					return faroProjectEmailAddressDomain.getGroupId();
 				}
 
 			});
@@ -318,19 +353,6 @@ public class FaroProjectEmailAddressDomainModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"faroProjectId",
-			new Function<FaroProjectEmailAddressDomain, Object>() {
-
-				@Override
-				public Object apply(
-					FaroProjectEmailAddressDomain
-						faroProjectEmailAddressDomain) {
-
-					return faroProjectEmailAddressDomain.getFaroProjectId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"faroProjectId",
 			new BiConsumer<FaroProjectEmailAddressDomain, Object>() {
@@ -342,20 +364,6 @@ public class FaroProjectEmailAddressDomainModelImpl
 
 					faroProjectEmailAddressDomain.setFaroProjectId(
 						(Long)faroProjectIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"emailAddressDomain",
-			new Function<FaroProjectEmailAddressDomain, Object>() {
-
-				@Override
-				public Object apply(
-					FaroProjectEmailAddressDomain
-						faroProjectEmailAddressDomain) {
-
-					return faroProjectEmailAddressDomain.
-						getEmailAddressDomain();
 				}
 
 			});
@@ -374,8 +382,6 @@ public class FaroProjectEmailAddressDomainModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

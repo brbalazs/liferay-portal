@@ -319,14 +319,10 @@ public class SourceModelImpl
 
 	private static final Map<String, Function<Source, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Source, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Source, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Source, Object>>();
-		Map<String, BiConsumer<Source, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Source, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -335,16 +331,6 @@ public class SourceModelImpl
 				@Override
 				public Object apply(Source source) {
 					return source.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Source, Object>() {
-
-				@Override
-				public void accept(Source source, Object uuidObject) {
-					source.setUuid((String)uuidObject);
 				}
 
 			});
@@ -358,16 +344,6 @@ public class SourceModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"sourceId",
-			new BiConsumer<Source, Object>() {
-
-				@Override
-				public void accept(Source source, Object sourceIdObject) {
-					source.setSourceId((Long)sourceIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupId",
 			new Function<Source, Object>() {
@@ -375,16 +351,6 @@ public class SourceModelImpl
 				@Override
 				public Object apply(Source source) {
 					return source.getGroupId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<Source, Object>() {
-
-				@Override
-				public void accept(Source source, Object groupIdObject) {
-					source.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -398,16 +364,6 @@ public class SourceModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Source, Object>() {
-
-				@Override
-				public void accept(Source source, Object companyIdObject) {
-					source.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Source, Object>() {
@@ -415,16 +371,6 @@ public class SourceModelImpl
 				@Override
 				public Object apply(Source source) {
 					return source.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Source, Object>() {
-
-				@Override
-				public void accept(Source source, Object userIdObject) {
-					source.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -438,16 +384,6 @@ public class SourceModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Source, Object>() {
-
-				@Override
-				public void accept(Source source, Object userNameObject) {
-					source.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Source, Object>() {
@@ -455,16 +391,6 @@ public class SourceModelImpl
 				@Override
 				public Object apply(Source source) {
 					return source.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Source, Object>() {
-
-				@Override
-				public void accept(Source source, Object createDateObject) {
-					source.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -478,16 +404,6 @@ public class SourceModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Source, Object>() {
-
-				@Override
-				public void accept(Source source, Object modifiedDateObject) {
-					source.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"lastPublishDate",
 			new Function<Source, Object>() {
@@ -495,6 +411,148 @@ public class SourceModelImpl
 				@Override
 				public Object apply(Source source) {
 					return source.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<Source, Object>() {
+
+				@Override
+				public Object apply(Source source) {
+					return source.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"driverClassName",
+			new Function<Source, Object>() {
+
+				@Override
+				public Object apply(Source source) {
+					return source.getDriverClassName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"driverUrl",
+			new Function<Source, Object>() {
+
+				@Override
+				public Object apply(Source source) {
+					return source.getDriverUrl();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"driverUserName",
+			new Function<Source, Object>() {
+
+				@Override
+				public Object apply(Source source) {
+					return source.getDriverUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"driverPassword",
+			new Function<Source, Object>() {
+
+				@Override
+				public Object apply(Source source) {
+					return source.getDriverPassword();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Source, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Source, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Source, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Source, Object>() {
+
+				@Override
+				public void accept(Source source, Object uuidObject) {
+					source.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"sourceId",
+			new BiConsumer<Source, Object>() {
+
+				@Override
+				public void accept(Source source, Object sourceIdObject) {
+					source.setSourceId((Long)sourceIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<Source, Object>() {
+
+				@Override
+				public void accept(Source source, Object groupIdObject) {
+					source.setGroupId((Long)groupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Source, Object>() {
+
+				@Override
+				public void accept(Source source, Object companyIdObject) {
+					source.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Source, Object>() {
+
+				@Override
+				public void accept(Source source, Object userIdObject) {
+					source.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Source, Object>() {
+
+				@Override
+				public void accept(Source source, Object userNameObject) {
+					source.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Source, Object>() {
+
+				@Override
+				public void accept(Source source, Object createDateObject) {
+					source.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Source, Object>() {
+
+				@Override
+				public void accept(Source source, Object modifiedDateObject) {
+					source.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -510,16 +568,6 @@ public class SourceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<Source, Object>() {
-
-				@Override
-				public Object apply(Source source) {
-					return source.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<Source, Object>() {
@@ -527,16 +575,6 @@ public class SourceModelImpl
 				@Override
 				public void accept(Source source, Object nameObject) {
 					source.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"driverClassName",
-			new Function<Source, Object>() {
-
-				@Override
-				public Object apply(Source source) {
-					return source.getDriverClassName();
 				}
 
 			});
@@ -552,16 +590,6 @@ public class SourceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"driverUrl",
-			new Function<Source, Object>() {
-
-				@Override
-				public Object apply(Source source) {
-					return source.getDriverUrl();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"driverUrl",
 			new BiConsumer<Source, Object>() {
@@ -572,16 +600,6 @@ public class SourceModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"driverUserName",
-			new Function<Source, Object>() {
-
-				@Override
-				public Object apply(Source source) {
-					return source.getDriverUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"driverUserName",
 			new BiConsumer<Source, Object>() {
@@ -589,16 +607,6 @@ public class SourceModelImpl
 				@Override
 				public void accept(Source source, Object driverUserNameObject) {
 					source.setDriverUserName((String)driverUserNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"driverPassword",
-			new Function<Source, Object>() {
-
-				@Override
-				public Object apply(Source source) {
-					return source.getDriverPassword();
 				}
 
 			});
@@ -613,8 +621,6 @@ public class SourceModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

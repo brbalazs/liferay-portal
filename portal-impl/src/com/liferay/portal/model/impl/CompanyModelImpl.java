@@ -304,14 +304,10 @@ public class CompanyModelImpl
 
 	private static final Map<String, Function<Company, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Company, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Company, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Company, Object>>();
-		Map<String, BiConsumer<Company, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Company, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -320,16 +316,6 @@ public class CompanyModelImpl
 				@Override
 				public Object apply(Company company) {
 					return company.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object mvccVersionObject) {
-					company.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -343,16 +329,6 @@ public class CompanyModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object companyIdObject) {
-					company.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"accountId",
 			new Function<Company, Object>() {
@@ -360,16 +336,6 @@ public class CompanyModelImpl
 				@Override
 				public Object apply(Company company) {
 					return company.getAccountId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"accountId",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object accountIdObject) {
-					company.setAccountId((Long)accountIdObject);
 				}
 
 			});
@@ -383,16 +349,6 @@ public class CompanyModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"webId",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object webIdObject) {
-					company.setWebId((String)webIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"key",
 			new Function<Company, Object>() {
@@ -400,16 +356,6 @@ public class CompanyModelImpl
 				@Override
 				public Object apply(Company company) {
 					return company.getKey();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"key",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object keyObject) {
-					company.setKey((String)keyObject);
 				}
 
 			});
@@ -423,16 +369,6 @@ public class CompanyModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"mx",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object mxObject) {
-					company.setMx((String)mxObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"homeURL",
 			new Function<Company, Object>() {
@@ -440,16 +376,6 @@ public class CompanyModelImpl
 				@Override
 				public Object apply(Company company) {
 					return company.getHomeURL();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"homeURL",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object homeURLObject) {
-					company.setHomeURL((String)homeURLObject);
 				}
 
 			});
@@ -463,16 +389,6 @@ public class CompanyModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"logoId",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object logoIdObject) {
-					company.setLogoId((Long)logoIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"system",
 			new Function<Company, Object>() {
@@ -480,16 +396,6 @@ public class CompanyModelImpl
 				@Override
 				public Object apply(Company company) {
 					return company.getSystem();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"system",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object systemObject) {
-					company.setSystem((Boolean)systemObject);
 				}
 
 			});
@@ -503,16 +409,6 @@ public class CompanyModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"maxUsers",
-			new BiConsumer<Company, Object>() {
-
-				@Override
-				public void accept(Company company, Object maxUsersObject) {
-					company.setMaxUsers((Integer)maxUsersObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"active",
 			new Function<Company, Object>() {
@@ -520,6 +416,118 @@ public class CompanyModelImpl
 				@Override
 				public Object apply(Company company) {
 					return company.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Company, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Company, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Company, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object mvccVersionObject) {
+					company.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object companyIdObject) {
+					company.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"accountId",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object accountIdObject) {
+					company.setAccountId((Long)accountIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"webId",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object webIdObject) {
+					company.setWebId((String)webIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"key",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object keyObject) {
+					company.setKey((String)keyObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"mx",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object mxObject) {
+					company.setMx((String)mxObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"homeURL",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object homeURLObject) {
+					company.setHomeURL((String)homeURLObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"logoId",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object logoIdObject) {
+					company.setLogoId((Long)logoIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"system",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object systemObject) {
+					company.setSystem((Boolean)systemObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"maxUsers",
+			new BiConsumer<Company, Object>() {
+
+				@Override
+				public void accept(Company company, Object maxUsersObject) {
+					company.setMaxUsers((Integer)maxUsersObject);
 				}
 
 			});
@@ -534,8 +542,6 @@ public class CompanyModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

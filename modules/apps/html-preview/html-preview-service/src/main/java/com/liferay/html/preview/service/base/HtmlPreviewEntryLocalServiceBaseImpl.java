@@ -48,8 +48,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -474,14 +472,15 @@ public abstract class HtmlPreviewEntryLocalServiceBaseImpl
 			"com.liferay.html.preview.model.HtmlPreviewEntry",
 			htmlPreviewEntryLocalService);
 
-		_setLocalServiceUtilService(htmlPreviewEntryLocalService);
+		HtmlPreviewEntryLocalServiceUtil.setService(
+			htmlPreviewEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.html.preview.model.HtmlPreviewEntry");
 
-		_setLocalServiceUtilService(null);
+		HtmlPreviewEntryLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -523,23 +522,6 @@ public abstract class HtmlPreviewEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		HtmlPreviewEntryLocalService htmlPreviewEntryLocalService) {
-
-		try {
-			Field field =
-				HtmlPreviewEntryLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, htmlPreviewEntryLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

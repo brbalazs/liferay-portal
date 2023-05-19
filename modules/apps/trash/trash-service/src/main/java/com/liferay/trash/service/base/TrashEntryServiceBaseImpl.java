@@ -36,8 +36,6 @@ import com.liferay.trash.service.TrashEntryServiceUtil;
 import com.liferay.trash.service.persistence.TrashEntryPersistence;
 import com.liferay.trash.service.persistence.TrashVersionPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -417,11 +415,11 @@ public abstract class TrashEntryServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(trashEntryService);
+		TrashEntryServiceUtil.setService(trashEntryService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		TrashEntryServiceUtil.setService(null);
 	}
 
 	/**
@@ -463,20 +461,6 @@ public abstract class TrashEntryServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(TrashEntryService trashEntryService) {
-		try {
-			Field field = TrashEntryServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, trashEntryService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

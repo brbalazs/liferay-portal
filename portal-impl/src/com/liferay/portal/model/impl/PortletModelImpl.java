@@ -287,14 +287,10 @@ public class PortletModelImpl
 
 	private static final Map<String, Function<Portlet, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Portlet, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Portlet, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Portlet, Object>>();
-		Map<String, BiConsumer<Portlet, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Portlet, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -303,16 +299,6 @@ public class PortletModelImpl
 				@Override
 				public Object apply(Portlet portlet) {
 					return portlet.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Portlet, Object>() {
-
-				@Override
-				public void accept(Portlet portlet, Object mvccVersionObject) {
-					portlet.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -326,16 +312,6 @@ public class PortletModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"id",
-			new BiConsumer<Portlet, Object>() {
-
-				@Override
-				public void accept(Portlet portlet, Object idObject) {
-					portlet.setId((Long)idObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<Portlet, Object>() {
@@ -343,16 +319,6 @@ public class PortletModelImpl
 				@Override
 				public Object apply(Portlet portlet) {
 					return portlet.getCompanyId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Portlet, Object>() {
-
-				@Override
-				public void accept(Portlet portlet, Object companyIdObject) {
-					portlet.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -366,16 +332,6 @@ public class PortletModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"portletId",
-			new BiConsumer<Portlet, Object>() {
-
-				@Override
-				public void accept(Portlet portlet, Object portletIdObject) {
-					portlet.setPortletId((String)portletIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"roles",
 			new Function<Portlet, Object>() {
@@ -386,16 +342,6 @@ public class PortletModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"roles",
-			new BiConsumer<Portlet, Object>() {
-
-				@Override
-				public void accept(Portlet portlet, Object rolesObject) {
-					portlet.setRoles((String)rolesObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"active",
 			new Function<Portlet, Object>() {
@@ -403,6 +349,68 @@ public class PortletModelImpl
 				@Override
 				public Object apply(Portlet portlet) {
 					return portlet.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Portlet, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Portlet, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Portlet, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Portlet, Object>() {
+
+				@Override
+				public void accept(Portlet portlet, Object mvccVersionObject) {
+					portlet.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"id",
+			new BiConsumer<Portlet, Object>() {
+
+				@Override
+				public void accept(Portlet portlet, Object idObject) {
+					portlet.setId((Long)idObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Portlet, Object>() {
+
+				@Override
+				public void accept(Portlet portlet, Object companyIdObject) {
+					portlet.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"portletId",
+			new BiConsumer<Portlet, Object>() {
+
+				@Override
+				public void accept(Portlet portlet, Object portletIdObject) {
+					portlet.setPortletId((String)portletIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"roles",
+			new BiConsumer<Portlet, Object>() {
+
+				@Override
+				public void accept(Portlet portlet, Object rolesObject) {
+					portlet.setRoles((String)rolesObject);
 				}
 
 			});
@@ -417,8 +425,6 @@ public class PortletModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -47,8 +47,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -431,14 +429,15 @@ public abstract class FaroNotificationLocalServiceBaseImpl
 			"com.liferay.osb.faro.model.FaroNotification",
 			faroNotificationLocalService);
 
-		_setLocalServiceUtilService(faroNotificationLocalService);
+		FaroNotificationLocalServiceUtil.setService(
+			faroNotificationLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.osb.faro.model.FaroNotification");
 
-		_setLocalServiceUtilService(null);
+		FaroNotificationLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -480,23 +479,6 @@ public abstract class FaroNotificationLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		FaroNotificationLocalService faroNotificationLocalService) {
-
-		try {
-			Field field =
-				FaroNotificationLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, faroNotificationLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

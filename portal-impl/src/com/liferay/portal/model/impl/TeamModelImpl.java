@@ -337,14 +337,10 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 
 	private static final Map<String, Function<Team, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Team, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Team, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Team, Object>>();
-		Map<String, BiConsumer<Team, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Team, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -353,16 +349,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				@Override
 				public Object apply(Team team) {
 					return team.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object mvccVersionObject) {
-					team.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -376,16 +362,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object uuidObject) {
-					team.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"teamId",
 			new Function<Team, Object>() {
@@ -393,16 +369,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				@Override
 				public Object apply(Team team) {
 					return team.getTeamId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"teamId",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object teamIdObject) {
-					team.setTeamId((Long)teamIdObject);
 				}
 
 			});
@@ -416,16 +382,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object companyIdObject) {
-					team.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Team, Object>() {
@@ -433,16 +389,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				@Override
 				public Object apply(Team team) {
 					return team.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object userIdObject) {
-					team.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -456,16 +402,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object userNameObject) {
-					team.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Team, Object>() {
@@ -473,16 +409,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				@Override
 				public Object apply(Team team) {
 					return team.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object createDateObject) {
-					team.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -496,16 +422,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object modifiedDateObject) {
-					team.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"groupId",
 			new Function<Team, Object>() {
@@ -513,16 +429,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				@Override
 				public Object apply(Team team) {
 					return team.getGroupId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object groupIdObject) {
-					team.setGroupId((Long)groupIdObject);
 				}
 
 			});
@@ -536,16 +442,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"name",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object nameObject) {
-					team.setName((String)nameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"description",
 			new Function<Team, Object>() {
@@ -556,16 +452,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"description",
-			new BiConsumer<Team, Object>() {
-
-				@Override
-				public void accept(Team team, Object descriptionObject) {
-					team.setDescription((String)descriptionObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"lastPublishDate",
 			new Function<Team, Object>() {
@@ -573,6 +459,128 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 				@Override
 				public Object apply(Team team) {
 					return team.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Team, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Team, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Team, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object mvccVersionObject) {
+					team.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object uuidObject) {
+					team.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"teamId",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object teamIdObject) {
+					team.setTeamId((Long)teamIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object companyIdObject) {
+					team.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object userIdObject) {
+					team.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object userNameObject) {
+					team.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object createDateObject) {
+					team.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object modifiedDateObject) {
+					team.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object groupIdObject) {
+					team.setGroupId((Long)groupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"name",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object nameObject) {
+					team.setName((String)nameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"description",
+			new BiConsumer<Team, Object>() {
+
+				@Override
+				public void accept(Team team, Object descriptionObject) {
+					team.setDescription((String)descriptionObject);
 				}
 
 			});
@@ -587,8 +595,6 @@ public class TeamModelImpl extends BaseModelImpl<Team> implements TeamModel {
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -260,14 +260,10 @@ public class MemberRequestModelImpl
 
 	private static final Map<String, Function<MemberRequest, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MemberRequest, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MemberRequest, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<MemberRequest, Object>>();
-		Map<String, BiConsumer<MemberRequest, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MemberRequest, ?>>();
 
 		attributeGetterFunctions.put(
 			"memberRequestId",
@@ -279,6 +275,128 @@ public class MemberRequestModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"key",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"receiverUserId",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getReceiverUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"invitedRoleId",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getInvitedRoleId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"invitedTeamId",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getInvitedTeamId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<MemberRequest, Object>() {
+
+				@Override
+				public Object apply(MemberRequest memberRequest) {
+					return memberRequest.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MemberRequest, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MemberRequest, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MemberRequest, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"memberRequestId",
 			new BiConsumer<MemberRequest, Object>() {
@@ -289,16 +407,6 @@ public class MemberRequestModelImpl
 
 					memberRequest.setMemberRequestId(
 						(Long)memberRequestIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getGroupId();
 				}
 
 			});
@@ -314,16 +422,6 @@ public class MemberRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<MemberRequest, Object>() {
@@ -333,16 +431,6 @@ public class MemberRequestModelImpl
 					MemberRequest memberRequest, Object companyIdObject) {
 
 					memberRequest.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getUserId();
 				}
 
 			});
@@ -358,16 +446,6 @@ public class MemberRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<MemberRequest, Object>() {
@@ -377,16 +455,6 @@ public class MemberRequestModelImpl
 					MemberRequest memberRequest, Object userNameObject) {
 
 					memberRequest.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getCreateDate();
 				}
 
 			});
@@ -402,16 +470,6 @@ public class MemberRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<MemberRequest, Object>() {
@@ -421,16 +479,6 @@ public class MemberRequestModelImpl
 					MemberRequest memberRequest, Object modifiedDateObject) {
 
 					memberRequest.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"key",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getKey();
 				}
 
 			});
@@ -446,16 +494,6 @@ public class MemberRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"receiverUserId",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getReceiverUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"receiverUserId",
 			new BiConsumer<MemberRequest, Object>() {
@@ -465,16 +503,6 @@ public class MemberRequestModelImpl
 					MemberRequest memberRequest, Object receiverUserIdObject) {
 
 					memberRequest.setReceiverUserId((Long)receiverUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"invitedRoleId",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getInvitedRoleId();
 				}
 
 			});
@@ -490,16 +518,6 @@ public class MemberRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"invitedTeamId",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getInvitedTeamId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"invitedTeamId",
 			new BiConsumer<MemberRequest, Object>() {
@@ -509,16 +527,6 @@ public class MemberRequestModelImpl
 					MemberRequest memberRequest, Object invitedTeamIdObject) {
 
 					memberRequest.setInvitedTeamId((Long)invitedTeamIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<MemberRequest, Object>() {
-
-				@Override
-				public Object apply(MemberRequest memberRequest) {
-					return memberRequest.getStatus();
 				}
 
 			});
@@ -535,8 +543,6 @@ public class MemberRequestModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -849,6 +849,10 @@ public class MDRRuleUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(MDRRulePersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile MDRRulePersistence _persistence;
 
 }

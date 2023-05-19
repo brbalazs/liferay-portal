@@ -2391,33 +2391,17 @@ public class DDMFormInstanceVersionPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByF_S",
 			new String[] {Long.class.getName(), Integer.class.getName()});
 
-		_setDDMFormInstanceVersionUtilPersistence(this);
+		DDMFormInstanceVersionUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setDDMFormInstanceVersionUtilPersistence(null);
+		DDMFormInstanceVersionUtil.setPersistence(null);
 
 		entityCache.removeCache(DDMFormInstanceVersionImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setDDMFormInstanceVersionUtilPersistence(
-		DDMFormInstanceVersionPersistence ddmFormInstanceVersionPersistence) {
-
-		try {
-			Field field = DDMFormInstanceVersionUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, ddmFormInstanceVersionPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

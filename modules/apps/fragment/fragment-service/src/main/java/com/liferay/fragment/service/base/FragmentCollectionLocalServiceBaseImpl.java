@@ -55,8 +55,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -666,14 +664,15 @@ public abstract class FragmentCollectionLocalServiceBaseImpl
 			"com.liferay.fragment.model.FragmentCollection",
 			fragmentCollectionLocalService);
 
-		_setLocalServiceUtilService(fragmentCollectionLocalService);
+		FragmentCollectionLocalServiceUtil.setService(
+			fragmentCollectionLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.fragment.model.FragmentCollection");
 
-		_setLocalServiceUtilService(null);
+		FragmentCollectionLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -716,23 +715,6 @@ public abstract class FragmentCollectionLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		FragmentCollectionLocalService fragmentCollectionLocalService) {
-
-		try {
-			Field field =
-				FragmentCollectionLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, fragmentCollectionLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

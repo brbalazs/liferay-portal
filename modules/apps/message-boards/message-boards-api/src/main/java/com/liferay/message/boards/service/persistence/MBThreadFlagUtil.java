@@ -1082,6 +1082,10 @@ public class MBThreadFlagUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(MBThreadFlagPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile MBThreadFlagPersistence _persistence;
 
 }

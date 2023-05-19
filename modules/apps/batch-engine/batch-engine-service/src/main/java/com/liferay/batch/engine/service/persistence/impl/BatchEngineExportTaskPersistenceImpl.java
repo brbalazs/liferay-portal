@@ -2758,33 +2758,17 @@ public class BatchEngineExportTaskPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByExecuteStatus",
 			new String[] {String.class.getName()});
 
-		_setBatchEngineExportTaskUtilPersistence(this);
+		BatchEngineExportTaskUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setBatchEngineExportTaskUtilPersistence(null);
+		BatchEngineExportTaskUtil.setPersistence(null);
 
 		entityCache.removeCache(BatchEngineExportTaskImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setBatchEngineExportTaskUtilPersistence(
-		BatchEngineExportTaskPersistence batchEngineExportTaskPersistence) {
-
-		try {
-			Field field = BatchEngineExportTaskUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, batchEngineExportTaskPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -242,14 +242,10 @@ public class OrgGroupRoleModelImpl
 
 	private static final Map<String, Function<OrgGroupRole, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<OrgGroupRole, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<OrgGroupRole, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<OrgGroupRole, Object>>();
-		Map<String, BiConsumer<OrgGroupRole, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<OrgGroupRole, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -261,6 +257,58 @@ public class OrgGroupRoleModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"organizationId",
+			new Function<OrgGroupRole, Object>() {
+
+				@Override
+				public Object apply(OrgGroupRole orgGroupRole) {
+					return orgGroupRole.getOrganizationId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<OrgGroupRole, Object>() {
+
+				@Override
+				public Object apply(OrgGroupRole orgGroupRole) {
+					return orgGroupRole.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"roleId",
+			new Function<OrgGroupRole, Object>() {
+
+				@Override
+				public Object apply(OrgGroupRole orgGroupRole) {
+					return orgGroupRole.getRoleId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<OrgGroupRole, Object>() {
+
+				@Override
+				public Object apply(OrgGroupRole orgGroupRole) {
+					return orgGroupRole.getCompanyId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<OrgGroupRole, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<OrgGroupRole, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<OrgGroupRole, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<OrgGroupRole, Object>() {
@@ -270,16 +318,6 @@ public class OrgGroupRoleModelImpl
 					OrgGroupRole orgGroupRole, Object mvccVersionObject) {
 
 					orgGroupRole.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"organizationId",
-			new Function<OrgGroupRole, Object>() {
-
-				@Override
-				public Object apply(OrgGroupRole orgGroupRole) {
-					return orgGroupRole.getOrganizationId();
 				}
 
 			});
@@ -295,16 +333,6 @@ public class OrgGroupRoleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<OrgGroupRole, Object>() {
-
-				@Override
-				public Object apply(OrgGroupRole orgGroupRole) {
-					return orgGroupRole.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<OrgGroupRole, Object>() {
@@ -317,16 +345,6 @@ public class OrgGroupRoleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"roleId",
-			new Function<OrgGroupRole, Object>() {
-
-				@Override
-				public Object apply(OrgGroupRole orgGroupRole) {
-					return orgGroupRole.getRoleId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"roleId",
 			new BiConsumer<OrgGroupRole, Object>() {
@@ -336,16 +354,6 @@ public class OrgGroupRoleModelImpl
 					OrgGroupRole orgGroupRole, Object roleIdObject) {
 
 					orgGroupRole.setRoleId((Long)roleIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<OrgGroupRole, Object>() {
-
-				@Override
-				public Object apply(OrgGroupRole orgGroupRole) {
-					return orgGroupRole.getCompanyId();
 				}
 
 			});
@@ -362,8 +370,6 @@ public class OrgGroupRoleModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

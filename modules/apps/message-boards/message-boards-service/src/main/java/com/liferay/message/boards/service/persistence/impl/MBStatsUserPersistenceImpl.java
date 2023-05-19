@@ -41,7 +41,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -2760,33 +2759,17 @@ public class MBStatsUserPersistenceImpl
 				Integer.class.getName()
 			});
 
-		_setMBStatsUserUtilPersistence(this);
+		MBStatsUserUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setMBStatsUserUtilPersistence(null);
+		MBStatsUserUtil.setPersistence(null);
 
 		entityCache.removeCache(MBStatsUserImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setMBStatsUserUtilPersistence(
-		MBStatsUserPersistence mbStatsUserPersistence) {
-
-		try {
-			Field field = MBStatsUserUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, mbStatsUserPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -49,8 +49,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -528,14 +526,15 @@ public abstract class OAuth2ApplicationScopeAliasesLocalServiceBaseImpl
 			"com.liferay.oauth2.provider.model.OAuth2ApplicationScopeAliases",
 			oAuth2ApplicationScopeAliasesLocalService);
 
-		_setLocalServiceUtilService(oAuth2ApplicationScopeAliasesLocalService);
+		OAuth2ApplicationScopeAliasesLocalServiceUtil.setService(
+			oAuth2ApplicationScopeAliasesLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.oauth2.provider.model.OAuth2ApplicationScopeAliases");
 
-		_setLocalServiceUtilService(null);
+		OAuth2ApplicationScopeAliasesLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -578,24 +577,6 @@ public abstract class OAuth2ApplicationScopeAliasesLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		OAuth2ApplicationScopeAliasesLocalService
-			oAuth2ApplicationScopeAliasesLocalService) {
-
-		try {
-			Field field =
-				OAuth2ApplicationScopeAliasesLocalServiceUtil.class.
-					getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, oAuth2ApplicationScopeAliasesLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

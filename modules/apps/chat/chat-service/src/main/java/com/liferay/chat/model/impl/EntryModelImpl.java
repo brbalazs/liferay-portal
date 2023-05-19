@@ -241,14 +241,10 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	private static final Map<String, Function<Entry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Entry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Entry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Entry, Object>>();
-		Map<String, BiConsumer<Entry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Entry, ?>>();
 
 		attributeGetterFunctions.put(
 			"entryId",
@@ -257,16 +253,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getEntryId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"entryId",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object entryIdObject) {
-					entry.setEntryId((Long)entryIdObject);
 				}
 
 			});
@@ -280,16 +266,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object createDateObject) {
-					entry.setCreateDate((Long)createDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"fromUserId",
 			new Function<Entry, Object>() {
@@ -297,16 +273,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getFromUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"fromUserId",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object fromUserIdObject) {
-					entry.setFromUserId((Long)fromUserIdObject);
 				}
 
 			});
@@ -320,16 +286,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"toUserId",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object toUserIdObject) {
-					entry.setToUserId((Long)toUserIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"content",
 			new Function<Entry, Object>() {
@@ -340,16 +296,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"content",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object contentObject) {
-					entry.setContent((String)contentObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"flag",
 			new Function<Entry, Object>() {
@@ -357,6 +303,68 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getFlag();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Entry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Entry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Entry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"entryId",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object entryIdObject) {
+					entry.setEntryId((Long)entryIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object createDateObject) {
+					entry.setCreateDate((Long)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"fromUserId",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object fromUserIdObject) {
+					entry.setFromUserId((Long)fromUserIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"toUserId",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object toUserIdObject) {
+					entry.setToUserId((Long)toUserIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"content",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object contentObject) {
+					entry.setContent((String)contentObject);
 				}
 
 			});
@@ -371,8 +379,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

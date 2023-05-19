@@ -297,14 +297,10 @@ public class PluginSettingModelImpl
 
 	private static final Map<String, Function<PluginSetting, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<PluginSetting, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<PluginSetting, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<PluginSetting, Object>>();
-		Map<String, BiConsumer<PluginSetting, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<PluginSetting, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -316,6 +312,78 @@ public class PluginSettingModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"pluginSettingId",
+			new Function<PluginSetting, Object>() {
+
+				@Override
+				public Object apply(PluginSetting pluginSetting) {
+					return pluginSetting.getPluginSettingId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<PluginSetting, Object>() {
+
+				@Override
+				public Object apply(PluginSetting pluginSetting) {
+					return pluginSetting.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"pluginId",
+			new Function<PluginSetting, Object>() {
+
+				@Override
+				public Object apply(PluginSetting pluginSetting) {
+					return pluginSetting.getPluginId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"pluginType",
+			new Function<PluginSetting, Object>() {
+
+				@Override
+				public Object apply(PluginSetting pluginSetting) {
+					return pluginSetting.getPluginType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"roles",
+			new Function<PluginSetting, Object>() {
+
+				@Override
+				public Object apply(PluginSetting pluginSetting) {
+					return pluginSetting.getRoles();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"active",
+			new Function<PluginSetting, Object>() {
+
+				@Override
+				public Object apply(PluginSetting pluginSetting) {
+					return pluginSetting.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<PluginSetting, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<PluginSetting, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<PluginSetting, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<PluginSetting, Object>() {
@@ -325,16 +393,6 @@ public class PluginSettingModelImpl
 					PluginSetting pluginSetting, Object mvccVersionObject) {
 
 					pluginSetting.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"pluginSettingId",
-			new Function<PluginSetting, Object>() {
-
-				@Override
-				public Object apply(PluginSetting pluginSetting) {
-					return pluginSetting.getPluginSettingId();
 				}
 
 			});
@@ -351,16 +409,6 @@ public class PluginSettingModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<PluginSetting, Object>() {
-
-				@Override
-				public Object apply(PluginSetting pluginSetting) {
-					return pluginSetting.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<PluginSetting, Object>() {
@@ -370,16 +418,6 @@ public class PluginSettingModelImpl
 					PluginSetting pluginSetting, Object companyIdObject) {
 
 					pluginSetting.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"pluginId",
-			new Function<PluginSetting, Object>() {
-
-				@Override
-				public Object apply(PluginSetting pluginSetting) {
-					return pluginSetting.getPluginId();
 				}
 
 			});
@@ -395,16 +433,6 @@ public class PluginSettingModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"pluginType",
-			new Function<PluginSetting, Object>() {
-
-				@Override
-				public Object apply(PluginSetting pluginSetting) {
-					return pluginSetting.getPluginType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"pluginType",
 			new BiConsumer<PluginSetting, Object>() {
@@ -417,16 +445,6 @@ public class PluginSettingModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"roles",
-			new Function<PluginSetting, Object>() {
-
-				@Override
-				public Object apply(PluginSetting pluginSetting) {
-					return pluginSetting.getRoles();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"roles",
 			new BiConsumer<PluginSetting, Object>() {
@@ -436,16 +454,6 @@ public class PluginSettingModelImpl
 					PluginSetting pluginSetting, Object rolesObject) {
 
 					pluginSetting.setRoles((String)rolesObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"active",
-			new Function<PluginSetting, Object>() {
-
-				@Override
-				public Object apply(PluginSetting pluginSetting) {
-					return pluginSetting.getActive();
 				}
 
 			});
@@ -462,8 +470,6 @@ public class PluginSettingModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

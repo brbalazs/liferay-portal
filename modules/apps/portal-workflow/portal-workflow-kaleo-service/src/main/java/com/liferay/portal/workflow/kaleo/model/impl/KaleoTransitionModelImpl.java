@@ -270,15 +270,11 @@ public class KaleoTransitionModelImpl
 
 	private static final Map<String, Function<KaleoTransition, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KaleoTransition, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<KaleoTransition, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<KaleoTransition, Object>>();
-		Map<String, BiConsumer<KaleoTransition, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<KaleoTransition, ?>>();
 
 		attributeGetterFunctions.put(
 			"kaleoTransitionId",
@@ -290,6 +286,168 @@ public class KaleoTransitionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoDefinitionVersionId",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getKaleoDefinitionVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoNodeId",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getKaleoNodeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sourceKaleoNodeId",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getSourceKaleoNodeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sourceKaleoNodeName",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getSourceKaleoNodeName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"targetKaleoNodeId",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getTargetKaleoNodeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"targetKaleoNodeName",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getTargetKaleoNodeName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"defaultTransition",
+			new Function<KaleoTransition, Object>() {
+
+				@Override
+				public Object apply(KaleoTransition kaleoTransition) {
+					return kaleoTransition.getDefaultTransition();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<KaleoTransition, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<KaleoTransition, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<KaleoTransition, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"kaleoTransitionId",
 			new BiConsumer<KaleoTransition, Object>() {
@@ -301,16 +459,6 @@ public class KaleoTransitionModelImpl
 
 					kaleoTransition.setKaleoTransitionId(
 						(Long)kaleoTransitionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getGroupId();
 				}
 
 			});
@@ -326,16 +474,6 @@ public class KaleoTransitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<KaleoTransition, Object>() {
@@ -345,16 +483,6 @@ public class KaleoTransitionModelImpl
 					KaleoTransition kaleoTransition, Object companyIdObject) {
 
 					kaleoTransition.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getUserId();
 				}
 
 			});
@@ -370,16 +498,6 @@ public class KaleoTransitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<KaleoTransition, Object>() {
@@ -389,16 +507,6 @@ public class KaleoTransitionModelImpl
 					KaleoTransition kaleoTransition, Object userNameObject) {
 
 					kaleoTransition.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getCreateDate();
 				}
 
 			});
@@ -414,16 +522,6 @@ public class KaleoTransitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<KaleoTransition, Object>() {
@@ -434,16 +532,6 @@ public class KaleoTransitionModelImpl
 					Object modifiedDateObject) {
 
 					kaleoTransition.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"kaleoDefinitionVersionId",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getKaleoDefinitionVersionId();
 				}
 
 			});
@@ -461,16 +549,6 @@ public class KaleoTransitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"kaleoNodeId",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getKaleoNodeId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"kaleoNodeId",
 			new BiConsumer<KaleoTransition, Object>() {
@@ -480,16 +558,6 @@ public class KaleoTransitionModelImpl
 					KaleoTransition kaleoTransition, Object kaleoNodeIdObject) {
 
 					kaleoTransition.setKaleoNodeId((Long)kaleoNodeIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getName();
 				}
 
 			});
@@ -505,16 +573,6 @@ public class KaleoTransitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<KaleoTransition, Object>() {
@@ -524,16 +582,6 @@ public class KaleoTransitionModelImpl
 					KaleoTransition kaleoTransition, Object descriptionObject) {
 
 					kaleoTransition.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"sourceKaleoNodeId",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getSourceKaleoNodeId();
 				}
 
 			});
@@ -551,16 +599,6 @@ public class KaleoTransitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"sourceKaleoNodeName",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getSourceKaleoNodeName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"sourceKaleoNodeName",
 			new BiConsumer<KaleoTransition, Object>() {
@@ -572,16 +610,6 @@ public class KaleoTransitionModelImpl
 
 					kaleoTransition.setSourceKaleoNodeName(
 						(String)sourceKaleoNodeNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"targetKaleoNodeId",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getTargetKaleoNodeId();
 				}
 
 			});
@@ -599,16 +627,6 @@ public class KaleoTransitionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"targetKaleoNodeName",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getTargetKaleoNodeName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"targetKaleoNodeName",
 			new BiConsumer<KaleoTransition, Object>() {
@@ -620,16 +638,6 @@ public class KaleoTransitionModelImpl
 
 					kaleoTransition.setTargetKaleoNodeName(
 						(String)targetKaleoNodeNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"defaultTransition",
-			new Function<KaleoTransition, Object>() {
-
-				@Override
-				public Object apply(KaleoTransition kaleoTransition) {
-					return kaleoTransition.getDefaultTransition();
 				}
 
 			});
@@ -648,8 +656,6 @@ public class KaleoTransitionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

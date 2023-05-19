@@ -240,16 +240,11 @@ public class KaleoProcessLinkModelImpl
 
 	private static final Map<String, Function<KaleoProcessLink, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KaleoProcessLink, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<KaleoProcessLink, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<KaleoProcessLink, Object>>();
-		Map<String, BiConsumer<KaleoProcessLink, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<KaleoProcessLink, ?>>();
 
 		attributeGetterFunctions.put(
 			"kaleoProcessLinkId",
@@ -261,6 +256,49 @@ public class KaleoProcessLinkModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"kaleoProcessId",
+			new Function<KaleoProcessLink, Object>() {
+
+				@Override
+				public Object apply(KaleoProcessLink kaleoProcessLink) {
+					return kaleoProcessLink.getKaleoProcessId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"workflowTaskName",
+			new Function<KaleoProcessLink, Object>() {
+
+				@Override
+				public Object apply(KaleoProcessLink kaleoProcessLink) {
+					return kaleoProcessLink.getWorkflowTaskName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"DDMTemplateId",
+			new Function<KaleoProcessLink, Object>() {
+
+				@Override
+				public Object apply(KaleoProcessLink kaleoProcessLink) {
+					return kaleoProcessLink.getDDMTemplateId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<KaleoProcessLink, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<KaleoProcessLink, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<KaleoProcessLink, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"kaleoProcessLinkId",
 			new BiConsumer<KaleoProcessLink, Object>() {
@@ -272,16 +310,6 @@ public class KaleoProcessLinkModelImpl
 
 					kaleoProcessLink.setKaleoProcessLinkId(
 						(Long)kaleoProcessLinkIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"kaleoProcessId",
-			new Function<KaleoProcessLink, Object>() {
-
-				@Override
-				public Object apply(KaleoProcessLink kaleoProcessLink) {
-					return kaleoProcessLink.getKaleoProcessId();
 				}
 
 			});
@@ -299,16 +327,6 @@ public class KaleoProcessLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"workflowTaskName",
-			new Function<KaleoProcessLink, Object>() {
-
-				@Override
-				public Object apply(KaleoProcessLink kaleoProcessLink) {
-					return kaleoProcessLink.getWorkflowTaskName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"workflowTaskName",
 			new BiConsumer<KaleoProcessLink, Object>() {
@@ -320,16 +338,6 @@ public class KaleoProcessLinkModelImpl
 
 					kaleoProcessLink.setWorkflowTaskName(
 						(String)workflowTaskNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"DDMTemplateId",
-			new Function<KaleoProcessLink, Object>() {
-
-				@Override
-				public Object apply(KaleoProcessLink kaleoProcessLink) {
-					return kaleoProcessLink.getDDMTemplateId();
 				}
 
 			});
@@ -348,8 +356,6 @@ public class KaleoProcessLinkModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

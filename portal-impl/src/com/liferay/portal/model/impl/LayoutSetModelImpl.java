@@ -318,14 +318,10 @@ public class LayoutSetModelImpl
 
 	private static final Map<String, Function<LayoutSet, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<LayoutSet, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<LayoutSet, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<LayoutSet, Object>>();
-		Map<String, BiConsumer<LayoutSet, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<LayoutSet, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -337,6 +333,158 @@ public class LayoutSetModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"layoutSetId",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getLayoutSetId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"privateLayout",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getPrivateLayout();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"logoId",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getLogoId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"themeId",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getThemeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"colorSchemeId",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getColorSchemeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"css",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getCss();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"pageCount",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getPageCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"settings",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutSetPrototypeUuid",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getLayoutSetPrototypeUuid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutSetPrototypeLinkEnabled",
+			new Function<LayoutSet, Object>() {
+
+				@Override
+				public Object apply(LayoutSet layoutSet) {
+					return layoutSet.getLayoutSetPrototypeLinkEnabled();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<LayoutSet, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<LayoutSet, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<LayoutSet, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<LayoutSet, Object>() {
@@ -346,16 +494,6 @@ public class LayoutSetModelImpl
 					LayoutSet layoutSet, Object mvccVersionObject) {
 
 					layoutSet.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutSetId",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getLayoutSetId();
 				}
 
 			});
@@ -371,16 +509,6 @@ public class LayoutSetModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<LayoutSet, Object>() {
@@ -388,16 +516,6 @@ public class LayoutSetModelImpl
 				@Override
 				public void accept(LayoutSet layoutSet, Object groupIdObject) {
 					layoutSet.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getCompanyId();
 				}
 
 			});
@@ -413,16 +531,6 @@ public class LayoutSetModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<LayoutSet, Object>() {
@@ -432,16 +540,6 @@ public class LayoutSetModelImpl
 					LayoutSet layoutSet, Object createDateObject) {
 
 					layoutSet.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getModifiedDate();
 				}
 
 			});
@@ -457,16 +555,6 @@ public class LayoutSetModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"privateLayout",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getPrivateLayout();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"privateLayout",
 			new BiConsumer<LayoutSet, Object>() {
@@ -476,16 +564,6 @@ public class LayoutSetModelImpl
 					LayoutSet layoutSet, Object privateLayoutObject) {
 
 					layoutSet.setPrivateLayout((Boolean)privateLayoutObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"logoId",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getLogoId();
 				}
 
 			});
@@ -499,16 +577,6 @@ public class LayoutSetModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"themeId",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getThemeId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"themeId",
 			new BiConsumer<LayoutSet, Object>() {
@@ -516,16 +584,6 @@ public class LayoutSetModelImpl
 				@Override
 				public void accept(LayoutSet layoutSet, Object themeIdObject) {
 					layoutSet.setThemeId((String)themeIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"colorSchemeId",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getColorSchemeId();
 				}
 
 			});
@@ -541,16 +599,6 @@ public class LayoutSetModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"css",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getCss();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"css",
 			new BiConsumer<LayoutSet, Object>() {
@@ -558,16 +606,6 @@ public class LayoutSetModelImpl
 				@Override
 				public void accept(LayoutSet layoutSet, Object cssObject) {
 					layoutSet.setCss((String)cssObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"pageCount",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getPageCount();
 				}
 
 			});
@@ -583,16 +621,6 @@ public class LayoutSetModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"settings",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getSettings();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"settings",
 			new BiConsumer<LayoutSet, Object>() {
@@ -600,16 +628,6 @@ public class LayoutSetModelImpl
 				@Override
 				public void accept(LayoutSet layoutSet, Object settingsObject) {
 					layoutSet.setSettings((String)settingsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutSetPrototypeUuid",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getLayoutSetPrototypeUuid();
 				}
 
 			});
@@ -623,16 +641,6 @@ public class LayoutSetModelImpl
 
 					layoutSet.setLayoutSetPrototypeUuid(
 						(String)layoutSetPrototypeUuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutSetPrototypeLinkEnabled",
-			new Function<LayoutSet, Object>() {
-
-				@Override
-				public Object apply(LayoutSet layoutSet) {
-					return layoutSet.getLayoutSetPrototypeLinkEnabled();
 				}
 
 			});
@@ -651,8 +659,6 @@ public class LayoutSetModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

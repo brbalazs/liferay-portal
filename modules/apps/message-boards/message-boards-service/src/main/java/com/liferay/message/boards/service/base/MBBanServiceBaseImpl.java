@@ -31,8 +31,6 @@ import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -138,11 +136,11 @@ public abstract class MBBanServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(mbBanService);
+		MBBanServiceUtil.setService(mbBanService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		MBBanServiceUtil.setService(null);
 	}
 
 	/**
@@ -184,19 +182,6 @@ public abstract class MBBanServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(MBBanService mbBanService) {
-		try {
-			Field field = MBBanServiceUtil.class.getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, mbBanService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

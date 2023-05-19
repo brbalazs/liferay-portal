@@ -69,8 +69,6 @@ import com.liferay.portal.workflow.kaleo.service.persistence.KaleoTransitionPers
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -1460,14 +1458,15 @@ public abstract class KaleoNotificationRecipientLocalServiceBaseImpl
 			"com.liferay.portal.workflow.kaleo.model.KaleoNotificationRecipient",
 			kaleoNotificationRecipientLocalService);
 
-		_setLocalServiceUtilService(kaleoNotificationRecipientLocalService);
+		KaleoNotificationRecipientLocalServiceUtil.setService(
+			kaleoNotificationRecipientLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.portal.workflow.kaleo.model.KaleoNotificationRecipient");
 
-		_setLocalServiceUtilService(null);
+		KaleoNotificationRecipientLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -1510,24 +1509,6 @@ public abstract class KaleoNotificationRecipientLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		KaleoNotificationRecipientLocalService
-			kaleoNotificationRecipientLocalService) {
-
-		try {
-			Field field =
-				KaleoNotificationRecipientLocalServiceUtil.class.
-					getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, kaleoNotificationRecipientLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -33,8 +33,6 @@ import com.liferay.portal.security.audit.storage.service.AuditEventServiceUtil;
 import com.liferay.portal.security.audit.storage.service.persistence.AuditEventPersistence;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -292,11 +290,11 @@ public abstract class AuditEventServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(auditEventService);
+		AuditEventServiceUtil.setService(auditEventService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		AuditEventServiceUtil.setService(null);
 	}
 
 	/**
@@ -338,20 +336,6 @@ public abstract class AuditEventServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(AuditEventService auditEventService) {
-		try {
-			Field field = AuditEventServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, auditEventService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

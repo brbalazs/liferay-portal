@@ -311,14 +311,10 @@ public class AccountModelImpl
 
 	private static final Map<String, Function<Account, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Account, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Account, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Account, Object>>();
-		Map<String, BiConsumer<Account, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Account, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -327,16 +323,6 @@ public class AccountModelImpl
 				@Override
 				public Object apply(Account account) {
 					return account.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Account, Object>() {
-
-				@Override
-				public void accept(Account account, Object mvccVersionObject) {
-					account.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -350,16 +336,6 @@ public class AccountModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"accountId",
-			new BiConsumer<Account, Object>() {
-
-				@Override
-				public void accept(Account account, Object accountIdObject) {
-					account.setAccountId((Long)accountIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<Account, Object>() {
@@ -367,16 +343,6 @@ public class AccountModelImpl
 				@Override
 				public Object apply(Account account) {
 					return account.getCompanyId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Account, Object>() {
-
-				@Override
-				public void accept(Account account, Object companyIdObject) {
-					account.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -390,16 +356,6 @@ public class AccountModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Account, Object>() {
-
-				@Override
-				public void accept(Account account, Object userIdObject) {
-					account.setUserId((Long)userIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userName",
 			new Function<Account, Object>() {
@@ -407,16 +363,6 @@ public class AccountModelImpl
 				@Override
 				public Object apply(Account account) {
 					return account.getUserName();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Account, Object>() {
-
-				@Override
-				public void accept(Account account, Object userNameObject) {
-					account.setUserName((String)userNameObject);
 				}
 
 			});
@@ -430,16 +376,6 @@ public class AccountModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Account, Object>() {
-
-				@Override
-				public void accept(Account account, Object createDateObject) {
-					account.setCreateDate((Date)createDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedDate",
 			new Function<Account, Object>() {
@@ -450,16 +386,6 @@ public class AccountModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Account, Object>() {
-
-				@Override
-				public void accept(Account account, Object modifiedDateObject) {
-					account.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"parentAccountId",
 			new Function<Account, Object>() {
@@ -467,6 +393,178 @@ public class AccountModelImpl
 				@Override
 				public Object apply(Account account) {
 					return account.getParentAccountId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<Account, Object>() {
+
+				@Override
+				public Object apply(Account account) {
+					return account.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"legalName",
+			new Function<Account, Object>() {
+
+				@Override
+				public Object apply(Account account) {
+					return account.getLegalName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"legalId",
+			new Function<Account, Object>() {
+
+				@Override
+				public Object apply(Account account) {
+					return account.getLegalId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"legalType",
+			new Function<Account, Object>() {
+
+				@Override
+				public Object apply(Account account) {
+					return account.getLegalType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sicCode",
+			new Function<Account, Object>() {
+
+				@Override
+				public Object apply(Account account) {
+					return account.getSicCode();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"tickerSymbol",
+			new Function<Account, Object>() {
+
+				@Override
+				public Object apply(Account account) {
+					return account.getTickerSymbol();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"industry",
+			new Function<Account, Object>() {
+
+				@Override
+				public Object apply(Account account) {
+					return account.getIndustry();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<Account, Object>() {
+
+				@Override
+				public Object apply(Account account) {
+					return account.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"size",
+			new Function<Account, Object>() {
+
+				@Override
+				public Object apply(Account account) {
+					return account.getSize();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Account, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Account, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Account, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Account, Object>() {
+
+				@Override
+				public void accept(Account account, Object mvccVersionObject) {
+					account.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"accountId",
+			new BiConsumer<Account, Object>() {
+
+				@Override
+				public void accept(Account account, Object accountIdObject) {
+					account.setAccountId((Long)accountIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Account, Object>() {
+
+				@Override
+				public void accept(Account account, Object companyIdObject) {
+					account.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Account, Object>() {
+
+				@Override
+				public void accept(Account account, Object userIdObject) {
+					account.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Account, Object>() {
+
+				@Override
+				public void accept(Account account, Object userNameObject) {
+					account.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Account, Object>() {
+
+				@Override
+				public void accept(Account account, Object createDateObject) {
+					account.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Account, Object>() {
+
+				@Override
+				public void accept(Account account, Object modifiedDateObject) {
+					account.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -482,16 +580,6 @@ public class AccountModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<Account, Object>() {
-
-				@Override
-				public Object apply(Account account) {
-					return account.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<Account, Object>() {
@@ -499,16 +587,6 @@ public class AccountModelImpl
 				@Override
 				public void accept(Account account, Object nameObject) {
 					account.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"legalName",
-			new Function<Account, Object>() {
-
-				@Override
-				public Object apply(Account account) {
-					return account.getLegalName();
 				}
 
 			});
@@ -522,16 +600,6 @@ public class AccountModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"legalId",
-			new Function<Account, Object>() {
-
-				@Override
-				public Object apply(Account account) {
-					return account.getLegalId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"legalId",
 			new BiConsumer<Account, Object>() {
@@ -539,16 +607,6 @@ public class AccountModelImpl
 				@Override
 				public void accept(Account account, Object legalIdObject) {
 					account.setLegalId((String)legalIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"legalType",
-			new Function<Account, Object>() {
-
-				@Override
-				public Object apply(Account account) {
-					return account.getLegalType();
 				}
 
 			});
@@ -562,16 +620,6 @@ public class AccountModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"sicCode",
-			new Function<Account, Object>() {
-
-				@Override
-				public Object apply(Account account) {
-					return account.getSicCode();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"sicCode",
 			new BiConsumer<Account, Object>() {
@@ -579,16 +627,6 @@ public class AccountModelImpl
 				@Override
 				public void accept(Account account, Object sicCodeObject) {
 					account.setSicCode((String)sicCodeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"tickerSymbol",
-			new Function<Account, Object>() {
-
-				@Override
-				public Object apply(Account account) {
-					return account.getTickerSymbol();
 				}
 
 			});
@@ -602,16 +640,6 @@ public class AccountModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"industry",
-			new Function<Account, Object>() {
-
-				@Override
-				public Object apply(Account account) {
-					return account.getIndustry();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"industry",
 			new BiConsumer<Account, Object>() {
@@ -622,16 +650,6 @@ public class AccountModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<Account, Object>() {
-
-				@Override
-				public Object apply(Account account) {
-					return account.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<Account, Object>() {
@@ -639,16 +657,6 @@ public class AccountModelImpl
 				@Override
 				public void accept(Account account, Object typeObject) {
 					account.setType((String)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"size",
-			new Function<Account, Object>() {
-
-				@Override
-				public Object apply(Account account) {
-					return account.getSize();
 				}
 
 			});
@@ -663,8 +671,6 @@ public class AccountModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

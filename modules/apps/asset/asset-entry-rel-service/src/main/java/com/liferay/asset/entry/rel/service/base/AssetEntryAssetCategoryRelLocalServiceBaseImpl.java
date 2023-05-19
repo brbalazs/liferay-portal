@@ -47,8 +47,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -460,14 +458,15 @@ public abstract class AssetEntryAssetCategoryRelLocalServiceBaseImpl
 			"com.liferay.asset.entry.rel.model.AssetEntryAssetCategoryRel",
 			assetEntryAssetCategoryRelLocalService);
 
-		_setLocalServiceUtilService(assetEntryAssetCategoryRelLocalService);
+		AssetEntryAssetCategoryRelLocalServiceUtil.setService(
+			assetEntryAssetCategoryRelLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.asset.entry.rel.model.AssetEntryAssetCategoryRel");
 
-		_setLocalServiceUtilService(null);
+		AssetEntryAssetCategoryRelLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -510,24 +509,6 @@ public abstract class AssetEntryAssetCategoryRelLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		AssetEntryAssetCategoryRelLocalService
-			assetEntryAssetCategoryRelLocalService) {
-
-		try {
-			Field field =
-				AssetEntryAssetCategoryRelLocalServiceUtil.class.
-					getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, assetEntryAssetCategoryRelLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -490,6 +490,10 @@ public class DDMFormInstanceRecordLocalServiceUtil {
 		return _service;
 	}
 
+	public static void setService(DDMFormInstanceRecordLocalService service) {
+		_service = service;
+	}
+
 	private static volatile DDMFormInstanceRecordLocalService _service;
 
 }

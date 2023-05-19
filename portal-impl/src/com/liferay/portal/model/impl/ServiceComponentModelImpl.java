@@ -241,16 +241,11 @@ public class ServiceComponentModelImpl
 
 	private static final Map<String, Function<ServiceComponent, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ServiceComponent, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ServiceComponent, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<ServiceComponent, Object>>();
-		Map<String, BiConsumer<ServiceComponent, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<ServiceComponent, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -262,6 +257,69 @@ public class ServiceComponentModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"serviceComponentId",
+			new Function<ServiceComponent, Object>() {
+
+				@Override
+				public Object apply(ServiceComponent serviceComponent) {
+					return serviceComponent.getServiceComponentId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"buildNamespace",
+			new Function<ServiceComponent, Object>() {
+
+				@Override
+				public Object apply(ServiceComponent serviceComponent) {
+					return serviceComponent.getBuildNamespace();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"buildNumber",
+			new Function<ServiceComponent, Object>() {
+
+				@Override
+				public Object apply(ServiceComponent serviceComponent) {
+					return serviceComponent.getBuildNumber();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"buildDate",
+			new Function<ServiceComponent, Object>() {
+
+				@Override
+				public Object apply(ServiceComponent serviceComponent) {
+					return serviceComponent.getBuildDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"data",
+			new Function<ServiceComponent, Object>() {
+
+				@Override
+				public Object apply(ServiceComponent serviceComponent) {
+					return serviceComponent.getData();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ServiceComponent, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ServiceComponent, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<ServiceComponent, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<ServiceComponent, Object>() {
@@ -272,16 +330,6 @@ public class ServiceComponentModelImpl
 					Object mvccVersionObject) {
 
 					serviceComponent.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"serviceComponentId",
-			new Function<ServiceComponent, Object>() {
-
-				@Override
-				public Object apply(ServiceComponent serviceComponent) {
-					return serviceComponent.getServiceComponentId();
 				}
 
 			});
@@ -299,16 +347,6 @@ public class ServiceComponentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"buildNamespace",
-			new Function<ServiceComponent, Object>() {
-
-				@Override
-				public Object apply(ServiceComponent serviceComponent) {
-					return serviceComponent.getBuildNamespace();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"buildNamespace",
 			new BiConsumer<ServiceComponent, Object>() {
@@ -320,16 +358,6 @@ public class ServiceComponentModelImpl
 
 					serviceComponent.setBuildNamespace(
 						(String)buildNamespaceObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"buildNumber",
-			new Function<ServiceComponent, Object>() {
-
-				@Override
-				public Object apply(ServiceComponent serviceComponent) {
-					return serviceComponent.getBuildNumber();
 				}
 
 			});
@@ -346,16 +374,6 @@ public class ServiceComponentModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"buildDate",
-			new Function<ServiceComponent, Object>() {
-
-				@Override
-				public Object apply(ServiceComponent serviceComponent) {
-					return serviceComponent.getBuildDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"buildDate",
 			new BiConsumer<ServiceComponent, Object>() {
@@ -365,16 +383,6 @@ public class ServiceComponentModelImpl
 					ServiceComponent serviceComponent, Object buildDateObject) {
 
 					serviceComponent.setBuildDate((Long)buildDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"data",
-			new Function<ServiceComponent, Object>() {
-
-				@Override
-				public Object apply(ServiceComponent serviceComponent) {
-					return serviceComponent.getData();
 				}
 
 			});
@@ -391,8 +399,6 @@ public class ServiceComponentModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

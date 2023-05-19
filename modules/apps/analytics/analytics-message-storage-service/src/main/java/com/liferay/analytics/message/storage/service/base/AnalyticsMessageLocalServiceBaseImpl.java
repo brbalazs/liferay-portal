@@ -55,8 +55,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 import java.io.InputStream;
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.sql.Blob;
 
 import java.util.List;
@@ -538,14 +536,15 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 			_useTempFile = true;
 		}
 
-		_setLocalServiceUtilService(analyticsMessageLocalService);
+		AnalyticsMessageLocalServiceUtil.setService(
+			analyticsMessageLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.analytics.message.storage.model.AnalyticsMessage");
 
-		_setLocalServiceUtilService(null);
+		AnalyticsMessageLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -587,23 +586,6 @@ public abstract class AnalyticsMessageLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		AnalyticsMessageLocalService analyticsMessageLocalService) {
-
-		try {
-			Field field =
-				AnalyticsMessageLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, analyticsMessageLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

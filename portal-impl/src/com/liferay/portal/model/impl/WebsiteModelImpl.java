@@ -324,14 +324,10 @@ public class WebsiteModelImpl
 
 	private static final Map<String, Function<Website, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Website, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Website, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Website, Object>>();
-		Map<String, BiConsumer<Website, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Website, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -340,16 +336,6 @@ public class WebsiteModelImpl
 				@Override
 				public Object apply(Website website) {
 					return website.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object mvccVersionObject) {
-					website.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -363,16 +349,6 @@ public class WebsiteModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object uuidObject) {
-					website.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"websiteId",
 			new Function<Website, Object>() {
@@ -380,16 +356,6 @@ public class WebsiteModelImpl
 				@Override
 				public Object apply(Website website) {
 					return website.getWebsiteId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"websiteId",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object websiteIdObject) {
-					website.setWebsiteId((Long)websiteIdObject);
 				}
 
 			});
@@ -403,16 +369,6 @@ public class WebsiteModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object companyIdObject) {
-					website.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Website, Object>() {
@@ -420,16 +376,6 @@ public class WebsiteModelImpl
 				@Override
 				public Object apply(Website website) {
 					return website.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object userIdObject) {
-					website.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -443,16 +389,6 @@ public class WebsiteModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object userNameObject) {
-					website.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Website, Object>() {
@@ -460,16 +396,6 @@ public class WebsiteModelImpl
 				@Override
 				public Object apply(Website website) {
 					return website.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object createDateObject) {
-					website.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -483,16 +409,6 @@ public class WebsiteModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object modifiedDateObject) {
-					website.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"classNameId",
 			new Function<Website, Object>() {
@@ -500,16 +416,6 @@ public class WebsiteModelImpl
 				@Override
 				public Object apply(Website website) {
 					return website.getClassNameId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"classNameId",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object classNameIdObject) {
-					website.setClassNameId((Long)classNameIdObject);
 				}
 
 			});
@@ -523,16 +429,6 @@ public class WebsiteModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"classPK",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object classPKObject) {
-					website.setClassPK((Long)classPKObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"url",
 			new Function<Website, Object>() {
@@ -540,16 +436,6 @@ public class WebsiteModelImpl
 				@Override
 				public Object apply(Website website) {
 					return website.getUrl();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"url",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object urlObject) {
-					website.setUrl((String)urlObject);
 				}
 
 			});
@@ -563,16 +449,6 @@ public class WebsiteModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"typeId",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object typeIdObject) {
-					website.setTypeId((Long)typeIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"primary",
 			new Function<Website, Object>() {
@@ -583,16 +459,6 @@ public class WebsiteModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"primary",
-			new BiConsumer<Website, Object>() {
-
-				@Override
-				public void accept(Website website, Object primaryObject) {
-					website.setPrimary((Boolean)primaryObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"lastPublishDate",
 			new Function<Website, Object>() {
@@ -600,6 +466,148 @@ public class WebsiteModelImpl
 				@Override
 				public Object apply(Website website) {
 					return website.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Website, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Website, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Website, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object mvccVersionObject) {
+					website.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object uuidObject) {
+					website.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"websiteId",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object websiteIdObject) {
+					website.setWebsiteId((Long)websiteIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object companyIdObject) {
+					website.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object userIdObject) {
+					website.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object userNameObject) {
+					website.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object createDateObject) {
+					website.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object modifiedDateObject) {
+					website.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classNameId",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object classNameIdObject) {
+					website.setClassNameId((Long)classNameIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classPK",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object classPKObject) {
+					website.setClassPK((Long)classPKObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"url",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object urlObject) {
+					website.setUrl((String)urlObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"typeId",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object typeIdObject) {
+					website.setTypeId((Long)typeIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"primary",
+			new BiConsumer<Website, Object>() {
+
+				@Override
+				public void accept(Website website, Object primaryObject) {
+					website.setPrimary((Boolean)primaryObject);
 				}
 
 			});
@@ -616,8 +624,6 @@ public class WebsiteModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

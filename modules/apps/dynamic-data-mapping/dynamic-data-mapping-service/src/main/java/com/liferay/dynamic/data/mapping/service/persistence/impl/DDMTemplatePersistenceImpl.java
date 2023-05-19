@@ -13669,33 +13669,17 @@ public class DDMTemplatePersistenceImpl
 				String.class.getName()
 			});
 
-		_setDDMTemplateUtilPersistence(this);
+		DDMTemplateUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setDDMTemplateUtilPersistence(null);
+		DDMTemplateUtil.setPersistence(null);
 
 		entityCache.removeCache(DDMTemplateImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setDDMTemplateUtilPersistence(
-		DDMTemplatePersistence ddmTemplatePersistence) {
-
-		try {
-			Field field = DDMTemplateUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, ddmTemplatePersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

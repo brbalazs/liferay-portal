@@ -723,6 +723,12 @@ public class SyncDLFileVersionDiffUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(
+		SyncDLFileVersionDiffPersistence persistence) {
+
+		_persistence = persistence;
+	}
+
 	private static volatile SyncDLFileVersionDiffPersistence _persistence;
 
 }

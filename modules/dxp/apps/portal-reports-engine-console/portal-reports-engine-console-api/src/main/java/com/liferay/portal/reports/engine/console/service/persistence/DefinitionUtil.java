@@ -1112,6 +1112,10 @@ public class DefinitionUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(DefinitionPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile DefinitionPersistence _persistence;
 
 }

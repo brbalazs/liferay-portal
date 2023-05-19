@@ -4648,32 +4648,17 @@ public class FaroUserPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByE_S",
 			new String[] {String.class.getName(), Integer.class.getName()});
 
-		_setFaroUserUtilPersistence(this);
+		FaroUserUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setFaroUserUtilPersistence(null);
+		FaroUserUtil.setPersistence(null);
 
 		entityCache.removeCache(FaroUserImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setFaroUserUtilPersistence(
-		FaroUserPersistence faroUserPersistence) {
-
-		try {
-			Field field = FaroUserUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, faroUserPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

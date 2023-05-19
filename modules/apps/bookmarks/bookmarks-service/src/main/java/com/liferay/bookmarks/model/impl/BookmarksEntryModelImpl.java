@@ -347,14 +347,10 @@ public class BookmarksEntryModelImpl
 
 	private static final Map<String, Function<BookmarksEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<BookmarksEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<BookmarksEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<BookmarksEntry, Object>>();
-		Map<String, BiConsumer<BookmarksEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<BookmarksEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -366,6 +362,208 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"entryId",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"folderId",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getFolderId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"treePath",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getTreePath();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"url",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getUrl();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"visits",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getVisits();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"priority",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getPriority();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<BookmarksEntry, Object>() {
+
+				@Override
+				public Object apply(BookmarksEntry bookmarksEntry) {
+					return bookmarksEntry.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<BookmarksEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<BookmarksEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<BookmarksEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -375,16 +573,6 @@ public class BookmarksEntryModelImpl
 					BookmarksEntry bookmarksEntry, Object uuidObject) {
 
 					bookmarksEntry.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"entryId",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getEntryId();
 				}
 
 			});
@@ -400,16 +588,6 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -419,16 +597,6 @@ public class BookmarksEntryModelImpl
 					BookmarksEntry bookmarksEntry, Object groupIdObject) {
 
 					bookmarksEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getCompanyId();
 				}
 
 			});
@@ -444,16 +612,6 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -463,16 +621,6 @@ public class BookmarksEntryModelImpl
 					BookmarksEntry bookmarksEntry, Object userIdObject) {
 
 					bookmarksEntry.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getUserName();
 				}
 
 			});
@@ -488,16 +636,6 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -507,16 +645,6 @@ public class BookmarksEntryModelImpl
 					BookmarksEntry bookmarksEntry, Object createDateObject) {
 
 					bookmarksEntry.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getModifiedDate();
 				}
 
 			});
@@ -532,16 +660,6 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"folderId",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getFolderId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"folderId",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -551,16 +669,6 @@ public class BookmarksEntryModelImpl
 					BookmarksEntry bookmarksEntry, Object folderIdObject) {
 
 					bookmarksEntry.setFolderId((Long)folderIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"treePath",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getTreePath();
 				}
 
 			});
@@ -576,16 +684,6 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -595,16 +693,6 @@ public class BookmarksEntryModelImpl
 					BookmarksEntry bookmarksEntry, Object nameObject) {
 
 					bookmarksEntry.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"url",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getUrl();
 				}
 
 			});
@@ -620,16 +708,6 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -639,16 +717,6 @@ public class BookmarksEntryModelImpl
 					BookmarksEntry bookmarksEntry, Object descriptionObject) {
 
 					bookmarksEntry.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"visits",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getVisits();
 				}
 
 			});
@@ -664,16 +732,6 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"priority",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getPriority();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"priority",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -683,16 +741,6 @@ public class BookmarksEntryModelImpl
 					BookmarksEntry bookmarksEntry, Object priorityObject) {
 
 					bookmarksEntry.setPriority((Integer)priorityObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getLastPublishDate();
 				}
 
 			});
@@ -710,16 +758,6 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -729,16 +767,6 @@ public class BookmarksEntryModelImpl
 					BookmarksEntry bookmarksEntry, Object statusObject) {
 
 					bookmarksEntry.setStatus((Integer)statusObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getStatusByUserId();
 				}
 
 			});
@@ -756,16 +784,6 @@ public class BookmarksEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getStatusByUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserName",
 			new BiConsumer<BookmarksEntry, Object>() {
@@ -777,16 +795,6 @@ public class BookmarksEntryModelImpl
 
 					bookmarksEntry.setStatusByUserName(
 						(String)statusByUserNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<BookmarksEntry, Object>() {
-
-				@Override
-				public Object apply(BookmarksEntry bookmarksEntry) {
-					return bookmarksEntry.getStatusDate();
 				}
 
 			});
@@ -803,8 +811,6 @@ public class BookmarksEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

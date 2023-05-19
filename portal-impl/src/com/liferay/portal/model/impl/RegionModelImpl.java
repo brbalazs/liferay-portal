@@ -286,14 +286,10 @@ public class RegionModelImpl
 
 	private static final Map<String, Function<Region, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Region, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Region, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Region, Object>>();
-		Map<String, BiConsumer<Region, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Region, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -302,16 +298,6 @@ public class RegionModelImpl
 				@Override
 				public Object apply(Region region) {
 					return region.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Region, Object>() {
-
-				@Override
-				public void accept(Region region, Object mvccVersionObject) {
-					region.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -325,16 +311,6 @@ public class RegionModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"regionId",
-			new BiConsumer<Region, Object>() {
-
-				@Override
-				public void accept(Region region, Object regionIdObject) {
-					region.setRegionId((Long)regionIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"countryId",
 			new Function<Region, Object>() {
@@ -342,16 +318,6 @@ public class RegionModelImpl
 				@Override
 				public Object apply(Region region) {
 					return region.getCountryId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"countryId",
-			new BiConsumer<Region, Object>() {
-
-				@Override
-				public void accept(Region region, Object countryIdObject) {
-					region.setCountryId((Long)countryIdObject);
 				}
 
 			});
@@ -365,16 +331,6 @@ public class RegionModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"regionCode",
-			new BiConsumer<Region, Object>() {
-
-				@Override
-				public void accept(Region region, Object regionCodeObject) {
-					region.setRegionCode((String)regionCodeObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"name",
 			new Function<Region, Object>() {
@@ -385,16 +341,6 @@ public class RegionModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"name",
-			new BiConsumer<Region, Object>() {
-
-				@Override
-				public void accept(Region region, Object nameObject) {
-					region.setName((String)nameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"active",
 			new Function<Region, Object>() {
@@ -402,6 +348,68 @@ public class RegionModelImpl
 				@Override
 				public Object apply(Region region) {
 					return region.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Region, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Region, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Region, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Region, Object>() {
+
+				@Override
+				public void accept(Region region, Object mvccVersionObject) {
+					region.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"regionId",
+			new BiConsumer<Region, Object>() {
+
+				@Override
+				public void accept(Region region, Object regionIdObject) {
+					region.setRegionId((Long)regionIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"countryId",
+			new BiConsumer<Region, Object>() {
+
+				@Override
+				public void accept(Region region, Object countryIdObject) {
+					region.setCountryId((Long)countryIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"regionCode",
+			new BiConsumer<Region, Object>() {
+
+				@Override
+				public void accept(Region region, Object regionCodeObject) {
+					region.setRegionCode((String)regionCodeObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"name",
+			new BiConsumer<Region, Object>() {
+
+				@Override
+				public void accept(Region region, Object nameObject) {
+					region.setName((String)nameObject);
 				}
 
 			});
@@ -416,8 +424,6 @@ public class RegionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

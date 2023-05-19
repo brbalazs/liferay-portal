@@ -264,14 +264,10 @@ public class KaleoTimerModelImpl
 
 	private static final Map<String, Function<KaleoTimer, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KaleoTimer, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<KaleoTimer, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<KaleoTimer, Object>>();
-		Map<String, BiConsumer<KaleoTimer, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<KaleoTimer, ?>>();
 
 		attributeGetterFunctions.put(
 			"kaleoTimerId",
@@ -283,6 +279,178 @@ public class KaleoTimerModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoClassName",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getKaleoClassName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoClassPK",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getKaleoClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoDefinitionVersionId",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getKaleoDefinitionVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"blocking",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getBlocking();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"duration",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getDuration();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"scale",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getScale();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"recurrenceDuration",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getRecurrenceDuration();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"recurrenceScale",
+			new Function<KaleoTimer, Object>() {
+
+				@Override
+				public Object apply(KaleoTimer kaleoTimer) {
+					return kaleoTimer.getRecurrenceScale();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<KaleoTimer, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<KaleoTimer, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<KaleoTimer, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"kaleoTimerId",
 			new BiConsumer<KaleoTimer, Object>() {
@@ -292,16 +460,6 @@ public class KaleoTimerModelImpl
 					KaleoTimer kaleoTimer, Object kaleoTimerIdObject) {
 
 					kaleoTimer.setKaleoTimerId((Long)kaleoTimerIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getGroupId();
 				}
 
 			});
@@ -317,16 +475,6 @@ public class KaleoTimerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<KaleoTimer, Object>() {
@@ -339,16 +487,6 @@ public class KaleoTimerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<KaleoTimer, Object>() {
@@ -356,16 +494,6 @@ public class KaleoTimerModelImpl
 				@Override
 				public void accept(KaleoTimer kaleoTimer, Object userIdObject) {
 					kaleoTimer.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getUserName();
 				}
 
 			});
@@ -381,16 +509,6 @@ public class KaleoTimerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<KaleoTimer, Object>() {
@@ -400,16 +518,6 @@ public class KaleoTimerModelImpl
 					KaleoTimer kaleoTimer, Object createDateObject) {
 
 					kaleoTimer.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getModifiedDate();
 				}
 
 			});
@@ -425,16 +533,6 @@ public class KaleoTimerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"kaleoClassName",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getKaleoClassName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"kaleoClassName",
 			new BiConsumer<KaleoTimer, Object>() {
@@ -447,16 +545,6 @@ public class KaleoTimerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"kaleoClassPK",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getKaleoClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"kaleoClassPK",
 			new BiConsumer<KaleoTimer, Object>() {
@@ -466,16 +554,6 @@ public class KaleoTimerModelImpl
 					KaleoTimer kaleoTimer, Object kaleoClassPKObject) {
 
 					kaleoTimer.setKaleoClassPK((Long)kaleoClassPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"kaleoDefinitionVersionId",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getKaleoDefinitionVersionId();
 				}
 
 			});
@@ -493,16 +571,6 @@ public class KaleoTimerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<KaleoTimer, Object>() {
@@ -510,16 +578,6 @@ public class KaleoTimerModelImpl
 				@Override
 				public void accept(KaleoTimer kaleoTimer, Object nameObject) {
 					kaleoTimer.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"blocking",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getBlocking();
 				}
 
 			});
@@ -535,16 +593,6 @@ public class KaleoTimerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<KaleoTimer, Object>() {
@@ -554,16 +602,6 @@ public class KaleoTimerModelImpl
 					KaleoTimer kaleoTimer, Object descriptionObject) {
 
 					kaleoTimer.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"duration",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getDuration();
 				}
 
 			});
@@ -579,16 +617,6 @@ public class KaleoTimerModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"scale",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getScale();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"scale",
 			new BiConsumer<KaleoTimer, Object>() {
@@ -596,16 +624,6 @@ public class KaleoTimerModelImpl
 				@Override
 				public void accept(KaleoTimer kaleoTimer, Object scaleObject) {
 					kaleoTimer.setScale((String)scaleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"recurrenceDuration",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getRecurrenceDuration();
 				}
 
 			});
@@ -619,16 +637,6 @@ public class KaleoTimerModelImpl
 
 					kaleoTimer.setRecurrenceDuration(
 						(Double)recurrenceDurationObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"recurrenceScale",
-			new Function<KaleoTimer, Object>() {
-
-				@Override
-				public Object apply(KaleoTimer kaleoTimer) {
-					return kaleoTimer.getRecurrenceScale();
 				}
 
 			});
@@ -646,8 +654,6 @@ public class KaleoTimerModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

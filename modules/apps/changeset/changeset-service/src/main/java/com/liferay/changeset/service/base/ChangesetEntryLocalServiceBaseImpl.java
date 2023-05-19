@@ -50,8 +50,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -574,14 +572,14 @@ public abstract class ChangesetEntryLocalServiceBaseImpl
 			"com.liferay.changeset.model.ChangesetEntry",
 			changesetEntryLocalService);
 
-		_setLocalServiceUtilService(changesetEntryLocalService);
+		ChangesetEntryLocalServiceUtil.setService(changesetEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.changeset.model.ChangesetEntry");
 
-		_setLocalServiceUtilService(null);
+		ChangesetEntryLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -623,22 +621,6 @@ public abstract class ChangesetEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		ChangesetEntryLocalService changesetEntryLocalService) {
-
-		try {
-			Field field = ChangesetEntryLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, changesetEntryLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

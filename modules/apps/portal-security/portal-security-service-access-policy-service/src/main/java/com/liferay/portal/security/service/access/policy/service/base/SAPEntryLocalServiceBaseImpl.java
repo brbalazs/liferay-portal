@@ -57,8 +57,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -711,14 +709,14 @@ public abstract class SAPEntryLocalServiceBaseImpl
 			"com.liferay.portal.security.service.access.policy.model.SAPEntry",
 			sapEntryLocalService);
 
-		_setLocalServiceUtilService(sapEntryLocalService);
+		SAPEntryLocalServiceUtil.setService(sapEntryLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.portal.security.service.access.policy.model.SAPEntry");
 
-		_setLocalServiceUtilService(null);
+		SAPEntryLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -760,22 +758,6 @@ public abstract class SAPEntryLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		SAPEntryLocalService sapEntryLocalService) {
-
-		try {
-			Field field = SAPEntryLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, sapEntryLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

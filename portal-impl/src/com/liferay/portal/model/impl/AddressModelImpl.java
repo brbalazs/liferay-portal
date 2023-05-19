@@ -341,14 +341,10 @@ public class AddressModelImpl
 
 	private static final Map<String, Function<Address, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Address, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Address, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Address, Object>>();
-		Map<String, BiConsumer<Address, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Address, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -357,16 +353,6 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object mvccVersionObject) {
-					address.setMvccVersion((Long)mvccVersionObject);
 				}
 
 			});
@@ -380,16 +366,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object uuidObject) {
-					address.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"addressId",
 			new Function<Address, Object>() {
@@ -397,16 +373,6 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getAddressId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"addressId",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object addressIdObject) {
-					address.setAddressId((Long)addressIdObject);
 				}
 
 			});
@@ -420,16 +386,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object companyIdObject) {
-					address.setCompanyId((Long)companyIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userId",
 			new Function<Address, Object>() {
@@ -437,16 +393,6 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getUserId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object userIdObject) {
-					address.setUserId((Long)userIdObject);
 				}
 
 			});
@@ -460,16 +406,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object userNameObject) {
-					address.setUserName((String)userNameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"createDate",
 			new Function<Address, Object>() {
@@ -477,16 +413,6 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getCreateDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object createDateObject) {
-					address.setCreateDate((Date)createDateObject);
 				}
 
 			});
@@ -500,16 +426,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object modifiedDateObject) {
-					address.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"classNameId",
 			new Function<Address, Object>() {
@@ -517,16 +433,6 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getClassNameId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"classNameId",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object classNameIdObject) {
-					address.setClassNameId((Long)classNameIdObject);
 				}
 
 			});
@@ -540,16 +446,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"classPK",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object classPKObject) {
-					address.setClassPK((Long)classPKObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"street1",
 			new Function<Address, Object>() {
@@ -557,16 +453,6 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getStreet1();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"street1",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object street1Object) {
-					address.setStreet1((String)street1Object);
 				}
 
 			});
@@ -580,16 +466,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"street2",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object street2Object) {
-					address.setStreet2((String)street2Object);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"street3",
 			new Function<Address, Object>() {
@@ -597,16 +473,6 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getStreet3();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"street3",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object street3Object) {
-					address.setStreet3((String)street3Object);
 				}
 
 			});
@@ -620,16 +486,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"city",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object cityObject) {
-					address.setCity((String)cityObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"zip",
 			new Function<Address, Object>() {
@@ -637,16 +493,6 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getZip();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"zip",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object zipObject) {
-					address.setZip((String)zipObject);
 				}
 
 			});
@@ -660,16 +506,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"regionId",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object regionIdObject) {
-					address.setRegionId((Long)regionIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"countryId",
 			new Function<Address, Object>() {
@@ -677,16 +513,6 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getCountryId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"countryId",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object countryIdObject) {
-					address.setCountryId((Long)countryIdObject);
 				}
 
 			});
@@ -700,16 +526,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"typeId",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object typeIdObject) {
-					address.setTypeId((Long)typeIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"mailing",
 			new Function<Address, Object>() {
@@ -720,16 +536,6 @@ public class AddressModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"mailing",
-			new BiConsumer<Address, Object>() {
-
-				@Override
-				public void accept(Address address, Object mailingObject) {
-					address.setMailing((Boolean)mailingObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"primary",
 			new Function<Address, Object>() {
@@ -737,6 +543,208 @@ public class AddressModelImpl
 				@Override
 				public Object apply(Address address) {
 					return address.getPrimary();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Address, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Address, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Address, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object mvccVersionObject) {
+					address.setMvccVersion((Long)mvccVersionObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object uuidObject) {
+					address.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"addressId",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object addressIdObject) {
+					address.setAddressId((Long)addressIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object companyIdObject) {
+					address.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object userIdObject) {
+					address.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object userNameObject) {
+					address.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object createDateObject) {
+					address.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object modifiedDateObject) {
+					address.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classNameId",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object classNameIdObject) {
+					address.setClassNameId((Long)classNameIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"classPK",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object classPKObject) {
+					address.setClassPK((Long)classPKObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"street1",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object street1Object) {
+					address.setStreet1((String)street1Object);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"street2",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object street2Object) {
+					address.setStreet2((String)street2Object);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"street3",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object street3Object) {
+					address.setStreet3((String)street3Object);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"city",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object cityObject) {
+					address.setCity((String)cityObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"zip",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object zipObject) {
+					address.setZip((String)zipObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"regionId",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object regionIdObject) {
+					address.setRegionId((Long)regionIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"countryId",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object countryIdObject) {
+					address.setCountryId((Long)countryIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"typeId",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object typeIdObject) {
+					address.setTypeId((Long)typeIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"mailing",
+			new BiConsumer<Address, Object>() {
+
+				@Override
+				public void accept(Address address, Object mailingObject) {
+					address.setMailing((Boolean)mailingObject);
 				}
 
 			});
@@ -751,8 +759,6 @@ public class AddressModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

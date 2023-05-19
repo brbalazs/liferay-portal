@@ -241,15 +241,11 @@ public class CacheFieldEntryModelImpl
 
 	private static final Map<String, Function<CacheFieldEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<CacheFieldEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<CacheFieldEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<CacheFieldEntry, Object>>();
-		Map<String, BiConsumer<CacheFieldEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<CacheFieldEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"cacheFieldEntryId",
@@ -261,6 +257,38 @@ public class CacheFieldEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<CacheFieldEntry, Object>() {
+
+				@Override
+				public Object apply(CacheFieldEntry cacheFieldEntry) {
+					return cacheFieldEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<CacheFieldEntry, Object>() {
+
+				@Override
+				public Object apply(CacheFieldEntry cacheFieldEntry) {
+					return cacheFieldEntry.getName();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<CacheFieldEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<CacheFieldEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<CacheFieldEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"cacheFieldEntryId",
 			new BiConsumer<CacheFieldEntry, Object>() {
@@ -275,16 +303,6 @@ public class CacheFieldEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<CacheFieldEntry, Object>() {
-
-				@Override
-				public Object apply(CacheFieldEntry cacheFieldEntry) {
-					return cacheFieldEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<CacheFieldEntry, Object>() {
@@ -294,16 +312,6 @@ public class CacheFieldEntryModelImpl
 					CacheFieldEntry cacheFieldEntry, Object groupIdObject) {
 
 					cacheFieldEntry.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<CacheFieldEntry, Object>() {
-
-				@Override
-				public Object apply(CacheFieldEntry cacheFieldEntry) {
-					return cacheFieldEntry.getName();
 				}
 
 			});
@@ -320,8 +328,6 @@ public class CacheFieldEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

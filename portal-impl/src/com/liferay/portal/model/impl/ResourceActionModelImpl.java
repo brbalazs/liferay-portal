@@ -242,14 +242,10 @@ public class ResourceActionModelImpl
 
 	private static final Map<String, Function<ResourceAction, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ResourceAction, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ResourceAction, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<ResourceAction, Object>>();
-		Map<String, BiConsumer<ResourceAction, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ResourceAction, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -261,6 +257,58 @@ public class ResourceActionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"resourceActionId",
+			new Function<ResourceAction, Object>() {
+
+				@Override
+				public Object apply(ResourceAction resourceAction) {
+					return resourceAction.getResourceActionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<ResourceAction, Object>() {
+
+				@Override
+				public Object apply(ResourceAction resourceAction) {
+					return resourceAction.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"actionId",
+			new Function<ResourceAction, Object>() {
+
+				@Override
+				public Object apply(ResourceAction resourceAction) {
+					return resourceAction.getActionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"bitwiseValue",
+			new Function<ResourceAction, Object>() {
+
+				@Override
+				public Object apply(ResourceAction resourceAction) {
+					return resourceAction.getBitwiseValue();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ResourceAction, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ResourceAction, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<ResourceAction, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<ResourceAction, Object>() {
@@ -270,16 +318,6 @@ public class ResourceActionModelImpl
 					ResourceAction resourceAction, Object mvccVersionObject) {
 
 					resourceAction.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resourceActionId",
-			new Function<ResourceAction, Object>() {
-
-				@Override
-				public Object apply(ResourceAction resourceAction) {
-					return resourceAction.getResourceActionId();
 				}
 
 			});
@@ -297,16 +335,6 @@ public class ResourceActionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<ResourceAction, Object>() {
-
-				@Override
-				public Object apply(ResourceAction resourceAction) {
-					return resourceAction.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<ResourceAction, Object>() {
@@ -319,16 +347,6 @@ public class ResourceActionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"actionId",
-			new Function<ResourceAction, Object>() {
-
-				@Override
-				public Object apply(ResourceAction resourceAction) {
-					return resourceAction.getActionId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"actionId",
 			new BiConsumer<ResourceAction, Object>() {
@@ -338,16 +356,6 @@ public class ResourceActionModelImpl
 					ResourceAction resourceAction, Object actionIdObject) {
 
 					resourceAction.setActionId((String)actionIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"bitwiseValue",
-			new Function<ResourceAction, Object>() {
-
-				@Override
-				public Object apply(ResourceAction resourceAction) {
-					return resourceAction.getBitwiseValue();
 				}
 
 			});
@@ -364,8 +372,6 @@ public class ResourceActionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

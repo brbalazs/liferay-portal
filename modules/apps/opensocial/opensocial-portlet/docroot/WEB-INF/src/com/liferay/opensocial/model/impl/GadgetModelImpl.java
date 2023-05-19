@@ -297,14 +297,10 @@ public class GadgetModelImpl
 
 	private static final Map<String, Function<Gadget, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Gadget, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Gadget, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Gadget, Object>>();
-		Map<String, BiConsumer<Gadget, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Gadget, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -313,16 +309,6 @@ public class GadgetModelImpl
 				@Override
 				public Object apply(Gadget gadget) {
 					return gadget.getUuid();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<Gadget, Object>() {
-
-				@Override
-				public void accept(Gadget gadget, Object uuidObject) {
-					gadget.setUuid((String)uuidObject);
 				}
 
 			});
@@ -336,16 +322,6 @@ public class GadgetModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"gadgetId",
-			new BiConsumer<Gadget, Object>() {
-
-				@Override
-				public void accept(Gadget gadget, Object gadgetIdObject) {
-					gadget.setGadgetId((Long)gadgetIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<Gadget, Object>() {
@@ -353,16 +329,6 @@ public class GadgetModelImpl
 				@Override
 				public Object apply(Gadget gadget) {
 					return gadget.getCompanyId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Gadget, Object>() {
-
-				@Override
-				public void accept(Gadget gadget, Object companyIdObject) {
-					gadget.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -376,16 +342,6 @@ public class GadgetModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Gadget, Object>() {
-
-				@Override
-				public void accept(Gadget gadget, Object createDateObject) {
-					gadget.setCreateDate((Date)createDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedDate",
 			new Function<Gadget, Object>() {
@@ -393,16 +349,6 @@ public class GadgetModelImpl
 				@Override
 				public Object apply(Gadget gadget) {
 					return gadget.getModifiedDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Gadget, Object>() {
-
-				@Override
-				public void accept(Gadget gadget, Object modifiedDateObject) {
-					gadget.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -416,16 +362,6 @@ public class GadgetModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"name",
-			new BiConsumer<Gadget, Object>() {
-
-				@Override
-				public void accept(Gadget gadget, Object nameObject) {
-					gadget.setName((String)nameObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"url",
 			new Function<Gadget, Object>() {
@@ -436,16 +372,6 @@ public class GadgetModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"url",
-			new BiConsumer<Gadget, Object>() {
-
-				@Override
-				public void accept(Gadget gadget, Object urlObject) {
-					gadget.setUrl((String)urlObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"portletCategoryNames",
 			new Function<Gadget, Object>() {
@@ -453,6 +379,98 @@ public class GadgetModelImpl
 				@Override
 				public Object apply(Gadget gadget) {
 					return gadget.getPortletCategoryNames();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<Gadget, Object>() {
+
+				@Override
+				public Object apply(Gadget gadget) {
+					return gadget.getLastPublishDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Gadget, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Gadget, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Gadget, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<Gadget, Object>() {
+
+				@Override
+				public void accept(Gadget gadget, Object uuidObject) {
+					gadget.setUuid((String)uuidObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"gadgetId",
+			new BiConsumer<Gadget, Object>() {
+
+				@Override
+				public void accept(Gadget gadget, Object gadgetIdObject) {
+					gadget.setGadgetId((Long)gadgetIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Gadget, Object>() {
+
+				@Override
+				public void accept(Gadget gadget, Object companyIdObject) {
+					gadget.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Gadget, Object>() {
+
+				@Override
+				public void accept(Gadget gadget, Object createDateObject) {
+					gadget.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Gadget, Object>() {
+
+				@Override
+				public void accept(Gadget gadget, Object modifiedDateObject) {
+					gadget.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"name",
+			new BiConsumer<Gadget, Object>() {
+
+				@Override
+				public void accept(Gadget gadget, Object nameObject) {
+					gadget.setName((String)nameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"url",
+			new BiConsumer<Gadget, Object>() {
+
+				@Override
+				public void accept(Gadget gadget, Object urlObject) {
+					gadget.setUrl((String)urlObject);
 				}
 
 			});
@@ -469,16 +487,6 @@ public class GadgetModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<Gadget, Object>() {
-
-				@Override
-				public Object apply(Gadget gadget) {
-					return gadget.getLastPublishDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastPublishDate",
 			new BiConsumer<Gadget, Object>() {
@@ -492,8 +500,6 @@ public class GadgetModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

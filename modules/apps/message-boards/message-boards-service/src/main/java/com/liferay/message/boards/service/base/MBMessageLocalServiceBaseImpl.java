@@ -76,8 +76,6 @@ import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -1202,14 +1200,14 @@ public abstract class MBMessageLocalServiceBaseImpl
 			"com.liferay.message.boards.model.MBMessage",
 			mbMessageLocalService);
 
-		_setLocalServiceUtilService(mbMessageLocalService);
+		MBMessageLocalServiceUtil.setService(mbMessageLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.message.boards.model.MBMessage");
 
-		_setLocalServiceUtilService(null);
+		MBMessageLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -1251,22 +1249,6 @@ public abstract class MBMessageLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		MBMessageLocalService mbMessageLocalService) {
-
-		try {
-			Field field = MBMessageLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, mbMessageLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

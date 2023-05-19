@@ -300,17 +300,12 @@ public class AnnouncementsFlagModelImpl
 
 	private static final Map<String, Function<AnnouncementsFlag, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AnnouncementsFlag, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AnnouncementsFlag, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<AnnouncementsFlag, Object>>();
-		Map<String, BiConsumer<AnnouncementsFlag, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<AnnouncementsFlag, ?>>();
 
 		attributeGetterFunctions.put(
 			"flagId",
@@ -322,6 +317,69 @@ public class AnnouncementsFlagModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<AnnouncementsFlag, Object>() {
+
+				@Override
+				public Object apply(AnnouncementsFlag announcementsFlag) {
+					return announcementsFlag.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<AnnouncementsFlag, Object>() {
+
+				@Override
+				public Object apply(AnnouncementsFlag announcementsFlag) {
+					return announcementsFlag.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<AnnouncementsFlag, Object>() {
+
+				@Override
+				public Object apply(AnnouncementsFlag announcementsFlag) {
+					return announcementsFlag.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"entryId",
+			new Function<AnnouncementsFlag, Object>() {
+
+				@Override
+				public Object apply(AnnouncementsFlag announcementsFlag) {
+					return announcementsFlag.getEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"value",
+			new Function<AnnouncementsFlag, Object>() {
+
+				@Override
+				public Object apply(AnnouncementsFlag announcementsFlag) {
+					return announcementsFlag.getValue();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AnnouncementsFlag, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AnnouncementsFlag, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<AnnouncementsFlag, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"flagId",
 			new BiConsumer<AnnouncementsFlag, Object>() {
@@ -331,16 +389,6 @@ public class AnnouncementsFlagModelImpl
 					AnnouncementsFlag announcementsFlag, Object flagIdObject) {
 
 					announcementsFlag.setFlagId((Long)flagIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<AnnouncementsFlag, Object>() {
-
-				@Override
-				public Object apply(AnnouncementsFlag announcementsFlag) {
-					return announcementsFlag.getCompanyId();
 				}
 
 			});
@@ -357,16 +405,6 @@ public class AnnouncementsFlagModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<AnnouncementsFlag, Object>() {
-
-				@Override
-				public Object apply(AnnouncementsFlag announcementsFlag) {
-					return announcementsFlag.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<AnnouncementsFlag, Object>() {
@@ -376,16 +414,6 @@ public class AnnouncementsFlagModelImpl
 					AnnouncementsFlag announcementsFlag, Object userIdObject) {
 
 					announcementsFlag.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<AnnouncementsFlag, Object>() {
-
-				@Override
-				public Object apply(AnnouncementsFlag announcementsFlag) {
-					return announcementsFlag.getCreateDate();
 				}
 
 			});
@@ -402,16 +430,6 @@ public class AnnouncementsFlagModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"entryId",
-			new Function<AnnouncementsFlag, Object>() {
-
-				@Override
-				public Object apply(AnnouncementsFlag announcementsFlag) {
-					return announcementsFlag.getEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"entryId",
 			new BiConsumer<AnnouncementsFlag, Object>() {
@@ -421,16 +439,6 @@ public class AnnouncementsFlagModelImpl
 					AnnouncementsFlag announcementsFlag, Object entryIdObject) {
 
 					announcementsFlag.setEntryId((Long)entryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"value",
-			new Function<AnnouncementsFlag, Object>() {
-
-				@Override
-				public Object apply(AnnouncementsFlag announcementsFlag) {
-					return announcementsFlag.getValue();
 				}
 
 			});
@@ -447,8 +455,6 @@ public class AnnouncementsFlagModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

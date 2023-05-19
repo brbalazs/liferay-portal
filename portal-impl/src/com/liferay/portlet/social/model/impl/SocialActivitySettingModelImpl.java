@@ -308,18 +308,12 @@ public class SocialActivitySettingModelImpl
 
 	private static final Map<String, Function<SocialActivitySetting, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SocialActivitySetting, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SocialActivitySetting, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<SocialActivitySetting, Object>>();
-		Map<String, BiConsumer<SocialActivitySetting, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<SocialActivitySetting, ?>>();
 
 		attributeGetterFunctions.put(
 			"activitySettingId",
@@ -333,6 +327,92 @@ public class SocialActivitySettingModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<SocialActivitySetting, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivitySetting socialActivitySetting) {
+
+					return socialActivitySetting.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SocialActivitySetting, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivitySetting socialActivitySetting) {
+
+					return socialActivitySetting.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<SocialActivitySetting, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivitySetting socialActivitySetting) {
+
+					return socialActivitySetting.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"activityType",
+			new Function<SocialActivitySetting, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivitySetting socialActivitySetting) {
+
+					return socialActivitySetting.getActivityType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<SocialActivitySetting, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivitySetting socialActivitySetting) {
+
+					return socialActivitySetting.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"value",
+			new Function<SocialActivitySetting, Object>() {
+
+				@Override
+				public Object apply(
+					SocialActivitySetting socialActivitySetting) {
+
+					return socialActivitySetting.getValue();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SocialActivitySetting, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SocialActivitySetting, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<SocialActivitySetting, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"activitySettingId",
 			new BiConsumer<SocialActivitySetting, Object>() {
@@ -344,18 +424,6 @@ public class SocialActivitySettingModelImpl
 
 					socialActivitySetting.setActivitySettingId(
 						(Long)activitySettingIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<SocialActivitySetting, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivitySetting socialActivitySetting) {
-
-					return socialActivitySetting.getGroupId();
 				}
 
 			});
@@ -372,18 +440,6 @@ public class SocialActivitySettingModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SocialActivitySetting, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivitySetting socialActivitySetting) {
-
-					return socialActivitySetting.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<SocialActivitySetting, Object>() {
@@ -394,18 +450,6 @@ public class SocialActivitySettingModelImpl
 					Object companyIdObject) {
 
 					socialActivitySetting.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<SocialActivitySetting, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivitySetting socialActivitySetting) {
-
-					return socialActivitySetting.getClassNameId();
 				}
 
 			});
@@ -423,18 +467,6 @@ public class SocialActivitySettingModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"activityType",
-			new Function<SocialActivitySetting, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivitySetting socialActivitySetting) {
-
-					return socialActivitySetting.getActivityType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"activityType",
 			new BiConsumer<SocialActivitySetting, Object>() {
@@ -449,18 +481,6 @@ public class SocialActivitySettingModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<SocialActivitySetting, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivitySetting socialActivitySetting) {
-
-					return socialActivitySetting.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<SocialActivitySetting, Object>() {
@@ -471,18 +491,6 @@ public class SocialActivitySettingModelImpl
 					Object nameObject) {
 
 					socialActivitySetting.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"value",
-			new Function<SocialActivitySetting, Object>() {
-
-				@Override
-				public Object apply(
-					SocialActivitySetting socialActivitySetting) {
-
-					return socialActivitySetting.getValue();
 				}
 
 			});
@@ -500,8 +508,6 @@ public class SocialActivitySettingModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

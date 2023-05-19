@@ -312,18 +312,12 @@ public class AssetCategoryPropertyModelImpl
 
 	private static final Map<String, Function<AssetCategoryProperty, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AssetCategoryProperty, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AssetCategoryProperty, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<AssetCategoryProperty, Object>>();
-		Map<String, BiConsumer<AssetCategoryProperty, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<AssetCategoryProperty, ?>>();
 
 		attributeGetterFunctions.put(
 			"categoryPropertyId",
@@ -337,6 +331,116 @@ public class AssetCategoryPropertyModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<AssetCategoryProperty, Object>() {
+
+				@Override
+				public Object apply(
+					AssetCategoryProperty assetCategoryProperty) {
+
+					return assetCategoryProperty.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<AssetCategoryProperty, Object>() {
+
+				@Override
+				public Object apply(
+					AssetCategoryProperty assetCategoryProperty) {
+
+					return assetCategoryProperty.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<AssetCategoryProperty, Object>() {
+
+				@Override
+				public Object apply(
+					AssetCategoryProperty assetCategoryProperty) {
+
+					return assetCategoryProperty.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<AssetCategoryProperty, Object>() {
+
+				@Override
+				public Object apply(
+					AssetCategoryProperty assetCategoryProperty) {
+
+					return assetCategoryProperty.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<AssetCategoryProperty, Object>() {
+
+				@Override
+				public Object apply(
+					AssetCategoryProperty assetCategoryProperty) {
+
+					return assetCategoryProperty.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"categoryId",
+			new Function<AssetCategoryProperty, Object>() {
+
+				@Override
+				public Object apply(
+					AssetCategoryProperty assetCategoryProperty) {
+
+					return assetCategoryProperty.getCategoryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"key",
+			new Function<AssetCategoryProperty, Object>() {
+
+				@Override
+				public Object apply(
+					AssetCategoryProperty assetCategoryProperty) {
+
+					return assetCategoryProperty.getKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"value",
+			new Function<AssetCategoryProperty, Object>() {
+
+				@Override
+				public Object apply(
+					AssetCategoryProperty assetCategoryProperty) {
+
+					return assetCategoryProperty.getValue();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AssetCategoryProperty, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AssetCategoryProperty, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<AssetCategoryProperty, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"categoryPropertyId",
 			new BiConsumer<AssetCategoryProperty, Object>() {
@@ -348,18 +452,6 @@ public class AssetCategoryPropertyModelImpl
 
 					assetCategoryProperty.setCategoryPropertyId(
 						(Long)categoryPropertyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<AssetCategoryProperty, Object>() {
-
-				@Override
-				public Object apply(
-					AssetCategoryProperty assetCategoryProperty) {
-
-					return assetCategoryProperty.getCompanyId();
 				}
 
 			});
@@ -376,18 +468,6 @@ public class AssetCategoryPropertyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<AssetCategoryProperty, Object>() {
-
-				@Override
-				public Object apply(
-					AssetCategoryProperty assetCategoryProperty) {
-
-					return assetCategoryProperty.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<AssetCategoryProperty, Object>() {
@@ -398,18 +478,6 @@ public class AssetCategoryPropertyModelImpl
 					Object userIdObject) {
 
 					assetCategoryProperty.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<AssetCategoryProperty, Object>() {
-
-				@Override
-				public Object apply(
-					AssetCategoryProperty assetCategoryProperty) {
-
-					return assetCategoryProperty.getUserName();
 				}
 
 			});
@@ -426,18 +494,6 @@ public class AssetCategoryPropertyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<AssetCategoryProperty, Object>() {
-
-				@Override
-				public Object apply(
-					AssetCategoryProperty assetCategoryProperty) {
-
-					return assetCategoryProperty.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<AssetCategoryProperty, Object>() {
@@ -448,18 +504,6 @@ public class AssetCategoryPropertyModelImpl
 					Object createDateObject) {
 
 					assetCategoryProperty.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<AssetCategoryProperty, Object>() {
-
-				@Override
-				public Object apply(
-					AssetCategoryProperty assetCategoryProperty) {
-
-					return assetCategoryProperty.getModifiedDate();
 				}
 
 			});
@@ -477,18 +521,6 @@ public class AssetCategoryPropertyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"categoryId",
-			new Function<AssetCategoryProperty, Object>() {
-
-				@Override
-				public Object apply(
-					AssetCategoryProperty assetCategoryProperty) {
-
-					return assetCategoryProperty.getCategoryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"categoryId",
 			new BiConsumer<AssetCategoryProperty, Object>() {
@@ -502,18 +534,6 @@ public class AssetCategoryPropertyModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"key",
-			new Function<AssetCategoryProperty, Object>() {
-
-				@Override
-				public Object apply(
-					AssetCategoryProperty assetCategoryProperty) {
-
-					return assetCategoryProperty.getKey();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"key",
 			new BiConsumer<AssetCategoryProperty, Object>() {
@@ -524,18 +544,6 @@ public class AssetCategoryPropertyModelImpl
 					Object keyObject) {
 
 					assetCategoryProperty.setKey((String)keyObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"value",
-			new Function<AssetCategoryProperty, Object>() {
-
-				@Override
-				public Object apply(
-					AssetCategoryProperty assetCategoryProperty) {
-
-					return assetCategoryProperty.getValue();
 				}
 
 			});
@@ -553,8 +561,6 @@ public class AssetCategoryPropertyModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

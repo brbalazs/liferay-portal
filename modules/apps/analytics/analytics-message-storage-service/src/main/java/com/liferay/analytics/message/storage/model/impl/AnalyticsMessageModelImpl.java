@@ -247,16 +247,11 @@ public class AnalyticsMessageModelImpl
 
 	private static final Map<String, Function<AnalyticsMessage, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AnalyticsMessage, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AnalyticsMessage, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<AnalyticsMessage, Object>>();
-		Map<String, BiConsumer<AnalyticsMessage, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<AnalyticsMessage, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -268,6 +263,79 @@ public class AnalyticsMessageModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"analyticsMessageId",
+			new Function<AnalyticsMessage, Object>() {
+
+				@Override
+				public Object apply(AnalyticsMessage analyticsMessage) {
+					return analyticsMessage.getAnalyticsMessageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<AnalyticsMessage, Object>() {
+
+				@Override
+				public Object apply(AnalyticsMessage analyticsMessage) {
+					return analyticsMessage.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<AnalyticsMessage, Object>() {
+
+				@Override
+				public Object apply(AnalyticsMessage analyticsMessage) {
+					return analyticsMessage.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<AnalyticsMessage, Object>() {
+
+				@Override
+				public Object apply(AnalyticsMessage analyticsMessage) {
+					return analyticsMessage.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<AnalyticsMessage, Object>() {
+
+				@Override
+				public Object apply(AnalyticsMessage analyticsMessage) {
+					return analyticsMessage.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"body",
+			new Function<AnalyticsMessage, Object>() {
+
+				@Override
+				public Object apply(AnalyticsMessage analyticsMessage) {
+					return analyticsMessage.getBody();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AnalyticsMessage, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AnalyticsMessage, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<AnalyticsMessage, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<AnalyticsMessage, Object>() {
@@ -278,16 +346,6 @@ public class AnalyticsMessageModelImpl
 					Object mvccVersionObject) {
 
 					analyticsMessage.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"analyticsMessageId",
-			new Function<AnalyticsMessage, Object>() {
-
-				@Override
-				public Object apply(AnalyticsMessage analyticsMessage) {
-					return analyticsMessage.getAnalyticsMessageId();
 				}
 
 			});
@@ -305,16 +363,6 @@ public class AnalyticsMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<AnalyticsMessage, Object>() {
-
-				@Override
-				public Object apply(AnalyticsMessage analyticsMessage) {
-					return analyticsMessage.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<AnalyticsMessage, Object>() {
@@ -324,16 +372,6 @@ public class AnalyticsMessageModelImpl
 					AnalyticsMessage analyticsMessage, Object companyIdObject) {
 
 					analyticsMessage.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<AnalyticsMessage, Object>() {
-
-				@Override
-				public Object apply(AnalyticsMessage analyticsMessage) {
-					return analyticsMessage.getUserId();
 				}
 
 			});
@@ -349,16 +387,6 @@ public class AnalyticsMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<AnalyticsMessage, Object>() {
-
-				@Override
-				public Object apply(AnalyticsMessage analyticsMessage) {
-					return analyticsMessage.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<AnalyticsMessage, Object>() {
@@ -368,16 +396,6 @@ public class AnalyticsMessageModelImpl
 					AnalyticsMessage analyticsMessage, Object userNameObject) {
 
 					analyticsMessage.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<AnalyticsMessage, Object>() {
-
-				@Override
-				public Object apply(AnalyticsMessage analyticsMessage) {
-					return analyticsMessage.getCreateDate();
 				}
 
 			});
@@ -394,16 +412,6 @@ public class AnalyticsMessageModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"body",
-			new Function<AnalyticsMessage, Object>() {
-
-				@Override
-				public Object apply(AnalyticsMessage analyticsMessage) {
-					return analyticsMessage.getBody();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"body",
 			new BiConsumer<AnalyticsMessage, Object>() {
@@ -417,8 +425,6 @@ public class AnalyticsMessageModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

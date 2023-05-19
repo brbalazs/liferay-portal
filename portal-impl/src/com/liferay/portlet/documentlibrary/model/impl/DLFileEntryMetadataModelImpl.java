@@ -253,17 +253,12 @@ public class DLFileEntryMetadataModelImpl
 
 	private static final Map<String, Function<DLFileEntryMetadata, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DLFileEntryMetadata, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DLFileEntryMetadata, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<DLFileEntryMetadata, Object>>();
-		Map<String, BiConsumer<DLFileEntryMetadata, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<DLFileEntryMetadata, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -275,6 +270,79 @@ public class DLFileEntryMetadataModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"fileEntryMetadataId",
+			new Function<DLFileEntryMetadata, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
+					return dlFileEntryMetadata.getFileEntryMetadataId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DLFileEntryMetadata, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
+					return dlFileEntryMetadata.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"DDMStorageId",
+			new Function<DLFileEntryMetadata, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
+					return dlFileEntryMetadata.getDDMStorageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"DDMStructureId",
+			new Function<DLFileEntryMetadata, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
+					return dlFileEntryMetadata.getDDMStructureId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileEntryId",
+			new Function<DLFileEntryMetadata, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
+					return dlFileEntryMetadata.getFileEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileVersionId",
+			new Function<DLFileEntryMetadata, Object>() {
+
+				@Override
+				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
+					return dlFileEntryMetadata.getFileVersionId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DLFileEntryMetadata, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DLFileEntryMetadata, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<DLFileEntryMetadata, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<DLFileEntryMetadata, Object>() {
@@ -285,16 +353,6 @@ public class DLFileEntryMetadataModelImpl
 					Object uuidObject) {
 
 					dlFileEntryMetadata.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fileEntryMetadataId",
-			new Function<DLFileEntryMetadata, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
-					return dlFileEntryMetadata.getFileEntryMetadataId();
 				}
 
 			});
@@ -312,16 +370,6 @@ public class DLFileEntryMetadataModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DLFileEntryMetadata, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
-					return dlFileEntryMetadata.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<DLFileEntryMetadata, Object>() {
@@ -332,16 +380,6 @@ public class DLFileEntryMetadataModelImpl
 					Object companyIdObject) {
 
 					dlFileEntryMetadata.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"DDMStorageId",
-			new Function<DLFileEntryMetadata, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
-					return dlFileEntryMetadata.getDDMStorageId();
 				}
 
 			});
@@ -359,16 +397,6 @@ public class DLFileEntryMetadataModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"DDMStructureId",
-			new Function<DLFileEntryMetadata, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
-					return dlFileEntryMetadata.getDDMStructureId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"DDMStructureId",
 			new BiConsumer<DLFileEntryMetadata, Object>() {
@@ -383,16 +411,6 @@ public class DLFileEntryMetadataModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"fileEntryId",
-			new Function<DLFileEntryMetadata, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
-					return dlFileEntryMetadata.getFileEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"fileEntryId",
 			new BiConsumer<DLFileEntryMetadata, Object>() {
@@ -403,16 +421,6 @@ public class DLFileEntryMetadataModelImpl
 					Object fileEntryIdObject) {
 
 					dlFileEntryMetadata.setFileEntryId((Long)fileEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fileVersionId",
-			new Function<DLFileEntryMetadata, Object>() {
-
-				@Override
-				public Object apply(DLFileEntryMetadata dlFileEntryMetadata) {
-					return dlFileEntryMetadata.getFileVersionId();
 				}
 
 			});
@@ -431,8 +439,6 @@ public class DLFileEntryMetadataModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

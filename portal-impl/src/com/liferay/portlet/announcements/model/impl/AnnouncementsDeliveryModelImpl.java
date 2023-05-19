@@ -305,18 +305,12 @@ public class AnnouncementsDeliveryModelImpl
 
 	private static final Map<String, Function<AnnouncementsDelivery, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AnnouncementsDelivery, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AnnouncementsDelivery, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<AnnouncementsDelivery, Object>>();
-		Map<String, BiConsumer<AnnouncementsDelivery, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<AnnouncementsDelivery, ?>>();
 
 		attributeGetterFunctions.put(
 			"deliveryId",
@@ -330,6 +324,92 @@ public class AnnouncementsDeliveryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<AnnouncementsDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					AnnouncementsDelivery announcementsDelivery) {
+
+					return announcementsDelivery.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<AnnouncementsDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					AnnouncementsDelivery announcementsDelivery) {
+
+					return announcementsDelivery.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<AnnouncementsDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					AnnouncementsDelivery announcementsDelivery) {
+
+					return announcementsDelivery.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"email",
+			new Function<AnnouncementsDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					AnnouncementsDelivery announcementsDelivery) {
+
+					return announcementsDelivery.getEmail();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"sms",
+			new Function<AnnouncementsDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					AnnouncementsDelivery announcementsDelivery) {
+
+					return announcementsDelivery.getSms();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"website",
+			new Function<AnnouncementsDelivery, Object>() {
+
+				@Override
+				public Object apply(
+					AnnouncementsDelivery announcementsDelivery) {
+
+					return announcementsDelivery.getWebsite();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AnnouncementsDelivery, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AnnouncementsDelivery, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<AnnouncementsDelivery, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"deliveryId",
 			new BiConsumer<AnnouncementsDelivery, Object>() {
@@ -340,18 +420,6 @@ public class AnnouncementsDeliveryModelImpl
 					Object deliveryIdObject) {
 
 					announcementsDelivery.setDeliveryId((Long)deliveryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<AnnouncementsDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					AnnouncementsDelivery announcementsDelivery) {
-
-					return announcementsDelivery.getCompanyId();
 				}
 
 			});
@@ -368,18 +436,6 @@ public class AnnouncementsDeliveryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<AnnouncementsDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					AnnouncementsDelivery announcementsDelivery) {
-
-					return announcementsDelivery.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<AnnouncementsDelivery, Object>() {
@@ -390,18 +446,6 @@ public class AnnouncementsDeliveryModelImpl
 					Object userIdObject) {
 
 					announcementsDelivery.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<AnnouncementsDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					AnnouncementsDelivery announcementsDelivery) {
-
-					return announcementsDelivery.getType();
 				}
 
 			});
@@ -418,18 +462,6 @@ public class AnnouncementsDeliveryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"email",
-			new Function<AnnouncementsDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					AnnouncementsDelivery announcementsDelivery) {
-
-					return announcementsDelivery.getEmail();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"email",
 			new BiConsumer<AnnouncementsDelivery, Object>() {
@@ -443,18 +475,6 @@ public class AnnouncementsDeliveryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"sms",
-			new Function<AnnouncementsDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					AnnouncementsDelivery announcementsDelivery) {
-
-					return announcementsDelivery.getSms();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"sms",
 			new BiConsumer<AnnouncementsDelivery, Object>() {
@@ -465,18 +485,6 @@ public class AnnouncementsDeliveryModelImpl
 					Object smsObject) {
 
 					announcementsDelivery.setSms((Boolean)smsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"website",
-			new Function<AnnouncementsDelivery, Object>() {
-
-				@Override
-				public Object apply(
-					AnnouncementsDelivery announcementsDelivery) {
-
-					return announcementsDelivery.getWebsite();
 				}
 
 			});
@@ -494,8 +502,6 @@ public class AnnouncementsDeliveryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

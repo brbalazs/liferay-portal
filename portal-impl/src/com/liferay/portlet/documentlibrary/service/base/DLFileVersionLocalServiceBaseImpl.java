@@ -66,8 +66,6 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -771,14 +769,14 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 			"com.liferay.document.library.kernel.model.DLFileVersion",
 			dlFileVersionLocalService);
 
-		_setLocalServiceUtilService(dlFileVersionLocalService);
+		DLFileVersionLocalServiceUtil.setService(dlFileVersionLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.document.library.kernel.model.DLFileVersion");
 
-		_setLocalServiceUtilService(null);
+		DLFileVersionLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -820,22 +818,6 @@ public abstract class DLFileVersionLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DLFileVersionLocalService dlFileVersionLocalService) {
-
-		try {
-			Field field = DLFileVersionLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, dlFileVersionLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

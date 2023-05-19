@@ -250,15 +250,11 @@ public class FaroPreferencesModelImpl
 
 	private static final Map<String, Function<FaroPreferences, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<FaroPreferences, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<FaroPreferences, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<FaroPreferences, Object>>();
-		Map<String, BiConsumer<FaroPreferences, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<FaroPreferences, ?>>();
 
 		attributeGetterFunctions.put(
 			"faroPreferencesId",
@@ -270,6 +266,88 @@ public class FaroPreferencesModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<FaroPreferences, Object>() {
+
+				@Override
+				public Object apply(FaroPreferences faroPreferences) {
+					return faroPreferences.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<FaroPreferences, Object>() {
+
+				@Override
+				public Object apply(FaroPreferences faroPreferences) {
+					return faroPreferences.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<FaroPreferences, Object>() {
+
+				@Override
+				public Object apply(FaroPreferences faroPreferences) {
+					return faroPreferences.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createTime",
+			new Function<FaroPreferences, Object>() {
+
+				@Override
+				public Object apply(FaroPreferences faroPreferences) {
+					return faroPreferences.getCreateTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedTime",
+			new Function<FaroPreferences, Object>() {
+
+				@Override
+				public Object apply(FaroPreferences faroPreferences) {
+					return faroPreferences.getModifiedTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"ownerId",
+			new Function<FaroPreferences, Object>() {
+
+				@Override
+				public Object apply(FaroPreferences faroPreferences) {
+					return faroPreferences.getOwnerId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"preferences",
+			new Function<FaroPreferences, Object>() {
+
+				@Override
+				public Object apply(FaroPreferences faroPreferences) {
+					return faroPreferences.getPreferences();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<FaroPreferences, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<FaroPreferences, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<FaroPreferences, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"faroPreferencesId",
 			new BiConsumer<FaroPreferences, Object>() {
@@ -281,16 +359,6 @@ public class FaroPreferencesModelImpl
 
 					faroPreferences.setFaroPreferencesId(
 						(Long)faroPreferencesIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<FaroPreferences, Object>() {
-
-				@Override
-				public Object apply(FaroPreferences faroPreferences) {
-					return faroPreferences.getGroupId();
 				}
 
 			});
@@ -306,16 +374,6 @@ public class FaroPreferencesModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<FaroPreferences, Object>() {
-
-				@Override
-				public Object apply(FaroPreferences faroPreferences) {
-					return faroPreferences.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<FaroPreferences, Object>() {
@@ -325,16 +383,6 @@ public class FaroPreferencesModelImpl
 					FaroPreferences faroPreferences, Object userIdObject) {
 
 					faroPreferences.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<FaroPreferences, Object>() {
-
-				@Override
-				public Object apply(FaroPreferences faroPreferences) {
-					return faroPreferences.getUserName();
 				}
 
 			});
@@ -350,16 +398,6 @@ public class FaroPreferencesModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createTime",
-			new Function<FaroPreferences, Object>() {
-
-				@Override
-				public Object apply(FaroPreferences faroPreferences) {
-					return faroPreferences.getCreateTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createTime",
 			new BiConsumer<FaroPreferences, Object>() {
@@ -369,16 +407,6 @@ public class FaroPreferencesModelImpl
 					FaroPreferences faroPreferences, Object createTimeObject) {
 
 					faroPreferences.setCreateTime((Long)createTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedTime",
-			new Function<FaroPreferences, Object>() {
-
-				@Override
-				public Object apply(FaroPreferences faroPreferences) {
-					return faroPreferences.getModifiedTime();
 				}
 
 			});
@@ -395,16 +423,6 @@ public class FaroPreferencesModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"ownerId",
-			new Function<FaroPreferences, Object>() {
-
-				@Override
-				public Object apply(FaroPreferences faroPreferences) {
-					return faroPreferences.getOwnerId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"ownerId",
 			new BiConsumer<FaroPreferences, Object>() {
@@ -414,16 +432,6 @@ public class FaroPreferencesModelImpl
 					FaroPreferences faroPreferences, Object ownerIdObject) {
 
 					faroPreferences.setOwnerId((Long)ownerIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"preferences",
-			new Function<FaroPreferences, Object>() {
-
-				@Override
-				public Object apply(FaroPreferences faroPreferences) {
-					return faroPreferences.getPreferences();
 				}
 
 			});
@@ -440,8 +448,6 @@ public class FaroPreferencesModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

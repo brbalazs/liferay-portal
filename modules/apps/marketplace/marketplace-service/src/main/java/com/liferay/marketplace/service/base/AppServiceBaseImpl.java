@@ -34,8 +34,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -328,11 +326,11 @@ public abstract class AppServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(appService);
+		AppServiceUtil.setService(appService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		AppServiceUtil.setService(null);
 	}
 
 	/**
@@ -374,19 +372,6 @@ public abstract class AppServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(AppService appService) {
-		try {
-			Field field = AppServiceUtil.class.getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, appService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

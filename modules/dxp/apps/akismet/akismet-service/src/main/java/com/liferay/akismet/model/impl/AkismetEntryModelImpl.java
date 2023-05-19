@@ -254,14 +254,10 @@ public class AkismetEntryModelImpl
 
 	private static final Map<String, Function<AkismetEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<AkismetEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<AkismetEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<AkismetEntry, Object>>();
-		Map<String, BiConsumer<AkismetEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<AkismetEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"akismetEntryId",
@@ -273,6 +269,108 @@ public class AkismetEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<AkismetEntry, Object>() {
+
+				@Override
+				public Object apply(AkismetEntry akismetEntry) {
+					return akismetEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<AkismetEntry, Object>() {
+
+				@Override
+				public Object apply(AkismetEntry akismetEntry) {
+					return akismetEntry.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<AkismetEntry, Object>() {
+
+				@Override
+				public Object apply(AkismetEntry akismetEntry) {
+					return akismetEntry.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<AkismetEntry, Object>() {
+
+				@Override
+				public Object apply(AkismetEntry akismetEntry) {
+					return akismetEntry.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"permalink",
+			new Function<AkismetEntry, Object>() {
+
+				@Override
+				public Object apply(AkismetEntry akismetEntry) {
+					return akismetEntry.getPermalink();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"referrer",
+			new Function<AkismetEntry, Object>() {
+
+				@Override
+				public Object apply(AkismetEntry akismetEntry) {
+					return akismetEntry.getReferrer();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userAgent",
+			new Function<AkismetEntry, Object>() {
+
+				@Override
+				public Object apply(AkismetEntry akismetEntry) {
+					return akismetEntry.getUserAgent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userIP",
+			new Function<AkismetEntry, Object>() {
+
+				@Override
+				public Object apply(AkismetEntry akismetEntry) {
+					return akismetEntry.getUserIP();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userURL",
+			new Function<AkismetEntry, Object>() {
+
+				@Override
+				public Object apply(AkismetEntry akismetEntry) {
+					return akismetEntry.getUserURL();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<AkismetEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<AkismetEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<AkismetEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"akismetEntryId",
 			new BiConsumer<AkismetEntry, Object>() {
@@ -282,16 +380,6 @@ public class AkismetEntryModelImpl
 					AkismetEntry akismetEntry, Object akismetEntryIdObject) {
 
 					akismetEntry.setAkismetEntryId((Long)akismetEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<AkismetEntry, Object>() {
-
-				@Override
-				public Object apply(AkismetEntry akismetEntry) {
-					return akismetEntry.getModifiedDate();
 				}
 
 			});
@@ -307,16 +395,6 @@ public class AkismetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<AkismetEntry, Object>() {
-
-				@Override
-				public Object apply(AkismetEntry akismetEntry) {
-					return akismetEntry.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<AkismetEntry, Object>() {
@@ -326,16 +404,6 @@ public class AkismetEntryModelImpl
 					AkismetEntry akismetEntry, Object classNameIdObject) {
 
 					akismetEntry.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<AkismetEntry, Object>() {
-
-				@Override
-				public Object apply(AkismetEntry akismetEntry) {
-					return akismetEntry.getClassPK();
 				}
 
 			});
@@ -351,16 +419,6 @@ public class AkismetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<AkismetEntry, Object>() {
-
-				@Override
-				public Object apply(AkismetEntry akismetEntry) {
-					return akismetEntry.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<AkismetEntry, Object>() {
@@ -370,16 +428,6 @@ public class AkismetEntryModelImpl
 					AkismetEntry akismetEntry, Object typeObject) {
 
 					akismetEntry.setType((String)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"permalink",
-			new Function<AkismetEntry, Object>() {
-
-				@Override
-				public Object apply(AkismetEntry akismetEntry) {
-					return akismetEntry.getPermalink();
 				}
 
 			});
@@ -395,16 +443,6 @@ public class AkismetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"referrer",
-			new Function<AkismetEntry, Object>() {
-
-				@Override
-				public Object apply(AkismetEntry akismetEntry) {
-					return akismetEntry.getReferrer();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"referrer",
 			new BiConsumer<AkismetEntry, Object>() {
@@ -414,16 +452,6 @@ public class AkismetEntryModelImpl
 					AkismetEntry akismetEntry, Object referrerObject) {
 
 					akismetEntry.setReferrer((String)referrerObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userAgent",
-			new Function<AkismetEntry, Object>() {
-
-				@Override
-				public Object apply(AkismetEntry akismetEntry) {
-					return akismetEntry.getUserAgent();
 				}
 
 			});
@@ -439,16 +467,6 @@ public class AkismetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userIP",
-			new Function<AkismetEntry, Object>() {
-
-				@Override
-				public Object apply(AkismetEntry akismetEntry) {
-					return akismetEntry.getUserIP();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userIP",
 			new BiConsumer<AkismetEntry, Object>() {
@@ -458,16 +476,6 @@ public class AkismetEntryModelImpl
 					AkismetEntry akismetEntry, Object userIPObject) {
 
 					akismetEntry.setUserIP((String)userIPObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userURL",
-			new Function<AkismetEntry, Object>() {
-
-				@Override
-				public Object apply(AkismetEntry akismetEntry) {
-					return akismetEntry.getUserURL();
 				}
 
 			});
@@ -484,8 +492,6 @@ public class AkismetEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

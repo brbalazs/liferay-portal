@@ -317,14 +317,10 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 	private static final Map<String, Function<Entry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<Entry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<Entry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<Entry, Object>>();
-		Map<String, BiConsumer<Entry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<Entry, ?>>();
 
 		attributeGetterFunctions.put(
 			"entryId",
@@ -333,16 +329,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getEntryId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"entryId",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object entryIdObject) {
-					entry.setEntryId((Long)entryIdObject);
 				}
 
 			});
@@ -356,16 +342,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"groupId",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object groupIdObject) {
-					entry.setGroupId((Long)groupIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"companyId",
 			new Function<Entry, Object>() {
@@ -373,16 +349,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getCompanyId();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"companyId",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object companyIdObject) {
-					entry.setCompanyId((Long)companyIdObject);
 				}
 
 			});
@@ -396,16 +362,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"userId",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object userIdObject) {
-					entry.setUserId((Long)userIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"userName",
 			new Function<Entry, Object>() {
@@ -413,16 +369,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getUserName();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"userName",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object userNameObject) {
-					entry.setUserName((String)userNameObject);
 				}
 
 			});
@@ -436,16 +382,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"createDate",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object createDateObject) {
-					entry.setCreateDate((Date)createDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"modifiedDate",
 			new Function<Entry, Object>() {
@@ -453,16 +389,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getModifiedDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"modifiedDate",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object modifiedDateObject) {
-					entry.setModifiedDate((Date)modifiedDateObject);
 				}
 
 			});
@@ -476,16 +402,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"definitionId",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object definitionIdObject) {
-					entry.setDefinitionId((Long)definitionIdObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"format",
 			new Function<Entry, Object>() {
@@ -493,16 +409,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getFormat();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"format",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object formatObject) {
-					entry.setFormat((String)formatObject);
 				}
 
 			});
@@ -516,16 +422,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"scheduleRequest",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object scheduleRequestObject) {
-					entry.setScheduleRequest((Boolean)scheduleRequestObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"startDate",
 			new Function<Entry, Object>() {
@@ -533,16 +429,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getStartDate();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"startDate",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object startDateObject) {
-					entry.setStartDate((Date)startDateObject);
 				}
 
 			});
@@ -556,16 +442,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"endDate",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object endDateObject) {
-					entry.setEndDate((Date)endDateObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"repeating",
 			new Function<Entry, Object>() {
@@ -573,16 +449,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getRepeating();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"repeating",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object repeatingObject) {
-					entry.setRepeating((Boolean)repeatingObject);
 				}
 
 			});
@@ -596,16 +462,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"recurrence",
-			new BiConsumer<Entry, Object>() {
-
-				@Override
-				public void accept(Entry entry, Object recurrenceObject) {
-					entry.setRecurrence((String)recurrenceObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"emailNotifications",
 			new Function<Entry, Object>() {
@@ -613,6 +469,218 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public Object apply(Entry entry) {
 					return entry.getEmailNotifications();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"emailDelivery",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getEmailDelivery();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"portletId",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getPortletId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"pageURL",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getPageURL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"reportParameters",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getReportParameters();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"errorMessage",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getErrorMessage();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<Entry, Object>() {
+
+				@Override
+				public Object apply(Entry entry) {
+					return entry.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<Entry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<Entry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<Entry, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"entryId",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object entryIdObject) {
+					entry.setEntryId((Long)entryIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"groupId",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object groupIdObject) {
+					entry.setGroupId((Long)groupIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"companyId",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object companyIdObject) {
+					entry.setCompanyId((Long)companyIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userId",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object userIdObject) {
+					entry.setUserId((Long)userIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"userName",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object userNameObject) {
+					entry.setUserName((String)userNameObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"createDate",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object createDateObject) {
+					entry.setCreateDate((Date)createDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"modifiedDate",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object modifiedDateObject) {
+					entry.setModifiedDate((Date)modifiedDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"definitionId",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object definitionIdObject) {
+					entry.setDefinitionId((Long)definitionIdObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"format",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object formatObject) {
+					entry.setFormat((String)formatObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"scheduleRequest",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object scheduleRequestObject) {
+					entry.setScheduleRequest((Boolean)scheduleRequestObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"startDate",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object startDateObject) {
+					entry.setStartDate((Date)startDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"endDate",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object endDateObject) {
+					entry.setEndDate((Date)endDateObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"repeating",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object repeatingObject) {
+					entry.setRepeating((Boolean)repeatingObject);
+				}
+
+			});
+		attributeSetterBiConsumers.put(
+			"recurrence",
+			new BiConsumer<Entry, Object>() {
+
+				@Override
+				public void accept(Entry entry, Object recurrenceObject) {
+					entry.setRecurrence((String)recurrenceObject);
 				}
 
 			});
@@ -629,16 +697,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"emailDelivery",
-			new Function<Entry, Object>() {
-
-				@Override
-				public Object apply(Entry entry) {
-					return entry.getEmailDelivery();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"emailDelivery",
 			new BiConsumer<Entry, Object>() {
@@ -646,16 +704,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public void accept(Entry entry, Object emailDeliveryObject) {
 					entry.setEmailDelivery((String)emailDeliveryObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"portletId",
-			new Function<Entry, Object>() {
-
-				@Override
-				public Object apply(Entry entry) {
-					return entry.getPortletId();
 				}
 
 			});
@@ -669,16 +717,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"pageURL",
-			new Function<Entry, Object>() {
-
-				@Override
-				public Object apply(Entry entry) {
-					return entry.getPageURL();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"pageURL",
 			new BiConsumer<Entry, Object>() {
@@ -686,16 +724,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public void accept(Entry entry, Object pageURLObject) {
 					entry.setPageURL((String)pageURLObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"reportParameters",
-			new Function<Entry, Object>() {
-
-				@Override
-				public Object apply(Entry entry) {
-					return entry.getReportParameters();
 				}
 
 			});
@@ -709,16 +737,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"errorMessage",
-			new Function<Entry, Object>() {
-
-				@Override
-				public Object apply(Entry entry) {
-					return entry.getErrorMessage();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"errorMessage",
 			new BiConsumer<Entry, Object>() {
@@ -726,16 +744,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 				@Override
 				public void accept(Entry entry, Object errorMessageObject) {
 					entry.setErrorMessage((String)errorMessageObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<Entry, Object>() {
-
-				@Override
-				public Object apply(Entry entry) {
-					return entry.getStatus();
 				}
 
 			});
@@ -750,8 +758,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

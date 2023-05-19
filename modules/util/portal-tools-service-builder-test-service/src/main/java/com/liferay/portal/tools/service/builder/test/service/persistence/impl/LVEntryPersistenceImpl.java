@@ -7760,11 +7760,11 @@ public class LVEntryPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByHeadId",
 			new String[] {Long.class.getName()});
 
-		_setLVEntryUtilPersistence(this);
+		LVEntryUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setLVEntryUtilPersistence(null);
+		LVEntryUtil.setPersistence(null);
 
 		entityCache.removeCache(LVEntryImpl.class.getName());
 
@@ -7773,21 +7773,6 @@ public class LVEntryPersistenceImpl
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		TableMapperFactory.removeTableMapper("BigDecimalEntries_LVEntries");
-	}
-
-	private void _setLVEntryUtilPersistence(
-		LVEntryPersistence lvEntryPersistence) {
-
-		try {
-			Field field = LVEntryUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, lvEntryPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

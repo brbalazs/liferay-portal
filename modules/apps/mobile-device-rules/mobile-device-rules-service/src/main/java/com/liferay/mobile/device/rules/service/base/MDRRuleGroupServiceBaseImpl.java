@@ -36,8 +36,6 @@ import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -442,11 +440,11 @@ public abstract class MDRRuleGroupServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(mdrRuleGroupService);
+		MDRRuleGroupServiceUtil.setService(mdrRuleGroupService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		MDRRuleGroupServiceUtil.setService(null);
 	}
 
 	/**
@@ -488,22 +486,6 @@ public abstract class MDRRuleGroupServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		MDRRuleGroupService mdrRuleGroupService) {
-
-		try {
-			Field field = MDRRuleGroupServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, mdrRuleGroupService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

@@ -317,16 +317,11 @@ public class ReadingTimeEntryModelImpl
 
 	private static final Map<String, Function<ReadingTimeEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ReadingTimeEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ReadingTimeEntry, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<ReadingTimeEntry, Object>>();
-		Map<String, BiConsumer<ReadingTimeEntry, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<ReadingTimeEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -338,6 +333,99 @@ public class ReadingTimeEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"readingTimeEntryId",
+			new Function<ReadingTimeEntry, Object>() {
+
+				@Override
+				public Object apply(ReadingTimeEntry readingTimeEntry) {
+					return readingTimeEntry.getReadingTimeEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<ReadingTimeEntry, Object>() {
+
+				@Override
+				public Object apply(ReadingTimeEntry readingTimeEntry) {
+					return readingTimeEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<ReadingTimeEntry, Object>() {
+
+				@Override
+				public Object apply(ReadingTimeEntry readingTimeEntry) {
+					return readingTimeEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<ReadingTimeEntry, Object>() {
+
+				@Override
+				public Object apply(ReadingTimeEntry readingTimeEntry) {
+					return readingTimeEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<ReadingTimeEntry, Object>() {
+
+				@Override
+				public Object apply(ReadingTimeEntry readingTimeEntry) {
+					return readingTimeEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<ReadingTimeEntry, Object>() {
+
+				@Override
+				public Object apply(ReadingTimeEntry readingTimeEntry) {
+					return readingTimeEntry.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<ReadingTimeEntry, Object>() {
+
+				@Override
+				public Object apply(ReadingTimeEntry readingTimeEntry) {
+					return readingTimeEntry.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"readingTime",
+			new Function<ReadingTimeEntry, Object>() {
+
+				@Override
+				public Object apply(ReadingTimeEntry readingTimeEntry) {
+					return readingTimeEntry.getReadingTime();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ReadingTimeEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ReadingTimeEntry, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<ReadingTimeEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<ReadingTimeEntry, Object>() {
@@ -347,16 +435,6 @@ public class ReadingTimeEntryModelImpl
 					ReadingTimeEntry readingTimeEntry, Object uuidObject) {
 
 					readingTimeEntry.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"readingTimeEntryId",
-			new Function<ReadingTimeEntry, Object>() {
-
-				@Override
-				public Object apply(ReadingTimeEntry readingTimeEntry) {
-					return readingTimeEntry.getReadingTimeEntryId();
 				}
 
 			});
@@ -374,16 +452,6 @@ public class ReadingTimeEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<ReadingTimeEntry, Object>() {
-
-				@Override
-				public Object apply(ReadingTimeEntry readingTimeEntry) {
-					return readingTimeEntry.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<ReadingTimeEntry, Object>() {
@@ -396,16 +464,6 @@ public class ReadingTimeEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<ReadingTimeEntry, Object>() {
-
-				@Override
-				public Object apply(ReadingTimeEntry readingTimeEntry) {
-					return readingTimeEntry.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<ReadingTimeEntry, Object>() {
@@ -415,16 +473,6 @@ public class ReadingTimeEntryModelImpl
 					ReadingTimeEntry readingTimeEntry, Object companyIdObject) {
 
 					readingTimeEntry.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<ReadingTimeEntry, Object>() {
-
-				@Override
-				public Object apply(ReadingTimeEntry readingTimeEntry) {
-					return readingTimeEntry.getCreateDate();
 				}
 
 			});
@@ -441,16 +489,6 @@ public class ReadingTimeEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<ReadingTimeEntry, Object>() {
-
-				@Override
-				public Object apply(ReadingTimeEntry readingTimeEntry) {
-					return readingTimeEntry.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<ReadingTimeEntry, Object>() {
@@ -461,16 +499,6 @@ public class ReadingTimeEntryModelImpl
 					Object modifiedDateObject) {
 
 					readingTimeEntry.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<ReadingTimeEntry, Object>() {
-
-				@Override
-				public Object apply(ReadingTimeEntry readingTimeEntry) {
-					return readingTimeEntry.getClassNameId();
 				}
 
 			});
@@ -487,16 +515,6 @@ public class ReadingTimeEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<ReadingTimeEntry, Object>() {
-
-				@Override
-				public Object apply(ReadingTimeEntry readingTimeEntry) {
-					return readingTimeEntry.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<ReadingTimeEntry, Object>() {
@@ -506,16 +524,6 @@ public class ReadingTimeEntryModelImpl
 					ReadingTimeEntry readingTimeEntry, Object classPKObject) {
 
 					readingTimeEntry.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"readingTime",
-			new Function<ReadingTimeEntry, Object>() {
-
-				@Override
-				public Object apply(ReadingTimeEntry readingTimeEntry) {
-					return readingTimeEntry.getReadingTime();
 				}
 
 			});
@@ -533,8 +541,6 @@ public class ReadingTimeEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

@@ -52,8 +52,6 @@ import com.liferay.ratings.kernel.service.persistence.RatingsStatsPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashEntryPersistence;
 import com.liferay.trash.kernel.service.persistence.TrashVersionPersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -1284,11 +1282,11 @@ public abstract class JournalArticleServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(journalArticleService);
+		JournalArticleServiceUtil.setService(journalArticleService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		JournalArticleServiceUtil.setService(null);
 	}
 
 	/**
@@ -1330,22 +1328,6 @@ public abstract class JournalArticleServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		JournalArticleService journalArticleService) {
-
-		try {
-			Field field = JournalArticleServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, journalArticleService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

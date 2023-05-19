@@ -343,14 +343,10 @@ public class MBCategoryModelImpl
 
 	private static final Map<String, Function<MBCategory, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<MBCategory, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<MBCategory, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<MBCategory, Object>>();
-		Map<String, BiConsumer<MBCategory, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<MBCategory, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -362,16 +358,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeSetterBiConsumers.put(
-			"uuid",
-			new BiConsumer<MBCategory, Object>() {
-
-				@Override
-				public void accept(MBCategory mbCategory, Object uuidObject) {
-					mbCategory.setUuid((String)uuidObject);
-				}
-
-			});
 		attributeGetterFunctions.put(
 			"categoryId",
 			new Function<MBCategory, Object>() {
@@ -379,6 +365,208 @@ public class MBCategoryModelImpl
 				@Override
 				public Object apply(MBCategory mbCategory) {
 					return mbCategory.getCategoryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentCategoryId",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getParentCategoryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"displayStyle",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getDisplayStyle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"threadCount",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getThreadCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"messageCount",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getMessageCount();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPostDate",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getLastPostDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"lastPublishDate",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getLastPublishDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<MBCategory, Object>() {
+
+				@Override
+				public Object apply(MBCategory mbCategory) {
+					return mbCategory.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<MBCategory, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<MBCategory, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<MBCategory, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"uuid",
+			new BiConsumer<MBCategory, Object>() {
+
+				@Override
+				public void accept(MBCategory mbCategory, Object uuidObject) {
+					mbCategory.setUuid((String)uuidObject);
 				}
 
 			});
@@ -394,16 +582,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<MBCategory, Object>() {
@@ -413,16 +591,6 @@ public class MBCategoryModelImpl
 					MBCategory mbCategory, Object groupIdObject) {
 
 					mbCategory.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getCompanyId();
 				}
 
 			});
@@ -438,16 +606,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<MBCategory, Object>() {
@@ -455,16 +613,6 @@ public class MBCategoryModelImpl
 				@Override
 				public void accept(MBCategory mbCategory, Object userIdObject) {
 					mbCategory.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getUserName();
 				}
 
 			});
@@ -480,16 +628,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<MBCategory, Object>() {
@@ -502,16 +640,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<MBCategory, Object>() {
@@ -521,16 +649,6 @@ public class MBCategoryModelImpl
 					MBCategory mbCategory, Object modifiedDateObject) {
 
 					mbCategory.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"parentCategoryId",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getParentCategoryId();
 				}
 
 			});
@@ -547,16 +665,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<MBCategory, Object>() {
@@ -564,16 +672,6 @@ public class MBCategoryModelImpl
 				@Override
 				public void accept(MBCategory mbCategory, Object nameObject) {
 					mbCategory.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getDescription();
 				}
 
 			});
@@ -589,16 +687,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"displayStyle",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getDisplayStyle();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"displayStyle",
 			new BiConsumer<MBCategory, Object>() {
@@ -608,16 +696,6 @@ public class MBCategoryModelImpl
 					MBCategory mbCategory, Object displayStyleObject) {
 
 					mbCategory.setDisplayStyle((String)displayStyleObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"threadCount",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getThreadCount();
 				}
 
 			});
@@ -633,16 +711,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"messageCount",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getMessageCount();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"messageCount",
 			new BiConsumer<MBCategory, Object>() {
@@ -652,16 +720,6 @@ public class MBCategoryModelImpl
 					MBCategory mbCategory, Object messageCountObject) {
 
 					mbCategory.setMessageCount((Integer)messageCountObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"lastPostDate",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getLastPostDate();
 				}
 
 			});
@@ -677,16 +735,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"lastPublishDate",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getLastPublishDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"lastPublishDate",
 			new BiConsumer<MBCategory, Object>() {
@@ -696,16 +744,6 @@ public class MBCategoryModelImpl
 					MBCategory mbCategory, Object lastPublishDateObject) {
 
 					mbCategory.setLastPublishDate((Date)lastPublishDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getStatus();
 				}
 
 			});
@@ -719,16 +757,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getStatusByUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserId",
 			new BiConsumer<MBCategory, Object>() {
@@ -738,16 +766,6 @@ public class MBCategoryModelImpl
 					MBCategory mbCategory, Object statusByUserIdObject) {
 
 					mbCategory.setStatusByUserId((Long)statusByUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getStatusByUserName();
 				}
 
 			});
@@ -764,16 +782,6 @@ public class MBCategoryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<MBCategory, Object>() {
-
-				@Override
-				public Object apply(MBCategory mbCategory) {
-					return mbCategory.getStatusDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusDate",
 			new BiConsumer<MBCategory, Object>() {
@@ -787,8 +795,6 @@ public class MBCategoryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

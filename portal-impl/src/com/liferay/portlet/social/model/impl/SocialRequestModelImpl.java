@@ -329,14 +329,10 @@ public class SocialRequestModelImpl
 
 	private static final Map<String, Function<SocialRequest, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SocialRequest, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SocialRequest, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<SocialRequest, Object>>();
-		Map<String, BiConsumer<SocialRequest, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<SocialRequest, ?>>();
 
 		attributeGetterFunctions.put(
 			"uuid",
@@ -348,6 +344,138 @@ public class SocialRequestModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"requestId",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getRequestId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"extraData",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getExtraData();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"receiverUserId",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getReceiverUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<SocialRequest, Object>() {
+
+				@Override
+				public Object apply(SocialRequest socialRequest) {
+					return socialRequest.getStatus();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SocialRequest, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SocialRequest, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<SocialRequest, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<SocialRequest, Object>() {
@@ -357,16 +485,6 @@ public class SocialRequestModelImpl
 					SocialRequest socialRequest, Object uuidObject) {
 
 					socialRequest.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"requestId",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getRequestId();
 				}
 
 			});
@@ -382,16 +500,6 @@ public class SocialRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<SocialRequest, Object>() {
@@ -401,16 +509,6 @@ public class SocialRequestModelImpl
 					SocialRequest socialRequest, Object groupIdObject) {
 
 					socialRequest.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getCompanyId();
 				}
 
 			});
@@ -426,16 +524,6 @@ public class SocialRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SocialRequest, Object>() {
@@ -445,16 +533,6 @@ public class SocialRequestModelImpl
 					SocialRequest socialRequest, Object userIdObject) {
 
 					socialRequest.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getCreateDate();
 				}
 
 			});
@@ -470,16 +548,6 @@ public class SocialRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<SocialRequest, Object>() {
@@ -489,16 +557,6 @@ public class SocialRequestModelImpl
 					SocialRequest socialRequest, Object modifiedDateObject) {
 
 					socialRequest.setModifiedDate((Long)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getClassNameId();
 				}
 
 			});
@@ -514,16 +572,6 @@ public class SocialRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<SocialRequest, Object>() {
@@ -533,16 +581,6 @@ public class SocialRequestModelImpl
 					SocialRequest socialRequest, Object classPKObject) {
 
 					socialRequest.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getType();
 				}
 
 			});
@@ -558,16 +596,6 @@ public class SocialRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"extraData",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getExtraData();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"extraData",
 			new BiConsumer<SocialRequest, Object>() {
@@ -580,16 +608,6 @@ public class SocialRequestModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"receiverUserId",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getReceiverUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"receiverUserId",
 			new BiConsumer<SocialRequest, Object>() {
@@ -599,16 +617,6 @@ public class SocialRequestModelImpl
 					SocialRequest socialRequest, Object receiverUserIdObject) {
 
 					socialRequest.setReceiverUserId((Long)receiverUserIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<SocialRequest, Object>() {
-
-				@Override
-				public Object apply(SocialRequest socialRequest) {
-					return socialRequest.getStatus();
 				}
 
 			});
@@ -625,8 +633,6 @@ public class SocialRequestModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

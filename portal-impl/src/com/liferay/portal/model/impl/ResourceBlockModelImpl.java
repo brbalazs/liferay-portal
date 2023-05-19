@@ -301,14 +301,10 @@ public class ResourceBlockModelImpl
 
 	private static final Map<String, Function<ResourceBlock, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ResourceBlock, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ResourceBlock, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<ResourceBlock, Object>>();
-		Map<String, BiConsumer<ResourceBlock, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ResourceBlock, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -320,6 +316,78 @@ public class ResourceBlockModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"resourceBlockId",
+			new Function<ResourceBlock, Object>() {
+
+				@Override
+				public Object apply(ResourceBlock resourceBlock) {
+					return resourceBlock.getResourceBlockId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<ResourceBlock, Object>() {
+
+				@Override
+				public Object apply(ResourceBlock resourceBlock) {
+					return resourceBlock.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<ResourceBlock, Object>() {
+
+				@Override
+				public Object apply(ResourceBlock resourceBlock) {
+					return resourceBlock.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<ResourceBlock, Object>() {
+
+				@Override
+				public Object apply(ResourceBlock resourceBlock) {
+					return resourceBlock.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"permissionsHash",
+			new Function<ResourceBlock, Object>() {
+
+				@Override
+				public Object apply(ResourceBlock resourceBlock) {
+					return resourceBlock.getPermissionsHash();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"referenceCount",
+			new Function<ResourceBlock, Object>() {
+
+				@Override
+				public Object apply(ResourceBlock resourceBlock) {
+					return resourceBlock.getReferenceCount();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ResourceBlock, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ResourceBlock, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<ResourceBlock, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<ResourceBlock, Object>() {
@@ -329,16 +397,6 @@ public class ResourceBlockModelImpl
 					ResourceBlock resourceBlock, Object mvccVersionObject) {
 
 					resourceBlock.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"resourceBlockId",
-			new Function<ResourceBlock, Object>() {
-
-				@Override
-				public Object apply(ResourceBlock resourceBlock) {
-					return resourceBlock.getResourceBlockId();
 				}
 
 			});
@@ -355,16 +413,6 @@ public class ResourceBlockModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<ResourceBlock, Object>() {
-
-				@Override
-				public Object apply(ResourceBlock resourceBlock) {
-					return resourceBlock.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<ResourceBlock, Object>() {
@@ -374,16 +422,6 @@ public class ResourceBlockModelImpl
 					ResourceBlock resourceBlock, Object companyIdObject) {
 
 					resourceBlock.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<ResourceBlock, Object>() {
-
-				@Override
-				public Object apply(ResourceBlock resourceBlock) {
-					return resourceBlock.getGroupId();
 				}
 
 			});
@@ -399,16 +437,6 @@ public class ResourceBlockModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<ResourceBlock, Object>() {
-
-				@Override
-				public Object apply(ResourceBlock resourceBlock) {
-					return resourceBlock.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<ResourceBlock, Object>() {
@@ -418,16 +446,6 @@ public class ResourceBlockModelImpl
 					ResourceBlock resourceBlock, Object nameObject) {
 
 					resourceBlock.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"permissionsHash",
-			new Function<ResourceBlock, Object>() {
-
-				@Override
-				public Object apply(ResourceBlock resourceBlock) {
-					return resourceBlock.getPermissionsHash();
 				}
 
 			});
@@ -444,16 +462,6 @@ public class ResourceBlockModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"referenceCount",
-			new Function<ResourceBlock, Object>() {
-
-				@Override
-				public Object apply(ResourceBlock resourceBlock) {
-					return resourceBlock.getReferenceCount();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"referenceCount",
 			new BiConsumer<ResourceBlock, Object>() {
@@ -467,8 +475,6 @@ public class ResourceBlockModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

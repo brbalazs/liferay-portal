@@ -293,17 +293,12 @@ public class UserGroupGroupRoleModelImpl
 
 	private static final Map<String, Function<UserGroupGroupRole, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<UserGroupGroupRole, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<UserGroupGroupRole, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<UserGroupGroupRole, Object>>();
-		Map<String, BiConsumer<UserGroupGroupRole, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<UserGroupGroupRole, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -315,6 +310,59 @@ public class UserGroupGroupRoleModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"userGroupId",
+			new Function<UserGroupGroupRole, Object>() {
+
+				@Override
+				public Object apply(UserGroupGroupRole userGroupGroupRole) {
+					return userGroupGroupRole.getUserGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<UserGroupGroupRole, Object>() {
+
+				@Override
+				public Object apply(UserGroupGroupRole userGroupGroupRole) {
+					return userGroupGroupRole.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"roleId",
+			new Function<UserGroupGroupRole, Object>() {
+
+				@Override
+				public Object apply(UserGroupGroupRole userGroupGroupRole) {
+					return userGroupGroupRole.getRoleId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<UserGroupGroupRole, Object>() {
+
+				@Override
+				public Object apply(UserGroupGroupRole userGroupGroupRole) {
+					return userGroupGroupRole.getCompanyId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<UserGroupGroupRole, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<UserGroupGroupRole, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<UserGroupGroupRole, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<UserGroupGroupRole, Object>() {
@@ -325,16 +373,6 @@ public class UserGroupGroupRoleModelImpl
 					Object mvccVersionObject) {
 
 					userGroupGroupRole.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userGroupId",
-			new Function<UserGroupGroupRole, Object>() {
-
-				@Override
-				public Object apply(UserGroupGroupRole userGroupGroupRole) {
-					return userGroupGroupRole.getUserGroupId();
 				}
 
 			});
@@ -351,16 +389,6 @@ public class UserGroupGroupRoleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<UserGroupGroupRole, Object>() {
-
-				@Override
-				public Object apply(UserGroupGroupRole userGroupGroupRole) {
-					return userGroupGroupRole.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<UserGroupGroupRole, Object>() {
@@ -374,16 +402,6 @@ public class UserGroupGroupRoleModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"roleId",
-			new Function<UserGroupGroupRole, Object>() {
-
-				@Override
-				public Object apply(UserGroupGroupRole userGroupGroupRole) {
-					return userGroupGroupRole.getRoleId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"roleId",
 			new BiConsumer<UserGroupGroupRole, Object>() {
@@ -394,16 +412,6 @@ public class UserGroupGroupRoleModelImpl
 					Object roleIdObject) {
 
 					userGroupGroupRole.setRoleId((Long)roleIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<UserGroupGroupRole, Object>() {
-
-				@Override
-				public Object apply(UserGroupGroupRole userGroupGroupRole) {
-					return userGroupGroupRole.getCompanyId();
 				}
 
 			});
@@ -421,8 +429,6 @@ public class UserGroupGroupRoleModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

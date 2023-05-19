@@ -2776,33 +2776,17 @@ public class FaroProjectPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByWeDeployKey",
 			new String[] {String.class.getName()});
 
-		_setFaroProjectUtilPersistence(this);
+		FaroProjectUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setFaroProjectUtilPersistence(null);
+		FaroProjectUtil.setPersistence(null);
 
 		entityCache.removeCache(FaroProjectImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setFaroProjectUtilPersistence(
-		FaroProjectPersistence faroProjectPersistence) {
-
-		try {
-			Field field = FaroProjectUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, faroProjectPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

@@ -1448,6 +1448,10 @@ public class UserServiceUtil {
 		return _service;
 	}
 
+	public static void setService(UserService service) {
+		_service = service;
+	}
+
 	private static volatile UserService _service;
 
 }

@@ -356,17 +356,12 @@ public class OAuth2AuthorizationModelImpl
 
 	private static final Map<String, Function<OAuth2Authorization, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<OAuth2Authorization, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<OAuth2Authorization, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<OAuth2Authorization, Object>>();
-		Map<String, BiConsumer<OAuth2Authorization, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<OAuth2Authorization, ?>>();
 
 		attributeGetterFunctions.put(
 			"oAuth2AuthorizationId",
@@ -378,6 +373,170 @@ public class OAuth2AuthorizationModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"oAuth2ApplicationId",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getOAuth2ApplicationId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"oAuth2ApplicationScopeAliasesId",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.
+						getOAuth2ApplicationScopeAliasesId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessTokenContent",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getAccessTokenContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessTokenContentHash",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getAccessTokenContentHash();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessTokenCreateDate",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getAccessTokenCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"accessTokenExpirationDate",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getAccessTokenExpirationDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"remoteIPInfo",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getRemoteIPInfo();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"refreshTokenContent",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getRefreshTokenContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"refreshTokenContentHash",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getRefreshTokenContentHash();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"refreshTokenCreateDate",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getRefreshTokenCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"refreshTokenExpirationDate",
+			new Function<OAuth2Authorization, Object>() {
+
+				@Override
+				public Object apply(OAuth2Authorization oAuth2Authorization) {
+					return oAuth2Authorization.getRefreshTokenExpirationDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<OAuth2Authorization, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<OAuth2Authorization, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<OAuth2Authorization, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"oAuth2AuthorizationId",
 			new BiConsumer<OAuth2Authorization, Object>() {
@@ -389,16 +548,6 @@ public class OAuth2AuthorizationModelImpl
 
 					oAuth2Authorization.setOAuth2AuthorizationId(
 						(Long)oAuth2AuthorizationIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getCompanyId();
 				}
 
 			});
@@ -415,16 +564,6 @@ public class OAuth2AuthorizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<OAuth2Authorization, Object>() {
@@ -435,16 +574,6 @@ public class OAuth2AuthorizationModelImpl
 					Object userIdObject) {
 
 					oAuth2Authorization.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getUserName();
 				}
 
 			});
@@ -461,16 +590,6 @@ public class OAuth2AuthorizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<OAuth2Authorization, Object>() {
@@ -481,16 +600,6 @@ public class OAuth2AuthorizationModelImpl
 					Object createDateObject) {
 
 					oAuth2Authorization.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"oAuth2ApplicationId",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getOAuth2ApplicationId();
 				}
 
 			});
@@ -508,17 +617,6 @@ public class OAuth2AuthorizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"oAuth2ApplicationScopeAliasesId",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.
-						getOAuth2ApplicationScopeAliasesId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"oAuth2ApplicationScopeAliasesId",
 			new BiConsumer<OAuth2Authorization, Object>() {
@@ -530,16 +628,6 @@ public class OAuth2AuthorizationModelImpl
 
 					oAuth2Authorization.setOAuth2ApplicationScopeAliasesId(
 						(Long)oAuth2ApplicationScopeAliasesIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"accessTokenContent",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getAccessTokenContent();
 				}
 
 			});
@@ -557,16 +645,6 @@ public class OAuth2AuthorizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"accessTokenContentHash",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getAccessTokenContentHash();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"accessTokenContentHash",
 			new BiConsumer<OAuth2Authorization, Object>() {
@@ -578,16 +656,6 @@ public class OAuth2AuthorizationModelImpl
 
 					oAuth2Authorization.setAccessTokenContentHash(
 						(Long)accessTokenContentHashObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"accessTokenCreateDate",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getAccessTokenCreateDate();
 				}
 
 			});
@@ -605,16 +673,6 @@ public class OAuth2AuthorizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"accessTokenExpirationDate",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getAccessTokenExpirationDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"accessTokenExpirationDate",
 			new BiConsumer<OAuth2Authorization, Object>() {
@@ -626,16 +684,6 @@ public class OAuth2AuthorizationModelImpl
 
 					oAuth2Authorization.setAccessTokenExpirationDate(
 						(Date)accessTokenExpirationDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"remoteIPInfo",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getRemoteIPInfo();
 				}
 
 			});
@@ -653,16 +701,6 @@ public class OAuth2AuthorizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"refreshTokenContent",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getRefreshTokenContent();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"refreshTokenContent",
 			new BiConsumer<OAuth2Authorization, Object>() {
@@ -674,16 +712,6 @@ public class OAuth2AuthorizationModelImpl
 
 					oAuth2Authorization.setRefreshTokenContent(
 						(String)refreshTokenContentObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"refreshTokenContentHash",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getRefreshTokenContentHash();
 				}
 
 			});
@@ -701,16 +729,6 @@ public class OAuth2AuthorizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"refreshTokenCreateDate",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getRefreshTokenCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"refreshTokenCreateDate",
 			new BiConsumer<OAuth2Authorization, Object>() {
@@ -722,16 +740,6 @@ public class OAuth2AuthorizationModelImpl
 
 					oAuth2Authorization.setRefreshTokenCreateDate(
 						(Date)refreshTokenCreateDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"refreshTokenExpirationDate",
-			new Function<OAuth2Authorization, Object>() {
-
-				@Override
-				public Object apply(OAuth2Authorization oAuth2Authorization) {
-					return oAuth2Authorization.getRefreshTokenExpirationDate();
 				}
 
 			});
@@ -750,8 +758,6 @@ public class OAuth2AuthorizationModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

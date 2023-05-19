@@ -257,14 +257,10 @@ public class FaroChannelModelImpl
 
 	private static final Map<String, Function<FaroChannel, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<FaroChannel, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<FaroChannel, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<FaroChannel, Object>>();
-		Map<String, BiConsumer<FaroChannel, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<FaroChannel, ?>>();
 
 		attributeGetterFunctions.put(
 			"faroChannelId",
@@ -276,6 +272,108 @@ public class FaroChannelModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<FaroChannel, Object>() {
+
+				@Override
+				public Object apply(FaroChannel faroChannel) {
+					return faroChannel.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<FaroChannel, Object>() {
+
+				@Override
+				public Object apply(FaroChannel faroChannel) {
+					return faroChannel.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<FaroChannel, Object>() {
+
+				@Override
+				public Object apply(FaroChannel faroChannel) {
+					return faroChannel.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createTime",
+			new Function<FaroChannel, Object>() {
+
+				@Override
+				public Object apply(FaroChannel faroChannel) {
+					return faroChannel.getCreateTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedTime",
+			new Function<FaroChannel, Object>() {
+
+				@Override
+				public Object apply(FaroChannel faroChannel) {
+					return faroChannel.getModifiedTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"channelId",
+			new Function<FaroChannel, Object>() {
+
+				@Override
+				public Object apply(FaroChannel faroChannel) {
+					return faroChannel.getChannelId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<FaroChannel, Object>() {
+
+				@Override
+				public Object apply(FaroChannel faroChannel) {
+					return faroChannel.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"permissionType",
+			new Function<FaroChannel, Object>() {
+
+				@Override
+				public Object apply(FaroChannel faroChannel) {
+					return faroChannel.getPermissionType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"workspaceGroupId",
+			new Function<FaroChannel, Object>() {
+
+				@Override
+				public Object apply(FaroChannel faroChannel) {
+					return faroChannel.getWorkspaceGroupId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<FaroChannel, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<FaroChannel, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<FaroChannel, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"faroChannelId",
 			new BiConsumer<FaroChannel, Object>() {
@@ -285,16 +383,6 @@ public class FaroChannelModelImpl
 					FaroChannel faroChannel, Object faroChannelIdObject) {
 
 					faroChannel.setFaroChannelId((Long)faroChannelIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<FaroChannel, Object>() {
-
-				@Override
-				public Object apply(FaroChannel faroChannel) {
-					return faroChannel.getGroupId();
 				}
 
 			});
@@ -310,16 +398,6 @@ public class FaroChannelModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<FaroChannel, Object>() {
-
-				@Override
-				public Object apply(FaroChannel faroChannel) {
-					return faroChannel.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<FaroChannel, Object>() {
@@ -329,16 +407,6 @@ public class FaroChannelModelImpl
 					FaroChannel faroChannel, Object userIdObject) {
 
 					faroChannel.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<FaroChannel, Object>() {
-
-				@Override
-				public Object apply(FaroChannel faroChannel) {
-					return faroChannel.getUserName();
 				}
 
 			});
@@ -354,16 +422,6 @@ public class FaroChannelModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createTime",
-			new Function<FaroChannel, Object>() {
-
-				@Override
-				public Object apply(FaroChannel faroChannel) {
-					return faroChannel.getCreateTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createTime",
 			new BiConsumer<FaroChannel, Object>() {
@@ -373,16 +431,6 @@ public class FaroChannelModelImpl
 					FaroChannel faroChannel, Object createTimeObject) {
 
 					faroChannel.setCreateTime((Long)createTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedTime",
-			new Function<FaroChannel, Object>() {
-
-				@Override
-				public Object apply(FaroChannel faroChannel) {
-					return faroChannel.getModifiedTime();
 				}
 
 			});
@@ -398,16 +446,6 @@ public class FaroChannelModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"channelId",
-			new Function<FaroChannel, Object>() {
-
-				@Override
-				public Object apply(FaroChannel faroChannel) {
-					return faroChannel.getChannelId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"channelId",
 			new BiConsumer<FaroChannel, Object>() {
@@ -417,16 +455,6 @@ public class FaroChannelModelImpl
 					FaroChannel faroChannel, Object channelIdObject) {
 
 					faroChannel.setChannelId((String)channelIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<FaroChannel, Object>() {
-
-				@Override
-				public Object apply(FaroChannel faroChannel) {
-					return faroChannel.getName();
 				}
 
 			});
@@ -440,16 +468,6 @@ public class FaroChannelModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"permissionType",
-			new Function<FaroChannel, Object>() {
-
-				@Override
-				public Object apply(FaroChannel faroChannel) {
-					return faroChannel.getPermissionType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"permissionType",
 			new BiConsumer<FaroChannel, Object>() {
@@ -460,16 +478,6 @@ public class FaroChannelModelImpl
 
 					faroChannel.setPermissionType(
 						(Integer)permissionTypeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"workspaceGroupId",
-			new Function<FaroChannel, Object>() {
-
-				@Override
-				public Object apply(FaroChannel faroChannel) {
-					return faroChannel.getWorkspaceGroupId();
 				}
 
 			});
@@ -487,8 +495,6 @@ public class FaroChannelModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

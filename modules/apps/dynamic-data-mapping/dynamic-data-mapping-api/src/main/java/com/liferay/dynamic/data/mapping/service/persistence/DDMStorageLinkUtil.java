@@ -1135,6 +1135,10 @@ public class DDMStorageLinkUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(DDMStorageLinkPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile DDMStorageLinkPersistence _persistence;
 
 }

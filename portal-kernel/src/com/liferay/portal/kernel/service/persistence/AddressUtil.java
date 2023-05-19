@@ -1774,6 +1774,10 @@ public class AddressUtil {
 		return _persistence;
 	}
 
+	public static void setPersistence(AddressPersistence persistence) {
+		_persistence = persistence;
+	}
+
 	private static volatile AddressPersistence _persistence;
 
 }

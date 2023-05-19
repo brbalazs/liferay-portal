@@ -248,19 +248,12 @@ public class JournalArticleLocalizationModelImpl
 	private static final Map
 		<String, Function<JournalArticleLocalization, Object>>
 			_attributeGetterFunctions;
-	private static final Map
-		<String, BiConsumer<JournalArticleLocalization, Object>>
-			_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<JournalArticleLocalization, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<JournalArticleLocalization, Object>>();
-		Map<String, BiConsumer<JournalArticleLocalization, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<JournalArticleLocalization, ?>>();
 
 		attributeGetterFunctions.put(
 			"articleLocalizationId",
@@ -275,6 +268,81 @@ public class JournalArticleLocalizationModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<JournalArticleLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					JournalArticleLocalization journalArticleLocalization) {
+
+					return journalArticleLocalization.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"articlePK",
+			new Function<JournalArticleLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					JournalArticleLocalization journalArticleLocalization) {
+
+					return journalArticleLocalization.getArticlePK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<JournalArticleLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					JournalArticleLocalization journalArticleLocalization) {
+
+					return journalArticleLocalization.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<JournalArticleLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					JournalArticleLocalization journalArticleLocalization) {
+
+					return journalArticleLocalization.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"languageId",
+			new Function<JournalArticleLocalization, Object>() {
+
+				@Override
+				public Object apply(
+					JournalArticleLocalization journalArticleLocalization) {
+
+					return journalArticleLocalization.getLanguageId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map
+		<String, BiConsumer<JournalArticleLocalization, Object>>
+			_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<JournalArticleLocalization, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<JournalArticleLocalization, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"articleLocalizationId",
 			new BiConsumer<JournalArticleLocalization, Object>() {
@@ -286,18 +354,6 @@ public class JournalArticleLocalizationModelImpl
 
 					journalArticleLocalization.setArticleLocalizationId(
 						(Long)articleLocalizationIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<JournalArticleLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					JournalArticleLocalization journalArticleLocalization) {
-
-					return journalArticleLocalization.getCompanyId();
 				}
 
 			});
@@ -315,18 +371,6 @@ public class JournalArticleLocalizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"articlePK",
-			new Function<JournalArticleLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					JournalArticleLocalization journalArticleLocalization) {
-
-					return journalArticleLocalization.getArticlePK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"articlePK",
 			new BiConsumer<JournalArticleLocalization, Object>() {
@@ -338,18 +382,6 @@ public class JournalArticleLocalizationModelImpl
 
 					journalArticleLocalization.setArticlePK(
 						(Long)articlePKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<JournalArticleLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					JournalArticleLocalization journalArticleLocalization) {
-
-					return journalArticleLocalization.getTitle();
 				}
 
 			});
@@ -366,18 +398,6 @@ public class JournalArticleLocalizationModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<JournalArticleLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					JournalArticleLocalization journalArticleLocalization) {
-
-					return journalArticleLocalization.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<JournalArticleLocalization, Object>() {
@@ -389,18 +409,6 @@ public class JournalArticleLocalizationModelImpl
 
 					journalArticleLocalization.setDescription(
 						(String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"languageId",
-			new Function<JournalArticleLocalization, Object>() {
-
-				@Override
-				public Object apply(
-					JournalArticleLocalization journalArticleLocalization) {
-
-					return journalArticleLocalization.getLanguageId();
 				}
 
 			});
@@ -419,8 +427,6 @@ public class JournalArticleLocalizationModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

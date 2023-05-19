@@ -47,8 +47,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -461,14 +459,15 @@ public abstract class DDMDataProviderInstanceLinkLocalServiceBaseImpl
 			"com.liferay.dynamic.data.mapping.model.DDMDataProviderInstanceLink",
 			ddmDataProviderInstanceLinkLocalService);
 
-		_setLocalServiceUtilService(ddmDataProviderInstanceLinkLocalService);
+		DDMDataProviderInstanceLinkLocalServiceUtil.setService(
+			ddmDataProviderInstanceLinkLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.dynamic.data.mapping.model.DDMDataProviderInstanceLink");
 
-		_setLocalServiceUtilService(null);
+		DDMDataProviderInstanceLinkLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -511,24 +510,6 @@ public abstract class DDMDataProviderInstanceLinkLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DDMDataProviderInstanceLinkLocalService
-			ddmDataProviderInstanceLinkLocalService) {
-
-		try {
-			Field field =
-				DDMDataProviderInstanceLinkLocalServiceUtil.class.
-					getDeclaredField("_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddmDataProviderInstanceLinkLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

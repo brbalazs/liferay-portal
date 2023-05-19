@@ -35,8 +35,6 @@ import com.liferay.wiki.service.persistence.WikiNodePersistence;
 import com.liferay.wiki.service.persistence.WikiPageFinder;
 import com.liferay.wiki.service.persistence.WikiPagePersistence;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -367,11 +365,11 @@ public abstract class WikiNodeServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(wikiNodeService);
+		WikiNodeServiceUtil.setService(wikiNodeService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		WikiNodeServiceUtil.setService(null);
 	}
 
 	/**
@@ -413,20 +411,6 @@ public abstract class WikiNodeServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(WikiNodeService wikiNodeService) {
-		try {
-			Field field = WikiNodeServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, wikiNodeService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

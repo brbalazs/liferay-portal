@@ -1706,32 +1706,17 @@ public class AccountPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_A",
 			new String[] {Long.class.getName(), String.class.getName()});
 
-		_setAccountUtilPersistence(this);
+		AccountUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setAccountUtilPersistence(null);
+		AccountUtil.setPersistence(null);
 
 		entityCache.removeCache(AccountImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setAccountUtilPersistence(
-		AccountPersistence accountPersistence) {
-
-		try {
-			Field field = AccountUtil.class.getDeclaredField("_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, accountPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

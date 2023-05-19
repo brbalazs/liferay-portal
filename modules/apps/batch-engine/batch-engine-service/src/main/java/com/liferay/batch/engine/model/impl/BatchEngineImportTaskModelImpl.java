@@ -275,18 +275,12 @@ public class BatchEngineImportTaskModelImpl
 
 	private static final Map<String, Function<BatchEngineImportTask, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<BatchEngineImportTask, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<BatchEngineImportTask, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<BatchEngineImportTask, Object>>();
-		Map<String, BiConsumer<BatchEngineImportTask, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<BatchEngineImportTask, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -297,20 +291,6 @@ public class BatchEngineImportTaskModelImpl
 					BatchEngineImportTask batchEngineImportTask) {
 
 					return batchEngineImportTask.getMvccVersion();
-				}
-
-			});
-		attributeSetterBiConsumers.put(
-			"mvccVersion",
-			new BiConsumer<BatchEngineImportTask, Object>() {
-
-				@Override
-				public void accept(
-					BatchEngineImportTask batchEngineImportTask,
-					Object mvccVersionObject) {
-
-					batchEngineImportTask.setMvccVersion(
-						(Long)mvccVersionObject);
 				}
 
 			});
@@ -326,6 +306,250 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"batchEngineImportTaskId",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getBatchEngineImportTaskId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"batchSize",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getBatchSize();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"callbackURL",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getCallbackURL();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"className",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getClassName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"content",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getContent();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"contentType",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getContentType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"endTime",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getEndTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"errorMessage",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getErrorMessage();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"executeStatus",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getExecuteStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fieldNameMapping",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getFieldNameMapping();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"operation",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getOperation();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parameters",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getParameters();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"startTime",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getStartTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"taskItemDelegateName",
+			new Function<BatchEngineImportTask, Object>() {
+
+				@Override
+				public Object apply(
+					BatchEngineImportTask batchEngineImportTask) {
+
+					return batchEngineImportTask.getTaskItemDelegateName();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<BatchEngineImportTask, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<BatchEngineImportTask, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<BatchEngineImportTask, ?>>();
+
+		attributeSetterBiConsumers.put(
+			"mvccVersion",
+			new BiConsumer<BatchEngineImportTask, Object>() {
+
+				@Override
+				public void accept(
+					BatchEngineImportTask batchEngineImportTask,
+					Object mvccVersionObject) {
+
+					batchEngineImportTask.setMvccVersion(
+						(Long)mvccVersionObject);
+				}
+
+			});
 		attributeSetterBiConsumers.put(
 			"uuid",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -336,18 +560,6 @@ public class BatchEngineImportTaskModelImpl
 					Object uuidObject) {
 
 					batchEngineImportTask.setUuid((String)uuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"batchEngineImportTaskId",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getBatchEngineImportTaskId();
 				}
 
 			});
@@ -365,18 +577,6 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -387,18 +587,6 @@ public class BatchEngineImportTaskModelImpl
 					Object companyIdObject) {
 
 					batchEngineImportTask.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getUserId();
 				}
 
 			});
@@ -415,18 +603,6 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -437,18 +613,6 @@ public class BatchEngineImportTaskModelImpl
 					Object createDateObject) {
 
 					batchEngineImportTask.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getModifiedDate();
 				}
 
 			});
@@ -466,18 +630,6 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"batchSize",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getBatchSize();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"batchSize",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -488,18 +640,6 @@ public class BatchEngineImportTaskModelImpl
 					Object batchSizeObject) {
 
 					batchEngineImportTask.setBatchSize((Long)batchSizeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"callbackURL",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getCallbackURL();
 				}
 
 			});
@@ -517,18 +657,6 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"className",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getClassName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"className",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -542,18 +670,6 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"content",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getContent();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"content",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -564,18 +680,6 @@ public class BatchEngineImportTaskModelImpl
 					Object contentObject) {
 
 					batchEngineImportTask.setContent((Blob)contentObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"contentType",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getContentType();
 				}
 
 			});
@@ -593,18 +697,6 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"endTime",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getEndTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"endTime",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -615,18 +707,6 @@ public class BatchEngineImportTaskModelImpl
 					Object endTimeObject) {
 
 					batchEngineImportTask.setEndTime((Date)endTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"errorMessage",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getErrorMessage();
 				}
 
 			});
@@ -644,18 +724,6 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"executeStatus",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getExecuteStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"executeStatus",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -667,18 +735,6 @@ public class BatchEngineImportTaskModelImpl
 
 					batchEngineImportTask.setExecuteStatus(
 						(String)executeStatusObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"fieldNameMapping",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getFieldNameMapping();
 				}
 
 			});
@@ -696,18 +752,6 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"operation",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getOperation();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"operation",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -718,18 +762,6 @@ public class BatchEngineImportTaskModelImpl
 					Object operationObject) {
 
 					batchEngineImportTask.setOperation((String)operationObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"parameters",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getParameters();
 				}
 
 			});
@@ -747,18 +779,6 @@ public class BatchEngineImportTaskModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"startTime",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getStartTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"startTime",
 			new BiConsumer<BatchEngineImportTask, Object>() {
@@ -769,18 +789,6 @@ public class BatchEngineImportTaskModelImpl
 					Object startTimeObject) {
 
 					batchEngineImportTask.setStartTime((Date)startTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"taskItemDelegateName",
-			new Function<BatchEngineImportTask, Object>() {
-
-				@Override
-				public Object apply(
-					BatchEngineImportTask batchEngineImportTask) {
-
-					return batchEngineImportTask.getTaskItemDelegateName();
 				}
 
 			});
@@ -799,8 +807,6 @@ public class BatchEngineImportTaskModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

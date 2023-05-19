@@ -261,14 +261,10 @@ public class ChangesetEntryModelImpl
 
 	private static final Map<String, Function<ChangesetEntry, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ChangesetEntry, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ChangesetEntry, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<ChangesetEntry, Object>>();
-		Map<String, BiConsumer<ChangesetEntry, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<ChangesetEntry, ?>>();
 
 		attributeGetterFunctions.put(
 			"changesetEntryId",
@@ -280,6 +276,108 @@ public class ChangesetEntryModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<ChangesetEntry, Object>() {
+
+				@Override
+				public Object apply(ChangesetEntry changesetEntry) {
+					return changesetEntry.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<ChangesetEntry, Object>() {
+
+				@Override
+				public Object apply(ChangesetEntry changesetEntry) {
+					return changesetEntry.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<ChangesetEntry, Object>() {
+
+				@Override
+				public Object apply(ChangesetEntry changesetEntry) {
+					return changesetEntry.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<ChangesetEntry, Object>() {
+
+				@Override
+				public Object apply(ChangesetEntry changesetEntry) {
+					return changesetEntry.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<ChangesetEntry, Object>() {
+
+				@Override
+				public Object apply(ChangesetEntry changesetEntry) {
+					return changesetEntry.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<ChangesetEntry, Object>() {
+
+				@Override
+				public Object apply(ChangesetEntry changesetEntry) {
+					return changesetEntry.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"changesetCollectionId",
+			new Function<ChangesetEntry, Object>() {
+
+				@Override
+				public Object apply(ChangesetEntry changesetEntry) {
+					return changesetEntry.getChangesetCollectionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<ChangesetEntry, Object>() {
+
+				@Override
+				public Object apply(ChangesetEntry changesetEntry) {
+					return changesetEntry.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<ChangesetEntry, Object>() {
+
+				@Override
+				public Object apply(ChangesetEntry changesetEntry) {
+					return changesetEntry.getClassPK();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ChangesetEntry, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ChangesetEntry, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<ChangesetEntry, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"changesetEntryId",
 			new BiConsumer<ChangesetEntry, Object>() {
@@ -291,16 +389,6 @@ public class ChangesetEntryModelImpl
 
 					changesetEntry.setChangesetEntryId(
 						(Long)changesetEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<ChangesetEntry, Object>() {
-
-				@Override
-				public Object apply(ChangesetEntry changesetEntry) {
-					return changesetEntry.getGroupId();
 				}
 
 			});
@@ -316,16 +404,6 @@ public class ChangesetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<ChangesetEntry, Object>() {
-
-				@Override
-				public Object apply(ChangesetEntry changesetEntry) {
-					return changesetEntry.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<ChangesetEntry, Object>() {
@@ -335,16 +413,6 @@ public class ChangesetEntryModelImpl
 					ChangesetEntry changesetEntry, Object companyIdObject) {
 
 					changesetEntry.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<ChangesetEntry, Object>() {
-
-				@Override
-				public Object apply(ChangesetEntry changesetEntry) {
-					return changesetEntry.getUserId();
 				}
 
 			});
@@ -360,16 +428,6 @@ public class ChangesetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<ChangesetEntry, Object>() {
-
-				@Override
-				public Object apply(ChangesetEntry changesetEntry) {
-					return changesetEntry.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<ChangesetEntry, Object>() {
@@ -379,16 +437,6 @@ public class ChangesetEntryModelImpl
 					ChangesetEntry changesetEntry, Object userNameObject) {
 
 					changesetEntry.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<ChangesetEntry, Object>() {
-
-				@Override
-				public Object apply(ChangesetEntry changesetEntry) {
-					return changesetEntry.getCreateDate();
 				}
 
 			});
@@ -404,16 +452,6 @@ public class ChangesetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<ChangesetEntry, Object>() {
-
-				@Override
-				public Object apply(ChangesetEntry changesetEntry) {
-					return changesetEntry.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<ChangesetEntry, Object>() {
@@ -423,16 +461,6 @@ public class ChangesetEntryModelImpl
 					ChangesetEntry changesetEntry, Object modifiedDateObject) {
 
 					changesetEntry.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"changesetCollectionId",
-			new Function<ChangesetEntry, Object>() {
-
-				@Override
-				public Object apply(ChangesetEntry changesetEntry) {
-					return changesetEntry.getChangesetCollectionId();
 				}
 
 			});
@@ -450,16 +478,6 @@ public class ChangesetEntryModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<ChangesetEntry, Object>() {
-
-				@Override
-				public Object apply(ChangesetEntry changesetEntry) {
-					return changesetEntry.getClassNameId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classNameId",
 			new BiConsumer<ChangesetEntry, Object>() {
@@ -469,16 +487,6 @@ public class ChangesetEntryModelImpl
 					ChangesetEntry changesetEntry, Object classNameIdObject) {
 
 					changesetEntry.setClassNameId((Long)classNameIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<ChangesetEntry, Object>() {
-
-				@Override
-				public Object apply(ChangesetEntry changesetEntry) {
-					return changesetEntry.getClassPK();
 				}
 
 			});
@@ -495,8 +503,6 @@ public class ChangesetEntryModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

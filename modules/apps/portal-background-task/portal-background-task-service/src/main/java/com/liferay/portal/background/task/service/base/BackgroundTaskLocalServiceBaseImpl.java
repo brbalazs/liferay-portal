@@ -49,8 +49,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -487,14 +485,14 @@ public abstract class BackgroundTaskLocalServiceBaseImpl
 			"com.liferay.portal.background.task.model.BackgroundTask",
 			backgroundTaskLocalService);
 
-		_setLocalServiceUtilService(backgroundTaskLocalService);
+		BackgroundTaskLocalServiceUtil.setService(backgroundTaskLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.portal.background.task.model.BackgroundTask");
 
-		_setLocalServiceUtilService(null);
+		BackgroundTaskLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -536,22 +534,6 @@ public abstract class BackgroundTaskLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		BackgroundTaskLocalService backgroundTaskLocalService) {
-
-		try {
-			Field field = BackgroundTaskLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, backgroundTaskLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

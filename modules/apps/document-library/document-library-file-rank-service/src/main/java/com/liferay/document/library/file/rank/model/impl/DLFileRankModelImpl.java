@@ -254,14 +254,10 @@ public class DLFileRankModelImpl
 
 	private static final Map<String, Function<DLFileRank, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DLFileRank, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DLFileRank, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<DLFileRank, Object>>();
-		Map<String, BiConsumer<DLFileRank, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<DLFileRank, ?>>();
 
 		attributeGetterFunctions.put(
 			"fileRankId",
@@ -273,6 +269,78 @@ public class DLFileRankModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<DLFileRank, Object>() {
+
+				@Override
+				public Object apply(DLFileRank dlFileRank) {
+					return dlFileRank.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DLFileRank, Object>() {
+
+				@Override
+				public Object apply(DLFileRank dlFileRank) {
+					return dlFileRank.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<DLFileRank, Object>() {
+
+				@Override
+				public Object apply(DLFileRank dlFileRank) {
+					return dlFileRank.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<DLFileRank, Object>() {
+
+				@Override
+				public Object apply(DLFileRank dlFileRank) {
+					return dlFileRank.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"fileEntryId",
+			new Function<DLFileRank, Object>() {
+
+				@Override
+				public Object apply(DLFileRank dlFileRank) {
+					return dlFileRank.getFileEntryId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"active",
+			new Function<DLFileRank, Object>() {
+
+				@Override
+				public Object apply(DLFileRank dlFileRank) {
+					return dlFileRank.getActive();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DLFileRank, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DLFileRank, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<DLFileRank, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"fileRankId",
 			new BiConsumer<DLFileRank, Object>() {
@@ -282,16 +350,6 @@ public class DLFileRankModelImpl
 					DLFileRank dlFileRank, Object fileRankIdObject) {
 
 					dlFileRank.setFileRankId((Long)fileRankIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<DLFileRank, Object>() {
-
-				@Override
-				public Object apply(DLFileRank dlFileRank) {
-					return dlFileRank.getGroupId();
 				}
 
 			});
@@ -307,16 +365,6 @@ public class DLFileRankModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DLFileRank, Object>() {
-
-				@Override
-				public Object apply(DLFileRank dlFileRank) {
-					return dlFileRank.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<DLFileRank, Object>() {
@@ -329,16 +377,6 @@ public class DLFileRankModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<DLFileRank, Object>() {
-
-				@Override
-				public Object apply(DLFileRank dlFileRank) {
-					return dlFileRank.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<DLFileRank, Object>() {
@@ -346,16 +384,6 @@ public class DLFileRankModelImpl
 				@Override
 				public void accept(DLFileRank dlFileRank, Object userIdObject) {
 					dlFileRank.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<DLFileRank, Object>() {
-
-				@Override
-				public Object apply(DLFileRank dlFileRank) {
-					return dlFileRank.getCreateDate();
 				}
 
 			});
@@ -371,16 +399,6 @@ public class DLFileRankModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"fileEntryId",
-			new Function<DLFileRank, Object>() {
-
-				@Override
-				public Object apply(DLFileRank dlFileRank) {
-					return dlFileRank.getFileEntryId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"fileEntryId",
 			new BiConsumer<DLFileRank, Object>() {
@@ -390,16 +408,6 @@ public class DLFileRankModelImpl
 					DLFileRank dlFileRank, Object fileEntryIdObject) {
 
 					dlFileRank.setFileEntryId((Long)fileEntryIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"active",
-			new Function<DLFileRank, Object>() {
-
-				@Override
-				public Object apply(DLFileRank dlFileRank) {
-					return dlFileRank.getActive();
 				}
 
 			});
@@ -414,8 +422,6 @@ public class DLFileRankModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

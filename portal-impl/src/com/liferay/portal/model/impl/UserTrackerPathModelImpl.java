@@ -241,15 +241,11 @@ public class UserTrackerPathModelImpl
 
 	private static final Map<String, Function<UserTrackerPath, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<UserTrackerPath, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<UserTrackerPath, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<UserTrackerPath, Object>>();
-		Map<String, BiConsumer<UserTrackerPath, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<UserTrackerPath, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -261,6 +257,68 @@ public class UserTrackerPathModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"userTrackerPathId",
+			new Function<UserTrackerPath, Object>() {
+
+				@Override
+				public Object apply(UserTrackerPath userTrackerPath) {
+					return userTrackerPath.getUserTrackerPathId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<UserTrackerPath, Object>() {
+
+				@Override
+				public Object apply(UserTrackerPath userTrackerPath) {
+					return userTrackerPath.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userTrackerId",
+			new Function<UserTrackerPath, Object>() {
+
+				@Override
+				public Object apply(UserTrackerPath userTrackerPath) {
+					return userTrackerPath.getUserTrackerId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"path",
+			new Function<UserTrackerPath, Object>() {
+
+				@Override
+				public Object apply(UserTrackerPath userTrackerPath) {
+					return userTrackerPath.getPath();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"pathDate",
+			new Function<UserTrackerPath, Object>() {
+
+				@Override
+				public Object apply(UserTrackerPath userTrackerPath) {
+					return userTrackerPath.getPathDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<UserTrackerPath, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<UserTrackerPath, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<UserTrackerPath, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<UserTrackerPath, Object>() {
@@ -270,16 +328,6 @@ public class UserTrackerPathModelImpl
 					UserTrackerPath userTrackerPath, Object mvccVersionObject) {
 
 					userTrackerPath.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userTrackerPathId",
-			new Function<UserTrackerPath, Object>() {
-
-				@Override
-				public Object apply(UserTrackerPath userTrackerPath) {
-					return userTrackerPath.getUserTrackerPathId();
 				}
 
 			});
@@ -297,16 +345,6 @@ public class UserTrackerPathModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<UserTrackerPath, Object>() {
-
-				@Override
-				public Object apply(UserTrackerPath userTrackerPath) {
-					return userTrackerPath.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<UserTrackerPath, Object>() {
@@ -316,16 +354,6 @@ public class UserTrackerPathModelImpl
 					UserTrackerPath userTrackerPath, Object companyIdObject) {
 
 					userTrackerPath.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userTrackerId",
-			new Function<UserTrackerPath, Object>() {
-
-				@Override
-				public Object apply(UserTrackerPath userTrackerPath) {
-					return userTrackerPath.getUserTrackerId();
 				}
 
 			});
@@ -342,16 +370,6 @@ public class UserTrackerPathModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"path",
-			new Function<UserTrackerPath, Object>() {
-
-				@Override
-				public Object apply(UserTrackerPath userTrackerPath) {
-					return userTrackerPath.getPath();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"path",
 			new BiConsumer<UserTrackerPath, Object>() {
@@ -361,16 +379,6 @@ public class UserTrackerPathModelImpl
 					UserTrackerPath userTrackerPath, Object pathObject) {
 
 					userTrackerPath.setPath((String)pathObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"pathDate",
-			new Function<UserTrackerPath, Object>() {
-
-				@Override
-				public Object apply(UserTrackerPath userTrackerPath) {
-					return userTrackerPath.getPathDate();
 				}
 
 			});
@@ -387,8 +395,6 @@ public class UserTrackerPathModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

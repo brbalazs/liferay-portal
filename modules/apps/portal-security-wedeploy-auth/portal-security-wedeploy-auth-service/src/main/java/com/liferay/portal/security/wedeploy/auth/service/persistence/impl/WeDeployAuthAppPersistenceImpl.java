@@ -44,7 +44,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 
 import java.util.Collections;
@@ -1555,33 +1554,17 @@ public class WeDeployAuthAppPersistenceImpl
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCI_CS",
 			new String[] {String.class.getName(), String.class.getName()});
 
-		_setWeDeployAuthAppUtilPersistence(this);
+		WeDeployAuthAppUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setWeDeployAuthAppUtilPersistence(null);
+		WeDeployAuthAppUtil.setPersistence(null);
 
 		entityCache.removeCache(WeDeployAuthAppImpl.class.getName());
 
 		finderCache.removeCache(FINDER_CLASS_NAME_ENTITY);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setWeDeployAuthAppUtilPersistence(
-		WeDeployAuthAppPersistence weDeployAuthAppPersistence) {
-
-		try {
-			Field field = WeDeployAuthAppUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, weDeployAuthAppPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	@ServiceReference(type = EntityCache.class)

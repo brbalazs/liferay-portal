@@ -47,8 +47,6 @@ import com.liferay.portal.spring.extender.service.ServiceReference;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -444,14 +442,15 @@ public abstract class DDLRecordSetVersionLocalServiceBaseImpl
 			"com.liferay.dynamic.data.lists.model.DDLRecordSetVersion",
 			ddlRecordSetVersionLocalService);
 
-		_setLocalServiceUtilService(ddlRecordSetVersionLocalService);
+		DDLRecordSetVersionLocalServiceUtil.setService(
+			ddlRecordSetVersionLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.dynamic.data.lists.model.DDLRecordSetVersion");
 
-		_setLocalServiceUtilService(null);
+		DDLRecordSetVersionLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -494,23 +493,6 @@ public abstract class DDLRecordSetVersionLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DDLRecordSetVersionLocalService ddlRecordSetVersionLocalService) {
-
-		try {
-			Field field =
-				DDLRecordSetVersionLocalServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddlRecordSetVersionLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

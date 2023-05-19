@@ -256,18 +256,12 @@ public class ContactsLayoutTemplateModelImpl
 
 	private static final Map<String, Function<ContactsLayoutTemplate, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<ContactsLayoutTemplate, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<ContactsLayoutTemplate, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<ContactsLayoutTemplate, Object>>();
-		Map<String, BiConsumer<ContactsLayoutTemplate, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<ContactsLayoutTemplate, ?>>();
 
 		attributeGetterFunctions.put(
 			"contactsLayoutTemplateId",
@@ -281,6 +275,129 @@ public class ContactsLayoutTemplateModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<ContactsLayoutTemplate, Object>() {
+
+				@Override
+				public Object apply(
+					ContactsLayoutTemplate contactsLayoutTemplate) {
+
+					return contactsLayoutTemplate.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<ContactsLayoutTemplate, Object>() {
+
+				@Override
+				public Object apply(
+					ContactsLayoutTemplate contactsLayoutTemplate) {
+
+					return contactsLayoutTemplate.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<ContactsLayoutTemplate, Object>() {
+
+				@Override
+				public Object apply(
+					ContactsLayoutTemplate contactsLayoutTemplate) {
+
+					return contactsLayoutTemplate.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createTime",
+			new Function<ContactsLayoutTemplate, Object>() {
+
+				@Override
+				public Object apply(
+					ContactsLayoutTemplate contactsLayoutTemplate) {
+
+					return contactsLayoutTemplate.getCreateTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedTime",
+			new Function<ContactsLayoutTemplate, Object>() {
+
+				@Override
+				public Object apply(
+					ContactsLayoutTemplate contactsLayoutTemplate) {
+
+					return contactsLayoutTemplate.getModifiedTime();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"headerContactsCardTemplateIds",
+			new Function<ContactsLayoutTemplate, Object>() {
+
+				@Override
+				public Object apply(
+					ContactsLayoutTemplate contactsLayoutTemplate) {
+
+					return contactsLayoutTemplate.
+						getHeaderContactsCardTemplateIds();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<ContactsLayoutTemplate, Object>() {
+
+				@Override
+				public Object apply(
+					ContactsLayoutTemplate contactsLayoutTemplate) {
+
+					return contactsLayoutTemplate.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"settings",
+			new Function<ContactsLayoutTemplate, Object>() {
+
+				@Override
+				public Object apply(
+					ContactsLayoutTemplate contactsLayoutTemplate) {
+
+					return contactsLayoutTemplate.getSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<ContactsLayoutTemplate, Object>() {
+
+				@Override
+				public Object apply(
+					ContactsLayoutTemplate contactsLayoutTemplate) {
+
+					return contactsLayoutTemplate.getType();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<ContactsLayoutTemplate, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<ContactsLayoutTemplate, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<ContactsLayoutTemplate, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"contactsLayoutTemplateId",
 			new BiConsumer<ContactsLayoutTemplate, Object>() {
@@ -292,18 +409,6 @@ public class ContactsLayoutTemplateModelImpl
 
 					contactsLayoutTemplate.setContactsLayoutTemplateId(
 						(Long)contactsLayoutTemplateIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<ContactsLayoutTemplate, Object>() {
-
-				@Override
-				public Object apply(
-					ContactsLayoutTemplate contactsLayoutTemplate) {
-
-					return contactsLayoutTemplate.getGroupId();
 				}
 
 			});
@@ -320,18 +425,6 @@ public class ContactsLayoutTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<ContactsLayoutTemplate, Object>() {
-
-				@Override
-				public Object apply(
-					ContactsLayoutTemplate contactsLayoutTemplate) {
-
-					return contactsLayoutTemplate.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<ContactsLayoutTemplate, Object>() {
@@ -345,18 +438,6 @@ public class ContactsLayoutTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<ContactsLayoutTemplate, Object>() {
-
-				@Override
-				public Object apply(
-					ContactsLayoutTemplate contactsLayoutTemplate) {
-
-					return contactsLayoutTemplate.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<ContactsLayoutTemplate, Object>() {
@@ -367,18 +448,6 @@ public class ContactsLayoutTemplateModelImpl
 					Object userNameObject) {
 
 					contactsLayoutTemplate.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createTime",
-			new Function<ContactsLayoutTemplate, Object>() {
-
-				@Override
-				public Object apply(
-					ContactsLayoutTemplate contactsLayoutTemplate) {
-
-					return contactsLayoutTemplate.getCreateTime();
 				}
 
 			});
@@ -396,18 +465,6 @@ public class ContactsLayoutTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedTime",
-			new Function<ContactsLayoutTemplate, Object>() {
-
-				@Override
-				public Object apply(
-					ContactsLayoutTemplate contactsLayoutTemplate) {
-
-					return contactsLayoutTemplate.getModifiedTime();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedTime",
 			new BiConsumer<ContactsLayoutTemplate, Object>() {
@@ -419,19 +476,6 @@ public class ContactsLayoutTemplateModelImpl
 
 					contactsLayoutTemplate.setModifiedTime(
 						(Long)modifiedTimeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"headerContactsCardTemplateIds",
-			new Function<ContactsLayoutTemplate, Object>() {
-
-				@Override
-				public Object apply(
-					ContactsLayoutTemplate contactsLayoutTemplate) {
-
-					return contactsLayoutTemplate.
-						getHeaderContactsCardTemplateIds();
 				}
 
 			});
@@ -449,18 +493,6 @@ public class ContactsLayoutTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<ContactsLayoutTemplate, Object>() {
-
-				@Override
-				public Object apply(
-					ContactsLayoutTemplate contactsLayoutTemplate) {
-
-					return contactsLayoutTemplate.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<ContactsLayoutTemplate, Object>() {
@@ -474,18 +506,6 @@ public class ContactsLayoutTemplateModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"settings",
-			new Function<ContactsLayoutTemplate, Object>() {
-
-				@Override
-				public Object apply(
-					ContactsLayoutTemplate contactsLayoutTemplate) {
-
-					return contactsLayoutTemplate.getSettings();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"settings",
 			new BiConsumer<ContactsLayoutTemplate, Object>() {
@@ -496,18 +516,6 @@ public class ContactsLayoutTemplateModelImpl
 					Object settingsObject) {
 
 					contactsLayoutTemplate.setSettings((String)settingsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<ContactsLayoutTemplate, Object>() {
-
-				@Override
-				public Object apply(
-					ContactsLayoutTemplate contactsLayoutTemplate) {
-
-					return contactsLayoutTemplate.getType();
 				}
 
 			});
@@ -525,8 +533,6 @@ public class ContactsLayoutTemplateModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

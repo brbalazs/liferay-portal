@@ -31,8 +31,6 @@ import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.spring.extender.service.ServiceReference;
 
-import java.lang.reflect.Field;
-
 import javax.sql.DataSource;
 
 /**
@@ -154,11 +152,12 @@ public abstract class DDMFormInstanceRecordVersionServiceBaseImpl
 	}
 
 	public void afterPropertiesSet() {
-		_setServiceUtilService(ddmFormInstanceRecordVersionService);
+		DDMFormInstanceRecordVersionServiceUtil.setService(
+			ddmFormInstanceRecordVersionService);
 	}
 
 	public void destroy() {
-		_setServiceUtilService(null);
+		DDMFormInstanceRecordVersionServiceUtil.setService(null);
 	}
 
 	/**
@@ -201,24 +200,6 @@ public abstract class DDMFormInstanceRecordVersionServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setServiceUtilService(
-		DDMFormInstanceRecordVersionService
-			ddmFormInstanceRecordVersionService) {
-
-		try {
-			Field field =
-				DDMFormInstanceRecordVersionServiceUtil.class.getDeclaredField(
-					"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, ddmFormInstanceRecordVersionService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

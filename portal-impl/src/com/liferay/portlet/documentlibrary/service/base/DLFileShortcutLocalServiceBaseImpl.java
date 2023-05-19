@@ -72,8 +72,6 @@ import com.liferay.trash.kernel.service.persistence.TrashVersionPersistence;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Field;
-
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -1032,14 +1030,14 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 			"com.liferay.document.library.kernel.model.DLFileShortcut",
 			dlFileShortcutLocalService);
 
-		_setLocalServiceUtilService(dlFileShortcutLocalService);
+		DLFileShortcutLocalServiceUtil.setService(dlFileShortcutLocalService);
 	}
 
 	public void destroy() {
 		persistedModelLocalServiceRegistry.unregister(
 			"com.liferay.document.library.kernel.model.DLFileShortcut");
 
-		_setLocalServiceUtilService(null);
+		DLFileShortcutLocalServiceUtil.setService(null);
 	}
 
 	/**
@@ -1081,22 +1079,6 @@ public abstract class DLFileShortcutLocalServiceBaseImpl
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
-		}
-	}
-
-	private void _setLocalServiceUtilService(
-		DLFileShortcutLocalService dlFileShortcutLocalService) {
-
-		try {
-			Field field = DLFileShortcutLocalServiceUtil.class.getDeclaredField(
-				"_service");
-
-			field.setAccessible(true);
-
-			field.set(null, dlFileShortcutLocalService);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
 		}
 	}
 

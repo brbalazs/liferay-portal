@@ -270,14 +270,10 @@ public class SystemEventModelImpl
 
 	private static final Map<String, Function<SystemEvent, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<SystemEvent, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<SystemEvent, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<SystemEvent, Object>>();
-		Map<String, BiConsumer<SystemEvent, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<SystemEvent, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -289,6 +285,158 @@ public class SystemEventModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"systemEventId",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getSystemEventId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classUuid",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getClassUuid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"referrerClassNameId",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getReferrerClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentSystemEventId",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getParentSystemEventId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"systemEventSetKey",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getSystemEventSetKey();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"type",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getType();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"extraData",
+			new Function<SystemEvent, Object>() {
+
+				@Override
+				public Object apply(SystemEvent systemEvent) {
+					return systemEvent.getExtraData();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<SystemEvent, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<SystemEvent, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<SystemEvent, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<SystemEvent, Object>() {
@@ -298,16 +446,6 @@ public class SystemEventModelImpl
 					SystemEvent systemEvent, Object mvccVersionObject) {
 
 					systemEvent.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"systemEventId",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getSystemEventId();
 				}
 
 			});
@@ -323,16 +461,6 @@ public class SystemEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<SystemEvent, Object>() {
@@ -342,16 +470,6 @@ public class SystemEventModelImpl
 					SystemEvent systemEvent, Object groupIdObject) {
 
 					systemEvent.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getCompanyId();
 				}
 
 			});
@@ -367,16 +485,6 @@ public class SystemEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<SystemEvent, Object>() {
@@ -386,16 +494,6 @@ public class SystemEventModelImpl
 					SystemEvent systemEvent, Object userIdObject) {
 
 					systemEvent.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getUserName();
 				}
 
 			});
@@ -411,16 +509,6 @@ public class SystemEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<SystemEvent, Object>() {
@@ -430,16 +518,6 @@ public class SystemEventModelImpl
 					SystemEvent systemEvent, Object createDateObject) {
 
 					systemEvent.setCreateDate((Date)createDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getClassNameId();
 				}
 
 			});
@@ -455,16 +533,6 @@ public class SystemEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<SystemEvent, Object>() {
@@ -477,16 +545,6 @@ public class SystemEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classUuid",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getClassUuid();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classUuid",
 			new BiConsumer<SystemEvent, Object>() {
@@ -496,16 +554,6 @@ public class SystemEventModelImpl
 					SystemEvent systemEvent, Object classUuidObject) {
 
 					systemEvent.setClassUuid((String)classUuidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"referrerClassNameId",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getReferrerClassNameId();
 				}
 
 			});
@@ -522,16 +570,6 @@ public class SystemEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"parentSystemEventId",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getParentSystemEventId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"parentSystemEventId",
 			new BiConsumer<SystemEvent, Object>() {
@@ -542,16 +580,6 @@ public class SystemEventModelImpl
 
 					systemEvent.setParentSystemEventId(
 						(Long)parentSystemEventIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"systemEventSetKey",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getSystemEventSetKey();
 				}
 
 			});
@@ -568,16 +596,6 @@ public class SystemEventModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"type",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getType();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"type",
 			new BiConsumer<SystemEvent, Object>() {
@@ -585,16 +603,6 @@ public class SystemEventModelImpl
 				@Override
 				public void accept(SystemEvent systemEvent, Object typeObject) {
 					systemEvent.setType((Integer)typeObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"extraData",
-			new Function<SystemEvent, Object>() {
-
-				@Override
-				public Object apply(SystemEvent systemEvent) {
-					return systemEvent.getExtraData();
 				}
 
 			});
@@ -611,8 +619,6 @@ public class SystemEventModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

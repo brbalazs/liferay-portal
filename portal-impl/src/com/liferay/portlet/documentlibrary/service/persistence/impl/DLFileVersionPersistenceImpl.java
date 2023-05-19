@@ -7030,33 +7030,17 @@ public class DLFileVersionPersistenceImpl
 				String.class.getName(), String.class.getName()
 			});
 
-		_setDLFileVersionUtilPersistence(this);
+		DLFileVersionUtil.setPersistence(this);
 	}
 
 	public void destroy() {
-		_setDLFileVersionUtilPersistence(null);
+		DLFileVersionUtil.setPersistence(null);
 
 		EntityCacheUtil.removeCache(DLFileVersionImpl.class.getName());
 
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	private void _setDLFileVersionUtilPersistence(
-		DLFileVersionPersistence dlFileVersionPersistence) {
-
-		try {
-			Field field = DLFileVersionUtil.class.getDeclaredField(
-				"_persistence");
-
-			field.setAccessible(true);
-
-			field.set(null, dlFileVersionPersistence);
-		}
-		catch (ReflectiveOperationException reflectiveOperationException) {
-			throw new RuntimeException(reflectiveOperationException);
-		}
 	}
 
 	private static final String _SQL_SELECT_DLFILEVERSION =

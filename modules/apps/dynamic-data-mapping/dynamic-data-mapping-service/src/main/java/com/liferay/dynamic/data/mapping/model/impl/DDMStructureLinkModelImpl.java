@@ -246,16 +246,11 @@ public class DDMStructureLinkModelImpl
 
 	private static final Map<String, Function<DDMStructureLink, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<DDMStructureLink, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<DDMStructureLink, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap<String, Function<DDMStructureLink, Object>>();
-		Map<String, BiConsumer<DDMStructureLink, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap<String, BiConsumer<DDMStructureLink, ?>>();
 
 		attributeGetterFunctions.put(
 			"structureLinkId",
@@ -267,6 +262,59 @@ public class DDMStructureLinkModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<DDMStructureLink, Object>() {
+
+				@Override
+				public Object apply(DDMStructureLink ddmStructureLink) {
+					return ddmStructureLink.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classNameId",
+			new Function<DDMStructureLink, Object>() {
+
+				@Override
+				public Object apply(DDMStructureLink ddmStructureLink) {
+					return ddmStructureLink.getClassNameId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<DDMStructureLink, Object>() {
+
+				@Override
+				public Object apply(DDMStructureLink ddmStructureLink) {
+					return ddmStructureLink.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"structureId",
+			new Function<DDMStructureLink, Object>() {
+
+				@Override
+				public Object apply(DDMStructureLink ddmStructureLink) {
+					return ddmStructureLink.getStructureId();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<DDMStructureLink, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<DDMStructureLink, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap<String, BiConsumer<DDMStructureLink, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"structureLinkId",
 			new BiConsumer<DDMStructureLink, Object>() {
@@ -281,16 +329,6 @@ public class DDMStructureLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<DDMStructureLink, Object>() {
-
-				@Override
-				public Object apply(DDMStructureLink ddmStructureLink) {
-					return ddmStructureLink.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<DDMStructureLink, Object>() {
@@ -300,16 +338,6 @@ public class DDMStructureLinkModelImpl
 					DDMStructureLink ddmStructureLink, Object companyIdObject) {
 
 					ddmStructureLink.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"classNameId",
-			new Function<DDMStructureLink, Object>() {
-
-				@Override
-				public Object apply(DDMStructureLink ddmStructureLink) {
-					return ddmStructureLink.getClassNameId();
 				}
 
 			});
@@ -326,16 +354,6 @@ public class DDMStructureLinkModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<DDMStructureLink, Object>() {
-
-				@Override
-				public Object apply(DDMStructureLink ddmStructureLink) {
-					return ddmStructureLink.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<DDMStructureLink, Object>() {
@@ -345,16 +363,6 @@ public class DDMStructureLinkModelImpl
 					DDMStructureLink ddmStructureLink, Object classPKObject) {
 
 					ddmStructureLink.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"structureId",
-			new Function<DDMStructureLink, Object>() {
-
-				@Override
-				public Object apply(DDMStructureLink ddmStructureLink) {
-					return ddmStructureLink.getStructureId();
 				}
 
 			});
@@ -372,8 +380,6 @@ public class DDMStructureLinkModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

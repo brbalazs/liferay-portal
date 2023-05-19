@@ -278,18 +278,12 @@ public class KaleoTaskInstanceTokenModelImpl
 
 	private static final Map<String, Function<KaleoTaskInstanceToken, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<KaleoTaskInstanceToken, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<KaleoTaskInstanceToken, Object>>
 			attributeGetterFunctions =
 				new LinkedHashMap
 					<String, Function<KaleoTaskInstanceToken, Object>>();
-		Map<String, BiConsumer<KaleoTaskInstanceToken, ?>>
-			attributeSetterBiConsumers =
-				new LinkedHashMap
-					<String, BiConsumer<KaleoTaskInstanceToken, ?>>();
 
 		attributeGetterFunctions.put(
 			"kaleoTaskInstanceTokenId",
@@ -303,6 +297,236 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoDefinitionVersionId",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getKaleoDefinitionVersionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoInstanceId",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getKaleoInstanceId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoInstanceTokenId",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getKaleoInstanceTokenId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoTaskId",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getKaleoTaskId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"kaleoTaskName",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getKaleoTaskName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"className",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getClassName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"classPK",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getClassPK();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"completionUserId",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getCompletionUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"completed",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getCompleted();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"completionDate",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getCompletionDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"dueDate",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getDueDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"workflowContext",
+			new Function<KaleoTaskInstanceToken, Object>() {
+
+				@Override
+				public Object apply(
+					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
+
+					return kaleoTaskInstanceToken.getWorkflowContext();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<KaleoTaskInstanceToken, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<KaleoTaskInstanceToken, ?>>
+			attributeSetterBiConsumers =
+				new LinkedHashMap
+					<String, BiConsumer<KaleoTaskInstanceToken, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"kaleoTaskInstanceTokenId",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -314,18 +538,6 @@ public class KaleoTaskInstanceTokenModelImpl
 
 					kaleoTaskInstanceToken.setKaleoTaskInstanceTokenId(
 						(Long)kaleoTaskInstanceTokenIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getGroupId();
 				}
 
 			});
@@ -342,18 +554,6 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getCompanyId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"companyId",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -364,18 +564,6 @@ public class KaleoTaskInstanceTokenModelImpl
 					Object companyIdObject) {
 
 					kaleoTaskInstanceToken.setCompanyId((Long)companyIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getUserId();
 				}
 
 			});
@@ -392,18 +580,6 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userName",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -414,18 +590,6 @@ public class KaleoTaskInstanceTokenModelImpl
 					Object userNameObject) {
 
 					kaleoTaskInstanceToken.setUserName((String)userNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getCreateDate();
 				}
 
 			});
@@ -443,18 +607,6 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -466,18 +618,6 @@ public class KaleoTaskInstanceTokenModelImpl
 
 					kaleoTaskInstanceToken.setModifiedDate(
 						(Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"kaleoDefinitionVersionId",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getKaleoDefinitionVersionId();
 				}
 
 			});
@@ -495,18 +635,6 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"kaleoInstanceId",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getKaleoInstanceId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"kaleoInstanceId",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -518,18 +646,6 @@ public class KaleoTaskInstanceTokenModelImpl
 
 					kaleoTaskInstanceToken.setKaleoInstanceId(
 						(Long)kaleoInstanceIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"kaleoInstanceTokenId",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getKaleoInstanceTokenId();
 				}
 
 			});
@@ -547,18 +663,6 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"kaleoTaskId",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getKaleoTaskId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"kaleoTaskId",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -570,18 +674,6 @@ public class KaleoTaskInstanceTokenModelImpl
 
 					kaleoTaskInstanceToken.setKaleoTaskId(
 						(Long)kaleoTaskIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"kaleoTaskName",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getKaleoTaskName();
 				}
 
 			});
@@ -599,18 +691,6 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"className",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getClassName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"className",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -625,18 +705,6 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"classPK",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getClassPK();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"classPK",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -647,18 +715,6 @@ public class KaleoTaskInstanceTokenModelImpl
 					Object classPKObject) {
 
 					kaleoTaskInstanceToken.setClassPK((Long)classPKObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"completionUserId",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getCompletionUserId();
 				}
 
 			});
@@ -676,18 +732,6 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"completed",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getCompleted();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"completed",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -699,18 +743,6 @@ public class KaleoTaskInstanceTokenModelImpl
 
 					kaleoTaskInstanceToken.setCompleted(
 						(Boolean)completedObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"completionDate",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getCompletionDate();
 				}
 
 			});
@@ -728,18 +760,6 @@ public class KaleoTaskInstanceTokenModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"dueDate",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getDueDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"dueDate",
 			new BiConsumer<KaleoTaskInstanceToken, Object>() {
@@ -750,18 +770,6 @@ public class KaleoTaskInstanceTokenModelImpl
 					Object dueDateObject) {
 
 					kaleoTaskInstanceToken.setDueDate((Date)dueDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"workflowContext",
-			new Function<KaleoTaskInstanceToken, Object>() {
-
-				@Override
-				public Object apply(
-					KaleoTaskInstanceToken kaleoTaskInstanceToken) {
-
-					return kaleoTaskInstanceToken.getWorkflowContext();
 				}
 
 			});
@@ -780,8 +788,6 @@ public class KaleoTaskInstanceTokenModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}

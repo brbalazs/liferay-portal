@@ -372,14 +372,10 @@ public class LayoutRevisionModelImpl
 
 	private static final Map<String, Function<LayoutRevision, Object>>
 		_attributeGetterFunctions;
-	private static final Map<String, BiConsumer<LayoutRevision, Object>>
-		_attributeSetterBiConsumers;
 
 	static {
 		Map<String, Function<LayoutRevision, Object>> attributeGetterFunctions =
 			new LinkedHashMap<String, Function<LayoutRevision, Object>>();
-		Map<String, BiConsumer<LayoutRevision, ?>> attributeSetterBiConsumers =
-			new LinkedHashMap<String, BiConsumer<LayoutRevision, ?>>();
 
 		attributeGetterFunctions.put(
 			"mvccVersion",
@@ -391,6 +387,298 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
+		attributeGetterFunctions.put(
+			"layoutRevisionId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getLayoutRevisionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"groupId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getGroupId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"companyId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getCompanyId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"userName",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"createDate",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getCreateDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"modifiedDate",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getModifiedDate();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutSetBranchId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getLayoutSetBranchId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"layoutBranchId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getLayoutBranchId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"parentLayoutRevisionId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getParentLayoutRevisionId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"head",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getHead();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"major",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getMajor();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"plid",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getPlid();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"privateLayout",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getPrivateLayout();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"name",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"title",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getTitle();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"description",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getDescription();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"keywords",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getKeywords();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"robots",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getRobots();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"typeSettings",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getTypeSettings();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"iconImageId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getIconImageId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"themeId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getThemeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"colorSchemeId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getColorSchemeId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"css",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getCss();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"status",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getStatus();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserId",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getStatusByUserId();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusByUserName",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getStatusByUserName();
+				}
+
+			});
+		attributeGetterFunctions.put(
+			"statusDate",
+			new Function<LayoutRevision, Object>() {
+
+				@Override
+				public Object apply(LayoutRevision layoutRevision) {
+					return layoutRevision.getStatusDate();
+				}
+
+			});
+
+		_attributeGetterFunctions = Collections.unmodifiableMap(
+			attributeGetterFunctions);
+	}
+
+	private static final Map<String, BiConsumer<LayoutRevision, Object>>
+		_attributeSetterBiConsumers;
+
+	static {
+		Map<String, BiConsumer<LayoutRevision, ?>> attributeSetterBiConsumers =
+			new LinkedHashMap<String, BiConsumer<LayoutRevision, ?>>();
+
 		attributeSetterBiConsumers.put(
 			"mvccVersion",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -400,16 +688,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object mvccVersionObject) {
 
 					layoutRevision.setMvccVersion((Long)mvccVersionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutRevisionId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getLayoutRevisionId();
 				}
 
 			});
@@ -427,16 +705,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"groupId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getGroupId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"groupId",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -446,16 +714,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object groupIdObject) {
 
 					layoutRevision.setGroupId((Long)groupIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"companyId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getCompanyId();
 				}
 
 			});
@@ -471,16 +729,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"userId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getUserId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"userId",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -490,16 +738,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object userIdObject) {
 
 					layoutRevision.setUserId((Long)userIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"userName",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getUserName();
 				}
 
 			});
@@ -515,16 +753,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"createDate",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getCreateDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"createDate",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -537,16 +765,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"modifiedDate",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getModifiedDate();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -556,16 +774,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object modifiedDateObject) {
 
 					layoutRevision.setModifiedDate((Date)modifiedDateObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"layoutSetBranchId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getLayoutSetBranchId();
 				}
 
 			});
@@ -583,16 +791,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"layoutBranchId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getLayoutBranchId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"layoutBranchId",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -604,16 +802,6 @@ public class LayoutRevisionModelImpl
 
 					layoutRevision.setLayoutBranchId(
 						(Long)layoutBranchIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"parentLayoutRevisionId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getParentLayoutRevisionId();
 				}
 
 			});
@@ -631,16 +819,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"head",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getHead();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"head",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -650,16 +828,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object headObject) {
 
 					layoutRevision.setHead((Boolean)headObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"major",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getMajor();
 				}
 
 			});
@@ -675,16 +843,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"plid",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getPlid();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"plid",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -694,16 +852,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object plidObject) {
 
 					layoutRevision.setPlid((Long)plidObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"privateLayout",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getPrivateLayout();
 				}
 
 			});
@@ -720,16 +868,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"name",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"name",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -739,16 +877,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object nameObject) {
 
 					layoutRevision.setName((String)nameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"title",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getTitle();
 				}
 
 			});
@@ -764,16 +892,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"description",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getDescription();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"description",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -783,16 +901,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object descriptionObject) {
 
 					layoutRevision.setDescription((String)descriptionObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"keywords",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getKeywords();
 				}
 
 			});
@@ -808,16 +916,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"robots",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getRobots();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"robots",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -827,16 +925,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object robotsObject) {
 
 					layoutRevision.setRobots((String)robotsObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"typeSettings",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getTypeSettings();
 				}
 
 			});
@@ -852,16 +940,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"iconImageId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getIconImageId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"iconImageId",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -874,16 +952,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"themeId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getThemeId();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"themeId",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -893,16 +961,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object themeIdObject) {
 
 					layoutRevision.setThemeId((String)themeIdObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"colorSchemeId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getColorSchemeId();
 				}
 
 			});
@@ -919,16 +977,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"css",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getCss();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"css",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -941,16 +989,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"status",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getStatus();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"status",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -960,16 +998,6 @@ public class LayoutRevisionModelImpl
 					LayoutRevision layoutRevision, Object statusObject) {
 
 					layoutRevision.setStatus((Integer)statusObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusByUserId",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getStatusByUserId();
 				}
 
 			});
@@ -987,16 +1015,6 @@ public class LayoutRevisionModelImpl
 				}
 
 			});
-		attributeGetterFunctions.put(
-			"statusByUserName",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getStatusByUserName();
-				}
-
-			});
 		attributeSetterBiConsumers.put(
 			"statusByUserName",
 			new BiConsumer<LayoutRevision, Object>() {
@@ -1008,16 +1026,6 @@ public class LayoutRevisionModelImpl
 
 					layoutRevision.setStatusByUserName(
 						(String)statusByUserNameObject);
-				}
-
-			});
-		attributeGetterFunctions.put(
-			"statusDate",
-			new Function<LayoutRevision, Object>() {
-
-				@Override
-				public Object apply(LayoutRevision layoutRevision) {
-					return layoutRevision.getStatusDate();
 				}
 
 			});
@@ -1034,8 +1042,6 @@ public class LayoutRevisionModelImpl
 
 			});
 
-		_attributeGetterFunctions = Collections.unmodifiableMap(
-			attributeGetterFunctions);
 		_attributeSetterBiConsumers = Collections.unmodifiableMap(
 			(Map)attributeSetterBiConsumers);
 	}
