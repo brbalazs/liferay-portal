@@ -8,7 +8,7 @@ dependencies {
 	compileInclude group: "org.apache.httpcomponents", name: "httpcore", version: "4.4.15"
 	compileInclude group: "org.apache.httpcomponents", name: "httpmime", version: "4.5.13"
 	compileInclude group: "org.joda", name: "joda-convert", version: "2.2.2"
-	compileInclude group: "org.springframework", name: "spring-beans", version: "5.3.27"
+	compileInclude group: "org.springframework", name: "spring-beans", version: "5.3.14"
 	compileInclude group: "org.springframework", name: "spring-context", version: "5.3.14"
 	compileInclude group: "org.springframework", name: "spring-core", version: "5.3.27"
 	compileInclude group: "org.springframework", name: "spring-web", version: "5.3.14"
