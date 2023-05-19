@@ -3161,7 +3161,7 @@ definition {
 			webContentTitle = "WC WebContent Titre");
 
 		WebContent.viewStructureAndTemplateLocalization(
-			panel = "Structure et gabarit",
+			panel = "Structure et modèle",
 			structureLocalizationName = "nom de la structure de wc",
 			templateLocalizationName = "nom de la template de wc");
 
