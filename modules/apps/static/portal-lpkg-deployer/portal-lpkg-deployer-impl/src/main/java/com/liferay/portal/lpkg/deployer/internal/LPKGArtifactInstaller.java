@@ -77,8 +77,7 @@ public class LPKGArtifactInstaller implements ArtifactInstaller {
 	public void install(File file) throws Exception {
 		Properties properties = new Properties();
 
-		List<File> lpkgFiles = ContainerLPKGUtil.deploy(
-			file, _bundleContext, properties);
+		List<File> lpkgFiles = ContainerLPKGUtil.deploy(file, properties);
 
 		if (lpkgFiles == null) {
 			_install(file, properties);
