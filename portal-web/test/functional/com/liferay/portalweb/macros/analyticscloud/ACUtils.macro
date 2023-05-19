@@ -753,6 +753,8 @@ definition {
 			}
 
 			if (${actionType} == "View DM") {
+				LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
 				DMNavigator.gotoDocumentPG(dmDocumentTitle = ${documentTitle});
 			}
 
