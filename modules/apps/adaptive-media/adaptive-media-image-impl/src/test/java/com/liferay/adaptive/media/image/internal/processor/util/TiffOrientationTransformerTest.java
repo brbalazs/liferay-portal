@@ -19,7 +19,6 @@ import com.liferay.portal.image.ImageToolImpl;
 import com.liferay.portal.kernel.image.ImageTool;
 import com.liferay.portal.kernel.image.ImageToolUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
-import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
 import java.awt.image.RenderedImage;
 
@@ -27,19 +26,12 @@ import java.io.InputStream;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
 
 /**
  * @author Alicia García
  */
 public class TiffOrientationTransformerTest {
-
-	@ClassRule
-	@Rule
-	public static final LiferayUnitTestRule liferayUnitTestRule =
-		LiferayUnitTestRule.INSTANCE;
 
 	@Before
 	public void setUp() {
