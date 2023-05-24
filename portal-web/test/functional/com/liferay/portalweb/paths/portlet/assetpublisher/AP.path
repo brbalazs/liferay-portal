@@ -79,7 +79,7 @@
 
 <tr>
 	<td>ASSET_ABSTRACT_TITLE</td>
-	<td>//section[@class='portlet']//h4[@class='asset-title']/a[contains(.,'${key_assetTitle}')]</td>
+	<td>//section[@class='portlet']//h4[@class='asset-title']/a[normalize-space(text())='${key_assetTitle}']</td>
 	<td></td>
 </tr>
 <tr>
