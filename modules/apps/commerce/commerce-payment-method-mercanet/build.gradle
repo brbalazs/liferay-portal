@@ -1,5 +1,5 @@
 dependencies {
-	compileInclude group: "commons-codec", name: "commons-codec", version: "1.4"
+	compileInclude group: "commons-codec", name: "commons-codec", version: "1.15"
 	compileInclude group: "com.fasterxml.jackson.datatype", name: "jackson-datatype-jsr310", version: "2.10.3"
 	compileInclude group: "com.worldline.sips", name: "payment-sdk-common", version: "1.2.0"
 	compileInclude group: "org.apache.commons", name: "commons-lang3", version: "3.8.1"
