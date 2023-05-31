@@ -8,7 +8,7 @@ dependencies {
 	compileOnly project(":apps:item-selector:item-selector-criteria-api")
 	compileOnly project(":apps:wiki:wiki-api")
 
-	testCompile group: "com.liferay", name: "org.jabsorb", version: "1.3.2.LIFERAY-PATCHED-1"
+	testCompile group: "com.liferay", name: "org.jabsorb", version: "1.3.2.LIFERAY-PATCHED-2"
 	testCompile group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
 	testCompile group: "easyconf", name: "easyconf", version: "0.9.5"
 	testCompile group: "org.jodd", name: "jodd-bean", version: "3.6.4"
