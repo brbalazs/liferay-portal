@@ -733,8 +733,9 @@ public class AggregateFilter extends IgnoreModuleRequestFilter {
 				resourcePath);
 
 			ObjectValuePair<String, Long> objectValuePair =
-				RequestDispatcherUtil.getContentAndLastModifiedTimeObjectValuePair(
-					requestDispatcher, request, response);
+				RequestDispatcherUtil.
+					getContentAndLastModifiedTimeObjectValuePair(
+						requestDispatcher, request, response);
 
 			return objectValuePair.getKey();
 		}
