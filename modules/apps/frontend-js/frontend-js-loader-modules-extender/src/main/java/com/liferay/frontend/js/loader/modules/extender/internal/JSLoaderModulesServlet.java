@@ -309,7 +309,9 @@ public class JSLoaderModulesServlet extends HttpServlet {
 
 			String name = jsLoaderModule.getName();
 
-			if ((query != null) && !name.matches(query)) {
+			if ((query != null) &&
+				!(name.startsWith(query) && name.endsWith(".es"))) {
+
 				continue;
 			}
 
@@ -345,7 +347,9 @@ public class JSLoaderModulesServlet extends HttpServlet {
 		for (JSModule resolvedJSModule : _npmRegistry.getResolvedJSModules()) {
 			String resolvedId = resolvedJSModule.getResolvedId();
 
-			if ((query != null) && !resolvedId.matches(query)) {
+			if ((query != null) &&
+				!(resolvedId.startsWith(query) && resolvedId.endsWith(".es"))) {
+
 				continue;
 			}
 

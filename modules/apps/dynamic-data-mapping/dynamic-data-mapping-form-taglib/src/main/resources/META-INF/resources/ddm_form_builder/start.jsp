@@ -76,7 +76,7 @@
 		);
 	}
 	else {
-		fetch(Liferay.MODULES_PATH + '?query=' + encodeURI('dynamic-data-mapping-form-builder.*\\.es'))
+		fetch(Liferay.MODULES_PATH + '?query=' + encodeURI('dynamic-data-mapping-form-builder'))
 			.then(
 				function(response) {
 					return response.json();

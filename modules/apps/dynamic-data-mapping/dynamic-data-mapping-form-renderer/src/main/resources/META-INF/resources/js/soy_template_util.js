@@ -32,7 +32,7 @@ AUI.add(
 					);
 				}
 				else {
-					fetch(Liferay.MODULES_PATH + '?query=' + encodeURI('dynamic-data-.*\\.es'))
+					fetch(Liferay.MODULES_PATH + '?query=' + encodeURI('dynamic-data-'))
 						.then(
 							function(response) {
 								return response.json();
