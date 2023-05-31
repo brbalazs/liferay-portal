@@ -78,7 +78,7 @@ public class RequestDispatcherUtil {
 		return bufferCacheServletResponse;
 	}
 
-	public static ObjectValuePair<String, Long> getContentAndLastModifiedTime(
+	public static ObjectValuePair<String, Long> getContentAndLastModifiedTimeObjectValuePair(
 			RequestDispatcher requestDispatcher,
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse)
