@@ -205,7 +205,7 @@ public class AntiSamySanitizerImpl extends BaseSanitizer {
 		AntiSamySanitizerImpl.class);
 
 	private final List<String> _blacklist = new ArrayList<>();
-	private Map<String, Policy> _classNamePolicyMap = new HashMap<>();
+	private final Map<String, Policy> _classNamePolicyMap = new HashMap<>();
 	private final Policy _policy;
 	private final List<String> _whitelist = new ArrayList<>();
 
