@@ -48,6 +48,10 @@ public class ErrorResponse {
 		return _message;
 	}
 
+	public String getMessageKey() {
+		return _messageKey;
+	}
+
 	public String getPath() {
 		return _path;
 	}
@@ -84,6 +88,10 @@ public class ErrorResponse {
 		_message = message;
 	}
 
+	public void setMessageKey(String messageKey) {
+		_messageKey = messageKey;
+	}
+
 	public void setPath(String path) {
 		_path = path;
 	}
@@ -102,6 +110,7 @@ public class ErrorResponse {
 	private String _field;
 	private String _localizedMessage;
 	private String _message;
+	private String _messageKey;
 	private String _path;
 	private int _status;
 	private long _timestamp;
