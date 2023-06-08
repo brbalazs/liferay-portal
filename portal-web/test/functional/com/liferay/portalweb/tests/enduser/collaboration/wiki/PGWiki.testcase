@@ -252,7 +252,7 @@ definition {
 			wikiChildPageTitle = "Wiki FrontPage Child Page Title",
 			wikiPageRevision = "1.1",
 			wikiPageTitle = "FrontPage",
-			wikiPageUsername = "Test Test");
+			wikiPageUsername = "");
 	}
 
 	@priority = 4
