@@ -16,8 +16,8 @@ import {
 	withProjects
 } from 'shared/hoc';
 import {connect} from 'react-redux';
-import {formatSubscriptions} from 'shared/util/subscriptions';
 import {groupBy, map, sortBy} from 'lodash';
+import {PLANS} from 'shared/util/subscriptions';
 import {PROD_MODE} from 'shared/util/constants';
 import {Project} from 'shared/util/records';
 import {PropTypes} from 'prop-types';
@@ -49,14 +49,11 @@ export function routingFn({projects}) {
 	}
 }
 
-const filterProjects = projects => {
-	const {plans} = formatSubscriptions();
-
-	return projects.filter(
+const filterProjects = projects =>
+	projects.filter(
 		({faroSubscription, groupId}) =>
-			faroSubscription.name !== plans.basic.name || groupId
+			faroSubscription.name !== PLANS.basic.name || groupId
 	);
-};
 
 const Workspaces = ({
 	className,
