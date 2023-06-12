@@ -15,11 +15,11 @@
 package com.liferay.portal.util;
 
 import com.liferay.petra.reflect.ReflectionUtil;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.PortalRunMode;
-import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.File;
@@ -42,8 +42,7 @@ import java.nio.file.StandardCopyOption;
  */
 public class JarUtil {
 
-	public static Path downloadAndInstallJar(
-			URL url, String libPath, String name)
+	public static void downloadAndInstallJar(URL url, Path path)
 		throws Exception {
 
 		String protocol = url.getProtocol();
@@ -77,15 +76,8 @@ public class JarUtil {
 			}
 		}
 
-		File file = new File(libPath, name);
-
-		Path path = file.toPath();
-
 		if (_log.isInfoEnabled()) {
-			_log.info(
-				StringBundler.concat(
-					"Downloading ", String.valueOf(url), " to ",
-					String.valueOf(path)));
+			_log.info(StringBundler.concat("Downloading ", url, " to ", path));
 		}
 
 		try (InputStream inputStream = url.openStream()) {
@@ -93,28 +85,22 @@ public class JarUtil {
 		}
 
 		if (_log.isInfoEnabled()) {
-			_log.info(
-				StringBundler.concat(
-					"Downloaded ", String.valueOf(url), " to ",
-					String.valueOf(path)));
+			_log.info(StringBundler.concat("Downloaded ", url, " to ", path));
 		}
-
-		return path;
 	}
 
 	public static void downloadAndInstallJar(
-			URL url, String libPath, String name, URLClassLoader urlClassLoader)
+			URL url, Path path, URLClassLoader urlClassLoader)
 		throws Exception {
 
-		Path path = downloadAndInstallJar(url, libPath, name);
+		downloadAndInstallJar(url, path);
 
 		URI uri = path.toUri();
 
 		if (_log.isInfoEnabled()) {
 			_log.info(
 				StringBundler.concat(
-					"Installing ", String.valueOf(path), " to ",
-					String.valueOf(urlClassLoader)));
+					"Installing ", path, " to ", urlClassLoader));
 		}
 
 		_addURLMethod.invoke(urlClassLoader, uri.toURL());
@@ -122,9 +108,42 @@ public class JarUtil {
 		if (_log.isInfoEnabled()) {
 			_log.info(
 				StringBundler.concat(
-					"Installed ", String.valueOf(path), " to ",
-					String.valueOf(urlClassLoader)));
+					"Installed ", path, " to ", urlClassLoader));
 		}
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 #downloadAndInstallJar(URL, Path)}
+	 */
+	@Deprecated
+	public static Path downloadAndInstallJar(
+			URL url, String libPath, String name)
+		throws Exception {
+
+		File file = new File(libPath, name);
+
+		Path path = file.toPath();
+
+		downloadAndInstallJar(url, path);
+
+		return path;
+	}
+
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 #downloadAndInstallJar(URL, Path, URLClassLoader)}
+	 */
+	@Deprecated
+	public static void downloadAndInstallJar(
+			URL url, String libPath, String name, URLClassLoader urlClassLoader)
+		throws Exception {
+
+		File file = new File(libPath, name);
+
+		Path path = file.toPath();
+
+		downloadAndInstallJar(url, path, urlClassLoader);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(JarUtil.class);
