@@ -153,6 +153,26 @@ definition {
 			sitePageType = ${sitePageType});
 	}
 
+	macro addPublicPageLocalization {
+		LexiconEntry.gotoAddMenuItem(menuItem = ${menuItemLocalization});
+
+		SitePages._selectPageType(
+			pageTemplateName = ${pageTemplateName},
+			sitePageType = ${sitePageType});
+
+		if (IsElementPresent(locator1 = "IFrame#DIALOG")) {
+			SelectFrame(locator1 = "IFrame#DIALOG");
+		}
+
+		PortletEntry.inputName(name = ${pageName});
+
+		Button.click(button = ${saveButton});
+
+		SelectFrame.selectFrameTop();
+
+		AssertVisible(locator1 = "TextInput#NAME");
+	}
+
 	macro configureChildPage {
 		SitePages.gotoPageMenuItem(
 			menuItem = "Configure",
