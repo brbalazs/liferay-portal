@@ -867,7 +867,11 @@ definition {
 			panel = "Site Administration",
 			portlet = "Pages");
 
-		SitePages.addPublicPage(pageName = "Site Page Name");
+		SitePages.addPublicPageLocalization(
+			menuItemLocalization = "Página pública",
+			pageName = "Site Page Name",
+			saveButton = "Guardar",
+			sitePageType = "Página de widget");
 
 		Navigator.gotoSitePage(
 			pageName = "Site Page Name",
