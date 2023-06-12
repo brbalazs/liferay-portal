@@ -61,6 +61,8 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import java.nio.file.Paths;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -634,7 +636,8 @@ public class DataSourceFactoryImpl implements DataSourceFactory {
 
 			try {
 				JarUtil.downloadAndInstallJar(
-					new URL(url), PropsValues.LIFERAY_LIB_GLOBAL_DIR, name,
+					new URL(url),
+					Paths.get(PropsValues.LIFERAY_LIB_GLOBAL_DIR, name),
 					(URLClassLoader)classLoader);
 			}
 			catch (Exception e) {
