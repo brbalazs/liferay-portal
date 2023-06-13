@@ -620,7 +620,12 @@ public class DataSourceFactoryImpl implements DataSourceFactory {
 			String name = PropsUtil.get(
 				PropsKeys.SETUP_DATABASE_JAR_NAME, new Filter(driverClassName));
 
-			if (Validator.isNull(url) || Validator.isNull(name)) {
+			String sha1 = PropsUtil.get(
+				PropsKeys.SETUP_DATABASE_JAR_SHA1, new Filter(driverClassName));
+
+			if (Validator.isNull(url) || Validator.isNull(name) ||
+				Validator.isNull(sha1)) {
+
 				throw cnfe;
 			}
 
@@ -638,7 +643,7 @@ public class DataSourceFactoryImpl implements DataSourceFactory {
 				JarUtil.downloadAndInstallJar(
 					new URL(url),
 					Paths.get(PropsValues.LIFERAY_LIB_GLOBAL_DIR, name),
-					(URLClassLoader)classLoader);
+					(URLClassLoader)classLoader, sha1);
 			}
 			catch (Exception e) {
 				_log.error(
@@ -685,7 +690,8 @@ public class DataSourceFactoryImpl implements DataSourceFactory {
 			}
 
 			JarUtil.downloadAndInstallJar(
-				new URL(url), PropsValues.LIFERAY_LIB_PORTAL_DIR, name,
+				new URL(url),
+				Paths.get(PropsValues.LIFERAY_LIB_GLOBAL_DIR, name),
 				(URLClassLoader)classLoader);
 		}
 	}
