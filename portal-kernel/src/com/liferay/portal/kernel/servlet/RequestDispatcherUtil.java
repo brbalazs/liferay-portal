@@ -22,16 +22,17 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RequestDispatcherUtil {
 
-	public static ObjectValuePair<String, Long> getContentAndLastModifiedTime(
-			RequestDispatcher requestDispatcher, HttpServletRequest request,
-			HttpServletResponse response)
+	public static BufferCacheServletResponse getBufferCacheServletResponse(
+			RequestDispatcher requestDispatcher,
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
 		throws Exception {
 
 		BufferCacheServletResponse bufferCacheServletResponse =
-			new LastModifiedCacheServletResponse(response);
+			new LastModifiedCacheServletResponse(httpServletResponse);
 
 		requestDispatcher.include(
-			new HttpServletRequestWrapper(request) {
+			new HttpServletRequestWrapper(httpServletRequest) {
 
 				@Override
 				public long getDateHeader(String name) {
@@ -73,6 +74,19 @@ public class RequestDispatcherUtil {
 
 			},
 			bufferCacheServletResponse);
+
+		return bufferCacheServletResponse;
+	}
+
+	public static ObjectValuePair<String, Long> getContentAndLastModifiedTime(
+			RequestDispatcher requestDispatcher,
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse)
+		throws Exception {
+
+		BufferCacheServletResponse bufferCacheServletResponse =
+			getBufferCacheServletResponse(
+				requestDispatcher, httpServletRequest, httpServletResponse);
 
 		return new ObjectValuePair<>(
 			bufferCacheServletResponse.getString(),

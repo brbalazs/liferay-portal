@@ -16,13 +16,14 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.model.PortletApp;
 import com.liferay.portal.kernel.service.PortletLocalServiceUtil;
+import com.liferay.portal.kernel.servlet.BufferCacheServletResponse;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.servlet.RequestDispatcherUtil;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
-import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PortletKeys;
@@ -266,8 +267,9 @@ public class ComboServlet extends HttpServlet {
 	}
 
 	protected byte[] getResourceContent(
-			RequestDispatcher requestDispatcher, HttpServletRequest request,
-			HttpServletResponse response, String modulePath,
+			RequestDispatcher requestDispatcher,
+			HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse, String modulePath,
 			String minifierType)
 		throws Exception {
 
@@ -287,7 +289,7 @@ public class ComboServlet extends HttpServlet {
 		sb.append(StringPool.QUESTION);
 		sb.append(minifierType);
 		sb.append("&languageId=");
-		sb.append(ParamUtil.getString(request, "languageId"));
+		sb.append(ParamUtil.getString(httpServletRequest, "languageId"));
 
 		String fileContentKey = sb.toString();
 
@@ -305,8 +307,8 @@ public class ComboServlet extends HttpServlet {
 			if ((requestDispatcher != null) &&
 				(elapsedTime <= PropsValues.COMBO_CHECK_TIMESTAMP_INTERVAL) &&
 				(RequestDispatcherUtil.getLastModifiedTime(
-					requestDispatcher, request, response) ==
-						fileContentBag._lastModified)) {
+					requestDispatcher, httpServletRequest,
+					httpServletResponse) == fileContentBag._lastModified)) {
 
 				return fileContentBag._fileContent;
 			}
@@ -318,11 +320,48 @@ public class ComboServlet extends HttpServlet {
 			fileContentBag = _EMPTY_FILE_CONTENT_BAG;
 		}
 		else {
-			ObjectValuePair<String, Long> objectValuePair =
-				RequestDispatcherUtil.getContentAndLastModifiedTime(
-					requestDispatcher, request, response);
+			BufferCacheServletResponse bufferCacheServletResponse =
+				RequestDispatcherUtil.getBufferCacheServletResponse(
+					requestDispatcher, httpServletRequest, httpServletResponse);
 
-			String stringFileContent = objectValuePair.getKey();
+			String stringFileContent = StringPool.BLANK;
+
+			String cacheControl = GetterUtil.getString(
+				bufferCacheServletResponse.getHeader("Cache-Control"));
+
+			String contentType = GetterUtil.getString(
+				bufferCacheServletResponse.getContentType());
+
+			if (Validator.isNull(contentType) && minifierType.equals("css")) {
+				contentType = "text/css";
+			}
+
+			int status = bufferCacheServletResponse.getStatus();
+
+			if (cacheControl.contains("no-cache") ||
+				cacheControl.contains("no-store")) {
+
+				_log.error(
+					"Refused to serve " + modulePath +
+						" because it sent no-cache or no-store headers");
+			}
+			else if (!contentType.startsWith("application/javascript") &&
+					 !contentType.startsWith("text/css") &&
+					 !contentType.startsWith("text/javascript")) {
+
+				_log.error(
+					"Refused to serve " + modulePath +
+						" because its content type is not CSS or JavaScript");
+			}
+			else if (status != HttpServletResponse.SC_OK) {
+				_log.error(
+					StringBundler.concat(
+						"Refused to serve ", modulePath,
+						" because it returns HTTP status ", status));
+			}
+			else {
+				stringFileContent = bufferCacheServletResponse.getString();
+			}
 
 			if (!StringUtil.endsWith(resourcePath, _CSS_MINIFIED_DASH_SUFFIX) &&
 				!StringUtil.endsWith(resourcePath, _CSS_MINIFIED_DOT_SUFFIX) &&
@@ -334,7 +373,8 @@ public class ComboServlet extends HttpServlet {
 				if (minifierType.equals("css")) {
 					try {
 						stringFileContent = DynamicCSSUtil.replaceToken(
-							getServletContext(), request, stringFileContent);
+							getServletContext(), httpServletRequest,
+							stringFileContent);
 					}
 					catch (Exception e) {
 						_log.error(
@@ -345,7 +385,7 @@ public class ComboServlet extends HttpServlet {
 							_log.debug(stringFileContent);
 						}
 
-						response.setHeader(
+						httpServletResponse.setHeader(
 							HttpHeaders.CACHE_CONTROL,
 							HttpHeaders.CACHE_CONTROL_NO_CACHE_VALUE);
 					}
@@ -391,7 +431,10 @@ public class ComboServlet extends HttpServlet {
 
 			fileContentBag = new FileContentBag(
 				stringFileContent.getBytes(StringPool.UTF8),
-				objectValuePair.getValue());
+				GetterUtil.getLong(
+					bufferCacheServletResponse.getHeader(
+						HttpHeaders.LAST_MODIFIED),
+					-1));
 		}
 
 		if (PropsValues.COMBO_CHECK_TIMESTAMP) {
