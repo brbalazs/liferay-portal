@@ -339,8 +339,9 @@ public class ServicePreAction extends Action {
 			Group layoutGroup = layout.getGroup();
 
 			if (layoutGroup.isUser()) {
-				if (!GetterUtil.getBoolean(
-						PropsUtil.get("feature.flag.LPS-155692"))) {
+				if (GetterUtil.getBoolean(
+						PropsUtil.get(
+							PropsKeys.LAYOUT_USER_PLID_ACCESS_DENIED))) {
 
 					long originalPlid = ParamUtil.getLong(
 						PortalUtil.getOriginalServletRequest(request),
