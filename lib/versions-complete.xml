@@ -308,7 +308,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2018-01-08 23:29:52</current-version-publish-date>
-				<latest-version-publish-date>2023-05-10 19:41:28</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-16 16:18:07</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.comment.sanitizer.jar!failureaccess.jar</file-name>
@@ -1277,7 +1277,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2023-02-27 13:38:49</current-version-publish-date>
-				<latest-version-publish-date>2023-02-27 13:38:49</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-18 17:46:33</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.frontend.js.loader.modules.extender.jar!npm-semver.jar</file-name>
@@ -1818,7 +1818,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2023-02-27 13:38:49</current-version-publish-date>
-				<latest-version-publish-date>2023-02-27 13:38:49</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-18 17:46:33</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.petra.json.validator.jar!org.everit.json.schema.jar</file-name>
@@ -2023,7 +2023,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2022-12-12 14:36:29</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 07:36:32</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:38:37</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.odata.impl.jar!netty-common.jar</file-name>
@@ -2037,7 +2037,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2022-12-12 14:37:46</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 07:38:03</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:38:54</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.odata.impl.jar!odata-commons-api.jar</file-name>
@@ -2731,7 +2731,7 @@
 						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
-				<current-version-publish-date>2018-12-15 22:53:13</current-version-publish-date>
+				<current-version-publish-date>2022-03-06 21:04:13</current-version-publish-date>
 				<latest-version-publish-date>2023-05-30 23:53:10</latest-version-publish-date>
 			</library>
 			<library>
@@ -3011,7 +3011,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2021-04-01 11:43:40</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 07:36:44</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:38:29</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!org.elasticsearch.analysis.common.jar</file-name>
@@ -3381,7 +3381,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2021-12-19 20:08:12</current-version-publish-date>
-				<latest-version-publish-date>2023-01-07 08:03:45</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-16 14:00:25</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.security.antisamy.jar!httpcore5.jar</file-name>
@@ -3394,7 +3394,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2021-12-19 20:07:46</current-version-publish-date>
-				<latest-version-publish-date>2023-01-07 08:03:28</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-16 14:00:13</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.security.antisamy.jar!neko-htmlunit.jar</file-name>
@@ -4070,8 +4070,8 @@
 						<license-url>https://aws.amazon.com/apache2.0</license-url>
 					</license>
 				</licenses>
-				<current-version-publish-date>2022-08-24 20:22:59</current-version-publish-date>
-				<latest-version-publish-date>2023-06-13 22:41:46</latest-version-publish-date>
+				<current-version-publish-date>2022-08-29 21:12:46</current-version-publish-date>
+				<latest-version-publish-date>2023-06-19 20:30:44</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.store.s3.jar!aws-java-sdk-kms.jar</file-name>
@@ -4084,8 +4084,8 @@
 						<license-url>https://aws.amazon.com/apache2.0</license-url>
 					</license>
 				</licenses>
-				<current-version-publish-date>2022-08-24 20:22:34</current-version-publish-date>
-				<latest-version-publish-date>2023-06-13 22:41:32</latest-version-publish-date>
+				<current-version-publish-date>2022-08-29 21:12:28</current-version-publish-date>
+				<latest-version-publish-date>2023-06-19 20:29:34</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.store.s3.jar!aws-java-sdk-s3.jar</file-name>
@@ -4098,8 +4098,8 @@
 						<license-url>https://aws.amazon.com/apache2.0</license-url>
 					</license>
 				</licenses>
-				<current-version-publish-date>2022-08-24 20:23:38</current-version-publish-date>
-				<latest-version-publish-date>2023-06-13 22:40:14</latest-version-publish-date>
+				<current-version-publish-date>2022-08-29 21:14:01</current-version-publish-date>
+				<latest-version-publish-date>2023-06-19 20:30:00</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.store.s3.jar!commons-codec.jar</file-name>
@@ -4265,7 +4265,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2018-01-08 23:29:52</current-version-publish-date>
-				<latest-version-publish-date>2023-05-10 19:41:28</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-16 16:18:07</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.template.soy.impl.jar!failureaccess.jar</file-name>
@@ -4431,7 +4431,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2017-09-20 12:57:12</current-version-publish-date>
-				<latest-version-publish-date>2023-05-30 15:55:46</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-17 14:10:14</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.portal.template.soy.impl.jar!types.jar</file-name>
@@ -4978,7 +4978,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2022-12-12 14:37:02</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 07:37:17</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:38:58</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-codec-http.jar</file-name>
@@ -4992,7 +4992,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2022-12-12 14:36:29</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 07:36:32</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:38:37</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-codec-http2.jar</file-name>
@@ -5006,7 +5006,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2022-12-12 13:26:34</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 06:43:40</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:10:37</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-codec-socks.jar</file-name>
@@ -5020,7 +5020,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2022-12-12 13:26:42</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 06:44:10</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:10:42</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-common.jar</file-name>
@@ -5034,7 +5034,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2022-12-12 14:37:46</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 07:38:03</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:38:54</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-handler-proxy.jar</file-name>
@@ -5048,7 +5048,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2022-12-12 13:26:53</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 06:43:20</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:10:32</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-resolver-dns.jar</file-name>
@@ -5062,7 +5062,7 @@
 					</license>
 				</licenses>
 				<current-version-publish-date>2022-12-12 14:37:24</current-version-publish-date>
-				<latest-version-publish-date>2023-05-25 07:37:55</latest-version-publish-date>
+				<latest-version-publish-date>2023-06-20 13:38:48</latest-version-publish-date>
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!pushy.jar</file-name>
@@ -8137,18 +8137,6 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>lib/portal/log4j.jar</file-name>
-				<version>1.2.17</version>
-				<project-name>Log4j</project-name>
-				<project-url>http://logging.apache.org/log4j</project-url>
-				<licenses>
-					<license>
-						<license-name>Apache License 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
 				<file-name>lib/portal/mchange-commons-java.jar</file-name>
 				<version>0.2.15</version>
 				<project-name>C3P0</project-name>
@@ -8438,6 +8426,18 @@
 					<license>
 						<license-name>Public Domain</license-name>
 						<license-url>http://en.wikipedia.org/wiki/Public_domain</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>lib/portal/reload4j.jar</file-name>
+				<version>1.2.19</version>
+				<project-name>Reload4j</project-name>
+				<project-url>https://reload4j.qos.ch</project-url>
+				<licenses>
+					<license>
+						<license-name>Apache License 2.0</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-2.0</license-url>
 					</license>
 				</licenses>
 			</library>
