@@ -339,7 +339,7 @@ public class ServicePreAction extends Action {
 			Group layoutGroup = layout.getGroup();
 
 			if (layoutGroup.isUser()) {
-				if (GetterUtil.getBoolean(
+				if (!GetterUtil.getBoolean(
 						PropsUtil.get(
 							PropsKeys.LAYOUT_USER_ACCESS_VIA_PLID_ENABLED))) {
 
