@@ -70,7 +70,7 @@ public class XMLHelper {
 
 	public String toString(Element element) {
 		TransformerFactory transformerFactory =
-			TransformerFactory.newInstance();
+			SecureXMLFactoryProviderUtil.newTransformerFactory();
 
 		Transformer transformer = null;
 

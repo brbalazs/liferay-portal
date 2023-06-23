@@ -6,6 +6,7 @@
 package com.liferay.xsl.content.web.internal.util;
 
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
+import com.liferay.portal.kernel.security.xml.SecureXMLFactoryProviderUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -98,7 +99,7 @@ public class XSLContentUtil {
 		throws Exception {
 
 		TransformerFactory transformerFactory =
-			TransformerFactory.newInstance();
+			SecureXMLFactoryProviderUtil.newTransformerFactory();
 
 		transformerFactory.setFeature(
 			XMLConstants.FEATURE_SECURE_PROCESSING,
