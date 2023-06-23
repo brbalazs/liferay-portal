@@ -6,17 +6,38 @@
 package com.liferay.portal.diff;
 
 import com.liferay.portal.kernel.diff.DiffHtml;
+import com.liferay.portal.kernel.security.xml.SecureXMLFactoryProvider;
+import com.liferay.portal.kernel.security.xml.SecureXMLFactoryProviderUtil;
+import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.StringReader;
 
+import javax.xml.transform.TransformerFactory;
+
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import org.mockito.Mockito;
 
 /**
  * @author Adolfo Pérez
  */
 public class DiffHtmlTest {
+
+	@BeforeClass
+	public static void setUpClass() throws Exception {
+		Mockito.when(
+			_secureXMLFactoryProvider.newTransformerFactory()
+		).thenReturn(
+			_transformerFactory
+		);
+
+		ReflectionTestUtil.setFieldValue(
+			SecureXMLFactoryProviderUtil.class, "_secureXMLFactoryProvider",
+			_secureXMLFactoryProvider);
+	}
 
 	@Test
 	public void testDiffMustNotHaveXMLDeclaration() throws Exception {
@@ -65,6 +86,11 @@ public class DiffHtmlTest {
 	public void testDiffWhereTargetIsNull() throws Exception {
 		_diffHtml.diff(new StringReader(StringUtil.randomString()), null);
 	}
+
+	private static final SecureXMLFactoryProvider _secureXMLFactoryProvider =
+		Mockito.mock(SecureXMLFactoryProvider.class);
+	private static final TransformerFactory _transformerFactory =
+		TransformerFactory.newInstance();
 
 	private final DiffHtml _diffHtml = new DiffHtmlImpl();
 
