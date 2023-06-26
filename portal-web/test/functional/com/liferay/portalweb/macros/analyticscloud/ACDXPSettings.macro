@@ -27,7 +27,21 @@ definition {
 	macro connectAnalyticsCloud {
 		Click(locator1 = "ACDXPSettings#TOKEN_INPUT_FIELD");
 
-		Paste(locator1 = "ACDXPSettings#TOKEN_INPUT_FIELD");
+		if (isSet(acToken)) {
+			Type(
+				locator1 = "ACDXPSettings#TOKEN_INPUT_FIELD",
+				value1 = ${acToken});
+		}
+		else if (isSet(staticExistingSourceToken)) {
+			Type(
+				locator1 = "ACDXPSettings#TOKEN_INPUT_FIELD",
+				value1 = ${staticExistingSourceToken});
+		}
+		else {
+			Type(
+				locator1 = "ACDXPSettings#TOKEN_INPUT_FIELD",
+				value1 = ${staticACToken});
+		}
 
 		Click(locator1 = "ACDXPSettings#CONNECT_DISCONNECT_BUTTON");
 	}
@@ -35,7 +49,12 @@ definition {
 	macro connectDXPtoAnalyticsCloud {
 		ACDXPSettings.goToInstanceSettingsAC();
 
-		ACDXPSettings.connectAnalyticsCloud();
+		if (isSet(acToken)) {
+			ACDXPSettings.connectAnalyticsCloud(acToken = ${acToken});
+		}
+		else {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
 
 		ACDXPSettings.assertSuccessfulConnection();
 
