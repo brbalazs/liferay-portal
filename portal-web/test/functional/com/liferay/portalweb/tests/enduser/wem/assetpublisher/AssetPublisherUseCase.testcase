@@ -1329,6 +1329,8 @@ definition {
 			threadReplySubject = "RE: MB Thread Message Subject",
 			threadSubject = "RE: MB Thread Message Subject Edit");
 
+		Navigator.gotoPage(pageName = "Asset Publisher Page");
+
 		AssetPublisherPortlet.viewPG(
 			assetContent = "MB Thread Reply Body Edit",
 			assetTitle = "RE: MB Thread Message Subject Edit");
