@@ -1032,6 +1032,7 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 					import com.liferay.jenkins.results.parser.Job;
 					import com.liferay.jenkins.results.parser.JobFactory;
 					import com.liferay.jenkins.results.parser.PortalGitWorkingDirectory;
+					import com.liferay.jenkins.results.parser.PortalHotfixRelease;
 					import com.liferay.jenkins.results.parser.test.clazz.group.BatchTestClassGroup;
 					import com.liferay.jenkins.results.parser.test.clazz.group.SegmentTestClassGroup;
 					import com.liferay.jenkins.results.parser.test.clazz.group.TestClassGroupFactory;
@@ -1074,6 +1075,16 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 						}
 
 						return null;
+					}
+
+					public PortalHotfixRelease getPortalHotfixRelease() {
+						String portalHotfixURL = project.getProperty("portal.hotfix.url");
+
+						if (!JenkinsResultsParserUtil.isURL(portalHotfixURL)) {
+							return null;
+						}
+
+						return new PortalHotfixRelease(new URL(portalHotfixURL));
 					}
 
 					public String getRepositoryName() {
@@ -1128,7 +1139,7 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 						return upstreamBranchName.replace("-private", "");
 					}
 
-					Job job = JobFactory.newJob(getBuildProfile(), getJobName(), null, getPortalGitWorkingDirectory(), getUpstreamBranchName(), null, getRepositoryName(), getTestSuiteName(), getUpstreamBranchName());
+					Job job = JobFactory.newJob(getBuildProfile(), getJobName(), null, getPortalGitWorkingDirectory(), getPortalHotfixRelease(), getUpstreamBranchName(), null, getRepositoryName(), getTestSuiteName(), getUpstreamBranchName());
 
 					BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), job);
 
@@ -4703,6 +4714,7 @@ tell application "Safari" to quit
 					import com.liferay.jenkins.results.parser.Job;
 					import com.liferay.jenkins.results.parser.JobFactory;
 					import com.liferay.jenkins.results.parser.PortalGitWorkingDirectory;
+					import com.liferay.jenkins.results.parser.PortalHotfixRelease;
 					import com.liferay.jenkins.results.parser.test.clazz.group.BatchTestClassGroup;
 					import com.liferay.jenkins.results.parser.test.clazz.group.JUnitBatchTestClassGroup;
 					import com.liferay.jenkins.results.parser.test.clazz.group.NPMTestBatchTestClassGroup;
@@ -4748,6 +4760,16 @@ tell application "Safari" to quit
 						return null;
 					}
 
+					public PortalHotfixRelease getPortalHotfixRelease() {
+						String portalHotfixURL = project.getProperty("portal.hotfix.url");
+
+						if (!JenkinsResultsParserUtil.isURL(portalHotfixURL)) {
+							return null;
+						}
+
+						return new PortalHotfixRelease(new URL(portalHotfixURL));
+					}
+
 					public String getRepositoryName() {
 						String upstreamBranchName = getUpstreamBranchName();
 
@@ -4783,7 +4805,7 @@ tell application "Safari" to quit
 					}
 
 					try {
-						Job job = JobFactory.newJob(getBuildProfile(), getJobName(), null, getPortalGitWorkingDirectory(), getUpstreamBranchName(), null, getRepositoryName(), getTestSuiteName(), getUpstreamBranchName());
+						Job job = JobFactory.newJob(getBuildProfile(), getJobName(), null, getPortalGitWorkingDirectory(), getPortalHotfixRelease(), getUpstreamBranchName(), null, getRepositoryName(), getTestSuiteName(), getUpstreamBranchName());
 
 						BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), job);
 
@@ -12570,6 +12592,7 @@ if (ppstate.equals("normal")) {
 				import com.liferay.jenkins.results.parser.Job;
 				import com.liferay.jenkins.results.parser.JobFactory;
 				import com.liferay.jenkins.results.parser.PortalGitWorkingDirectory;
+				import com.liferay.jenkins.results.parser.PortalHotfixRelease;
 
 				public Job.BuildProfile getBuildProfile() {
 					String testPortalBuildProfile = project.getProperty("build.profile");
@@ -12611,6 +12634,16 @@ if (ppstate.equals("normal")) {
 					return null;
 				}
 
+				public PortalHotfixRelease getPortalHotfixRelease() {
+					String portalHotfixURL = project.getProperty("portal.hotfix.url");
+
+					if (!JenkinsResultsParserUtil.isURL(portalHotfixURL)) {
+						return null;
+					}
+
+					return new PortalHotfixRelease(new URL(portalHotfixURL));
+				}
+
 				public String getRepositoryName() {
 					String upstreamBranchName = getUpstreamBranchName();
 
@@ -12647,7 +12680,7 @@ if (ppstate.equals("normal")) {
 					return upstreamBranchName.replace("-private", "");
 				}
 
-				Job job = JobFactory.newJob(getBuildProfile(), getJobName(), null, getPortalGitWorkingDirectory(), getUpstreamBranchName(), null, getRepositoryName(), getTestSuiteName(), getUpstreamBranchName());
+				Job job = JobFactory.newJob(getBuildProfile(), getJobName(), null, getPortalGitWorkingDirectory(), getPortalHotfixRelease(), getUpstreamBranchName(), null, getRepositoryName(), getTestSuiteName(), getUpstreamBranchName());
 
 				CIJobSummaryReportUtil.writeJobSummaryReport(getSummaryDir(), job);
 
