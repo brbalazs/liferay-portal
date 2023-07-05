@@ -46,6 +46,8 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.spring.extender.service.ServiceReference;
+import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
+import com.liferay.portal.workflow.kaleo.service.KaleoDefinitionLocalService;
 
 import java.util.Date;
 import java.util.List;
@@ -604,14 +606,24 @@ public class DDMFormInstanceLocalServiceImpl
 		String workflowDefinition = getWorkflowDefinition(
 			settingsDDMFormValues);
 
-		if (workflowDefinition.equals("no-workflow")) {
-			workflowDefinition = "";
+		String latestWorkflowDefinition = "";
+
+		if (Validator.isNotNull(workflowDefinition) &&
+			!workflowDefinition.equals("no-workflow")) {
+
+			KaleoDefinition kaleoDefinition =
+				kaleoDefinitionLocalService.getKaleoDefinition(
+					workflowDefinition, serviceContext);
+
+			latestWorkflowDefinition =
+				workflowDefinition + StringPool.AT +
+					kaleoDefinition.getVersion();
 		}
 
 		workflowDefinitionLinkLocalService.updateWorkflowDefinitionLink(
 			serviceContext.getUserId(), serviceContext.getCompanyId(),
 			formInstance.getGroupId(), DDMFormInstance.class.getName(),
-			formInstance.getFormInstanceId(), 0, workflowDefinition);
+			formInstance.getFormInstanceId(), 0, latestWorkflowDefinition);
 	}
 
 	protected void validate(
@@ -666,6 +678,9 @@ public class DDMFormInstanceLocalServiceImpl
 
 	@ServiceReference(type = DDMFormValuesValidator.class)
 	protected DDMFormValuesValidator ddmFormValuesValidator;
+
+	@ServiceReference(type = KaleoDefinitionLocalService.class)
+	protected KaleoDefinitionLocalService kaleoDefinitionLocalService;
 
 	private static final String _VERSION_DEFAULT = "1.0";
 
