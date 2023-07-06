@@ -3997,7 +3997,7 @@ tell application "Safari" to quit
 								tofile="${env.BUILD_DIR}/gc/${ant.gc.file.name}"
 							/>
 
-							<print-file file.name="${env.BUILD_DIR}/gc/${ant.gc.file.name}" file.line.count="10" />
+							<print-file file.line.count="10" file.name="${env.BUILD_DIR}/gc/${ant.gc.file.name}" />
 						</then>
 						<else>
 							<print-file file.name="/tmp/ant-gc.log" />
@@ -4037,7 +4037,7 @@ tell application "Safari" to quit
 								tofile="${env.BUILD_DIR}/gc/${tomcat.gc.file.name}"
 							/>
 
-							<print-file file.name="${env.BUILD_DIR}/gc/${tomcat.gc.file.name}" file.line.count="10" />
+							<print-file file.line.count="10" file.name="${env.BUILD_DIR}/gc/${tomcat.gc.file.name}" />
 						</then>
 						<else>
 							<print-file file.name="/tmp/tomcat-gc.log" />
@@ -4077,7 +4077,7 @@ tell application "Safari" to quit
 								tofile="${env.BUILD_DIR}/gc/${tsant.gc.file.name}"
 							/>
 
-							<print-file file.name="${env.BUILD_DIR}/gc/${tsant.gc.file.name}" file.line.count="10" />
+							<print-file file.line.count="10" file.name="${env.BUILD_DIR}/gc/${tsant.gc.file.name}" />
 						</then>
 						<else>
 							<print-file file.name="/tmp/tsant-gc.log" />
@@ -4150,7 +4150,7 @@ tell application "Safari" to quit
 
 							<echo>${env.BUILD_USER_CONTENT_URL}/jstacks/${process.log.file.name}</echo>
 
-							<print-file file.name="${env.BUILD_DIR}/jstacks/${process.log.file.name}" file.line.count="10" />
+							<print-file file.line.count="10" file.name="${env.BUILD_DIR}/jstacks/${process.log.file.name}" />
 						</then>
 						<else>
 							<print-file file.name="${process.log.file}" />
@@ -9803,9 +9803,9 @@ go</echo>
 				<install-lpkg-patch patch.file.zip.url="${patch.file.zip.url}" />
 			</then>
 			<else>
-				<install-patch patching.tool.dir="${patching.tool.dir}" patch.file.zip.url="${patch.file.zip.url}" />
+				<install-patch patch.file.zip.url="${patch.file.zip.url}" patching.tool.dir="${patching.tool.dir}" />
 
-				<validate-installed-patch patching.tool.dir="${patching.tool.dir}" patch.file.zip.url="${patch.file.zip.url}" />
+				<validate-installed-patch patch.file.zip.url="${patch.file.zip.url}" patching.tool.dir="${patching.tool.dir}" />
 			</else>
 		</if>
 	</target>
@@ -9840,7 +9840,7 @@ go</echo>
 					</then>
 				</if>
 
-				<install-patch patching.tool.dir="${patching.tool.dir}" patch.file.zip.url="${patch.file.zip.url}" />
+				<install-patch patch.file.zip.url="${patch.file.zip.url}" patching.tool.dir="${patching.tool.dir}" />
 
 				<validate-installed-patches patching.tool.dir="${patching.tool.dir}" />
 
