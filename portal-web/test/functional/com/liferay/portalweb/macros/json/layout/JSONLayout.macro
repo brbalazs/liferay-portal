@@ -1,6 +1,5 @@
 definition {
 
-	@summary = "Add a private site page or private child site page to an existing site or child site via groupKey"
 	macro addPrivateLayout {
 		Variables.assertDefined(parameterList = "${groupName},${layoutName}");
 
@@ -30,7 +29,6 @@ definition {
 			type = ${type});
 	}
 
-	@summary = "Add a private site page or private child site page to an existing site via groupName"
 	macro addPrivateLayoutByGroupName {
 		Variables.assertDefined(parameterList = "${groupName},${layoutName}");
 
@@ -58,7 +56,6 @@ definition {
 			type = ${type});
 	}
 
-	@summary = "Add a public site page  or public child site page to an existing site or child site via groupKey"
 	macro addPublicLayout {
 		Variables.assertDefined(parameterList = "${groupName},${layoutName}");
 
@@ -89,7 +86,6 @@ definition {
 			type = ${type});
 	}
 
-	@summary = "Add a public site page or public child site page to an existing site via groupName"
 	macro addPublicLayoutByGroupName {
 		Variables.assertDefined(parameterList = "${groupName},${layoutName}");
 
@@ -117,7 +113,6 @@ definition {
 			type = ${type});
 	}
 
-	@summary = "Add a widget to a private layout via widgetName"
 	macro addWidgetToPrivateLayout {
 		Variables.assertDefined(parameterList = "${groupName},${layoutName},${widgetName}");
 
@@ -140,7 +135,6 @@ definition {
 			typeSettings = ${typeSettings});
 	}
 
-	@summary = "Add a widget to a public layout via widgetName"
 	macro addWidgetToPublicLayout {
 		Variables.assertDefined(parameterList = "${groupName},${layoutName},${widgetName}");
 
@@ -164,7 +158,6 @@ definition {
 			typeSettings = ${typeSettings});
 	}
 
-	@summary = "Delete a public site page under an existing site via groupKey"
 	macro deletePublicLayout {
 		Variables.assertDefined(parameterList = "${groupName},${layoutName}");
 
@@ -187,7 +180,6 @@ definition {
 			serviceContext = ${serviceContext});
 	}
 
-	@summary = "Get page scope id from an existing site via groupName"
 	macro getPageScopeIdByGroupName {
 		Variables.assertDefined(parameterList = ${groupName});
 

@@ -1,6 +1,5 @@
 definition {
 
-	@summary = "Add a basic category"
 	macro addCategory {
 		Variables.assertDefined(parameterList = "${groupName},${vocabularyName}");
 
@@ -31,7 +30,6 @@ definition {
 		return ${categoryId};
 	}
 
-	@summary = "Add a basic subcategory"
 	macro addSubcategory {
 		Variables.assertDefined(parameterList = "${groupName},${parentCategoryName},${vocabularyName}");
 
@@ -65,7 +63,6 @@ definition {
 			vocabularyId = ${vocabularyId});
 	}
 
-	@summary = "Add a basic vocabulary"
 	macro addVocabulary {
 		Variables.assertDefined(parameterList = ${groupName});
 
@@ -88,7 +85,6 @@ definition {
 			titleMap = ${titleMap});
 	}
 
-	@summary = "Get the categoryId from any category by using categoryName, groupId, and vocabularyId"
 	macro getCategoryId {
 		Variables.assertDefined(parameterList = "${groupName},${categoryName},${vocabularyName}");
 

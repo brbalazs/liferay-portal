@@ -259,7 +259,6 @@ definition {
 		}
 	}
 
-	@summary = "Go to the pageMenuItem of a Site Page. Parent pages hierarchy is required to navigate to child pages."
 	macro gotoPageMenuItem {
 		if (isSet(parentPagesHierarchy)) {
 			for (var parentPage : list ${parentPagesHierarchy}) {

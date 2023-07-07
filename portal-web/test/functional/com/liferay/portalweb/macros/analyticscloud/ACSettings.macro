@@ -231,7 +231,6 @@ definition {
 			value1 = ${currentPlanLimitAndAddOn});
 	}
 
-	@summary = "Assert data source status"
 	macro assertDataSourceStatus {
 		var key_dataSourceStatus = ${status};
 		var key_sectionStatus = ${section};
@@ -239,7 +238,6 @@ definition {
 		AssertElementPresent(locator1 = "ACSettings#DATA_SOURCE_STATUS");
 	}
 
-	@summary = "Asserts the individuals usage value \  @param individualUsageValue"
 	macro assertIndividualsUsage {
 		AssertTextEquals(
 			locator1 = "ACSettings#INDIVIDUALS_USAGE_METRIC",
@@ -293,7 +291,6 @@ definition {
 		}
 	}
 
-	@summary = "Asserts the page views usage value \  @param pageViewsUsageValue"
 	macro assertPageViewsUsage {
 		AssertTextEquals(
 			locator1 = "ACSettings#PAGE_VIEWS_USAGE_METRIC",
@@ -357,7 +354,6 @@ definition {
 		}
 	}
 
-	@summary = "Asserts the users shown in list"
 	macro assertUserList {
 		AssertTextEquals(
 			locator1 = "ACSettings#USER_LIST",
@@ -492,7 +488,6 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Deletes all data source"
 	macro deleteAllDataSource {
 		if (IsElementNotPresent(locator1 = "ACSettings#EXIT_SETTINGS_BUTTON")) {
 			ACNavigation.goToSettings();
@@ -517,7 +512,6 @@ definition {
 		Click(locator1 = "ACSettings#CONTINUE_BUTTON");
 	}
 
-	@summary = "The macro deletes all users that have pending status."
 	macro deleteAllPendingUsers {
 		ACSettings.goToUserManagement();
 
@@ -530,7 +524,6 @@ definition {
 		}
 	}
 
-	@summary = "Deletes all properties \  @param propertyList the list of properties you want to delete (optional)"
 	macro deleteAllProperties {
 		if (IsElementNotPresent(locator1 = "ACSettings#EXIT_SETTINGS_BUTTON")) {
 			ACNavigation.goToSettings();
@@ -557,7 +550,6 @@ definition {
 		}
 	}
 
-	@summary = "Deletes a specific data source \  @param dataSourceName the name of the data source you want to delete"
 	macro deleteDataSource {
 		if (IsElementNotPresent(locator1 = "ACSettings#EXIT_SETTINGS_BUTTON")) {
 			ACNavigation.goToSettings();
@@ -722,7 +714,6 @@ definition {
 		}
 	}
 
-	@summary = "Disconnect selected data source"
 	macro disconnectDataSource {
 		Click(locator1 = "ACSettings#DISCONNECT_DATA_SOURCE_BUTTON");
 
@@ -863,7 +854,6 @@ definition {
 		Click(locator1 = "ACDataControlAndPrivacy#REQUEST_SUPPRESSED_OPTIONS");
 	}
 
-	@summary = "Takes the token from Analytics Clouds to use on during the DXP connection process"
 	macro takeTokenFromAnalyticsCloud {
 		ACSettings.goToDataSources();
 
@@ -878,7 +868,6 @@ definition {
 		return ${staticACToken};
 	}
 
-	@summary = "Takes the token from an existing data source to make a reconnection"
 	macro takeTokenFromExistingDataSource {
 		ACSettings.goToDataSources();
 

@@ -1,6 +1,5 @@
 definition {
 
-	@summary = "Directly creates an Asset List Entry using the JSON API"
 	macro _addAssetListEntry {
 		Variables.assertDefined(parameterList = "${groupId},${title},${type}");
 

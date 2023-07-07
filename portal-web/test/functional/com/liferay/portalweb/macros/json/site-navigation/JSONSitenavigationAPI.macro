@@ -1,6 +1,5 @@
 definition {
 
-	@summary = "Helper function to add a site navigation menu via JSON"
 	macro _addSiteNavigationMenu {
 		Variables.assertDefined(parameterList = "${groupId},${siteNavigationMenuName}");
 
@@ -16,7 +15,6 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Helper function to delete a site navigation menu via JSON"
 	macro _deleteSiteNavigationMenu {
 		Variables.assertDefined(parameterList = ${siteNavigationMenuId});
 
@@ -31,7 +29,6 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Helper function to get a siteNavigationMenuId via JSON"
 	macro _getSiteNavigationMenuIdByName {
 		Variables.assertDefined(parameterList = "${groupId},${siteNavigationMenuName}");
 
