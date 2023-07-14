@@ -712,15 +712,16 @@ public abstract class BaseStructuredContentFolderResourceImpl
 			Map<String, Serializable> parameters)
 		throws Exception {
 
-		UnsafeConsumer<StructuredContentFolder, Exception>
-			structuredContentFolderUnsafeConsumer = null;
+		UnsafeFunction
+			<StructuredContentFolder, StructuredContentFolder, Exception>
+				structuredContentFolderUnsafeFunction = null;
 
 		String createStrategy = (String)parameters.getOrDefault(
 			"createStrategy", "INSERT");
 
 		if (StringUtil.equalsIgnoreCase(createStrategy, "INSERT")) {
 			if (parameters.containsKey("siteId")) {
-				structuredContentFolderUnsafeConsumer =
+				structuredContentFolderUnsafeFunction =
 					structuredContentFolder -> postSiteStructuredContentFolder(
 						(Long)parameters.get("siteId"),
 						structuredContentFolder);
@@ -731,22 +732,27 @@ public abstract class BaseStructuredContentFolderResourceImpl
 			}
 		}
 
-		if (structuredContentFolderUnsafeConsumer == null) {
+		if (structuredContentFolderUnsafeFunction == null) {
 			throw new NotSupportedException(
 				"Create strategy \"" + createStrategy +
 					"\" is not supported for StructuredContentFolder");
 		}
 
-		if (contextBatchUnsafeConsumer != null) {
+		if (contextBatchUnsafeBiConsumer != null) {
+			contextBatchUnsafeBiConsumer.accept(
+				structuredContentFolders,
+				structuredContentFolderUnsafeFunction);
+		}
+		else if (contextBatchUnsafeConsumer != null) {
 			contextBatchUnsafeConsumer.accept(
 				structuredContentFolders,
-				structuredContentFolderUnsafeConsumer);
+				structuredContentFolderUnsafeFunction::apply);
 		}
 		else {
 			for (StructuredContentFolder structuredContentFolder :
 					structuredContentFolders) {
 
-				structuredContentFolderUnsafeConsumer.accept(
+				structuredContentFolderUnsafeFunction.apply(
 					structuredContentFolder);
 			}
 		}
@@ -838,14 +844,15 @@ public abstract class BaseStructuredContentFolderResourceImpl
 			Map<String, Serializable> parameters)
 		throws Exception {
 
-		UnsafeConsumer<StructuredContentFolder, Exception>
-			structuredContentFolderUnsafeConsumer = null;
+		UnsafeFunction
+			<StructuredContentFolder, StructuredContentFolder, Exception>
+				structuredContentFolderUnsafeFunction = null;
 
 		String updateStrategy = (String)parameters.getOrDefault(
 			"updateStrategy", "UPDATE");
 
 		if (StringUtil.equalsIgnoreCase(updateStrategy, "PARTIAL_UPDATE")) {
-			structuredContentFolderUnsafeConsumer =
+			structuredContentFolderUnsafeFunction =
 				structuredContentFolder -> patchStructuredContentFolder(
 					structuredContentFolder.getId() != null ?
 						structuredContentFolder.getId() :
@@ -856,7 +863,7 @@ public abstract class BaseStructuredContentFolderResourceImpl
 		}
 
 		if (StringUtil.equalsIgnoreCase(updateStrategy, "UPDATE")) {
-			structuredContentFolderUnsafeConsumer =
+			structuredContentFolderUnsafeFunction =
 				structuredContentFolder -> putStructuredContentFolder(
 					structuredContentFolder.getId() != null ?
 						structuredContentFolder.getId() :
@@ -866,22 +873,27 @@ public abstract class BaseStructuredContentFolderResourceImpl
 					structuredContentFolder);
 		}
 
-		if (structuredContentFolderUnsafeConsumer == null) {
+		if (structuredContentFolderUnsafeFunction == null) {
 			throw new NotSupportedException(
 				"Update strategy \"" + updateStrategy +
 					"\" is not supported for StructuredContentFolder");
 		}
 
-		if (contextBatchUnsafeConsumer != null) {
+		if (contextBatchUnsafeBiConsumer != null) {
+			contextBatchUnsafeBiConsumer.accept(
+				structuredContentFolders,
+				structuredContentFolderUnsafeFunction);
+		}
+		else if (contextBatchUnsafeConsumer != null) {
 			contextBatchUnsafeConsumer.accept(
 				structuredContentFolders,
-				structuredContentFolderUnsafeConsumer);
+				structuredContentFolderUnsafeFunction::apply);
 		}
 		else {
 			for (StructuredContentFolder structuredContentFolder :
 					structuredContentFolders) {
 
-				structuredContentFolderUnsafeConsumer.accept(
+				structuredContentFolderUnsafeFunction.apply(
 					structuredContentFolder);
 			}
 		}
@@ -905,6 +917,16 @@ public abstract class BaseStructuredContentFolderResourceImpl
 
 	public void setContextAcceptLanguage(AcceptLanguage contextAcceptLanguage) {
 		this.contextAcceptLanguage = contextAcceptLanguage;
+	}
+
+	public void setContextBatchUnsafeBiConsumer(
+		UnsafeBiConsumer
+			<Collection<StructuredContentFolder>,
+			 UnsafeFunction
+				 <StructuredContentFolder, StructuredContentFolder, Exception>,
+			 Exception> contextBatchUnsafeBiConsumer) {
+
+		this.contextBatchUnsafeBiConsumer = contextBatchUnsafeBiConsumer;
 	}
 
 	public void setContextBatchUnsafeConsumer(
@@ -1168,6 +1190,11 @@ public abstract class BaseStructuredContentFolderResourceImpl
 	}
 
 	protected AcceptLanguage contextAcceptLanguage;
+	protected UnsafeBiConsumer
+		<Collection<StructuredContentFolder>,
+		 UnsafeFunction
+			 <StructuredContentFolder, StructuredContentFolder, Exception>,
+		 Exception> contextBatchUnsafeBiConsumer;
 	protected UnsafeBiConsumer
 		<Collection<StructuredContentFolder>,
 		 UnsafeConsumer<StructuredContentFolder, Exception>, Exception>
