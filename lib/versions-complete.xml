@@ -848,7 +848,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.dynamic.data.mapping.data.provider.impl.jar!accessors-smart.jar</file-name>
-				<version>2.4.2</version>
+				<version>2.4.9</version>
 				<project-name>ASM based accessors helper used by json-smart</project-name>
 				<project-url>https://urielch.github.io/</project-url>
 				<licenses>
@@ -931,7 +931,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.dynamic.data.mapping.data.provider.impl.jar!json-smart.jar</file-name>
-				<version>2.4.5</version>
+				<version>2.4.10</version>
 				<project-name>JSON Small and Fast Parser</project-name>
 				<project-url>https://urielch.github.io/</project-url>
 				<licenses>
@@ -3089,7 +3089,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.security.sso.openid.connect.impl.jar!accessors-smart.jar</file-name>
-				<version>2.4.2</version>
+				<version>2.4.9</version>
 				<project-name>ASM based accessors helper used by json-smart</project-name>
 				<project-url>https://urielch.github.io/</project-url>
 				<licenses>
@@ -3160,7 +3160,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.security.sso.openid.connect.impl.jar!json-smart.jar</file-name>
-				<version>2.4.5</version>
+				<version>2.4.10</version>
 				<project-name>JSON Small and Fast Parser</project-name>
 				<project-url>https://urielch.github.io/</project-url>
 				<licenses>
