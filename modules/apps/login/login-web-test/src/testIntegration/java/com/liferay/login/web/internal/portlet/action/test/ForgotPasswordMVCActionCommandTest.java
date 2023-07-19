@@ -15,10 +15,10 @@
 package com.liferay.login.web.internal.portlet.action.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
-import com.liferay.petra.lang.SafeCloseable;
 import com.liferay.portal.configuration.test.util.ConfigurationTemporarySwapper;
 import com.liferay.portal.kernel.model.PasswordPolicy;
 import com.liferay.portal.kernel.model.Ticket;
+import com.liferay.portal.kernel.model.TicketConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
@@ -27,11 +27,10 @@ import com.liferay.portal.kernel.service.PasswordPolicyRelLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.TicketLocalService;
 import com.liferay.portal.kernel.service.UserLocalService;
+import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.portlet.MockLiferayPortletActionRequest;
-import com.liferay.portal.kernel.test.portlet.MockLiferayPortletActionResponse;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
-import com.liferay.portal.kernel.test.util.PropsValuesTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -40,6 +39,7 @@ import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
+import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.passwordpoliciesadmin.util.test.PasswordPolicyTestUtil;
 
 import java.util.Date;
@@ -50,6 +50,8 @@ import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import org.springframework.mock.web.portlet.MockActionResponse;
 
 /**
  * @author Alvaro Saugar
@@ -67,27 +69,37 @@ public class ForgotPasswordMVCActionCommandTest {
 	public void testSendPasswordReminderToLockedOutUser() throws Exception {
 		_createUser();
 
+		boolean usersReminderQueriesEnabled = ReflectionTestUtil.getFieldValue(
+			PropsValues.class, "USERS_REMINDER_QUERIES_ENABLED");
+
 		try (ConfigurationTemporarySwapper configurationTemporarySwapper =
 				new ConfigurationTemporarySwapper(
 					"com.liferay.captcha.configuration.CaptchaConfiguration",
 					HashMapDictionaryBuilder.<String, Object>put(
 						"sendPasswordCaptchaEnabled", false
-					).build());
-			SafeCloseable safeCloseable =
-				PropsValuesTestUtil.swapWithSafeCloseable(
-					"USERS_REMINDER_QUERIES_ENABLED", false)) {
+					).build())) {
+
+			ReflectionTestUtil.setFieldValue(
+				PropsValues.class, "USERS_REMINDER_QUERIES_ENABLED", false);
 
 			List<Ticket> tickets1 = _ticketLocalService.getTickets(
-				_user.getCompanyId(), User.class.getName(), _user.getUserId());
+				_user.getCompanyId(), User.class.getName(), _user.getUserId(),
+				TicketConstants.TYPE_PASSWORD);
 
 			_mvcActionCommand.processAction(
 				_getMockLiferayPortletActionRequest(),
-				new MockLiferayPortletActionResponse());
+				new MockActionResponse());
 
 			List<Ticket> tickets2 = _ticketLocalService.getTickets(
-				_user.getCompanyId(), User.class.getName(), _user.getUserId());
+				_user.getCompanyId(), User.class.getName(), _user.getUserId(),
+				TicketConstants.TYPE_PASSWORD);
 
 			Assert.assertTrue((tickets1.size() + 1) == tickets2.size());
+		}
+		finally {
+			ReflectionTestUtil.setFieldValue(
+				PropsValues.class, "USERS_REMINDER_QUERIES_ENABLED",
+				usersReminderQueriesEnabled);
 		}
 	}
 
