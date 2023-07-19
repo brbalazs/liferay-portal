@@ -477,7 +477,7 @@ if (portletTitleBasedNavigation) {
 							}
 							%>
 
-							<p class="text-default"><%= StringUtil.shorten(HtmlUtil.extractText(childPageFormattedContent), 200) %></p>
+							<p class="text-default"><%= HtmlUtil.escape(StringUtil.shorten(HtmlUtil.extractText(childPageFormattedContent), 200)) %></p>
 						</li>
 
 					<%
