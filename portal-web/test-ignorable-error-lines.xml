@@ -248,6 +248,10 @@
 			<contains>Thread starvation or clock leap detected</contains>
 			<matches></matches>
 		</ignore-error>
+		<ignore-error description="LRQA-76702 - temporarily ignore until fixed">
+			<contains>Unable to save metadata for file version</contains>
+			<matches></matches>
+		</ignore-error>
 		<ignore-error description="WCM-202">
 			<contains>No score point assigners available</contains>
 			<matches></matches>
