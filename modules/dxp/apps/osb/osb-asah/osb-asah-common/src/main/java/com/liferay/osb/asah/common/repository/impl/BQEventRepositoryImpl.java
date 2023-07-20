@@ -101,28 +101,6 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public Integer countBQEvents(
-		@Nullable Long channelId, String individualId) {
-
-		SelectSelectStep<Record1<Integer>> selectCount =
-			_dslContext.selectCount();
-
-		SelectJoinStep<Record1<Integer>> selectJoinStep = selectCount.from(
-			"BQEvent");
-
-		selectJoinStep = _getIndividualSelectJoinStep(
-			individualId, selectJoinStep);
-
-		return (int)_queryExecutor.queryForLong(
-			selectJoinStep.where(
-				DSL.field(
-					"BQIdentity.individualId"
-				).eq(
-					individualId
-				)));
-	}
-
-	@Override
-	public Integer countBQEvents(
 		Long channelId, String individualId, @Nullable String keywords,
 		LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
@@ -917,33 +895,6 @@ public class BQEventRepositoryImpl
 		_queryExecutor.queryExecute(BQSQLUtil.createInsertStatement(bqEvent));
 
 		return bqEvent;
-	}
-
-	public List<BQEvent> searchBQEvents(
-		@Nullable Long channelId, String individualId, Pageable pageable) {
-
-		Table<Record> eventTable = DSL.table("BQEvent");
-
-		SelectJoinStep<Record> selectJoinStep = _dslContext.select(
-			eventTable.asterisk()
-		).from(
-			eventTable
-		);
-
-		selectJoinStep = _getIndividualSelectJoinStep(
-			individualId, selectJoinStep);
-
-		return _queryExecutor.queryForList(
-			BQEvent::new,
-			selectJoinStep.where(
-				_getConditions(channelId, individualId)
-			).orderBy(
-				getSortFields(pageable.getSort(), eventTable)
-			).limit(
-				pageable.getPageSize()
-			).offset(
-				pageable.getOffset()
-			));
 	}
 
 	@Override
