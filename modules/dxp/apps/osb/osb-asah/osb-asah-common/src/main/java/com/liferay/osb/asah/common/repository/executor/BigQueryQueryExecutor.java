@@ -437,15 +437,16 @@ public class BigQueryQueryExecutor implements QueryExecutor {
 		"BlogDaily", "BlogHourly", "BQAccountEntry", "BQAccountGroup",
 		"BQAsset", "BQCSVUser", "BQEvent", "BQEventProperty", "BQExpandoColumn",
 		"BQExpandoValue", "BQFieldMapping", "BQGroup", "BQIdentity",
-		"BQIdentityActivity", "BQIdentityActivitySummary", "BQIdentityChannel",
-		"BQIdentityInterestPage", "BQIdentityInterestScore", "BQIndividual",
-		"BQMembership", "BQMembershipChange", "BQMembershipIndividual",
-		"BQOrder", "BQOrder_Raw", "BQOrganization", "BQPageReferrers",
-		"BQProduct", "BQProduct_Raw", "BQRole", "BQSession",
-		"BQSessionInterestScore", "BQTeam", "BQUser", "BQUserGroup",
-		"CustomAssetDaily", "CustomAssetHourly", "DocumentLibraryDaily",
-		"DocumentLibraryHourly", "FormDaily", "FormHourly", "Identity_Raw",
-		"JournalDaily", "JournalHourly", "PageDaily", "PageHourly"
+		"BQIdentity_Raw", "BQIdentityActivity", "BQIdentityActivitySummary",
+		"BQIdentityChannel", "BQIdentityInterestPage",
+		"BQIdentityInterestScore", "BQIndividual", "BQMembership",
+		"BQMembershipChange", "BQMembershipIndividual", "BQOrder",
+		"BQOrder_Raw", "BQOrganization", "BQPageReferrers", "BQProduct",
+		"BQProduct_Raw", "BQRole", "BQSession", "BQSessionInterestScore",
+		"BQTeam", "BQUser", "BQUserGroup", "CustomAssetDaily",
+		"CustomAssetHourly", "DocumentLibraryDaily", "DocumentLibraryHourly",
+		"FormDaily", "FormHourly", "Identity_Raw", "JournalDaily",
+		"JournalHourly", "PageDaily", "PageHourly"
 	};
 
 	private static final Log _log = LogFactory.getLog(
