@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Headless Commerce Punch Out Implementation
 Bundle-SymbolicName: com.liferay.headless.commerce.punchout.impl
-Bundle-Version: 1.0.33
+Bundle-Version: 1.0.34
 Import-Package:\
 	com.fasterxml.jackson.annotation;version="[2.9.0,3.0.0)",\
 	\
