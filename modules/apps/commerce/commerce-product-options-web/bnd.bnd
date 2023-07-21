@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Commerce Product Options Web
 Bundle-SymbolicName: com.liferay.commerce.product.options.web
-Bundle-Version: 1.0.53
+Bundle-Version: 1.0.54
 Import-Package:\
 	com.liferay.frontend.taglib.clay.servlet.taglib.util;version="[1.0.0,9999.0.0)",\
 	com.liferay.taglib.util;version="[7.4.0,9999.0.0)",\
