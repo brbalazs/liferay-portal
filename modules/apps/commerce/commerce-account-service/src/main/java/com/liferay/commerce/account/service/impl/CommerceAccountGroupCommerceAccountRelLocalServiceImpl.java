@@ -40,8 +40,6 @@ public class CommerceAccountGroupCommerceAccountRelLocalServiceImpl
 				String externalReferenceCode, ServiceContext serviceContext)
 		throws PortalException {
 
-		User user = userLocalService.getUser(serviceContext.getUserId());
-
 		if (Validator.isBlank(externalReferenceCode)) {
 			externalReferenceCode = null;
 		}
@@ -65,10 +63,14 @@ public class CommerceAccountGroupCommerceAccountRelLocalServiceImpl
 
 		commerceAccountGroupCommerceAccountRel.setExternalReferenceCode(
 			externalReferenceCode);
+
+		User user = userLocalService.getUser(serviceContext.getUserId());
+
 		commerceAccountGroupCommerceAccountRel.setCompanyId(
 			user.getCompanyId());
 		commerceAccountGroupCommerceAccountRel.setUserId(user.getUserId());
 		commerceAccountGroupCommerceAccountRel.setUserName(user.getFullName());
+
 		commerceAccountGroupCommerceAccountRel.setCommerceAccountGroupId(
 			commerceAccountGroupId);
 		commerceAccountGroupCommerceAccountRel.setCommerceAccountId(
