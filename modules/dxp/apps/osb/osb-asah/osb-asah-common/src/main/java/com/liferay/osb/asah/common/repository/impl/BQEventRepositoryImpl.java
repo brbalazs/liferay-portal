@@ -1399,30 +1399,6 @@ public class BQEventRepositoryImpl
 		return conditions;
 	}
 
-	private List<Condition> _getConditions(
-		Long channelId, String individualId) {
-
-		List<Condition> conditions = new ArrayList<>();
-
-		if (channelId != null) {
-			conditions.add(
-				DSL.field(
-					"BQEvent.channelId", Long.class
-				).eq(
-					channelId
-				));
-		}
-
-		conditions.add(
-			DSL.field(
-				"BQIdentity.individualId"
-			).eq(
-				individualId
-			));
-
-		return conditions;
-	}
-
 	private Condition _getEventAnalysisFilterCondition(
 		AttributeType attributeType, EventAnalysisFilter eventAnalysisFilter,
 		String filteredEventsTableName, Date rangeEndDate, Date rangeStartDate,
