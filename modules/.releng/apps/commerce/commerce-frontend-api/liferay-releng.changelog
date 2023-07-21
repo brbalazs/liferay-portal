@@ -87,3 +87,8 @@ df1a167ac96ab8a9e962df011ab3bb397b10f247^..18dfe6b7bf0e9713dcfc1f63984c633e82783
 # Bundle Version 8.4.3
 #
 04fbfb1ae82d518c9ca11c2c709f7b16ae426458^..704edeb2cba4b8cd4b7b51443baecde6fc8caf92=COMMERCE-4584
+
+#
+# Bundle Version 8.4.5
+#
+704edeb2cba4b8cd4b7b51443baecde6fc8caf92^..a3606317019891df8379e6d23a7e80140ea2b0fa=LPS-188912
