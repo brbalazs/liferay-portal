@@ -485,7 +485,7 @@ public class BQEventRepositoryImpl
 		return _queryExecutor.queryForMap(
 			GetterUtil::getDateString,
 			selectJoinStep.where(
-				_createCondition(
+				_createConditions(
 					channelId, individualId, keywords, rangeEndLocalDateTime,
 					rangeStartLocalDateTime, timeZoneId)
 			).groupBy(
@@ -525,7 +525,7 @@ public class BQEventRepositoryImpl
 			).from(
 				DSL.table(
 					selectJoinStep.where(
-						_createCondition(
+						_createConditions(
 							channelId, individualId, keywords,
 							rangeEndLocalDateTime, rangeStartLocalDateTime,
 							timeZoneId))
@@ -905,21 +905,56 @@ public class BQEventRepositoryImpl
 
 		Table<Record> eventTable = DSL.table("BQEvent");
 
-		SelectJoinStep<Record> selectJoinStep = _dslContext.select(
+		SelectJoinStep<Record> selectJoinStep = _dslContext.with(
+			"Identity"
+		).as(
+			_dslContext.select(
+				DSL.field("id"),
+				DSL.max(
+					DSL.field("individualId")
+				).as(
+					"individualId"
+				)
+			).from(
+				"BQIdentity_Raw"
+			).groupBy(
+				DSL.field("id")
+			)
+		).select(
 			eventTable.asterisk()
 		).from(
-			eventTable
+			"BQEvent"
 		);
 
-		selectJoinStep = _getIndividualSelectJoinStep(
-			individualId, selectJoinStep);
+		if (StringUtils.isNotBlank(individualId)) {
+			selectJoinStep = selectJoinStep.join(
+				DSL.table("Identity")
+			).on(
+				DSL.field(
+					"BQEvent.userId"
+				).eq(
+					DSL.field("Identity.id")
+				)
+			);
+		}
+
+		List<Condition> conditions = _createConditions(
+			channelId, keywords, rangeEndLocalDateTime, rangeStartLocalDateTime,
+			timeZoneId);
+
+		if (StringUtils.isNotBlank(individualId)) {
+			conditions.add(
+				DSL.field(
+					"Identity.individualId"
+				).eq(
+					individualId
+				));
+		}
 
 		return _queryExecutor.queryForList(
 			BQEvent::new,
 			selectJoinStep.where(
-				_createCondition(
-					channelId, individualId, keywords, rangeEndLocalDateTime,
-					rangeStartLocalDateTime, timeZoneId)
+				conditions
 			).orderBy(
 				getSortFields(pageable.getSort(), eventTable)
 			).limit(
@@ -1008,43 +1043,72 @@ public class BQEventRepositoryImpl
 	}
 
 	private Condition _createCondition(
-		Long channelId, String individualId, String keyword,
-		LocalDateTime rangeEndLocalDateTime,
-		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
+		@Nullable String displayLanguageId, @Nullable String groupId,
+		Set<String> searchQueryParams) {
 
 		Condition condition = DSL.and(
+			DSL.field(
+				"eventId"
+			).eq(
+				"pageViewed"
+			),
+			_dslHelper.regexpContains(
+				"url",
+				"[?&](?:" + String.join("|", searchQueryParams) + ")=([^&]+)"));
+
+		if (Objects.nonNull(displayLanguageId)) {
+			condition = condition.and(
+				DSL.field(
+					"contentLanguageId"
+				).eq(
+					displayLanguageId
+				));
+		}
+
+		if (Objects.nonNull(groupId)) {
+			condition = condition.and(
+				_dslHelper.jsonExtractScalar(
+					"context", "groupId"
+				).eq(
+					groupId
+				));
+		}
+
+		return condition;
+	}
+
+	private List<Condition> _createConditions(
+		Long channelId, String keyword, LocalDateTime rangeEndLocalDateTime,
+		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
+
+		List<Condition> conditions = new ArrayList<>();
+
+		conditions.add(
 			DSL.field(
 				"BQEvent.applicationId"
 			).in(
 				_eventDefinitionRepository.getEventDefinitionApplicationIds(
 					false)
-			),
+			));
+		conditions.add(
 			DSL.field(
 				"BQEvent.channelId"
 			).eq(
 				channelId
-			),
+			));
+		conditions.add(
 			DSL.field(
 				"BQEvent.eventDate"
 			).between(
 				_dslHelper.getDateParam(rangeStartLocalDateTime, timeZoneId),
 				_dslHelper.getDateParam(rangeEndLocalDateTime, timeZoneId)
-			),
+			));
+		conditions.add(
 			DSL.field(
 				"BQEvent.eventId"
 			).in(
 				_eventDefinitionRepository.getEventDefinitionNames(false)
 			));
-
-		if (StringUtils.isNotBlank(individualId)) {
-			condition = DSL.and(
-				condition,
-				DSL.field(
-					"BQIdentity.individualId"
-				).eq(
-					individualId
-				));
-		}
 
 		if (!StringUtils.isEmpty(keyword)) {
 			Condition keywordCondition = DSL.or(
@@ -1081,45 +1145,31 @@ public class BQEventRepositoryImpl
 						_getSanitizedKeywords(keyword)));
 			}
 
-			condition = condition.and(keywordCondition);
+			conditions.add(keywordCondition);
 		}
 
-		return condition;
+		return conditions;
 	}
 
-	private Condition _createCondition(
-		@Nullable String displayLanguageId, @Nullable String groupId,
-		Set<String> searchQueryParams) {
+	private List<Condition> _createConditions(
+		Long channelId, String individualId, String keyword,
+		LocalDateTime rangeEndLocalDateTime,
+		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
 
-		Condition condition = DSL.and(
-			DSL.field(
-				"eventId"
-			).eq(
-				"pageViewed"
-			),
-			_dslHelper.regexpContains(
-				"url",
-				"[?&](?:" + String.join("|", searchQueryParams) + ")=([^&]+)"));
+		List<Condition> conditions = _createConditions(
+			channelId, keyword, rangeEndLocalDateTime, rangeStartLocalDateTime,
+			timeZoneId);
 
-		if (Objects.nonNull(displayLanguageId)) {
-			condition = condition.and(
+		if (StringUtils.isNotBlank(individualId)) {
+			conditions.add(
 				DSL.field(
-					"contentLanguageId"
+					"BQIdentity.individualId"
 				).eq(
-					displayLanguageId
+					individualId
 				));
 		}
 
-		if (Objects.nonNull(groupId)) {
-			condition = condition.and(
-				_dslHelper.jsonExtractScalar(
-					"context", "groupId"
-				).eq(
-					groupId
-				));
-		}
-
-		return condition;
+		return conditions;
 	}
 
 	private Condition _createSearchTermsCondition(
@@ -1548,19 +1598,53 @@ public class BQEventRepositoryImpl
 		LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
 
-		SelectSelectStep<Record1<Integer>> selectCount = _dslContext.select(
-			countAggregateFunction);
+		SelectJoinStep<Record1<Integer>> selectJoinStep = _dslContext.with(
+			"Identity"
+		).as(
+			_dslContext.select(
+				DSL.field("id"),
+				DSL.max(
+					DSL.field("individualId")
+				).as(
+					"individualId"
+				)
+			).from(
+				"BQIdentity_Raw"
+			).groupBy(
+				DSL.field("id")
+			)
+		).select(
+			countAggregateFunction
+		).from(
+			"BQEvent"
+		);
 
-		SelectJoinStep<Record1<Integer>> selectJoinStep = selectCount.from(
-			"BQEvent");
+		if (StringUtils.isNotBlank(individualId)) {
+			selectJoinStep = selectJoinStep.join(
+				DSL.table("Identity")
+			).on(
+				DSL.field(
+					"BQEvent.userId"
+				).eq(
+					DSL.field("Identity.id")
+				)
+			);
+		}
 
-		selectJoinStep = _getIndividualSelectJoinStep(
-			individualId, selectJoinStep);
+		List<Condition> conditions = _createConditions(
+			channelId, keywords, rangeEndLocalDateTime, rangeStartLocalDateTime,
+			timeZoneId);
 
-		return selectJoinStep.where(
-			_createCondition(
-				channelId, individualId, keywords, rangeEndLocalDateTime,
-				rangeStartLocalDateTime, timeZoneId));
+		if (StringUtils.isNotBlank(individualId)) {
+			conditions.add(
+				DSL.field(
+					"Identity.individualId"
+				).eq(
+					individualId
+				));
+		}
+
+		return selectJoinStep.where(conditions);
 	}
 
 	private <T> SelectJoinStep<Record1<T>> _getEventSelectJoinStep(
