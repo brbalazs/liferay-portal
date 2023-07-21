@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Commerce Initializer Utilities
 Bundle-SymbolicName: com.liferay.commerce.initializer.util
-Bundle-Version: 4.2.11
+Bundle-Version: 4.2.12
 Export-Package: com.liferay.commerce.initializer.util
 Import-Package:\
 	com.liferay.dynamic.data.mapping.model;version="[1.6.0,9999.0.0)",\
