@@ -58,7 +58,6 @@ import com.liferay.osb.asah.common.dog.BQMembershipChangeDog;
 import com.liferay.osb.asah.common.dog.DataExportTaskDog;
 import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.entity.BQEvent;
-import com.liferay.osb.asah.common.entity.BQIdentity;
 import com.liferay.osb.asah.common.entity.BQIdentityInterestScore;
 import com.liferay.osb.asah.common.entity.BQMembershipChange;
 import com.liferay.osb.asah.common.entity.DataExportTask;
@@ -437,31 +436,15 @@ public class ReportRestController extends BaseRestController {
 			@PathVariable String individualId,
 			@RequestParam(defaultValue = "0") Integer page) {
 
-		Page<BQEvent> bqEventPage = _bqEventDog.searchBQEvents(
-			channelId, individualId, page, _PAGE_SIZE);
-
-		Stream<BQEvent> bqEventStream = bqEventPage.stream();
-
-		List<BQIdentity> bqIdentities = _bqIdentityDog.getBQIdentities(
-			bqEventStream.map(
-				BQEvent::getUserId
-			).collect(
-				Collectors.toList()
-			));
-
-		Stream<BQIdentity> bqIdentityStream = bqIdentities.stream();
-
-		Map<String, String> identityIdIndividualIdMap =
-			bqIdentityStream.collect(
-				Collectors.toMap(
-					BQIdentity::getId, BQIdentity::getIndividualId));
+		Page<BQEvent> bqEventPage = _bqEventDog.getBQEventPage(
+			channelId, individualId, null, page, _PAGE_SIZE,
+			TimeRange.LAST_30_DAYS);
 
 		Page<ActivityDTO> activityDTOs = bqEventPage.map(
 			bqEvent -> {
 				try {
 					return new ActivityDTO(
-						bqEvent,
-						identityIdIndividualIdMap.get(bqEvent.getUserId()),
+						bqEvent, individualId,
 						_objectMapper.readValue(
 							bqEvent.getContext(),
 							new TypeReference<Map<String, String>>() {
