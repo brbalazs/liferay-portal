@@ -140,6 +140,27 @@ public class BQEventDog {
 			startLocalDate.atTime(LocalTime.MIN));
 	}
 
+	public Page<BQEvent> getBQEventPage(
+		Long channelId, @Nullable String individualId,
+		@Nullable String keywords, int page, int size, TimeRange timeRange) {
+
+		PageRequest pageRequest = PageRequest.of(
+			page, size, Sort.desc("eventDate"));
+
+		String timeZoneId = _timeZoneDog.getTimeZoneId();
+
+		return PageableExecutionUtils.getPage(
+			_bqEventRepository.searchBQEvents(
+				channelId, individualId, keywords, pageRequest,
+				timeRange.getEndLocalDateTime(),
+				timeRange.getStartLocalDateTime(), timeZoneId),
+			pageRequest,
+			() -> _bqEventRepository.countBQEvents(
+				channelId, individualId, keywords,
+				timeRange.getEndLocalDateTime(),
+				timeRange.getStartLocalDateTime(), timeZoneId));
+	}
+
 	public List<BQEventPropertyValue> getRecentBQEventPropertyValues(
 		Long eventAttributeDefinitionId, int size) {
 
@@ -182,16 +203,6 @@ public class BQEventDog {
 			PageRequest.of(page, size, sort),
 			() -> _bqEventRepository.getSearchKeywordsCount(
 				displayLanguageId, groupId, minCounts, searchQueryStrings));
-	}
-
-	public Page<BQEvent> searchBQEvents(
-		@Nullable Long channelId, String individualId, Integer page, int size) {
-
-		return PageableExecutionUtils.getPage(
-			_bqEventRepository.searchBQEvents(
-				channelId, individualId, PageRequest.of(page, size)),
-			PageRequest.of(page, size),
-			() -> _bqEventRepository.countBQEvents(channelId, individualId));
 	}
 
 	public List<BQEvent> searchBQEvents(
