@@ -22,3 +22,8 @@
 # Bundle Version 8.0.0
 #
 0520a8bee326030138441727ca4bb2b5836a7832^..f45d6e9422c759f3fd4b2624bc9fdfc4338dfc5f=LRAC-14025
+
+#
+# Bundle Version 8.0.1
+#
+f45d6e9422c759f3fd4b2624bc9fdfc4338dfc5f^..8cee6b7adcee5a0d600b37f51db6bd47ff1b206d=LPS-188912
