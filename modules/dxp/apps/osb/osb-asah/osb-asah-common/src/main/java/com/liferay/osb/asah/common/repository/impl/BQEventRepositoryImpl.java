@@ -101,8 +101,8 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public Integer countBQEvents(
-		Long channelId, String individualId, @Nullable String keywords,
-		LocalDateTime rangeEndLocalDateTime,
+		@Nullable Long channelId, String individualId,
+		@Nullable String keywords, LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
 
 		return (int)_queryExecutor.queryForLong(
@@ -899,8 +899,9 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public List<BQEvent> searchBQEvents(
-		Long channelId, String individualId, @Nullable String keywords,
-		Pageable pageable, LocalDateTime rangeEndLocalDateTime,
+		@Nullable Long channelId, String individualId,
+		@Nullable String keywords, Pageable pageable,
+		LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
 
 		Table<Record> eventTable = DSL.table("BQEvent");
@@ -1078,37 +1079,46 @@ public class BQEventRepositoryImpl
 	}
 
 	private List<Condition> _createConditions(
-		Long channelId, String keyword, LocalDateTime rangeEndLocalDateTime,
+		@Nullable Long channelId, String keyword,
+		LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
 
-		List<Condition> conditions = new ArrayList<>();
+		List<Condition> conditions = new ArrayList<Condition>() {
+			{
+				add(
+					DSL.field(
+						"BQEvent.applicationId"
+					).in(
+						_eventDefinitionRepository.
+							getEventDefinitionApplicationIds(false)
+					));
+				add(
+					DSL.field(
+						"BQEvent.eventDate"
+					).between(
+						_dslHelper.getDateParam(
+							rangeStartLocalDateTime, timeZoneId),
+						_dslHelper.getDateParam(
+							rangeEndLocalDateTime, timeZoneId)
+					));
+				add(
+					DSL.field(
+						"BQEvent.eventId"
+					).in(
+						_eventDefinitionRepository.getEventDefinitionNames(
+							false)
+					));
+			}
+		};
 
-		conditions.add(
-			DSL.field(
-				"BQEvent.applicationId"
-			).in(
-				_eventDefinitionRepository.getEventDefinitionApplicationIds(
-					false)
-			));
-		conditions.add(
-			DSL.field(
-				"BQEvent.channelId"
-			).eq(
-				channelId
-			));
-		conditions.add(
-			DSL.field(
-				"BQEvent.eventDate"
-			).between(
-				_dslHelper.getDateParam(rangeStartLocalDateTime, timeZoneId),
-				_dslHelper.getDateParam(rangeEndLocalDateTime, timeZoneId)
-			));
-		conditions.add(
-			DSL.field(
-				"BQEvent.eventId"
-			).in(
-				_eventDefinitionRepository.getEventDefinitionNames(false)
-			));
+		if (channelId != null) {
+			conditions.add(
+				DSL.field(
+					"BQEvent.channelId"
+				).eq(
+					channelId
+				));
+		}
 
 		if (!StringUtils.isEmpty(keyword)) {
 			Condition keywordCondition = DSL.or(
@@ -1569,9 +1579,9 @@ public class BQEventRepositoryImpl
 	}
 
 	private SelectFinalStep<Record1<Integer>> _getEventsCount(
-		Long channelId, AggregateFunction<Integer> countAggregateFunction,
-		String individualId, String keywords,
-		LocalDateTime rangeEndLocalDateTime,
+		@Nullable Long channelId,
+		AggregateFunction<Integer> countAggregateFunction, String individualId,
+		String keywords, LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
 
 		SelectJoinStep<Record1<Integer>> selectJoinStep = _dslContext.with(

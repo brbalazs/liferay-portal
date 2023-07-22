@@ -141,7 +141,7 @@ public class BQEventDog {
 	}
 
 	public Page<BQEvent> getBQEventPage(
-		Long channelId, @Nullable String individualId,
+		@Nullable Long channelId, @Nullable String individualId,
 		@Nullable String keywords, int page, int size, TimeRange timeRange) {
 
 		PageRequest pageRequest = PageRequest.of(
