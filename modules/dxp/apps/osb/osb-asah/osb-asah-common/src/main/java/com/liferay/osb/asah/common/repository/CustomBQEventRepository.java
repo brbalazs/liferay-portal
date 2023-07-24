@@ -42,6 +42,12 @@ import org.springframework.lang.Nullable;
 public interface CustomBQEventRepository {
 
 	public Integer countBQEvents(
+		@Nullable Long channelId, @Nullable String keywords,
+		LocalDateTime rangeEndLocalDateTime,
+		LocalDateTime rangeStartLocalDateTime, String timeZoneId,
+		List<String> userIds);
+
+	public Integer countBQEvents(
 		@Nullable Long channelId, String individualId,
 		@Nullable String keywords, LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId);
@@ -123,6 +129,12 @@ public interface CustomBQEventRepository {
 		String timeZoneId);
 
 	public BQEvent insert(BQEvent bqEvent);
+
+	public List<BQEvent> searchBQEvents(
+		@Nullable Long channelId, @Nullable String keywords, Pageable pageable,
+		LocalDateTime rangeEndLocalDateTime,
+		LocalDateTime rangeStartLocalDateTime, String timeZoneId,
+		List<String> userIds);
 
 	public List<BQEvent> searchBQEvents(
 		@Nullable Long channelId, String individualId,

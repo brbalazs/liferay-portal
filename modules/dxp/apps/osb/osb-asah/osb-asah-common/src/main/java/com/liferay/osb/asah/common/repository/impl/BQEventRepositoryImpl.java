@@ -101,6 +101,19 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public Integer countBQEvents(
+		@Nullable Long channelId, @Nullable String keywords,
+		LocalDateTime rangeEndLocalDateTime,
+		LocalDateTime rangeStartLocalDateTime, String timeZoneId,
+		List<String> userIds) {
+
+		return (int)_queryExecutor.queryForLong(
+			_getEventsCount(
+				channelId, DSL.count(), null, keywords, rangeEndLocalDateTime,
+				rangeStartLocalDateTime, timeZoneId, userIds));
+	}
+
+	@Override
+	public Integer countBQEvents(
 		@Nullable Long channelId, String individualId,
 		@Nullable String keywords, LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
@@ -108,7 +121,8 @@ public class BQEventRepositoryImpl
 		return (int)_queryExecutor.queryForLong(
 			_getEventsCount(
 				channelId, DSL.count(), individualId, keywords,
-				rangeEndLocalDateTime, rangeStartLocalDateTime, timeZoneId));
+				rangeEndLocalDateTime, rangeStartLocalDateTime, timeZoneId,
+				Collections.emptyList()));
 	}
 
 	@Override
@@ -201,7 +215,7 @@ public class BQEventRepositoryImpl
 			_getEventsCount(
 				channelId, DSL.countDistinct(DSL.field("sessionId")),
 				individualId, keywords, rangeEndLocalDateTime,
-				rangeStartLocalDateTime, timeZoneId));
+				rangeStartLocalDateTime, timeZoneId, Collections.emptyList()));
 	}
 
 	@Override
@@ -899,6 +913,38 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public List<BQEvent> searchBQEvents(
+		@Nullable Long channelId, @Nullable String keywords, Pageable pageable,
+		LocalDateTime rangeEndLocalDateTime,
+		LocalDateTime rangeStartLocalDateTime, String timeZoneId,
+		List<String> userIds) {
+
+		Table<Record> eventTable = DSL.table("BQEvent");
+
+		SelectJoinStep<Record> selectJoinStep = _dslContext.select(
+			eventTable.asterisk()
+		).from(
+			eventTable
+		);
+
+		List<Condition> conditions = _createConditions(
+			channelId, keywords, rangeEndLocalDateTime, rangeStartLocalDateTime,
+			timeZoneId, userIds);
+
+		return _queryExecutor.queryForList(
+			BQEvent::new,
+			selectJoinStep.where(
+				conditions
+			).orderBy(
+				getSortFields(pageable.getSort(), eventTable)
+			).limit(
+				pageable.getPageSize()
+			).offset(
+				pageable.getOffset()
+			));
+	}
+
+	@Override
+	public List<BQEvent> searchBQEvents(
 		@Nullable Long channelId, String individualId,
 		@Nullable String keywords, Pageable pageable,
 		LocalDateTime rangeEndLocalDateTime,
@@ -1083,6 +1129,17 @@ public class BQEventRepositoryImpl
 		LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
 
+		return _createConditions(
+			channelId, keyword, rangeEndLocalDateTime, rangeStartLocalDateTime,
+			timeZoneId, Collections.emptyList());
+	}
+
+	private List<Condition> _createConditions(
+		@Nullable Long channelId, String keyword,
+		LocalDateTime rangeEndLocalDateTime,
+		LocalDateTime rangeStartLocalDateTime, String timeZoneId,
+		List<String> userIds) {
+
 		List<Condition> conditions = new ArrayList<Condition>() {
 			{
 				add(
@@ -1156,6 +1213,15 @@ public class BQEventRepositoryImpl
 			}
 
 			conditions.add(keywordCondition);
+		}
+
+		if (!userIds.isEmpty()) {
+			conditions.add(
+				DSL.field(
+					"BQEvent.userId"
+				).in(
+					userIds
+				));
 		}
 
 		return conditions;
@@ -1582,7 +1648,8 @@ public class BQEventRepositoryImpl
 		@Nullable Long channelId,
 		AggregateFunction<Integer> countAggregateFunction, String individualId,
 		String keywords, LocalDateTime rangeEndLocalDateTime,
-		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
+		LocalDateTime rangeStartLocalDateTime, String timeZoneId,
+		List<String> userIds) {
 
 		SelectJoinStep<Record1<Integer>> selectJoinStep = _dslContext.with(
 			"Identity"
@@ -1619,7 +1686,7 @@ public class BQEventRepositoryImpl
 
 		List<Condition> conditions = _createConditions(
 			channelId, keywords, rangeEndLocalDateTime, rangeStartLocalDateTime,
-			timeZoneId);
+			timeZoneId, userIds);
 
 		if (StringUtils.isNotBlank(individualId)) {
 			conditions.add(
