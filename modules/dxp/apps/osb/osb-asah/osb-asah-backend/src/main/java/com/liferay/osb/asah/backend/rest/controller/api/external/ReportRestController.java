@@ -437,8 +437,8 @@ public class ReportRestController extends BaseRestController {
 			@RequestParam(defaultValue = "0") Integer page) {
 
 		Page<BQEvent> bqEventPage = _bqEventDog.getBQEventPage(
-			channelId, individualId, null, page, _PAGE_SIZE,
-			TimeRange.LAST_30_DAYS);
+			channelId, null, page, _PAGE_SIZE, TimeRange.LAST_30_DAYS,
+			_bqIdentityDog.getBQIdentityIds(individualId));
 
 		Page<ActivityDTO> activityDTOs = bqEventPage.map(
 			bqEvent -> {

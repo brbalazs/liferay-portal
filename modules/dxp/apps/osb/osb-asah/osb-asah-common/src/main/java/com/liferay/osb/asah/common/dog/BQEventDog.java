@@ -141,8 +141,8 @@ public class BQEventDog {
 	}
 
 	public Page<BQEvent> getBQEventPage(
-		@Nullable Long channelId, @Nullable String individualId,
-		@Nullable String keywords, int page, int size, TimeRange timeRange) {
+		@Nullable Long channelId, @Nullable String keywords, int page, int size,
+		TimeRange timeRange, List<String> userIds) {
 
 		PageRequest pageRequest = PageRequest.of(
 			page, size, Sort.desc("eventDate"));
@@ -151,14 +151,13 @@ public class BQEventDog {
 
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.searchBQEvents(
-				channelId, individualId, keywords, pageRequest,
+				channelId, keywords, pageRequest,
 				timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(), timeZoneId),
+				timeRange.getStartLocalDateTime(), timeZoneId, userIds),
 			pageRequest,
 			() -> _bqEventRepository.countBQEvents(
-				channelId, individualId, keywords,
-				timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(), timeZoneId));
+				channelId, keywords, timeRange.getEndLocalDateTime(),
+				timeRange.getStartLocalDateTime(), timeZoneId, userIds));
 	}
 
 	public List<BQEventPropertyValue> getRecentBQEventPropertyValues(
