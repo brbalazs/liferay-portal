@@ -107,9 +107,14 @@ public class BQEventRepositoryImpl
 		List<String> userIds) {
 
 		return (int)_queryExecutor.queryForLong(
-			_getEventsCount(
-				channelId, DSL.count(), null, keywords, rangeEndLocalDateTime,
-				rangeStartLocalDateTime, timeZoneId, userIds));
+			_dslContext.selectCount(
+			).from(
+				"BQEvent"
+			).where(
+				_createConditions(
+					channelId, keywords, rangeEndLocalDateTime,
+					rangeStartLocalDateTime, timeZoneId, userIds)
+			));
 	}
 
 	@Override
@@ -121,8 +126,7 @@ public class BQEventRepositoryImpl
 		return (int)_queryExecutor.queryForLong(
 			_getEventsCount(
 				channelId, DSL.count(), individualId, keywords,
-				rangeEndLocalDateTime, rangeStartLocalDateTime, timeZoneId,
-				Collections.emptyList()));
+				rangeEndLocalDateTime, rangeStartLocalDateTime, timeZoneId));
 	}
 
 	@Override
@@ -215,7 +219,7 @@ public class BQEventRepositoryImpl
 			_getEventsCount(
 				channelId, DSL.countDistinct(DSL.field("sessionId")),
 				individualId, keywords, rangeEndLocalDateTime,
-				rangeStartLocalDateTime, timeZoneId, Collections.emptyList()));
+				rangeStartLocalDateTime, timeZoneId));
 	}
 
 	@Override
@@ -1648,8 +1652,7 @@ public class BQEventRepositoryImpl
 		@Nullable Long channelId,
 		AggregateFunction<Integer> countAggregateFunction, String individualId,
 		String keywords, LocalDateTime rangeEndLocalDateTime,
-		LocalDateTime rangeStartLocalDateTime, String timeZoneId,
-		List<String> userIds) {
+		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
 
 		SelectJoinStep<Record1<Integer>> selectJoinStep = _dslContext.with(
 			"Identity"
@@ -1686,7 +1689,7 @@ public class BQEventRepositoryImpl
 
 		List<Condition> conditions = _createConditions(
 			channelId, keywords, rangeEndLocalDateTime, rangeStartLocalDateTime,
-			timeZoneId, userIds);
+			timeZoneId);
 
 		if (StringUtils.isNotBlank(individualId)) {
 			conditions.add(
