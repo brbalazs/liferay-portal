@@ -125,7 +125,7 @@ public class BQIdentityRepositoryImpl
 	public List<String> getBQIdentityIds(String bqIndividualId) {
 		return _queryExecutor.queryForList(
 			record -> (String)record.get("id"),
-			_dslContext.select(
+			_dslContext.selectDistinct(
 				DSL.field("id", String.class)
 			).from(
 				"BQIdentity"
