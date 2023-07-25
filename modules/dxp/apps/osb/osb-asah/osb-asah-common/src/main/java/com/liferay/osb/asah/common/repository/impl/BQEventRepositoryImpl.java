@@ -956,22 +956,7 @@ public class BQEventRepositoryImpl
 
 		Table<Record> eventTable = DSL.table("BQEvent");
 
-		SelectJoinStep<Record> selectJoinStep = _dslContext.with(
-			"Identity"
-		).as(
-			_dslContext.select(
-				DSL.field("id"),
-				DSL.max(
-					DSL.field("individualId")
-				).as(
-					"individualId"
-				)
-			).from(
-				"BQIdentity_Raw"
-			).groupBy(
-				DSL.field("id")
-			)
-		).select(
+		SelectJoinStep<Record> selectJoinStep = _dslContext.select(
 			eventTable.asterisk()
 		).from(
 			"BQEvent"
@@ -979,12 +964,12 @@ public class BQEventRepositoryImpl
 
 		if (StringUtils.isNotBlank(individualId)) {
 			selectJoinStep = selectJoinStep.join(
-				DSL.table("Identity")
+				DSL.table("BQIdentity")
 			).on(
 				DSL.field(
 					"BQEvent.userId"
 				).eq(
-					DSL.field("Identity.id")
+					DSL.field("BQIdentity.id")
 				)
 			);
 		}
@@ -996,7 +981,7 @@ public class BQEventRepositoryImpl
 		if (StringUtils.isNotBlank(individualId)) {
 			conditions.add(
 				DSL.field(
-					"Identity.individualId"
+					"BQIdentity.individualId"
 				).eq(
 					individualId
 				));
@@ -1654,22 +1639,7 @@ public class BQEventRepositoryImpl
 		String keywords, LocalDateTime rangeEndLocalDateTime,
 		LocalDateTime rangeStartLocalDateTime, String timeZoneId) {
 
-		SelectJoinStep<Record1<Integer>> selectJoinStep = _dslContext.with(
-			"Identity"
-		).as(
-			_dslContext.select(
-				DSL.field("id"),
-				DSL.max(
-					DSL.field("individualId")
-				).as(
-					"individualId"
-				)
-			).from(
-				"BQIdentity_Raw"
-			).groupBy(
-				DSL.field("id")
-			)
-		).select(
+		SelectJoinStep<Record1<Integer>> selectJoinStep = _dslContext.select(
 			countAggregateFunction
 		).from(
 			"BQEvent"
@@ -1677,12 +1647,12 @@ public class BQEventRepositoryImpl
 
 		if (StringUtils.isNotBlank(individualId)) {
 			selectJoinStep = selectJoinStep.join(
-				DSL.table("Identity")
+				DSL.table("BQIdentity")
 			).on(
 				DSL.field(
 					"BQEvent.userId"
 				).eq(
-					DSL.field("Identity.id")
+					DSL.field("BQIdentity.id")
 				)
 			);
 		}
@@ -1694,7 +1664,7 @@ public class BQEventRepositoryImpl
 		if (StringUtils.isNotBlank(individualId)) {
 			conditions.add(
 				DSL.field(
-					"Identity.individualId"
+					"BQIdentity.individualId"
 				).eq(
 					individualId
 				));
