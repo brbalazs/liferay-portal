@@ -36,6 +36,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -146,6 +147,11 @@ public class BQEventDog {
 
 		PageRequest pageRequest = PageRequest.of(
 			page, size, Sort.desc("eventDate"));
+
+		if (userIds.isEmpty()) {
+			return PageableExecutionUtils.getPage(
+				Collections.emptyList(), pageRequest, () -> 0);
+		}
 
 		String timeZoneId = _timeZoneDog.getTimeZoneId();
 
