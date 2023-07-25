@@ -924,8 +924,10 @@ public class BQEventRepositoryImpl
 
 		Table<Record> eventTable = DSL.table("BQEvent");
 
-		SelectJoinStep<Record> selectJoinStep = _dslContext.select(
-			eventTable.asterisk()
+		SelectJoinStep<?> selectJoinStep = _dslContext.select(
+			DSL.field("applicationId"), DSL.field("context"),
+			DSL.field("eventDate"), DSL.field("eventId"),
+			DSL.field("eventProperties"), DSL.field("userId")
 		).from(
 			eventTable
 		);
