@@ -9,9 +9,7 @@ definition {
 	setUp {
 		Portlet.shutdownServer();
 
-		AntCommand(
-			locator1 = "build-test.xml",
-			value1 = "deploy-commerce-license-li");
+		AntCommands.runCommand("build-test.xml", "deploy-commerce-license-li");
 
 		Portlet.startServer(deleteLiferayHome = "false");
 

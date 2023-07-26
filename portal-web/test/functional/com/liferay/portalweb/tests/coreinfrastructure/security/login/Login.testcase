@@ -266,9 +266,7 @@ definition {
 
 		Navigator.openSpecificURL(url = "http://test.able.com:8080/openam");
 
-		AntCommand(
-			locator1 = "build-test-authentication.xml",
-			value1 = "run-openam-tools");
+		AntCommands.runCommand("build-test-authentication.xml", "run-openam-tools");
 
 		var pauseCount = 0;
 
@@ -334,9 +332,7 @@ definition {
 
 		PortletEntry.save();
 
-		AntCommand(
-			locator1 = "build-test-authentication.xml",
-			value1 = "verify-token-based-login -Dportal.url=localhost:8080/web/guest -Duser.token=test@liferay.com");
+		AntCommands.runCommand("build-test-authentication.xml", "verify-token-based-login -Dportal.url=localhost:8080/web/guest -Duser.token=test@liferay.com");
 
 		FormFields.disableCheckbox(fieldName = "Enabled");
 
@@ -372,9 +368,7 @@ definition {
 
 		PortletEntry.save();
 
-		AntCommand(
-			locator1 = "build-test-authentication.xml",
-			value1 = "verify-token-based-login -Dportal.url=www.able.com:8080/web/guest -Duser.token=test@www.able.com");
+		AntCommands.runCommand("build-test-authentication.xml", "verify-token-based-login -Dportal.url=www.able.com:8080/web/guest -Duser.token=test@www.able.com");
 	}
 
 	@priority = 3

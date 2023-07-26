@@ -73,9 +73,7 @@ definition {
 
 		Portlet.shutdownServer();
 
-		AntCommand(
-			locator1 = "build-test.xml",
-			value1 = "portal-ext-properties-update -Dadd.new.properties=true -Dupdate.properties=${newProperty}");
+		AntCommands.runCommand("build-test.xml", "portal-ext-properties-update -Dadd.new.properties=true -Dupdate.properties=${newProperty}");
 
 		Portlet.startServer(deleteLiferayHome = "false");
 
@@ -210,9 +208,7 @@ definition {
 
 		var elasticsearchYML = "${liferayHome}/elasticsearch-${elasticsearchVersion}-1/config/elasticsearch.yml";
 
-		AntCommand.antCommand(
-			locator1 = "build-test-elasticsearch6.xml",
-			value1 = "stop-elasticsearch");
+		AntCommands.runCommand("build-test-elasticsearch6.xml", "stop-elasticsearch");
 
 		var fileContent = FileUtil.read(${elasticsearchYML});
 
@@ -220,9 +216,7 @@ definition {
 
 		FileUtil.write(${elasticsearchYML}, ${updatedContent});
 
-		AntCommand.antCommand(
-			locator1 = "build-test-elasticsearch6.xml",
-			value1 = "start-elasticsearch-node -Delasticsearch.cluster.size=1");
+		AntCommands.runCommand("build-test-elasticsearch6.xml", "start-elasticsearch-node -Delasticsearch.cluster.size=1");
 
 		Pause(locator1 = 30000);
 

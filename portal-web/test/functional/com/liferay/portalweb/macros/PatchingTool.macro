@@ -1,9 +1,7 @@
 definition {
 
 	macro installPatch {
-		AntCommand(
-			locator1 = "build-test.xml",
-			value1 = "install-patch -Dpatch.file.zip.url=${patchFileZipURL}");
+		AntCommands.runCommand("build-test.xml", "install-patch -Dpatch.file.zip.url=${patchFileZipURL}");
 	}
 
 	macro installPatchOnSpecificServer {
@@ -11,15 +9,11 @@ definition {
 
 		var bundleIndex = ${leadingPortNumber} - 8;
 
-		AntCommand(
-			locator1 = "build-test.xml",
-			value1 = "install-patch -Dinstall.patch.cluster.node.index=${bundleIndex} -Dpatch.file.zip.url=${patchFileZipURL}");
+		AntCommands.runCommand("build-test.xml", "install-patch -Dinstall.patch.cluster.node.index=${bundleIndex} -Dpatch.file.zip.url=${patchFileZipURL}");
 	}
 
 	macro uninstallPatches {
-		AntCommand(
-			locator1 = "build-test.xml",
-			value1 = "uninstall-patches");
+		AntCommands.runCommand("build-test.xml", "uninstall-patches");
 	}
 
 	macro uninstallPatchOnSpecificServer {
@@ -27,9 +21,7 @@ definition {
 
 		var bundleIndex = ${leadingPortNumber} - 8;
 
-		AntCommand(
-			locator1 = "build-test.xml",
-			value1 = "uninstall-patches -Duninstall.patch.cluster.node.index=${bundleIndex}");
+		AntCommands.runCommand("build-test.xml", "uninstall-patches -Duninstall.patch.cluster.node.index=${bundleIndex}");
 	}
 
 	macro updateConfigurationOnSpecificServer {
@@ -37,9 +29,7 @@ definition {
 
 		var bundleIndex = ${leadingPortNumber} - 8;
 
-		AntCommand(
-			locator1 = "build-test.xml",
-			value1 = "update-osgi-module-configuration -Dinstall.patch.cluster.node.index=${bundleIndex} -Dupdate.configuration=\"${updateConfiguration}\"");
+		AntCommands.runCommand("build-test.xml", "update-osgi-module-configuration -Dinstall.patch.cluster.node.index=${bundleIndex} -Dupdate.configuration=\"${updateConfiguration}\"");
 	}
 
 }
