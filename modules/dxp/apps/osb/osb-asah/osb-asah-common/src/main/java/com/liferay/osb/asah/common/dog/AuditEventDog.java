@@ -29,10 +29,11 @@ import org.springframework.stereotype.Component;
 public class AuditEventDog {
 
 	public AuditEvent addAuditEvent(
-		AuditEvent.Type type, String userId, String userName) {
+		String context, AuditEvent.Type type, String userId, String userName) {
 
 		AuditEvent auditEvent = new AuditEvent();
 
+		auditEvent.setContext(context);
 		auditEvent.setCreateDate(new Date());
 		auditEvent.setIsNew(Boolean.TRUE);
 		auditEvent.setType(type);
