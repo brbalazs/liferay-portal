@@ -20,7 +20,6 @@ import com.liferay.osb.asah.common.repository.SuppressionRepository;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,56 +40,28 @@ public class SuppressionRepositoryTest
 		Suppression suppression = new Suppression();
 
 		suppression.setEmailAddress("test@liferay.com");
-		suppression.setIndividualId("1232324234");
-		suppression.setIsNew(Boolean.TRUE);
 
-		_suppressionRepository.save(suppression);
+		_suppressionRepository.insert(suppression);
 	}
 
 	@Test
-	public void testCountByEmailAddressContainingIgnoreCase() {
+	public void testCountSuppressions() {
 		Assertions.assertEquals(
-			1,
-			_suppressionRepository.countByEmailAddressContainingIgnoreCase(
-				"TEST"));
+			1, _suppressionRepository.countSuppressions("TEST"));
 	}
 
 	@Test
 	public void testDeleteByEmailAddress() {
 		_suppressionRepository.deleteByEmailAddress("test@liferay.com");
 
-		Assertions.assertFalse(
-			_suppressionRepository.existsByEmailAddress("test@liferay.com"));
-	}
-
-	@Test
-	public void testExistsByEmailAddress() {
-		Assertions.assertTrue(
-			_suppressionRepository.existsByEmailAddress("test@liferay.com"));
-	}
-
-	@Test
-	public void testExistsByIndividualId() {
-		Assertions.assertTrue(
-			_suppressionRepository.existsByIndividualId("1232324234"));
-	}
-
-	@Test
-	public void testFindByEmailAddress() {
-		Optional<Suppression> suppressionOptional =
-			_suppressionRepository.findByEmailAddress("test@liferay.com");
-
-		Suppression suppression = suppressionOptional.get();
-
 		Assertions.assertEquals(
-			"test@liferay.com", suppression.getEmailAddress());
+			0, _suppressionRepository.countSuppressions("test@liferay.com"));
 	}
 
 	@Test
-	public void testFindByEmailAddressContainingIgnoreCase() {
-		List<Suppression> suppressions =
-			_suppressionRepository.findByEmailAddressContainingIgnoreCase(
-				"test@liferay.com", PageRequest.of(0, 10));
+	public void testGetSuppressions() {
+		List<Suppression> suppressions = _suppressionRepository.getSuppressions(
+			"test@liferay.com", PageRequest.of(0, 10));
 
 		Suppression suppression = suppressions.get(0);
 

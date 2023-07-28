@@ -446,7 +446,7 @@ public class BigQueryQueryExecutor implements QueryExecutor {
 		"BQTeam", "BQUser", "BQUserGroup", "CustomAssetDaily",
 		"CustomAssetHourly", "DocumentLibraryDaily", "DocumentLibraryHourly",
 		"FormDaily", "FormHourly", "Identity_Raw", "JournalDaily",
-		"JournalHourly", "PageDaily", "PageHourly"
+		"JournalHourly", "PageDaily", "PageHourly", "Suppression"
 	};
 
 	private static final Log _log = LogFactory.getLog(

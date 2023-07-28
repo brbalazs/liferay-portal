@@ -14,30 +14,27 @@
 
 package com.liferay.osb.asah.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import com.liferay.osb.asah.common.date.DateUtil;
+import com.liferay.osb.asah.common.util.BeanUtils;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.Objects;
-
-import org.springframework.data.annotation.AccessType;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.domain.Persistable;
-import org.springframework.data.relational.core.mapping.Table;
 
 /**
  * @author Matthew Kong
  */
-@Table
-public class Suppression implements Persistable<Long> {
+public class Suppression {
 
 	public Suppression() {
+	}
+
+	public Suppression(Map<String, Object> source) {
+		BeanUtils.copyProperties(source, this);
 	}
 
 	@Override
@@ -58,10 +55,7 @@ public class Suppression implements Persistable<Long> {
 			Objects.equals(
 				_dataControlTaskCreateDate,
 				suppression._dataControlTaskCreateDate) &&
-			Objects.equals(
-				_dataControlTaskStatus, suppression._dataControlTaskStatus) &&
-			Objects.equals(_emailAddress, suppression._emailAddress) &&
-			Objects.equals(_id, suppression._id)) {
+			Objects.equals(_emailAddress, suppression._emailAddress)) {
 
 			return true;
 		}
@@ -69,7 +63,6 @@ public class Suppression implements Persistable<Long> {
 		return false;
 	}
 
-	@AccessType(AccessType.Type.PROPERTY)
 	@JsonFormat(
 		pattern = DateUtil.PATTERN_ISO_8601, shape = JsonFormat.Shape.STRING,
 		timezone = "UTC"
@@ -82,13 +75,11 @@ public class Suppression implements Persistable<Long> {
 		return new Date(_createDate.getTime());
 	}
 
-	@AccessType(AccessType.Type.PROPERTY)
 	@JsonSerialize(using = ToStringSerializer.class)
 	public Long getDataControlTaskBatchId() {
 		return _dataControlTaskBatchId;
 	}
 
-	@AccessType(AccessType.Type.PROPERTY)
 	@JsonFormat(
 		pattern = DateUtil.PATTERN_ISO_8601, shape = JsonFormat.Shape.STRING,
 		timezone = "UTC"
@@ -101,43 +92,13 @@ public class Suppression implements Persistable<Long> {
 		return new Date(_dataControlTaskCreateDate.getTime());
 	}
 
-	@AccessType(AccessType.Type.PROPERTY)
-	public String getDataControlTaskStatus() {
-		return _dataControlTaskStatus;
-	}
-
-	@AccessType(AccessType.Type.PROPERTY)
 	public String getEmailAddress() {
 		return _emailAddress;
 	}
 
-	@AccessType(AccessType.Type.PROPERTY)
-	@Id
-	@JsonSerialize(using = ToStringSerializer.class)
-	@Override
-	public Long getId() {
-		return _id;
-	}
-
-	@AccessType(AccessType.Type.PROPERTY)
-	@JsonAlias("emailAddressHashed")
-	public String getIndividualId() {
-		return _individualId;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(_createDate, _emailAddress, _id);
-	}
-
-	@JsonIgnore
-	@Override
-	public boolean isNew() {
-		if ((_id == null) || ((_isNew != null) && _isNew)) {
-			return true;
-		}
-
-		return false;
+		return Objects.hash(_createDate, _emailAddress);
 	}
 
 	public void setCreateDate(Date createDate) {
@@ -157,48 +118,13 @@ public class Suppression implements Persistable<Long> {
 		}
 	}
 
-	public void setDataControlTaskStatus(String dataControlTaskStatus) {
-		_dataControlTaskStatus = dataControlTaskStatus;
-	}
-
 	public void setEmailAddress(String emailAddress) {
 		_emailAddress = emailAddress;
 	}
 
-	public void setId(Long id) {
-		_id = id;
-	}
-
-	public void setIndividualId(String individualId) {
-		_individualId = individualId;
-	}
-
-	public void setIsNew(Boolean isNew) {
-		_isNew = isNew;
-	}
-
-	@Transient
 	private Date _createDate;
-
-	@Transient
 	private Long _dataControlTaskBatchId;
-
-	@Transient
 	private Date _dataControlTaskCreateDate;
-
-	@Transient
-	private String _dataControlTaskStatus;
-
-	@Transient
 	private String _emailAddress;
-
-	@Transient
-	private Long _id;
-
-	@Transient
-	private String _individualId;
-
-	@Transient
-	private Boolean _isNew;
 
 }

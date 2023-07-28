@@ -17,13 +17,10 @@ package com.liferay.osb.asah.common.dog;
 import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.SuppressionRepository;
-import com.liferay.osb.asah.common.util.TimeOrderedUuidGenerator;
 
 import java.util.Date;
-import java.util.Optional;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,31 +36,20 @@ public class SuppressionDog {
 
 	public Suppression addSuppression(
 		Long dataControlTaskBatchId, Date dataControlTaskCreateDate,
-		String dataControlTaskStatus, String emailAddress) {
+		String emailAddress) {
 
 		Suppression suppression = new Suppression();
 
 		suppression.setCreateDate(new Date());
 		suppression.setDataControlTaskBatchId(dataControlTaskBatchId);
 		suppression.setDataControlTaskCreateDate(dataControlTaskCreateDate);
-		suppression.setDataControlTaskStatus(dataControlTaskStatus);
 		suppression.setEmailAddress(emailAddress);
-		suppression.setId(_timeOrderedUuidGenerator.generateIdAsLong());
-		suppression.setIndividualId(DigestUtils.sha256Hex(emailAddress));
-		suppression.setIsNew(Boolean.TRUE);
 
-		return _suppressionRepository.save(suppression);
+		return _suppressionRepository.insert(suppression);
 	}
 
 	public void deleteByEmailAddress(String emailAddress) {
 		_suppressionRepository.deleteByEmailAddress(emailAddress);
-	}
-
-	public Suppression fetchSuppression(String emailAddress) {
-		Optional<Suppression> suppressionOptional =
-			_suppressionRepository.findByEmailAddress(emailAddress);
-
-		return suppressionOptional.orElse(null);
 	}
 
 	public Page<Suppression> getSuppressionPage(
@@ -71,44 +57,13 @@ public class SuppressionDog {
 
 		PageRequest pageRequest = PageRequest.of(page, size, sort);
 
-		if (StringUtils.isBlank(emailAddress)) {
-			return _suppressionRepository.findAll(pageRequest);
-		}
-
 		return PageableExecutionUtils.getPage(
-			_suppressionRepository.findByEmailAddressContainingIgnoreCase(
-				emailAddress, pageRequest),
+			_suppressionRepository.getSuppressions(emailAddress, pageRequest),
 			pageRequest,
-			() ->
-				_suppressionRepository.countByEmailAddressContainingIgnoreCase(
-					emailAddress));
-	}
-
-	public boolean isSuppressed(String emailAddress, String individualId) {
-		if (StringUtils.isNotEmpty(emailAddress)) {
-			return _suppressionRepository.existsByEmailAddress(emailAddress);
-		}
-
-		if (StringUtils.isNotEmpty(individualId)) {
-			return _suppressionRepository.existsByIndividualId(individualId);
-		}
-
-		return false;
-	}
-
-	public Suppression updateSuppression(Suppression suppression) {
-		if (suppression.getId() == null) {
-			throw new IllegalArgumentException(
-				"Unable to update suppression with ID null");
-		}
-
-		return _suppressionRepository.save(suppression);
+			() -> _suppressionRepository.countSuppressions(emailAddress));
 	}
 
 	@Autowired
 	private SuppressionRepository _suppressionRepository;
-
-	private final TimeOrderedUuidGenerator _timeOrderedUuidGenerator =
-		new TimeOrderedUuidGenerator();
 
 }
