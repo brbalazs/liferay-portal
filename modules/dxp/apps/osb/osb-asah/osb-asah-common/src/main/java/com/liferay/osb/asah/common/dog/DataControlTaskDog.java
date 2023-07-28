@@ -16,7 +16,6 @@ package com.liferay.osb.asah.common.dog;
 
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 import com.liferay.osb.asah.common.entity.DataControlTask;
-import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.model.Sort;
@@ -48,6 +47,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.support.PageableExecutionUtils;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -82,7 +82,7 @@ public class DataControlTaskDog {
 		for (String emailAddress : emailAddresses) {
 			for (String type : types) {
 				if (type.equals(DataControlTaskType.UNSUPPRESS.toString())) {
-					_updateSuppression(batchId, emailAddress, date);
+					_suppressionDog.deleteByEmailAddress(emailAddress);
 				}
 
 				DataControlTask dataControlTask = new DataControlTask();
@@ -105,6 +105,19 @@ public class DataControlTaskDog {
 		_dataControlTaskRepository.saveAll(dataControlTasks);
 
 		return true;
+	}
+
+	public Boolean existsCompletedDataControlTask(
+		@Nullable String emailAddress,
+		DataControlTaskType dataControlTaskType) {
+
+		if (StringUtils.isBlank(emailAddress)) {
+			return false;
+		}
+
+		return _dataControlTaskRepository.existsByEmailAddressAndStatusAndType(
+			emailAddress, DataControlTaskStatus.COMPLETED.toString(),
+			dataControlTaskType.toString());
 	}
 
 	public Boolean existsDataControlTask(Long batchId, List<String> status) {
@@ -186,24 +199,6 @@ public class DataControlTaskDog {
 		CsvParser csvParser = new CsvParser(csvParserSettings);
 
 		return ListUtil.map(csvParser.parseAll(file), row -> row[0]);
-	}
-
-	private void _updateSuppression(
-		Long batchId, String emailAddress, Date date) {
-
-		Suppression suppression = _suppressionDog.fetchSuppression(
-			emailAddress);
-
-		if (suppression == null) {
-			return;
-		}
-
-		suppression.setDataControlTaskBatchId(batchId);
-		suppression.setDataControlTaskCreateDate(date);
-		suppression.setDataControlTaskStatus(
-			DataControlTaskStatus.PENDING.toString());
-
-		_suppressionDog.updateSuppression(suppression);
 	}
 
 	private static final Log _log = LogFactory.getLog(DataControlTaskDog.class);

@@ -17,12 +17,10 @@ package com.liferay.osb.asah.common.dog.test;
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.entity.DataControlTask;
-import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
-import com.liferay.osb.asah.common.repository.SuppressionRepository;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.test.util.annotation.RepositoryResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
@@ -37,7 +35,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -118,31 +115,6 @@ public class DataControlTaskDogTest
 		if (!file.delete()) {
 			_log.error("Unable to delete file " + file.getAbsolutePath());
 		}
-	}
-
-	@RepositoryResource(
-		repositoryClass = SuppressionRepository.class,
-		resourcePath = "osbasahfaroinfo/suppressions.json"
-	)
-	@RepositoryResource(
-		repositoryClass = DataControlTaskRepository.class,
-		resourcePath = "osbasahfaroinfo/data_control_tasks.json"
-	)
-	@Test
-	public void testAddUnsuppressDataControlTasks() {
-		_dataControlTaskDog.addDataControlTasks(
-			Collections.singletonList("test@liferay.com"), null, "1000",
-			Collections.singletonList(
-				DataControlTaskType.UNSUPPRESS.toString()));
-
-		Optional<Suppression> suppressionOptional =
-			_suppressionRepository.findByEmailAddress("test@liferay.com");
-
-		Suppression suppression = suppressionOptional.get();
-
-		Assertions.assertEquals(
-			DataControlTaskStatus.PENDING.toString(),
-			suppression.getDataControlTaskStatus());
 	}
 
 	@RepositoryResource(
@@ -260,9 +232,6 @@ public class DataControlTaskDogTest
 
 	@Autowired
 	private DataControlTaskDog _dataControlTaskDog;
-
-	@Autowired
-	private SuppressionRepository _suppressionRepository;
 
 	private Path _tempPath;
 
