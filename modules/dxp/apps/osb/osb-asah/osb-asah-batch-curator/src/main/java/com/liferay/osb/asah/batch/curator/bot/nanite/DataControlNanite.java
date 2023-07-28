@@ -99,13 +99,15 @@ public class DataControlNanite extends BaseNanite {
 
 		emailAddress = StringUtils.lowerCase(emailAddress);
 
-		if (_suppressionDog.isSuppressed(emailAddress, null)) {
+		if (_dataControlTaskDog.existsCompletedDataControlTask(
+				emailAddress, DataControlTaskType.SUPPRESS)) {
+
 			return;
 		}
 
 		_suppressionDog.addSuppression(
 			dataControlTask.getBatchId(), dataControlTask.getCreateDate(),
-			DataControlTaskStatus.COMPLETED.toString(), emailAddress);
+			emailAddress);
 	}
 
 	private void _deleteData(String emailAddress) {

@@ -32,7 +32,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,6 +44,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.util.ReflectionTestUtils;
 
 /**
@@ -112,12 +113,13 @@ public class DataControlNaniteTest
 				dataControlTask.getStatus());
 		}
 
-		Assertions.assertEquals(1, _suppressionRepository.count());
+		Assertions.assertEquals(
+			1, _suppressionRepository.countSuppressions(null));
 
-		Optional<Suppression> suppressionOptional =
-			_suppressionRepository.findByEmailAddress("jane.doe@liferay.com");
+		List<Suppression> suppressions = _suppressionRepository.getSuppressions(
+			"jane.doe@liferay.com", Pageable.unpaged());
 
-		Assertions.assertTrue(suppressionOptional.isPresent());
+		Assertions.assertFalse(suppressions.isEmpty());
 
 		// TODO Assert individuals do not exist
 
