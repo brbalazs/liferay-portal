@@ -20,8 +20,6 @@ import com.liferay.osb.asah.common.repository.SuppressionRepository;
 
 import java.util.Date;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
