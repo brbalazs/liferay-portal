@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS AsahTask (
 
 CREATE TABLE IF NOT EXISTS AuditEvent (
 	id BIGSERIAL PRIMARY KEY,
+	context TEXT,
 	createDate TIMESTAMPTZ,
 	type TEXT,
 	userId TEXT,

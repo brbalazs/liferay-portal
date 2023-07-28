@@ -56,6 +56,11 @@ public class AuditEvent implements Persistable<Long> {
 	}
 
 	@AccessType(AccessType.Type.PROPERTY)
+	public String getContext() {
+		return _context;
+	}
+
+	@AccessType(AccessType.Type.PROPERTY)
 	public Date getCreateDate() {
 		if (_createDate == null) {
 			return null;
@@ -101,6 +106,10 @@ public class AuditEvent implements Persistable<Long> {
 		return false;
 	}
 
+	public void setContext(String context) {
+		_context = context;
+	}
+
 	public void setCreateDate(Date createDate) {
 		if (createDate != null) {
 			_createDate = new Date(createDate.getTime());
@@ -133,6 +142,9 @@ public class AuditEvent implements Persistable<Long> {
 		DATA_CONTROL_SUPPRESS, DELETE_CHANNEL, DELETE_DATA_SOURCE
 
 	}
+
+	@Transient
+	private String _context;
 
 	@Transient
 	private Date _createDate = new Date();
