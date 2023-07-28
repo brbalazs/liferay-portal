@@ -17,12 +17,12 @@ package com.liferay.osb.asah.common.repository.test;
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.repository.SuppressionRepository;
+import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +35,14 @@ public class SuppressionRepositoryTest
 	implements OSBAsahCommonSpringTestContext,
 			   OSBAsahTestExecutionListenersContext {
 
-	@BeforeEach
-	public void setUp() {
-		Suppression suppression = new Suppression();
-
-		suppression.setEmailAddress("test@liferay.com");
-
-		_suppressionRepository.insert(suppression);
-	}
-
+	@BQSQLResource(resourcePath = "suppression_repository_test.sql")
 	@Test
 	public void testCountSuppressions() {
 		Assertions.assertEquals(
 			1, _suppressionRepository.countSuppressions("TEST"));
 	}
 
+	@BQSQLResource(resourcePath = "suppression_repository_test.sql")
 	@Test
 	public void testDeleteByEmailAddress() {
 		_suppressionRepository.deleteByEmailAddress("test@liferay.com");
@@ -58,6 +51,7 @@ public class SuppressionRepositoryTest
 			0, _suppressionRepository.countSuppressions("test@liferay.com"));
 	}
 
+	@BQSQLResource(resourcePath = "suppression_repository_test.sql")
 	@Test
 	public void testGetSuppressions() {
 		List<Suppression> suppressions = _suppressionRepository.getSuppressions(

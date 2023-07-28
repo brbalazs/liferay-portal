@@ -1,0 +1,1 @@
+INSERT INTO Suppression (createDate, emailAddress) VALUES (timestamp '${now}', 'test@liferay.com');
