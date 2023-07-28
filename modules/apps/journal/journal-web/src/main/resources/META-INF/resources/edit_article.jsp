@@ -10,8 +10,6 @@
 <%
 JournalArticle article = journalDisplayContext.getArticle();
 
-double version = BeanParamUtil.getDouble(article, request, "version", JournalArticleConstants.VERSION_DEFAULT);
-
 String ddmStructureKey = ParamUtil.getString(request, "ddmStructureKey");
 
 if (Validator.isNull(ddmStructureKey) && (article != null)) {
