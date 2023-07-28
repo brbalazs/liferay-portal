@@ -17,7 +17,7 @@ package com.liferay.osb.asah.stream.curator.bot.nanite.dxpentity;
 import com.liferay.osb.asah.common.concurrent.BoundedExecutor;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.DXPEntityDog;
-import com.liferay.osb.asah.common.dog.SuppressionDog;
+import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.entity.DXPEntity;
 import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.lock.KeyReentrantLock;
@@ -25,6 +25,7 @@ import com.liferay.osb.asah.common.messaging.Channel;
 import com.liferay.osb.asah.common.messaging.MessageBus;
 import com.liferay.osb.asah.common.messaging.MessageSubscriber;
 import com.liferay.osb.asah.common.messaging.model.Message;
+import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.stream.curator.bot.nanite.Nanite;
@@ -146,8 +147,9 @@ public class DXPEntitiesNanite implements Nanite {
 
 		if ((dxpEntityType == null) ||
 			(dxpEntityType.isUser() &&
-			 _suppressionDog.isSuppressed(
-				 objectJSONObject.optString("emailAddress"), null))) {
+			 _dataControlTaskDog.existsCompletedDataControlTask(
+				 objectJSONObject.optString("emailAddress"),
+				 DataControlTaskType.SUPPRESS))) {
 
 			return;
 		}
@@ -353,6 +355,9 @@ public class DXPEntitiesNanite implements Nanite {
 	private final BoundedExecutor _boundedExecutor =
 		BoundedExecutor.newBoundedExecutor(15, 10);
 
+	@Autowired
+	private DataControlTaskDog _dataControlTaskDog;
+
 	@Value("${osb.asah.dxp.entities.nanite.pull.messages.size:50}")
 	private int _dxpEntitiesNanitePullMessagesSize;
 
@@ -364,8 +369,5 @@ public class DXPEntitiesNanite implements Nanite {
 
 	@MessageSubscriber.Autowired(channel = Channel.DXP_ENTITIES_MESSAGE)
 	private MessageSubscriber _messageSubscriber;
-
-	@Autowired
-	private SuppressionDog _suppressionDog;
 
 }
