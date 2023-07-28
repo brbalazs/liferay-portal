@@ -2778,6 +2778,30 @@
 			"type": "DAY"
 		}
 	},
+	"suppression": {
+		"fields": [
+			{
+				"mode": "REQUIRED",
+				"name": "createDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "dataControlTaskBatchId",
+				"type": "INT64"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "dataControlTaskCreateDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "emailAddress",
+				"type": "STRING"
+			}
+		]
+	},
 	"team": {
 		"clusteringFields": [
 			"dataSourceId"
