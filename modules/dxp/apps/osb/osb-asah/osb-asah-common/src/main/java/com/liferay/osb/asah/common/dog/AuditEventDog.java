@@ -16,6 +16,7 @@ package com.liferay.osb.asah.common.dog;
 
 import com.liferay.osb.asah.common.entity.AuditEvent;
 import com.liferay.osb.asah.common.repository.AuditEventRepository;
+import com.liferay.osb.asah.common.util.TimeOrderedUuidGenerator;
 
 import java.util.Date;
 
@@ -35,6 +36,7 @@ public class AuditEventDog {
 
 		auditEvent.setContext(context);
 		auditEvent.setCreateDate(new Date());
+		auditEvent.setId(_timeOrderedUuidGenerator.generateIdAsLong());
 		auditEvent.setIsNew(Boolean.TRUE);
 		auditEvent.setType(type);
 		auditEvent.setUserId(userId);
@@ -45,5 +47,8 @@ public class AuditEventDog {
 
 	@Autowired
 	private AuditEventRepository _auditEventRepository;
+
+	private final TimeOrderedUuidGenerator _timeOrderedUuidGenerator =
+		new TimeOrderedUuidGenerator();
 
 }
