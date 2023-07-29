@@ -16,10 +16,12 @@ package com.liferay.osb.asah.common.dog.test;
 
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
+import com.liferay.osb.asah.common.entity.AuditEvent;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.model.Sort;
+import com.liferay.osb.asah.common.repository.AuditEventRepository;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.test.util.annotation.RepositoryResource;
@@ -32,6 +34,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -77,6 +80,8 @@ public class DataControlTaskDogTest
 		if (!folder.delete()) {
 			_log.error("Unable to delete folder " + folder.getAbsolutePath());
 		}
+
+		_auditEventRepository.deleteAll();
 	}
 
 	@RepositoryResource(
@@ -116,6 +121,47 @@ public class DataControlTaskDogTest
 		if (!file.delete()) {
 			_log.error("Unable to delete file " + file.getAbsolutePath());
 		}
+	}
+
+	@Test
+	public void testAddDataControlTasksGeneratesAuditEvents() {
+		List<String> emailAddresses = new ArrayList<String>() {
+			{
+				add("test1@liferay.com");
+				add("test2@liferay.com");
+				add("test3@liferay.com");
+			}
+		};
+
+		_dataControlTaskDog.addDataControlTasks(
+			emailAddresses, null, "1000",
+			Collections.singletonList(DataControlTaskType.SUPPRESS.toString()),
+			"12345", "test@liferay.com");
+
+		List<AuditEvent> auditEvents = new ArrayList<>();
+
+		Iterable<AuditEvent> iterable = _auditEventRepository.findAll();
+
+		iterable.forEach(auditEvents::add);
+
+		Assertions.assertEquals(3, auditEvents.size());
+
+		int count = 0;
+
+		for (AuditEvent auditEvent : _auditEventRepository.findAll()) {
+			Assertions.assertEquals(
+				AuditEvent.Type.USER_SUPPRESS, auditEvent.getType());
+			Assertions.assertEquals("12345", auditEvent.getUserId());
+			Assertions.assertEquals(
+				"test@liferay.com", auditEvent.getUserName());
+
+			emailAddresses.remove(auditEvent.getContext());
+
+			count++;
+		}
+
+		Assertions.assertEquals(3, count);
+		Assertions.assertTrue(emailAddresses.isEmpty());
 	}
 
 	@RepositoryResource(
@@ -230,6 +276,9 @@ public class DataControlTaskDogTest
 
 	private static final Log _log = LogFactory.getLog(
 		DataControlTaskDogTest.class);
+
+	@Autowired
+	private AuditEventRepository _auditEventRepository;
 
 	@Autowired
 	private DataControlTaskDog _dataControlTaskDog;
