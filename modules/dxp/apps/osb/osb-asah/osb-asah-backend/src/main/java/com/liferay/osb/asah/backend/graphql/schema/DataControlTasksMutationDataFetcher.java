@@ -14,6 +14,7 @@
 
 package com.liferay.osb.asah.backend.graphql.schema;
 
+import com.liferay.osb.asah.common.dog.AuditEventDog;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.graphql.GraphQLTypeWiring;
 import com.liferay.osb.asah.common.spring.http.exception.OSBAsahException;
@@ -46,7 +47,9 @@ public class DataControlTasksMutationDataFetcher
 			dataFetchingEnvironment.getArgument("emailAddresses"),
 			_getPath(dataFetchingEnvironment.getArgument("fileName")),
 			dataFetchingEnvironment.getArgument("ownerId"),
-			dataFetchingEnvironment.getArgument("types"));
+			dataFetchingEnvironment.getArgument("types"),
+			dataFetchingEnvironment.getArgument("userId"),
+			dataFetchingEnvironment.getArgument("userName"));
 	}
 
 	private Path _getPath(String fileName) {
@@ -65,6 +68,9 @@ public class DataControlTasksMutationDataFetcher
 
 		return path;
 	}
+
+	@Autowired
+	private AuditEventDog _auditEventDog;
 
 	@Autowired
 	private DataControlTaskDog _dataControlTaskDog;

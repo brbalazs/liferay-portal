@@ -49,6 +49,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Matthew Kong
@@ -56,9 +57,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataControlTaskDog {
 
+	@Transactional
 	public boolean addDataControlTasks(
 		List<String> emailAddresses, Path path, String ownerId,
-		List<String> types) {
+		List<String> types, String userId, String userName) {
 
 		if (path != null) {
 			File file = path.toFile();
@@ -103,6 +105,8 @@ public class DataControlTaskDog {
 		}
 
 		_dataControlTaskRepository.saveAll(dataControlTasks);
+
+		_addAuditEvents(emailAddresses, types, userId, userName);
 
 		return true;
 	}
@@ -177,6 +181,19 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.save(dataControlTask);
 	}
 
+	private void _addAuditEvents(
+		List<String> emailAddresses, List<String> types, String userId,
+		String userName) {
+
+		for (String emailAddress : emailAddresses) {
+			for (String type : types) {
+				_auditEventDog.addAuditEvent(
+					emailAddress, DataControlTaskType.valueOf(type), userId,
+					userName);
+			}
+		}
+	}
+
 	private Date _getStartCreateDate(Integer rangeKey) {
 		if (rangeKey == null) {
 			return null;
@@ -202,6 +219,9 @@ public class DataControlTaskDog {
 	}
 
 	private static final Log _log = LogFactory.getLog(DataControlTaskDog.class);
+
+	@Autowired
+	private AuditEventDog _auditEventDog;
 
 	@Autowired
 	private DataControlTaskRepository _dataControlTaskRepository;

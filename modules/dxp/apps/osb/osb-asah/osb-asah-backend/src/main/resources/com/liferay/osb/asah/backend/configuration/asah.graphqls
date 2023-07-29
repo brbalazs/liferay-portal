@@ -760,6 +760,8 @@ type MutationType {
 		fileName: String
 		ownerId: String!
 		types: [DataControlTaskType]!
+		userId: String!
+		userName: String!
 	): Boolean
 
 	deleteEventAnalyses(

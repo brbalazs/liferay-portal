@@ -15,6 +15,7 @@
 package com.liferay.osb.asah.common.dog;
 
 import com.liferay.osb.asah.common.entity.AuditEvent;
+import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.repository.AuditEventRepository;
 import com.liferay.osb.asah.common.util.TimeOrderedUuidGenerator;
 
@@ -43,6 +44,14 @@ public class AuditEventDog {
 		auditEvent.setUserName(userName);
 
 		return _auditEventRepository.save(auditEvent);
+	}
+
+	public AuditEvent addAuditEvent(
+		String context, DataControlTaskType dataControlTaskType, String userId,
+		String userName) {
+
+		return addAuditEvent(
+			context, dataControlTaskType.getAuditEventType(), userId, userName);
 	}
 
 	@Autowired
