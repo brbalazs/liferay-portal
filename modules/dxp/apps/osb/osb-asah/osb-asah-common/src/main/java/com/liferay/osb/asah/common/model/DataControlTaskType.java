@@ -14,11 +14,25 @@
 
 package com.liferay.osb.asah.common.model;
 
+import com.liferay.osb.asah.common.entity.AuditEvent;
+
 /**
  * @author Matthew Kong
  */
 public enum DataControlTaskType {
 
-	ACCESS, DELETE, SUPPRESS, UNSUPPRESS
+	ACCESS(AuditEvent.Type.USER_ACCESS), DELETE(AuditEvent.Type.USER_DELETE),
+	SUPPRESS(AuditEvent.Type.USER_SUPPRESS),
+	UNSUPPRESS(AuditEvent.Type.USER_UNSUPPRESS);
+
+	public AuditEvent.Type getAuditEventType() {
+		return _auditEventType;
+	}
+
+	private DataControlTaskType(AuditEvent.Type auditEventType) {
+		_auditEventType = auditEventType;
+	}
+
+	private final AuditEvent.Type _auditEventType;
 
 }
