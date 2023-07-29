@@ -93,7 +93,8 @@ public class DataControlTaskDogTest
 
 		_dataControlTaskDog.addDataControlTasks(
 			null, Paths.get(_tempPath.toString(), "test.csv"), "1000",
-			Collections.singletonList(DataControlTaskType.SUPPRESS.toString()));
+			Collections.singletonList(DataControlTaskType.SUPPRESS.toString()),
+			"12345", "test@liferay.com");
 
 		List<DataControlTask> dataControlTasks =
 			_dataControlTaskDog.getDataControlTasks(null, null, null);
