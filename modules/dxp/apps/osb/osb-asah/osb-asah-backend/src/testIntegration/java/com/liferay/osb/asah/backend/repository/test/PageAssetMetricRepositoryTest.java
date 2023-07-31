@@ -142,6 +142,13 @@ public class PageAssetMetricRepositoryTest
 			TimeRange.LAST_24_HOURS);
 
 		Assertions.assertEquals(1, pageMetrics.size());
+
+		pageMetrics = _assetMetricRepository.getAssetMetrics(
+			1L, null, "description 1", PageRequest.of(0, 10),
+			SetUtil.of(PageMetricType.VIEWS.getName()),
+			TimeRange.LAST_24_HOURS);
+
+		Assertions.assertEquals(1, pageMetrics.size());
 	}
 
 	@BQSQLResource(
