@@ -2688,6 +2688,7 @@ log.sanitizer.enabled=false</echo>
 								<arg value="-Dapp.server.start.executable.arg.line=${test.batch.app.server.start.executable.arg.line}" />
 								<arg value="-Ddatabase.type=@{database.type}" />
 								<arg value="-Dbuild.exclude.ant.plugin=true" />
+								<arg value="-Dbuild.exclude.dirs=dxp/apps/osb" />
 								<arg value="-Dtest.class.group.index=${axis.variable}" />
 							</gradle-execute>
 
@@ -5565,6 +5566,7 @@ log.sanitizer.enabled=false</echo>
 				<gradle-execute dir="modules" task="test">
 					<arg value="--continue" />
 					<arg value="-Dbuild.exclude.ant.plugin=true" />
+					<arg value="-Dbuild.exclude.dirs=dxp/apps/osb" />
 					<arg if:true="${run.solr.unit.tests}" value="-Dcom.liferay.portal.search.${solr.major.version}.test.unit.started=true" />
 					<arg value="-Djunit.code.coverage=${test.batch.code.coverage}" />
 					<arg value="-Dtest.class.group.index=${axis.variable}" />
