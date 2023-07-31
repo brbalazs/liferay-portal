@@ -362,6 +362,15 @@ public class PageAssetMetricRepositoryImpl
 	}
 
 	@Override
+	protected Condition getDescriptionLikeCondition(String terms) {
+		return DSL.lower(
+			DSL.field("description", String.class)
+		).like(
+			StringUtils.wrap(StringUtils.lowerCase(terms), "%")
+		);
+	}
+
+	@Override
 	protected Condition getKeywordSearchCondition(String keywords) {
 		return DSL.or(
 			DSL.lower(

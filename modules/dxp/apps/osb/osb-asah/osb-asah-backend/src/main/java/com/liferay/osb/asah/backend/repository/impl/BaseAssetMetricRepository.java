@@ -890,6 +890,10 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 		return "assetTitle";
 	}
 
+	protected Condition getDescriptionLikeCondition(String terms) {
+		return DSL.noCondition();
+	}
+
 	protected Condition getKeywordSearchCondition(String keywords) {
 		return DSL.lower(
 			DSL.field(getAssetTitleFieldName(), String.class)
@@ -1016,11 +1020,13 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 
 		if (StringUtils.isNotBlank(terms)) {
 			conditions.add(
-				DSL.lower(
-					DSL.field(getAssetTitleFieldName(), String.class)
-				).like(
-					StringUtils.wrap(StringUtils.lowerCase(terms), "%")
-				));
+				DSL.or(
+					DSL.lower(
+						DSL.field(getAssetTitleFieldName(), String.class)
+					).like(
+						StringUtils.wrap(StringUtils.lowerCase(terms), "%")
+					),
+					getDescriptionLikeCondition(terms)));
 		}
 
 		return DSL.and(conditions);
