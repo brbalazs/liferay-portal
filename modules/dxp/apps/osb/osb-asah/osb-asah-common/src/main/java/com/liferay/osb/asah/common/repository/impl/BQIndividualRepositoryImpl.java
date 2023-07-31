@@ -801,6 +801,22 @@ public class BQIndividualRepositoryImpl
 			));
 	}
 
+	@Override
+	public void updateSuppressed(String id, Boolean suppressed) {
+		_queryExecutor.queryExecute(
+			_dslContext.update(
+				DSL.table("BQIndividual")
+			).set(
+				DSL.field("suppressed", Boolean.class), suppressed
+			).where(
+				DSL.field(
+					"id"
+				).eq(
+					id
+				)
+			));
+	}
+
 	private long _countIndividualFieldValuesCustom(
 		Long channelId, String fieldName, String filterString) {
 

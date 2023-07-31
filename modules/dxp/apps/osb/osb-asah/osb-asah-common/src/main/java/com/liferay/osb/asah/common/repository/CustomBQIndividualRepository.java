@@ -87,4 +87,6 @@ public interface CustomBQIndividualRepository {
 		@Nullable Long channelId, String fieldName,
 		@Nullable String filterString, Pageable pageable);
 
+	public void updateSuppressed(String id, Boolean suppressed);
+
 }

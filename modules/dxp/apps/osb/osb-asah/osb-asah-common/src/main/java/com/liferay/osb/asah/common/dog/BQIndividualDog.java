@@ -226,6 +226,14 @@ public class BQIndividualDog {
 				segmentId));
 	}
 
+	public void suppress(String id) {
+		_bqIndividualRepository.updateSuppressed(id, Boolean.TRUE);
+	}
+
+	public void unsuppress(String id) {
+		_bqIndividualRepository.updateSuppressed(id, Boolean.FALSE);
+	}
+
 	private org.springframework.data.domain.Sort _getSort(String[] sorts) {
 		if (ArrayUtils.isEmpty(sorts)) {
 			return org.springframework.data.domain.Sort.by(

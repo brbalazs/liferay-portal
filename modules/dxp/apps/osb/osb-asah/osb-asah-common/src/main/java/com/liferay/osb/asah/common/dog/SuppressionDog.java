@@ -20,6 +20,8 @@ import com.liferay.osb.asah.common.repository.SuppressionRepository;
 
 import java.util.Date;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -43,11 +45,21 @@ public class SuppressionDog {
 		suppression.setDataControlTaskCreateDate(dataControlTaskCreateDate);
 		suppression.setEmailAddress(emailAddress);
 
-		return _suppressionRepository.insert(suppression);
+		_suppressionRepository.insert(suppression);
+
+		// Individual
+
+		_bqIndividualDog.suppress(DigestUtils.sha256Hex(emailAddress));
+
+		return suppression;
 	}
 
 	public void deleteByEmailAddress(String emailAddress) {
 		_suppressionRepository.deleteByEmailAddress(emailAddress);
+
+		// Individual
+
+		_bqIndividualDog.unsuppress(DigestUtils.sha256Hex(emailAddress));
 	}
 
 	public Page<Suppression> getSuppressionPage(
@@ -60,6 +72,9 @@ public class SuppressionDog {
 			pageRequest,
 			() -> _suppressionRepository.countSuppressions(emailAddress));
 	}
+
+	@Autowired
+	private BQIndividualDog _bqIndividualDog;
 
 	@Autowired
 	private SuppressionRepository _suppressionRepository;
