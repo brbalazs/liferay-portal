@@ -670,11 +670,17 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 			).join(
 				individualTable
 			).on(
-				DSL.field(
-					"individual.id"
-				).eq(
-					DSL.field("identity.individualId")
-				)
+				DSL.and(
+					DSL.field(
+						"individual.id"
+					).eq(
+						DSL.field("identity.individualId")
+					),
+					DSL.field(
+						"individual.suppressed", Boolean.class
+					).notEqual(
+						Boolean.FALSE
+					))
 			).where(
 				whereClauseCondition.and(
 					DSL.field(
@@ -759,11 +765,17 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 				).join(
 					individualTable
 				).on(
-					DSL.field(
-						"individual.id"
-					).eq(
-						DSL.field("identity.individualId")
-					)
+					DSL.and(
+						DSL.field(
+							"individual.id"
+						).eq(
+							DSL.field("identity.individualId")
+						),
+						DSL.field(
+							"individual.suppressed", Boolean.class
+						).notEqual(
+							Boolean.TRUE
+						))
 				).where(
 					whereClauseCondition.and(
 						DSL.field(

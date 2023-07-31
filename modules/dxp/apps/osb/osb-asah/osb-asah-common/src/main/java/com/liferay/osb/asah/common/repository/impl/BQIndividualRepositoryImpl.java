@@ -208,11 +208,17 @@ public class BQIndividualRepositoryImpl
 					"Individual"
 				)
 			).on(
-				DSL.field(
-					"IdentityActivity.individualId"
-				).eq(
-					DSL.field("Individual.id")
-				)
+				DSL.and(
+					DSL.field(
+						"IdentityActivity.individualId"
+					).eq(
+						DSL.field("Individual.id")
+					),
+					DSL.field(
+						"Individual.suppressed"
+					).notEqual(
+						Boolean.FALSE
+					))
 			).where(
 				DSL.and(
 					DSL.field(
@@ -291,6 +297,12 @@ public class BQIndividualRepositoryImpl
 				));
 		}
 
+		conditions.add(
+			DSL.field(
+				"Individual.suppressed", Boolean.class
+			).notEqual(
+				Boolean.FALSE
+			));
 		conditions.add(fieldValueField.isNotNull());
 		conditions.add(fieldValueField.notEqual(""));
 
@@ -409,6 +421,13 @@ public class BQIndividualRepositoryImpl
 		}
 
 		List<Condition> conditions = new ArrayList<>();
+
+		conditions.add(
+			DSL.field(
+				"Individual.suppressed", Boolean.class
+			).notEqual(
+				Boolean.FALSE
+			));
 
 		if (channelId != null) {
 			conditions.add(_getChannelIdCondition(channelId));
@@ -928,6 +947,12 @@ public class BQIndividualRepositoryImpl
 			));
 		conditions.add(
 			DSL.field(
+				"Individual.suppressed", Boolean.class
+			).notEqual(
+				Boolean.FALSE
+			));
+		conditions.add(
+			DSL.field(
 				"IndividualFields_" + fieldName + ".name"
 			).eq(
 				fieldName
@@ -1305,11 +1330,17 @@ public class BQIndividualRepositoryImpl
 			}
 
 			selectJoinStep = selectOnStep.on(
-				DSL.field(
-					"Identity.individualId"
-				).eq(
-					DSL.field("Individual.id")
-				));
+				DSL.and(
+					DSL.field(
+						"Identity.individualId"
+					).eq(
+						DSL.field("Individual.id")
+					),
+					DSL.field(
+						"Individual.suppressed", Boolean.class
+					).notEqual(
+						Boolean.FALSE
+					)));
 
 			if (referencedTableNames.contains("ExpandoValue")) {
 				Stream<String> stream = referencedTableNames.stream();
