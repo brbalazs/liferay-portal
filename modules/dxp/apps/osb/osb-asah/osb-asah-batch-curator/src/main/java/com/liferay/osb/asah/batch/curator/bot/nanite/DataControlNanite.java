@@ -17,10 +17,12 @@ import com.liferay.osb.asah.common.dog.AuditEventDog;
 import com.liferay.osb.asah.common.dog.BQCSVUserDog;
 import com.liferay.osb.asah.common.dog.BQMembershipDog;
 import com.liferay.osb.asah.common.dog.BQUserDog;
+import com.liferay.osb.asah.common.dog.DXPEntityDog;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.dog.DataSourceDog;
 import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.dog.SuppressionDog;
+import com.liferay.osb.asah.common.entity.DXPEntity;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.entity.DataSource;
 import com.liferay.osb.asah.common.entity.Segment;
@@ -37,6 +39,7 @@ import java.nio.file.Paths;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,6 +114,23 @@ public class DataControlNanite extends BaseNanite {
 	}
 
 	private void _deleteData(String emailAddress) {
+
+		// DXP User
+
+		List<DXPEntity> dxpEntities = _dxpEntityDog.fetchAllByFieldsAndType(
+			Collections.singletonMap("emailAddress", emailAddress),
+			DXPEntity.Type.USER);
+
+		if (!dxpEntities.isEmpty()) {
+			_dxpEntityDog.delete(dxpEntities);
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					String.format(
+						"%s DXP user(s) with email %s deleted successfully",
+						dxpEntities.size(), emailAddress));
+			}
+		}
 
 		// TODO Fetch Individual by emailAddress
 
@@ -390,6 +410,9 @@ public class DataControlNanite extends BaseNanite {
 
 	@Autowired
 	private DataSourceDog _dataSourceDog;
+
+	@Autowired
+	private DXPEntityDog _dxpEntityDog;
 
 	@Autowired
 	private EmailHttp _emailHttp;

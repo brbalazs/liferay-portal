@@ -53,6 +53,10 @@ public class DXPEntityDog {
 		_dxpEntityRepository.delete(dxpEntity);
 	}
 
+	public void delete(List<DXPEntity> dxpEntities) {
+		_dxpEntityRepository.deleteAll(dxpEntities);
+	}
+
 	public void deleteByFieldNameEqualsAndType(
 		String fieldName, Object fieldValue, DXPEntity.Type type) {
 
@@ -62,6 +66,21 @@ public class DXPEntityDog {
 
 	public void deleteByType(DXPEntity.Type type) {
 		_dxpEntityRepository.deleteByType(type);
+	}
+
+	public List<DXPEntity> fetchAllByFieldsAndType(
+		Map<String, Object> fields, DXPEntity.Type type) {
+
+		List<DXPEntity> dxpEntities = _dxpEntityRepository.findByFieldsAndType(
+			fields, type);
+
+		Stream<DXPEntity> stream = dxpEntities.stream();
+
+		return stream.map(
+			dxpEntity -> _mapDXPEntity(dxpEntity, type)
+		).collect(
+			Collectors.toList()
+		);
 	}
 
 	public DXPEntity fetchByFieldsAndType(
