@@ -14,7 +14,6 @@ import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.DataExporter;
 import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.RawDataExporter;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.AuditEventDog;
-import com.liferay.osb.asah.common.dog.BQCSVUserDog;
 import com.liferay.osb.asah.common.dog.BQMembershipDog;
 import com.liferay.osb.asah.common.dog.BQUserDog;
 import com.liferay.osb.asah.common.dog.DXPEntityDog;
@@ -29,6 +28,8 @@ import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.http.EmailHttp;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Individual;
+import com.liferay.osb.asah.common.repository.executor.BigQueryQueryExecutor;
+import com.liferay.osb.asah.common.spring.resource.ResourceUtil;
 import com.liferay.osb.asah.common.zip.ZipFileBuilder;
 
 import java.io.File;
@@ -113,7 +114,7 @@ public class DataControlNanite extends BaseNanite {
 			emailAddress);
 	}
 
-	private void _deleteData(String emailAddress) {
+	private void _deleteData(String emailAddress) throws Exception {
 
 		// DXP User
 
@@ -132,18 +133,21 @@ public class DataControlNanite extends BaseNanite {
 			}
 		}
 
-		// TODO Fetch Individual by emailAddress
+		// BigQuery
 
-		Map<Long, List<String>> dataSourceIdUsersPKs =
-			_getBQDataSourceIdUserPKs("CSV", new Individual());
+		_bigQueryQueryExecutor.queryExecute(
+			StringUtils.replace(
+				ResourceUtil.readResourceToString(
+					"dependencies/delete_individual_data_statement.sql",
+					getClass()),
+				"${individual_id}", DigestUtils.sha256Hex(emailAddress)));
 
-		if (!dataSourceIdUsersPKs.isEmpty()) {
-			for (Map.Entry<Long, List<String>> entry :
-					dataSourceIdUsersPKs.entrySet()) {
-
-				_bqCSVUserDog.deleteBQCSVUsers(
-					entry.getKey(), entry.getValue());
-			}
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				String.format(
+					"Individual data associated with email %s deleted " +
+						"successfully",
+					emailAddress));
 		}
 	}
 
@@ -397,7 +401,7 @@ public class DataControlNanite extends BaseNanite {
 	private AuditEventDog _auditEventDog;
 
 	@Autowired
-	private BQCSVUserDog _bqCSVUserDog;
+	private BigQueryQueryExecutor _bigQueryQueryExecutor;
 
 	@Autowired
 	private BQMembershipDog _bqMembershipDog;
