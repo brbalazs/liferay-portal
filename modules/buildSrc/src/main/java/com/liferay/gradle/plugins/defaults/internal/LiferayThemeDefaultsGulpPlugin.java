@@ -28,9 +28,9 @@ import org.gradle.api.Task;
 import org.gradle.api.artifacts.ConfigurablePublishArtifact;
 import org.gradle.api.artifacts.Dependency;
 import org.gradle.api.artifacts.dsl.ArtifactHandler;
-import org.gradle.api.plugins.BasePlugin;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.PluginContainer;
+import org.gradle.api.publish.plugins.PublishingPlugin;
 import org.gradle.api.tasks.Copy;
 import org.gradle.api.tasks.TaskContainer;
 
@@ -79,7 +79,7 @@ public class LiferayThemeDefaultsGulpPlugin implements Plugin<Project> {
 		publishNodeModuleTask.dependsOn(zipResourcesImporterArchivesTask);
 		publishNodeModuleTask.setDescription(
 			"Publishes this project to the NPM registry.");
-		publishNodeModuleTask.setGroup(BasePlugin.UPLOAD_GROUP);
+		publishNodeModuleTask.setGroup(PublishingPlugin.PUBLISH_TASK_GROUP);
 
 		return publishNodeModuleTask;
 	}
@@ -247,7 +247,7 @@ public class LiferayThemeDefaultsGulpPlugin implements Plugin<Project> {
 		final Project project, PublishNodeModuleTask publishNodeModuleTask) {
 
 		Task uploadArchivesTask = GradleUtil.getTask(
-			project, BasePlugin.UPLOAD_ARCHIVES_TASK_NAME);
+			project, PublishingPlugin.PUBLISH_LIFECYCLE_TASK_NAME);
 
 		if (FileUtil.exists(project, ".lfrbuild-missing-resources-importer")) {
 			Action<Task> action = new Action<Task>() {

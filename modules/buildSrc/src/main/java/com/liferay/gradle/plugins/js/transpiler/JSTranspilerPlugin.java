@@ -28,6 +28,7 @@ import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.plugins.BasePlugin;
+import org.gradle.api.plugins.JavaLibraryPlugin;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.Copy;
@@ -38,7 +39,9 @@ import org.gradle.api.tasks.TaskDependency;
 
 /**
  * @author     Andrea Di Giorgi
+ * @deprecated As of Judson (7.1.x), with no direct replacement
  */
+@Deprecated
 public class JSTranspilerPlugin implements Plugin<Project> {
 
 	public static final String DOWNLOAD_METAL_CLI_TASK_NAME =
@@ -150,12 +153,13 @@ public class JSTranspilerPlugin implements Plugin<Project> {
 		PluginContainer pluginContainer = project.getPlugins();
 
 		pluginContainer.withType(
-			JavaPlugin.class,
-			new Action<JavaPlugin>() {
+			JavaLibraryPlugin.class,
+			new Action<JavaLibraryPlugin>() {
 
 				@Override
-				public void execute(JavaPlugin javaPlugin) {
-					_configureTaskTranspileJSForJavaPlugin(transpileJSTask);
+				public void execute(JavaLibraryPlugin javaLibraryPlugin) {
+					_configureTaskTranspileJSForJavaLibraryPlugin(
+						transpileJSTask);
 				}
 
 			});
@@ -232,7 +236,7 @@ public class JSTranspilerPlugin implements Plugin<Project> {
 			});
 	}
 
-	private void _configureTaskTranspileJSForJavaPlugin(
+	private void _configureTaskTranspileJSForJavaLibraryPlugin(
 		TranspileJSTask transpileJSTask) {
 
 		transpileJSTask.mustRunAfter(JavaPlugin.PROCESS_RESOURCES_TASK_NAME);

@@ -7,8 +7,10 @@ package com.liferay.gradle.plugins.js.transpiler;
 
 import com.liferay.gradle.plugins.js.transpiler.internal.util.JSTranspilerPluginUtil;
 import com.liferay.gradle.plugins.node.NodePlugin;
+import com.liferay.gradle.plugins.node.YarnPlugin;
 import com.liferay.gradle.plugins.node.task.NpmInstallTask;
 import com.liferay.gradle.plugins.node.task.PackageRunTask;
+import com.liferay.gradle.plugins.node.task.YarnInstallTask;
 import com.liferay.gradle.util.GradleUtil;
 import com.liferay.gradle.util.copy.RenameDependencyClosure;
 
@@ -25,7 +27,9 @@ import org.gradle.api.tasks.TaskDependency;
 
 /**
  * @author     Andrea Di Giorgi
+ * @deprecated As of Judson (7.1.x), with no direct replacement
  */
+@Deprecated
 public class JSTranspilerBasePlugin implements Plugin<Project> {
 
 	public static final String EXPAND_JS_COMPILE_DEPENDENCIES_TASK_NAME =
@@ -101,6 +105,21 @@ public class JSTranspilerBasePlugin implements Plugin<Project> {
 
 			copy.dependsOn(taskDependencies);
 			copy.mustRunAfter(npmInstallTask);
+
+			if (!npmInstallTask.isUseNpm()) {
+				Project curProject = npmInstallTask.getProject();
+
+				do {
+					YarnInstallTask yarnInstallTask =
+						(YarnInstallTask)GradleUtil.fetchTask(
+							curProject, YarnPlugin.YARN_INSTALL_TASK_NAME);
+
+					if (yarnInstallTask != null) {
+						copy.mustRunAfter(yarnInstallTask);
+					}
+				}
+				while ((curProject = curProject.getParent()) != null);
+			}
 
 			expandJSCompileDependenciesTask.dependsOn(copy);
 		}

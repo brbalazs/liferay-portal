@@ -12,12 +12,15 @@ import java.util.List;
 
 import org.gradle.api.tasks.CacheableTask;
 import org.gradle.api.tasks.Input;
+import org.gradle.api.tasks.Internal;
 
 /**
- * @author David Truong
- * @author Andrea Di Giorgi
+ * @author     David Truong
+ * @author     Andrea Di Giorgi
+ * @deprecated As of Judson (7.1.x), with no direct replacement
  */
 @CacheableTask
+@Deprecated
 public class ExecuteGulpTask extends ExecuteNodeScriptTask {
 
 	public ExecuteGulpTask() {
@@ -33,6 +36,7 @@ public class ExecuteGulpTask extends ExecuteNodeScriptTask {
 		_gulpCommand = gulpCommand;
 	}
 
+	@Internal
 	@Override
 	protected List<String> getCompleteArgs() {
 		List<String> completeArgs = super.getCompleteArgs();

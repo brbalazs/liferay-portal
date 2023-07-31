@@ -15,9 +15,11 @@ import org.gradle.api.Task;
 import org.gradle.api.tasks.TaskContainer;
 
 /**
- * @author David Truong
- * @author Andrea Di Giorgi
+ * @author     David Truong
+ * @author     Andrea Di Giorgi
+ * @deprecated As of Judson (7.1.x), with no direct replacement
  */
+@Deprecated
 public class GulpPlugin implements Plugin<Project> {
 
 	public static final String EXTENSION_NAME = "gulp";

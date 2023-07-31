@@ -26,6 +26,7 @@ import org.gradle.api.artifacts.DependencySet;
 import org.gradle.api.file.FileCollection;
 import org.gradle.api.file.SourceDirectorySet;
 import org.gradle.api.plugins.BasePlugin;
+import org.gradle.api.plugins.JavaLibraryPlugin;
 import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.PluginContainer;
 import org.gradle.api.tasks.SourceSet;
@@ -34,7 +35,9 @@ import org.gradle.api.tasks.TaskContainer;
 
 /**
  * @author     Andrea Di Giorgi
+ * @deprecated As of Judson (7.1.x), with no direct replacement
  */
+@Deprecated
 public class SoyPlugin implements Plugin<Project> {
 
 	public static final String BUILD_SOY_TASK_NAME = "buildSoy";
@@ -93,12 +96,12 @@ public class SoyPlugin implements Plugin<Project> {
 		PluginContainer pluginContainer = project.getPlugins();
 
 		pluginContainer.withType(
-			JavaPlugin.class,
-			new Action<JavaPlugin>() {
+			JavaLibraryPlugin.class,
+			new Action<JavaLibraryPlugin>() {
 
 				@Override
-				public void execute(JavaPlugin javaPlugin) {
-					_configureTaskBuildSoyForJavaPlugin(buildSoyTask);
+				public void execute(JavaLibraryPlugin javaLibraryPlugin) {
+					_configureTaskBuildSoyForJavaLibraryPlugin(buildSoyTask);
 				}
 
 			});
@@ -149,12 +152,12 @@ public class SoyPlugin implements Plugin<Project> {
 			});
 
 		pluginContainer.withType(
-			JavaPlugin.class,
-			new Action<JavaPlugin>() {
+			JavaLibraryPlugin.class,
+			new Action<JavaLibraryPlugin>() {
 
 				@Override
-				public void execute(JavaPlugin javaPlugin) {
-					_configureTaskWrapSoyAlloyTemplateForJavaPlugin(
+				public void execute(JavaLibraryPlugin javaLibraryPlugin) {
+					_configureTaskWrapSoyAlloyTemplateForJavaLibraryPlugin(
 						wrapSoyAlloyTemplateTask);
 				}
 
@@ -169,7 +172,7 @@ public class SoyPlugin implements Plugin<Project> {
 		buildSoyTask.setClasspath(fileCollection);
 	}
 
-	private void _configureTaskBuildSoyForJavaPlugin(
+	private void _configureTaskBuildSoyForJavaLibraryPlugin(
 		final BuildSoyTask buildSoyTask) {
 
 		buildSoyTask.setSource(
@@ -201,7 +204,7 @@ public class SoyPlugin implements Plugin<Project> {
 			});
 	}
 
-	private void _configureTaskWrapSoyAlloyTemplateForJavaPlugin(
+	private void _configureTaskWrapSoyAlloyTemplateForJavaLibraryPlugin(
 		final WrapSoyAlloyTemplateTask wrapSoyAlloyTemplateTask) {
 
 		wrapSoyAlloyTemplateTask.dependsOn(
