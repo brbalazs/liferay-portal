@@ -2,6 +2,11 @@ gulpBuild {
 	enabled = false
 }
 
+node {
+	nodeVersion = "8.15.0"
+	npmVersion = "6.4.1"
+}
+
 publishNodeModule {
 	enabled = false
 }
