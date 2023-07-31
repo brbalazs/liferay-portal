@@ -154,16 +154,13 @@ public class ExperimentNanite extends BaseNanite {
 		Range<Double> controlConfidenceIntervalRange, GoalMetric goalMetric,
 		Range<Double> variantConfidenceIntervalRange) {
 
-		if ((Objects.equals(goalMetric, GoalMetric.BOUNCE_RATE) &&
-			 variantConfidenceIntervalRange.isBeforeRange(
-				 controlConfidenceIntervalRange)) ||
-			variantConfidenceIntervalRange.isAfterRange(
-				controlConfidenceIntervalRange)) {
-
-			return true;
+		if (Objects.equals(goalMetric, GoalMetric.BOUNCE_RATE)) {
+			return variantConfidenceIntervalRange.isBeforeRange(
+				controlConfidenceIntervalRange);
 		}
 
-		return false;
+		return variantConfidenceIntervalRange.isAfterRange(
+			controlConfidenceIntervalRange);
 	}
 
 	private void _putOrReplaceMetric(
