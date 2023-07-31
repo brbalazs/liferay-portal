@@ -1253,6 +1253,11 @@
 				"mode": "NULLABLE",
 				"name": "screenName",
 				"type": "STRING"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "suppressed",
+				"type": "BOOLEAN"
 			}
 		],
 		"timePartitioning": {
