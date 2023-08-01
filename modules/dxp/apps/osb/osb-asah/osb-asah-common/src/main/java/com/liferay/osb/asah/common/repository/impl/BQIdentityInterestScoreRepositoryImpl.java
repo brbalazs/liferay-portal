@@ -332,11 +332,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 				).as(
 					"interested"
 				),
-				DSL.field(
-					"LOWER(IdentityInterestScore.keyword)"
-				).as(
-					"keyword"
-				),
+				_getKeywordField("IdentityInterestScore.keyword"),
 				DSL.field(
 					"IdentityInterestScore.recordedDate"
 				).as(
@@ -414,11 +410,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 				).as(
 					"interestScore"
 				),
-				DSL.field(
-					"LOWER(IdentityInterestScore.keyword)"
-				).as(
-					"keyword"
-				),
+				_getKeywordField("IdentityInterestScore.keyword"),
 				DSL.field(
 					"IdentityInterestScore.recordedDate"
 				).as(
@@ -501,11 +493,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 				).as(
 					"interested"
 				),
-				DSL.field(
-					"LOWER(IdentityInterestScore.keyword)"
-				).as(
-					"keyword"
-				),
+				_getKeywordField("IdentityInterestScore.keyword"),
 				DSL.field(
 					"IdentityInterestScore.recordedDate"
 				).as(
@@ -581,11 +569,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 				).as(
 					"interested"
 				),
-				DSL.field(
-					"LOWER(IdentityInterestScore.keyword)"
-				).as(
-					"keyword"
-				),
+				_getKeywordField("IdentityInterestScore.keyword"),
 				DSL.field(
 					"IdentityInterestScore.recordedDate"
 				).as(
@@ -616,10 +600,17 @@ public class BQIdentityInterestScoreRepositoryImpl
 					individualId
 				)
 			).and(
-				DSL.field(
-					"LOWER(IdentityInterestScore.keyword)"
+				DSL.lower(
+					DSL.trim(
+						DSL.replace(
+							DSL.field(
+								"IdentityInterestScore.keyword", String.class),
+							"\n", ""))
 				).eq(
-					StringUtils.lowerCase(keyword)
+					DSL.inline(
+						StringUtils.lowerCase(
+							StringUtils.trim(
+								StringUtils.replace(keyword, "\n", ""))))
 				)
 			).and(
 				DSL.field(
@@ -719,11 +710,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 			).as(
 				"interested"
 			),
-			DSL.field(
-				"LOWER(IdentityInterestScore.keyword)"
-			).as(
-				"keyword"
-			),
+			_getKeywordField("IdentityInterestScore.keyword"),
 			DSL.field(
 				"IdentityInterestScore.recordedDate"
 			).as(
@@ -757,10 +744,18 @@ public class BQIdentityInterestScoreRepositoryImpl
 					).eq(
 						individualId
 					),
-					DSL.field(
-						"LOWER(IdentityInterestScore.keyword)"
+					DSL.lower(
+						DSL.trim(
+							DSL.replace(
+								DSL.field(
+									"IdentityInterestScore.keyword",
+									String.class),
+								"\n", ""))
 					).eq(
-						StringUtils.lowerCase(keyword)
+						DSL.inline(
+							StringUtils.lowerCase(
+								StringUtils.trim(
+									StringUtils.replace(keyword, "\n", ""))))
 					),
 					DSL.field(
 						"IdentityInterestScore.recordedDate"
@@ -782,11 +777,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 		SelectJoinStep<Record2<String, String>> selectSelectStep =
 			_dslContext.select(
 				DSL.field("IdentityInterestScore.identityId", String.class),
-				DSL.field(
-					"LOWER(IdentityInterestScore.keyword)", String.class
-				).as(
-					"keyword"
-				)
+				_getKeywordField("IdentityInterestScore.keyword")
 			).from(
 				DSL.table(
 					"BQIdentityInterestScore"
@@ -943,11 +934,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 	public List<String> getKeywords(
 		@Nullable String keywords, Pageable pageable) {
 
-		Field<String> field = DSL.field(
-			"LOWER(keyword)", String.class
-		).as(
-			"keyword"
-		);
+		Field<String> field = _getKeywordField("keyword");
 
 		SelectSelectStep<Record1<String>> selectSelectStep =
 			_dslContext.selectDistinct(field);
@@ -976,11 +963,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 		String individualId, int size) {
 
 		SelectSelectStep<Record1<String>> selectSelectStep = _dslContext.select(
-			DSL.field(
-				"LOWER(keyword)", String.class
-			).as(
-				"keyword"
-			));
+			_getKeywordField("keyword"));
 
 		return _queryExecutor.queryForList(
 			recordMap -> (String)recordMap.get("keyword"),
@@ -1390,6 +1373,14 @@ public class BQIdentityInterestScoreRepositoryImpl
 			)
 		).where(
 			_getBQIdentityCondition(channelId)
+		);
+	}
+
+	private Field<String> _getKeywordField(String fieldName) {
+		return DSL.lower(
+			DSL.trim(DSL.replace(DSL.field(fieldName, String.class), "\n", ""))
+		).as(
+			"keyword"
 		);
 	}
 

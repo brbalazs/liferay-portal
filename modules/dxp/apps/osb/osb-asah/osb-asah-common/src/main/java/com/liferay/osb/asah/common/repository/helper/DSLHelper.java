@@ -75,10 +75,16 @@ public class DSLHelper {
 
 	public Condition containsSubstring(String fieldName, String value) {
 		if (isBigQueryDialect()) {
+			String formattedValue = StringUtils.lowerCase(
+				StringUtils.trim(StringUtils.replace(value, "\n", "")));
+
 			return DSL.lower(
-				DSL.field(fieldName, String.class)
+				DSL.trim(
+					DSL.replace(
+						DSL.coalesce(DSL.field(fieldName, String.class), ""),
+						"\n", ""))
 			).like(
-				DSL.inline("%" + StringUtils.lowerCase(value) + "%")
+				DSL.inline("%" + formattedValue + "%")
 			);
 		}
 
