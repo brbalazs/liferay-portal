@@ -679,7 +679,7 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 					DSL.field(
 						"individual.suppressed", Boolean.class
 					).notEqual(
-						Boolean.FALSE
+						Boolean.TRUE
 					))
 			).where(
 				whereClauseCondition.and(

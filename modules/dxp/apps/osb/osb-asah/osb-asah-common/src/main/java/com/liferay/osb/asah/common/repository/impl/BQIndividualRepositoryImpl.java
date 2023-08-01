@@ -217,7 +217,7 @@ public class BQIndividualRepositoryImpl
 					DSL.field(
 						"Individual.suppressed"
 					).notEqual(
-						Boolean.FALSE
+						Boolean.TRUE
 					))
 			).where(
 				DSL.and(
@@ -301,7 +301,7 @@ public class BQIndividualRepositoryImpl
 			DSL.field(
 				"Individual.suppressed", Boolean.class
 			).notEqual(
-				Boolean.FALSE
+				Boolean.TRUE
 			));
 		conditions.add(fieldValueField.isNotNull());
 		conditions.add(fieldValueField.notEqual(""));
@@ -426,7 +426,7 @@ public class BQIndividualRepositoryImpl
 			DSL.field(
 				"Individual.suppressed", Boolean.class
 			).notEqual(
-				Boolean.FALSE
+				Boolean.TRUE
 			));
 
 		if (channelId != null) {
@@ -949,7 +949,7 @@ public class BQIndividualRepositoryImpl
 			DSL.field(
 				"Individual.suppressed", Boolean.class
 			).notEqual(
-				Boolean.FALSE
+				Boolean.TRUE
 			));
 		conditions.add(
 			DSL.field(
@@ -1339,7 +1339,7 @@ public class BQIndividualRepositoryImpl
 					DSL.field(
 						"Individual.suppressed", Boolean.class
 					).notEqual(
-						Boolean.FALSE
+						Boolean.TRUE
 					)));
 
 			if (referencedTableNames.contains("ExpandoValue")) {
