@@ -6,6 +6,7 @@ BEGIN
 	DELETE FROM BQEventProperty WHERE channelId IN ( ${channel_ids} );
 	DELETE FROM BQIdentityActivitySummary WHERE channelId IN ( ${channel_ids} );
 	DELETE FROM BQIdentityInterestPage WHERE channelId IN ( ${channel_ids} );
+	DELETE FROM BQIdentityInterestScore WHERE channelId IN ( ${channel_ids} );
 	DELETE FROM BQMembership WHERE channelId IN ( ${channel_ids} );
 	DELETE FROM BQMembershipChange WHERE channelId IN ( ${channel_ids} );
 	DELETE FROM BQMembershipIndividual WHERE channelId IN ( ${channel_ids} );
