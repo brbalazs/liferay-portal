@@ -3929,9 +3929,12 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 			String passwordResetURL = sb.toString();
 
+			ticketLocalService.updateTicket(ticket);
+
 			sendPasswordNotification(
 				user, companyId, null, passwordResetURL, fromName, fromAddress,
 				subject, body, serviceContext);
+
 		}
 		else if (company.isSendPassword()) {
 			if (!Objects.equals(
