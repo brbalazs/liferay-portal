@@ -1257,7 +1257,7 @@
 			{
 				"mode": "NULLABLE",
 				"name": "suppressed",
-				"type": "BOOLEAN"
+				"type": "BOOL"
 			}
 		],
 		"timePartitioning": {
