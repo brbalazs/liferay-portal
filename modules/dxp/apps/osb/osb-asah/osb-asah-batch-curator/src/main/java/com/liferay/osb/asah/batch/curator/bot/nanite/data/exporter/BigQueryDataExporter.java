@@ -33,6 +33,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -58,7 +59,18 @@ public class BigQueryDataExporter implements DataExporter {
 		BigQuery bigQuery, DataExportTask dataExportTask, String dateFieldName,
 		DSLContext dslContext, String exportPath, String tableName) {
 
+		this(
+			bigQuery, Collections.emptyList(), dataExportTask, dateFieldName,
+			dslContext, exportPath, tableName);
+	}
+
+	public BigQueryDataExporter(
+		BigQuery bigQuery, List<Condition> conditions,
+		DataExportTask dataExportTask, String dateFieldName,
+		DSLContext dslContext, String exportPath, String tableName) {
+
 		_bigQuery = bigQuery;
+		_conditions = conditions;
 		_dataExportTask = dataExportTask;
 		_dateFieldName = dateFieldName;
 		_dslContext = dslContext;
@@ -155,6 +167,10 @@ public class BigQueryDataExporter implements DataExporter {
 				));
 		}
 
+		if (!_conditions.isEmpty()) {
+			conditions.addAll(_conditions);
+		}
+
 		return conditions;
 	}
 
@@ -191,6 +207,7 @@ public class BigQueryDataExporter implements DataExporter {
 
 	private final BigQuery _bigQuery;
 	private final BigQueryOptions _bigQueryOptions;
+	private final List<Condition> _conditions;
 	private final DataExportTask _dataExportTask;
 	private final String _dateFieldName;
 	private final DSLContext _dslContext;
