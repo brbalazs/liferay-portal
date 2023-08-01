@@ -31,7 +31,6 @@ import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.entity.DataSource;
 import com.liferay.osb.asah.common.http.EmailHttp;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
-import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.model.Individual;
 import com.liferay.osb.asah.common.zip.ZipFileBuilder;
 
@@ -81,7 +80,7 @@ public class DataControlNanite extends BaseNanite {
 			_dataControlTaskDog.getDataControlTasks(
 				DateUtil.addDays(DateUtil.newDate(), -30),
 				Arrays.asList(DataControlTaskStatus.COMPLETED.toString()),
-				Arrays.asList(DataControlTaskType.ACCESS.toString()));
+				Arrays.asList(DataControlTask.Type.ACCESS.toString()));
 
 		Stream<DataControlTask> completedDataControlTasksStream =
 			completedDataControlTasks.stream();
@@ -254,33 +253,23 @@ public class DataControlNanite extends BaseNanite {
 				dataControlTask, DataControlTaskStatus.RUNNING);
 
 			String emailAddress = dataControlTask.getEmailAddress();
-			String type = dataControlTask.getType();
+			DataControlTask.Type type = dataControlTask.getType();
 
 			try {
-				if (StringUtils.equals(
-						type, DataControlTaskType.ACCESS.toString())) {
-
+				if (type == DataControlTask.Type.ACCESS) {
 					_exportData(dataControlTask, emailAddress);
 				}
-				else if (StringUtils.equals(
-							type, DataControlTaskType.DELETE.toString())) {
-
+				else if (type == DataControlTask.Type.DELETE) {
 					_deleteData(emailAddress);
 				}
-				else if (StringUtils.equals(
-							type, DataControlTaskType.SUPPRESS.toString())) {
-
+				else if (type == DataControlTask.Type.SUPPRESS) {
 					_addSuppression(dataControlTask, emailAddress);
 				}
-				else if (StringUtils.equals(
-							type, DataControlTaskType.UNSUPPRESS.toString())) {
-
+				else if (type == DataControlTask.Type.UNSUPPRESS) {
 					_deleteSuppression(emailAddress);
 				}
 
-				if (!StringUtils.equals(
-						type, DataControlTaskType.ACCESS.toString())) {
-
+				if (type == DataControlTask.Type.ACCESS) {
 					_exportDataControlTask(
 						dataControlTask,
 						new ZipFileBuilder(

@@ -17,7 +17,7 @@ package com.liferay.osb.asah.common.dog.test;
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.dog.AuditEventDog;
 import com.liferay.osb.asah.common.entity.AuditEvent;
-import com.liferay.osb.asah.common.model.DataControlTaskType;
+import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
 import org.junit.jupiter.api.Assertions;
@@ -48,7 +48,7 @@ public class AuditEventDogTest
 	@Test
 	public void testAddAuditEventUserAccess() {
 		AuditEvent auditEvent = _auditEventDog.addAuditEvent(
-			"123", DataControlTaskType.ACCESS, "1", "Test Test");
+			"123", DataControlTask.Type.ACCESS, "1", "Test Test");
 
 		Assertions.assertNotNull(auditEvent.getCreateDate());
 		Assertions.assertNotNull(auditEvent.getId());
@@ -61,7 +61,7 @@ public class AuditEventDogTest
 	@Test
 	public void testAddAuditEventUserDelete() {
 		AuditEvent auditEvent = _auditEventDog.addAuditEvent(
-			"123", DataControlTaskType.DELETE, "1", "Test Test");
+			"123", DataControlTask.Type.DELETE, "1", "Test Test");
 
 		Assertions.assertNotNull(auditEvent.getCreateDate());
 		Assertions.assertNotNull(auditEvent.getId());
@@ -74,7 +74,7 @@ public class AuditEventDogTest
 	@Test
 	public void testAddAuditEventUserSuppress() {
 		AuditEvent auditEvent = _auditEventDog.addAuditEvent(
-			"123", DataControlTaskType.SUPPRESS, "1", "Test Test");
+			"123", DataControlTask.Type.SUPPRESS, "1", "Test Test");
 
 		Assertions.assertNotNull(auditEvent.getCreateDate());
 		Assertions.assertNotNull(auditEvent.getId());
@@ -87,7 +87,7 @@ public class AuditEventDogTest
 	@Test
 	public void testAddAuditEventUserUnsuppress() {
 		AuditEvent auditEvent = _auditEventDog.addAuditEvent(
-			"123", DataControlTaskType.UNSUPPRESS, "1", "Test Test");
+			"123", DataControlTask.Type.UNSUPPRESS, "1", "Test Test");
 
 		Assertions.assertNotNull(auditEvent.getCreateDate());
 		Assertions.assertNotNull(auditEvent.getId());

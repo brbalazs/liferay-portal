@@ -17,7 +17,6 @@ package com.liferay.osb.asah.common.repository.test;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
-import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
@@ -55,7 +54,7 @@ public class DataControlTaskRepositoryTest
 		dataControlTask1.setOwnerId("1");
 		dataControlTask1.setStatus(
 			String.valueOf(DataControlTaskStatus.PENDING));
-		dataControlTask1.setType(String.valueOf(DataControlTaskType.ACCESS));
+		dataControlTask1.setType(DataControlTask.Type.ACCESS);
 
 		DataControlTask dataControlTask2 = new DataControlTask();
 
@@ -67,7 +66,7 @@ public class DataControlTaskRepositoryTest
 		dataControlTask2.setStartDate(new Date());
 		dataControlTask2.setStatus(
 			String.valueOf(DataControlTaskStatus.COMPLETED));
-		dataControlTask2.setType(String.valueOf(DataControlTaskType.SUPPRESS));
+		dataControlTask2.setType(DataControlTask.Type.SUPPRESS);
 
 		DataControlTask dataControlTask3 = new DataControlTask();
 
@@ -79,7 +78,7 @@ public class DataControlTaskRepositoryTest
 		dataControlTask3.setStartDate(new Date());
 		dataControlTask3.setStatus(
 			String.valueOf(DataControlTaskStatus.COMPLETED));
-		dataControlTask3.setType(String.valueOf(DataControlTaskType.SUPPRESS));
+		dataControlTask3.setType(DataControlTask.Type.SUPPRESS);
 
 		setUpRepository(dataControlTask1, dataControlTask2, dataControlTask3);
 
@@ -134,7 +133,7 @@ public class DataControlTaskRepositoryTest
 				Arrays.asList(
 					String.valueOf(DataControlTaskStatus.COMPLETED),
 					String.valueOf(DataControlTaskStatus.PENDING)),
-				Arrays.asList(String.valueOf(DataControlTaskType.SUPPRESS)));
+				Arrays.asList(String.valueOf(DataControlTask.Type.SUPPRESS)));
 
 		Assertions.assertEquals(
 			2, dataControlTasks.size(), dataControlTasks.toString());
@@ -161,7 +160,7 @@ public class DataControlTaskRepositoryTest
 				Arrays.asList(
 					String.valueOf(DataControlTaskStatus.COMPLETED),
 					String.valueOf(DataControlTaskStatus.PENDING)),
-				Arrays.asList(String.valueOf(DataControlTaskType.SUPPRESS)),
+				Arrays.asList(String.valueOf(DataControlTask.Type.SUPPRESS)),
 				PageRequest.of(0, 10, Sort.desc("id")));
 
 		Assertions.assertEquals(

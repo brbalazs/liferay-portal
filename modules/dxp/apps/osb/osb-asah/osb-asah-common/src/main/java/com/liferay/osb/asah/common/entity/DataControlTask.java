@@ -141,7 +141,7 @@ public final class DataControlTask implements Persistable<Long> {
 	}
 
 	@AccessType(AccessType.Type.PROPERTY)
-	public String getType() {
+	public Type getType() {
 		return _type;
 	}
 
@@ -204,8 +204,27 @@ public final class DataControlTask implements Persistable<Long> {
 		_status = status;
 	}
 
-	public void setType(String type) {
+	public void setType(Type type) {
 		_type = type;
+	}
+
+	public enum Type {
+
+		ACCESS(AuditEvent.Type.USER_ACCESS),
+		DELETE(AuditEvent.Type.USER_DELETE),
+		SUPPRESS(AuditEvent.Type.USER_SUPPRESS),
+		UNSUPPRESS(AuditEvent.Type.USER_UNSUPPRESS);
+
+		public AuditEvent.Type getAuditEventType() {
+			return _auditEventType;
+		}
+
+		private Type(AuditEvent.Type auditEventType) {
+			_auditEventType = auditEventType;
+		}
+
+		private final AuditEvent.Type _auditEventType;
+
 	}
 
 	@Transient
@@ -236,6 +255,6 @@ public final class DataControlTask implements Persistable<Long> {
 	private String _status;
 
 	@Transient
-	private String _type;
+	private Type _type;
 
 }

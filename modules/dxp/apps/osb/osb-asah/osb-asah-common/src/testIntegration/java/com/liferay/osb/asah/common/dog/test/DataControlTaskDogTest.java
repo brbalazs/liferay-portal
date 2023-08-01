@@ -18,8 +18,8 @@ import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.entity.AuditEvent;
 import com.liferay.osb.asah.common.entity.DataControlTask;
+import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
-import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.AuditEventRepository;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
@@ -39,6 +39,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import java.util.Optional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -98,7 +99,7 @@ public class DataControlTaskDogTest
 
 		_dataControlTaskDog.addDataControlTasks(
 			null, Paths.get(_tempPath.toString(), "test.csv"), "1000",
-			Collections.singletonList(DataControlTaskType.SUPPRESS.toString()),
+			Collections.singletonList(DataControlTask.Type.SUPPRESS.toString()),
 			"12345", "test@liferay.com");
 
 		List<DataControlTask> dataControlTasks =
@@ -135,7 +136,7 @@ public class DataControlTaskDogTest
 
 		_dataControlTaskDog.addDataControlTasks(
 			emailAddresses, null, "1000",
-			Collections.singletonList(DataControlTaskType.SUPPRESS.toString()),
+			Collections.singletonList(DataControlTask.Type.SUPPRESS.toString()),
 			"12345", "test@liferay.com");
 
 		List<AuditEvent> auditEvents = new ArrayList<>();
@@ -189,7 +190,7 @@ public class DataControlTaskDogTest
 				Collections.singletonList(
 					DataControlTaskStatus.COMPLETED.toString()),
 				Collections.singletonList(
-					DataControlTaskType.SUPPRESS.toString())));
+					DataControlTask.Type.SUPPRESS.toString())));
 	}
 
 	@RepositoryResource(
@@ -257,7 +258,7 @@ public class DataControlTaskDogTest
 			_dataControlTaskDog.getDataControlTaskPage(
 				null, null, null, 0, 10, Sort.desc("createDate"), null,
 				Collections.singletonList(
-					DataControlTaskType.UNSUPPRESS.toString())));
+					DataControlTask.Type.UNSUPPRESS.toString())));
 	}
 
 	private void _checkResults(

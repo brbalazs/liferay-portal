@@ -17,7 +17,6 @@ package com.liferay.osb.asah.common.dog;
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
-import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
@@ -83,7 +82,10 @@ public class DataControlTaskDog {
 
 		for (String emailAddress : emailAddresses) {
 			for (String type : types) {
-				if (type.equals(DataControlTaskType.UNSUPPRESS.toString())) {
+				DataControlTask.Type dataControlTaskType =
+					DataControlTask.Type.valueOf(type);
+
+				if (dataControlTaskType == DataControlTask.Type.UNSUPPRESS) {
 					_suppressionDog.deleteByEmailAddress(emailAddress);
 				}
 
@@ -98,7 +100,7 @@ public class DataControlTaskDog {
 				dataControlTask.setOwnerId(ownerId);
 				dataControlTask.setStatus(
 					DataControlTaskStatus.PENDING.toString());
-				dataControlTask.setType(type);
+				dataControlTask.setType(dataControlTaskType);
 
 				dataControlTasks.add(dataControlTask);
 			}
@@ -113,7 +115,7 @@ public class DataControlTaskDog {
 
 	public Boolean existsCompletedDataControlTask(
 		@Nullable String emailAddress,
-		DataControlTaskType dataControlTaskType) {
+		DataControlTask.Type dataControlTaskType) {
 
 		if (StringUtils.isBlank(emailAddress)) {
 			return false;
@@ -188,7 +190,8 @@ public class DataControlTaskDog {
 		for (String emailAddress : emailAddresses) {
 			for (String type : types) {
 				_auditEventDog.addAuditEvent(
-					emailAddress, DataControlTaskType.valueOf(type), userId,
+					String.format("Request created for %s", emailAddress),
+					DataControlTask.Type.valueOf(type), userId,
 					userName);
 			}
 		}
