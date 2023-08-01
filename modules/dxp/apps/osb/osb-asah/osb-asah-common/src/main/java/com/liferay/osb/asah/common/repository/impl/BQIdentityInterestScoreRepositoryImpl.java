@@ -403,8 +403,9 @@ public class BQIdentityInterestScoreRepositoryImpl
 			},
 			_dslContext.select(
 				DSL.field(
-					"COUNT(CONCAT(IdentityInterestPage.canonicalUrl, " +
-						"IdentityInterestPage.title))"
+					"COUNT(DISTINCT CONCAT(" +
+						"IdentityInterestPage.canonicalUrl, " +
+							"IdentityInterestPage.title))"
 				).as(
 					"contributingPagesCount"
 				),
