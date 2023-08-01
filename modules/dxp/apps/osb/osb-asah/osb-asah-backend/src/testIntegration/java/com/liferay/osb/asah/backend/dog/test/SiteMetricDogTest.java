@@ -578,6 +578,29 @@ public class SiteMetricDogTest
 		Assertions.assertEquals(1, sessionsPerVisitorMetric.getValue());
 	}
 
+	@BQSQLResource(resourcePath = "test_bq_events_suppressed_individual.sql")
+	@Test
+	public void testGetSiteMetricSuppressedIndividual() {
+		SiteMetric siteMetric = _siteMetricDog.getSiteMetric(
+			_getSearchQueryContext());
+
+		Metric anonymousVisitorsMetric =
+			siteMetric.getAnonymousVisitorsMetric();
+
+		Assertions.assertEquals(2, anonymousVisitorsMetric.getPreviousValue());
+		Assertions.assertEquals(2, anonymousVisitorsMetric.getValue());
+
+		Metric knownVisitorsMetric = siteMetric.getKnownVisitorsMetric();
+
+		Assertions.assertEquals(0, knownVisitorsMetric.getPreviousValue());
+		Assertions.assertEquals(0, knownVisitorsMetric.getValue());
+
+		Metric visitorsMetric = siteMetric.getVisitorsMetric();
+
+		Assertions.assertEquals(2, visitorsMetric.getPreviousValue());
+		Assertions.assertEquals(2, visitorsMetric.getValue());
+	}
+
 	@BQSQLResource(resourcePath = "test_bq_events_3.sql")
 	@Test
 	public void testGetSiteMetricVisitorPreviousValueOnly() {

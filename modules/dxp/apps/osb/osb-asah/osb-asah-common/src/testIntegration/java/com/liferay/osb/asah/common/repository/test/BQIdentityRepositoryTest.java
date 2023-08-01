@@ -70,6 +70,40 @@ public class BQIdentityRepositoryTest
 			0);
 	}
 
+	@BQSQLResource(
+		resourcePath = "test_bq_identity_repository_with_suppression.sql"
+	)
+	@Test
+	public void testGetIndividualsCountWithSuppression() {
+		LocalDate localDate = LocalDate.now();
+
+		Assertions.assertEquals(
+			4,
+			_bqIdentityRepository.getBQIndividualsCount(
+				false, 1L, localDate,
+				IndividualMetricType.ANONYMOUS_INDIVIDUALS,
+				_timeZoneDog.getZoneId()),
+			0);
+		Assertions.assertEquals(
+			3,
+			_bqIdentityRepository.getBQIndividualsCount(
+				false, 1L, localDate, IndividualMetricType.KNOWN_INDIVIDUALS,
+				_timeZoneDog.getZoneId()),
+			0);
+		Assertions.assertEquals(
+			7,
+			_bqIdentityRepository.getBQIndividualsCount(
+				false, 1L, localDate, IndividualMetricType.TOTAL_INDIVIDUALS,
+				_timeZoneDog.getZoneId()),
+			0);
+		Assertions.assertEquals(
+			4,
+			_bqIdentityRepository.getBQIndividualsCount(
+				true, 1L, localDate, IndividualMetricType.TOTAL_INDIVIDUALS,
+				_timeZoneDog.getZoneId()),
+			0);
+	}
+
 	@Autowired
 	private BQIdentityRepository _bqIdentityRepository;
 

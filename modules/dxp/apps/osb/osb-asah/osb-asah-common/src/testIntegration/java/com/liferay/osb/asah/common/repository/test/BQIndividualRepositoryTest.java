@@ -16,16 +16,19 @@ package com.liferay.osb.asah.common.repository.test;
 
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.date.DateUtil;
+import com.liferay.osb.asah.common.model.Distribution;
 import com.liferay.osb.asah.common.model.Individual;
 import com.liferay.osb.asah.common.repository.BQIndividualRepository;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.configuration.JDBCTestConfiguration;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -62,74 +65,9 @@ public class BQIndividualRepositoryTest
 				null, 11L, null, "fail", null, null, _SEGMENT_ID));
 	}
 
-	@BQSQLResource(resourcePath = "test_bq_individual_repository_3.sql")
-	@Test
-	public void testCountBQIndividualsAfterNewStartDate() {
-		Assertions.assertEquals(
-			8,
-			_bqIndividualRepository.countBQIndividualsCreatedSince(
-				DateUtils.addDays(new Date(), -30)));
-		Assertions.assertEquals(
-			0,
-			_bqIndividualRepository.countBQIndividualsCreatedSince(
-				DateUtils.addYears(new Date(), 1)));
-	}
-
-	@BQSQLResource(resourcePath = "test_bq_individual_repository_3.sql")
-	@Test
-	public void testCountBQIndividualsCreateSince() {
-		Assertions.assertEquals(
-			0,
-			_bqIndividualRepository.countBQIndividualsCreatedSince(new Date()));
-		Assertions.assertEquals(
-			2,
-			_bqIndividualRepository.countBQIndividualsCreatedSince(
-				DateUtils.addDays(new Date(), -10)));
-		Assertions.assertEquals(
-			5,
-			_bqIndividualRepository.countBQIndividualsCreatedSince(
-				DateUtils.addDays(new Date(), -20)));
-		Assertions.assertEquals(
-			8,
-			_bqIndividualRepository.countBQIndividualsCreatedSince(
-				DateUtils.addDays(new Date(), -30)));
-	}
-
 	@BQSQLResource(resourcePath = "test_bq_individual_repository_1.sql")
 	@Test
-	public void testCountIndividualFieldValuesDemographics() {
-		Assertions.assertEquals(
-			3,
-			_bqIndividualRepository.countIndividualFieldValuesDemographics(
-				11L, "firstName", null));
-		Assertions.assertEquals(
-			1,
-			_bqIndividualRepository.countIndividualFieldValuesDemographics(
-				11L, "jobTitle", null));
-	}
-
-	@BQSQLResource(resourcePath = "test_bq_individual_repository.sql")
-	@Test
-	public void testSearchBQIndividuals() {
-		List<Individual> individuals =
-			_bqIndividualRepository.searchBQIndividuals(
-				null, 11L, null, "all", null,
-				PageRequest.of(0, 10, Sort.by(Sort.Order.asc("id"))), null,
-				null);
-
-		Assertions.assertEquals(2, individuals.size(), individuals.toString());
-
-		Individual individual = individuals.get(0);
-
-		Assertions.assertEquals(4L, individual.getActivitiesCount());
-		Assertions.assertEquals(
-			DateUtil.toUTCDate("2022-12-17T23:59:59.999Z"),
-			individual.getLastActivityDate());
-	}
-
-	@BQSQLResource(resourcePath = "test_bq_individual_repository_1.sql")
-	@Test
-	public void testSearchBQIndividualsActivitiesFilter() {
+	public void testCountBQIndividualsActivitiesFilter() {
 		String assetId =
 			"da70dfa4d9f95ac979f921e8e623358236313f334afcd06cddf8a5621cf6a1e9";
 
@@ -195,9 +133,42 @@ public class BQIndividualRepositoryTest
 				false, null, null));
 	}
 
+	@BQSQLResource(resourcePath = "test_bq_individual_repository_3.sql")
+	@Test
+	public void testCountBQIndividualsAfterNewStartDate() {
+		Assertions.assertEquals(
+			8,
+			_bqIndividualRepository.countBQIndividualsCreatedSince(
+				DateUtils.addDays(new Date(), -30)));
+		Assertions.assertEquals(
+			0,
+			_bqIndividualRepository.countBQIndividualsCreatedSince(
+				DateUtils.addYears(new Date(), 1)));
+	}
+
+	@BQSQLResource(resourcePath = "test_bq_individual_repository_3.sql")
+	@Test
+	public void testCountBQIndividualsCreateSince() {
+		Assertions.assertEquals(
+			0,
+			_bqIndividualRepository.countBQIndividualsCreatedSince(new Date()));
+		Assertions.assertEquals(
+			2,
+			_bqIndividualRepository.countBQIndividualsCreatedSince(
+				DateUtils.addDays(new Date(), -10)));
+		Assertions.assertEquals(
+			5,
+			_bqIndividualRepository.countBQIndividualsCreatedSince(
+				DateUtils.addDays(new Date(), -20)));
+		Assertions.assertEquals(
+			8,
+			_bqIndividualRepository.countBQIndividualsCreatedSince(
+				DateUtils.addDays(new Date(), -30)));
+	}
+
 	@BQSQLResource(resourcePath = "test_bq_individual_repository_1.sql")
 	@Test
-	public void testSearchBQIndividualsCustomFieldFilter() {
+	public void testCountBQIndividualsCustomFieldFilter() {
 		Assertions.assertEquals(
 			2,
 			_bqIndividualRepository.countBQIndividuals(
@@ -277,7 +248,7 @@ public class BQIndividualRepositoryTest
 
 	@BQSQLResource(resourcePath = "test_bq_individual_repository_1.sql")
 	@Test
-	public void testSearchBQIndividualsDateCustomFieldFilter() {
+	public void testCountBQIndividualsDateCustomFieldFilter() {
 		Assertions.assertEquals(
 			1,
 			_bqIndividualRepository.countBQIndividuals(
@@ -307,7 +278,7 @@ public class BQIndividualRepositoryTest
 
 	@BQSQLResource(resourcePath = "test_bq_individual_repository_2.sql")
 	@Test
-	public void testSearchBQIndividualsIndividualSegmentIdsFilter() {
+	public void testCountBQIndividualsIndividualSegmentIdsFilter() {
 		Assertions.assertEquals(
 			1,
 			_bqIndividualRepository.countBQIndividuals(
@@ -327,7 +298,7 @@ public class BQIndividualRepositoryTest
 
 	@BQSQLResource(resourcePath = "test_bq_individual_repository_2.sql")
 	@Test
-	public void testSearchBQIndividualsIndividualSegmentIdsFilter2() {
+	public void testCountBQIndividualsIndividualSegmentIdsFilter2() {
 		Assertions.assertEquals(
 			1,
 			_bqIndividualRepository.countBQIndividuals(
@@ -348,7 +319,7 @@ public class BQIndividualRepositoryTest
 
 	@BQSQLResource(resourcePath = "test_bq_individual_repository_1.sql")
 	@Test
-	public void testSearchBQIndividualsInterestFilter() {
+	public void testCountBQIndividualsInterestFilter() {
 		Assertions.assertEquals(
 			2,
 			_bqIndividualRepository.countBQIndividuals(
@@ -367,7 +338,7 @@ public class BQIndividualRepositoryTest
 
 	@BQSQLResource(resourcePath = "test_bq_individual_repository_1.sql")
 	@Test
-	public void testSearchBQIndividualsOrganizationsFilter() {
+	public void testCountBQIndividualsOrganizationsFilter() {
 
 		// Custom fields
 
@@ -472,6 +443,151 @@ public class BQIndividualRepositoryTest
 				false, null, null));
 	}
 
+	@BQSQLResource(
+		resourcePath = "test_bq_individual_repository_with_suppression.sql"
+	)
+	@Test
+	public void testCountBQIndividualsWithSuppression() {
+		Assertions.assertEquals(
+			2,
+			_bqIndividualRepository.countBQIndividuals(
+				null, 11L, null, null, null, null, _SEGMENT_ID));
+		Assertions.assertEquals(
+			2,
+			_bqIndividualRepository.countBQIndividuals(
+				null, 11L, null, "all", null, null, _SEGMENT_ID));
+		Assertions.assertEquals(
+			0,
+			_bqIndividualRepository.countBQIndividuals(
+				null, 11L, null, "fail", null, null, _SEGMENT_ID));
+	}
+
+	@BQSQLResource(resourcePath = "test_bq_individual_repository_1.sql")
+	@Test
+	public void testCountIndividualFieldValuesDemographics() {
+		Assertions.assertEquals(
+			3,
+			_bqIndividualRepository.countIndividualFieldValuesDemographics(
+				11L, "firstName", null));
+		Assertions.assertEquals(
+			1,
+			_bqIndividualRepository.countIndividualFieldValuesDemographics(
+				11L, "jobTitle", null));
+	}
+
+	@BQSQLResource(
+		resourcePath = "test_bq_individual_repository_with_suppression.sql"
+	)
+	@Test
+	public void testCountIndividualFieldValuesDemographicsWithSuppression() {
+		Assertions.assertEquals(
+			2,
+			_bqIndividualRepository.countIndividualFieldValuesDemographics(
+				11L, "firstName", null));
+		Assertions.assertEquals(
+			1,
+			_bqIndividualRepository.countIndividualFieldValuesDemographics(
+				11L, "jobTitle", null));
+	}
+
+	@BQSQLResource(
+		resourcePath = "test_bq_individual_repository_with_suppression.sql"
+	)
+	@Test
+	public void testFindByChannelIdAndId() {
+		Optional<Individual> individualOptional =
+			_bqIndividualRepository.findByChannelIdAndId(
+				11L,
+				"47ff64395860b1d498241d907069f649b98c198a95b3ba5303b870940585" +
+					"90c1");
+
+		Assertions.assertTrue(individualOptional.isPresent());
+
+		Individual individual = individualOptional.get();
+
+		Assertions.assertEquals(
+			"47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1",
+			individual.getId());
+
+		individualOptional = _bqIndividualRepository.findByChannelIdAndId(
+			11L,
+			"47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c2");
+
+		Assertions.assertTrue(individualOptional.isPresent());
+
+		individual = individualOptional.get();
+
+		Assertions.assertEquals(
+			"47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c2",
+			individual.getId());
+
+		individualOptional = _bqIndividualRepository.findByChannelIdAndId(
+			11L,
+			"47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3");
+
+		Assertions.assertFalse(individualOptional.isPresent());
+	}
+
+	@BQSQLResource(
+		resourcePath = "test_bq_individual_repository_with_suppression.sql"
+	)
+	@Test
+	public void testGetIndividualDistributions() {
+		List<Distribution> expectedDistributions =
+			new ArrayList<Distribution>() {
+				{
+					add(new Distribution(1, Collections.singletonList("test")));
+					add(new Distribution(1, Collections.singletonList("user")));
+				}
+			};
+
+		Assertions.assertEquals(
+			expectedDistributions,
+			_bqIndividualRepository.getIndividualDistributions(
+				11L, "firstName", "text", null,
+				PageRequest.of(0, 10, Sort.by(Sort.Order.asc("name")))));
+	}
+
+	@BQSQLResource(resourcePath = "test_bq_individual_repository.sql")
+	@Test
+	public void testSearchBQIndividuals() {
+		List<Individual> individuals =
+			_bqIndividualRepository.searchBQIndividuals(
+				null, 11L, null, "all", null,
+				PageRequest.of(0, 10, Sort.by(Sort.Order.asc("id"))), null,
+				null);
+
+		Assertions.assertEquals(2, individuals.size(), individuals.toString());
+
+		Individual individual = individuals.get(0);
+
+		Assertions.assertEquals(4L, individual.getActivitiesCount());
+		Assertions.assertEquals(
+			DateUtil.toUTCDate("2022-12-17T23:59:59.999Z"),
+			individual.getLastActivityDate());
+	}
+
+	@BQSQLResource(
+		resourcePath = "test_bq_individual_repository_with_suppression.sql"
+	)
+	@Test
+	public void testSearchBQIndividualsWithSuppression() {
+		List<Individual> individuals =
+			_bqIndividualRepository.searchBQIndividuals(
+				null, 11L, null, null, null,
+				PageRequest.of(0, 10, Sort.by(Sort.Order.asc("id"))), null,
+				null);
+
+		Assertions.assertEquals(2, individuals.size(), individuals.toString());
+
+		Individual individual = individuals.get(0);
+
+		Assertions.assertEquals(4L, individual.getActivitiesCount());
+		Assertions.assertEquals(
+			DateUtil.toUTCDate("2022-12-17T23:59:59.999Z"),
+			individual.getLastActivityDate());
+	}
+
 	@BQSQLResource(resourcePath = "test_bq_individual_repository_1.sql")
 	@Test
 	public void testSearchIndividualFieldValuesDemographics() {
@@ -494,6 +610,23 @@ public class BQIndividualRepositoryTest
 			Collections.emptyList(),
 			_bqIndividualRepository.searchIndividualFieldValuesDemographics(
 				42L, "firstName", null, PageRequest.of(0, 10)));
+	}
+
+	@BQSQLResource(
+		resourcePath = "test_bq_individual_repository_with_suppression.sql"
+	)
+	@Test
+	public void testSearchIndividualFieldValuesDemographicsWithSuppression() {
+		PageRequest pageRequest = PageRequest.of(0, 10);
+
+		Assertions.assertEquals(
+			Arrays.asList("Test", "User"),
+			_bqIndividualRepository.searchIndividualFieldValuesDemographics(
+				11L, "firstName", null, pageRequest));
+		Assertions.assertEquals(
+			Arrays.asList("Tester"),
+			_bqIndividualRepository.searchIndividualFieldValuesDemographics(
+				11L, "jobTitle", null, pageRequest));
 	}
 
 	private static final Long _SEGMENT_ID = 11L;

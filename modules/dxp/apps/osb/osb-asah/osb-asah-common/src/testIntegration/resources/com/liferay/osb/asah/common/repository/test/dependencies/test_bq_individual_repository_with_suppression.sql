@@ -1,0 +1,55 @@
+INSERT INTO Event (applicationId, channelId, createDate, dataSourceId, eventDate, eventId, id, sessionId, userId) VALUES ('WebContent', 11, timestamp '${now}', 1, timestamp '2022-12-14T23:59:59.999Z', 'webContentViewed', '123', 'abc', '12345');
+INSERT INTO Event (applicationId, channelId, createDate, dataSourceId, eventDate, eventId, id, sessionId, userId) VALUES ('WebContent', 11, timestamp '${now}', 1, timestamp '2022-12-15T23:59:59.999Z', 'webContentViewed', '234', 'bcd', '45678');
+INSERT INTO Event (applicationId, channelId, createDate, dataSourceId, eventDate, eventId, id, sessionId, userId) VALUES ('WebContent', 11, timestamp '${now}', 1, timestamp '2022-12-15T23:59:59.999Z', 'webContentViewed', '234', 'bcd', '98765');
+INSERT INTO Event (applicationId, channelId, createDate, dataSourceId, eventDate, eventId, id, sessionId, userId) VALUES ('WebContent', 11, timestamp '${now}', 1, timestamp '2022-12-16T23:59:59.999Z', 'webContentViewed', '345', 'cde', '98765');
+INSERT INTO Event (applicationId, channelId, createDate, dataSourceId, eventDate, eventId, id, sessionId, userId) VALUES ('Page', 11, timestamp '${now}', 1, timestamp '2022-12-17T23:59:59.999Z', 'pageViewed', '456', 'def', '98765');
+INSERT INTO Event (applicationId, channelId, createDate, dataSourceId, eventDate, eventId, id, sessionId, userId) VALUES ('Page', 11, timestamp '${now}', 1, timestamp '2022-12-18T23:59:59.999Z', 'pageLoaded', '567', 'efg', '45678');
+INSERT INTO Event (applicationId, channelId, createDate, dataSourceId, eventDate, eventId, id, sessionId, userId) VALUES ('Page', 11, timestamp '${now}', 1, timestamp '2022-12-18T23:59:59.999Z', 'pageLoaded', '567', 'efg', '98765');
+
+INSERT INTO ExpandoColumn (columnId, dataSourceId, dataType, id, name) VALUES ('190', 123, 'STRING', '1', 'Organization Type');
+
+INSERT INTO ExpandoValue (classPK, classType, columnId, dataSourceId, fieldName, id, value) VALUES ('2345', 'com.liferay.portal.kernel.model.Organization', '190', 123, 'Organization_Type', '19879', 'test');
+INSERT INTO ExpandoValue (classPK, classType, columnId, dataSourceId, fieldName, id, value) VALUES ('2345', 'com.liferay.portal.kernel.model.Organization', '191', 123, 'Divisions', '19880', '[10,20,35]');
+INSERT INTO ExpandoValue (classPK, classType, columnId, dataSourceId, fieldName, id, value) VALUES ('2345', 'com.liferay.portal.kernel.model.Organization', '192', 123, 'Year', '19881', '[2023]');
+
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'webContentViewed', '12345', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1', timestamp '2022-12-14T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'webContentViewed', '45678', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c2', timestamp '2022-12-14T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'webContentViewed', '98765', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1', timestamp '2022-12-15T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'webContentViewed', '98765', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1', timestamp '2022-12-16T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'webContentViewed', '45678', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c2', timestamp '2022-12-16T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'pageViewed', '98765', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1', timestamp '2022-12-17T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'pageLoaded', '98765', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1', timestamp '2022-12-18T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'pageViewed', '87654', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3', timestamp '2022-12-19T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'pageLoaded', '87654', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3', timestamp '2022-12-20T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'pageViewed', '76543', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3', timestamp '2022-12-19T23:59:59.999Z');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, eventId, identityId, individualId, lastActivityDate) VALUES (1, 11, 'pageLoaded', '76543', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3', timestamp '2022-12-20T23:59:59.999Z');
+
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '12345', true, 1.23432, 'all', DATE('${today}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '45678', true, 1.34326, 'all', DATE('${today}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '98765', true, 1.34326, 'all', DATE('${today}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '12345', true, 1.23432, 'you', DATE('${today}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '12345', true, 1.43534, 'need', DATE('${today}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '98765', false, 1.2342, 'fail', DATE('${today}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '98765', true, 1.2342, 'fail', DATE('${today-2d}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '98765', true, 1.53453, 'is', DATE('${today}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '98765', true, 1.53453, 'love', DATE('${today}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '87654', true, 1.34326, 'all', DATE('${today}'));
+INSERT INTO IdentityInterestScore (channelId, identityId, interested, interestScore, keyword, recordedDate) VALUES (11, '87654', true, 1.2342, 'fail', DATE('${today}'));
+
+INSERT INTO Identity_Raw (createDate, id, individualId) VALUES (timestamp '${now}', '12345', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1');
+INSERT INTO Identity_Raw (createDate, id, individualId) VALUES (timestamp '${now}', '45678', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c2');
+INSERT INTO Identity_Raw (createDate, id, individualId) VALUES (timestamp '${now}', '98765', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1');
+INSERT INTO Identity_Raw (createDate, id, individualId) VALUES (timestamp '${now}', '87654', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3');
+INSERT INTO Identity_Raw (createDate, id, individualId) VALUES (timestamp '${now}', '76543', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3');
+
+INSERT INTO Individual (createDate, emailAddress, fields, firstName, id, jobTitle, modifiedDate, suppressed) VALUES (timestamp '${now}', 'test@liferay.com', ARRAY[STRUCT(123, 'classPK', '41847'), STRUCT(123, 'Favorite_Food', 'Pizza'), STRUCT(123, 'Favorite_Number', '[1,2,3]'), STRUCT(123, 'Hobbies', '["Exercise", "Hiking"]'), STRUCT(123, 'Joined_Date', 'Mon Apr 04 17:09:00 UTC-1 2022'), STRUCT(123, 'osbAsahDataSourceId', '123'), STRUCT(123, 'Organization', 'Developer'), STRUCT(123, 'Salary', '120000.30')], 'Test', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1', 'Tester', timestamp '${now}', null);
+INSERT INTO Individual (createDate, emailAddress, fields, firstName, id, jobTitle, modifiedDate, suppressed) VALUES (timestamp '${now}', 'user@liferay.com', ARRAY[STRUCT(123, 'classPK', '41848'), STRUCT(123, 'Favorite_Food', 'Rice Bowl'), STRUCT(123, 'Favorite_Number', '[4,5]'), STRUCT(123, 'Hobbies', '["Exercise", "Games"]'), STRUCT(123, 'Joined_Date', 'Sun May 01 09:09:09 UTC+10 2022'), STRUCT(123, 'osbAsahDataSourceId', '123'), STRUCT(123, 'Organization', 'Engineer'), STRUCT(123, 'Salary', '100000.50')], 'User', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c2', null, timestamp '${now}', false);
+INSERT INTO Individual (createDate, emailAddress, fields, firstName, id, jobTitle, modifiedDate, suppressed) VALUES (timestamp '${now}', 'admin@liferay.com', ARRAY[STRUCT(123, 'Birth_Country', '["England"]'), STRUCT(123, 'classPK', '41849'), STRUCT(123, 'Favorite_Food', 'Fried Rice'), STRUCT(123, 'Hobbies', '["Cooking"]'), STRUCT(123, 'Joined_Date', 'Wed Jun 01 23:23:23 UTC 2022'), STRUCT(123, 'osbAsahDataSourceId', '123'), STRUCT(123, 'Organization', 'Developer'), STRUCT(123, 'Zip_Code', '[91765]')], 'Admin', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3', 'Administrator', timestamp '${now}', true);
+
+INSERT INTO Membership (createDate, identityId, individualId, segmentId) VALUES (timestamp '${now}', '12345', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1', 11);
+INSERT INTO Membership (createDate, identityId, individualId, segmentId) VALUES (timestamp '${now}', '98765', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1', 11);
+INSERT INTO Membership (createDate, identityId, individualId, segmentId) VALUES (timestamp '${now}', '45678', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c2', 11);
+INSERT INTO Membership (createDate, identityId, individualId, segmentId) VALUES (timestamp '${now}', '87654', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3', 11);
+INSERT INTO Membership (createDate, identityId, individualId, segmentId) VALUES (timestamp '${now}', '76543', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c3', 11);
+
+INSERT INTO Organization (dataSourceId, id, modifiedDate, name, organizationId, treePath) VALUES (123, '23k92323l923lf0as', timestamp '2022-12-18T23:59:59.999Z', 'Organization 1', 2345, 'Organization 1');
