@@ -46,6 +46,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.SelectSelectStep;
 import org.jooq.impl.DSL;
@@ -61,13 +62,14 @@ public class BigQueryDataExporter implements DataExporter {
 
 		this(
 			bigQuery, Collections.emptyList(), dataExportTask, dateFieldName,
-			dslContext, exportPath, tableName);
+			dslContext, exportPath, Collections.emptyList(), tableName);
 	}
 
 	public BigQueryDataExporter(
 		BigQuery bigQuery, List<Condition> conditions,
 		DataExportTask dataExportTask, String dateFieldName,
-		DSLContext dslContext, String exportPath, String tableName) {
+		DSLContext dslContext, String exportPath,
+		List<String> selectedFieldNames, String tableName) {
 
 		_bigQuery = bigQuery;
 		_conditions = conditions;
@@ -75,6 +77,7 @@ public class BigQueryDataExporter implements DataExporter {
 		_dateFieldName = dateFieldName;
 		_dslContext = dslContext;
 		_exportPath = exportPath;
+		_selectedFieldNames = selectedFieldNames;
 		_tableName = tableName;
 
 		_bigQueryOptions = bigQuery.getOptions();
@@ -174,11 +177,25 @@ public class BigQueryDataExporter implements DataExporter {
 		return conditions;
 	}
 
+	private SelectSelectStep<Record> _getSelectSelectStep() {
+		if (_selectedFieldNames.isEmpty()) {
+			return _dslContext.select();
+		}
+
+		List<Field> fields = new ArrayList<>();
+
+		for (String selectedFieldName : _selectedFieldNames) {
+			fields.add(DSL.field(selectedFieldName));
+		}
+
+		return _dslContext.select(fields);
+	}
+
 	private void _runBigQueryExportJob(
 			String exportBucket, String exportBucketFolder)
 		throws Exception {
 
-		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+		SelectSelectStep<Record> selectSelectStep = _getSelectSelectStep();
 
 		QueryJobConfiguration queryJobConfiguration =
 			QueryJobConfiguration.newBuilder(
@@ -212,6 +229,7 @@ public class BigQueryDataExporter implements DataExporter {
 	private final String _dateFieldName;
 	private final DSLContext _dslContext;
 	private final String _exportPath;
+	private final List<String> _selectedFieldNames;
 	private final Storage _storage;
 	private final String _tableName;
 
