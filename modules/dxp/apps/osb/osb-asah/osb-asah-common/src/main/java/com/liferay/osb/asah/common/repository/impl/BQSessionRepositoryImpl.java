@@ -1034,10 +1034,17 @@ public class BQSessionRepositoryImpl
 					"Individual"
 				)
 			).on(
-				DSL.field(
-					"Identity.individualId"
-				).eq(
-					DSL.field("Individual.id")
+				DSL.and(
+					DSL.field(
+						"Identity.individualId"
+					).eq(
+						DSL.field("Individual.id")
+					),
+					DSL.field(
+						"Individual.suppressed"
+					).notEqual(
+						Boolean.TRUE
+					)
 				)
 			).asTable(
 				"IndividualIdentity"

@@ -321,10 +321,17 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 						"individual"
 					)
 				).on(
-					DSL.field(
-						"identity.individualId"
-					).eq(
-						DSL.field("individual.id")
+					DSL.and(
+						DSL.field(
+							"identity.individualId"
+						).eq(
+							DSL.field("individual.id")
+						),
+						DSL.field(
+							"Individual.suppressed"
+						).notEqual(
+							Boolean.TRUE
+						)
 					)
 				).leftJoin(
 					DSL.table(

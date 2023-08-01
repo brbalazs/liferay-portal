@@ -214,7 +214,7 @@ public class PageAssetMetricRepositoryImpl
 			dslContext.select(
 				DSL.countDistinct(
 					DSL.coalesce(
-						DSL.field("Identity.individualId"),
+						DSL.field("Individual.id"),
 						DSL.field("PageDaily.userId")))
 			).from(
 				getTableName(timeRange)
@@ -237,10 +237,17 @@ public class PageAssetMetricRepositoryImpl
 					"Individual"
 				)
 			).on(
-				DSL.field(
-					"Individual.id"
-				).eq(
-					DSL.field("Identity.individualId")
+				DSL.and(
+					DSL.field(
+						"Individual.id"
+					).eq(
+						DSL.field("Identity.individualId")
+					),
+					DSL.field(
+						"Individual.suppressed"
+					).notEqual(
+						Boolean.TRUE
+					)
 				)
 			).where(
 				DSL.field(
@@ -303,10 +310,17 @@ public class PageAssetMetricRepositoryImpl
 				"Individual"
 			)
 		).on(
-			DSL.field(
-				"Individual.id"
-			).eq(
-				DSL.field("Identity.individualId")
+			DSL.and(
+				DSL.field(
+					"Individual.id"
+				).eq(
+					DSL.field("Identity.individualId")
+				),
+				DSL.field(
+					"Individual.suppressed"
+				).notEqual(
+					Boolean.TRUE
+				)
 			)
 		);
 	}
