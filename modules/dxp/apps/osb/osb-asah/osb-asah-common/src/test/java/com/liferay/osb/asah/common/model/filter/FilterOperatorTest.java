@@ -149,7 +149,11 @@ public class FilterOperatorTest {
 			DSL.condition(
 				DSL.field(
 					DSL.lower(
-						DSL.field("testField", String.class)
+						DSL.trim(
+							DSL.replace(
+								DSL.coalesce(
+									DSL.field("testField", String.class), ""),
+								"\n", ""))
 					).like(
 						DSL.inline("%testvalue%")
 					))),
@@ -166,7 +170,11 @@ public class FilterOperatorTest {
 			DSL.condition(
 				DSL.field(
 					DSL.lower(
-						DSL.field("testField", String.class)
+						DSL.trim(
+							DSL.replace(
+								DSL.coalesce(
+									DSL.field("testField", String.class), ""),
+								"\n", ""))
 					).like(
 						DSL.inline("%test\\'value%")
 					))),
@@ -470,7 +478,12 @@ public class FilterOperatorTest {
 				DSL.condition(
 					DSL.field(
 						DSL.lower(
-							DSL.field("testField", String.class)
+							DSL.trim(
+								DSL.replace(
+									DSL.coalesce(
+										DSL.field("testField", String.class),
+										""),
+									"\n", ""))
 						).like(
 							DSL.inline("%testvalue%")
 						)))),
