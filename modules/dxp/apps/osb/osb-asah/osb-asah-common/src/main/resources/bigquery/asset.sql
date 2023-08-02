@@ -9,7 +9,20 @@ WITH AssetEvent AS (
 			    Event.applicationId
 		END AS applicationId,
 		Event.assetId,
-		Event.assetTitle,
+		FIRST_VALUE(Event.assetTitle IGNORE NULLS) OVER (
+			PARTITION BY
+				CASE WHEN
+					Event.applicationId = 'Comment'
+				THEN
+					'Blog'
+				ELSE
+					Event.applicationId
+				END,
+				Event.assetId,
+				Event.dataSourceId
+			ORDER BY eventDate DESC
+			ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+		) AS assetTitle,
 		Event.canonicalUrl,
 		Event.channelId,
 		Event.dataSourceId,
