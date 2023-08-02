@@ -95,9 +95,20 @@ public class DataExportNanite extends BaseNanite {
 				_exportPath, "Event");
 		}
 		else if (dataExportTask.getType() == DataExportTask.Type.IDENTITY) {
+			Condition condition = DSL.field(
+				"individualId"
+			).notIn(
+				_dslContext.select(
+					DSL.field("TO_HEX(SHA256(emailAddress))")
+				).from(
+					"Suppression"
+				)
+			);
+
 			dataExporter = new BigQueryDataExporter(
-				_bigQuery, dataExportTask, "createDate", _dslContext,
-				_exportPath, "Identity");
+				_bigQuery, Collections.singletonList(condition),
+				dataExportTask, "createDate", _dslContext, _exportPath,
+				Collections.emptyList(), "Identity");
 		}
 		else if (dataExportTask.getType() == DataExportTask.Type.INDIVIDUAL) {
 			Condition condition = DSL.or(
