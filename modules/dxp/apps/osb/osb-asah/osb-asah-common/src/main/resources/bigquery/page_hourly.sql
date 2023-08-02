@@ -208,7 +208,7 @@ PageViews AS (
 		city,
 		country,
 		COUNTIF(eventId = 'ctaClicked') ctaClicks,
-		max(description) AS description,
+		MAX(description) AS description,
 		deviceType,
 		COUNTIF(eventId = 'pageViewed' AND referrer = '') AS directAccess,
 		ANY_VALUE(experimentId) AS experimentId,
