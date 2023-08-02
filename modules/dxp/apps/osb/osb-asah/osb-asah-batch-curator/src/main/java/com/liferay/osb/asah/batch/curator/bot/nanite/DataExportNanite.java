@@ -30,6 +30,7 @@ import java.io.FileOutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -38,7 +39,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.impl.DSL;
 
 import org.json.JSONObject;
 
@@ -97,9 +100,20 @@ public class DataExportNanite extends BaseNanite {
 				_exportPath, "Identity");
 		}
 		else if (dataExportTask.getType() == DataExportTask.Type.INDIVIDUAL) {
+			Condition condition = DSL.or(
+				DSL.field(
+					"suppressed"
+				).isNull(),
+				DSL.field(
+					"suppressed", Boolean.class
+				).eq(
+					false
+				));
+
 			dataExporter = new BigQueryDataExporter(
-				_bigQuery, dataExportTask, "createDate", _dslContext,
-				_exportPath, "Individual");
+				_bigQuery, Collections.singletonList(condition), dataExportTask,
+				"createDate", _dslContext, _exportPath, Collections.emptyList(),
+				"Individual");
 		}
 		else if (dataExportTask.getType() == DataExportTask.Type.MEMBERSHIP) {
 			dataExporter = new BigQueryDataExporter(
