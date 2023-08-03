@@ -41,7 +41,7 @@ definition {
 
 		Portlet.shutdownServer();
 
-		Portlet.startServer(deleteLiferayHome = "false");
+		AntCommands.runCommand("build-test.xml", "start-app-server-tomcat-simple");
 
 		AssertConsoleTextPresent(value1 = "You must first upgrade the portal core to the required schema version");
 	}
