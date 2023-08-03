@@ -1263,11 +1263,21 @@ public class BQIdentityInterestScoreRepositoryImpl
 		}
 
 		conditions.add(
-			DSL.field(
-				"Identity.individualId"
-			).eq(
-				individualId
-			));
+			DSL.and(
+				DSL.field(
+					"Identity.individualId"
+				).eq(
+					individualId
+				),
+				DSL.field(
+					"Identity.individualId"
+				).notIn(
+					_dslContext.select(
+						DSL.field("TO_HEX(SHA256(emailAddress))")
+					).from(
+						"Suppression"
+					)
+				)));
 
 		conditions.add(
 			DSL.field(

@@ -476,7 +476,15 @@ public class BQMembershipRepositoryImpl
 			selectSelectStep.from(
 				"BQMembership"
 			).where(
-				individualIdField.eq(individualId)
+				DSL.and(
+					individualIdField.eq(individualId),
+					individualIdField.notIn(
+						_dslContext.select(
+							DSL.field(
+								"TO_HEX(SHA256(emailAddress))", String.class)
+						).from(
+							"Suppression"
+						)))
 			));
 	}
 

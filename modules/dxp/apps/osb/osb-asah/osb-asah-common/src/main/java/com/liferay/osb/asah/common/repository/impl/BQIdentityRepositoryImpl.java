@@ -137,11 +137,21 @@ public class BQIdentityRepositoryImpl
 			).from(
 				"BQIdentity"
 			).where(
-				DSL.field(
-					"individualId", String.class
-				).eq(
-					bqIndividualId
-				)
+				DSL.and(
+					DSL.field(
+						"individualId", String.class
+					).eq(
+						bqIndividualId
+					),
+					DSL.field(
+						"individualId"
+					).notIn(
+						_dslContext.select(
+							DSL.field("TO_HEX(SHA256(emailAddress))")
+						).from(
+							"Suppression"
+						)
+					))
 			));
 	}
 
@@ -154,11 +164,21 @@ public class BQIdentityRepositoryImpl
 			).from(
 				"BQIdentity"
 			).where(
-				DSL.field(
-					"id"
-				).eq(
-					id
-				)
+				DSL.and(
+					DSL.field(
+						"id"
+					).eq(
+						id
+					),
+					DSL.field(
+						"individualId"
+					).notIn(
+						_dslContext.select(
+							DSL.field("TO_HEX(SHA256(emailAddress))")
+						).from(
+							"Suppression"
+						)
+					))
 			));
 
 		return bqIndividualIdOptional.orElse(null);
