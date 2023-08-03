@@ -145,11 +145,21 @@ public final class DataControlTask implements Persistable<Long> {
 		return _type;
 	}
 
+	@AccessType(AccessType.Type.PROPERTY)
+	public String getUserId() {
+		return _userId;
+	}
+
+	@AccessType(AccessType.Type.PROPERTY)
+	public String getUserName() {
+		return _userName;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(
 			_batchId, _completeDate, _createDate, _emailAddress, _id, _type,
-			_status);
+			_status, _userId, _userName);
 	}
 
 	@JsonIgnore
@@ -208,6 +218,14 @@ public final class DataControlTask implements Persistable<Long> {
 		_type = type;
 	}
 
+	public void setUserId(String userId) {
+		_userId = userId;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
 	public enum Type {
 
 		ACCESS(AuditEvent.Type.USER_ACCESS),
@@ -256,5 +274,11 @@ public final class DataControlTask implements Persistable<Long> {
 
 	@Transient
 	private Type _type;
+
+	@Transient
+	private String _userId;
+
+	@Transient
+	private String _userName;
 
 }

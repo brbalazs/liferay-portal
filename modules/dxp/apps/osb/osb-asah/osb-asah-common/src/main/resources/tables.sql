@@ -65,7 +65,9 @@ CREATE TABLE IF NOT EXISTS DataControlTask (
 	ownerId TEXT,
 	startDate TIMESTAMPTZ,
 	status TEXT,
-	type TEXT
+	type TEXT,
+	userId TEXT,
+	userName TEXT
 );
 
 CREATE TABLE IF NOT EXISTS DataExportTask (
