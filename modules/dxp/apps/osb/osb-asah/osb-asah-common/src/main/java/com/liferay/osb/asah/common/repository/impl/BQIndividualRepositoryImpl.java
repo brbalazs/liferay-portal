@@ -67,6 +67,7 @@ import org.jooq.SelectOnStep;
 import org.jooq.SelectSeekStep1;
 import org.jooq.SelectSelectStep;
 import org.jooq.SortField;
+import org.jooq.Table;
 import org.jooq.impl.DSL;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,9 +92,19 @@ public class BQIndividualRepositoryImpl
 
 		SelectJoinStep<Record1<Integer>> selectJoinStep = _getSelectJoinStep(
 			interestName, segmentId,
-			_dslContext.select(DSL.countDistinct(DSL.field("individual.id"))));
+			_dslContext.select(DSL.countDistinct(DSL.field("Individual.id"))));
 
-		Condition condition = _getQueryCondition(query);
+		Condition condition = DSL.and(
+			_getQueryCondition(query),
+			DSL.or(
+				DSL.field(
+					"Individual.suppressed"
+				).isNull(),
+				DSL.field(
+					"Individual.suppressed"
+				).notEqual(
+					DSL.val(Boolean.TRUE)
+				)));
 
 		if (channelId != null) {
 			condition = condition.and(
@@ -214,11 +225,15 @@ public class BQIndividualRepositoryImpl
 					).eq(
 						DSL.field("Individual.id")
 					),
-					DSL.field(
-						"Individual.suppressed"
-					).notEqual(
-						Boolean.TRUE
-					))
+					DSL.or(
+						DSL.field(
+							"Individual.suppressed"
+						).isNull(),
+						DSL.field(
+							"Individual.suppressed"
+						).notEqual(
+							DSL.val(Boolean.TRUE)
+						)))
 			).where(
 				DSL.and(
 					DSL.field(
@@ -298,11 +313,15 @@ public class BQIndividualRepositoryImpl
 		}
 
 		conditions.add(
-			DSL.field(
-				"Individual.suppressed", Boolean.class
-			).notEqual(
-				Boolean.TRUE
-			));
+			DSL.or(
+				DSL.field(
+					"Individual.suppressed"
+				).isNull(),
+				DSL.field(
+					"Individual.suppressed"
+				).notEqual(
+					DSL.val(Boolean.TRUE)
+				)));
 		conditions.add(fieldValueField.isNotNull());
 		conditions.add(fieldValueField.notEqual(""));
 
@@ -341,6 +360,17 @@ public class BQIndividualRepositoryImpl
 		Field<Object> individualIdField = DSL.field("individual.id");
 
 		conditions.add(individualIdField.eq(id));
+
+		conditions.add(
+			DSL.or(
+				DSL.field(
+					"individual.suppressed"
+				).isNull(),
+				DSL.field(
+					"individual.suppressed"
+				).notEqual(
+					DSL.val(Boolean.TRUE)
+				)));
 
 		if (channelId != null) {
 			conditions.add(
@@ -423,11 +453,15 @@ public class BQIndividualRepositoryImpl
 		List<Condition> conditions = new ArrayList<>();
 
 		conditions.add(
-			DSL.field(
-				"Individual.suppressed", Boolean.class
-			).notEqual(
-				Boolean.TRUE
-			));
+			DSL.or(
+				DSL.field(
+					"suppressed"
+				).isNull(),
+				DSL.field(
+					"suppressed"
+				).notEqual(
+					DSL.val(Boolean.TRUE)
+				)));
 
 		if (channelId != null) {
 			conditions.add(_getChannelIdCondition(channelId));
@@ -574,6 +608,17 @@ public class BQIndividualRepositoryImpl
 					)
 				));
 		}
+
+		condition = condition.and(
+			DSL.or(
+				DSL.field(
+					"Individual.suppressed"
+				).isNull(),
+				DSL.field(
+					"Individual.suppressed"
+				).notEqual(
+					DSL.val(Boolean.TRUE)
+				)));
 
 		Collection<SortField<?>> sortFields = getSortFields(
 			_fieldNameConversionMap, pageable.getSort(), null);
@@ -797,6 +842,16 @@ public class BQIndividualRepositoryImpl
 				));
 		}
 
+		conditions.add(
+			DSL.or(
+				DSL.field(
+					"Individual.suppressed"
+				).isNull(),
+				DSL.field(
+					"Individual.suppressed"
+				).notEqual(
+					DSL.val(Boolean.TRUE)
+				)));
 		conditions.add(fieldValueField.isNotNull());
 		conditions.add(fieldValueField.notEqual(""));
 
@@ -946,11 +1001,15 @@ public class BQIndividualRepositoryImpl
 				DSL.val("custom")
 			));
 		conditions.add(
-			DSL.field(
-				"Individual.suppressed", Boolean.class
-			).notEqual(
-				Boolean.TRUE
-			));
+			DSL.or(
+				DSL.field(
+					"suppressed"
+				).isNull(),
+				DSL.field(
+					"suppressed"
+				).notEqual(
+					Boolean.TRUE
+				)));
 		conditions.add(
 			DSL.field(
 				"IndividualFields_" + fieldName + ".name"
@@ -1242,6 +1301,28 @@ public class BQIndividualRepositoryImpl
 		);
 	}
 
+	private <R extends Record> Table<R> _getIndividualTable(
+		Condition condition, String interestName, Long segmentId,
+		SelectSelectStep<R> selectSelectStep) {
+
+		SelectJoinStep<R> selectJoinStep = _getSelectJoinStep(
+			interestName, segmentId, selectSelectStep);
+
+		return selectJoinStep.where(
+			DSL.and(
+				condition,
+				DSL.or(
+					DSL.field(
+						"suppressed"
+					).isNull(),
+					DSL.field(
+						"suppressed"
+					).notEqual(
+						Boolean.TRUE
+					)))
+		).asTable();
+	}
+
 	private Condition _getQueryCondition(String query) {
 		return _getQueryCondition(query, _SEARCH_COLUMNS);
 	}
@@ -1336,11 +1417,15 @@ public class BQIndividualRepositoryImpl
 					).eq(
 						DSL.field("Individual.id")
 					),
-					DSL.field(
-						"Individual.suppressed", Boolean.class
-					).notEqual(
-						Boolean.TRUE
-					)));
+					DSL.or(
+						DSL.field(
+							"suppressed"
+						).isNull(),
+						DSL.field(
+							"suppressed"
+						).notEqual(
+							Boolean.TRUE
+						))));
 
 			if (referencedTableNames.contains("ExpandoValue")) {
 				Stream<String> stream = referencedTableNames.stream();
