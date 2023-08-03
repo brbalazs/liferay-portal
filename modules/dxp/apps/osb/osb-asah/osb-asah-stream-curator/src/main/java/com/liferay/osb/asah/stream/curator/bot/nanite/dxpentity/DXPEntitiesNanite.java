@@ -19,13 +19,13 @@ import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.DXPEntityDog;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.entity.DXPEntity;
+import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.lock.KeyReentrantLock;
 import com.liferay.osb.asah.common.messaging.Channel;
 import com.liferay.osb.asah.common.messaging.MessageBus;
 import com.liferay.osb.asah.common.messaging.MessageSubscriber;
 import com.liferay.osb.asah.common.messaging.model.Message;
-import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.stream.curator.bot.nanite.Nanite;
@@ -149,7 +149,7 @@ public class DXPEntitiesNanite implements Nanite {
 			(dxpEntityType.isUser() &&
 			 _dataControlTaskDog.existsCompletedDataControlTask(
 				 objectJSONObject.optString("emailAddress"),
-				 DataControlTaskType.SUPPRESS))) {
+				 DataControlTask.Type.SUPPRESS))) {
 
 			return;
 		}
