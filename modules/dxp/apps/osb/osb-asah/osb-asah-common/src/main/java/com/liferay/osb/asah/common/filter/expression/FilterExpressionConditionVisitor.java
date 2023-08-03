@@ -187,6 +187,20 @@ public class FilterExpressionConditionVisitor
 			rightField = DSL.val(Long.parseLong(param.getValue()));
 		}
 
+		if (Objects.equals(fieldName, "interestName")) {
+			Param<String> param = (Param<String>)rightField;
+
+			rightField = DSL.lower(
+				DSL.trim(DSL.replace(DSL.val(param.getValue()), "\n", "")));
+
+			return DSL.lower(
+				DSL.trim(
+					DSL.replace(DSL.field("keyword", String.class), "\n", ""))
+			).eq(
+				rightField
+			);
+		}
+
 		return leftField.eq(rightField);
 	}
 
