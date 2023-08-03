@@ -101,14 +101,14 @@ public class DataControlTaskDog {
 				dataControlTask.setStatus(
 					DataControlTaskStatus.PENDING.toString());
 				dataControlTask.setType(dataControlTaskType);
+				dataControlTask.setUserId(userId);
+				dataControlTask.setUserName(userName);
 
 				dataControlTasks.add(dataControlTask);
 			}
 		}
 
 		_dataControlTaskRepository.saveAll(dataControlTasks);
-
-		_addAuditEvents(emailAddresses, types, userId, userName);
 
 		return true;
 	}
@@ -181,20 +181,6 @@ public class DataControlTaskDog {
 		}
 
 		return _dataControlTaskRepository.save(dataControlTask);
-	}
-
-	private void _addAuditEvents(
-		List<String> emailAddresses, List<String> types, String userId,
-		String userName) {
-
-		for (String emailAddress : emailAddresses) {
-			for (String type : types) {
-				_auditEventDog.addAuditEvent(
-					String.format("Request created for %s", emailAddress),
-					DataControlTask.Type.valueOf(type), userId,
-					userName);
-			}
-		}
 	}
 
 	private Date _getStartCreateDate(Integer rangeKey) {

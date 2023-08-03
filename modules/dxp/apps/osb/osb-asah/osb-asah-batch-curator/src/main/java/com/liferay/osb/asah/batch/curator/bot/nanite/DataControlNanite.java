@@ -22,6 +22,7 @@ import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.DXPEntityData
 import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.DataExporter;
 import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.RawDataExporter;
 import com.liferay.osb.asah.common.date.DateUtil;
+import com.liferay.osb.asah.common.dog.AuditEventDog;
 import com.liferay.osb.asah.common.dog.BQCSVUserDog;
 import com.liferay.osb.asah.common.dog.BQUserDog;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
@@ -284,6 +285,13 @@ public class DataControlNanite extends BaseNanite {
 					dataControlTask, DataControlTaskStatus.ERROR);
 			}
 
+			_auditEventDog.addAuditEvent(
+				String.format(
+					"Request created for %s",
+					dataControlTask.getEmailAddress()),
+				type.getAuditEventType(), dataControlTask.getUserId(),
+				dataControlTask.getUserName());
+
 			_sendEmail(dataControlTask);
 		}
 		catch (Exception exception) {
@@ -342,6 +350,9 @@ public class DataControlNanite extends BaseNanite {
 	}
 
 	private static final Log _log = LogFactory.getLog(DataControlNanite.class);
+
+	@Autowired
+	private AuditEventDog _auditEventDog;
 
 	@Autowired
 	private BQCSVUserDog _bqCSVUserDog;
