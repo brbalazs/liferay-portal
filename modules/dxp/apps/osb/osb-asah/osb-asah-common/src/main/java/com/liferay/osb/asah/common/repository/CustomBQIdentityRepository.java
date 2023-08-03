@@ -51,6 +51,4 @@ public interface CustomBQIdentityRepository {
 
 	public BQIdentity insert(BQIdentity bqIdentity);
 
-	public List<Long> searchSegmentBQIdentityIds(String filterString);
-
 }

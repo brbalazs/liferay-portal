@@ -15,7 +15,6 @@
 package com.liferay.osb.asah.common.repository.impl;
 
 import com.liferay.osb.asah.common.entity.BQIdentity;
-import com.liferay.osb.asah.common.filter.expression.FilterExpression;
 import com.liferay.osb.asah.common.model.IndividualMetricType;
 import com.liferay.osb.asah.common.model.MetricType;
 import com.liferay.osb.asah.common.model.TimeRange;
@@ -36,13 +35,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.apache.commons.lang3.BooleanUtils;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
-import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.Record2;
 import org.jooq.SelectConditionStep;
@@ -241,31 +238,6 @@ public class BQIdentityRepositoryImpl
 		return bqIdentity;
 	}
 
-	@Override
-	public List<Long> searchSegmentBQIdentityIds(String filterString) {
-		Field<Long> identityIdField = DSL.field("Identity.id", Long.class);
-
-		SelectSelectStep<Record1<Long>> selectSelectStep = _dslContext.select(
-			identityIdField.as("id"));
-
-		SelectJoinStep<Record1<Long>> selectJoinStep = selectSelectStep.from(
-			DSL.table(
-				"BQIdentity"
-			).as(
-				"Identity"
-			));
-
-		FilterExpression filterExpression = new FilterExpression(
-			filterString, true);
-
-		selectJoinStep = _getSelectJoinStep(
-			filterExpression.getReferencedTableNames(), selectJoinStep);
-
-		return _queryExecutor.queryForList(
-			record -> Long.parseLong((String)record.get("id")),
-			selectJoinStep.where(filterExpression.getCondition()));
-	}
-
 	private List<Condition> _getConditions(
 		Boolean active, Long channelId, LocalDate localDate,
 		MetricType metricType, ZoneId zoneId) {
@@ -399,61 +371,6 @@ public class BQIdentityRepositoryImpl
 
 		return selectJoinStep.where(
 			_getConditions(active, channelId, localDate, metricType, zoneId));
-	}
-
-	private SelectJoinStep<Record1<Long>> _getSelectJoinStep(
-		Set<String> referencedTableNames,
-		SelectJoinStep<Record1<Long>> selectJoinStep) {
-
-		if (referencedTableNames.contains("Event")) {
-			selectJoinStep = selectJoinStep.join(
-				DSL.table(
-					"BQEvent"
-				).as(
-					"Event"
-				)
-			).on(
-				DSL.field(
-					"Event.userId"
-				).eq(
-					DSL.field("Identity.id")
-				)
-			);
-		}
-
-		if (referencedTableNames.contains("Individual")) {
-			selectJoinStep = selectJoinStep.join(
-				DSL.table(
-					"BQIndividual"
-				).as(
-					"Individual"
-				)
-			).on(
-				DSL.field(
-					"Identity.individualId"
-				).eq(
-					DSL.field("Individual.id")
-				)
-			);
-		}
-
-		if (referencedTableNames.contains("Session")) {
-			selectJoinStep = selectJoinStep.join(
-				DSL.table(
-					"BQSession"
-				).as(
-					"Session"
-				)
-			).on(
-				DSL.field(
-					"Identity.id"
-				).eq(
-					DSL.field("Session.userId")
-				)
-			);
-		}
-
-		return selectJoinStep;
 	}
 
 	private final DSLContext _dslContext;

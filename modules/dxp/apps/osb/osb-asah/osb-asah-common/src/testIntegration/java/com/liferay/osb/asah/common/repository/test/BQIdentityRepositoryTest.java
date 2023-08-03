@@ -24,8 +24,6 @@ import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContex
 
 import java.time.LocalDate;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -70,48 +68,6 @@ public class BQIdentityRepositoryTest
 				true, 1L, localDate, IndividualMetricType.TOTAL_INDIVIDUALS,
 				_timeZoneDog.getZoneId()),
 			0);
-	}
-
-	@BQSQLResource(resourcePath = "test_bq_identity_repository.sql")
-	@Test
-	public void testSearchSegmentBQIdentityIds1() {
-		List<Long> bqIdentityIds =
-			_bqIdentityRepository.searchSegmentBQIdentityIds(
-				"(demographics/firstName/value eq 'Test1' and " +
-					"(sessions.filter(filter='(context/browserName eq " +
-						"''browser1'' and sessionStart gt ''last24Hours'')') " +
-							"and demographics/email/value eq " +
-								"'test1@liferay.com'))");
-
-		Assertions.assertEquals(1, bqIdentityIds.size());
-		Assertions.assertEquals(1, bqIdentityIds.get(0));
-	}
-
-	@BQSQLResource(resourcePath = "test_bq_identity_repository.sql")
-	@Test
-	public void testSearchSegmentBQIdentityIds2() {
-		List<Long> bqIdentityIds =
-			_bqIdentityRepository.searchSegmentBQIdentityIds(
-				"(demographics/firstName/value eq 'Test1' and " +
-					"(activities.filterByCount(filter='(applicationId eq " +
-						"''Blog'' and eventId = ''blogClicked'' and id = " +
-							"''1'')', operator='ge', value=1)))");
-
-		Assertions.assertEquals(1, bqIdentityIds.size());
-		Assertions.assertEquals(1, bqIdentityIds.get(0));
-	}
-
-	@BQSQLResource(resourcePath = "test_bq_identity_repository.sql")
-	@Test
-	public void testSearchSegmentBQIdentityIds3() {
-		List<Long> bqIdentityIds =
-			_bqIdentityRepository.searchSegmentBQIdentityIds(
-				"(demographics/firstName/value eq 'Test1' and " +
-					"(activities.filterByCount(filter='(applicationId eq " +
-						"''Blog'' and eventId eq ''blogClicked'' and id eq " +
-							"''2'')', operator='ge', value=1)))");
-
-		Assertions.assertEquals(0, bqIdentityIds.size());
 	}
 
 	@Autowired
