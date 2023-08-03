@@ -1022,9 +1022,17 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 			conditions.add(
 				DSL.or(
 					DSL.lower(
-						DSL.field(getAssetTitleFieldName(), String.class)
+						DSL.trim(
+							DSL.replace(
+								DSL.field(
+									getAssetTitleFieldName(), String.class),
+								"\n", ""))
 					).like(
-						StringUtils.wrap(StringUtils.lowerCase(terms), "%")
+						StringUtils.wrap(
+							StringUtils.lowerCase(
+								StringUtils.trim(
+									StringUtils.replace(terms, "\n", ""))),
+							"%")
 					),
 					getDescriptionLikeCondition(terms)));
 		}
