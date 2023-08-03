@@ -243,12 +243,15 @@ public class PageAssetMetricRepositoryImpl
 					).eq(
 						DSL.field("Identity.individualId")
 					),
-					DSL.field(
-						"Individual.suppressed"
-					).notEqual(
-						Boolean.TRUE
-					)
-				)
+					DSL.or(
+						DSL.field(
+							"Individual.suppressed"
+						).isNull(),
+						DSL.field(
+							"Individual.suppressed"
+						).notEqual(
+							DSL.val(Boolean.TRUE)
+						)))
 			).where(
 				DSL.field(
 					"eventDate"
@@ -316,12 +319,15 @@ public class PageAssetMetricRepositoryImpl
 				).eq(
 					DSL.field("Identity.individualId")
 				),
-				DSL.field(
-					"Individual.suppressed"
-				).notEqual(
-					Boolean.TRUE
-				)
-			)
+				DSL.or(
+					DSL.field(
+						"Individual.suppressed"
+					).isNull(),
+					DSL.field(
+						"Individual.suppressed"
+					).notEqual(
+						DSL.val(Boolean.TRUE)
+					)))
 		);
 	}
 

@@ -327,12 +327,15 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 						).eq(
 							DSL.field("individual.id")
 						),
-						DSL.field(
-							"Individual.suppressed"
-						).notEqual(
-							Boolean.TRUE
-						)
-					)
+						DSL.or(
+							DSL.field(
+								"individual.suppressed"
+							).isNull(),
+							DSL.field(
+								"individual.suppressed"
+							).notEqual(
+								DSL.val(Boolean.TRUE)
+							)))
 				).leftJoin(
 					DSL.table(
 						"BQMembership"
@@ -683,11 +686,15 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 					).eq(
 						DSL.field("identity.individualId")
 					),
-					DSL.field(
-						"individual.suppressed", Boolean.class
-					).notEqual(
-						Boolean.TRUE
-					))
+					DSL.or(
+						DSL.field(
+							"individual.suppressed"
+						).isNull(),
+						DSL.field(
+							"individual.suppressed"
+						).notEqual(
+							DSL.val(Boolean.TRUE)
+						)))
 			).where(
 				whereClauseCondition.and(
 					DSL.field(
@@ -778,11 +785,15 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 						).eq(
 							DSL.field("identity.individualId")
 						),
-						DSL.field(
-							"individual.suppressed", Boolean.class
-						).notEqual(
-							Boolean.TRUE
-						))
+						DSL.or(
+							DSL.field(
+								"individual.suppressed"
+							).isNull(),
+							DSL.field(
+								"individual.suppressed", Boolean.class
+							).notEqual(
+								DSL.val(Boolean.TRUE)
+							)))
 				).where(
 					whereClauseCondition.and(
 						DSL.field(
