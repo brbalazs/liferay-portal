@@ -37,6 +37,7 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -170,6 +171,10 @@ public class DataControlTaskDog {
 
 		return _dataControlTaskRepository.searchDataControlTasks(
 			filterHelper, status);
+	}
+
+	public Set<String> getSuppressedEmailAddresses() {
+		return _dataControlTaskRepository.findSuppressedEmailAddresses();
 	}
 
 	public DataControlTask updateDataControlTask(

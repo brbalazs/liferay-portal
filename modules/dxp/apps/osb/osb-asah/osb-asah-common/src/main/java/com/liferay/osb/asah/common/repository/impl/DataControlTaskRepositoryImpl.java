@@ -15,17 +15,21 @@
 package com.liferay.osb.asah.common.repository.impl;
 
 import com.liferay.osb.asah.common.entity.DataControlTask;
+import com.liferay.osb.asah.common.model.DataControlTaskStatus;
+import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.repository.CustomDataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.SelectSelectStep;
@@ -76,6 +80,32 @@ public class DataControlTaskRepositoryImpl
 			).where(
 				_getConditions(batchId, null, null, null, statuses, null)
 			));
+	}
+
+	@Override
+	public Set<String> findSuppressedEmailAddresses() {
+		Field<String> emailAddressField = DSL.field(
+			"emailAddress", String.class);
+
+		return _dslContext.selectDistinct(
+			emailAddressField
+		).from(
+			"DataControlTask"
+		).where(
+			DSL.field(
+				"status"
+			).eq(
+				DataControlTaskStatus.COMPLETED.toString()
+			),
+			DSL.field(
+				"type"
+			).in(
+				DataControlTaskType.DELETE.toString(),
+				DataControlTaskType.SUPPRESS.toString()
+			)
+		).fetchSet(
+			emailAddressField
+		);
 	}
 
 	@Override

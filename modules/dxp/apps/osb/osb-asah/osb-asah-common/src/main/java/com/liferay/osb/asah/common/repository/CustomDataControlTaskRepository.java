@@ -19,6 +19,7 @@ import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +37,9 @@ public interface CustomDataControlTaskRepository {
 
 	public Boolean existsByBatchIdAndStatusIn(
 		@Nullable Long batchId, @Nullable List<String> statuses);
+
+	@Cacheable
+	public Set<String> findSuppressedEmailAddresses();
 
 	@Cacheable
 	public List<DataControlTask> searchDataControlTasks(

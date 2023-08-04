@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.beam.sdk.io.gcp.pubsub.PubsubMessage;
 
@@ -111,6 +112,18 @@ public class DXPEntityPubsubMessage implements Serializable {
 
 		public String getResourceName() {
 			return get("resourceName");
+		}
+
+		public Set<String> getSuppressedEmailAddresses() throws Exception {
+			String suppressedEmailAddressesString = getOrDefault(
+				"suppressedEmailAddresses", null);
+
+			if (suppressedEmailAddressesString == null) {
+				return Collections.emptySet();
+			}
+
+			return ObjectMapperUtil.readValue(
+				Set.class, suppressedEmailAddressesString);
 		}
 
 		public String getUploadTime() {
