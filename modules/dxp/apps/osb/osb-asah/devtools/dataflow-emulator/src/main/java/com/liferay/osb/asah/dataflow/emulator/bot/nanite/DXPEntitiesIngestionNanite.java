@@ -14,8 +14,10 @@
 
 package com.liferay.osb.asah.dataflow.emulator.bot.nanite;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.entity.BQAccountEntry;
 import com.liferay.osb.asah.common.entity.BQAccountGroup;
 import com.liferay.osb.asah.common.entity.BQExpandoColumn;
@@ -59,8 +61,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.sql.DataSource;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -71,8 +71,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -244,7 +242,22 @@ public class DXPEntitiesIngestionNanite {
 		else if (StringUtils.equals(
 					type, "com.liferay.portal.kernel.model.User")) {
 
+			Set<String> suppressedEmailAddresses = _getSuppressedEmailAddresses(
+				attributes);
+
 			BQUser bqUser = _objectMapper.convertValue(fields, BQUser.class);
+
+			if (suppressedEmailAddresses.contains(
+					StringUtils.lowerCase(bqUser.getEmailAddress()))) {
+
+				if (_log.isInfoEnabled()) {
+					_log.info(
+						"Skipping ingestion of suppressed user " +
+							bqUser.getEmailAddress());
+				}
+
+				return;
+			}
 
 			bqUser.setDataSourceId(dataSourceId);
 
@@ -406,6 +419,25 @@ public class DXPEntitiesIngestionNanite {
 		return columnId.replaceAll("[\\W]", "_");
 	}
 
+	private Set<String> _getSuppressedEmailAddresses(
+		Map<String, String> messageAttributes) {
+
+		String suppressedEmailAddressesString = messageAttributes.getOrDefault(
+			"suppressedEmailAddresses", null);
+
+		if (suppressedEmailAddressesString == null) {
+			return Collections.emptySet();
+		}
+
+		try {
+			return _objectMapper.readValue(
+				suppressedEmailAddressesString, Set.class);
+		}
+		catch (JsonProcessingException jsonProcessingException) {
+			return Collections.emptySet();
+		}
+	}
+
 	private Map<String, Object> _parseFields(JSONArray fieldsJSONArray) {
 		Map<String, Object> fields = new HashMap<>();
 
@@ -481,9 +513,6 @@ public class DXPEntitiesIngestionNanite {
 		DXPEntitiesIngestionNanite.class);
 
 	@Autowired
-	private ApplicationContext _applicationContext;
-
-	@Autowired
 	private BQAccountEntryRepository _bqAccountEntryRepository;
 
 	@Autowired
@@ -517,8 +546,7 @@ public class DXPEntitiesIngestionNanite {
 	private BQUserRepository _bqUserRepository;
 
 	@Autowired
-	@Qualifier("postgreSQLDataSource")
-	private DataSource _dataSource;
+	private DataControlTaskDog _dataControlTaskDog;
 
 	@MessageSubscriber.Autowired(channel = Channel.DXP_ENTITIES_DEFAULT)
 	private MessageSubscriber _messageSubscriber;
