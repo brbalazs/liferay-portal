@@ -13,13 +13,13 @@ configurations.all {
 }
 
 dependencies {
-	compile group: "com.fasterxml.jackson.datatype", name: "jackson-datatype-json-org", version: "2.9.8"
-	compile group: "net.arnx", name: "jsonic", version: "1.2.9"
-	compile group: "org.apache.commons", name: "commons-collections4", version: "4.4"
-	compile group: "org.apache.commons", name: "commons-lang3", version: "3.7"
-	compile project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
+	api group: "com.fasterxml.jackson.datatype", name: "jackson-datatype-json-org", version: "2.9.8"
+	api group: "net.arnx", name: "jsonic", version: "1.2.9"
+	api group: "org.apache.commons", name: "commons-collections4", version: "4.4"
+	api group: "org.apache.commons", name: "commons-lang3", version: "3.7"
+	api project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
 
-	testCompile project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-test-util")
+	testImplementation project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-test-util")
 }
 
 jar {

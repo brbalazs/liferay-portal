@@ -9,10 +9,10 @@ bootJar {
 }
 
 dependencies {
-	compile group: "commons-fileupload", name: "commons-fileupload", version: "1.5"
-	compile project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
+	api group: "commons-fileupload", name: "commons-fileupload", version: "1.5"
+	api project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
 
-	testCompile project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-test-util")
+	testImplementation project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-test-util")
 }
 
 jar {

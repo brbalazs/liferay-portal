@@ -13,9 +13,9 @@ configurations.all {
 }
 
 dependencies {
-	compile group: "nl.jqno.equalsverifier", name: "equalsverifier", version: "2.5.1"
-	compile group: "org.springframework.boot", name: "spring-boot-starter-test"
-	compile project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
+	api group: "nl.jqno.equalsverifier", name: "equalsverifier", version: "2.5.1"
+	api group: "org.springframework.boot", name: "spring-boot-starter-test"
+	api project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
 }
 
 jar {

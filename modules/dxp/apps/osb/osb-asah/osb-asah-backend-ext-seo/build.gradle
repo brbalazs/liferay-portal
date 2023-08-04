@@ -9,9 +9,9 @@ bootJar {
 }
 
 dependencies {
-	compile project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
+	api project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
 
-	testIntegrationCompile project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-test-util")
+	testIntegrationImplementation project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-test-util")
 }
 
 jar {

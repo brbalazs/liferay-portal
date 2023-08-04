@@ -106,9 +106,9 @@ public class DataExportNanite extends BaseNanite {
 			);
 
 			dataExporter = new BigQueryDataExporter(
-				_bigQuery, Collections.singletonList(condition),
-				dataExportTask, "createDate", _dslContext, _exportPath,
-				Collections.emptyList(), "Identity");
+				_bigQuery, Collections.singletonList(condition), dataExportTask,
+				"createDate", _dslContext, _exportPath, Collections.emptyList(),
+				"Identity");
 		}
 		else if (dataExportTask.getType() == DataExportTask.Type.INDIVIDUAL) {
 			Condition condition = DSL.or(
