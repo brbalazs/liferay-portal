@@ -143,18 +143,13 @@ public class DXPBatchEntitiesRestController {
 				_clamAVScanner.scan(multipartFile.getInputStream());
 			}
 
-			Map<Long, Long> commerceChannelIdChannelIds =
-				_getCommerceChannelIdChannelIds(
-					Long.parseLong(dataSourceId), name);
-
 			ZipInputStream zipInputStream = new ZipInputStream(
 				multipartFile.getInputStream());
 
 			zipInputStream.getNextEntry();
 
 			boolean success = _publishMessages(
-				commerceChannelIdChannelIds, dataSourceId, name, zipInputStream,
-				uploadType);
+				dataSourceId, name, zipInputStream, uploadType);
 
 			_messageBus.sendMessage(
 				Channel.COMPOSER,
@@ -181,16 +176,7 @@ public class DXPBatchEntitiesRestController {
 		return ResponseEntity.ok(Collections.emptyList());
 	}
 
-	private Map<Long, Long> _getCommerceChannelIdChannelIds(
-		long dataSourceId, String resourceName) {
-
-		if (!ArrayUtil.contains(
-				_REQUIRE_COMMERCE_CHANNEL_ID_CHANNEL_ID_RESOURCE_NAMES,
-				resourceName)) {
-
-			return null;
-		}
-
+	private Map<Long, Long> _getCommerceChannelIdChannelIds(long dataSourceId) {
 		List<com.liferay.osb.asah.common.entity.Channel> channels =
 			_channelDog.getChannels(dataSourceId);
 
@@ -267,18 +253,23 @@ public class DXPBatchEntitiesRestController {
 	}
 
 	private boolean _publishMessages(
-			Map<Long, Long> commerceChannelIdChannelIds, String dataSourceId,
-			String resourceName, InputStream inputStream, String uploadType)
+			String dataSourceId, String resourceName, InputStream inputStream,
+			String uploadType)
 		throws Exception {
 
 		Channel channel = _dxpEntitiesChannels.getChannel(resourceName);
 
 		Map<String, String> messageAttributes = new HashMap<>();
 
-		if (commerceChannelIdChannelIds != null) {
+		if (ArrayUtil.contains(
+				_REQUIRE_COMMERCE_CHANNEL_ID_CHANNEL_ID_RESOURCE_NAMES,
+				resourceName)) {
+
 			messageAttributes.put(
 				"commerceChannelIdChannelIds",
-				_objectMapper.writeValueAsString(commerceChannelIdChannelIds));
+				_objectMapper.writeValueAsString(
+					_getCommerceChannelIdChannelIds(
+						Long.parseLong(dataSourceId))));
 		}
 
 		messageAttributes.put("dataSourceId", dataSourceId);
