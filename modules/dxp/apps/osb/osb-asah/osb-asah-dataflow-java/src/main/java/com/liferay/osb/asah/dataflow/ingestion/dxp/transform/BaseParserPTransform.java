@@ -48,8 +48,11 @@ public abstract class BaseParserPTransform<T extends BaseDXPEntity>
 							processContext.element();
 
 						try {
-							processContext.output(
-								_successTupleTag, doParse(element));
+							T t = doParse(element);
+
+							if (t != null) {
+								processContext.output(_successTupleTag, t);
+							}
 						}
 						catch (Exception exception) {
 							_logger.error(
