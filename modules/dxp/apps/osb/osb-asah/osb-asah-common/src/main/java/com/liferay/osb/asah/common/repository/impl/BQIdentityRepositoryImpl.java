@@ -23,7 +23,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -239,11 +238,11 @@ public class BQIdentityRepositoryImpl
 			_dslContext.insertInto(
 				DSL.table("Identity_Raw")
 			).columns(
-				DSL.field("createDate", Date.class), DSL.field("id"),
+				DSL.field("createDate"), DSL.field("id"),
 				DSL.field("individualId")
 			).values(
-				bqIdentity.getCreateDate(), bqIdentity.getId(),
-				bqIdentity.getIndividualId()
+				_dslHelper.getDateParam(bqIdentity.getCreateDate()),
+				bqIdentity.getId(), bqIdentity.getIndividualId()
 			));
 
 		return bqIdentity;
