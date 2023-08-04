@@ -4,6 +4,6 @@ dependencies {
 	testIntegrationImplementation group: "com.liferay.arquillian", name: "com.liferay.arquillian.arquillian-deployment-generator-bnd", version: "1.0.4"
 	testIntegrationImplementation group: "javax.websocket", name: "javax.websocket-api", version: "1.1"
 	testIntegrationImplementation group: "junit", name: "junit", version: "4.12"
-	testIntegrationImplementation group: "org.eclipse.jetty.websocket", name: "javax-websocket-client-impl", version: "9.3.10.v20160621"
+	testIntegrationImplementation group: "org.eclipse.jetty.websocket", name: "javax-websocket-client-impl", version: "9.4.51.v20230217"
 	testIntegrationImplementation group: "org.jboss.arquillian.junit", name: "arquillian-junit-container", version: "1.1.10.Final"
 }
