@@ -164,6 +164,12 @@ public class SegmentDog {
 		}
 	}
 
+	public void disableSegment(Segment segment) {
+		segment.setState("DISABLED");
+
+		_segmentRepository.save(segment);
+	}
+
 	public Segment fetchSegment(Long segmentId) {
 		Optional<Segment> segmentOptional = _segmentRepository.findById(
 			segmentId);

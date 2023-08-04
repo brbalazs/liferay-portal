@@ -15,12 +15,15 @@ import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.RawDataExport
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.AuditEventDog;
 import com.liferay.osb.asah.common.dog.BQCSVUserDog;
+import com.liferay.osb.asah.common.dog.BQMembershipDog;
 import com.liferay.osb.asah.common.dog.BQUserDog;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.dog.DataSourceDog;
+import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.dog.SuppressionDog;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.entity.DataSource;
+import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.http.EmailHttp;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Individual;
@@ -40,6 +43,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -100,6 +104,8 @@ public class DataControlNanite extends BaseNanite {
 		if (type == DataControlTask.Type.SUPPRESS) {
 			return;
 		}
+
+		_updateMemberships(emailAddress);
 
 		_suppressionDog.addSuppression(
 			dataControlTask.getBatchId(), dataControlTask.getCreateDate(),
@@ -323,6 +329,29 @@ public class DataControlNanite extends BaseNanite {
 		_dataControlTaskDog.updateDataControlTask(dataControlTask);
 	}
 
+	private void _updateMemberships(String emailAddress) {
+		String individualId = DigestUtils.sha256Hex(
+			StringUtils.lowerCase(emailAddress));
+
+		List<Segment> segments = _segmentDog.getBQIndividualSegments(
+			individualId);
+
+		for (Segment segment : segments) {
+			if (segment.getType() != Segment.Type.STATIC) {
+				continue;
+			}
+
+			_bqMembershipDog.deleteBQMembership(individualId, segment);
+
+			long membershipsCount = _bqMembershipDog.getBQMembershipsCount(
+				segment.getId());
+
+			if (membershipsCount == 0) {
+				_segmentDog.disableSegment(segment);
+			}
+		}
+	}
+
 	private void _writeToZip(
 			String collectionName, ZipOutputStream zipOutputStream)
 		throws Exception {
@@ -354,6 +383,9 @@ public class DataControlNanite extends BaseNanite {
 	private BQCSVUserDog _bqCSVUserDog;
 
 	@Autowired
+	private BQMembershipDog _bqMembershipDog;
+
+	@Autowired
 	private BQUserDog _bqUserDog;
 
 	@Autowired
@@ -376,6 +408,9 @@ public class DataControlNanite extends BaseNanite {
 
 	@Autowired
 	private ObjectMapper _objectMapper;
+
+	@Autowired
+	private SegmentDog _segmentDog;
 
 	@Autowired
 	private SuppressionDog _suppressionDog;
