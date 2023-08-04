@@ -121,6 +121,11 @@ public class BQIndividual {
 		return _screenName;
 	}
 
+	@BigQueryColumn
+	public boolean getSuppressed() {
+		return _suppressed;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(_emailAddress);
@@ -182,6 +187,10 @@ public class BQIndividual {
 
 	public void setScreenName(String screenName) {
 		_screenName = screenName;
+	}
+
+	public void setSuppressed(boolean suppressed) {
+		_suppressed = suppressed;
 	}
 
 	public static class Field {
@@ -289,5 +298,6 @@ public class BQIndividual {
 	private String _middleName;
 	private Date _modifiedDate;
 	private String _screenName;
+	private Boolean _suppressed;
 
 }
