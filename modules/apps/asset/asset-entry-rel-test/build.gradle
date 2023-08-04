@@ -3,6 +3,6 @@ copyLibs {
 }
 
 dependencies {
-	testIntegrationCompile group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.19"
-	testIntegrationCompile project(":apps:asset:asset-entry-rel-api")
+	testIntegrationImplementation group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.19"
+	testIntegrationImplementation project(":apps:asset:asset-entry-rel-api")
 }

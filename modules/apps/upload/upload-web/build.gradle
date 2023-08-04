@@ -12,9 +12,9 @@ dependencies {
 	compileOnly project(":core:petra:petra-function")
 	compileOnly project(":core:petra:petra-string")
 
-	testCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
-	testCompile group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
-	testCompile group: "easyconf", name: "easyconf", version: "0.9.5"
-	testCompile group: "org.apache.tika", name: "tika-core", version: "1.26"
-	testCompile project(":core:petra:petra-lang")
+	testImplementation group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
+	testImplementation group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
+	testImplementation group: "easyconf", name: "easyconf", version: "0.9.5"
+	testImplementation group: "org.apache.tika", name: "tika-core", version: "1.26"
+	testImplementation project(":core:petra:petra-lang")
 }

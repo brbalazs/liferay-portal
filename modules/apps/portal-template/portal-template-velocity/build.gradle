@@ -17,10 +17,10 @@ dependencies {
 	compileOnly project(":core:petra:petra-reflect")
 	compileOnly project(":core:petra:petra-string")
 
-	testCompile group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
-	testCompile group: "easyconf", name: "easyconf", version: "0.9.5"
-	testCompile group: "org.apache.tika", name: "tika-core", version: "1.26"
-	testCompile project(":core:petra:petra-concurrent")
-	testCompile project(":core:petra:petra-memory")
-	testCompile project(":core:registry-api")
+	testImplementation group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
+	testImplementation group: "easyconf", name: "easyconf", version: "0.9.5"
+	testImplementation group: "org.apache.tika", name: "tika-core", version: "1.26"
+	testImplementation project(":core:petra:petra-concurrent")
+	testImplementation project(":core:petra:petra-memory")
+	testImplementation project(":core:registry-api")
 }

@@ -5,15 +5,15 @@ copyLibs {
 dependencies {
 	compileOnly group: "com.github.ignaciotcrespo", name: "frutilla", version: "0.7.1"
 
-	testIntegrationCompile group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.19"
-	testIntegrationCompile group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
-	testIntegrationCompile project(":apps:commerce:commerce-product-api")
-	testIntegrationCompile project(":apps:commerce:commerce-product-test-util")
-	testIntegrationCompile project(":apps:commerce:commerce-product-type-simple")
-	testIntegrationCompile project(":apps:portal-search:portal-search-api")
-	testIntegrationCompile project(":apps:portal-search:portal-search-test-util")
-	testIntegrationCompile project(":core:petra:petra-string")
-	testIntegrationCompile project(":apps:commerce:commerce-test-util")
+	testIntegrationImplementation group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.19"
+	testIntegrationImplementation group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
+	testIntegrationImplementation project(":apps:commerce:commerce-product-api")
+	testIntegrationImplementation project(":apps:commerce:commerce-product-test-util")
+	testIntegrationImplementation project(":apps:commerce:commerce-product-type-simple")
+	testIntegrationImplementation project(":apps:portal-search:portal-search-api")
+	testIntegrationImplementation project(":apps:portal-search:portal-search-test-util")
+	testIntegrationImplementation project(":core:petra:petra-string")
+	testIntegrationImplementation project(":apps:commerce:commerce-test-util")
 }
 
 if (!System.getenv("JENKINS_HOME")) {

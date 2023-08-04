@@ -8,28 +8,28 @@ classes {
 }
 
 dependencies {
-	compile group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
-	compile group: "javax.portlet", name: "portlet-api", transitive: false, version: "3.0.0"
-	compile project(":apps:asset:asset-entry-rel-service")
-	compile project(":apps:asset:asset-tag-stats-service")
-	compile project(":apps:blogs:blogs-api")
-	compile project(":apps:blogs:blogs-service")
-	compile project(":apps:document-library:document-library-api")
-	compile project(":apps:dynamic-data-lists:dynamic-data-lists-api")
-	compile project(":apps:dynamic-data-lists:dynamic-data-lists-service")
-	compile project(":apps:dynamic-data-mapping:dynamic-data-mapping-api")
-	compile project(":apps:dynamic-data-mapping:dynamic-data-mapping-service")
-	compile project(":apps:dynamic-data-mapping:dynamic-data-mapping-web")
-	compile project(":apps:friendly-url:friendly-url-api")
-	compile project(":apps:friendly-url:friendly-url-service")
-	compile project(":apps:journal:journal-api")
-	compile project(":apps:journal:journal-service")
-	compile project(":apps:message-boards:message-boards-api")
-	compile project(":apps:message-boards:message-boards-service")
-	compile project(":apps:subscription:subscription-api")
-	compile project(":apps:subscription:subscription-service")
-	compile project(":apps:wiki:wiki-api")
-	compile project(":apps:wiki:wiki-service")
+	api group: "com.liferay.portal", name: "com.liferay.util.java", version: "default"
+	api group: "javax.portlet", name: "portlet-api", transitive: false, version: "3.0.0"
+	api project(":apps:asset:asset-entry-rel-service")
+	api project(":apps:asset:asset-tag-stats-service")
+	api project(":apps:blogs:blogs-api")
+	api project(":apps:blogs:blogs-service")
+	api project(":apps:document-library:document-library-api")
+	api project(":apps:dynamic-data-lists:dynamic-data-lists-api")
+	api project(":apps:dynamic-data-lists:dynamic-data-lists-service")
+	api project(":apps:dynamic-data-mapping:dynamic-data-mapping-api")
+	api project(":apps:dynamic-data-mapping:dynamic-data-mapping-service")
+	api project(":apps:dynamic-data-mapping:dynamic-data-mapping-web")
+	api project(":apps:friendly-url:friendly-url-api")
+	api project(":apps:friendly-url:friendly-url-service")
+	api project(":apps:journal:journal-api")
+	api project(":apps:journal:journal-service")
+	api project(":apps:message-boards:message-boards-api")
+	api project(":apps:message-boards:message-boards-service")
+	api project(":apps:subscription:subscription-api")
+	api project(":apps:subscription:subscription-service")
+	api project(":apps:wiki:wiki-api")
+	api project(":apps:wiki:wiki-service")
 
 	compileOnly group: "com.liferay", name: "com.liferay.petra.reflect", version: "2.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "2.0.0"
@@ -37,27 +37,27 @@ dependencies {
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 
-	testCompile classifier: "jdk8", group: "org.hsqldb", name: "hsqldb", version: "2.7.1"
-	testCompile group: "com.liferay", name: "com.ibm.icu4j", version: "54.1.1.LIFERAY-PATCHED-2"
-	testCompile group: "com.liferay", name: "com.sun.syndication", version: "1.0.LIFERAY-PATCHED-1"
-	testCompile group: "com.liferay", name: "org.jabsorb", version: "1.3.2.LIFERAY-PATCHED-2"
-	testCompile group: "com.mchange", name: "c3p0", version: "0.9.5"
-	testCompile group: "com.redhat.qe", name: "json-java", version: "20110202"
-	testCompile group: "commons-io", name: "commons-io", version: "2.8.0"
-	testCompile group: "easyconf", name: "easyconf", version: "0.9.5"
-	testCompile group: "log4j", name: "apache-log4j-extras", version: "1.1"
-	testCompile group: "org.apache.tika", name: "tika-core", version: "1.26"
-	testCompile group: "org.apache.tomcat", name: "tomcat-jdbc", version: "8.0.32"
-	testCompile group: "org.jodd", name: "jodd-json", version: "3.6.4"
-	testCompile group: "org.slf4j", name: "slf4j-api", version: "1.7.2"
-	testCompile group: "org.springframework", name: "spring-context", version: "4.3.22.RELEASE"
-	testCompile project(":apps:petra:petra-log4j")
-	testCompile project(":core:osgi-service-tracker-collections")
-	testCompile project(":core:petra:petra-concurrent")
-	testCompile project(":core:petra:petra-lang")
-	testCompile project(":core:petra:petra-memory")
-	testCompile project(":core:petra:petra-nio")
-	testCompile project(":core:registry-api")
+	testImplementation classifier: "jdk8", group: "org.hsqldb", name: "hsqldb", version: "2.7.1"
+	testImplementation group: "com.liferay", name: "com.ibm.icu4j", version: "54.1.1.LIFERAY-PATCHED-2"
+	testImplementation group: "com.liferay", name: "com.sun.syndication", version: "1.0.LIFERAY-PATCHED-1"
+	testImplementation group: "com.liferay", name: "org.jabsorb", version: "1.3.2.LIFERAY-PATCHED-2"
+	testImplementation group: "com.mchange", name: "c3p0", version: "0.9.5"
+	testImplementation group: "com.redhat.qe", name: "json-java", version: "20110202"
+	testImplementation group: "commons-io", name: "commons-io", version: "2.8.0"
+	testImplementation group: "easyconf", name: "easyconf", version: "0.9.5"
+	testImplementation group: "log4j", name: "apache-log4j-extras", version: "1.1"
+	testImplementation group: "org.apache.tika", name: "tika-core", version: "1.26"
+	testImplementation group: "org.apache.tomcat", name: "tomcat-jdbc", version: "8.0.32"
+	testImplementation group: "org.jodd", name: "jodd-json", version: "3.6.4"
+	testImplementation group: "org.slf4j", name: "slf4j-api", version: "1.7.2"
+	testImplementation group: "org.springframework", name: "spring-context", version: "4.3.22.RELEASE"
+	testImplementation project(":apps:petra:petra-log4j")
+	testImplementation project(":core:osgi-service-tracker-collections")
+	testImplementation project(":core:petra:petra-concurrent")
+	testImplementation project(":core:petra:petra-lang")
+	testImplementation project(":core:petra:petra-memory")
+	testImplementation project(":core:petra:petra-nio")
+	testImplementation project(":core:registry-api")
 }
 
 writeReleases {

@@ -1,8 +1,8 @@
 dependencies {
-	testCompile group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
-	testCompile project(":core:petra:petra-lang")
-	testCompile project(":core:petra:petra-reflect")
-	testCompile project(":core:petra:petra-string")
+	testImplementation group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
+	testImplementation project(":core:petra:petra-lang")
+	testImplementation project(":core:petra:petra-reflect")
+	testImplementation project(":core:petra:petra-string")
 }
 
 liferay {
