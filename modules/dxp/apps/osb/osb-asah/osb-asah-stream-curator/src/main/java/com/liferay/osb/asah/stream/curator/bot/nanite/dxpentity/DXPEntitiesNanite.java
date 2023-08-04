@@ -21,6 +21,7 @@ import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.stream.curator.bot.nanite.Nanite;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -136,13 +137,17 @@ public class DXPEntitiesNanite implements Nanite {
 		DXPEntity.Type dxpEntityType = DXPEntity.Type.of(
 			contextJSONObject.getString("type"));
 
-		if ((dxpEntityType == null) ||
-			(dxpEntityType.isUser() &&
-			 _dataControlTaskDog.existsCompletedDataControlTask(
-				 objectJSONObject.optString("emailAddress"),
-				 DataControlTask.Type.SUPPRESS))) {
+		if ((dxpEntityType == null) || dxpEntityType.isUser()) {
+			DataControlTask.Type type =
+				_dataControlTaskDog.fetchLatestDataControlTaskType(
+					objectJSONObject.optString("emailAddress"),
+					Arrays.asList(
+						DataControlTask.Type.SUPPRESS,
+						DataControlTask.Type.UNSUPPRESS));
 
-			return;
+			if (type == DataControlTask.Type.SUPPRESS) {
+				return;
+			}
 		}
 
 		_processObject(

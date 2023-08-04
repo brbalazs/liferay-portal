@@ -90,9 +90,14 @@ public class DataControlNanite extends BaseNanite {
 
 		emailAddress = StringUtils.lowerCase(emailAddress);
 
-		if (_dataControlTaskDog.existsCompletedDataControlTask(
-				emailAddress, DataControlTask.Type.SUPPRESS)) {
+		DataControlTask.Type type =
+			_dataControlTaskDog.fetchLatestDataControlTaskType(
+				emailAddress,
+				Arrays.asList(
+					DataControlTask.Type.SUPPRESS,
+					DataControlTask.Type.UNSUPPRESS));
 
+		if (type == DataControlTask.Type.SUPPRESS) {
 			return;
 		}
 

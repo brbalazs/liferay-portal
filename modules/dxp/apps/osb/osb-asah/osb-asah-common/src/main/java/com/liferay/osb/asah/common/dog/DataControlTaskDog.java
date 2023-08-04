@@ -26,9 +26,14 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -105,19 +110,6 @@ public class DataControlTaskDog {
 		return true;
 	}
 
-	public Boolean existsCompletedDataControlTask(
-		@Nullable String emailAddress,
-		DataControlTask.Type dataControlTaskType) {
-
-		if (StringUtils.isBlank(emailAddress)) {
-			return false;
-		}
-
-		return _dataControlTaskRepository.existsByEmailAddressAndStatusAndType(
-			emailAddress, DataControlTaskStatus.COMPLETED.toString(),
-			dataControlTaskType.toString());
-	}
-
 	public Boolean existsDataControlTask(Long batchId, List<String> status) {
 		return _dataControlTaskRepository.existsByBatchIdAndStatusIn(
 			batchId, status);
@@ -127,9 +119,53 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.findByIdAndStatus(id, status);
 	}
 
+	public DataControlTask.Type fetchLatestDataControlTaskType(
+		@Nullable String emailAddress,
+		List<DataControlTask.Type> dataControlTaskTypes) {
+
+		if (StringUtils.isBlank(emailAddress)) {
+			return null;
+		}
+
+		List<DataControlTask> dataControlTasks =
+			_dataControlTaskRepository.searchDataControlTasks(
+				emailAddress, null, Collections.singletonList("COMPLETED"),
+				dataControlTaskTypes);
+
+		Stream<DataControlTask> dataControlTasksStream =
+			dataControlTasks.stream();
+
+		Optional<DataControlTask> dataControlTaskOptional =
+			dataControlTasksStream.max(
+				Comparator.comparing(DataControlTask::getCompleteDate));
+
+		if (!dataControlTaskOptional.isPresent()) {
+			return null;
+		}
+
+		DataControlTask dataControlTask = dataControlTaskOptional.get();
+
+		return dataControlTask.getType();
+	}
+
 	public Page<DataControlTask> getDataControlTaskPage(
 		Long batchId, String keywords, Integer rangeKey, int page, int size,
 		Sort sort, List<String> statuses, List<String> types) {
+
+		List<DataControlTask.Type> dataControlTaskTypes;
+
+		if ((types != null) && !types.isEmpty()) {
+			Stream<String> typesStream = types.stream();
+
+			dataControlTaskTypes = typesStream.map(
+				DataControlTask.Type::valueOf
+			).collect(
+				Collectors.toList()
+			);
+		}
+		else {
+			dataControlTaskTypes = Collections.emptyList();
+		}
 
 		Date startCreateDate = _getStartCreateDate(rangeKey);
 
@@ -141,18 +177,34 @@ public class DataControlTaskDog {
 
 		return PageableExecutionUtils.getPage(
 			_dataControlTaskRepository.searchDataControlTasks(
-				batchId, keywords, startCreateDate, statuses, types,
-				pageRequest),
+				batchId, keywords, startCreateDate, statuses,
+				dataControlTaskTypes, pageRequest),
 			pageRequest,
 			() -> _dataControlTaskRepository.countDataControlTasks(
-				batchId, keywords, startCreateDate, statuses, types));
+				batchId, keywords, startCreateDate, statuses,
+				dataControlTaskTypes));
 	}
 
 	public List<DataControlTask> getDataControlTasks(
 		Date endCompleteDate, List<String> statuses, List<String> types) {
 
+		List<DataControlTask.Type> dataControlTaskTypes;
+
+		if ((types != null) && !types.isEmpty()) {
+			Stream<String> typesStream = types.stream();
+
+			dataControlTaskTypes = typesStream.map(
+				DataControlTask.Type::valueOf
+			).collect(
+				Collectors.toList()
+			);
+		}
+		else {
+			dataControlTaskTypes = Collections.emptyList();
+		}
+
 		return _dataControlTaskRepository.searchDataControlTasks(
-			endCompleteDate, statuses, types);
+			null, endCompleteDate, statuses, dataControlTaskTypes);
 	}
 
 	public List<DataControlTask> getDataControlTasks(

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -41,7 +43,7 @@ public class DataControlTaskRepositoryImpl
 	@Override
 	public long countDataControlTasks(
 		Long batchId, String emailAddress, Date startCreateDate,
-		List<String> statuses, List<String> types) {
+		List<String> statuses, List<DataControlTask.Type> types) {
 
 		SelectSelectStep<Record1<Integer>> selectSelectStep =
 			_dslContext.selectCount();
@@ -100,22 +102,6 @@ public class DataControlTaskRepositoryImpl
 
 	@Override
 	public List<DataControlTask> searchDataControlTasks(
-		@Nullable Date endCompleteDate, @Nullable List<String> statuses,
-		@Nullable List<String> types) {
-
-		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
-
-		return selectSelectStep.from(
-			"DataControlTask"
-		).where(
-			_getConditions(null, null, endCompleteDate, null, statuses, types)
-		).fetch(
-			record -> new DataControlTask(record.intoMap())
-		);
-	}
-
-	@Override
-	public List<DataControlTask> searchDataControlTasks(
 		FilterHelper filterHelper, @Nullable String status) {
 
 		List<Condition> conditions = new ArrayList<>();
@@ -146,7 +132,7 @@ public class DataControlTaskRepositoryImpl
 	public List<DataControlTask> searchDataControlTasks(
 		@Nullable Long batchId, @Nullable String emailAddress,
 		@Nullable Date startCreateDate, @Nullable List<String> statuses,
-		@Nullable List<String> types, Pageable pageable) {
+		@Nullable List<DataControlTask.Type> types, Pageable pageable) {
 
 		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
 
@@ -166,10 +152,29 @@ public class DataControlTaskRepositoryImpl
 		);
 	}
 
+	@Override
+	public List<DataControlTask> searchDataControlTasks(
+		@Nullable String emailAddress, @Nullable Date endCompleteDate,
+		@Nullable List<String> statuses,
+		@Nullable List<DataControlTask.Type> types) {
+
+		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+
+		return selectSelectStep.from(
+			"DataControlTask"
+		).where(
+			_getConditions(
+				null, emailAddress, endCompleteDate, null, statuses, types)
+		).fetch(
+			record -> new DataControlTask(record.intoMap())
+		);
+	}
+
 	private List<Condition> _getConditions(
 		@Nullable Long batchId, @Nullable String emailAddress,
 		@Nullable Date endCompleteDate, @Nullable Date startCreateDate,
-		@Nullable List<String> statuses, @Nullable List<String> types) {
+		@Nullable List<String> statuses,
+		@Nullable List<DataControlTask.Type> types) {
 
 		List<Condition> conditions = new ArrayList<>();
 
@@ -219,11 +224,17 @@ public class DataControlTaskRepositoryImpl
 		}
 
 		if ((types != null) && !types.isEmpty()) {
+			Stream<DataControlTask.Type> typesStream = types.stream();
+
 			conditions.add(
 				DSL.field(
 					"type"
 				).in(
-					types
+					typesStream.map(
+						DataControlTask.Type::toString
+					).collect(
+						Collectors.toList()
+					)
 				));
 		}
 

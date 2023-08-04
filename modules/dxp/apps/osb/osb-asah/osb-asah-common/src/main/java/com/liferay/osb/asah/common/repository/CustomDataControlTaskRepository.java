@@ -24,7 +24,7 @@ public interface CustomDataControlTaskRepository {
 	@Cacheable
 	public long countDataControlTasks(
 		Long batchId, String emailAddress, Date startCreateDate,
-		List<String> statuses, List<String> types);
+		List<String> statuses, List<DataControlTask.Type> types);
 
 	public Boolean existsByBatchIdAndStatusIn(
 		@Nullable Long batchId, @Nullable List<String> statuses);
@@ -34,17 +34,18 @@ public interface CustomDataControlTaskRepository {
 
 	@Cacheable
 	public List<DataControlTask> searchDataControlTasks(
-		@Nullable Date endCompleteDate, @Nullable List<String> statuses,
-		@Nullable List<String> types);
-
-	@Cacheable
-	public List<DataControlTask> searchDataControlTasks(
 		FilterHelper filterHelper, @Nullable String status);
 
 	@Cacheable
 	public List<DataControlTask> searchDataControlTasks(
 		@Nullable Long batchId, @Nullable String emailAddress,
 		@Nullable Date startCreateDate, @Nullable List<String> statuses,
-		@Nullable List<String> types, Pageable pageable);
+		@Nullable List<DataControlTask.Type> types, Pageable pageable);
+
+	@Cacheable
+	public List<DataControlTask> searchDataControlTasks(
+		@Nullable String emailAddress, @Nullable Date endCompleteDate,
+		@Nullable List<String> statuses,
+		@Nullable List<DataControlTask.Type> types);
 
 }
