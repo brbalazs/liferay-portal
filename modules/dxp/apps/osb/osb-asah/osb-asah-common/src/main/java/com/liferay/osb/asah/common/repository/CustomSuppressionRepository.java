@@ -23,6 +23,8 @@ public interface CustomSuppressionRepository {
 	@Modifying
 	public void deleteByEmailAddress(String emailAddress);
 
+	public List<Suppression> findAll();
+
 	public List<Suppression> getSuppressions(@Nullable String filterString);
 
 	public List<Suppression> getSuppressions(

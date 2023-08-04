@@ -65,6 +65,16 @@ public class SuppressionRepositoryImpl
 	}
 
 	@Override
+	public List<Suppression> findAll() {
+		return _queryExecutor.queryForList(
+			Suppression::new,
+			_dslContext.select(
+			).from(
+				"Suppression"
+			));
+	}
+
+	@Override
 	public List<Suppression> getSuppressions(@Nullable String filterString) {
 		Condition condition = DSL.noCondition();
 
