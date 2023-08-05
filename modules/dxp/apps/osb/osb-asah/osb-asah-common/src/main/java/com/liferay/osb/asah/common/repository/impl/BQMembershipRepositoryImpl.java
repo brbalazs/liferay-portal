@@ -617,11 +617,21 @@ public class BQMembershipRepositoryImpl
 					"Individual"
 				)
 			).on(
-				DSL.field(
-					"Membership.individualId"
-				).eq(
-					DSL.field("Individual.id")
-				)
+				DSL.and(
+					DSL.field(
+						"Membership.individualId"
+					).eq(
+						DSL.field("Individual.id")
+					),
+					DSL.or(
+						DSL.field(
+							"Individual.suppressed"
+						).isNull(),
+						DSL.field(
+							"Individual.suppressed"
+						).notEqual(
+							DSL.val(Boolean.TRUE)
+						)))
 			).where(
 				DSL.field(
 					"channelId", Long.class
@@ -890,11 +900,21 @@ public class BQMembershipRepositoryImpl
 					"Individual"
 				)
 			).on(
-				DSL.field(
-					"Identity.individualId"
-				).eq(
-					DSL.field("Individual.id")
-				)
+				DSL.and(
+					DSL.field(
+						"Identity.individualId"
+					).eq(
+						DSL.field("Individual.id")
+					),
+					DSL.or(
+						DSL.field(
+							"Individual.suppressed"
+						).isNull(),
+						DSL.field(
+							"Individual.suppressed"
+						).notEqual(
+							DSL.val(Boolean.TRUE)
+						)))
 			);
 		}
 
@@ -923,11 +943,21 @@ public class BQMembershipRepositoryImpl
 						"Individual"
 					)
 				).on(
-					DSL.field(
-						"Identity.individualId"
-					).eq(
-						DSL.field("Individual.id")
-					)
+					DSL.and(
+						DSL.field(
+							"Identity.individualId"
+						).eq(
+							DSL.field("Individual.id")
+						),
+						DSL.or(
+							DSL.field(
+								"Individual.suppressed"
+							).isNull(),
+							DSL.field(
+								"Individual.suppressed"
+							).notEqual(
+								DSL.val(Boolean.TRUE)
+							)))
 				);
 			}
 
