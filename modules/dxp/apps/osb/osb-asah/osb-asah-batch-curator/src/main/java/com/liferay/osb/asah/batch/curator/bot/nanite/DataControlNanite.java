@@ -272,7 +272,7 @@ public class DataControlNanite extends BaseNanite {
 					_deleteSuppression(emailAddress);
 				}
 
-				if (type == DataControlTask.Type.ACCESS) {
+				if (type != DataControlTask.Type.ACCESS) {
 					_exportDataControlTask(
 						dataControlTask,
 						new ZipFileBuilder(
