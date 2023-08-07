@@ -22,6 +22,7 @@ import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.AuditEventRepository;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.util.ListUtil;
+import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.test.util.annotation.RepositoryResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
@@ -214,6 +215,32 @@ public class DataControlTaskDogTest
 				null, null, null, 0, 10, Sort.desc("createDate"), null,
 				Collections.singletonList(
 					DataControlTask.Type.UNSUPPRESS.toString())));
+	}
+
+	@Test
+	public void testGetSuppressedEmailAddresses() {
+		_dataControlTaskDog.addDataControlTasks(
+			Arrays.asList(
+				"test1@liferay.com", "test1@liferay.com", "test2@liferay.com"),
+			null, "1000",
+			Collections.singletonList(DataControlTask.Type.SUPPRESS.toString()),
+			"12345", "test@liferay.com");
+
+		List<DataControlTask> dataControlTasks =
+			_dataControlTaskDog.getDataControlTasks(
+				null, null,
+				Arrays.asList(DataControlTask.Type.SUPPRESS.toString()));
+
+		for (DataControlTask dataControlTask : dataControlTasks) {
+			dataControlTask.setStatus(
+				DataControlTaskStatus.COMPLETED.toString());
+
+			_dataControlTaskDog.updateDataControlTask(dataControlTask);
+		}
+
+		Assertions.assertEquals(
+			SetUtil.of("test1@liferay.com", "test2@liferay.com"),
+			_dataControlTaskDog.getSuppressedEmailAddresses());
 	}
 
 	private void _checkResults(
