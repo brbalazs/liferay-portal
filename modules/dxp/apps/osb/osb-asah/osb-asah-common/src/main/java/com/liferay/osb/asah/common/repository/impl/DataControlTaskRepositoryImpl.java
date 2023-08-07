@@ -158,13 +158,42 @@ public class DataControlTaskRepositoryImpl
 		@Nullable List<String> statuses,
 		@Nullable List<DataControlTask.Type> types) {
 
-		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+		Field<String> typeField = DSL.lower(DSL.field("type", String.class));
 
-		return selectSelectStep.from(
-			"DataControlTask"
-		).where(
-			_getConditions(
-				null, emailAddress, endCompleteDate, null, statuses, types)
+		return _dslContext.with(
+			"DataControlTaskWithPriority"
+		).as(
+			_dslContext.select(
+				DSL.asterisk(),
+				DSL.when(
+					typeField.eq("access"), 1
+				).when(
+					typeField.eq("delete"), 2
+				).otherwise(
+					3
+				).as(
+					"priority"
+				)
+			).from(
+				"DataControlTask"
+			).where(
+				_getConditions(
+					null, emailAddress, endCompleteDate, null, statuses, types)
+			)
+		).select(
+			DSL.asterisk(
+			).except(
+				DSL.field("priority")
+			)
+		).from(
+			"DataControlTaskWithPriority"
+		).orderBy(
+			DSL.field(
+				"createDate"
+			).asc(),
+			DSL.field(
+				"priority"
+			).asc()
 		).fetch(
 			record -> new DataControlTask(record.intoMap())
 		);
