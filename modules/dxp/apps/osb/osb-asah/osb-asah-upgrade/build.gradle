@@ -9,13 +9,12 @@ bootJar {
 }
 
 dependencies {
-	compile (group: "org.apache.httpcomponents", name: "httpcore", version: "4.4.10") {
+	api (group: "org.apache.httpcomponents", name: "httpcore", version: "4.4.10") {
 		force = true
 	}
+	api project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
 
-	compile project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-common")
-
-	testCompile project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-test-util")
+	testImplementation project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-test-util")
 }
 
 jar {
