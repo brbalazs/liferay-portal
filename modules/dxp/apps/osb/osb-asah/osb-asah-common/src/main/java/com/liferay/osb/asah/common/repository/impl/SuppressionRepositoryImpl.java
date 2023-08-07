@@ -7,6 +7,7 @@ package com.liferay.osb.asah.common.repository.impl;
 
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.entity.Suppression;
+import com.liferay.osb.asah.common.filter.expression.FilterExpression;
 import com.liferay.osb.asah.common.repository.CustomSuppressionRepository;
 import com.liferay.osb.asah.common.repository.executor.QueryExecutor;
 
@@ -60,6 +61,30 @@ public class SuppressionRepositoryImpl
 				).eq(
 					emailAddress
 				)
+			));
+	}
+
+	@Override
+	public List<Suppression> getSuppressions(@Nullable String filterString) {
+		Condition condition = DSL.noCondition();
+
+		if (StringUtils.isNotBlank(filterString)) {
+			FilterExpression filterExpression = new FilterExpression(
+				filterString);
+
+			condition = filterExpression.getCondition();
+		}
+
+		return _queryExecutor.queryForList(
+			Suppression::new,
+			_dslContext.selectFrom(
+				DSL.table("Suppression")
+			).where(
+				condition
+			).orderBy(
+				DSL.field(
+					"createDate"
+				).desc()
 			));
 	}
 

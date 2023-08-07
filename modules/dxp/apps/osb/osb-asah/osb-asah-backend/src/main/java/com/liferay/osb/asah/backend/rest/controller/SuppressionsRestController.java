@@ -5,13 +5,23 @@
 
 package com.liferay.osb.asah.backend.rest.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.liferay.osb.asah.common.dog.SuppressionDog;
+import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.util.CSVUtil;
 
 import java.io.File;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import org.json.JSONObject;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +42,19 @@ public class SuppressionsRestController extends BaseRestController {
 				filterString)
 		throws Exception {
 
+		List<Suppression> suppressions = _suppressionDog.getSuppressions(
+			filterString);
+
+		Stream<Suppression> suppressionsStream = suppressions.stream();
+
 		File file = CSVUtil.createCSVFile(
-			_fieldNames, "suppression-logs-", new File(_tempPath));
+			_fieldNames, "suppression-logs-", new File(_tempPath),
+			suppressionsStream.map(
+				dataControlTask -> _objectMapper.convertValue(
+					dataControlTask, JSONObject.class)
+			).collect(
+				Collectors.toList()
+			));
 
 		return toDownloadResponse(file, "suppression-logs.csv");
 	}
@@ -48,6 +69,12 @@ public class SuppressionsRestController extends BaseRestController {
 				put("emailAddress", "Email");
 			}
 		};
+
+	@Autowired
+	private ObjectMapper _objectMapper;
+
+	@Autowired
+	private SuppressionDog _suppressionDog;
 
 	@Value("${osb.asah.backend.temp.path:/temp}")
 	private String _tempPath;

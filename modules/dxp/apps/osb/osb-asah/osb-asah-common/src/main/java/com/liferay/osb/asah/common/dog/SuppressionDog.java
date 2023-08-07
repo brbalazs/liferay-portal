@@ -10,6 +10,7 @@ import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.SuppressionRepository;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -62,6 +63,10 @@ public class SuppressionDog {
 			_suppressionRepository.getSuppressions(emailAddress, pageRequest),
 			pageRequest,
 			() -> _suppressionRepository.countSuppressions(emailAddress));
+	}
+
+	public List<Suppression> getSuppressions(String filterString) {
+		return _suppressionRepository.getSuppressions(filterString);
 	}
 
 	@Autowired
