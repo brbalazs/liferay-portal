@@ -16,7 +16,6 @@ package com.liferay.osb.asah.common.repository.impl;
 
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
-import com.liferay.osb.asah.common.model.DataControlTaskType;
 import com.liferay.osb.asah.common.repository.CustomDataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 
@@ -100,8 +99,8 @@ public class DataControlTaskRepositoryImpl
 			DSL.field(
 				"type"
 			).in(
-				DataControlTaskType.DELETE.toString(),
-				DataControlTaskType.SUPPRESS.toString()
+				DataControlTask.Type.DELETE.toString(),
+				DataControlTask.Type.SUPPRESS.toString()
 			)
 		).fetchSet(
 			emailAddressField
