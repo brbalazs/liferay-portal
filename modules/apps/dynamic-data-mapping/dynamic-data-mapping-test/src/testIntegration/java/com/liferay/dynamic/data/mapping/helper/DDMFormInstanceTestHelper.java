@@ -86,7 +86,7 @@ public class DDMFormInstanceTestHelper {
 				"storageType", "json"));
 		formInstanceSettingsDDMFormValues.addDDMFormFieldValue(
 			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
-				"workflowDefinition", "Single Approver"));
+				"workflowDefinition", "Single Approver@1"));
 
 		return formInstanceSettingsDDMFormValues;
 	}
