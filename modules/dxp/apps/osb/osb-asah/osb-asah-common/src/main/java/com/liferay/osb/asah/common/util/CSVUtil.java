@@ -24,25 +24,6 @@ import org.json.JSONObject;
 public class CSVUtil {
 
 	public static File createCSVFile(
-			Map<String, String> fieldNames, String fileNamePrefix, File folder)
-		throws Exception {
-
-		File file = File.createTempFile(fileNamePrefix, ".csv", folder);
-
-		file.deleteOnExit();
-
-		CsvWriter csvWriter = new CsvWriter(file, new CsvWriterSettings());
-
-		csvWriter.writeHeaders(fieldNames.values());
-
-		// TODO Write suppression rows to CSV
-
-		csvWriter.close();
-
-		return file;
-	}
-
-	public static File createCSVFile(
 			Map<String, String> fieldNames, String fileNamePrefix, File folder,
 			List<JSONObject> jsonObjects)
 		throws Exception {
