@@ -65,7 +65,6 @@ public class SuppressionsRestController extends BaseRestController {
 				put("createDate", "Suppression Date");
 				put("dataControlTaskBatchId", "Request ID");
 				put("dataControlTaskCreateDate", "Request Date");
-				put("dataControlTaskStatus", "Request Status");
 				put("emailAddress", "Email");
 			}
 		};
