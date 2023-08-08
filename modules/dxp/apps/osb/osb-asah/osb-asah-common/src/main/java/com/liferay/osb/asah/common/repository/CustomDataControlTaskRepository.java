@@ -10,6 +10,7 @@ import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.cache.annotation.Cacheable;
@@ -30,6 +31,10 @@ public interface CustomDataControlTaskRepository {
 		@Nullable Long batchId, @Nullable List<String> statuses);
 
 	@Cacheable
+	public Optional<DataControlTask> findLatestCompletedDataControlTask(
+		String emailAddress, @Nullable List<DataControlTask.Type> types);
+
+	@Cacheable
 	public Set<String> findSuppressedEmailAddresses();
 
 	@Cacheable
@@ -43,7 +48,7 @@ public interface CustomDataControlTaskRepository {
 		@Nullable List<DataControlTask.Type> types, Pageable pageable);
 
 	@Cacheable
-	public List<DataControlTask> searchDataControlTasks(
+	public List<DataControlTask> searchDataControlTasksOrderByCreateDateAsc(
 		@Nullable String emailAddress, @Nullable Date endCompleteDate,
 		@Nullable List<String> statuses,
 		@Nullable List<DataControlTask.Type> types);

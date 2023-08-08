@@ -11,15 +11,11 @@ import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
-import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.test.util.configuration.JDBCTestConfiguration;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
-import org.apache.commons.lang3.tuple.Pair;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -182,12 +178,15 @@ public class DataControlTaskRepositoryTest
 	@Test
 	public void testSearchDataControlTasks1() {
 		List<DataControlTask> dataControlTasks =
-			_dataControlTaskRepository.searchDataControlTasks(
-				null, new Date(),
-				Arrays.asList(
-					String.valueOf(DataControlTaskStatus.COMPLETED),
-					String.valueOf(DataControlTaskStatus.PENDING)),
-				Arrays.asList(DataControlTask.Type.SUPPRESS));
+			_dataControlTaskRepository.
+				searchDataControlTasksOrderByCreateDateAsc(
+					null, new Date(),
+					Arrays.asList(
+						String.valueOf(
+							DataControlTaskStatus.COMPLETED.toString()),
+						String.valueOf(
+							DataControlTaskStatus.PENDING.toString())),
+					Arrays.asList(DataControlTask.Type.SUPPRESS));
 
 		Assertions.assertEquals(
 			2, dataControlTasks.size(), dataControlTasks.toString());
@@ -219,31 +218,6 @@ public class DataControlTaskRepositoryTest
 
 		Assertions.assertEquals(
 			1, dataControlTasks.size(), dataControlTasks.toString());
-	}
-
-	@Test
-	public void testSearchDataControlTasks4() {
-		List<DataControlTask> dataControlTasks =
-			_dataControlTaskRepository.searchDataControlTasks(
-				null, null,
-				Collections.singletonList(
-					DataControlTaskStatus.PENDING.toString()),
-				null);
-
-		Assertions.assertEquals(6, dataControlTasks.size());
-
-		Assertions.assertEquals(
-			Arrays.asList(
-				Pair.of(123459L, DataControlTask.Type.DELETE),
-				Pair.of(123459L, DataControlTask.Type.SUPPRESS),
-				Pair.of(123458L, DataControlTask.Type.ACCESS),
-				Pair.of(123458L, DataControlTask.Type.DELETE),
-				Pair.of(123458L, DataControlTask.Type.SUPPRESS),
-				Pair.of(123456L, DataControlTask.Type.ACCESS)),
-			ListUtil.map(
-				dataControlTasks,
-				dataControlTask -> Pair.of(
-					dataControlTask.getBatchId(), dataControlTask.getType())));
 	}
 
 	@Test

@@ -57,9 +57,9 @@ import org.springframework.stereotype.Component;
 public class DataControlNanite extends BaseNanite {
 
 	@Override
-	public void run(JSONObject contextJSONObject) throws Exception {
+	public void run(JSONObject contextJSONObject) {
 		List<DataControlTask> pendingDataControlTasks =
-			_dataControlTaskDog.getDataControlTasks(
+			_dataControlTaskDog.getPrioritizedDataControlTasks(
 				null, Arrays.asList(DataControlTaskStatus.PENDING.toString()),
 				null);
 
@@ -69,10 +69,10 @@ public class DataControlNanite extends BaseNanite {
 		pendingDataControlTasksStream.forEach(this::_runDataControlTask);
 
 		List<DataControlTask> completedDataControlTasks =
-			_dataControlTaskDog.getDataControlTasks(
+			_dataControlTaskDog.getPrioritizedDataControlTasks(
 				DateUtil.addDays(DateUtil.newDate(), -30),
 				Arrays.asList(DataControlTaskStatus.COMPLETED.toString()),
-				Arrays.asList(DataControlTask.Type.ACCESS.toString()));
+				Arrays.asList(DataControlTask.Type.ACCESS));
 
 		Stream<DataControlTask> completedDataControlTasksStream =
 			completedDataControlTasks.stream();

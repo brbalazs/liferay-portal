@@ -75,7 +75,7 @@ public class DataControlTasksRestController extends BaseRestController {
 		file.deleteOnExit();
 
 		List<DataControlTask> dataControlTasks =
-			_dataControlTaskDog.getDataControlTasks(
+			_dataControlTaskDog.getPrioritizedDataControlTasks(
 				filterString, DataControlTaskStatus.COMPLETED.toString());
 
 		ZipFileBuilder zipFileBuilder = new ZipFileBuilder(file);
@@ -119,7 +119,8 @@ public class DataControlTasksRestController extends BaseRestController {
 		throws Exception {
 
 		List<DataControlTask> dataControlTasks =
-			_dataControlTaskDog.getDataControlTasks(filterString, null);
+			_dataControlTaskDog.getPrioritizedDataControlTasks(
+				filterString, null);
 
 		Stream<DataControlTask> stream = dataControlTasks.stream();
 

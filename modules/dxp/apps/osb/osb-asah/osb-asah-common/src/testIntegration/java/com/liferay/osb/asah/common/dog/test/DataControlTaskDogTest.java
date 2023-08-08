@@ -91,7 +91,8 @@ public class DataControlTaskDogTest
 			"12345", "test@liferay.com");
 
 		List<DataControlTask> dataControlTasks =
-			_dataControlTaskDog.getDataControlTasks(null, null, null);
+			_dataControlTaskDog.getPrioritizedDataControlTasks(
+				null, null, null);
 
 		Assertions.assertEquals(6, dataControlTasks.size());
 
@@ -218,9 +219,8 @@ public class DataControlTaskDogTest
 			"12345", "test@liferay.com");
 
 		List<DataControlTask> dataControlTasks =
-			_dataControlTaskDog.getDataControlTasks(
-				null, null,
-				Arrays.asList(DataControlTask.Type.SUPPRESS.toString()));
+			_dataControlTaskDog.getPrioritizedDataControlTasks(
+				null, null, Arrays.asList(DataControlTask.Type.SUPPRESS));
 
 		for (DataControlTask dataControlTask : dataControlTasks) {
 			dataControlTask.setStatus(

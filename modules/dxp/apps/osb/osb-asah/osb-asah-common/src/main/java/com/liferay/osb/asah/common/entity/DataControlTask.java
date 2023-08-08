@@ -219,20 +219,26 @@ public final class DataControlTask implements Persistable<Long> {
 
 	public enum Type {
 
-		ACCESS(AuditEvent.Type.USER_ACCESS),
-		DELETE(AuditEvent.Type.USER_DELETE),
-		SUPPRESS(AuditEvent.Type.USER_SUPPRESS),
-		UNSUPPRESS(AuditEvent.Type.USER_UNSUPPRESS);
+		ACCESS(AuditEvent.Type.USER_ACCESS, 0),
+		DELETE(AuditEvent.Type.USER_DELETE, 1),
+		SUPPRESS(AuditEvent.Type.USER_SUPPRESS, 2),
+		UNSUPPRESS(AuditEvent.Type.USER_UNSUPPRESS, 2);
 
 		public AuditEvent.Type getAuditEventType() {
 			return _auditEventType;
 		}
 
-		private Type(AuditEvent.Type auditEventType) {
+		public int getPriority() {
+			return _priority;
+		}
+
+		private Type(AuditEvent.Type auditEventType, int priority) {
 			_auditEventType = auditEventType;
+			_priority = priority;
 		}
 
 		private final AuditEvent.Type _auditEventType;
+		private final int _priority;
 
 	}
 

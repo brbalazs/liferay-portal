@@ -11,8 +11,10 @@ import com.liferay.osb.asah.common.repository.CustomDataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -72,6 +74,31 @@ public class DataControlTaskRepositoryImpl
 			).where(
 				_getConditions(batchId, null, null, null, statuses, null)
 			));
+	}
+
+	@Override
+	public Optional<DataControlTask> findLatestCompletedDataControlTask(
+		String emailAddress, @Nullable List<DataControlTask.Type> types) {
+
+		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+
+		return selectSelectStep.from(
+			"DataControlTask"
+		).where(
+			_getConditions(
+				null, emailAddress, null, null,
+				Collections.singletonList(
+					DataControlTaskStatus.COMPLETED.toString()),
+				types)
+		).orderBy(
+			DSL.field(
+				"completeDate"
+			).desc()
+		).limit(
+			1
+		).fetchOptional(
+			record -> new DataControlTask(record.intoMap())
+		);
 	}
 
 	@Override
@@ -153,46 +180,21 @@ public class DataControlTaskRepositoryImpl
 	}
 
 	@Override
-	public List<DataControlTask> searchDataControlTasks(
+	public List<DataControlTask> searchDataControlTasksOrderByCreateDateAsc(
 		@Nullable String emailAddress, @Nullable Date endCompleteDate,
 		@Nullable List<String> statuses,
 		@Nullable List<DataControlTask.Type> types) {
 
-		Field<String> typeField = DSL.lower(DSL.field("type", String.class));
+		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
 
-		return _dslContext.with(
-			"DataControlTaskWithPriority"
-		).as(
-			_dslContext.select(
-				DSL.asterisk(),
-				DSL.when(
-					typeField.eq("access"), 1
-				).when(
-					typeField.eq("delete"), 2
-				).otherwise(
-					3
-				).as(
-					"priority"
-				)
-			).from(
-				"DataControlTask"
-			).where(
-				_getConditions(
-					null, emailAddress, endCompleteDate, null, statuses, types)
-			)
-		).select(
-			DSL.asterisk(
-			).except(
-				DSL.field("priority")
-			)
-		).from(
-			"DataControlTaskWithPriority"
+		return selectSelectStep.from(
+			"DataControlTask"
+		).where(
+			_getConditions(
+				null, emailAddress, endCompleteDate, null, statuses, types)
 		).orderBy(
 			DSL.field(
 				"createDate"
-			).asc(),
-			DSL.field(
-				"priority"
 			).asc()
 		).fetch(
 			record -> new DataControlTask(record.intoMap())

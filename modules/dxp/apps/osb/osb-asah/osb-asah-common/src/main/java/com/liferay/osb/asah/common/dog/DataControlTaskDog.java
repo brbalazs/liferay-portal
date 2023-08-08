@@ -30,8 +30,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -127,25 +127,15 @@ public class DataControlTaskDog {
 			return null;
 		}
 
-		List<DataControlTask> dataControlTasks =
-			_dataControlTaskRepository.searchDataControlTasks(
-				emailAddress, null, Collections.singletonList("COMPLETED"),
-				dataControlTaskTypes);
-
-		Stream<DataControlTask> dataControlTasksStream =
-			dataControlTasks.stream();
-
 		Optional<DataControlTask> dataControlTaskOptional =
-			dataControlTasksStream.max(
-				Comparator.comparing(DataControlTask::getCompleteDate));
+			_dataControlTaskRepository.findLatestCompletedDataControlTask(
+				emailAddress, dataControlTaskTypes);
 
-		if (!dataControlTaskOptional.isPresent()) {
-			return null;
-		}
-
-		DataControlTask dataControlTask = dataControlTaskOptional.get();
-
-		return dataControlTask.getType();
+		return dataControlTaskOptional.map(
+			DataControlTask::getType
+		).orElse(
+			null
+		);
 	}
 
 	public Page<DataControlTask> getDataControlTaskPage(
@@ -185,29 +175,27 @@ public class DataControlTaskDog {
 				dataControlTaskTypes));
 	}
 
-	public List<DataControlTask> getDataControlTasks(
-		Date endCompleteDate, List<String> statuses, List<String> types) {
+	public List<DataControlTask> getPrioritizedDataControlTasks(
+		@Nullable Date endCompleteDate, List<String> statuses,
+		List<DataControlTask.Type> types) {
 
-		List<DataControlTask.Type> dataControlTaskTypes;
+		List<DataControlTask> dataControlTasks =
+			_dataControlTaskRepository.
+				searchDataControlTasksOrderByCreateDateAsc(
+					null, endCompleteDate, statuses, types);
 
-		if ((types != null) && !types.isEmpty()) {
-			Stream<String> typesStream = types.stream();
+		dataControlTasks.sort(
+			Comparator.comparing(
+				dataControlTask -> {
+					DataControlTask.Type type = dataControlTask.getType();
 
-			dataControlTaskTypes = typesStream.map(
-				DataControlTask.Type::valueOf
-			).collect(
-				Collectors.toList()
-			);
-		}
-		else {
-			dataControlTaskTypes = Collections.emptyList();
-		}
+					return type.getPriority();
+				}));
 
-		return _dataControlTaskRepository.searchDataControlTasks(
-			null, endCompleteDate, statuses, dataControlTaskTypes);
+		return dataControlTasks;
 	}
 
-	public List<DataControlTask> getDataControlTasks(
+	public List<DataControlTask> getPrioritizedDataControlTasks(
 		String filterString, String status) {
 
 		FilterHelper filterHelper = new FilterHelper(filterString);
