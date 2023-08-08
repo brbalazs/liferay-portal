@@ -693,11 +693,11 @@ class IdentityInterestScoreSQLCommandSparkJob(BaseSQLCommandSparkJob):
 			start_date_sql_string = f'"{start_date}"'
 		else:
 			end_date_sql_string = f'''
-				FROM_UNIX_TIMESTAMP(CURRENT_DATE(), {time_zone})
+				FROM_UTC_TIMESTAMP(CURRENT_DATE(), "{time_zone}")
 			'''
 			start_date_sql_string = f'''
 				DATE_SUB(
-					FROM_UNIX_TIMESTAMP(CURRENT_DATE(), {time_zone}),
+					FROM_UTC_TIMESTAMP(CURRENT_DATE(), "{time_zone}"),
 					{self._initial_run_day_range}
 				)
 			'''
@@ -1394,11 +1394,11 @@ class SessionInterestScoreSQLCommandSparkJob(BaseSQLCommandSparkJob):
 			start_date_sql_string = f'"{start_date}"'
 		else:
 			end_date_sql_string = f'''
-				FROM_UNIX_TIMESTAMP(CURRENT_DATE(), {time_zone})
+				FROM_UTC_TIMESTAMP(CURRENT_DATE(), "{time_zone}")
 			'''
 			start_date_sql_string = f'''
 				DATE_SUB(
-					FROM_UNIX_TIMESTAMP(CURRENT_DATE(), {time_zone}),
+					FROM_UTC_TIMESTAMP(CURRENT_DATE(), "{time_zone}"),
 					{self._initial_run_day_range}
 				)
 			'''
