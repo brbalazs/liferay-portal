@@ -92,8 +92,6 @@ public class DataControlNanite extends BaseNanite {
 	private void _addSuppression(
 		DataControlTask dataControlTask, String emailAddress) {
 
-		emailAddress = StringUtils.lowerCase(emailAddress);
-
 		DataControlTask.Type type =
 			_dataControlTaskDog.fetchLatestDataControlTaskType(
 				emailAddress,
@@ -330,8 +328,7 @@ public class DataControlNanite extends BaseNanite {
 	}
 
 	private void _updateMemberships(String emailAddress) {
-		String individualId = DigestUtils.sha256Hex(
-			StringUtils.lowerCase(emailAddress));
+		String individualId = DigestUtils.sha256Hex(emailAddress);
 
 		List<Segment> segments = _segmentDog.getBQIndividualSegments(
 			individualId);

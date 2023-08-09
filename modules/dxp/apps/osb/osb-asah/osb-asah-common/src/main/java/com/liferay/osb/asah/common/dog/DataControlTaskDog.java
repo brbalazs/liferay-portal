@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -77,7 +78,9 @@ public class DataControlTaskDog {
 		Long batchId = _timeOrderedUuidGenerator.generateIdAsLong();
 		Date date = new Date();
 
-		for (String emailAddress : emailAddresses) {
+		for (String emailAddress : new HashSet<>(emailAddresses)) {
+			emailAddress = StringUtils.lowerCase(emailAddress);
+
 			for (String type : types) {
 				DataControlTask.Type dataControlTaskType =
 					DataControlTask.Type.valueOf(type);
