@@ -1,17 +1,21 @@
 [
 	{
+		"createDate": "${today-1d}",
 		"id": "374790569167317525",
 		"individualId": "474790569167317529"
 	},
 	{
+		"createDate": "${today-1d}",
 		"id": "386190546467211094",
 		"individualId": "374790572703144533"
 	},
 	{
+		"createDate": "${today-1d}",
 		"id": "474790572703144534",
 		"individualId": "374790572703144534"
 	},
 	{
+		"createDate": "${today-1d}",
 		"id": "374790575409131096",
 		"individualId": "274790575409131093"
 	}

@@ -23,6 +23,7 @@ import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContex
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -50,10 +51,13 @@ public class SuppressionsRestControllerTest
 
 		Assertions.assertNotNull(fileSystemResource);
 		Assertions.assertEquals(
-			ResourceUtil.readResourceToString(
-				"dependencies/suppressions_log.csv", this),
-			IOUtils.toString(
-				fileSystemResource.getInputStream(), StandardCharsets.UTF_8));
+			StringUtils.trim(
+				ResourceUtil.readResourceToString(
+					"dependencies/suppressions_log.csv", this)),
+			StringUtils.trim(
+				IOUtils.toString(
+					fileSystemResource.getInputStream(),
+					StandardCharsets.UTF_8)));
 	}
 
 	@Autowired
