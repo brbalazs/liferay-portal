@@ -68,9 +68,8 @@ public class SuppressionRepositoryImpl
 	public List<Suppression> findAll() {
 		return _queryExecutor.queryForList(
 			Suppression::new,
-			_dslContext.select(
-			).from(
-				"Suppression"
+			_dslContext.selectFrom(
+				DSL.table("Suppression")
 			));
 	}
 
