@@ -6,6 +6,7 @@
 package com.liferay.osb.asah.common.dog.test;
 
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
+import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
@@ -15,6 +16,7 @@ import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.test.util.annotation.RepositoryResource;
+import com.liferay.osb.asah.test.util.annotation.SQLResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
 import java.io.File;
@@ -28,6 +30,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -207,6 +210,30 @@ public class DataControlTaskDogTest
 				null, null, null, 0, 10, Sort.desc("createDate"), null,
 				Collections.singletonList(
 					DataControlTask.Type.UNSUPPRESS.toString())));
+	}
+
+	@SQLResource(resourcePath = "test_get_prioritized_data_control_tasks.sql")
+	@Test
+	public void testGetPrioritizedDataControlTasks() {
+		List<DataControlTask> dataControlTasks =
+			_dataControlTaskDog.getPrioritizedDataControlTasks(
+				DateUtil.newDate(),
+				Arrays.asList(DataControlTaskStatus.PENDING.toString()), null);
+
+		Assertions.assertEquals(6, dataControlTasks.size());
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				Pair.of(123459L, DataControlTask.Type.DELETE),
+				Pair.of(123459L, DataControlTask.Type.SUPPRESS),
+				Pair.of(123458L, DataControlTask.Type.ACCESS),
+				Pair.of(123458L, DataControlTask.Type.DELETE),
+				Pair.of(123458L, DataControlTask.Type.SUPPRESS),
+				Pair.of(123456L, DataControlTask.Type.ACCESS)),
+			ListUtil.map(
+				dataControlTasks,
+				dataControlTask -> Pair.of(
+					dataControlTask.getBatchId(), dataControlTask.getType())));
 	}
 
 	@Test
