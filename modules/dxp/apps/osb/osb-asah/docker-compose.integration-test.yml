@@ -8,22 +8,6 @@ services:
             - "9050:9050"
             - "9060:9060"
         restart: always
-    test_elasticsearch:
-        container_name: test_elasticsearch
-        env_file:
-            - elasticsearch.env
-        healthcheck:
-            interval: 10s
-            retries: 3
-            start_period: 5s
-            test: ["CMD", "curl", "-f", "http://localhost:9200"]
-            timeout: 10s
-        image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.2
-        mem_limit: 2g
-        ports:
-            - 9200:9200
-            - 9300:9300
-        restart: always
     test_postgresql:
         container_name: test_postgresql
         env_file:
