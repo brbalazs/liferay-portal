@@ -6,14 +6,11 @@
 package com.liferay.osb.asah.common.dog;
 
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
-import com.liferay.osb.asah.common.entity.DXPEntity;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
-import com.liferay.osb.asah.common.repository.executor.BigQueryQueryExecutor;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
-import com.liferay.osb.asah.common.spring.resource.ResourceUtil;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.TimeOrderedUuidGenerator;
 
@@ -38,7 +35,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -116,44 +112,6 @@ public class DataControlTaskDog {
 		return true;
 	}
 
-	@Transactional
-	public void deleteData(String emailAddress) throws Exception {
-
-		// DXP User
-
-		List<DXPEntity> dxpEntities = _dxpEntityDog.fetchAllByFieldsAndType(
-			Collections.singletonMap("fields.emailAddress", emailAddress),
-			DXPEntity.Type.USER);
-
-		if (!dxpEntities.isEmpty()) {
-			_dxpEntityDog.delete(dxpEntities);
-
-			if (_log.isInfoEnabled()) {
-				_log.info(
-					String.format(
-						"%s DXP user(s) with email %s deleted successfully",
-						dxpEntities.size(), emailAddress));
-			}
-		}
-
-		// BigQuery
-
-		_bigQueryQueryExecutor.queryExecute(
-			StringUtils.replace(
-				ResourceUtil.readResourceToString(
-					"dependencies/delete_individual_data_statement.sql",
-					getClass()),
-				"${individual_id}", DigestUtils.sha256Hex(emailAddress)));
-
-		if (_log.isInfoEnabled()) {
-			_log.info(
-				String.format(
-					"Individual data associated with email %s deleted " +
-						"successfully",
-					emailAddress));
-		}
-	}
-
 	public Boolean existsDataControlTask(Long batchId, List<String> status) {
 		return _dataControlTaskRepository.existsByBatchIdAndStatusIn(
 			batchId, status);
@@ -163,7 +121,7 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.findByIdAndStatus(id, status);
 	}
 
-	public DataControlTask.Type fetchLatestDataControlTaskType(
+	public DataControlTask.Type fetchLatestCompletedDataControlTaskType(
 		@Nullable String emailAddress,
 		List<DataControlTask.Type> dataControlTaskTypes) {
 
@@ -299,16 +257,7 @@ public class DataControlTaskDog {
 	private static final Log _log = LogFactory.getLog(DataControlTaskDog.class);
 
 	@Autowired
-	private AuditEventDog _auditEventDog;
-
-	@Autowired
-	private BigQueryQueryExecutor _bigQueryQueryExecutor;
-
-	@Autowired
 	private DataControlTaskRepository _dataControlTaskRepository;
-
-	@Autowired
-	private DXPEntityDog _dxpEntityDog;
 
 	@Autowired
 	private SuppressionDog _suppressionDog;

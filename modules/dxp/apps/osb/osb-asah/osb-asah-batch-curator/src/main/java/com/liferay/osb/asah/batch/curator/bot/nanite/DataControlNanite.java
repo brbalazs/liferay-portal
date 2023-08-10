@@ -5,29 +5,14 @@
 
 package com.liferay.osb.asah.batch.curator.bot.nanite;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.DXPEntityDataExporter;
-import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.DataExporter;
-import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.RawDataExporter;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.AuditEventDog;
-import com.liferay.osb.asah.common.dog.BQMembershipDog;
-import com.liferay.osb.asah.common.dog.BQUserDog;
-import com.liferay.osb.asah.common.dog.DXPEntityDog;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
-import com.liferay.osb.asah.common.dog.DataSourceDog;
-import com.liferay.osb.asah.common.dog.SegmentDog;
-import com.liferay.osb.asah.common.dog.SuppressionDog;
 import com.liferay.osb.asah.common.entity.DataControlTask;
-import com.liferay.osb.asah.common.entity.DataSource;
-import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.http.EmailHttp;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
-import com.liferay.osb.asah.common.model.Individual;
-import com.liferay.osb.asah.common.repository.executor.BigQueryQueryExecutor;
 import com.liferay.osb.asah.common.zip.ZipFileBuilder;
 
 import java.io.File;
@@ -38,10 +23,7 @@ import java.nio.file.Paths;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
-import java.util.zip.ZipOutputStream;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -74,7 +56,9 @@ public class DataControlNanite extends BaseNanite {
 				Arrays.asList(DataControlTaskStatus.COMPLETED.toString()),
 				Arrays.asList(DataControlTask.Type.ACCESS));
 
-		for (DataControlTask completedDataControlTask : completedDataControlTasks) {
+		for (DataControlTask completedDataControlTask :
+				completedDataControlTasks) {
+
 			_expireDataControlTask(completedDataControlTask);
 		}
 	}
@@ -82,31 +66,6 @@ public class DataControlNanite extends BaseNanite {
 	@Override
 	protected Log getLog() {
 		return LogFactory.getLog(DataControlNanite.class);
-	}
-
-	private void _addSuppression(
-		DataControlTask dataControlTask, String emailAddress) {
-
-		DataControlTask.Type type =
-			_dataControlTaskDog.fetchLatestDataControlTaskType(
-				emailAddress,
-				Arrays.asList(
-					DataControlTask.Type.SUPPRESS,
-					DataControlTask.Type.UNSUPPRESS));
-
-		if (type == DataControlTask.Type.SUPPRESS) {
-			return;
-		}
-
-		_updateMemberships(emailAddress);
-
-		_suppressionDog.addSuppression(
-			dataControlTask.getBatchId(), dataControlTask.getCreateDate(),
-			emailAddress);
-	}
-
-	private void _deleteSuppression(String emailAddress) {
-		_suppressionDog.deleteByEmailAddress(emailAddress);
 	}
 
 	private void _expireDataControlTask(DataControlTask dataControlTask) {
@@ -120,60 +79,13 @@ public class DataControlNanite extends BaseNanite {
 				_log.error("Unable to delete file " + file.getAbsolutePath());
 			}
 
-			_updateDataControlTaskStatus(
-				dataControlTask, DataControlTaskStatus.EXPIRED);
+			dataControlTask.setStatus(DataControlTaskStatus.EXPIRED.toString());
+
+			_dataControlTaskDog.updateDataControlTask(dataControlTask);
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
 		}
-	}
-
-	private void _exportData(
-			DataControlTask dataControlTask, String emailAddress)
-		throws Exception {
-
-		// TODO Implement Export Data
-
-		ZipFileBuilder zipFileBuilder = new ZipFileBuilder(
-			_exportPathName + "/" + dataControlTask.getId() + ".zip");
-
-		zipFileBuilder.addToZip(
-			"dxp_users.json",
-			zipOutputStream -> _writeUsersToZip(
-				"emailAddress", emailAddress, zipOutputStream));
-		zipFileBuilder.addToZip(
-			"individuals.json",
-			zipOutputStream -> _writeToZip("individuals", zipOutputStream));
-
-		// TODO Fetch Individual by emailAddress
-
-		zipFileBuilder.addToZip(
-			"csv-individuals.json",
-			zipOutputStream -> _writeToZip("csv-individuals", zipOutputStream));
-		zipFileBuilder.addToZip(
-			"blogs.json",
-			zipOutputStream -> _writeToZip("blogs", zipOutputStream));
-		zipFileBuilder.addToZip(
-			"document-libraries.json",
-			zipOutputStream -> _writeToZip(
-				"document-libraries", zipOutputStream));
-		zipFileBuilder.addToZip(
-			"forms.json",
-			zipOutputStream -> _writeToZip("forms", zipOutputStream));
-		zipFileBuilder.addToZip(
-			"journals.json",
-			zipOutputStream -> _writeToZip("journals", zipOutputStream));
-		zipFileBuilder.addToZip(
-			"page-referrers.json",
-			zipOutputStream -> _writeToZip("page-referrers", zipOutputStream));
-		zipFileBuilder.addToZip(
-			"pages.json",
-			zipOutputStream -> _writeToZip("pages", zipOutputStream));
-		zipFileBuilder.addToZip(
-			"user-sessions.json",
-			zipOutputStream -> _writeToZip("user-sessions", zipOutputStream));
-
-		_exportDataControlTask(dataControlTask, zipFileBuilder);
 	}
 
 	private void _exportDataControlTask(
@@ -183,9 +95,6 @@ public class DataControlNanite extends BaseNanite {
 		zipFileBuilder.addToZip(
 			"data-control-tasks.json",
 			zipOutputStream -> {
-				_updateDataControlTaskStatus(
-					dataControlTask, DataControlTaskStatus.COMPLETED);
-
 				JSONObject dataControlTaskJSONObject =
 					_objectMapper.convertValue(
 						dataControlTask, JSONObject.class);
@@ -202,39 +111,16 @@ public class DataControlNanite extends BaseNanite {
 
 	private void _runDataControlTask(DataControlTask dataControlTask) {
 		try {
-			_updateDataControlTaskStatus(
-				dataControlTask, DataControlTaskStatus.RUNNING);
+			_dataControlTaskRunner.run(dataControlTask);
 
-			String emailAddress = dataControlTask.getEmailAddress();
 			DataControlTask.Type type = dataControlTask.getType();
 
-			try {
-				if (type == DataControlTask.Type.ACCESS) {
-					_exportData(dataControlTask, emailAddress);
-				}
-				else if (type == DataControlTask.Type.DELETE) {
-					_dataControlTaskDog.deleteData(emailAddress);
-				}
-				else if (type == DataControlTask.Type.SUPPRESS) {
-					_addSuppression(dataControlTask, emailAddress);
-				}
-				else if (type == DataControlTask.Type.UNSUPPRESS) {
-					_deleteSuppression(emailAddress);
-				}
-
-				if (type != DataControlTask.Type.ACCESS) {
-					_exportDataControlTask(
-						dataControlTask,
-						new ZipFileBuilder(
-							_exportPathName + "/" + dataControlTask.getId() +
-								".zip"));
-				}
-			}
-			catch (Exception exception) {
-				_log.error(exception, exception);
-
-				_updateDataControlTaskStatus(
-					dataControlTask, DataControlTaskStatus.ERROR);
+			if (type != DataControlTask.Type.ACCESS) {
+				_exportDataControlTask(
+					dataControlTask,
+					new ZipFileBuilder(
+						_exportPathName + "/" + dataControlTask.getId() +
+							".zip"));
 			}
 
 			_auditEventDog.addAuditEvent(
@@ -263,88 +149,16 @@ public class DataControlNanite extends BaseNanite {
 		}
 	}
 
-	private void _updateDataControlTaskStatus(
-		DataControlTask dataControlTask,
-		DataControlTaskStatus dataControlTaskStatus) {
-
-		if (dataControlTaskStatus == DataControlTaskStatus.COMPLETED) {
-			dataControlTask.setCompleteDate(DateUtil.newDate());
-		}
-		else if (dataControlTaskStatus == DataControlTaskStatus.RUNNING) {
-			dataControlTask.setStartDate(DateUtil.newDate());
-		}
-
-		dataControlTask.setStatus(dataControlTaskStatus.toString());
-
-		_dataControlTaskDog.updateDataControlTask(dataControlTask);
-	}
-
-	private void _updateMemberships(String emailAddress) {
-		String individualId = DigestUtils.sha256Hex(emailAddress);
-
-		List<Segment> segments = _segmentDog.getBQIndividualSegments(
-			individualId);
-
-		for (Segment segment : segments) {
-			if (segment.getType() != Segment.Type.STATIC) {
-				continue;
-			}
-
-			_bqMembershipDog.deleteBQMembership(individualId, segment);
-
-			long membershipsCount = _bqMembershipDog.getBQMembershipsCount(
-				segment.getId());
-
-			if (membershipsCount == 0) {
-				_segmentDog.disableSegment(segment);
-			}
-		}
-	}
-
-	private void _writeToZip(
-			String collectionName, ZipOutputStream zipOutputStream)
-		throws Exception {
-
-		DataExporter dataExporter = new RawDataExporter(
-			collectionName, _jsonFactory, zipOutputStream);
-
-		dataExporter.export();
-	}
-
-	private void _writeUsersToZip(
-			String fieldName, String fieldValue,
-			ZipOutputStream zipOutputStream)
-		throws Exception {
-
-		DataExporter dataExporter = new DXPEntityDataExporter(
-			_bqUserDog, fieldName, fieldValue, _jsonFactory, _objectMapper,
-			zipOutputStream);
-
-		dataExporter.export();
-	}
-
 	private static final Log _log = LogFactory.getLog(DataControlNanite.class);
 
 	@Autowired
 	private AuditEventDog _auditEventDog;
 
 	@Autowired
-	private BigQueryQueryExecutor _bigQueryQueryExecutor;
-
-	@Autowired
-	private BQMembershipDog _bqMembershipDog;
-
-	@Autowired
-	private BQUserDog _bqUserDog;
-
-	@Autowired
 	private DataControlTaskDog _dataControlTaskDog;
 
 	@Autowired
-	private DataSourceDog _dataSourceDog;
-
-	@Autowired
-	private DXPEntityDog _dxpEntityDog;
+	private DataControlTaskRunner _dataControlTaskRunner;
 
 	@Autowired
 	private EmailHttp _emailHttp;
@@ -352,19 +166,7 @@ public class DataControlNanite extends BaseNanite {
 	@Value("${osb.asah.batch.curator.data.export.path:/export}")
 	private String _exportPathName;
 
-	private final JsonFactory _jsonFactory = new JsonFactory() {
-		{
-			disable(JsonGenerator.Feature.AUTO_CLOSE_TARGET);
-		}
-	};
-
 	@Autowired
 	private ObjectMapper _objectMapper;
-
-	@Autowired
-	private SegmentDog _segmentDog;
-
-	@Autowired
-	private SuppressionDog _suppressionDog;
 
 }

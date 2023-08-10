@@ -139,7 +139,7 @@ public class DXPEntitiesNanite implements Nanite {
 
 		if ((dxpEntityType == null) || dxpEntityType.isUser()) {
 			DataControlTask.Type type =
-				_dataControlTaskDog.fetchLatestDataControlTaskType(
+				_dataControlTaskDog.fetchLatestCompletedDataControlTaskType(
 					objectJSONObject.optString("emailAddress"),
 					Arrays.asList(
 						DataControlTask.Type.SUPPRESS,
