@@ -111,7 +111,7 @@ public class DataControlNanite extends BaseNanite {
 
 	private void _runDataControlTask(DataControlTask dataControlTask) {
 		try {
-			_dataControlTaskRunner.run(dataControlTask);
+			_dataControlTaskDog.run(dataControlTask);
 
 			DataControlTask.Type type = dataControlTask.getType();
 
@@ -156,9 +156,6 @@ public class DataControlNanite extends BaseNanite {
 
 	@Autowired
 	private DataControlTaskDog _dataControlTaskDog;
-
-	@Autowired
-	private DataControlTaskRunner _dataControlTaskRunner;
 
 	@Autowired
 	private EmailHttp _emailHttp;

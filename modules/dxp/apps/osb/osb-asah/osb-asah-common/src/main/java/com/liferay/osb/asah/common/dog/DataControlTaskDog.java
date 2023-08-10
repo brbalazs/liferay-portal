@@ -5,12 +5,17 @@
 
 package com.liferay.osb.asah.common.dog;
 
+import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
+import com.liferay.osb.asah.common.entity.DXPEntity;
 import com.liferay.osb.asah.common.entity.DataControlTask;
+import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
+import com.liferay.osb.asah.common.repository.executor.BigQueryQueryExecutor;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
+import com.liferay.osb.asah.common.spring.resource.ResourceUtil;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.TimeOrderedUuidGenerator;
 
@@ -26,6 +31,7 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -35,6 +41,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -219,6 +226,38 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.findSuppressedEmailAddresses();
 	}
 
+	@Transactional
+	public void run(DataControlTask dataControlTask) {
+		DataControlTask.Type type = dataControlTask.getType();
+
+		_updateDataControlTaskStatus(
+			dataControlTask, DataControlTaskStatus.RUNNING);
+
+		try {
+			if (type == DataControlTask.Type.ACCESS) {
+				_access(dataControlTask);
+			}
+			else if (type == DataControlTask.Type.DELETE) {
+				_delete(dataControlTask);
+			}
+			else if (type == DataControlTask.Type.SUPPRESS) {
+				_suppress(dataControlTask);
+			}
+			else if (type == DataControlTask.Type.UNSUPPRESS) {
+				_unsuppress(dataControlTask);
+			}
+
+			_updateDataControlTaskStatus(
+				dataControlTask, DataControlTaskStatus.COMPLETED);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			_updateDataControlTaskStatus(
+				dataControlTask, DataControlTaskStatus.ERROR);
+		}
+	}
+
 	public DataControlTask updateDataControlTask(
 		DataControlTask dataControlTask) {
 
@@ -228,6 +267,48 @@ public class DataControlTaskDog {
 		}
 
 		return _dataControlTaskRepository.save(dataControlTask);
+	}
+
+	private void _access(DataControlTask dataControlTask) {
+	}
+
+	private void _delete(DataControlTask dataControlTask) throws Exception {
+
+		// DXP User
+
+		List<DXPEntity> dxpEntities = _dxpEntityDog.fetchAllByFieldsAndType(
+			Collections.singletonMap(
+				"fields.emailAddress", dataControlTask.getEmailAddress()),
+			DXPEntity.Type.USER);
+
+		if (!dxpEntities.isEmpty()) {
+			_dxpEntityDog.delete(dxpEntities);
+
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					String.format(
+						"%s DXP user(s) with email %s deleted successfully",
+						dxpEntities.size(), dataControlTask.getEmailAddress()));
+			}
+		}
+
+		// BigQuery
+
+		_bigQueryQueryExecutor.queryExecute(
+			StringUtils.replace(
+				ResourceUtil.readResourceToString(
+					"dependencies/delete_individual_data_statement.sql",
+					getClass()),
+				"${individual_id}",
+				DigestUtils.sha256Hex(dataControlTask.getEmailAddress())));
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				String.format(
+					"Individual data associated with email %s deleted " +
+						"successfully",
+					dataControlTask.getEmailAddress()));
+		}
 	}
 
 	private Date _getStartCreateDate(Integer rangeKey) {
@@ -254,10 +335,89 @@ public class DataControlTaskDog {
 		return ListUtil.map(csvParser.parseAll(file), row -> row[0]);
 	}
 
+	private void _suppress(DataControlTask dataControlTask) {
+		DataControlTask.Type type = fetchLatestCompletedDataControlTaskType(
+			dataControlTask.getEmailAddress(),
+			Arrays.asList(
+				DataControlTask.Type.SUPPRESS,
+				DataControlTask.Type.UNSUPPRESS));
+
+		if (type == DataControlTask.Type.SUPPRESS) {
+			return;
+		}
+
+		_updateMemberships(dataControlTask.getEmailAddress());
+
+		_bqIndividualDog.suppress(
+			DigestUtils.sha256Hex(dataControlTask.getEmailAddress()));
+
+		_suppressionDog.addSuppression(
+			dataControlTask.getBatchId(), dataControlTask.getCreateDate(),
+			dataControlTask.getEmailAddress());
+	}
+
+	private void _unsuppress(DataControlTask dataControlTask) {
+		_bqIndividualDog.unsuppress(
+			DigestUtils.sha256Hex(dataControlTask.getEmailAddress()));
+	}
+
+	private DataControlTask _updateDataControlTaskStatus(
+		DataControlTask dataControlTask,
+		DataControlTaskStatus dataControlTaskStatus) {
+
+		if (dataControlTaskStatus == DataControlTaskStatus.COMPLETED) {
+			dataControlTask.setCompleteDate(DateUtil.newDate());
+		}
+		else if (dataControlTaskStatus == DataControlTaskStatus.RUNNING) {
+			dataControlTask.setStartDate(DateUtil.newDate());
+		}
+
+		dataControlTask.setStatus(dataControlTaskStatus.toString());
+
+		return updateDataControlTask(dataControlTask);
+	}
+
+	private void _updateMemberships(String emailAddress) {
+		String individualId = DigestUtils.sha256Hex(emailAddress);
+
+		List<Segment> segments = _segmentDog.getBQIndividualSegments(
+			individualId);
+
+		for (Segment segment : segments) {
+			if (segment.getType() != Segment.Type.STATIC) {
+				continue;
+			}
+
+			_bqMembershipDog.deleteBQMembership(individualId, segment);
+
+			long membershipsCount = _bqMembershipDog.getBQMembershipsCount(
+				segment.getId());
+
+			if (membershipsCount == 0) {
+				_segmentDog.disableSegment(segment);
+			}
+		}
+	}
+
 	private static final Log _log = LogFactory.getLog(DataControlTaskDog.class);
 
 	@Autowired
+	private BigQueryQueryExecutor _bigQueryQueryExecutor;
+
+	@Autowired
+	private BQIndividualDog _bqIndividualDog;
+
+	@Autowired
+	private BQMembershipDog _bqMembershipDog;
+
+	@Autowired
 	private DataControlTaskRepository _dataControlTaskRepository;
+
+	@Autowired
+	private DXPEntityDog _dxpEntityDog;
+
+	@Autowired
+	private SegmentDog _segmentDog;
 
 	@Autowired
 	private SuppressionDog _suppressionDog;
