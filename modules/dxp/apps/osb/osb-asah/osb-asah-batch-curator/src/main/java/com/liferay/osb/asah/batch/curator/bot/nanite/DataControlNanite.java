@@ -64,10 +64,9 @@ public class DataControlNanite extends BaseNanite {
 				null, Arrays.asList(DataControlTaskStatus.PENDING.toString()),
 				null);
 
-		Stream<DataControlTask> pendingDataControlTasksStream =
-			pendingDataControlTasks.stream();
-
-		pendingDataControlTasksStream.forEach(this::_runDataControlTask);
+		for (DataControlTask pendingDataControlTask : pendingDataControlTasks) {
+			_runDataControlTask(pendingDataControlTask);
+		}
 
 		List<DataControlTask> completedDataControlTasks =
 			_dataControlTaskDog.getPrioritizedDataControlTasks(
@@ -75,10 +74,9 @@ public class DataControlNanite extends BaseNanite {
 				Arrays.asList(DataControlTaskStatus.COMPLETED.toString()),
 				Arrays.asList(DataControlTask.Type.ACCESS));
 
-		Stream<DataControlTask> completedDataControlTasksStream =
-			completedDataControlTasks.stream();
-
-		completedDataControlTasksStream.forEach(this::_expireDataControlTask);
+		for (DataControlTask completedDataControlTask : completedDataControlTasks) {
+			_expireDataControlTask(completedDataControlTask);
+		}
 	}
 
 	@Override
