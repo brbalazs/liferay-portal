@@ -44,8 +44,9 @@ public class DataControlTaskRepositoryImpl
 
 	@Override
 	public long countDataControlTasks(
-		Long batchId, String emailAddress, Date startCreateDate,
-		List<String> statuses, List<DataControlTask.Type> types) {
+		@Nullable Long batchId, @Nullable String emailAddress,
+		@Nullable Date startCreateDate, @Nullable List<String> statuses,
+		@Nullable List<DataControlTask.Type> types) {
 
 		SelectSelectStep<Record1<Integer>> selectSelectStep =
 			_dslContext.selectCount();

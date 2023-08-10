@@ -24,8 +24,9 @@ public interface CustomDataControlTaskRepository {
 
 	@Cacheable
 	public long countDataControlTasks(
-		Long batchId, String emailAddress, Date startCreateDate,
-		List<String> statuses, List<DataControlTask.Type> types);
+		@Nullable Long batchId, @Nullable String emailAddress,
+		@Nullable Date startCreateDate, @Nullable List<String> statuses,
+		@Nullable List<DataControlTask.Type> types);
 
 	public Boolean existsByBatchIdAndStatusIn(
 		@Nullable Long batchId, @Nullable List<String> statuses);
