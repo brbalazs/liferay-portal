@@ -67,10 +67,7 @@ public class SuppressionRepositoryImpl
 	@Override
 	public List<Suppression> findAll() {
 		return _queryExecutor.queryForList(
-			Suppression::new,
-			_dslContext.selectFrom(
-				DSL.table("Suppression")
-			));
+			Suppression::new, _dslContext.selectFrom(DSL.table("Suppression")));
 	}
 
 	@Override
