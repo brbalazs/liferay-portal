@@ -122,7 +122,7 @@ public class DataControlTaskDog {
 		// DXP User
 
 		List<DXPEntity> dxpEntities = _dxpEntityDog.fetchAllByFieldsAndType(
-			Collections.singletonMap("emailAddress", emailAddress),
+			Collections.singletonMap("fields.emailAddress", emailAddress),
 			DXPEntity.Type.USER);
 
 		if (!dxpEntities.isEmpty()) {
