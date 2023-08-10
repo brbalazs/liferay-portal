@@ -133,8 +133,20 @@ public class DataControlTaskDogTest
 		resourcePath = "osbasahdxpraw/users.json"
 	)
 	@Test
-	public void testDeleteData() throws Exception {
-		_dataControlTaskDog.deleteData("test1@liferay.com");
+	public void testDeleteData() {
+		_dataControlTaskDog.addDataControlTasks(
+			Collections.singletonList("test1@liferay.com"), null, null,
+			Collections.singletonList(DataControlTask.Type.DELETE.toString()),
+			"12345", "Test Test");
+
+		List<DataControlTask> prioritizedDataControlTasks =
+			_dataControlTaskDog.getPrioritizedDataControlTasks(
+				null,
+				Collections.singletonList(
+					DataControlTaskStatus.PENDING.toString()),
+				Collections.singletonList(DataControlTask.Type.DELETE));
+
+		_dataControlTaskDog.run(prioritizedDataControlTasks.get(0));
 
 		Assertions.assertEquals(0, _bqExpandoValueRepository.count());
 		Assertions.assertEquals(
