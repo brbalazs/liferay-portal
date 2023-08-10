@@ -21,7 +21,6 @@ import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.dog.DataSourceDog;
 import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.dog.SuppressionDog;
-import com.liferay.osb.asah.common.entity.DXPEntity;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.entity.DataSource;
 import com.liferay.osb.asah.common.entity.Segment;
@@ -29,7 +28,6 @@ import com.liferay.osb.asah.common.http.EmailHttp;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Individual;
 import com.liferay.osb.asah.common.repository.executor.BigQueryQueryExecutor;
-import com.liferay.osb.asah.common.spring.resource.ResourceUtil;
 import com.liferay.osb.asah.common.zip.ZipFileBuilder;
 
 import java.io.File;
@@ -40,14 +38,12 @@ import java.nio.file.Paths;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 import java.util.zip.ZipOutputStream;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -112,43 +108,6 @@ public class DataControlNanite extends BaseNanite {
 		_suppressionDog.addSuppression(
 			dataControlTask.getBatchId(), dataControlTask.getCreateDate(),
 			emailAddress);
-	}
-
-	private void _deleteData(String emailAddress) throws Exception {
-
-		// DXP User
-
-		List<DXPEntity> dxpEntities = _dxpEntityDog.fetchAllByFieldsAndType(
-			Collections.singletonMap("emailAddress", emailAddress),
-			DXPEntity.Type.USER);
-
-		if (!dxpEntities.isEmpty()) {
-			_dxpEntityDog.delete(dxpEntities);
-
-			if (_log.isDebugEnabled()) {
-				_log.debug(
-					String.format(
-						"%s DXP user(s) with email %s deleted successfully",
-						dxpEntities.size(), emailAddress));
-			}
-		}
-
-		// BigQuery
-
-		_bigQueryQueryExecutor.queryExecute(
-			StringUtils.replace(
-				ResourceUtil.readResourceToString(
-					"dependencies/delete_individual_data_statement.sql",
-					getClass()),
-				"${individual_id}", DigestUtils.sha256Hex(emailAddress)));
-
-		if (_log.isInfoEnabled()) {
-			_log.info(
-				String.format(
-					"Individual data associated with email %s deleted " +
-						"successfully",
-					emailAddress));
-		}
 	}
 
 	private void _deleteSuppression(String emailAddress) {
@@ -285,7 +244,7 @@ public class DataControlNanite extends BaseNanite {
 					_exportData(dataControlTask, emailAddress);
 				}
 				else if (type == DataControlTask.Type.DELETE) {
-					_deleteData(emailAddress);
+					_dataControlTaskDog.deleteData(emailAddress);
 				}
 				else if (type == DataControlTask.Type.SUPPRESS) {
 					_addSuppression(dataControlTask, emailAddress);
