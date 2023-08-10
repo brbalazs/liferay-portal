@@ -36,15 +36,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 import java.util.zip.ZipOutputStream;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -203,32 +200,6 @@ public class DataControlNanite extends BaseNanite {
 			});
 
 		zipFileBuilder.build();
-	}
-
-	private Map<Long, List<String>> _getBQDataSourceIdUserPKs(
-		String dataSourceType, Individual individual) {
-
-		Map<Long, List<String>> dataSourceIdUserPKs = new HashMap<>();
-
-		for (Individual.DataSourceUserPK dataSourceUserPK :
-				individual.getDataSourceUserPKs()) {
-
-			DataSource dataSource = _dataSourceDog.getDataSource(
-				dataSourceUserPK.getDataSourceId());
-
-			if (!StringUtils.equals(
-					dataSource.getProviderType(), dataSourceType)) {
-
-				continue;
-			}
-
-			List<String> userPKs = dataSourceIdUserPKs.computeIfAbsent(
-				dataSource.getId(), id -> new ArrayList<>());
-
-			userPKs.addAll(dataSourceUserPK.getUserPKs());
-		}
-
-		return dataSourceIdUserPKs;
 	}
 
 	private void _runDataControlTask(DataControlTask dataControlTask) {
