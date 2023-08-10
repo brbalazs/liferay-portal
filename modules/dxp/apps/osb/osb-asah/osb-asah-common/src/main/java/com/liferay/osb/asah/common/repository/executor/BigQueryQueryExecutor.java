@@ -436,7 +436,7 @@ public class BigQueryQueryExecutor implements QueryExecutor {
 		"BQProduct_Raw", "BQRole", "BQSession", "BQSessionInterestScore",
 		"BQTeam", "BQUser", "BQUserGroup", "CustomAssetDaily",
 		"CustomAssetHourly", "DocumentLibraryDaily", "DocumentLibraryHourly",
-		"FormDaily", "FormHourly", "Identity_Raw", "JournalDaily",
+		"DXPEntity", "FormDaily", "FormHourly", "Identity_Raw", "JournalDaily",
 		"JournalHourly", "PageDaily", "PageHourly", "Suppression"
 	};
 

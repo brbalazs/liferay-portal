@@ -12,9 +12,16 @@ import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.AuditEventRepository;
+import com.liferay.osb.asah.common.repository.BQExpandoValueRepository;
+import com.liferay.osb.asah.common.repository.BQIdentityRepository;
+import com.liferay.osb.asah.common.repository.BQIndividualRepository;
+import com.liferay.osb.asah.common.repository.BQUserRepository;
+import com.liferay.osb.asah.common.repository.DXPEntityRepository;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
+import com.liferay.osb.asah.common.repository.DataSourceRepository;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.SetUtil;
+import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.annotation.RepositoryResource;
 import com.liferay.osb.asah.test.util.annotation.SQLResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
@@ -114,6 +121,28 @@ public class DataControlTaskDogTest
 		if (!file.delete()) {
 			_log.error("Unable to delete file " + file.getAbsolutePath());
 		}
+	}
+
+	@BQSQLResource(resourcePath = "test_data_control_task_delete_bq.sql")
+	@RepositoryResource(
+		repositoryClass = DataSourceRepository.class,
+		resourcePath = "osbasahfaroinfo/data_sources.json"
+	)
+	@RepositoryResource(
+		repositoryClass = DXPEntityRepository.class,
+		resourcePath = "osbasahdxpraw/users.json"
+	)
+	@Test
+	public void testDeleteData() throws Exception {
+		_dataControlTaskDog.deleteData("test1@liferay.com");
+
+		Assertions.assertEquals(0, _bqExpandoValueRepository.count());
+		Assertions.assertEquals(
+			0,
+			_bqIndividualRepository.countBQIndividuals(
+				null, "email eq 'test1@liferay.com'", null, null, null));
+		Assertions.assertEquals(1, _bqUserRepository.count());
+		Assertions.assertNull(_bqIdentityRepository.getBQIndividualId("1"));
 	}
 
 	@RepositoryResource(
@@ -280,6 +309,18 @@ public class DataControlTaskDogTest
 
 	@Autowired
 	private AuditEventRepository _auditEventRepository;
+
+	@Autowired
+	private BQExpandoValueRepository _bqExpandoValueRepository;
+
+	@Autowired
+	private BQIdentityRepository _bqIdentityRepository;
+
+	@Autowired
+	private BQIndividualRepository _bqIndividualRepository;
+
+	@Autowired
+	private BQUserRepository _bqUserRepository;
 
 	@Autowired
 	private DataControlTaskDog _dataControlTaskDog;
