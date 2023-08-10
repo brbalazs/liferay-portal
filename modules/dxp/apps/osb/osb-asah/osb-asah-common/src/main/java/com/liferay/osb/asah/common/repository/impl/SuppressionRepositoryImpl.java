@@ -12,6 +12,7 @@ import com.liferay.osb.asah.common.repository.CustomSuppressionRepository;
 import com.liferay.osb.asah.common.repository.executor.QueryExecutor;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -68,6 +69,22 @@ public class SuppressionRepositoryImpl
 	public List<Suppression> findAll() {
 		return _queryExecutor.queryForList(
 			Suppression::new, _dslContext.selectFrom(DSL.table("Suppression")));
+	}
+
+	@Override
+	public Optional<Suppression> findByEmailAddress(String emailAddress) {
+		return _queryExecutor.queryForObject(
+			Suppression::new,
+			_dslContext.select(
+			).from(
+				DSL.table("Suppression")
+			).where(
+				DSL.field(
+					"emailAddress"
+				).eq(
+					emailAddress
+				)
+			));
 	}
 
 	@Override
