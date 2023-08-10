@@ -3,43 +3,10 @@ BEGIN
 
 	-- Individual's personal information
 
-	MERGE
-		DXPEntity AS target
-	USING (
-		SELECT
-			CAST(dxpUserId AS STRING) AS classPK, dataSourceId
-		FROM
-			BQUser
-		WHERE
-			individualId = '${individual_id}'
-	) AS source
-	ON (
-		target.classPK = source.classPK AND
-		target.dataSourceId = source.dataSourceId AND
-		target.type = 'com.liferay.portal.kernel.model.User'
-	)
-	WHEN MATCHED THEN
-		DELETE;
-
-	MERGE
-	    BQExpandoValue AS target
-	USING (
-		SELECT
-			CAST(dxpUserId AS STRING) AS classPK, dataSourceId
-	    FROM
-			BQUser
-		WHERE
-			individualId = '${individual_id}'
-	) AS source
-	ON (
-		target.dataSourceId = source.dataSourceId AND
-	    target.classPK = source.classPK AND
-	    target.classType = 'com.liferay.portal.kernel.model.User'
-	)
-	WHEN MATCHED THEN
-		DELETE;
-
+	DELETE FROM BQExpandoValue WHERE CONCAT(classPK, dataSourceId) IN ( SELECT CONCAT(dxpUserId, dataSourceId) FROM BQUser WHERE individualId = '${individual_id}' ) AND classType = 'com.liferay.portal.kernel.model.User';
 	DELETE FROM BQIndividual WHERE id = '${individual_id}';
+	DELETE FROM DXPEntity WHERE CONCAT(classPK, dataSourceId) IN ( SELECT CONCAT(dxpUserId, dataSourceId) FROM BQUser WHERE individualId = '${individual_id}' ) AND type = 'com.liferay.portal.kernel.model.User';
+
 	DELETE FROM BQUser WHERE individualId = '${individual_id}';
 
 	-- Individual's activities anonymization
