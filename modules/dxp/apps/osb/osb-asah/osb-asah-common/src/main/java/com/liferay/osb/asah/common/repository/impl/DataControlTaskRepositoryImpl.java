@@ -180,7 +180,7 @@ public class DataControlTaskRepositoryImpl
 	}
 
 	@Override
-	public List<DataControlTask> searchDataControlTasksOrderByCreateDateAsc(
+	public List<DataControlTask> searchDataControlTasks(
 		@Nullable String emailAddress, @Nullable Date endCompleteDate,
 		@Nullable List<String> statuses,
 		@Nullable List<DataControlTask.Type> types) {
@@ -192,10 +192,6 @@ public class DataControlTaskRepositoryImpl
 		).where(
 			_getConditions(
 				null, emailAddress, endCompleteDate, null, statuses, types)
-		).orderBy(
-			DSL.field(
-				"createDate"
-			).asc()
 		).fetch(
 			record -> new DataControlTask(record.intoMap())
 		);

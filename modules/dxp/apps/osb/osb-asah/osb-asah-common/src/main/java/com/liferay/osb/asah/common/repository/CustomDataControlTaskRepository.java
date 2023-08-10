@@ -48,7 +48,7 @@ public interface CustomDataControlTaskRepository {
 		@Nullable List<DataControlTask.Type> types, Pageable pageable);
 
 	@Cacheable
-	public List<DataControlTask> searchDataControlTasksOrderByCreateDateAsc(
+	public List<DataControlTask> searchDataControlTasks(
 		@Nullable String emailAddress, @Nullable Date endCompleteDate,
 		@Nullable List<String> statuses,
 		@Nullable List<DataControlTask.Type> types);

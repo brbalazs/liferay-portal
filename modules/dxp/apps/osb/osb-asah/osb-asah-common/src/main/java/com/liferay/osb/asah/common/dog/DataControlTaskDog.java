@@ -27,7 +27,6 @@ import java.time.ZoneOffset;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -183,17 +182,26 @@ public class DataControlTaskDog {
 		List<DataControlTask.Type> types) {
 
 		List<DataControlTask> dataControlTasks =
-			_dataControlTaskRepository.
-				searchDataControlTasksOrderByCreateDateAsc(
-					null, endCompleteDate, statuses, types);
+			_dataControlTaskRepository.searchDataControlTasks(
+				null, endCompleteDate, statuses, types);
 
 		dataControlTasks.sort(
-			Comparator.comparing(
-				dataControlTask -> {
-					DataControlTask.Type type = dataControlTask.getType();
+			(dataControlTask1, dataControlTask2) -> {
+				Date createDate1 = dataControlTask1.getCreateDate();
+				Date createDate2 = dataControlTask2.getCreateDate();
 
-					return type.getPriority();
-				}));
+				if ((createDate1 != null) && (createDate2 != null) &&
+					(createDate1.getTime() != createDate2.getTime())) {
+
+					return createDate1.compareTo(createDate2);
+				}
+
+				DataControlTask.Type type1 = dataControlTask1.getType();
+				DataControlTask.Type type2 = dataControlTask2.getType();
+
+				return Integer.compare(
+					type1.getPriority(), type2.getPriority());
+			});
 
 		return dataControlTasks;
 	}

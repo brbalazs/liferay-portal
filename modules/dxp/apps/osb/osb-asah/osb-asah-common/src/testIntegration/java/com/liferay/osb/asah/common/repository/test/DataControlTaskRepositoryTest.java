@@ -178,15 +178,12 @@ public class DataControlTaskRepositoryTest
 	@Test
 	public void testSearchDataControlTasks1() {
 		List<DataControlTask> dataControlTasks =
-			_dataControlTaskRepository.
-				searchDataControlTasksOrderByCreateDateAsc(
-					null, new Date(),
-					Arrays.asList(
-						String.valueOf(
-							DataControlTaskStatus.COMPLETED.toString()),
-						String.valueOf(
-							DataControlTaskStatus.PENDING.toString())),
-					Arrays.asList(DataControlTask.Type.SUPPRESS));
+			_dataControlTaskRepository.searchDataControlTasks(
+				null, new Date(),
+				Arrays.asList(
+					String.valueOf(DataControlTaskStatus.COMPLETED.toString()),
+					String.valueOf(DataControlTaskStatus.PENDING.toString())),
+				Arrays.asList(DataControlTask.Type.SUPPRESS));
 
 		Assertions.assertEquals(
 			2, dataControlTasks.size(), dataControlTasks.toString());
