@@ -38,6 +38,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,6 +48,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -299,12 +301,15 @@ public class DataControlTaskDog {
 		// BigQuery
 
 		_bigQueryQueryExecutor.queryExecute(
-			StringUtils.replace(
+			StringUtils.replaceEach(
 				ResourceUtil.readResourceToString(
 					"dependencies/delete_individual_data_statement.sql",
 					getClass()),
-				"${individual_id}",
-				DigestUtils.sha256Hex(dataControlTask.getEmailAddress())));
+				new String[] {"${individual_id}", "${new_identity_id}"},
+				new String[] {
+					DigestUtils.sha256Hex(dataControlTask.getEmailAddress()),
+					String.valueOf(UUID.randomUUID())
+				}));
 
 		if (_log.isInfoEnabled()) {
 			_log.info(
@@ -413,6 +418,9 @@ public class DataControlTaskDog {
 	private BigQueryQueryExecutor _bigQueryQueryExecutor;
 
 	@Autowired
+	private BQIdentityDog _bqIdentityDog;
+
+	@Autowired
 	private BQIndividualDog _bqIndividualDog;
 
 	@Autowired
@@ -426,6 +434,9 @@ public class DataControlTaskDog {
 
 	@Autowired
 	private DXPEntityDog _dxpEntityDog;
+
+	@Autowired
+	private Environment _environment;
 
 	@Autowired
 	private SegmentDog _segmentDog;
