@@ -8,8 +8,8 @@ package com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.test;
 import com.fasterxml.jackson.core.JsonFactory;
 
 import com.liferay.osb.asah.batch.curator.OSBAsahBatchCuratorSpringTestContext;
-import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.DataExporter;
-import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.PostgreSQLDataExporter;
+import com.liferay.osb.asah.common.data.exporter.DataExporter;
+import com.liferay.osb.asah.common.data.exporter.PostgreSQLDataExporter;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.entity.DataExportTask;
 import com.liferay.osb.asah.common.entity.Segment;

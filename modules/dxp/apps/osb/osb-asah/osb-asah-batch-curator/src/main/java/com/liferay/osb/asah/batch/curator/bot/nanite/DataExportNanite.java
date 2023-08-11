@@ -9,9 +9,9 @@ import com.fasterxml.jackson.core.JsonFactory;
 
 import com.google.cloud.bigquery.BigQuery;
 
-import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.BigQueryDataExporter;
-import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.DataExporter;
-import com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.PostgreSQLDataExporter;
+import com.liferay.osb.asah.common.data.exporter.BigQueryDataExporter;
+import com.liferay.osb.asah.common.data.exporter.DataExporter;
+import com.liferay.osb.asah.common.data.exporter.PostgreSQLDataExporter;
 import com.liferay.osb.asah.common.dog.DataExportTaskDog;
 import com.liferay.osb.asah.common.entity.DataExportTask;
 
