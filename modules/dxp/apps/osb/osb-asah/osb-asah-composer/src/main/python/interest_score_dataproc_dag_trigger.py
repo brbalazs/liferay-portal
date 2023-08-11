@@ -60,6 +60,7 @@ response = requests.get(
 )
 
 dl_keyword_extraction_enabled_workspaces = [
+	'asah884f47d2c9e847fb83ee50b3614d3991',
 	'asahda2fcb11192544c8ad6c4d14cfd37214',
 	'uatb71b092fd41e44a2aeda2f9d24569edf'
 ]
