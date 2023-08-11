@@ -122,7 +122,7 @@ public class BQIndividual {
 	}
 
 	@BigQueryColumn
-	public boolean getSuppressed() {
+	public Boolean getSuppressed() {
 		return _suppressed;
 	}
 
