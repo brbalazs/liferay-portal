@@ -10,6 +10,7 @@ import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 import com.liferay.osb.asah.common.entity.DXPEntity;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.entity.Segment;
+import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
@@ -365,9 +366,35 @@ public class DataControlTaskDog {
 			dataControlTask.getEmailAddress());
 	}
 
-	private void _unsuppress(DataControlTask dataControlTask) {
-		_bqIndividualDog.unsuppress(
-			DigestUtils.sha256Hex(dataControlTask.getEmailAddress()));
+	private void _unsuppress(DataControlTask dataControlTask) throws Exception {
+		String emailAddress = dataControlTask.getEmailAddress();
+
+		Suppression suppression = _suppressionDog.fetchSuppression(
+			emailAddress);
+
+		if (suppression == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					String.format(
+						"Unable to find suppression for %s. Skipping.",
+						emailAddress));
+			}
+
+			return;
+		}
+
+		_bigQueryQueryExecutor.queryExecute(
+			StringUtils.replaceEach(
+				ResourceUtil.readResourceToString(
+					"dependencies/unsuppress_individual_statement.sql",
+					getClass()),
+				new String[] {
+					"${emailAddress}", "${individualId}", "${startDate}"
+				},
+				new String[] {
+					emailAddress, DigestUtils.sha256Hex(emailAddress),
+					DateUtil.toUTCString(suppression.getCreateDate())
+				}));
 	}
 
 	private DataControlTask _updateDataControlTaskStatus(
