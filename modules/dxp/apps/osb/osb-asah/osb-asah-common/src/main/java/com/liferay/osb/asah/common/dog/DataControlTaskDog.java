@@ -227,11 +227,8 @@ public class DataControlTaskDog {
 	}
 
 	@Transactional
-	public void run(DataControlTask dataControlTask) {
+	public void processDataControlTask(DataControlTask dataControlTask) {
 		DataControlTask.Type type = dataControlTask.getType();
-
-		_updateDataControlTaskStatus(
-			dataControlTask, DataControlTaskStatus.RUNNING);
 
 		try {
 			if (type == DataControlTask.Type.ACCESS) {
@@ -256,6 +253,13 @@ public class DataControlTaskDog {
 			_updateDataControlTaskStatus(
 				dataControlTask, DataControlTaskStatus.ERROR);
 		}
+	}
+
+	public void run(DataControlTask dataControlTask) {
+		_updateDataControlTaskStatus(
+			dataControlTask, DataControlTaskStatus.RUNNING);
+
+		processDataControlTask(dataControlTask);
 	}
 
 	public DataControlTask updateDataControlTask(
