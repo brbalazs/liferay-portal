@@ -10,10 +10,12 @@ import com.liferay.osb.asah.common.entity.BQIdentity;
 import com.liferay.osb.asah.common.entity.BQIndividual;
 import com.liferay.osb.asah.common.entity.BQUser;
 import com.liferay.osb.asah.common.entity.DXPEntity;
+import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.repository.BQExpandoValueRepository;
 import com.liferay.osb.asah.common.repository.BQIdentityRepository;
 import com.liferay.osb.asah.common.repository.BQIndividualRepository;
 import com.liferay.osb.asah.common.repository.BQUserRepository;
+import com.liferay.osb.asah.common.repository.SuppressionRepository;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
 import java.util.ArrayList;
@@ -247,6 +249,13 @@ public class IndividualNanite {
 		bqIndividual.setModifiedDate(bqUser.getModifiedDate());
 		bqIndividual.setScreenName(bqUser.getScreenName());
 
+		Optional<Suppression> suppressionOptional =
+			_suppressionRepository.findByEmailAddress(bqUser.getEmailAddress());
+
+		if (suppressionOptional.isPresent()) {
+			bqIndividual.setSuppressed(true);
+		}
+
 		return bqIndividual;
 	}
 
@@ -320,5 +329,8 @@ public class IndividualNanite {
 
 	@Autowired
 	private BQUserRepository _bqUserRepository;
+
+	@Autowired
+	private SuppressionRepository _suppressionRepository;
 
 }
