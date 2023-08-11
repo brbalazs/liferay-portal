@@ -95,10 +95,6 @@ public class DataControlTaskDog {
 				DataControlTask.Type dataControlTaskType =
 					DataControlTask.Type.valueOf(type);
 
-				if (dataControlTaskType == DataControlTask.Type.UNSUPPRESS) {
-					_suppressionDog.deleteByEmailAddress(emailAddress);
-				}
-
 				DataControlTask dataControlTask = new DataControlTask();
 
 				dataControlTask.setBatchId(batchId);
