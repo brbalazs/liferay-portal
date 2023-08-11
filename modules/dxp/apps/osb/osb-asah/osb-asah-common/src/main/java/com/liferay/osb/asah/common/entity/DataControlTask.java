@@ -220,8 +220,8 @@ public final class DataControlTask implements Persistable<Long> {
 	public enum Type {
 
 		ACCESS(AuditEvent.Type.USER_ACCESS, 0),
-		DELETE(AuditEvent.Type.USER_DELETE, 1),
-		SUPPRESS(AuditEvent.Type.USER_SUPPRESS, 2),
+		DELETE(AuditEvent.Type.USER_DELETE, 2),
+		SUPPRESS(AuditEvent.Type.USER_SUPPRESS, 1),
 		UNSUPPRESS(AuditEvent.Type.USER_UNSUPPRESS, 2);
 
 		public AuditEvent.Type getAuditEventType() {
