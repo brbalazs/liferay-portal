@@ -384,7 +384,9 @@ public class DataControlTaskDog {
 			individualId);
 
 		for (Segment segment : segments) {
-			if (segment.getType() != Segment.Type.STATIC) {
+			if ((segment.getType() == Segment.Type.DYNAMIC) &&
+				segment.getIncludeAnonymousUsers()) {
+
 				continue;
 			}
 
