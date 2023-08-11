@@ -1,0 +1,12 @@
+UPDATE BQEvent SET userId = '${new_identity_id}' WHERE userId = '${old_identity_id}' AND eventDate >= timestamp '${startDate}';
+UPDATE BQIdentityInterestPage SET identityId = '${new_identity_id}' WHERE identityId = '${old_identity_id}';
+UPDATE BQIdentityInterestScore SET identityId = '${new_identity_id}' WHERE identityId = '${old_identity_id}' AND recordedDate >= DATE('${startDate}');
+UPDATE BQIdentity_Raw SET id = '${new_identity_id}' WHERE id = '${old_identity_id}' AND createDate >= timestamp '${startDate}';
+UPDATE BQIdentityActivitySummary SET identityId = '${new_identity_id}' WHERE identityId = '${old_identity_id}' AND firstActivityDate >= timestamp '${startDate}';
+UPDATE BQSession SET userId = '${new_identity_id}' WHERE userId = '${old_identity_id}' AND sessionStart >= timestamp '${startDate}';
+UPDATE BQSessionInterestScore SET identityId = '${new_identity_id}' WHERE identityId = '${old_identity_id}' AND recordedDate >= DATE('${startDate}');
+UPDATE BlogDaily SET userId = '${new_identity_id}' WHERE userId = '${old_identity_id}' AND eventDate >= timestamp '${startDate}';
+UPDATE DocumentLibraryDaily SET userId = '${new_identity_id}' WHERE userId = '${old_identity_id}' AND eventDate >= timestamp '${startDate}';
+UPDATE FormDaily SET userId = '${new_identity_id}' WHERE userId = '${old_identity_id}' AND eventDate >= timestamp '${startDate}';
+UPDATE JournalDaily SET userId = '${new_identity_id}' WHERE userId = '${old_identity_id}' AND eventDate >= timestamp '${startDate}';
+UPDATE PageDaily SET userId = '${new_identity_id}' WHERE userId = '${old_identity_id}' AND eventDate >= timestamp '${startDate}';

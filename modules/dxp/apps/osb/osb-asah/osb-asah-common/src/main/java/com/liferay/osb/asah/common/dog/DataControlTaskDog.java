@@ -50,6 +50,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -383,18 +384,62 @@ public class DataControlTaskDog {
 			return;
 		}
 
-		_bigQueryQueryExecutor.queryExecute(
-			StringUtils.replaceEach(
-				ResourceUtil.readResourceToString(
-					"dependencies/unsuppress_individual_statement.sql",
-					getClass()),
-				new String[] {
-					"${emailAddress}", "${individualId}", "${startDate}"
-				},
-				new String[] {
-					emailAddress, DigestUtils.sha256Hex(emailAddress),
-					DateUtil.toUTCString(suppression.getCreateDate())
-				}));
+		String individualId = DigestUtils.sha256Hex(
+			dataControlTask.getEmailAddress());
+
+		if (_environment.acceptsProfiles(Profiles.of("prod"))) {
+			_bigQueryQueryExecutor.queryExecute(
+				StringUtils.replaceEach(
+					ResourceUtil.readResourceToString(
+						"dependencies/unsuppress_individual_statement.sql",
+						getClass()),
+					new String[] {
+						"${emailAddress}", "${individual_id}", "${startDate}"
+					},
+					new String[] {
+						emailAddress, individualId,
+						DateUtil.toUTCString(suppression.getCreateDate())
+					}));
+		}
+		else {
+			StringBuilder sb = new StringBuilder();
+
+			List<String> identityIds =
+				_bqIdentityDog.getBQIdentityIdsIgnoreSuppresion(individualId);
+
+			for (String identityId : identityIds) {
+				sb.append(
+					StringUtils.replaceEach(
+						ResourceUtil.readResourceToString(
+							"dependencies" +
+								"/anonymize_activities_statement_emulator.sql",
+							getClass()),
+						new String[] {
+							"${new_identity_id}", "${old_identity_id}",
+							"${startDate}"
+						},
+						new String[] {
+							String.valueOf(UUID.randomUUID()), identityId,
+							DateUtil.toUTCString(suppression.getCreateDate())
+						}));
+				sb.append("\n");
+			}
+
+			_bigQueryQueryExecutor.queryExecute(
+				StringUtils.replaceEach(
+					ResourceUtil.readResourceToString(
+						"dependencies" +
+							"/unsuppress_individual_statement_emulator.sql",
+						getClass()),
+					new String[] {
+						"${anonymize_activities_statement}", "${emailAddress}",
+						"${individual_id}", "${startDate}"
+					},
+					new String[] {
+						sb.toString(), emailAddress, individualId,
+						DateUtil.toUTCString(suppression.getCreateDate())
+					}));
+		}
 	}
 
 	private DataControlTask _updateDataControlTaskStatus(
