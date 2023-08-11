@@ -397,6 +397,8 @@ public class DataControlTaskDog {
 				_segmentDog.disableSegment(segment);
 			}
 		}
+
+		_bqMembershipIndividualDog.updateMembershipIndividuals();
 	}
 
 	private static final Log _log = LogFactory.getLog(DataControlTaskDog.class);
@@ -409,6 +411,9 @@ public class DataControlTaskDog {
 
 	@Autowired
 	private BQMembershipDog _bqMembershipDog;
+
+	@Autowired
+	private BQMembershipIndividualDog _bqMembershipIndividualDog;
 
 	@Autowired
 	private DataControlTaskRepository _dataControlTaskRepository;
