@@ -10,6 +10,7 @@ import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.filter.expression.FilterExpression;
 import com.liferay.osb.asah.common.repository.CustomSuppressionRepository;
 import com.liferay.osb.asah.common.repository.executor.QueryExecutor;
+import com.liferay.osb.asah.common.repository.helper.DSLHelper;
 
 import java.util.List;
 import java.util.Optional;
@@ -141,8 +142,7 @@ public class SuppressionRepositoryImpl
 				DSL.field("dataControlTaskCreateDate", Object.class),
 				DSL.field("emailAddress", String.class)
 			).values(
-				DateUtil.toUTCString(
-					suppression.getCreateDate(), DateUtil.PATTERN_SHORT),
+				_dslHelper.getDateParam(suppression.getCreateDate()),
 				suppression.getDataControlTaskBatchId(),
 				DateUtil.toUTCString(
 					suppression.getDataControlTaskCreateDate(),
@@ -192,6 +192,9 @@ public class SuppressionRepositoryImpl
 	}
 
 	private final DSLContext _dslContext;
+
+	@Autowired
+	private DSLHelper _dslHelper;
 
 	@Autowired
 	private QueryExecutor _queryExecutor;
