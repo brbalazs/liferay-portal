@@ -8,10 +8,13 @@ package com.liferay.osb.asah.common.dog.test;
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
+import com.liferay.osb.asah.common.entity.BQIndividual;
 import com.liferay.osb.asah.common.entity.DataControlTask;
+import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.AuditEventRepository;
+import com.liferay.osb.asah.common.repository.BQEventRepository;
 import com.liferay.osb.asah.common.repository.BQExpandoValueRepository;
 import com.liferay.osb.asah.common.repository.BQIdentityRepository;
 import com.liferay.osb.asah.common.repository.BQIndividualRepository;
@@ -19,6 +22,7 @@ import com.liferay.osb.asah.common.repository.BQUserRepository;
 import com.liferay.osb.asah.common.repository.DXPEntityRepository;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.DataSourceRepository;
+import com.liferay.osb.asah.common.repository.SuppressionRepository;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
@@ -33,9 +37,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.time.LocalDateTime;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
@@ -81,6 +88,7 @@ public class DataControlTaskDogTest
 		}
 
 		_auditEventRepository.deleteAll();
+		_dataControlTaskRepository.deleteAll();
 	}
 
 	@RepositoryResource(
@@ -106,15 +114,15 @@ public class DataControlTaskDogTest
 
 		Assertions.assertEquals(6, dataControlTasks.size());
 
-		DataControlTask dataControlTask = dataControlTasks.get(4);
+		Assertions.assertEquals(
+			1,
+			_dataControlTaskRepository.countDataControlTasks(
+				null, "test1@liferay.com", null, null, null));
 
 		Assertions.assertEquals(
-			"test1@liferay.com", dataControlTask.getEmailAddress());
-
-		dataControlTask = dataControlTasks.get(5);
-
-		Assertions.assertEquals(
-			"test2@liferay.com", dataControlTask.getEmailAddress());
+			1,
+			_dataControlTaskRepository.countDataControlTasks(
+				null, "test2@liferay.com", null, null, null));
 
 		File file = path.toFile();
 
@@ -326,6 +334,46 @@ public class DataControlTaskDogTest
 			_dataControlTaskDog.getSuppressedEmailAddresses());
 	}
 
+	@BQSQLResource(resourcePath = "test_data_control_task_unsuppress_bq.sql")
+	@SQLResource(resourcePath = "test_data_control_task_unsuppress.sql")
+	@Test
+	public void testUnsuppress() {
+		Optional<DataControlTask> dataControlTaskOptional =
+			_dataControlTaskRepository.findById(12345L);
+
+		Assertions.assertTrue(dataControlTaskOptional.isPresent());
+
+		_dataControlTaskDog.run(dataControlTaskOptional.get());
+
+		Optional<BQIndividual> bqIndividualOptional =
+			_bqIndividualRepository.findByEmailAddress("test1@liferay.com");
+
+		Assertions.assertTrue(bqIndividualOptional.isPresent());
+
+		BQIndividual bqIndividual = bqIndividualOptional.get();
+
+		Assertions.assertFalse(bqIndividual.getSuppressed());
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"55f4730b-e774-487f-b186-e52fa81990d3",
+				"72a22dce-b12b-4a82-9b3c-1bedb90baebf"),
+			_bqIdentityRepository.getBQIdentityIds(
+				bqIndividual.getId(), false));
+
+		Assertions.assertEquals(
+			10,
+			_bqEventRepository.countBQEvents(
+				1L, bqIndividual.getId(), null,
+				LocalDateTime.parse("2023-08-10T00:00:00"),
+				LocalDateTime.parse("2023-07-15T00:00:00"), "UTC"));
+
+		Optional<Suppression> suppressionOptional =
+			_suppressionRepository.findByEmailAddress("test1@liferay.com");
+
+		Assertions.assertFalse(suppressionOptional.isPresent());
+	}
+
 	private void _checkResults(
 		long expectedTotal, List<String> expectedResults,
 		Page<DataControlTask> dataControlTaskPage) {
@@ -347,6 +395,9 @@ public class DataControlTaskDogTest
 	private AuditEventRepository _auditEventRepository;
 
 	@Autowired
+	private BQEventRepository _bqEventRepository;
+
+	@Autowired
 	private BQExpandoValueRepository _bqExpandoValueRepository;
 
 	@Autowired
@@ -360,6 +411,12 @@ public class DataControlTaskDogTest
 
 	@Autowired
 	private DataControlTaskDog _dataControlTaskDog;
+
+	@Autowired
+	private DataControlTaskRepository _dataControlTaskRepository;
+
+	@Autowired
+	private SuppressionRepository _suppressionRepository;
 
 	private Path _tempPath;
 

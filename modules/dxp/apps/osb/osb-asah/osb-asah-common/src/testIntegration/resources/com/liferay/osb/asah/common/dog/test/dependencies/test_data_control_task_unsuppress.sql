@@ -1,0 +1,1 @@
+INSERT INTO DataControlTask (id, batchId, emailAddress, ownerId, status, type, userId, userName) VALUES (12345, 98765, 'test1@liferay.com', 1, 'PENDING', 'UNSUPPRESS', 1111, 'Test Test');
