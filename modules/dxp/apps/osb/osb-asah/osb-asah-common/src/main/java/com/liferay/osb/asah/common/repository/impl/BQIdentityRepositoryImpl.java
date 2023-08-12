@@ -119,7 +119,32 @@ public class BQIdentityRepositoryImpl
 	}
 
 	@Override
-	public List<String> getBQIdentityIds(String bqIndividualId) {
+	public List<String> getBQIdentityIds(
+		String bqIndividualId, @Nullable Boolean ignoreSuppression) {
+
+		Condition condition;
+
+		if ((ignoreSuppression != null) && !ignoreSuppression) {
+			condition = DSL.and(
+				DSL.field(
+					"individualId", String.class
+				).eq(
+					bqIndividualId
+				),
+				DSL.field(
+					"individualId"
+				).notIn(
+					_dslContext.select(
+						DSL.field("TO_HEX(SHA256(emailAddress))")
+					).from(
+						"Suppression"
+					)
+				));
+		}
+		else {
+			condition = DSL.noCondition();
+		}
+
 		return _queryExecutor.queryForList(
 			record -> (String)record.get("id"),
 			_dslContext.select(
@@ -127,21 +152,7 @@ public class BQIdentityRepositoryImpl
 			).from(
 				"BQIdentity"
 			).where(
-				DSL.and(
-					DSL.field(
-						"individualId", String.class
-					).eq(
-						bqIndividualId
-					),
-					DSL.field(
-						"individualId"
-					).notIn(
-						_dslContext.select(
-							DSL.field("TO_HEX(SHA256(emailAddress))")
-						).from(
-							"Suppression"
-						)
-					))
+				condition
 			));
 	}
 

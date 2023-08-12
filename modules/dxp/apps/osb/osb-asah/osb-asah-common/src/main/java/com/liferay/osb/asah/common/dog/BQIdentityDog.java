@@ -24,7 +24,13 @@ public class BQIdentityDog {
 	}
 
 	public List<String> getBQIdentityIds(String bqIndividualId) {
-		return _bqIdentityRepository.getBQIdentityIds(bqIndividualId);
+		return _bqIdentityRepository.getBQIdentityIds(bqIndividualId, false);
+	}
+
+	public List<String> getBQIdentityIdsIgnoreSuppresion(
+		String bqIndividualId) {
+
+		return _bqIdentityRepository.getBQIdentityIds(bqIndividualId, true);
 	}
 
 	public String getBQIndividualId(String bqIdentityId) {
