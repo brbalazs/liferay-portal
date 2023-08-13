@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -166,6 +167,11 @@ public class FilterExpressionConditionVisitor
 			!fieldName.equalsIgnoreCase("cast")) {
 
 			leftField = DSL.date(leftField);
+
+			Param<String> param = (Param<String>)rightField;
+
+			rightField = DSL.function(
+				"DATE", Date.class, DSL.val(param.getValue()));
 		}
 
 		if ((Objects.equals(
@@ -568,14 +574,20 @@ public class FilterExpressionConditionVisitor
 		}
 
 		Field leftField = _getLeftField(greaterThanExpressionContext);
+		Field rightField = _getRightField(greaterThanExpressionContext);
 
 		if (DateUtil.isValidPatternShort(value) &&
 			!fieldName.equalsIgnoreCase("cast")) {
 
 			leftField = DSL.date(leftField);
+
+			Param<String> param = (Param<String>)rightField;
+
+			return leftField.gt(
+				DSL.function("DATE", Date.class, DSL.val(param.getValue())));
 		}
 
-		return leftField.gt(_getRightField(greaterThanExpressionContext));
+		return leftField.gt(rightField);
 	}
 
 	@Override
@@ -611,15 +623,20 @@ public class FilterExpressionConditionVisitor
 		}
 
 		Field leftField = _getLeftField(greaterThanOrEqualsExpressionContext);
+		Field rightField = _getRightField(greaterThanOrEqualsExpressionContext);
 
 		if (DateUtil.isValidPatternShort(value) &&
 			!fieldName.equalsIgnoreCase("cast")) {
 
 			leftField = DSL.date(leftField);
+
+			Param<String> param = (Param<String>)rightField;
+
+			return leftField.ge(
+				DSL.function("DATE", Date.class, DSL.val(param.getValue())));
 		}
 
-		return leftField.ge(
-			_getRightField(greaterThanOrEqualsExpressionContext));
+		return leftField.ge(rightField);
 	}
 
 	@Override
@@ -702,14 +719,20 @@ public class FilterExpressionConditionVisitor
 		}
 
 		Field leftField = _getLeftField(lessThanExpressionContext);
+		Field rightField = _getRightField(lessThanExpressionContext);
 
 		if (DateUtil.isValidPatternShort(value) &&
 			!fieldName.equalsIgnoreCase("cast")) {
 
 			leftField = DSL.date(leftField);
+
+			Param<String> param = (Param<String>)rightField;
+
+			return leftField.lt(
+				DSL.function("DATE", Date.class, DSL.val(param.getValue())));
 		}
 
-		return leftField.lt(_getRightField(lessThanExpressionContext));
+		return leftField.lt(rightField);
 	}
 
 	@Override
@@ -745,11 +768,17 @@ public class FilterExpressionConditionVisitor
 		}
 
 		Field leftField = _getLeftField(lessThanOrEqualsExpressionContext);
+		Field rightField = _getRightField(lessThanOrEqualsExpressionContext);
 
 		if (DateUtil.isValidPatternShort(value) &&
 			!fieldName.equalsIgnoreCase("cast")) {
 
 			leftField = DSL.date(leftField);
+
+			Param<String> param = (Param<String>)rightField;
+
+			return leftField.le(
+				DSL.function("DATE", Date.class, DSL.val(param.getValue())));
 		}
 
 		return leftField.le(_getRightField(lessThanOrEqualsExpressionContext));
@@ -811,6 +840,11 @@ public class FilterExpressionConditionVisitor
 			!fieldName.equalsIgnoreCase("cast")) {
 
 			leftField = DSL.date(leftField);
+
+			Param<String> param = (Param<String>)rightField;
+
+			return leftField.ne(
+				DSL.function("DATE", Date.class, DSL.val(param.getValue())));
 		}
 
 		return leftField.ne(rightField);
