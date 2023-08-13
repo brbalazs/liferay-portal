@@ -255,7 +255,7 @@ public class DataControlTaskDogTest
 
 	@SQLResource(resourcePath = "test_get_prioritized_data_control_tasks.sql")
 	@Test
-	public void testGetPrioritizedDataControlTasks() {
+	public void testGetPrioritizedDataControlTasks1() {
 		List<DataControlTask> dataControlTasks =
 			_dataControlTaskDog.getPrioritizedDataControlTasks(
 				DateUtil.newDate(),
@@ -275,6 +275,30 @@ public class DataControlTaskDogTest
 				dataControlTasks,
 				dataControlTask -> Pair.of(
 					dataControlTask.getBatchId(), dataControlTask.getType())));
+	}
+
+	@SQLResource(resourcePath = "test_data_control_task_dog_test.sql")
+	@Test
+	public void testGetPrioritizedDataControlTasks2() {
+		Assertions.assertEquals(
+			Arrays.asList(
+				33333333L, 44444444L, 55555555L, 66666666L, 77777777L,
+				88888888L),
+			ListUtil.map(
+				_dataControlTaskDog.getPrioritizedDataControlTasks(
+					"(createDate ge '2023-08-02' and createDate le " +
+						"'2023-08-09')",
+					null),
+				DataControlTask::getId));
+
+		Assertions.assertEquals(
+			Arrays.asList(55555555L, 66666666L),
+			ListUtil.map(
+				_dataControlTaskDog.getPrioritizedDataControlTasks(
+					"(createDate ge '2023-08-02' and createDate le " +
+						"'2023-08-09')",
+					DataControlTaskStatus.PENDING.toString()),
+				DataControlTask::getId));
 	}
 
 	@Test
