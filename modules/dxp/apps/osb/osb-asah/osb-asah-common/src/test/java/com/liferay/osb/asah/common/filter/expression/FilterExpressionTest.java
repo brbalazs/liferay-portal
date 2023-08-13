@@ -21,6 +21,7 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +78,7 @@ public class FilterExpressionTest {
 				DSL.field(
 					"cast(Session.sessionEnd as date)"
 				).gt(
-					"2022-05-15"
+					DSL.function("DATE", Date.class, DSL.val("2022-05-15"))
 				)),
 			"(sessions.filter(filter='(context/deviceType eq ''app'' and " +
 				"between(completeDate,''2022-05-15'',''2022-05-20'') and " +
