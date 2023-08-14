@@ -5,7 +5,15 @@
 
 package com.liferay.osb.asah.common.data.exporter;
 
+import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.util.MinimalPrettyPrinter;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsonorg.JsonOrgModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import com.liferay.osb.asah.common.entity.DataExportTask;
 import com.liferay.osb.asah.common.json.JSONUtil;
@@ -14,6 +22,9 @@ import java.io.OutputStream;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
@@ -25,12 +36,13 @@ import org.jooq.impl.DSL;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 /**
  * @author Thiago Buarque
  */
-public class PostgreSQLDataExporter extends BaseDataExporter {
+public class PostgreSQLDataExporter implements DataExporter {
 
 	public PostgreSQLDataExporter(
 			DataExportTask dataExportTask, String dateFieldName,
@@ -38,32 +50,64 @@ public class PostgreSQLDataExporter extends BaseDataExporter {
 			OutputStream outputStream, String tableName)
 		throws Exception {
 
-		super(jsonFactory, outputStream);
-
 		_dataExportTask = dataExportTask;
 		_dateFieldName = dateFieldName;
 		_dslContext = dslContext;
+
+		_jsonGenerator = jsonFactory.createGenerator(
+			outputStream, JsonEncoding.UTF8);
+
+		_jsonGenerator.setCodec(
+			new ObjectMapper() {
+				{
+					disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+					disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+
+					registerModule(new JavaTimeModule());
+					registerModule(new JsonOrgModule());
+				}
+			});
+		_jsonGenerator.setPrettyPrinter(new MinimalPrettyPrinter(""));
+
 		_tableName = tableName;
 	}
 
 	@Override
-	protected JSONObject doGetResultPageJSONObject(Pageable pageable) {
-		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+	public void export() throws Exception {
+		int page = 0;
 
-		Result<Record> records = selectSelectStep.from(
-			_tableName
-		).where(
-			_getConditions()
-		).limit(
-			pageable.getPageSize()
-		).offset(
-			pageable.getOffset()
-		).fetch();
+		while (true) {
+			JSONObject resultPageJSONObject = _getResultPageJSONObject(
+				PageRequest.of(page, _PAGE_SIZE));
 
-		return JSONUtil.put(
-			"results",
-			new JSONArray(
-				records.map(record -> new JSONObject(record.intoMap()))));
+			JSONArray resultsJSONArray = resultPageJSONObject.getJSONArray(
+				"results");
+
+			if (resultsJSONArray.length() == 0) {
+				break;
+			}
+
+			for (int i = 0; i < resultsJSONArray.length(); i++) {
+				_exportResult(resultsJSONArray.getJSONObject(i));
+			}
+
+			page++;
+		}
+
+		_jsonGenerator.close();
+	}
+
+	private void _exportResult(JSONObject resultJSONObject) {
+		try {
+			_jsonGenerator.writeObject(resultJSONObject);
+
+			_jsonGenerator.writeRaw("\n");
+		}
+		catch (Exception exception) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(exception, exception);
+			}
+		}
 	}
 
 	private List<Condition> _getConditions() {
@@ -90,9 +134,34 @@ public class PostgreSQLDataExporter extends BaseDataExporter {
 		return conditions;
 	}
 
+	private JSONObject _getResultPageJSONObject(Pageable pageable) {
+		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+
+		Result<Record> records = selectSelectStep.from(
+			_tableName
+		).where(
+			_getConditions()
+		).limit(
+			pageable.getPageSize()
+		).offset(
+			pageable.getOffset()
+		).fetch();
+
+		return JSONUtil.put(
+			"results",
+			new JSONArray(
+				records.map(record -> new JSONObject(record.intoMap()))));
+	}
+
+	private static final int _PAGE_SIZE = 50;
+
+	private static final Log _log = LogFactory.getLog(
+		PostgreSQLDataExporter.class);
+
 	private final DataExportTask _dataExportTask;
 	private final String _dateFieldName;
 	private final DSLContext _dslContext;
+	private final JsonGenerator _jsonGenerator;
 	private final String _tableName;
 
 }
