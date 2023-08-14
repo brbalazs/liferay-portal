@@ -13,6 +13,7 @@ import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
+import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.entity.DataExportTask;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
@@ -46,6 +47,23 @@ import org.jooq.impl.DSL;
  * @author Marcellus Tavares
  */
 public class BigQueryDataExporter implements DataExporter {
+
+	public BigQueryDataExporter(
+		BigQuery bigQuery, DataControlTask dataControlTask,
+		DSLContext dslContext, String exportPath, List<String> tableNames) {
+
+		_bigQuery = bigQuery;
+		_dataControlTask = dataControlTask;
+		_dslContext = dslContext;
+		_exportPath = exportPath;
+		_tableNames = tableNames;
+
+		_bigQueryOptions = bigQuery.getOptions();
+
+		StorageOptions storageOptions = StorageOptions.getDefaultInstance();
+
+		_storage = storageOptions.getService();
+	}
 
 	public BigQueryDataExporter(
 		BigQuery bigQuery, DataExportTask dataExportTask, String dateFieldName,
@@ -219,13 +237,15 @@ public class BigQueryDataExporter implements DataExporter {
 
 	private final BigQuery _bigQuery;
 	private final BigQueryOptions _bigQueryOptions;
-	private final List<Condition> _conditions;
-	private final DataExportTask _dataExportTask;
-	private final String _dateFieldName;
+	private List<Condition> _conditions;
+	private DataControlTask _dataControlTask;
+	private DataExportTask _dataExportTask;
+	private String _dateFieldName;
 	private final DSLContext _dslContext;
 	private final String _exportPath;
-	private final List<String> _selectedFieldNames;
+	private List<String> _selectedFieldNames;
 	private final Storage _storage;
-	private final String _tableName;
+	private String _tableName;
+	private List<String> _tableNames;
 
 }
