@@ -320,6 +320,13 @@ public class BigQueryDataExporter implements DataExporter {
 				)
 			).toString();
 		}
+		else if (tableName.equalsIgnoreCase("user")) {
+			query = String.join(
+				"", "SELECT * EXCEPT(fields), (SELECT '{' || STRING_AGG(",
+				"format('\"%s\": \"%s\"', name, value)) || '}' FROM UNNEST(",
+				"fields)) AS fields FROM ", _getBigQueryTableName("user"),
+				" WHERE emailAddress = '", emailAddress, "'");
+		}
 
 		QueryJobConfiguration queryJobConfiguration =
 			QueryJobConfiguration.newBuilder(
