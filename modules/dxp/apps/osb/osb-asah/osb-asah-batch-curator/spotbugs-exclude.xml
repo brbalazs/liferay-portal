@@ -1,11 +1,6 @@
 <FindBugsFilter>
 	<Match>
 		<Bug pattern="PATH_TRAVERSAL_IN" />
-		<Class name="com.liferay.osb.asah.batch.curator.bot.nanite.data.exporter.BigQueryDataExporter" />
-		<Method name="_createDataExportZipFile" />
-	</Match>
-	<Match>
-		<Bug pattern="PATH_TRAVERSAL_IN" />
 		<Class name="com.liferay.osb.asah.batch.curator.bot.nanite.DeleteTempFilesNanite" />
 		<Method name="lambda$run$1" />
 	</Match>
