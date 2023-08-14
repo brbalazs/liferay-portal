@@ -25,7 +25,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -64,15 +63,6 @@ public class BigQueryDataExporter implements DataExporter {
 		StorageOptions storageOptions = StorageOptions.getDefaultInstance();
 
 		_storage = storageOptions.getService();
-	}
-
-	public BigQueryDataExporter(
-		BigQuery bigQuery, DataExportTask dataExportTask, String dateFieldName,
-		DSLContext dslContext, String exportPath, String tableName) {
-
-		this(
-			bigQuery, Collections.emptyList(), dataExportTask, dateFieldName,
-			dslContext, exportPath, Collections.emptyList(), tableName);
 	}
 
 	public BigQueryDataExporter(
