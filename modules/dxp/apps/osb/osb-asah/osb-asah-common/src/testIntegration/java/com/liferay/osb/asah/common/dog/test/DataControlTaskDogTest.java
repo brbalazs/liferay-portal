@@ -273,11 +273,11 @@ public class DataControlTaskDogTest
 
 		Assertions.assertEquals(
 			Arrays.asList(
-				Pair.of(123459L, DataControlTask.Type.DELETE),
 				Pair.of(123459L, DataControlTask.Type.SUPPRESS),
+				Pair.of(123459L, DataControlTask.Type.DELETE),
 				Pair.of(123458L, DataControlTask.Type.ACCESS),
-				Pair.of(123458L, DataControlTask.Type.DELETE),
 				Pair.of(123458L, DataControlTask.Type.SUPPRESS),
+				Pair.of(123458L, DataControlTask.Type.DELETE),
 				Pair.of(123456L, DataControlTask.Type.ACCESS)),
 			ListUtil.map(
 				dataControlTasks,
