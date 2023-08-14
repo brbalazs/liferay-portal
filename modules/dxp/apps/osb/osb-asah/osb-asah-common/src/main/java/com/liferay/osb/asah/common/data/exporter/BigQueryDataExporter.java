@@ -191,7 +191,7 @@ public class BigQueryDataExporter implements DataExporter {
 		QueryJobConfiguration queryJobConfiguration =
 			QueryJobConfiguration.newBuilder(
 				String.format(
-					_EXPORT_DATA_QUERY_TEMPLATE, exportBucket,
+					_EXPORT_DATA_JSON_QUERY_TEMPLATE, exportBucket,
 					exportBucketFolder,
 					selectSelectStep.from(
 						_getBigQueryTableName(_tableName)
@@ -206,7 +206,11 @@ public class BigQueryDataExporter implements DataExporter {
 	private static final String _DATA_EXPORTER_BUCKET_TEMPLATE =
 		"{googleProjectId}-data-exporter";
 
-	private static final String _EXPORT_DATA_QUERY_TEMPLATE =
+	private static final String _EXPORT_DATA_CSV_QUERY_TEMPLATE =
+		"EXPORT DATA OPTIONS(field_delimiter=',', format='CSV', header=true, " +
+			"overwrite=true, uri='gs://%s/%s/%s-*.csv') AS %s";
+
+	private static final String _EXPORT_DATA_JSON_QUERY_TEMPLATE =
 		"EXPORT DATA OPTIONS(format='JSON', overwrite=true, " +
 			"uri='gs://%s/%s/*.json') AS %s";
 
