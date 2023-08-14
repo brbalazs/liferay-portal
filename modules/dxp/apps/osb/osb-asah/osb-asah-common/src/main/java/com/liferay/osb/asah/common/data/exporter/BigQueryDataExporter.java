@@ -291,6 +291,35 @@ public class BigQueryDataExporter implements DataExporter {
 				)
 			).toString();
 		}
+		else if (tableName.equalsIgnoreCase("expandovalue")) {
+			query = _dslContext.select(
+				DSL.field("user.emailAddress"), DSL.field("expandoValue.*")
+			).from(
+				DSL.table(
+					_getBigQueryTableName("expandovalue")
+				).as(
+					"expandoValue"
+				)
+			).innerJoin(
+				DSL.table(
+					_getBigQueryTableName("user")
+				).as(
+					"user"
+				)
+			).on(
+				DSL.field(
+					"expandoValue.classPK"
+				).eq(
+					DSL.field("CAST(user.dxpUserId AS string)")
+				)
+			).where(
+				DSL.field(
+					"user.emailAddress"
+				).eq(
+					emailAddress
+				)
+			).toString();
+		}
 
 		QueryJobConfiguration queryJobConfiguration =
 			QueryJobConfiguration.newBuilder(
