@@ -5,6 +5,10 @@
 
 package com.liferay.osb.asah.common.dog;
 
+import com.google.cloud.bigquery.BigQuery;
+
+import com.liferay.osb.asah.common.data.exporter.BigQueryDataExporter;
+import com.liferay.osb.asah.common.data.exporter.DataExporter;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 import com.liferay.osb.asah.common.entity.DXPEntity;
@@ -48,7 +52,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.jooq.DSLContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.data.domain.Page;
@@ -273,7 +280,12 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.save(dataControlTask);
 	}
 
-	private void _access(DataControlTask dataControlTask) {
+	private void _access(DataControlTask dataControlTask) throws Exception {
+		DataExporter dataExporter = new BigQueryDataExporter(
+			_bigQuery, dataControlTask, _dslContext, _exportPath,
+			Arrays.asList("event", "expandovalue", "user"));
+
+		dataExporter.export();
 	}
 
 	private void _delete(DataControlTask dataControlTask) throws Exception {
@@ -480,6 +492,9 @@ public class DataControlTaskDog {
 	private static final Log _log = LogFactory.getLog(DataControlTaskDog.class);
 
 	@Autowired
+	private BigQuery _bigQuery;
+
+	@Autowired
 	private BigQueryQueryExecutor _bigQueryQueryExecutor;
 
 	@Autowired
@@ -498,10 +513,16 @@ public class DataControlTaskDog {
 	private DataControlTaskRepository _dataControlTaskRepository;
 
 	@Autowired
+	private DSLContext _dslContext;
+
+	@Autowired
 	private DXPEntityDog _dxpEntityDog;
 
 	@Autowired
 	private Environment _environment;
+
+	@Value("${osb.asah.batch.curator.data.export.path:/export}")
+	private String _exportPath;
 
 	@Autowired
 	private SegmentDog _segmentDog;
