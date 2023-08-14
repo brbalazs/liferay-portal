@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -98,9 +99,54 @@ public class BigQueryDataExporter implements DataExporter {
 
 	@Override
 	public void export() throws Exception {
-		if (_dataExportTask != null) {
+		if (_dataControlTask != null) {
+			_exportDataControlTask();
+		}
+		else if (_dataExportTask != null) {
 			_exportDataExportTask();
 		}
+	}
+
+	private void _createDataControlZipFile(
+			String exportBucket, String exportBucketFolder)
+		throws Exception {
+
+		Page<Blob> blobs = _storage.list(
+			exportBucket, Storage.BlobListOption.prefix(exportBucketFolder));
+
+		Path path = Paths.get(
+			_exportPath,
+			FilenameUtils.getName(_dataControlTask.getId() + ".zip"));
+
+		File dataExportZipFile = path.toFile();
+
+		ZipOutputStream zipOutputStream = new ZipOutputStream(
+			new FileOutputStream(dataExportZipFile));
+
+		for (Blob blob : blobs.iterateAll()) {
+			String blobName = blob.getName();
+
+			if (!blobName.endsWith(".csv")) {
+				continue;
+			}
+
+			File file = new File(blobName);
+
+			zipOutputStream.putNextEntry(new ZipEntry(file.getName()));
+
+			try {
+				byte[] bytes = blob.getContent();
+
+				zipOutputStream.write(bytes, 0, bytes.length);
+			}
+			catch (IOException ioException) {
+				_log.error(ioException.getMessage(), ioException);
+			}
+		}
+
+		zipOutputStream.closeEntry();
+
+		zipOutputStream.close();
 	}
 
 	private void _createDataExportZipFile(
@@ -143,6 +189,23 @@ public class BigQueryDataExporter implements DataExporter {
 		zipOutputStream.closeEntry();
 
 		zipOutputStream.close();
+	}
+
+	private void _exportDataControlTask() throws Exception {
+		String exportBucket = StringUtils.replace(
+			_DATA_EXPORTER_BUCKET_TEMPLATE, "{googleProjectId}",
+			_bigQueryOptions.getProjectId());
+
+		String exportBucketFolder =
+			ProjectIdThreadLocal.getProjectId() + "/" +
+				_dataControlTask.getId();
+
+		for (String tableName : _tableNames) {
+			_runBigQueryDataControlExportJob(
+				exportBucket, exportBucketFolder, tableName);
+		}
+
+		_createDataControlZipFile(exportBucket, exportBucketFolder);
 	}
 
 	private void _exportDataExportTask() throws Exception {
@@ -206,6 +269,37 @@ public class BigQueryDataExporter implements DataExporter {
 		}
 
 		return _dslContext.select(fields);
+	}
+
+	private void _runBigQueryDataControlExportJob(
+			String exportBucket, String exportBucketFolder, String tableName)
+		throws Exception {
+
+		String emailAddress = StringUtils.lowerCase(
+			_dataControlTask.getEmailAddress());
+		String query = null;
+
+		if (tableName.equalsIgnoreCase("event")) {
+			query = _dslContext.select(
+			).from(
+				_getBigQueryTableName("event")
+			).where(
+				DSL.field(
+					"emailAddressHashed"
+				).eq(
+					DigestUtils.sha256Hex(emailAddress)
+				)
+			).toString();
+		}
+
+		QueryJobConfiguration queryJobConfiguration =
+			QueryJobConfiguration.newBuilder(
+				String.format(
+					_EXPORT_DATA_CSV_QUERY_TEMPLATE, exportBucket,
+					exportBucketFolder, tableName, query)
+			).build();
+
+		_bigQuery.query(queryJobConfiguration);
 	}
 
 	private void _runBigQueryExportJob(
