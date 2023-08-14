@@ -98,16 +98,9 @@ public class BigQueryDataExporter implements DataExporter {
 
 	@Override
 	public void export() throws Exception {
-		String exportBucket = StringUtils.replace(
-			_DATA_EXPORTER_BUCKET_TEMPLATE, "{googleProjectId}",
-			_bigQueryOptions.getProjectId());
-
-		String exportBucketFolder =
-			ProjectIdThreadLocal.getProjectId() + "/" + _dataExportTask.getId();
-
-		_runBigQueryExportJob(exportBucket, exportBucketFolder);
-
-		_createDataExportZipFile(exportBucket, exportBucketFolder);
+		if (_dataExportTask != null) {
+			_exportDataExportTask();
+		}
 	}
 
 	private void _createDataExportZipFile(
@@ -152,6 +145,19 @@ public class BigQueryDataExporter implements DataExporter {
 		zipOutputStream.close();
 	}
 
+	private void _exportDataExportTask() throws Exception {
+		String exportBucket = StringUtils.replace(
+			_DATA_EXPORTER_BUCKET_TEMPLATE, "{googleProjectId}",
+			_bigQueryOptions.getProjectId());
+
+		String exportBucketFolder =
+			ProjectIdThreadLocal.getProjectId() + "/" + _dataExportTask.getId();
+
+		_runBigQueryExportJob(exportBucket, exportBucketFolder);
+
+		_createDataExportZipFile(exportBucket, exportBucketFolder);
+	}
+
 	private String _getBigQueryTableName(String tableName) {
 		return "`" + _bigQueryOptions.getProjectId() + "." +
 			ProjectIdThreadLocal.getProjectId() + "." +
@@ -161,22 +167,24 @@ public class BigQueryDataExporter implements DataExporter {
 	private List<Condition> _getConditions() {
 		List<Condition> conditions = new ArrayList<>();
 
-		if (_dataExportTask.getFromDate() != null) {
-			conditions.add(
-				DSL.field(
-					_dateFieldName, Date.class
-				).greaterOrEqual(
-					_dataExportTask.getFromDate()
-				));
-		}
+		if (_dataExportTask != null) {
+			if (_dataExportTask.getFromDate() != null) {
+				conditions.add(
+					DSL.field(
+						_dateFieldName, Date.class
+					).greaterOrEqual(
+						_dataExportTask.getFromDate()
+					));
+			}
 
-		if (_dataExportTask.getToDate() != null) {
-			conditions.add(
-				DSL.field(
-					_dateFieldName, Date.class
-				).lessOrEqual(
-					_dataExportTask.getToDate()
-				));
+			if (_dataExportTask.getToDate() != null) {
+				conditions.add(
+					DSL.field(
+						_dateFieldName, Date.class
+					).lessOrEqual(
+						_dataExportTask.getToDate()
+					));
+			}
 		}
 
 		if (!_conditions.isEmpty()) {
