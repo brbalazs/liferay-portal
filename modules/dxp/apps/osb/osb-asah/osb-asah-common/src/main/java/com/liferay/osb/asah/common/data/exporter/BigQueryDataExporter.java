@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -52,17 +53,9 @@ public class BigQueryDataExporter implements DataExporter {
 		BigQuery bigQuery, DataControlTask dataControlTask,
 		DSLContext dslContext, String exportPath, List<String> tableNames) {
 
-		_bigQuery = bigQuery;
+		this(bigQuery, dslContext, exportPath, tableNames);
+
 		_dataControlTask = dataControlTask;
-		_dslContext = dslContext;
-		_exportPath = exportPath;
-		_tableNames = tableNames;
-
-		_bigQueryOptions = bigQuery.getOptions();
-
-		StorageOptions storageOptions = StorageOptions.getDefaultInstance();
-
-		_storage = storageOptions.getService();
 	}
 
 	public BigQueryDataExporter(
@@ -71,20 +64,14 @@ public class BigQueryDataExporter implements DataExporter {
 		DSLContext dslContext, String exportPath,
 		List<String> selectedFieldNames, String tableName) {
 
-		_bigQuery = bigQuery;
+		this(
+			bigQuery, dslContext, exportPath,
+			Collections.singletonList(tableName));
+
 		_conditions = conditions;
 		_dataExportTask = dataExportTask;
 		_dateFieldName = dateFieldName;
-		_dslContext = dslContext;
-		_exportPath = exportPath;
 		_selectedFieldNames = selectedFieldNames;
-		_tableName = tableName;
-
-		_bigQueryOptions = bigQuery.getOptions();
-
-		StorageOptions storageOptions = StorageOptions.getDefaultInstance();
-
-		_storage = storageOptions.getService();
 	}
 
 	@Override
@@ -95,6 +82,22 @@ public class BigQueryDataExporter implements DataExporter {
 		else if (_dataExportTask != null) {
 			_exportDataExportTask();
 		}
+	}
+
+	private BigQueryDataExporter(
+		BigQuery bigQuery, DSLContext dslContext, String exportPath,
+		List<String> tableNames) {
+
+		_bigQuery = bigQuery;
+		_dslContext = dslContext;
+		_exportPath = exportPath;
+		_tableNames = tableNames;
+
+		_bigQueryOptions = bigQuery.getOptions();
+
+		StorageOptions storageOptions = StorageOptions.getDefaultInstance();
+
+		_storage = storageOptions.getService();
 	}
 
 	private void _createDataControlZipFile(
@@ -340,7 +343,7 @@ public class BigQueryDataExporter implements DataExporter {
 					_EXPORT_DATA_JSON_QUERY_TEMPLATE, exportBucket,
 					exportBucketFolder,
 					selectSelectStep.from(
-						_getBigQueryTableName(_tableName)
+						_getBigQueryTableName(_tableNames.get(0))
 					).where(
 						_getConditions()
 					))
@@ -373,7 +376,6 @@ public class BigQueryDataExporter implements DataExporter {
 	private final String _exportPath;
 	private List<String> _selectedFieldNames;
 	private final Storage _storage;
-	private String _tableName;
 	private List<String> _tableNames;
 
 }
