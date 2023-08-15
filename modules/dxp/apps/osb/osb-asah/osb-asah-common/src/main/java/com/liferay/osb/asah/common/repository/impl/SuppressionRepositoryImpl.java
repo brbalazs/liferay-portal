@@ -19,7 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
-import org.jooq.InsertValuesStep4;
+import org.jooq.InsertValuesStep5;
 import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.SelectSelectStep;
@@ -156,14 +156,15 @@ public class SuppressionRepositoryImpl
 				DSL.field("createDate", Object.class),
 				DSL.field("dataControlTaskBatchId", Long.class),
 				DSL.field("dataControlTaskCreateDate", Object.class),
-				DSL.field("emailAddress", String.class)
+				DSL.field("emailAddress", String.class),
+				DSL.field("hidden", Boolean.class)
 			).values(
 				_dslHelper.getDateParam(suppression.getCreateDate()),
 				suppression.getDataControlTaskBatchId(),
 				DateUtil.toUTCString(
 					suppression.getDataControlTaskCreateDate(),
 					DateUtil.PATTERN_SHORT),
-				suppression.getEmailAddress()
+				suppression.getEmailAddress(), suppression.getHidden()
 			));
 
 		return suppression;
@@ -171,28 +172,29 @@ public class SuppressionRepositoryImpl
 
 	@Override
 	public void insertAll(List<Suppression> suppressions) {
-		InsertValuesStep4<Record, Object, Long, Object, String>
-			insertValuesStep4 = _dslContext.insertInto(
+		InsertValuesStep5<Record, Object, Long, Object, String, Boolean>
+			insertValuesStep5 = _dslContext.insertInto(
 				DSL.table("Suppression")
 			).columns(
 				DSL.field("createDate", Object.class),
 				DSL.field("dataControlTaskBatchId", Long.class),
 				DSL.field("dataControlTaskCreateDate", Object.class),
-				DSL.field("emailAddress", String.class)
+				DSL.field("emailAddress", String.class),
+				DSL.field("hidden", Boolean.class)
 			);
 
 		for (Suppression suppression : suppressions) {
-			insertValuesStep4 = insertValuesStep4.values(
+			insertValuesStep5 = insertValuesStep5.values(
 				DateUtil.toUTCString(
 					suppression.getCreateDate(), DateUtil.PATTERN_SHORT),
 				suppression.getDataControlTaskBatchId(),
 				DateUtil.toUTCString(
 					suppression.getDataControlTaskCreateDate(),
 					DateUtil.PATTERN_SHORT),
-				suppression.getEmailAddress());
+				suppression.getEmailAddress(), suppression.getHidden());
 		}
 
-		_queryExecutor.queryExecute(insertValuesStep4);
+		_queryExecutor.queryExecute(insertValuesStep5);
 	}
 
 	private Condition _getCondition(String emailAddress) {
