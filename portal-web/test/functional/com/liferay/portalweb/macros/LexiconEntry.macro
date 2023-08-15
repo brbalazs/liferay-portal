@@ -1,7 +1,17 @@
 definition {
 
 	macro changeDisplayStyle {
+		WaitForPageLoad();
+
 		Click(locator1 = "Icon#CURRENT_DISPLAY_STYLE");
+
+		if (IsElementNotPresent(key_menuItem = StringUtil.upperCaseFirstLetter(${displayStyle}), locator1 = "MenuItem#ANY_MENU_ITEM")) {
+			Refresh();
+
+			WaitForPageLoad();
+
+			Click.mouseOverClick(locator1 = "Icon#CURRENT_DISPLAY_STYLE");
+		}
 
 		MenuItem.click(menuItem = StringUtil.upperCaseFirstLetter(${displayStyle}));
 	}
