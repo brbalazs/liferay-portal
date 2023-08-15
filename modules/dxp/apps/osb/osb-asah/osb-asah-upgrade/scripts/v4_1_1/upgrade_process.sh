@@ -8,7 +8,7 @@ function upgrade_identity_interest_page {
 
 	sed -e "s/\${asah_project_id}/$asah_project_id/g" -e "s/\${PROJECT_ID}/$PROJECT_ID/g" upgrade_identity_interest_page_statement.sql > new_upgrade_identity_interest_page_statement.sql
 
-	echo "Upgrade Interest Keywords for Project ID: ${PROJECT_ID}, Asah Project ID: ${asah_project_id}"
+	echo "Upgrade Identity Interest Page Keywords for Project ID: ${PROJECT_ID}, Asah Project ID: ${asah_project_id}"
 
 	bq --project_id ${PROJECT_ID} query --use_legacy_sql=false < new_upgrade_identity_interest_page_statement.sql
 }
@@ -18,7 +18,7 @@ function upgrade_identity_interest_score {
 
 	sed -e "s/\${asah_project_id}/$asah_project_id/g" -e "s/\${PROJECT_ID}/$PROJECT_ID/g" upgrade_identity_interest_score_statement.sql > new_upgrade_identity_interest_score_statement.sql
 
-	echo "Upgrade Interest Keywords for Project ID: ${PROJECT_ID}, Asah Project ID: ${asah_project_id}"
+	echo "Upgrade Identity Interest Score Keywords for Project ID: ${PROJECT_ID}, Asah Project ID: ${asah_project_id}"
 
 	bq --project_id ${PROJECT_ID} query --use_legacy_sql=false < new_upgrade_identity_interest_score_statement.sql
 }
@@ -48,7 +48,7 @@ function upgrade_session_interest_score {
 
 	sed -e "s/\${asah_project_id}/$asah_project_id/g" -e "s/\${PROJECT_ID}/$PROJECT_ID/g" upgrade_session_interest_score_statement.sql > new_upgrade_session_interest_score_statement.sql
 
-	echo "Upgrade Interest Keywords for Project ID: ${PROJECT_ID}, Asah Project ID: ${asah_project_id}"
+	echo "Upgrade Session Interest Score Keywords for Project ID: ${PROJECT_ID}, Asah Project ID: ${asah_project_id}"
 
 	bq --project_id ${PROJECT_ID} query --use_legacy_sql=false < new_upgrade_session_interest_score_statement.sql
 }
