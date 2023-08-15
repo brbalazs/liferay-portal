@@ -132,6 +132,22 @@ public class SuppressionRepositoryImpl
 	}
 
 	@Override
+	public void hideSuppression(String emailAddress) {
+		_queryExecutor.queryExecute(
+			_dslContext.update(
+				DSL.table("Suppression")
+			).set(
+				DSL.field("hidden", Boolean.class), true
+			).where(
+				DSL.field(
+					"emailAddress"
+				).eq(
+					emailAddress
+				)
+			));
+	}
+
+	@Override
 	public Suppression insert(Suppression suppression) {
 		_queryExecutor.queryExecute(
 			_dslContext.insertInto(
