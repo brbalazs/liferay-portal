@@ -371,10 +371,7 @@ public class DataControlTaskDog {
 
 		if (suppression == null) {
 			if (_log.isWarnEnabled()) {
-				_log.warn(
-					String.format(
-						"Unable to find suppression for %s. Skipping.",
-						emailAddress));
+				_log.warn("Unable to find suppression for " + emailAddress);
 			}
 
 			return;
