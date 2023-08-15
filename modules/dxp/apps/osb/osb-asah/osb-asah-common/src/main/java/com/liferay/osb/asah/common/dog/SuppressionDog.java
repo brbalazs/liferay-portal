@@ -35,6 +35,7 @@ public class SuppressionDog {
 		suppression.setDataControlTaskBatchId(dataControlTaskBatchId);
 		suppression.setDataControlTaskCreateDate(dataControlTaskCreateDate);
 		suppression.setEmailAddress(emailAddress);
+		suppression.setHidden(false);
 
 		return _suppressionRepository.insert(suppression);
 	}

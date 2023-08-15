@@ -49,6 +49,10 @@ public class SuppressionUpgradeStep implements UpgradeStep {
 				break;
 			}
 
+			for (Map<String, Object> suppressionRecord : suppressionRecords) {
+				suppressionRecord.put("hidden", false);
+			}
+
 			_suppressionRepository.insertAll(
 				ListUtil.map(suppressionRecords, Suppression::new));
 
