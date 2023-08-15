@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-package com.liferay.osb.asah.upgrade.v4_1_2;
+package com.liferay.osb.asah.upgrade.v4_2_0;
 
 import com.google.cloud.bigquery.BigQuery;
 import com.google.cloud.bigquery.BigQueryOptions;
@@ -14,7 +14,6 @@ import com.google.cloud.bigquery.StandardTableDefinition;
 import com.google.cloud.bigquery.Table;
 import com.google.cloud.bigquery.TableDefinition;
 
-import com.liferay.osb.asah.common.bigquery.BigQuerySchemaManager;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.upgrade.UpgradeStep;
@@ -29,35 +28,36 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Marcos Martins
+ * @author Marcellus Tavares
  */
 @Component
-public class PageUpgradeStep implements UpgradeStep {
+public class BQMembershipUpgradeStep implements UpgradeStep {
 
 	@Override
 	public void upgrade(String version) {
-		_bigQuerySchemaManager.createOrReplaceView(
-			ProjectIdThreadLocal.getProjectId(), "pagehourly");
-
-		if (_log.isInfoEnabled()) {
-			_log.info("Page Hourly view successfully updated");
-		}
+		_updateTableFields(
+			Arrays.asList(
+				Field.newBuilder(
+					"channelId", LegacySQLTypeName.INTEGER
+				).setMode(
+					Field.Mode.NULLABLE
+				).build()),
+			"membershipchange");
 
 		_updateTableFields(
 			Arrays.asList(
 				Field.newBuilder(
-					"description", LegacySQLTypeName.STRING
+					"channelId", LegacySQLTypeName.INTEGER
 				).setMode(
 					Field.Mode.NULLABLE
 				).build()),
-			"pagedaily");
+			"membershipindividual");
 
 		if (_log.isInfoEnabled()) {
-			_log.info("BigQuery successfully upgraded to schema 4.1.2");
+			_log.info("BigQuery successfully upgraded to schema 4.2.0");
 		}
 	}
 
@@ -104,11 +104,9 @@ public class PageUpgradeStep implements UpgradeStep {
 		table.update();
 	}
 
-	private static final Log _log = LogFactory.getLog(PageUpgradeStep.class);
+	private static final Log _log = LogFactory.getLog(
+		BQMembershipUpgradeStep.class);
 
 	private BigQuery _bigQuery;
-
-	@Autowired
-	private BigQuerySchemaManager _bigQuerySchemaManager;
 
 }

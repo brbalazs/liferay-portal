@@ -5,10 +5,11 @@
 
 package com.liferay.osb.asah.upgrade;
 
-import com.liferay.osb.asah.upgrade.v4_1_0.PageReferrersViewUpgradeStep;
-import com.liferay.osb.asah.upgrade.v4_1_0.SegmentUpgradeStep;
-import com.liferay.osb.asah.upgrade.v4_1_1.BQMembershipUpgradeStep;
-import com.liferay.osb.asah.upgrade.v4_1_1.PostgreSQLUpgradeStep;
+import com.liferay.osb.asah.upgrade.v4_2_0.BQMembershipUpgradeStep;
+import com.liferay.osb.asah.upgrade.v4_2_0.IndividualUpgradeStep;
+import com.liferay.osb.asah.upgrade.v4_2_0.PageUpgradeStep;
+import com.liferay.osb.asah.upgrade.v4_2_0.PostgreSQLUpgradeStep;
+import com.liferay.osb.asah.upgrade.v4_2_0.SuppressionUpgradeStep;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,12 +26,14 @@ public class UpgradeProcessConfiguration {
 		UpgradeProcess upgradeProcess = new UpgradeProcess();
 
 		upgradeProcess.addUpgradeSteps(
-			"4.0.10", "4.0.11", _pageReferrersViewUpgradeStep);
+			"4.0.12", "4.0.13", _bqMembershipUpgradeStep);
 		upgradeProcess.addUpgradeSteps(
-			"4.0.11", "4.0.12", _bqMembershipUpgradeStep);
+			"4.0.13", "4.0.14", _individualUpgradeStep);
+		upgradeProcess.addUpgradeSteps("4.0.14", "4.0.15", _pageUpgradeStep);
 		upgradeProcess.addUpgradeSteps(
-			"4.0.12", "4.0.13", _postgreSQLUpgradeStep);
-		upgradeProcess.addUpgradeSteps("4.0.13", "4.0.14", _segmentUpgradeStep);
+			"4.0.15", "4.0.16", _postgreSQLUpgradeStep);
+		upgradeProcess.addUpgradeSteps(
+			"4.0.16", "4.0.17", _suppressionUpgradeStep);
 
 		return upgradeProcess;
 	}
@@ -39,12 +42,15 @@ public class UpgradeProcessConfiguration {
 	private BQMembershipUpgradeStep _bqMembershipUpgradeStep;
 
 	@Autowired
-	private PageReferrersViewUpgradeStep _pageReferrersViewUpgradeStep;
+	private IndividualUpgradeStep _individualUpgradeStep;
+
+	@Autowired
+	private PageUpgradeStep _pageUpgradeStep;
 
 	@Autowired
 	private PostgreSQLUpgradeStep _postgreSQLUpgradeStep;
 
 	@Autowired
-	private SegmentUpgradeStep _segmentUpgradeStep;
+	private SuppressionUpgradeStep _suppressionUpgradeStep;
 
 }

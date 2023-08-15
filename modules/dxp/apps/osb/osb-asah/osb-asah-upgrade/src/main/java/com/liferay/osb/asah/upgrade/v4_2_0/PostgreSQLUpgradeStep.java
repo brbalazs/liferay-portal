@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-package com.liferay.osb.asah.upgrade.v4_1_1;
+package com.liferay.osb.asah.upgrade.v4_2_0;
 
 import com.liferay.osb.asah.upgrade.UpgradeStep;
 
@@ -28,11 +28,11 @@ public class PostgreSQLUpgradeStep implements UpgradeStep {
 	public void upgrade(String version) {
 		DatabasePopulatorUtils.execute(
 			new ResourceDatabasePopulator(
-				new ClassPathResource("upgrade_4.1.1.sql")),
+				new ClassPathResource("upgrade_4.2.0.sql")),
 			_dataSource);
 
 		if (_log.isInfoEnabled()) {
-			_log.info("PostgreSQL successfully upgraded to schema 4.1.1");
+			_log.info("PostgreSQL successfully upgraded to schema 4.2.0");
 		}
 	}
 
