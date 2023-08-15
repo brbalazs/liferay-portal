@@ -1,0 +1,1 @@
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress) VALUES (timestamp '2023-08-01T00:00:00.000Z', 11111, timestamp '2023-08-01T00:00:00.000Z', 'test@liferay.com');

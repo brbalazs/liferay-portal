@@ -131,6 +131,24 @@ public class DataControlTaskDogTest
 		}
 	}
 
+	@BQSQLResource(resourcePath = "test_add_data_control_task_unsuppress.sql")
+	@Test
+	public void testAddDataControlTasksUnsuppress() {
+		_dataControlTaskDog.addDataControlTasks(
+			Collections.singletonList("test@liferay.com"), null, null,
+			Collections.singletonList(
+				DataControlTask.Type.UNSUPPRESS.toString()),
+			"12345", "Test Test");
+
+		Optional<Suppression> suppressionOptional =
+			_suppressionRepository.findByEmailAddress("test@liferay.com");
+
+		Suppression suppression = suppressionOptional.orElse(null);
+
+		Assertions.assertNotNull(suppression);
+		Assertions.assertTrue(suppression.getHidden());
+	}
+
 	@BQSQLResource(resourcePath = "test_data_control_task_delete_bq.sql")
 	@RepositoryResource(
 		repositoryClass = DataSourceRepository.class,

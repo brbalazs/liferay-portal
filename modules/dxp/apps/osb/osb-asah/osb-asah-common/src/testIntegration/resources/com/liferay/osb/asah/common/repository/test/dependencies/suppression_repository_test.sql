@@ -1,6 +1,9 @@
-INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress) VALUES (timestamp '${now}', 1234, timestamp '${now-5m}', 'admin@liferay.com');
-INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress) VALUES (timestamp '${now-5m}', 2345, timestamp '${now-10m}', 'company@liferay.com');
-INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress) VALUES (timestamp '${now-10m}', 3456, timestamp '${now-15m}', 'org@liferay.com');
-INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress) VALUES (timestamp '${now-15m}', 4567, timestamp '${now-20m}', 'superuser@liferay.com');
-INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress) VALUES (timestamp '${now-20m}', 5678, timestamp '${now-25m}', 'test@liferay.com');
-INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress) VALUES (timestamp '${now-25m}', 6789, timestamp '${now-30m}', 'user@liferay.com');
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '${now}', 1234, timestamp '${now-5m}', 'admin@liferay.com', false);
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '${now-5m}', 2345, timestamp '${now-10m}', 'company@liferay.com', null);
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '${now-10m}', 3456, timestamp '${now-15m}', 'org@liferay.com', false);
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '${now-15m}', 4567, timestamp '${now-20m}', 'superuser@liferay.com', null);
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '${now-20m}', 5678, timestamp '${now-25m}', 'test@liferay.com', false);
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '${now-25m}', 6789, timestamp '${now-30m}', 'user@liferay.com', null);
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '${now-30m}', 8910, timestamp '${now-35m}', 'developer@liferay.com', true);
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '${now-35m}', 9101, timestamp '${now-40m}', 'tester@liferay.com', true);
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '${now-40m}', 1011, timestamp '${now-45m}', 'superadmin@liferay.com', true);
