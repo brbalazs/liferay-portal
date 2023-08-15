@@ -12,6 +12,8 @@ BEGIN
 	COMMIT TRANSACTION;
 
 EXCEPTION WHEN ERROR THEN
+	UPDATE Suppression SET hidden = false WHERE emailAddress = '${emailAddress}';
+
 	SELECT @@error.message;
 	ROLLBACK TRANSACTION;
 END
