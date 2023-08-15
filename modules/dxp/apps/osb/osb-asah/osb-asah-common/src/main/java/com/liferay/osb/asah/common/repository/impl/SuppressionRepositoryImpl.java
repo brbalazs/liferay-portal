@@ -196,15 +196,26 @@ public class SuppressionRepositoryImpl
 	}
 
 	private Condition _getCondition(String emailAddress) {
-		if (StringUtils.isBlank(emailAddress)) {
-			return DSL.noCondition();
+		Condition condition = DSL.or(
+			DSL.field(
+				"hidden", Boolean.class
+			).isNull(),
+			DSL.field(
+				"hidden", Boolean.class
+			).ne(
+				DSL.val(Boolean.TRUE)
+			));
+
+		if (StringUtils.isNotBlank(emailAddress)) {
+			condition = condition.and(
+				DSL.field(
+					"emailAddress", String.class
+				).like(
+					DSL.lower(StringUtils.wrap(emailAddress, "%"))
+				));
 		}
 
-		return DSL.field(
-			"emailAddress", String.class
-		).like(
-			DSL.lower(StringUtils.wrap(emailAddress, "%"))
-		);
+		return condition;
 	}
 
 	private final DSLContext _dslContext;
