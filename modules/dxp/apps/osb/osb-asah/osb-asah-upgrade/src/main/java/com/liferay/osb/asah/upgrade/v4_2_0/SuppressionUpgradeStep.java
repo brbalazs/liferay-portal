@@ -5,6 +5,7 @@
 
 package com.liferay.osb.asah.upgrade.v4_2_0;
 
+import com.liferay.osb.asah.common.bigquery.BigQuerySchemaManager;
 import com.liferay.osb.asah.common.dog.AsahMarkerDog;
 import com.liferay.osb.asah.common.entity.AsahMarker;
 import com.liferay.osb.asah.common.entity.Suppression;
@@ -12,6 +13,7 @@ import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.repository.SuppressionRepository;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.MapUtil;
+import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.upgrade.UpgradeStep;
 
 import java.util.Collections;
@@ -36,6 +38,9 @@ public class SuppressionUpgradeStep implements UpgradeStep {
 
 	@Override
 	public void upgrade(String version) {
+		_bigQuerySchemaManager.createTable(
+			ProjectIdThreadLocal.getProjectId(), "suppression");
+
 		long lastInsertedSuppressionId = _getLastInsertedSuppressionId();
 
 		while (true) {
@@ -50,7 +55,7 @@ public class SuppressionUpgradeStep implements UpgradeStep {
 			}
 
 			for (Map<String, Object> suppressionRecord : suppressionRecords) {
-				suppressionRecord.put("hidden", false);
+				suppressionRecord.put("hidden", Boolean.FALSE);
 			}
 
 			_suppressionRepository.insertAll(
@@ -113,6 +118,9 @@ public class SuppressionUpgradeStep implements UpgradeStep {
 
 	@Autowired
 	private AsahMarkerDog _asahMarkerDog;
+
+	@Autowired
+	private BigQuerySchemaManager _bigQuerySchemaManager;
 
 	@Autowired
 	private DataSource _dataSource;
