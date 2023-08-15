@@ -28,6 +28,7 @@ public class ActivityDTO {
 
 		_applicationId = bqEvent.getApplicationId();
 		_eventId = bqEvent.getEventId();
+		_id = bqEvent.getId();
 		_ownerId = bqIndividualId;
 		_startTime = bqEvent.getEventDate();
 	}
@@ -48,6 +49,7 @@ public class ActivityDTO {
 			Objects.equals(_eventId, activityDTO._eventId) &&
 			Objects.equals(_eventContext, activityDTO._eventContext) &&
 			Objects.equals(_eventProperties, activityDTO._eventProperties) &&
+			Objects.equals(_id, activityDTO._id) &&
 			Objects.equals(_ownerId, activityDTO._ownerId) &&
 			Objects.equals(_startTime, activityDTO._startTime)) {
 
@@ -73,6 +75,10 @@ public class ActivityDTO {
 		return _eventProperties;
 	}
 
+	public String getId() {
+		return _id;
+	}
+
 	public String getOwnerId() {
 		return _ownerId;
 	}
@@ -92,8 +98,8 @@ public class ActivityDTO {
 	@Override
 	public int hashCode() {
 		return Objects.hash(
-			_applicationId, _eventId, _eventContext, _eventProperties, _ownerId,
-			_startTime);
+			_applicationId, _eventId, _eventContext, _eventProperties, _id,
+			_ownerId, _startTime);
 	}
 
 	public void setApplicationId(String applicationId) {
@@ -112,6 +118,10 @@ public class ActivityDTO {
 		_eventProperties = eventProperties;
 	}
 
+	public void setId(String id) {
+		_id = id;
+	}
+
 	public void setOwnerId(String ownerId) {
 		_ownerId = ownerId;
 	}
@@ -126,6 +136,7 @@ public class ActivityDTO {
 	private Map<String, String> _eventContext;
 	private String _eventId;
 	private Map<String, String> _eventProperties;
+	private String _id;
 	private String _ownerId;
 	private Date _startTime;
 
