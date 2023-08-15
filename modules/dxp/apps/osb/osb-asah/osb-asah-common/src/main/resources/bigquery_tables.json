@@ -2804,6 +2804,11 @@
 				"mode": "REQUIRED",
 				"name": "emailAddress",
 				"type": "STRING"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "hidden",
+				"type": "BOOL"
 			}
 		]
 	},

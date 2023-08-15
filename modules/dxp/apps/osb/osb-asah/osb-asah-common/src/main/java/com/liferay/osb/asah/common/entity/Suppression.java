@@ -46,7 +46,8 @@ public class Suppression {
 			Objects.equals(
 				_dataControlTaskCreateDate,
 				suppression._dataControlTaskCreateDate) &&
-			Objects.equals(_emailAddress, suppression._emailAddress)) {
+			Objects.equals(_emailAddress, suppression._emailAddress) &&
+			Objects.equals(_hidden, suppression._hidden)) {
 
 			return true;
 		}
@@ -87,6 +88,10 @@ public class Suppression {
 		return _emailAddress;
 	}
 
+	public Boolean getHidden() {
+		return _hidden;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(_createDate, _emailAddress);
@@ -113,9 +118,14 @@ public class Suppression {
 		_emailAddress = emailAddress;
 	}
 
+	public void setHidden(Boolean hidden) {
+		_hidden = hidden;
+	}
+
 	private Date _createDate;
 	private Long _dataControlTaskBatchId;
 	private Date _dataControlTaskCreateDate;
 	private String _emailAddress;
+	private Boolean _hidden;
 
 }
