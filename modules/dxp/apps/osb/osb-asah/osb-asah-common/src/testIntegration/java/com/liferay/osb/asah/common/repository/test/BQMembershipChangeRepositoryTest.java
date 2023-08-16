@@ -207,7 +207,7 @@ public class BQMembershipChangeRepositoryTest
 	@Test
 	public void testInitializeBQMembershipChanges() {
 		_bqMembershipChangeRepository.initializeBQMembershipChanges(
-			123L, ZoneId.of("UTC"));
+			1L, 123L, ZoneId.of("UTC"));
 
 		List<BQMembershipChange> bqMembershipChanges =
 			_bqMembershipChangeRepository.findBySegmentId(123L);
