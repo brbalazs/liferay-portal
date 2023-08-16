@@ -996,7 +996,19 @@ definition {
 	}
 
 	macro expandInfo {
-		Click(locator1 = "Icon#INFO");
+		WaitForPageLoad();
+
+		if (IsElementNotPresent(locator1 = "DocumentsAndMedia#SIDEBAR_INFO_ACTIVE")) {
+			Click.clickNoMouseOver(locator1 = "Icon#INFO");
+		}
+
+		// Sometimes the info panel doesn't load. If that happens then collapse then expand the panel again.
+
+		while (IsElementNotPresent(locator1 = "DocumentsAndMedia#SIDEBAR_INFO_ACTIVE")) {
+			Refresh();
+
+			Click.clickNoMouseOver(locator1 = "Icon#INFO");
+		}
 
 		AssertVisible(locator1 = "DocumentsAndMedia#SIDEBAR_INFO_ACTIVE");
 	}
