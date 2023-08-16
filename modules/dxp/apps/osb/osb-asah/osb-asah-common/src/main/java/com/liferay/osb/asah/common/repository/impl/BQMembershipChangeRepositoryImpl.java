@@ -35,7 +35,7 @@ import org.jooq.DSLContext;
 import org.jooq.DatePart;
 import org.jooq.DeleteUsingStep;
 import org.jooq.Field;
-import org.jooq.InsertValuesStep4;
+import org.jooq.InsertValuesStep5;
 import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.Record4;
@@ -394,11 +394,14 @@ public class BQMembershipChangeRepositoryImpl
 	}
 
 	@Override
-	public void initializeBQMembershipChanges(Long segmentId, ZoneId zoneId) {
-		InsertValuesStep4<Record, Object, Long, Long, Long> insertValuesStep4 =
-			_dslContext.insertInto(
+	public void initializeBQMembershipChanges(
+		Long channelId, Long segmentId, ZoneId zoneId) {
+
+		InsertValuesStep5<Record, Long, Object, Long, Long, Long>
+			insertValuesStep5 = _dslContext.insertInto(
 				DSL.table("BQMembershipChange")
 			).columns(
+				DSL.field("channelId", Long.class),
 				DSL.field("createDate", Object.class),
 				DSL.field("identitiesCount", Long.class),
 				DSL.field("individualsCount", Long.class),
@@ -410,13 +413,14 @@ public class BQMembershipChangeRepositoryImpl
 		LocalDateTime startLocalDateTime = endLocalDateTime.minusDays(30);
 
 		while (startLocalDateTime.compareTo(endLocalDateTime) < 1) {
-			insertValuesStep4 = insertValuesStep4.values(
-				DateUtil.toUTCString(startLocalDateTime), 0L, 0L, segmentId);
+			insertValuesStep5 = insertValuesStep5.values(
+				channelId, DateUtil.toUTCString(startLocalDateTime), 0L, 0L,
+				segmentId);
 
 			startLocalDateTime = startLocalDateTime.plusDays(1);
 		}
 
-		_queryExecutor.queryExecute(insertValuesStep4);
+		_queryExecutor.queryExecute(insertValuesStep5);
 	}
 
 	@Override

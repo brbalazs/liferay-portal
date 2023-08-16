@@ -102,9 +102,9 @@ public class BQMembershipChangeDog {
 			includeToday, segmentId, PageRequest.of(page, size));
 	}
 
-	public void initializeBQMembershipChanges(Long segmentId) {
+	public void initializeBQMembershipChanges(Long channelId, Long segmentId) {
 		_bqMembershipChangeRepository.initializeBQMembershipChanges(
-			segmentId, _timeZoneDog.getZoneId());
+			channelId, segmentId, _timeZoneDog.getZoneId());
 	}
 
 	public Page<BQMembershipChange> searchBQMembershipChangePage(

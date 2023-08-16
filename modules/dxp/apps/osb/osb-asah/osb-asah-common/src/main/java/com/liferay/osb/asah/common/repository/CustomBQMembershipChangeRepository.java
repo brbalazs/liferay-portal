@@ -55,7 +55,8 @@ public interface CustomBQMembershipChangeRepository {
 
 	@CacheEvict(allEntries = true)
 	@Modifying
-	public void initializeBQMembershipChanges(Long segmentId, ZoneId zoneId);
+	public void initializeBQMembershipChanges(
+		Long channelId, Long segmentId, ZoneId zoneId);
 
 	public BQMembershipChange insert(BQMembershipChange bqMembershipChange);
 

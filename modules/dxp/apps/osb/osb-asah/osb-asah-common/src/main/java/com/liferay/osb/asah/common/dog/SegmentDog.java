@@ -90,7 +90,8 @@ public class SegmentDog {
 
 		segment = _segmentRepository.save(segment);
 
-		_bqMembershipChangeDog.initializeBQMembershipChanges(segment.getId());
+		_bqMembershipChangeDog.initializeBQMembershipChanges(
+			segment.getChannelId(), segment.getId());
 
 		_addAsahTask(segment);
 
