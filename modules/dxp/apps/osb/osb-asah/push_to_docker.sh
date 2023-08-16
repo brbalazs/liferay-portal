@@ -51,6 +51,7 @@ function build_docker_image {
 		echo "COPY ./build/client.zip client.zip" >> ${file_name}/Dockerfile
 		echo "RUN unzip client.zip" >> ${file_name}/Dockerfile
 
+		cp ~/.asah/asia-south1/gcp_credentials.json ${file_name}/build/asia_south1_gcp_credentials.json
 		cp ~/.asah/europe-west2/gcp_credentials.json ${file_name}/build/europe_west2_gcp_credentials.json
 		cp ~/.asah/europe-west3/gcp_credentials.json ${file_name}/build/europe_west3_gcp_credentials.json
 		cp ~/.asah/southamerica-east1/gcp_credentials.json ${file_name}/build/southamerica_east1_gcp_credentials.json
@@ -58,6 +59,7 @@ function build_docker_image {
 		cp ~/.asah/us-west1/gcp_credentials.json ${file_name}/build/us_west1_gcp_credentials.json
 
 		echo "" >> ${file_name}/Dockerfile
+		echo "COPY ./build/asia_south1_gcp_credentials.json asia_south1_gcp_credentials.json" >> ${file_name}/Dockerfile
 		echo "COPY ./build/europe_west2_gcp_credentials.json europe_west2_gcp_credentials.json" >> ${file_name}/Dockerfile
 		echo "COPY ./build/europe_west3_gcp_credentials.json europe_west3_gcp_credentials.json" >> ${file_name}/Dockerfile
 		echo "COPY ./build/southamerica_east1_gcp_credentials.json southamerica_east1_gcp_credentials.json" >> ${file_name}/Dockerfile
@@ -95,7 +97,8 @@ function check_repository {
 		exit
 	fi
 
-	if [ ! -f ~/.asah/europe-west2/gcp_credentials.json ] ||
+	if [ ! -f ~/.asah/asia-south1/gcp_credentials.json ] ||
+		 [ ! -f ~/.asah/europe-west2/gcp_credentials.json ] ||
 	   [ ! -f ~/.asah/europe-west3/gcp_credentials.json ] ||
 	   [ ! -f ~/.asah/southamerica-east1/gcp_credentials.json ] ||
 	   [ ! -f ~/.asah/uat/gcp_credentials.json ] ||
