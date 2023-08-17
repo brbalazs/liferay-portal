@@ -14,6 +14,7 @@ import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -59,6 +60,104 @@ public class SuppressionDogTest
 
 		Assertions.assertEquals(
 			"test@liferay.com", suppression.getEmailAddress());
+	}
+
+	@BQSQLResource(resourcePath = "suppression_dog_test.sql")
+	@Test
+	public void testGetSuppressionResultBagSearchPagination() {
+		Page<Suppression> suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 0, 2, Sort.desc("createDate"));
+
+		Assertions.assertEquals(3, suppressionPage.getTotalElements());
+
+		Assertions.assertEquals(
+			Arrays.asList("jane.doe@gmail.com", "test@liferay.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
+
+		suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 1, 2, Sort.desc("createDate"));
+
+		Assertions.assertEquals(
+			Collections.singletonList("john.doe@gmail.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
+	}
+
+	@BQSQLResource(resourcePath = "suppression_dog_test.sql")
+	@Test
+	public void testGetSuppressionResultBagSearchSort() {
+		Page<Suppression> suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 0, 10, Sort.asc("createDate"));
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"john.doe@gmail.com", "test@liferay.com", "jane.doe@gmail.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
+
+		suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 0, 10, Sort.desc("createDate"));
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"jane.doe@gmail.com", "test@liferay.com", "john.doe@gmail.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
+
+		suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 0, 10, Sort.asc("dataControlTaskBatchId"));
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"john.doe@gmail.com", "jane.doe@gmail.com", "test@liferay.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
+
+		suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 0, 10, Sort.desc("dataControlTaskBatchId"));
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"test@liferay.com", "jane.doe@gmail.com", "john.doe@gmail.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
+
+		suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 0, 10, Sort.asc("dataControlTaskCreateDate"));
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"test@liferay.com", "john.doe@gmail.com", "jane.doe@gmail.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
+
+		suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 0, 10, Sort.desc("dataControlTaskCreateDate"));
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"jane.doe@gmail.com", "john.doe@gmail.com", "test@liferay.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
+
+		suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 0, 10, Sort.asc("emailAddress"));
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"jane.doe@gmail.com", "john.doe@gmail.com", "test@liferay.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
+
+		suppressionPage = _suppressionDog.getSuppressionPage(
+			null, 0, 10, Sort.desc("emailAddress"));
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"test@liferay.com", "john.doe@gmail.com", "jane.doe@gmail.com"),
+			ListUtil.map(
+				suppressionPage.getContent(), Suppression::getEmailAddress));
 	}
 
 	@BQSQLResource(resourcePath = "suppression_dog_test.sql")
