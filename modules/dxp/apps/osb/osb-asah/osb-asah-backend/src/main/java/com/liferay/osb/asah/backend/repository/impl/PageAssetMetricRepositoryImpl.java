@@ -375,7 +375,8 @@ public class PageAssetMetricRepositoryImpl
 	@Override
 	protected Condition getDescriptionLikeCondition(String terms) {
 		return DSL.lower(
-			DSL.field("description", String.class)
+			DSL.trim(
+				DSL.replace(DSL.field("description", String.class), "\n", ""))
 		).like(
 			StringUtils.wrap(StringUtils.lowerCase(terms), "%")
 		);
