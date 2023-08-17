@@ -95,6 +95,7 @@ public class BQEvent {
 			Objects.equals(_dataSourceId, bqEvent._dataSourceId) &&
 			Objects.equals(_description, bqEvent._description) &&
 			Objects.equals(_deviceType, bqEvent._deviceType) &&
+			Objects.equals(_emailAddressHashed, bqEvent._emailAddressHashed) &&
 			Objects.equals(_eventDate, bqEvent._eventDate) &&
 			Objects.equals(_eventId, bqEvent._eventId) &&
 			Objects.equals(_eventProperties, bqEvent._eventProperties) &&
@@ -191,6 +192,11 @@ public class BQEvent {
 	@BigQueryColumn
 	public String getDeviceType() {
 		return _deviceType;
+	}
+
+	@BigQueryColumn
+	public String getEmailAddressHashed() {
+		return _emailAddressHashed;
 	}
 
 	@BigQueryColumn
@@ -292,11 +298,11 @@ public class BQEvent {
 		return Objects.hash(
 			_applicationId, _assetId, _assetTitle, _browserName, _canonicalUrl,
 			_channelId, _city, _contentLanguageId, _context, _country,
-			_createDate, _dataSourceId, _description, _deviceType, _eventDate,
-			_eventId, _eventProperties, _experienceId, _experimentId, _id,
-			_keywords, _languageId, _platformName, _projectTimeZoneId,
-			_referrer, _region, _sessionId, _timezoneOffset, _title, _url,
-			_userId, _variantId);
+			_createDate, _dataSourceId, _description, _deviceType,
+			_emailAddressHashed, _eventDate, _eventId, _eventProperties,
+			_experienceId, _experimentId, _id, _keywords, _languageId,
+			_platformName, _projectTimeZoneId, _referrer, _region, _sessionId,
+			_timezoneOffset, _title, _url, _userId, _variantId);
 	}
 
 	public void setApplicationId(String applicationId) {
@@ -358,6 +364,10 @@ public class BQEvent {
 
 	public void setDeviceType(String deviceType) {
 		_deviceType = deviceType;
+	}
+
+	public void setEmailAddressHashed(String emailAddressHashed) {
+		_emailAddressHashed = emailAddressHashed;
 	}
 
 	public void setEventDate(Date eventDate) {
@@ -451,6 +461,7 @@ public class BQEvent {
 	private Long _dataSourceId;
 	private String _description;
 	private String _deviceType;
+	private String _emailAddressHashed;
 	private Date _eventDate;
 	private String _eventId;
 	private String _eventProperties;
