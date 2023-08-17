@@ -11,6 +11,8 @@ BEGIN
 
 	-- Individual's activities anonymization
 
+	UPDATE BQEvent SET emailAddressHashed = NULL WHERE emailAddressHashed = '${individual_id}';
+
 	UPDATE BQEvent SET userId = '${new_identity_id}' WHERE userId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
 	UPDATE BQIdentityActivitySummary SET identityId = '${new_identity_id}' WHERE identityId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
 	UPDATE BQIdentityInterestPage SET identityId = '${new_identity_id}' WHERE identityId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
