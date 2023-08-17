@@ -3,16 +3,16 @@ BEGIN
 
     ${anonymize_activities_statement}
 
-	DELETE FROM Suppression WHERE emailAddress = '${emailAddress}';
+	DELETE FROM Suppression WHERE emailAddress = '${email_address}';
 
-	UPDATE BQIndividual SET suppressed = false WHERE emailAddress = '${emailAddress}';
+	UPDATE BQIndividual SET suppressed = false WHERE emailAddress = '${email_address}';
 
-	UPDATE Identity_Raw SET individualId = NULL WHERE individualId = '${individual_id}' AND createDate >= timestamp '${startDate}';
+	UPDATE Identity_Raw SET individualId = NULL WHERE individualId = '${individual_id}' AND createDate >= timestamp '${start_date}';
 
 	COMMIT TRANSACTION;
 
 EXCEPTION WHEN ERROR THEN
-	UPDATE Suppression SET hidden = false WHERE emailAddress = '${emailAddress}';
+	UPDATE Suppression SET hidden = false WHERE emailAddress = '${email_address}';
 
 	SELECT @@error.message;
 	ROLLBACK TRANSACTION;

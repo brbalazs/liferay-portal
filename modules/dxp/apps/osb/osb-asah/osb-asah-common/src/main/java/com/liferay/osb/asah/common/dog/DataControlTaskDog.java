@@ -403,7 +403,7 @@ public class DataControlTaskDog {
 						"dependencies/unsuppress_individual_statement.sql",
 						getClass()),
 					new String[] {
-						"${emailAddress}", "${individual_id}", "${startDate}"
+						"${email_address}", "${individual_id}", "${start_date}"
 					},
 					new String[] {
 						emailAddress, individualId,
@@ -425,7 +425,7 @@ public class DataControlTaskDog {
 							getClass()),
 						new String[] {
 							"${new_identity_id}", "${old_identity_id}",
-							"${startDate}"
+							"${start_date}"
 						},
 						new String[] {
 							String.valueOf(UUID.randomUUID()), identityId,
@@ -441,8 +441,8 @@ public class DataControlTaskDog {
 							"/unsuppress_individual_statement_emulator.sql",
 						getClass()),
 					new String[] {
-						"${anonymize_activities_statement}", "${emailAddress}",
-						"${individual_id}", "${startDate}"
+						"${anonymize_activities_statement}", "${email_address}",
+						"${individual_id}", "${start_date}"
 					},
 					new String[] {
 						sb.toString(), emailAddress, individualId,
