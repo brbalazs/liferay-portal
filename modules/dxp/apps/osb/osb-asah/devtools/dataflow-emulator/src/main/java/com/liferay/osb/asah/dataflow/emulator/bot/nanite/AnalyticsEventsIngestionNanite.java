@@ -474,6 +474,13 @@ public class AnalyticsEventsIngestionNanite {
 		bqEvent.setDataSourceId(Long.valueOf(analyticsEvent.getDataSourceId()));
 		bqEvent.setDescription(_formatFieldValue(context.get("description")));
 		bqEvent.setDeviceType(context.get("deviceType"));
+
+		String emailAddressHashed = analyticsEvent.getEmailAddressHashed();
+
+		if (StringUtils.isNotBlank(emailAddressHashed)) {
+			bqEvent.setEmailAddressHashed(emailAddressHashed);
+		}
+
 		bqEvent.setEventDate(analyticsEvent.getEventDate());
 		bqEvent.setEventId(analyticsEvent.getEventId());
 
