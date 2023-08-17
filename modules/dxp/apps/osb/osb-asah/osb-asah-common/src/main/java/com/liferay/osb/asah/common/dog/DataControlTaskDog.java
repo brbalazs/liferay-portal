@@ -358,7 +358,7 @@ public class DataControlTaskDog {
 		return ListUtil.map(csvParser.parseAll(file), row -> row[0]);
 	}
 
-	private void _suppress(DataControlTask dataControlTask) {
+	private void _suppress(DataControlTask dataControlTask) throws Exception {
 		DataControlTask.Type type = fetchLatestCompletedDataControlTaskType(
 			dataControlTask.getEmailAddress(),
 			Arrays.asList(
@@ -369,14 +369,34 @@ public class DataControlTaskDog {
 			return;
 		}
 
-		_updateMemberships(dataControlTask.getEmailAddress());
+		String emailAddress = dataControlTask.getEmailAddress();
 
-		_bqIndividualDog.suppress(
-			DigestUtils.sha256Hex(dataControlTask.getEmailAddress()));
+		_updateMemberships(emailAddress);
 
-		_suppressionDog.addSuppression(
-			dataControlTask.getBatchId(), dataControlTask.getCreateDate(),
-			dataControlTask.getEmailAddress());
+		_bigQueryQueryExecutor.queryExecute(
+			StringUtils.replaceEach(
+				ResourceUtil.readResourceToString(
+					"dependencies/suppress_individual_statement.sql",
+					getClass()),
+				new String[] {
+					"${data_control_task_batch_id}",
+					"${data_control_task_create_date}", "${email_address}",
+					"${individual_id}", "${new_identity_id}"
+				},
+				new String[] {
+					String.valueOf(dataControlTask.getBatchId()),
+					DateUtil.toUTCString(dataControlTask.getCreateDate()),
+					emailAddress, DigestUtils.sha256Hex(emailAddress),
+					String.valueOf(UUID.randomUUID())
+				}));
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				String.format(
+					"Individual associated with email %s suppressed " +
+						"successfully",
+					emailAddress));
+		}
 	}
 
 	private void _unsuppress(DataControlTask dataControlTask) throws Exception {
