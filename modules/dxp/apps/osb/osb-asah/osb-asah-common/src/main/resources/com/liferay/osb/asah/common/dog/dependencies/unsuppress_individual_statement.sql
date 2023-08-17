@@ -3,7 +3,7 @@ DECLARE new_identity_id STRING;
 BEGIN
 	BEGIN TRANSACTION;
 
-	FOR Identity IN (SELECT id FROM BQIdentity WHERE individualId = individualId = '${individualId}')
+	FOR Identity IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}')
 	DO
 		SET new_identity_id = GENERATE_UUID();
 
