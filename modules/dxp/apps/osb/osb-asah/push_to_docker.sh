@@ -98,7 +98,7 @@ function check_repository {
 	fi
 
 	if [ ! -f ~/.asah/asia-south1/gcp_credentials.json ] ||
-		 [ ! -f ~/.asah/europe-west2/gcp_credentials.json ] ||
+	   [ ! -f ~/.asah/europe-west2/gcp_credentials.json ] ||
 	   [ ! -f ~/.asah/europe-west3/gcp_credentials.json ] ||
 	   [ ! -f ~/.asah/southamerica-east1/gcp_credentials.json ] ||
 	   [ ! -f ~/.asah/uat/gcp_credentials.json ] ||
