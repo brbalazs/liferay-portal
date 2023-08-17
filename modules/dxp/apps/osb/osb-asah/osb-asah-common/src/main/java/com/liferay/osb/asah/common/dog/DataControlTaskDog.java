@@ -485,7 +485,9 @@ public class DataControlTaskDog {
 			long membershipsCount = _bqMembershipDog.getBQMembershipsCount(
 				segment.getId());
 
-			if (membershipsCount == 0) {
+			if ((membershipsCount == 0) &&
+				(segment.getType() == Segment.Type.STATIC)) {
+
 				_segmentDog.disableSegment(segment);
 			}
 		}
