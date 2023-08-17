@@ -5,6 +5,7 @@
 
 package com.liferay.osb.asah.backend.repository.test;
 
+import com.liferay.osb.asah.backend.model.AudienceReport;
 import com.liferay.osb.asah.backend.model.DocumentLibraryMetric;
 import com.liferay.osb.asah.backend.model.DocumentLibraryMetricType;
 import com.liferay.osb.asah.backend.model.Metric;
@@ -38,6 +39,44 @@ public class DocumentLibraryAssetMetricRepositoryTest
 	public void testGetAppearsOnMetricLast7Days() {
 		super.assertAppearsOnMetric(
 			DocumentLibraryMetricType.DOWNLOADS, TimeRange.LAST_7_DAYS);
+	}
+
+	@BQSQLResource(
+		resourcePath = "document_library_asset_metric_audience_report.sql"
+	)
+	@Test
+	public void testGetAudienceReportLast7Days() {
+		AudienceReport audienceReport = new AudienceReport();
+
+		audienceReport.setAnonymousIndividualsCount(1L);
+		audienceReport.setKnownIndividualsCount(2L);
+		audienceReport.setNonsegmentedIndividualsCount(0L);
+		audienceReport.setSegmentedIndividualsCount(2L);
+
+		Assertions.assertEquals(
+			audienceReport,
+			_assetMetricRepository.getAudienceReport(
+				"e131fabc", null, 1L, DocumentLibraryMetricType.PREVIEWS,
+				TimeRange.LAST_7_DAYS));
+	}
+
+	@BQSQLResource(
+		resourcePath = "document_library_asset_metric_audience_report.sql"
+	)
+	@Test
+	public void testGetAudienceReportLast24Hours() {
+		AudienceReport audienceReport = new AudienceReport();
+
+		audienceReport.setAnonymousIndividualsCount(2L);
+		audienceReport.setKnownIndividualsCount(2L);
+		audienceReport.setNonsegmentedIndividualsCount(0L);
+		audienceReport.setSegmentedIndividualsCount(2L);
+
+		Assertions.assertEquals(
+			audienceReport,
+			_assetMetricRepository.getAudienceReport(
+				"e131fabc", null, 1L, DocumentLibraryMetricType.PREVIEWS,
+				TimeRange.LAST_24_HOURS));
 	}
 
 	@BQSQLResource(

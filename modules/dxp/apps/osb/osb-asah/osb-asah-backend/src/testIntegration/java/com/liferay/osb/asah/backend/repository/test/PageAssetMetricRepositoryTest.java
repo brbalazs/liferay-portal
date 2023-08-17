@@ -5,6 +5,7 @@
 
 package com.liferay.osb.asah.backend.repository.test;
 
+import com.liferay.osb.asah.backend.model.AudienceReport;
 import com.liferay.osb.asah.backend.model.Metric;
 import com.liferay.osb.asah.backend.model.PageMetric;
 import com.liferay.osb.asah.backend.repository.AssetMetricRepository;
@@ -30,6 +31,40 @@ import org.springframework.data.domain.PageRequest;
  */
 public class PageAssetMetricRepositoryTest
 	extends BaseAssetMetricRepositoryTestCase<PageMetric> {
+
+	@BQSQLResource(resourcePath = "page_asset_metric_audience_report.sql")
+	@Test
+	public void testGetAudienceReportLast7Days() {
+		AudienceReport audienceReport = new AudienceReport();
+
+		audienceReport.setAnonymousIndividualsCount(1L);
+		audienceReport.setKnownIndividualsCount(2L);
+		audienceReport.setNonsegmentedIndividualsCount(0L);
+		audienceReport.setSegmentedIndividualsCount(2L);
+
+		Assertions.assertEquals(
+			audienceReport,
+			_assetMetricRepository.getAudienceReport(
+				"https://www.beryl.com/delivery", null, 1L,
+				PageMetricType.VIEWS, TimeRange.LAST_7_DAYS));
+	}
+
+	@BQSQLResource(resourcePath = "page_asset_metric_audience_report.sql")
+	@Test
+	public void testGetAudienceReportLast24Hours() {
+		AudienceReport audienceReport = new AudienceReport();
+
+		audienceReport.setAnonymousIndividualsCount(2L);
+		audienceReport.setKnownIndividualsCount(2L);
+		audienceReport.setNonsegmentedIndividualsCount(0L);
+		audienceReport.setSegmentedIndividualsCount(2L);
+
+		Assertions.assertEquals(
+			audienceReport,
+			_assetMetricRepository.getAudienceReport(
+				"https://www.beryl.com/delivery", null, 1L,
+				PageMetricType.VIEWS, TimeRange.LAST_24_HOURS));
+	}
 
 	@BQSQLResource(
 		resourcePath = "page_asset_metric_views_browser_last_30_days.sql"

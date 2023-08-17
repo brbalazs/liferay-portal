@@ -5,6 +5,7 @@
 
 package com.liferay.osb.asah.backend.repository.test;
 
+import com.liferay.osb.asah.backend.model.AudienceReport;
 import com.liferay.osb.asah.backend.model.BlogMetric;
 import com.liferay.osb.asah.backend.model.BlogMetricType;
 import com.liferay.osb.asah.backend.model.Metric;
@@ -38,6 +39,40 @@ public class BlogAssetMetricRepositoryTest
 	public void testGetAppearsOnMetricLast7Days() {
 		super.assertAppearsOnMetric(
 			BlogMetricType.VIEWS, TimeRange.LAST_7_DAYS);
+	}
+
+	@BQSQLResource(resourcePath = "blog_asset_metric_audience_report.sql")
+	@Test
+	public void testGetAudienceReportLast7Days() {
+		AudienceReport audienceReport = new AudienceReport();
+
+		audienceReport.setAnonymousIndividualsCount(1L);
+		audienceReport.setKnownIndividualsCount(2L);
+		audienceReport.setNonsegmentedIndividualsCount(0L);
+		audienceReport.setSegmentedIndividualsCount(2L);
+
+		Assertions.assertEquals(
+			audienceReport,
+			_assetMetricRepository.getAudienceReport(
+				"e131fabc", null, 1L, BlogMetricType.VIEWS,
+				TimeRange.LAST_7_DAYS));
+	}
+
+	@BQSQLResource(resourcePath = "blog_asset_metric_audience_report.sql")
+	@Test
+	public void testGetAudienceReportLast24Hours() {
+		AudienceReport audienceReport = new AudienceReport();
+
+		audienceReport.setAnonymousIndividualsCount(2L);
+		audienceReport.setKnownIndividualsCount(2L);
+		audienceReport.setNonsegmentedIndividualsCount(0L);
+		audienceReport.setSegmentedIndividualsCount(2L);
+
+		Assertions.assertEquals(
+			audienceReport,
+			_assetMetricRepository.getAudienceReport(
+				"e131fabc", null, 1L, BlogMetricType.VIEWS,
+				TimeRange.LAST_24_HOURS));
 	}
 
 	@BQSQLResource(
