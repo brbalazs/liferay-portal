@@ -256,6 +256,85 @@ public class DataControlTaskDogTest
 		resourcePath = "osbasahfaroinfo/data_control_tasks.json"
 	)
 	@Test
+	public void testGetDataControlTaskResultBagSort() {
+		_checkResults(
+			4,
+			Arrays.asList(
+				"test@liferay.com", "john.doe@liferay.com", "test@liferay.com",
+				"jane.doe@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.asc("batchId"), null, null));
+		_checkResults(
+			4,
+			Arrays.asList(
+				"test@liferay.com", "jane.doe@liferay.com",
+				"john.doe@liferay.com", "test@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.desc("batchId"), null, null));
+		_checkResults(
+			4,
+			Arrays.asList(
+				"test@liferay.com", "john.doe@liferay.com", "test@liferay.com",
+				"jane.doe@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.asc("createDate"), null, null));
+		_checkResults(
+			4,
+			Arrays.asList(
+				"jane.doe@liferay.com", "test@liferay.com",
+				"john.doe@liferay.com", "test@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.desc("createDate"), null, null));
+		_checkResults(
+			4,
+			Arrays.asList(
+				"jane.doe@liferay.com", "john.doe@liferay.com",
+				"test@liferay.com", "test@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.asc("emailAddress"), null, null));
+		_checkResults(
+			4,
+			Arrays.asList(
+				"test@liferay.com", "test@liferay.com", "john.doe@liferay.com",
+				"jane.doe@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.desc("emailAddress"), null,
+				null));
+		_checkResults(
+			4,
+			Arrays.asList(
+				"test@liferay.com", "john.doe@liferay.com", "test@liferay.com",
+				"jane.doe@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.asc("status"), null, null));
+		_checkResults(
+			4,
+			Arrays.asList(
+				"jane.doe@liferay.com", "test@liferay.com",
+				"john.doe@liferay.com", "test@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.desc("status"), null, null));
+		_checkResults(
+			4,
+			Arrays.asList(
+				"test@liferay.com", "john.doe@liferay.com",
+				"jane.doe@liferay.com", "test@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.asc("type"), null, null));
+		_checkResults(
+			4,
+			Arrays.asList(
+				"test@liferay.com", "test@liferay.com", "john.doe@liferay.com",
+				"jane.doe@liferay.com"),
+			_dataControlTaskDog.getDataControlTaskPage(
+				null, null, null, 0, 10, Sort.desc("type"), null, null));
+	}
+
+	@RepositoryResource(
+		repositoryClass = DataControlTaskRepository.class,
+		resourcePath = "osbasahfaroinfo/data_control_tasks.json"
+	)
+	@Test
 	public void testGetDataControlTaskResultBagStatus() {
 		_checkResults(
 			1, Collections.singletonList("jane.doe@liferay.com"),
