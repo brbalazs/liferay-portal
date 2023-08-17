@@ -25,7 +25,7 @@ BEGIN
 
 	UPDATE BQIdentity_Raw SET id = '${new_identity_id}' WHERE individualId = '${individualId}';
 
-	UPDATE Identity_Raw SET individualId = NULL WHERE individualId = '${individual_id}';
+	UPDATE BQIdentity_Raw SET individualId = NULL WHERE individualId = '${individual_id}';
 	UPDATE BQIdentityActivitySummary SET individualId = NULL WHERE individualId = '${individual_id}';
 
 	COMMIT TRANSACTION;
