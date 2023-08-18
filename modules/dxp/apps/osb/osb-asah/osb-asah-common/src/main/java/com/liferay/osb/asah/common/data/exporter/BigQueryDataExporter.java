@@ -15,6 +15,7 @@ import com.google.cloud.storage.StorageOptions;
 
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.entity.DataExportTask;
+import com.liferay.osb.asah.common.util.IOUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
 import java.io.File;
@@ -123,13 +124,17 @@ public class BigQueryDataExporter implements DataExporter {
 				continue;
 			}
 
+			byte[] bytes = blob.getContent();
+
+			if (IOUtil.countLines(bytes) <= 1) {
+				continue;
+			}
+
 			File file = new File(blobName);
 
 			zipOutputStream.putNextEntry(new ZipEntry(file.getName()));
 
 			try {
-				byte[] bytes = blob.getContent();
-
 				zipOutputStream.write(bytes, 0, bytes.length);
 			}
 			catch (IOException ioException) {
