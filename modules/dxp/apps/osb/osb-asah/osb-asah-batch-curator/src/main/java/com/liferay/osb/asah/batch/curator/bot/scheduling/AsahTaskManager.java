@@ -17,10 +17,12 @@ import com.liferay.osb.asah.common.lock.KeyReentrantLock;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.common.wedeploy.data.WeDeployDataService;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -80,7 +82,9 @@ public class AsahTaskManager {
 			}
 
 			_pastUserSessionFinalizerBoundedExecutor.runAsync(
-				new AsahTaskRunnable(asahTask, this, false));
+				new AsahTaskRunnable(
+					asahTask, _asahTaskDog, false,
+					_nanitesMap.get(asahTask.getClassName()), _runLogDog));
 		}
 		else if (Objects.equals(
 					asahTask.getClassName(), "UpdateMembershipsNanite")) {
@@ -93,7 +97,10 @@ public class AsahTaskManager {
 
 				if (individualJSONObject != null) {
 					_boundedExecutor.runAsync(
-						new AsahTaskRunnable(asahTask, this, false));
+						new AsahTaskRunnable(
+							asahTask, _asahTaskDog, false,
+							_nanitesMap.get(asahTask.getClassName()),
+							_runLogDog));
 
 					return;
 				}
@@ -108,13 +115,17 @@ public class AsahTaskManager {
 			}
 
 			_updateMembershipsNaniteBoundedExecutor.runAsync(
-				new AsahTaskRunnable(asahTask, this, false),
+				new AsahTaskRunnable(
+					asahTask, _asahTaskDog, false,
+					_nanitesMap.get(asahTask.getClassName()), _runLogDog),
 				KeyReentrantLock.getReentrantLock(
 					getClass(), asahTask.getProjectId()));
 		}
 		else {
 			_boundedExecutor.runAsync(
-				new AsahTaskRunnable(asahTask, this, force));
+				new AsahTaskRunnable(
+					asahTask, _asahTaskDog, force,
+					_nanitesMap.get(asahTask.getClassName()), _runLogDog));
 		}
 	}
 
@@ -187,19 +198,40 @@ public class AsahTaskManager {
 	}
 
 	public void runNanites(String... naniteClassNames) {
+		Stream<String> stream = Arrays.stream(naniteClassNames);
+
+		Nanite[] nanites = stream.map(
+			naniteClassName -> _nanitesMap.get(naniteClassName)
+		).filter(
+			Objects::nonNull
+		).toArray(
+			Nanite[]::new
+		);
+
 		_boundedExecutor.runAsync(
 			new AsahTaskRunnable(
-				this, ProjectIdThreadLocal.getProjectId(), naniteClassNames));
+				_asahTaskDog, ProjectIdThreadLocal.getProjectId(), _runLogDog,
+				nanites));
 	}
 
 	public void runNanitesForAllProjects(String... naniteClassNames) {
 		try {
+			Stream<String> stream = Arrays.stream(naniteClassNames);
+
+			Nanite[] nanites = stream.map(
+				naniteClassName -> _nanitesMap.get(naniteClassName)
+			).filter(
+				Objects::nonNull
+			).toArray(
+				Nanite[]::new
+			);
+
 			List<Project> projects = _projectDog.getProjects();
 
 			for (Project project : projects) {
 				_boundedExecutor.runAsync(
 					new AsahTaskRunnable(
-						this, project.getId(), naniteClassNames));
+						_asahTaskDog, project.getId(), _runLogDog, nanites));
 			}
 		}
 		catch (Exception exception) {
@@ -224,7 +256,10 @@ public class AsahTaskManager {
 		}
 
 		_asahTaskScheduler.schedule(
-			asahTask.getCronExpression(), new AsahTaskRunnable(asahTask, this),
+			asahTask.getCronExpression(),
+			new AsahTaskRunnable(
+				asahTask, _asahTaskDog,
+				_nanitesMap.get(asahTask.getClassName()), _runLogDog),
 			String.valueOf(asahTask.getId()));
 	}
 

@@ -6,10 +6,16 @@
 package com.liferay.osb.asah.batch.curator.bot.scheduling;
 
 import com.liferay.osb.asah.batch.curator.bot.nanite.Nanite;
+import com.liferay.osb.asah.common.dog.AsahTaskDog;
+import com.liferay.osb.asah.common.dog.RunLogDog;
 import com.liferay.osb.asah.common.entity.AsahTask;
+import com.liferay.osb.asah.common.entity.RunLog;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
+import com.liferay.osb.asah.common.wedeploy.data.WeDeployDataService;
 
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -25,20 +31,15 @@ import org.json.JSONObject;
 public class AsahTaskRunnable implements Runnable {
 
 	public AsahTaskRunnable(
-		AsahTask asahTask, AsahTaskManager asahTaskManager) {
+		AsahTask asahTask, AsahTaskDog asahTaskDog, boolean force,
+		Nanite nanite, RunLogDog runLogDog) {
 
-		this(asahTask, asahTaskManager, false);
-	}
-
-	public AsahTaskRunnable(
-		AsahTask asahTask, AsahTaskManager asahTaskManager, boolean force) {
-
-		_asahTaskManager = asahTaskManager;
+		_asahTaskDog = asahTaskDog;
 		_force = force;
 
 		_asahTaskId = asahTask.getId();
 		_contextJSONObject = asahTask.getContextJSONObject();
-		_naniteClassNames = new String[] {asahTask.getClassName()};
+		_nanites = new Nanite[] {nanite};
 
 		_projectId = asahTask.getProjectId();
 
@@ -51,15 +52,25 @@ public class AsahTaskRunnable implements Runnable {
 
 			_projectId = ProjectIdThreadLocal.getProjectId();
 		}
+
+		_runLogDog = runLogDog;
 	}
 
 	public AsahTaskRunnable(
-		AsahTaskManager asahTaskManager, String projectId,
-		String... naniteClassNames) {
+		AsahTask asahTask, AsahTaskDog asahTaskDog, Nanite nanite,
+		RunLogDog runLogDog) {
 
-		_asahTaskManager = asahTaskManager;
+		this(asahTask, asahTaskDog, false, nanite, runLogDog);
+	}
+
+	public AsahTaskRunnable(
+		AsahTaskDog asahTaskDog, String projectId, RunLogDog runLogDog,
+		Nanite... nanites) {
+
+		_asahTaskDog = asahTaskDog;
 		_projectId = projectId;
-		_naniteClassNames = naniteClassNames;
+		_runLogDog = runLogDog;
+		_nanites = nanites;
 
 		_contextJSONObject = null;
 		_force = false;
@@ -71,7 +82,17 @@ public class AsahTaskRunnable implements Runnable {
 	}
 
 	public String[] getNaniteClassNames() {
-		return Arrays.copyOf(_naniteClassNames, _naniteClassNames.length);
+		Stream<Nanite> stream = Arrays.stream(_nanites);
+
+		return stream.map(
+			nanite -> {
+				Class<?> clazz = nanite.getClass();
+
+				return clazz.getSimpleName();
+			}
+		).toArray(
+			String[]::new
+		);
 	}
 
 	public String getProjectId() {
@@ -89,20 +110,41 @@ public class AsahTaskRunnable implements Runnable {
 		}
 		catch (Exception exception) {
 			_log.error(
-				"Unable to run nanites " + Arrays.toString(_naniteClassNames),
+				"Unable to run nanites " +
+					Arrays.toString(getNaniteClassNames()),
 				exception);
 		}
 	}
 
+	private boolean _checkNanite(String naniteClassName) {
+		RunLog latestRunLog = _runLogDog.fetchLatestRunLog(
+			null, naniteClassName, null,
+			WeDeployDataService.OSB_ASAH_FARO_INFO);
+
+		if ((latestRunLog != null) &&
+			Objects.equals(latestRunLog.getStatus(), "STARTED")) {
+
+			_log.error(
+				"Nanite is already running: " +
+					latestRunLog.getNaniteClassName());
+
+			return true;
+		}
+
+		return false;
+	}
+
 	private void _deleteAsahTask() {
 		if (_asahTaskId != null) {
-			_asahTaskManager.deleteAsahTask(_asahTaskId);
+			_asahTaskDog.deleteAsahTask(_asahTaskId);
 		}
 	}
 
 	private void _run() {
-		for (String naniteClassName : _naniteClassNames) {
-			Nanite nanite = _asahTaskManager.getNanite(naniteClassName);
+		for (Nanite nanite : _nanites) {
+			Class<?> clazz = nanite.getClass();
+
+			String naniteClassName = clazz.getSimpleName();
 
 			if (nanite == null) {
 				_log.error(
@@ -111,9 +153,7 @@ public class AsahTaskRunnable implements Runnable {
 				continue;
 			}
 
-			if (nanite.isLogRunEnabled() &&
-				_asahTaskManager.checkNanite(naniteClassName)) {
-
+			if (nanite.isLogRunEnabled() && _checkNanite(naniteClassName)) {
 				continue;
 			}
 
@@ -144,11 +184,12 @@ public class AsahTaskRunnable implements Runnable {
 
 	private static final Log _log = LogFactory.getLog(AsahTaskRunnable.class);
 
+	private final AsahTaskDog _asahTaskDog;
 	private final Long _asahTaskId;
-	private final AsahTaskManager _asahTaskManager;
 	private final JSONObject _contextJSONObject;
 	private final boolean _force;
-	private final String[] _naniteClassNames;
+	private final Nanite[] _nanites;
 	private String _projectId;
+	private final RunLogDog _runLogDog;
 
 }
