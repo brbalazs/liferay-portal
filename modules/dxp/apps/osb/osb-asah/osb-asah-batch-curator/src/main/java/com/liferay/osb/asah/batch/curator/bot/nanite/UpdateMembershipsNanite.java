@@ -32,6 +32,11 @@ import org.springframework.stereotype.Component;
 public class UpdateMembershipsNanite extends BaseNanite {
 
 	@Override
+	public boolean isLogRunEnabled() {
+		return true;
+	}
+
+	@Override
 	public void run(JSONObject contextJSONObject) {
 		_updateDynamicSegmentMemberships();
 		_updateStaticSegmentMembershipChanges();
