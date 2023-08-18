@@ -106,23 +106,48 @@ public class DataControlTaskRepositoryImpl
 	public Set<String> findSuppressedEmailAddresses() {
 		Field<String> emailAddressField = DSL.field(
 			"emailAddress", String.class);
+		Field<String> typeField = DSL.field("type", String.class);
 
-		return _dslContext.selectDistinct(
+		return _dslContext.with(
+			"LatestDataControlTasks"
+		).as(
+			_dslContext.select(
+				emailAddressField, DSL.field("type", String.class),
+				DSL.rowNumber(
+				).over(
+					DSL.partitionBy(
+						emailAddressField
+					).orderBy(
+						DSL.field(
+							"completeDate"
+						).desc()
+					)
+				).as(
+					"rowNumber"
+				)
+			).from(
+				"DataControlTask"
+			).where(
+				DSL.field(
+					"status"
+				).eq(
+					DataControlTaskStatus.COMPLETED.toString()
+				),
+				typeField.in(
+					DataControlTask.Type.SUPPRESS.toString(),
+					DataControlTask.Type.UNSUPPRESS.toString())
+			)
+		).selectDistinct(
 			emailAddressField
 		).from(
-			"DataControlTask"
+			"LatestDataControlTasks"
 		).where(
 			DSL.field(
-				"status"
+				"rowNumber"
 			).eq(
-				DataControlTaskStatus.COMPLETED.toString()
+				1
 			),
-			DSL.field(
-				"type"
-			).in(
-				DataControlTask.Type.DELETE.toString(),
-				DataControlTask.Type.SUPPRESS.toString()
-			)
+			typeField.eq(DataControlTask.Type.SUPPRESS.toString())
 		).fetchSet(
 			emailAddressField
 		);
