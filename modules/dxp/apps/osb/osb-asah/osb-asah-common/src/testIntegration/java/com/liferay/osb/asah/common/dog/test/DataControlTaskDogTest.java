@@ -8,8 +8,10 @@ package com.liferay.osb.asah.common.dog.test;
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
+import com.liferay.osb.asah.common.entity.BQEvent;
 import com.liferay.osb.asah.common.entity.BQIndividual;
 import com.liferay.osb.asah.common.entity.DataControlTask;
+import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
@@ -18,10 +20,13 @@ import com.liferay.osb.asah.common.repository.BQEventRepository;
 import com.liferay.osb.asah.common.repository.BQExpandoValueRepository;
 import com.liferay.osb.asah.common.repository.BQIdentityRepository;
 import com.liferay.osb.asah.common.repository.BQIndividualRepository;
+import com.liferay.osb.asah.common.repository.BQMembershipChangeRepository;
+import com.liferay.osb.asah.common.repository.BQMembershipRepository;
 import com.liferay.osb.asah.common.repository.BQUserRepository;
 import com.liferay.osb.asah.common.repository.DXPEntityRepository;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.DataSourceRepository;
+import com.liferay.osb.asah.common.repository.SegmentRepository;
 import com.liferay.osb.asah.common.repository.SuppressionRepository;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.SetUtil;
@@ -44,10 +49,13 @@ import java.time.LocalDateTime;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.Set;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -62,6 +70,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 /**
  * @author Matthew Kong
@@ -535,6 +544,167 @@ public class DataControlTaskDogTest
 				DigestUtils.sha256Hex("john.doe@liferay.com")));
 	}
 
+	@BQSQLResource(resourcePath = "test_data_control_task_suppress_bq_1.sql")
+	@SQLResource(resourcePath = "test_data_control_task_suppress_1.sql")
+	@Test
+	public void testSuppress1() {
+		Optional<DataControlTask> dataControlTaskOptional =
+			_dataControlTaskRepository.findById(12345L);
+
+		Assertions.assertTrue(dataControlTaskOptional.isPresent());
+
+		_dataControlTaskDog.run(dataControlTaskOptional.get());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.findById(12345L);
+
+		DataControlTask dataControlTask = dataControlTaskOptional.orElse(null);
+
+		Assertions.assertNotNull(dataControlTask);
+
+		Assertions.assertNotNull(dataControlTask.getCompleteDate());
+		Assertions.assertEquals(
+			DataControlTaskStatus.COMPLETED.toString(),
+			dataControlTask.getStatus());
+
+		Optional<BQIndividual> bqIndividualOptional =
+			_bqIndividualRepository.findByEmailAddress(
+				dataControlTask.getEmailAddress());
+
+		BQIndividual bqIndividual = bqIndividualOptional.orElse(null);
+
+		Assertions.assertNotNull(bqIndividual);
+
+		Assertions.assertTrue(bqIndividual.getSuppressed());
+
+		Optional<Suppression> suppressionOptional =
+			_suppressionRepository.findByEmailAddress(
+				dataControlTask.getEmailAddress());
+
+		Assertions.assertTrue(suppressionOptional.isPresent());
+
+		Map<Long, String> expectedSegmentStates = new HashMap<Long, String>() {
+			{
+				put(123456L, "DISABLED");
+				put(234567L, "READY");
+				put(345678L, "READY");
+				put(456789L, "READY");
+			}
+		};
+
+		for (Segment segment : _segmentRepository.findAll()) {
+			Assertions.assertEquals(
+				expectedSegmentStates.get(segment.getId()), segment.getState());
+		}
+
+		Assertions.assertEquals(
+			8,
+			_bqEventRepository.countBQEvents(
+				null, null, LocalDateTime.parse("2023-12-31T23:59:59"),
+				LocalDateTime.parse("2023-01-01T00:00:00"), "UTC",
+				Arrays.asList(
+					"55f4730b-e774-487f-b186-e52fa81990d3",
+					"72a22dce-b12b-4a82-9b3c-1bedb90baebf",
+					"d0c7cf82-fece-4b80-a561-1179abfa8154",
+					"f25a78e4-1443-4457-91f1-e0af18bf832a")));
+
+		List<BQEvent> bqEvents = _bqEventRepository.searchBQEvents(
+			null,
+			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
+			null, PageRequest.of(0, 100),
+			LocalDateTime.parse("2023-12-31T23:59:59"),
+			LocalDateTime.parse("2023-01-01T00:00:00"), "UTC");
+
+		Set<String> bqEventUserIds = SetUtil.map(bqEvents, BQEvent::getUserId);
+
+		Assertions.assertEquals(2, bqEventUserIds.size());
+		Assertions.assertTrue(
+			bqEventUserIds.contains("f25a78e4-1443-4457-91f1-e0af18bf832a"));
+	}
+
+	@BQSQLResource(resourcePath = "test_data_control_task_suppress_bq_2.sql")
+	@SQLResource(resourcePath = "test_data_control_task_suppress_2.sql")
+	@Test
+	public void testSuppress2() {
+		Optional<DataControlTask> dataControlTaskOptional =
+			_dataControlTaskRepository.findById(12345L);
+
+		Assertions.assertTrue(dataControlTaskOptional.isPresent());
+
+		_dataControlTaskDog.run(dataControlTaskOptional.get());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.findById(12345L);
+
+		DataControlTask dataControlTask = dataControlTaskOptional.orElse(null);
+
+		Assertions.assertNotNull(dataControlTask);
+
+		Assertions.assertNotNull(dataControlTask.getContinueDate());
+		Assertions.assertEquals(
+			DataControlTaskStatus.RUNNING.toString(),
+			dataControlTask.getStatus());
+
+		Optional<BQIndividual> bqIndividualOptional =
+			_bqIndividualRepository.findByEmailAddress(
+				dataControlTask.getEmailAddress());
+
+		BQIndividual bqIndividual = bqIndividualOptional.orElse(null);
+
+		Assertions.assertNotNull(bqIndividual);
+
+		Assertions.assertFalse(bqIndividual.getSuppressed());
+
+		Optional<Suppression> suppressionOptional =
+			_suppressionRepository.findByEmailAddress(
+				dataControlTask.getEmailAddress());
+
+		Assertions.assertFalse(suppressionOptional.isPresent());
+
+		Map<Long, String> expectedSegmentStates = new HashMap<Long, String>() {
+			{
+				put(123456L, "READY");
+				put(234567L, "READY");
+				put(345678L, "READY");
+				put(456789L, "READY");
+			}
+		};
+
+		for (Segment segment : _segmentRepository.findAll()) {
+			Assertions.assertEquals(
+				expectedSegmentStates.get(segment.getId()), segment.getState());
+		}
+
+		Assertions.assertEquals(
+			40,
+			_bqEventRepository.countBQEvents(
+				null, null, LocalDateTime.parse("2023-12-31T23:59:59"),
+				LocalDateTime.parse("2023-01-01T00:00:00"), "UTC",
+				Arrays.asList(
+					"55f4730b-e774-487f-b186-e52fa81990d3",
+					"72a22dce-b12b-4a82-9b3c-1bedb90baebf",
+					"d0c7cf82-fece-4b80-a561-1179abfa8154",
+					"f25a78e4-1443-4457-91f1-e0af18bf832a")));
+
+		List<BQEvent> bqEvents = _bqEventRepository.searchBQEvents(
+			null,
+			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
+			null, PageRequest.of(0, 100),
+			LocalDateTime.parse("2023-12-31T23:59:59"),
+			LocalDateTime.parse("2023-01-01T00:00:00"), "UTC");
+
+		Set<String> bqEventUserIds = SetUtil.map(bqEvents, BQEvent::getUserId);
+
+		Assertions.assertEquals(4, bqEventUserIds.size());
+		Assertions.assertTrue(
+			bqEventUserIds.containsAll(
+				Arrays.asList(
+					"55f4730b-e774-487f-b186-e52fa81990d3",
+					"72a22dce-b12b-4a82-9b3c-1bedb90baebf",
+					"d0c7cf82-fece-4b80-a561-1179abfa8154",
+					"f25a78e4-1443-4457-91f1-e0af18bf832a")));
+	}
+
 	@BQSQLResource(resourcePath = "test_data_control_task_unsuppress_bq.sql")
 	@Disabled
 	@SQLResource(resourcePath = "test_data_control_task_unsuppress.sql")
@@ -609,6 +779,12 @@ public class DataControlTaskDogTest
 	private BQIndividualRepository _bqIndividualRepository;
 
 	@Autowired
+	private BQMembershipChangeRepository _bqMembershipChangeRepository;
+
+	@Autowired
+	private BQMembershipRepository _bqMembershipRepository;
+
+	@Autowired
 	private BQUserRepository _bqUserRepository;
 
 	@Autowired
@@ -616,6 +792,9 @@ public class DataControlTaskDogTest
 
 	@Autowired
 	private DataControlTaskRepository _dataControlTaskRepository;
+
+	@Autowired
+	private SegmentRepository _segmentRepository;
 
 	@Autowired
 	private SuppressionRepository _suppressionRepository;
