@@ -6,8 +6,6 @@
 package com.liferay.osb.asah.common.util;
 
 import com.liferay.osb.asah.common.spring.resource.ResourceUtil;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -28,8 +26,6 @@ public class IOUtilTest {
 			"expandovalue-2.csv", getClass());
 
 		Assertions.assertEquals(3, IOUtil.countLines(str2.getBytes()));
-
 	}
-
 
 }

@@ -19,7 +19,7 @@ public class IOUtil {
 		long lines = 0;
 
 		try (BufferedReader bufferedReader = new BufferedReader(
-			new InputStreamReader(new ByteArrayInputStream(bytes)))) {
+				new InputStreamReader(new ByteArrayInputStream(bytes)))) {
 
 			while (bufferedReader.readLine() != null) {
 				lines++;
@@ -28,4 +28,5 @@ public class IOUtil {
 
 		return lines;
 	}
+
 }
