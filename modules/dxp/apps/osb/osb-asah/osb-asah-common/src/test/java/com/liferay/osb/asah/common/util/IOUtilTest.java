@@ -7,6 +7,8 @@ package com.liferay.osb.asah.common.util;
 
 import com.liferay.osb.asah.common.spring.resource.ResourceUtil;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -20,12 +22,14 @@ public class IOUtilTest {
 		String str1 = ResourceUtil.readResourceToString(
 			"expandovalue-1.csv", getClass());
 
-		Assertions.assertEquals(1, IOUtil.countLines(str1.getBytes()));
+		Assertions.assertEquals(
+			1, IOUtil.countLines(str1.getBytes(StandardCharsets.UTF_8)));
 
 		String str2 = ResourceUtil.readResourceToString(
 			"expandovalue-2.csv", getClass());
 
-		Assertions.assertEquals(3, IOUtil.countLines(str2.getBytes()));
+		Assertions.assertEquals(
+			3, IOUtil.countLines(str2.getBytes(StandardCharsets.UTF_8)));
 	}
 
 }
