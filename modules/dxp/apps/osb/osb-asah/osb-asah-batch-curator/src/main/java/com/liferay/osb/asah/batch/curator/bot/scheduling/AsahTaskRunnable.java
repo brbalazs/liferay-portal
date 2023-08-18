@@ -142,16 +142,13 @@ public class AsahTaskRunnable implements Runnable {
 
 	private void _run() {
 		for (Nanite nanite : _nanites) {
+			if (Objects.isNull(nanite)) {
+				continue;
+			}
+
 			Class<?> clazz = nanite.getClass();
 
 			String naniteClassName = clazz.getSimpleName();
-
-			if (nanite == null) {
-				_log.error(
-					"Unable to get nanite with class name " + naniteClassName);
-
-				continue;
-			}
 
 			if (nanite.isLogRunEnabled() && _checkNanite(naniteClassName)) {
 				continue;
