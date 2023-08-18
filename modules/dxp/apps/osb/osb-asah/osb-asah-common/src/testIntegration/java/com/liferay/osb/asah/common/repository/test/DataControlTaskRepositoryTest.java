@@ -14,9 +14,11 @@ import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 import com.liferay.osb.asah.test.util.configuration.JDBCTestConfiguration;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -127,12 +129,29 @@ public class DataControlTaskRepositoryTest
 			String.valueOf(DataControlTaskStatus.PENDING));
 		dataControlTask8.setType(DataControlTask.Type.SUPPRESS);
 
+		Date date4 = new Date();
+
+		DataControlTask dataControlTask9 = new DataControlTask();
+
+		dataControlTask9.setBatchId(123460L);
+		dataControlTask9.setCreateDate(date4);
+		dataControlTask9.setEmailAddress("jane.doe@liferay.com");
+		dataControlTask9.setOwnerId("7");
+		dataControlTask9.setStatus(
+			String.valueOf(DataControlTaskStatus.COMPLETED));
+		dataControlTask9.setType(DataControlTask.Type.UNSUPPRESS);
+
 		setUpRepository(
 			dataControlTask1, dataControlTask2, dataControlTask3,
 			dataControlTask4, dataControlTask5, dataControlTask6,
-			dataControlTask7, dataControlTask8);
+			dataControlTask7, dataControlTask8, dataControlTask9);
 
 		_dataControlTask = entityModels.get(0);
+	}
+
+	@AfterEach
+	public void tearDown() {
+		_dataControlTaskRepository.deleteAll();
 	}
 
 	@Test
@@ -173,6 +192,13 @@ public class DataControlTaskRepositoryTest
 
 		Assertions.assertEquals(
 			_dataControlTask, dataControlTasks, _dataControlTask.toString());
+	}
+
+	@Test
+	public void testFindSuppressedEmailAddresses() {
+		Assertions.assertEquals(
+			Collections.singleton("john.doe@liferay.com"),
+			_dataControlTaskRepository.findSuppressedEmailAddresses());
 	}
 
 	@Test
