@@ -1,0 +1,3 @@
+emailAddress,classPK,classType,columnId,dataSourceId,fieldName,id,modifiedDate,value,projectId
+userbatch1@liferay.com,38542,com.liferay.portal.kernel.model.User,38728,633309351704511810,CF_user_sync_batch,fa74fa0215da924efdf7d4b7f232e5cb7ac7b37de8aa98824490b5275bf98fe9,2023-07-27 21:50:12.411 UTC,hey cf user friend sync batch,uatabe0ea7dbe704de6b30dbb5f22d540e3
+userbatch1@liferay.com,38542,com.liferay.portal.kernel.model.User,38728,633309351704511810,CF_user_sync_batch-Text,fa74fa0215da924efdf7d4b7f232e5cb7ac7b37de8aa98824490b5275bf98fe9,2023-07-27 21:50:12.411 UTC,hey cf user friend sync batch,uatabe0ea7dbe704de6b30dbb5f22d540e3
