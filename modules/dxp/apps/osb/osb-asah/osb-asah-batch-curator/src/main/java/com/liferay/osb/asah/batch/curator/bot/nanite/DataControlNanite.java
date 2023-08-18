@@ -71,8 +71,7 @@ public class DataControlNanite extends BaseNanite {
 		if (types.contains(DataControlTask.Type.SUPPRESS) ||
 			types.contains(DataControlTask.Type.UNSUPPRESS)) {
 
-			_asahTaskDog.scheduleAsahTask(
-				"UpdateMembershipsNanite", new JSONObject());
+			_updateMembershipsNanite.run(new JSONObject());
 		}
 	}
 
@@ -181,5 +180,8 @@ public class DataControlNanite extends BaseNanite {
 
 	@Autowired
 	private ObjectMapper _objectMapper;
+
+	@Autowired
+	private UpdateMembershipsNanite _updateMembershipsNanite;
 
 }
