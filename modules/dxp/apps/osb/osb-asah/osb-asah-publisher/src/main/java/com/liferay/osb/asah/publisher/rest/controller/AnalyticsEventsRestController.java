@@ -12,6 +12,7 @@ import com.liferay.osb.asah.common.concurrent.BoundedExecutor;
 import com.liferay.osb.asah.common.constants.ServiceConstants;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
+import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.dog.DataSourceDog;
 import com.liferay.osb.asah.common.dog.EventDefinitionDog;
 import com.liferay.osb.asah.common.dog.EventStorageDog;
@@ -24,6 +25,7 @@ import com.liferay.osb.asah.common.model.AnalyticsEventsMessage;
 import com.liferay.osb.asah.common.util.AnalyticsEventUtil;
 import com.liferay.osb.asah.common.util.MapUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
+import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.common.util.StringUtil;
 
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.validation.Valid;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -294,8 +297,24 @@ public class AnalyticsEventsRestController {
 				analyticsEvent.setCreateDate(
 					analyticsEventsMessage.getCreateDate());
 				analyticsEvent.setDataSourceId(dataSourceId);
-				analyticsEvent.setEmailAddressHashed(
-					analyticsEventsMessage.getEmailAddressHashed());
+
+				Set<String> suppressedEmailAddresses =
+					_dataControlTaskDog.getSuppressedEmailAddresses();
+
+				Set<String> suppressedEmailAddressHashed = SetUtil.map(
+					_dataControlTaskDog.getSuppressedEmailAddresses(),
+					emailAddress -> DigestUtils.sha256Hex(
+						StringUtils.lowerCase(emailAddress)));
+
+				String emailAddressHashed =
+					analyticsEventsMessage.getEmailAddressHashed();
+
+				if (!suppressedEmailAddressHashed.contains(
+						emailAddressHashed)) {
+
+					analyticsEvent.setEmailAddressHashed(emailAddressHashed);
+				}
+
 				analyticsEvent.setEventDate(event.getEventDate());
 				analyticsEvent.setEventId(event.getEventId());
 				analyticsEvent.setEventProperties(event.getProperties());
@@ -381,6 +400,9 @@ public class AnalyticsEventsRestController {
 
 	private final BoundedExecutor _boundedExecutor =
 		BoundedExecutor.newBoundedExecutor(5, 1);
+
+	@Autowired
+	private DataControlTaskDog _dataControlTaskDog;
 
 	@Autowired
 	private DataSourceDog _dataSourceDog;
