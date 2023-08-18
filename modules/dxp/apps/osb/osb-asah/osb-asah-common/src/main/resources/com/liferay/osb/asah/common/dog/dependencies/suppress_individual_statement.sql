@@ -17,6 +17,8 @@ BEGIN
 
 	UPDATE BQIndividual SET suppressed = TRUE WHERE id = '${individual_id}';
 
+	${delete_membership_statement}
+
 	INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (CURRENT_TIMESTAMP(), ${data_control_task_batch_id}, timestamp '${data_control_task_create_date}', '${email_address}', false);
 
 	COMMIT TRANSACTION;

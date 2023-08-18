@@ -371,7 +371,31 @@ public class DataControlTaskDog {
 
 		String emailAddress = dataControlTask.getEmailAddress();
 
-		_updateMemberships(emailAddress);
+		String individualId = DigestUtils.sha256Hex(emailAddress);
+
+		List<Segment> segments = _segmentDog.getBQIndividualSegments(
+			individualId);
+
+		Stream<Segment> stream = segments.stream();
+
+		List<Segment> updateSegments = stream.filter(
+			segment ->
+				(segment.getType() == Segment.Type.STATIC) ||
+				!segment.getIncludeAnonymousUsers()
+		).collect(
+			Collectors.toList()
+		);
+
+		String deleteMembershipStatement = "";
+
+		if (!updateSegments.isEmpty()) {
+			deleteMembershipStatement = String.format(
+				"DELETE FROM BQMembership WHERE individualId = '%s' AND " +
+					"segmentId IN (%s);",
+				individualId,
+				StringUtils.join(
+					ListUtil.map(updateSegments, Segment::getId), ", "));
+		}
 
 		_bigQueryQueryExecutor.queryExecute(
 			StringUtils.replaceEach(
@@ -380,15 +404,18 @@ public class DataControlTaskDog {
 					getClass()),
 				new String[] {
 					"${data_control_task_batch_id}",
-					"${data_control_task_create_date}", "${email_address}",
+					"${data_control_task_create_date}",
+					"${delete_membership_statement}", "${email_address}",
 					"${individual_id}", "${new_identity_id}"
 				},
 				new String[] {
 					String.valueOf(dataControlTask.getBatchId()),
 					DateUtil.toUTCString(dataControlTask.getCreateDate()),
-					emailAddress, DigestUtils.sha256Hex(emailAddress),
+					deleteMembershipStatement, emailAddress, individualId,
 					String.valueOf(UUID.randomUUID())
 				}));
+
+		_updateSegments(updateSegments);
 
 		if (_log.isInfoEnabled()) {
 			_log.info(
@@ -487,21 +514,8 @@ public class DataControlTaskDog {
 		return updateDataControlTask(dataControlTask);
 	}
 
-	private void _updateMemberships(String emailAddress) {
-		String individualId = DigestUtils.sha256Hex(emailAddress);
-
-		List<Segment> segments = _segmentDog.getBQIndividualSegments(
-			individualId);
-
+	private void _updateSegments(List<Segment> segments) {
 		for (Segment segment : segments) {
-			if ((segment.getType() == Segment.Type.DYNAMIC) &&
-				segment.getIncludeAnonymousUsers()) {
-
-				continue;
-			}
-
-			_bqMembershipDog.deleteBQMembership(individualId, segment);
-
 			long membershipsCount = _bqMembershipDog.getBQMembershipsCount(
 				segment.getId());
 
