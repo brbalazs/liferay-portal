@@ -10,6 +10,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author Marcellus Tavares
  */
@@ -19,7 +21,8 @@ public class IOUtil {
 		long lines = 0;
 
 		try (BufferedReader bufferedReader = new BufferedReader(
-				new InputStreamReader(new ByteArrayInputStream(bytes)))) {
+				new InputStreamReader(
+					new ByteArrayInputStream(bytes), StandardCharsets.UTF_8))) {
 
 			while (bufferedReader.readLine() != null) {
 				lines++;
