@@ -11,10 +11,13 @@ import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.AsahTaskDog;
 import com.liferay.osb.asah.common.dog.AuditEventDog;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
+import com.liferay.osb.asah.common.dog.RunLogDog;
 import com.liferay.osb.asah.common.entity.DataControlTask;
+import com.liferay.osb.asah.common.entity.RunLog;
 import com.liferay.osb.asah.common.http.EmailHttp;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.util.SetUtil;
+import com.liferay.osb.asah.common.wedeploy.data.WeDeployDataService;
 import com.liferay.osb.asah.common.zip.ZipFileBuilder;
 
 import java.io.File;
@@ -25,6 +28,7 @@ import java.nio.file.Paths;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -70,6 +74,22 @@ public class DataControlNanite extends BaseNanite {
 
 		if (types.contains(DataControlTask.Type.SUPPRESS) ||
 			types.contains(DataControlTask.Type.UNSUPPRESS)) {
+
+			RunLog latestRunLog = _runLogDog.fetchLatestRunLog(
+				null, "UpdateMembershipsNanite", null,
+				WeDeployDataService.OSB_ASAH_FARO_INFO);
+
+			if ((latestRunLog != null) &&
+				Objects.equals(latestRunLog.getStatus(), "STARTED")) {
+
+				if (_log.isWarnEnabled()) {
+					_log.error(
+						"UpdateMembershipsNanite is already running. " +
+							"Skipping.");
+				}
+
+				return;
+			}
 
 			_updateMembershipsNanite.run(new JSONObject());
 		}
@@ -180,6 +200,9 @@ public class DataControlNanite extends BaseNanite {
 
 	@Autowired
 	private ObjectMapper _objectMapper;
+
+	@Autowired
+	private RunLogDog _runLogDog;
 
 	@Autowired
 	private UpdateMembershipsNanite _updateMembershipsNanite;
