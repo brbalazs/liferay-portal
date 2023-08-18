@@ -8,11 +8,13 @@ package com.liferay.osb.asah.batch.curator.bot.nanite;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.liferay.osb.asah.common.date.DateUtil;
+import com.liferay.osb.asah.common.dog.AsahTaskDog;
 import com.liferay.osb.asah.common.dog.AuditEventDog;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.http.EmailHttp;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
+import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.common.zip.ZipFileBuilder;
 
 import java.io.File;
@@ -23,6 +25,7 @@ import java.nio.file.Paths;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -60,6 +63,16 @@ public class DataControlNanite extends BaseNanite {
 				completedDataControlTasks) {
 
 			_expireDataControlTask(completedDataControlTask);
+		}
+
+		Set<DataControlTask.Type> types = SetUtil.map(
+			pendingDataControlTasks, DataControlTask::getType);
+
+		if (types.contains(DataControlTask.Type.SUPPRESS) ||
+			types.contains(DataControlTask.Type.UNSUPPRESS)) {
+
+			_asahTaskDog.scheduleAsahTask(
+				"UpdateMembershipsNanite", new JSONObject());
 		}
 	}
 
@@ -150,6 +163,9 @@ public class DataControlNanite extends BaseNanite {
 	}
 
 	private static final Log _log = LogFactory.getLog(DataControlNanite.class);
+
+	@Autowired
+	private AsahTaskDog _asahTaskDog;
 
 	@Autowired
 	private AuditEventDog _auditEventDog;
