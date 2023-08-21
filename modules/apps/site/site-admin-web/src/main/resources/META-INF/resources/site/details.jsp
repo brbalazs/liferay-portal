@@ -112,10 +112,10 @@ else {
 	</aui:select>
 
 	<%
-	boolean manualMembership = true;
+	boolean manualMembership = false;
 
 	if (liveGroup != null) {
-		manualMembership = GetterUtil.getBoolean(liveGroup.isManualMembership(), true);
+		manualMembership = GetterUtil.getBoolean(liveGroup.isManualMembership());
 	}
 	%>
 
