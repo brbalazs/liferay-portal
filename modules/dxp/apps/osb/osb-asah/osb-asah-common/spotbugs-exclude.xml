@@ -76,13 +76,13 @@
 		<Method name="build" />
 	</Match>
 	<Match>
+		<Bug pattern="REDOS" />
+		<Class name="com.liferay.osb.asah.common.util.MatcherUtil" />
+	</Match>
+	<Match>
 		<Bug pattern="RV_DONT_JUST_NULL_CHECK_READLINE" />
 		<Class name="com.liferay.osb.asah.common.util.IOUtil" />
 		<Method name="countLines" />
-	</Match>
-	<Match>
-		<Bug pattern="REDOS" />
-		<Class name="com.liferay.osb.asah.common.util.MatcherUtil" />
 	</Match>
 	<Match>
 		<Bug pattern="SPRING_CSRF_UNRESTRICTED_REQUEST_MAPPING" />
