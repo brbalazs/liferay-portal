@@ -28,9 +28,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -58,7 +58,7 @@ definition {
 
 	@priority = 5
 	test DeleteRegular {
-		property test.name.skip.portal.instance = "Calendar#DeleteEventRegular";
+		property test.liferay.virtual.instance = "false";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
@@ -106,7 +106,7 @@ definition {
 	@priority = 5
 	test DeleteRepeatingAllFollowing {
 		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "Calendar#DeleteEventRepeatingAllFollowing";
+		property test.liferay.virtual.instance = "false";
 
 		CalendarNavigator.gotoAddEvent();
 
@@ -738,7 +738,7 @@ definition {
 	@description = "This is a use case for LPS-75292."
 	@priority = 5
 	test ViewCalendarEventDetailViaMailLink {
-		property test.name.skip.portal.instance = "CalendarManageEvent#ViewCalendarEventDetailViaMailLink";
+		property test.liferay.virtual.instance = "false";
 		property test.smtp.server.enabled = "true";
 
 		JSONGroup.addGroup(groupName = "Site Name");

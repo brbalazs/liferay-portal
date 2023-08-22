@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -177,7 +177,7 @@ definition {
 	@priority = 4
 	test UserGroupSiteOwnerPermissions {
 		property portal.release = "false";
-		property test.name.skip.portal.instance = "UsergroupsUsecase#UserGroupSiteOwnerPermissions";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -400,7 +400,7 @@ definition {
 
 	@priority = 4
 	test UserGroupSiteTemplates {
-		property test.name.skip.portal.instance = "UsergroupsUsecase#UserGroupSiteTemplates";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

@@ -16,9 +16,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -100,7 +100,7 @@ definition {
 
 	@priority = 3
 	test AddProcessWithNewFieldSetAndWorkflowViaSourceTab {
-		property test.name.skip.portal.instance = "CPKaleoformsadmin#AddProcessWithNewFieldSetAndWorkflowViaSourceTab";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -170,7 +170,7 @@ definition {
 
 	@priority = 3
 	test DeactivateAndActivateWorkflowDefinition {
-		property test.name.skip.portal.instance = "CPKaleoformsadmin#DeactivateAndActivateWorkflowDefinition";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -229,7 +229,7 @@ definition {
 
 	@priority = 4
 	test DeactivateAndDeleteWorkflowDefinition {
-		property test.name.skip.portal.instance = "CPKaleoformsadmin#DeactivateAndDeleteWorkflowDefinition";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1484,7 +1484,7 @@ definition {
 
 	@priority = 5
 	test EditProcessNewWorkflowViaSourceTab {
-		property test.name.skip.portal.instance = "CPKaleoformsadmin#EditProcessNewWorkflowViaSourceTab";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1637,7 +1637,7 @@ definition {
 
 	@priority = 5
 	test EditSingleApproverWorkflowViaSourceTabViaAddProcess {
-		property test.name.skip.portal.instance = "CPKaleoformsadmin#EditSingleApproverWorkflowViaSourceTabViaAddProcess";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1709,7 +1709,7 @@ definition {
 
 	@priority = 3
 	test EditSingleApproverWorkflowViaViewTabViaAddProcess {
-		property test.name.skip.portal.instance = "CPKaleoformsadmin#EditSingleApproverWorkflowViaViewTabViaAddProcess";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1789,7 +1789,7 @@ definition {
 
 	@priority = 4
 	test EditUploadedWorkflowViaViewTabViaAddProcess {
-		property test.name.skip.portal.instance = "CPKaleoformsadmin#EditUploadedWorkflowViaViewTabViaAddProcess";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

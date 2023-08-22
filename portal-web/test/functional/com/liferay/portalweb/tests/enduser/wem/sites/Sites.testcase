@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -25,7 +25,7 @@ definition {
 
 	@priority = 4
 	test ActivateSite {
-		property test.name.skip.portal.instance = "Sites#ActivateSite";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -305,7 +305,7 @@ definition {
 
 	@priority = 3
 	test EditSiteFriendlyURLInvalid {
-		property test.name.skip.portal.instance = "Sites#EditSiteFriendlyURLInvalid";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 

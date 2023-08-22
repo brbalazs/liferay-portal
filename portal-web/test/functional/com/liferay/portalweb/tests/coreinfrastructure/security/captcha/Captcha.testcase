@@ -10,9 +10,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -38,7 +38,7 @@ definition {
 		property captcha.enabled = "true";
 		property osgi.module.configuration.file.names = "com.liferay.captcha.configuration.CaptchaConfiguration.config";
 		property osgi.module.configurations = "maxChallenges=\"0\"";
-		property test.name.skip.portal.instance = "Captcha#ViewRecaptchaEnabled";
+		property test.liferay.virtual.instance = "false";
 
 		var recaptchaPrivateKey = PropsUtil.get("recaptcha.private.key");
 		var recaptchaPublicKey = PropsUtil.get("recaptcha.public.key");

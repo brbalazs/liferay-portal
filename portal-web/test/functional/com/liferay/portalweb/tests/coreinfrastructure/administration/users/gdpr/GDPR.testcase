@@ -32,9 +32,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -52,7 +52,7 @@ definition {
 
 	@priority = 4
 	test AnonymizeEntryFromApplication {
-		property test.name.skip.portal.instance = "GDPR#AnonymizeEntryFromApplication";
+		property test.liferay.virtual.instance = "false";
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
@@ -102,7 +102,7 @@ definition {
 	@priority = 5
 	test DeleteEntryFromApplication {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "GDPR#DeleteEntryFromApplication";
+		property test.liferay.virtual.instance = "false";
 
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
@@ -145,7 +145,7 @@ definition {
 
 	@priority = 4
 	test EditEntryFromApplication {
-		property test.name.skip.portal.instance = "GDPR#EditEntryFromApplication";
+		property test.liferay.virtual.instance = "false";
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
@@ -200,7 +200,7 @@ definition {
 
 	@priority = 4
 	test ExportAllEntries {
-		property test.name.skip.portal.instance = "GDPR#ExportAllEntries";
+		property test.liferay.virtual.instance = "false";
 
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",

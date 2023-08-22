@@ -9,7 +9,7 @@ definition {
 
 	@priority = 4
 	test MySQLtoMySQLEditedAdministratorUser {
-		property test.name.skip.portal.instance = "SetupWizardMySQL#MySQLtoMySQLEditAdministratorUser";
+		property test.liferay.virtual.instance = "false";
 
 		SetupWizard.viewDefaultPortalNamePG();
 

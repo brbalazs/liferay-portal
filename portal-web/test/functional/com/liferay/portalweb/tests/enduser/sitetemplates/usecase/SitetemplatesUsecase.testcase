@@ -15,9 +15,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -217,7 +217,7 @@ definition {
 
 	@priority = 4
 	test ImportOldSchemaVerion {
-		property test.name.skip.portal.instance = "SitetemplatesUsecase#ImportOldSchemaVerion";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -600,7 +600,7 @@ definition {
 	@description = "This is a use case for LPS-86487."
 	@priority = 4
 	test SiteTemplatePageLinkInWebContentRedirectCorrectly {
-		property test.name.skip.portal.instance = "SitetemplatesUsecase#SiteTemplatePageLinkInWebContentRedirectCorrectly";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 		var siteName = TestCase.getSiteName(siteName = ${siteName});

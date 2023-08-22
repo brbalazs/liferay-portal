@@ -19,9 +19,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -41,7 +41,7 @@ definition {
 	@ignore = "true"
 	test CreateNewPriceList {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CPCommercePriceLists#CreateNewPriceList";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Commerce",

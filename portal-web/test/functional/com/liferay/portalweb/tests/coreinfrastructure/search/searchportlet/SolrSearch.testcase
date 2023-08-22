@@ -14,9 +14,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -1610,7 +1610,7 @@ definition {
 	@description = "This is a use case for LPS-74299."
 	@priority = 3
 	test ViewFacetPersistence {
-		property test.name.skip.portal.instance = "SolrSearch#ViewFacetPersistence";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -2037,7 +2037,7 @@ definition {
 	@priority = 5
 	test ViewSearchResultDetails {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "SolrSearch#ViewSearchResultDetails";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

@@ -12,9 +12,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -82,7 +82,7 @@ definition {
 	@priority = 5
 	test AddFolderSiteRoleDefinePermission {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddFolderSiteRoleDefinePermission";
+		property test.liferay.virtual.instance = "false";
 
 		Permissions.setUpSiteRoleCP(
 			page = "Public Pages",
@@ -238,7 +238,7 @@ definition {
 	@priority = 5
 	test AddStructureSiteRoleDefinePermission {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddStructureSiteRoleDefinePermission";
+		property test.liferay.virtual.instance = "false";
 
 		Permissions.setUpSiteRoleCP(
 			page = "Public Pages",
@@ -324,7 +324,7 @@ definition {
 	@priority = 5
 	test AddTemplateSiteRoleDefaultPermission {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddTemplateSiteRoleDefaultPermission";
+		property test.liferay.virtual.instance = "false";
 
 		Permissions.setUpSiteRoleCP(
 			page = "Public Pages",
@@ -370,7 +370,7 @@ definition {
 	@priority = 5
 	test AddTemplateSiteRoleDefinePermission {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddTemplateSiteRoleDefinePermission";
+		property test.liferay.virtual.instance = "false";
 
 		Permissions.setUpSiteRoleCP(
 			page = "Public Pages",
@@ -494,7 +494,7 @@ definition {
 	@priority = 5
 	test AddWebContentSiteRoleDefinePermission {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddWebContentSiteRoleDefinePermission";
+		property test.liferay.virtual.instance = "false";
 
 		Permissions.setUpSiteRoleCP(
 			page = "Public Pages",

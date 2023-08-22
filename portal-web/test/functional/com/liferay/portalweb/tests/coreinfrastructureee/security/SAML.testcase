@@ -20,7 +20,7 @@ definition {
 
 	@priority = 5
 	test AddUserInheritedRolesAsSAMLAttributeStatements {
-		property test.name.skip.portal.instance = "SAML#AddUserInheritedRolesAsSAMLAttributeStatements";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -125,7 +125,7 @@ definition {
 
 	@priority = 4
 	test AssertKeepAliveToKeepMySAMLSessionAlive {
-		property test.name.skip.portal.instance = "SAML#AssertKeepAliveToKeepMySAMLSessionAlive";
+		property test.liferay.virtual.instance = "false";
 
 		User.logoutAndLoginPG(
 			nodePort = 9080,
@@ -237,7 +237,7 @@ definition {
 	@description = "This is a use case for LPS-39013."
 	@priority = 4
 	test AssertSAMLSPUserInformationUpdatesAfterChangingOnIdP {
-		property test.name.skip.portal.instance = "AssertSAMLSPUserInformationUpdatesAfterChangingOnIdP";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -296,7 +296,7 @@ definition {
 
 	@priority = 4
 	test AssertSignedSAMLMetadata {
-		property test.name.skip.portal.instance = "SAML#AssertSignedSAMLMetadata";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -324,7 +324,7 @@ definition {
 	@priority = 4
 	test AssertSSOFailsWhenAlgorithmsMismatch {
 		property blacklist.saml.algorithms = "true";
-		property test.name.skip.portal.instance = "SAML#AssertSSOFailsWhenAlgorithmsMismatch";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -361,7 +361,7 @@ definition {
 
 	@priority = 4
 	test AssertSSOIdleSessionTakesPrecedenceOverIdPSessionTimeout {
-		property test.name.skip.portal.instance = "SAML#AssertSSOIdleSessionTakesPrecedenceOverIdPSessionTimeout";
+		property test.liferay.virtual.instance = "false";
 		property web.xml.timeout = "2";
 
 		SAML.configureLiferaySAMLAsIdP(
@@ -447,7 +447,7 @@ definition {
 
 	@priority = 4
 	test AssertSSOSessionExistsAfterSPSessionTimeout {
-		property test.name.skip.portal.instance = "SAML#AssertSSOSessionExistsAfterSPSessionTimeout";
+		property test.liferay.virtual.instance = "false";
 		property web.xml.timeout = "2";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
@@ -487,7 +487,7 @@ definition {
 
 	@priority = 4
 	test AssertSSOSessionExpiresAfterMaximumSessionAge {
-		property test.name.skip.portal.instance = "SAML#AssertSSOSessionExpiresAfterMaximumSessionAge";
+		property test.liferay.virtual.instance = "false";
 		property web.xml.timeout = "2";
 
 		SAML.configureLiferaySAMLAsIdP(
@@ -538,7 +538,7 @@ definition {
 	@description = "This is a use case for LPS-128578 and LPS-69388"
 	@priority = 4
 	test AssertSSOWithSignAuthnRequests {
-		property test.name.skip.portal.instance = "SAML#AssertSSOWithSignAuthnRequests";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -689,7 +689,7 @@ definition {
 	@priority = 4
 	test ConfigureSAMLToImportUsersFromLDAP {
 		property apacheds.enabled = "true";
-		property test.name.skip.portal.instance = "SAML#ConfigureSAMLToImportUsersFromLDAP";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -808,7 +808,7 @@ definition {
 	@priority = 5
 	test HotDeploySAMLApp {
 		property hot.deploy.osgi.app.includes = "saml";
-		property test.name.skip.portal.instance = "SAML#HotDeploySAMLApp";
+		property test.liferay.virtual.instance = "false";
 
 		AssertConsoleTextNotPresent(value1 = "The portal instance needs to be restarted");
 
@@ -834,7 +834,7 @@ definition {
 
 	@priority = 4
 	test SPInitiatedSSOWithScreenNameIdentifier {
-		property test.name.skip.portal.instance = "SPInitiatedSSOWithScreenNameIdentifier";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -871,7 +871,7 @@ definition {
 	@description = "This is a use case for LPS-50747."
 	@priority = 5
 	test ValidateVulnerabilitiesXMLAttacks {
-		property test.name.skip.portal.instance = "SAML#ValidateVulnerabilitiesXMLAttacks";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -938,7 +938,7 @@ definition {
 	@priority = 4
 	test ViewIdPInitiatedSSO {
 		property environment.acceptance = "false";
-		property test.name.skip.portal.instance = "SAML#ViewIdPInitiatedSSO";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -984,7 +984,7 @@ definition {
 	@description = "LPS-50220 - IdP initiated SSO login should work regardless if 'Remember Me' is checked or not."
 	@priority = 4
 	test ViewIdPInitiatedSSOWithRememberMeChecked {
-		property test.name.skip.portal.instance = "SAML#ViewIdPInitiatedSSOWithRememberMeChecked";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -1031,7 +1031,7 @@ definition {
 	@priority = 4
 	test ViewIdPSingleLogoutWithMultipleSPs {
 		property portal.upstream = "quarantine";
-		property test.name.skip.portal.instance = "SAML#ViewIdPSingleLogoutWithMultipleSPs";
+		property test.liferay.virtual.instance = "false";
 
 		User.logoutAndLoginPG(
 			nodePort = 9080,
@@ -1145,7 +1145,7 @@ definition {
 	@priority = 4
 	test ViewSingleLogoutAndForceAuthWithMultipleSPs {
 		property portal.upstream = "quarantine";
-		property test.name.skip.portal.instance = "SAML#ViewSingleLogoutAndForceAuthWithMultipleSPs";
+		property test.liferay.virtual.instance = "false";
 
 		User.logoutAndLoginPG(
 			nodePort = 9080,
@@ -1305,7 +1305,7 @@ definition {
 	@description = "LPS-49666 - SAML Single Logout should support HTTP-POST binding."
 	@priority = 4
 	test ViewSingleLogoutHTTPPostBindingInConsole {
-		property test.name.skip.portal.instance = "SAML#ViewSingleLogoutHTTPPostBindingInConsole";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -1345,7 +1345,7 @@ definition {
 	@priority = 4
 	test ViewSPInitiatedSSO {
 		property environment.acceptance = "false";
-		property test.name.skip.portal.instance = "SAML#ViewSPInitiatedSSO";
+		property test.liferay.virtual.instance = "false";
 
 		SAML.configureLiferaySAMLAsIdP(samlEntityID = "samlidp");
 
@@ -1388,7 +1388,7 @@ definition {
 
 	@priority = 4
 	test ViewSPInitiatedSSOWithMultipleIdPsAndAssertRenderLoginPortletWithoutIdpsMatched {
-		property test.name.skip.portal.instance = "SAML#ViewSPInitiatedSSOWithMultipleIdPsAndAssertRenderLoginPortletWithoutIdpsMatched";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

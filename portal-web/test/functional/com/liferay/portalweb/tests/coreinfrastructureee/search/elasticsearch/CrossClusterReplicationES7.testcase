@@ -19,16 +19,16 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 	}
 
 	@priority = 4
 	test AssertReplicationAfterReindex {
-		property test.name.skip.portal.instance = "CrossClusterReplicationES7#AssertReplicationAfterReindex";
+		property test.liferay.virtual.instance = "false";
 
 		JSONDocument.addFile(
 			dmDocumentDescription = "DM Description",
@@ -71,7 +71,7 @@ definition {
 		property hot.deploy.osgi.app.includes = "portal-search-elasticsearch-cross-cluster-replication";
 		property osgi.app.includes = "portal-search-elasticsearch7";
 		property test.assert.warning.exceptions = "true";
-		property test.name.skip.portal.instance = "CrossClusterReplicationES7#HotDeployApp";
+		property test.liferay.virtual.instance = "false";
 
 		var appName = "Liferay Cross-Cluster Replication for Elasticsearch";
 
@@ -131,7 +131,7 @@ definition {
 
 	@priority = 3
 	test SearchWithVirtualInstance {
-		property test.name.skip.portal.instance = "CrossClusterReplicationES7#SearchWithVirtualInstance";
+		property test.liferay.virtual.instance = "false";
 
 		JSONDocument.addFile(
 			dmDocumentDescription = "DM Description",
@@ -184,7 +184,7 @@ definition {
 	test Smoke {
 		property osgi.module.configuration.file.names = "com.liferay.portal.bundle.blacklist.internal.BundleBlacklistConfiguration.config";
 		property osgi.module.configurations = "blacklistBundleSymbolicNames=\"com.liferay.portal.mobile.device.detection.fiftyonedegrees.api,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise,com.liferay.portal.mobile.device.detection.fiftyonedegrees.enterprise.test.data,com.liferay.portal.mobile.device.detection.fiftyonedegrees,com.liferay.portal.search.elasticsearch6.impl,com.liferay.portal.search.elasticsearch6.spi,com.liferay.portal.search.elasticsearch6.api,com.liferay.portal.search.elasticsearch6.xpack.security.impl,com.liferay.portal.search.elasticsearch6.xpack.monitoring.web,com.liferay.portal.search.tuning.rankings.web\"";
-		property test.name.skip.portal.instance = "CrossClusterReplicationES7#Smoke";
+		property test.liferay.virtual.instance = "false";
 
 		JSONDocument.addFile(
 			dmDocumentDescription = "DM Description",

@@ -20,7 +20,7 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
 		ACUtils.launchAC();
 
@@ -32,7 +32,7 @@ definition {
 
 		ACUtils.clickAnyButton(button = "Continue");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 	}

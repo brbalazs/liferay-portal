@@ -14,9 +14,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -341,7 +341,7 @@ definition {
 		property custom.properties = "editor.wysiwyg.portal-impl.portlet.ddm.text_html.ftl=ckeditor";
 		property dummy.socket.proxy.disabled = "true";
 		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "WebContentUseCase#AddAudioViaWebContent";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training,Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -718,7 +718,7 @@ definition {
 
 	@priority = 5
 	test AddLocalizedWebContentViaSourceEditor {
-		property test.name.skip.portal.instance = "WebContentUseCase#AddLocalizedWebContentViaSourceEditor";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training,Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -907,7 +907,7 @@ definition {
 	test AddVideoViaWebContent {
 		property custom.properties = "editor.wysiwyg.portal-impl.portlet.ddm.text_html.ftl=ckeditor";
 		property dummy.socket.proxy.disabled = "true";
-		property test.name.skip.portal.instance = "WebContentUseCase#AddVideoViaWebContent";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -986,7 +986,7 @@ definition {
 	@description = "This is a use case for LPS-82492."
 	@priority = 5
 	test AddWebContentFromImportedStructureAndTemplate {
-		property test.name.skip.portal.instance = "WebContentUseCase#AddWebContentFromImportedStructureAndTemplate ";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 
 		JSONGroup.addGroup(groupName = "Site Name");
@@ -1059,7 +1059,7 @@ definition {
 
 	@priority = 4
 	test AddWebContentRemoveGuestViewPermission {
-		property test.name.skip.portal.instance = "WebContentUseCase#AddWebContentRemoveGuestViewPermission";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Permissions,Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -1993,7 +1993,7 @@ definition {
 
 	@priority = 5
 	test ImportAndUseGlobalStructureAndTemplate {
-		property test.name.skip.portal.instance = "WebContentUseCase#ImportAndUseGlobalStructureAndTemplate";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 
 		JSONGroup.addGroup(groupName = "Site Name");
@@ -2416,7 +2416,7 @@ definition {
 	@description = "This is a use case for LPS-71941."
 	@priority = 5
 	test UndeployWebContentDisplayModuleViaGogoShell {
-		property test.name.skip.portal.instance = "WebContentUseCase#UndeployWebContentDisplayModuleViaGogoShell";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -2466,7 +2466,7 @@ definition {
 
 	@priority = 4
 	test UseStructureAndTemplateFromParentSiteHierarchy {
-		property test.name.skip.portal.instance = "WebContentUseCase#UseStructureAndtemplateFromParentSiteHierarchy";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -3031,7 +3031,7 @@ definition {
 
 	@priority = 4
 	test WebContentAdministrationLocalization {
-		property test.name.skip.portal.instance = "WebContentUseCase#WebContentAdministrationLocalization";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Localization,Web Content Administration";
 
 		ProductMenu.gotoPortlet(

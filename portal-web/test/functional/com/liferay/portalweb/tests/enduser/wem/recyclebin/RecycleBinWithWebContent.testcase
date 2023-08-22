@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -72,7 +72,7 @@ definition {
 
 	@priority = 3
 	test MoveFolderWithWebContentToRecycleBin {
-		property test.name.skip.portal.instance = "RecycleBinWithWebContent#MoveFolderWithWebContentToRecycleBin";
+		property test.liferay.virtual.instance = "false";
 
 		JSONWebcontent.addFolder(
 			folderName = "WC Folder Name",
@@ -117,7 +117,7 @@ definition {
 
 	@priority = 3
 	test RecycleWebContentViaDeleteIcon {
-		property test.name.skip.portal.instance = "RecycleBinWithWebContent#RecycleWebContentViaDeleteIcon";
+		property test.liferay.virtual.instance = "false";
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
@@ -244,7 +244,7 @@ definition {
 
 	@priority = 3
 	test ViewDuplicateAssetNamesInRecycleBin {
-		property test.name.skip.portal.instance = "RecycleBinWithWebContent#ViewDuplicateAssetNamesInRecycleBin";
+		property test.liferay.virtual.instance = "false";
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",

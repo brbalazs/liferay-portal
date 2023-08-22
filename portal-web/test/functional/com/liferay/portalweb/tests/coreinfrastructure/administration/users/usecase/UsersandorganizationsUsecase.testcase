@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -241,7 +241,7 @@ definition {
 
 	@priority = 4
 	test ImpersonatingAdministratorandOwner {
-		property test.name.skip.portal.instance = "UsersandorganizationsUsecase#ImpersonatingAdministratorandOwner";
+		property test.liferay.virtual.instance = "false";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
@@ -405,7 +405,7 @@ definition {
 
 	@priority = 5
 	test MultipleUsersandOrganizations {
-		property test.name.skip.portal.instance = "UsersandorganizationsUsecase#MultipleUsersandOrganizations";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
@@ -946,7 +946,7 @@ definition {
 
 	@priority = 3
 	test OrganizationSiteDefaultUserAssociations {
-		property test.name.skip.portal.instance = "UsersandorganizationsUsecase#OrganizationSiteDefaultUserAssociations";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -1206,7 +1206,7 @@ definition {
 
 	@priority = 4
 	test ViewContentInCustomOrganizationTypeSite {
-		property test.name.skip.portal.instance = "UsersandorganizationsUsecase#ViewContentInCustomOrganizationTypeSite";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 

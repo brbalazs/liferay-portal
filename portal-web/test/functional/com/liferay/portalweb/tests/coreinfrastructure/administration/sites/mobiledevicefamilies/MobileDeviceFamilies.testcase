@@ -12,9 +12,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 	}
@@ -26,7 +26,7 @@ definition {
 		property osgi.module.configuration.file.names = "com.liferay.portal.bundle.blacklist.internal.BundleBlacklistConfiguration.config";
 		property osgi.module.configurations = "blacklistBundleSymbolicNames=";
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "MobileDeviceFamilies#AssertMobileDeviceRuleActionOnSitePage";
+		property test.liferay.virtual.instance = "false";
 
 		JSONGroup.addGroup(groupName = "Site Name");
 

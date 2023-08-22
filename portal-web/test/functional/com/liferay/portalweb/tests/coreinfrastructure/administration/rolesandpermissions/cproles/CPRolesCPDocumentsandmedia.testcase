@@ -12,9 +12,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -37,7 +37,7 @@ definition {
 	@priority = 5
 	test ViewDocumentsAndMediaPortletRegRole {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CPRolesCPDocumentsandmedia#ViewDocumentsAndMediaPortletRegRole";
+		property test.liferay.virtual.instance = "false";
 
 		Permissions.setUpRegRoleLoginUserCP(
 			portletName = "Documents and Media",

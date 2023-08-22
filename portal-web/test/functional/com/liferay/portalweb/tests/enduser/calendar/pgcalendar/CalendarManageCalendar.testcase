@@ -28,9 +28,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -351,7 +351,7 @@ definition {
 	test SearchForOtherCalendars {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "Calendar#SearchForOtherCalendars";
+		property test.liferay.virtual.instance = "false";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
@@ -485,7 +485,7 @@ definition {
 	@priority = 4
 	test ViewAvailableCalendars {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property test.name.skip.portal.instance = "CalendarManageCalendar#ViewAvailableCalendars";
+		property test.liferay.virtual.instance = "false";
 
 		JSONGroup.addGroup(groupName = "Site Name");
 

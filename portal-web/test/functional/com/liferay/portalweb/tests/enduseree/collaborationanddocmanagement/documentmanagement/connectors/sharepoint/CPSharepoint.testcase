@@ -70,9 +70,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -111,7 +111,7 @@ definition {
 
 	@priority = 4
 	test CheckinDocument {
-		property test.name.skip.portal.instance = "CPSharepoint#CheckinDocument";
+		property test.liferay.virtual.instance = "false";
 
 		DMRepository.gotoCP(dmRepositoryName = "Sharepoint Repository Name");
 
@@ -224,7 +224,7 @@ definition {
 
 	@priority = 4
 	test DeleteSubfolder {
-		property test.name.skip.portal.instance = "CPSharepoint#DeleteSubfolder";
+		property test.liferay.virtual.instance = "false";
 
 		DMRepository.gotoCP(dmRepositoryName = "Sharepoint Repository Name");
 
@@ -250,7 +250,7 @@ definition {
 
 	@priority = 4
 	test EditDocumentFile {
-		property test.name.skip.portal.instance = "CPSharepoint#EditDocumentFile";
+		property test.liferay.virtual.instance = "false";
 
 		DMRepository.gotoCP(dmRepositoryName = "Sharepoint Repository Name");
 
@@ -303,7 +303,7 @@ definition {
 
 	@priority = 4
 	test EditRepository {
-		property test.name.skip.portal.instance = "CPSharepoint#EditRepository";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -377,7 +377,7 @@ definition {
 
 	@priority = 4
 	test MoveCheckedoutDocumentToFolder {
-		property test.name.skip.portal.instance = "CPSharepoint#MoveCheckedoutDocumentToFolder";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -453,7 +453,7 @@ definition {
 
 	@priority = 4
 	test MoveDocumentToHome {
-		property test.name.skip.portal.instance = "CPSharepoint#MoveDocumentToHome";
+		property test.liferay.virtual.instance = "false";
 
 		DMRepository.gotoCP(dmRepositoryName = "Sharepoint Repository Name");
 
@@ -490,7 +490,7 @@ definition {
 
 	@priority = 4
 	test SearchDocumentViaHome {
-		property test.name.skip.portal.instance = "CPSharepoint#SearchDocumentViaHome";
+		property test.liferay.virtual.instance = "false";
 
 		DMRepository.gotoCP(dmRepositoryName = "Sharepoint Repository Name");
 
@@ -514,7 +514,7 @@ definition {
 
 	@priority = 4
 	test ViewEditedCheckedoutDocument {
-		property test.name.skip.portal.instance = "CPSharepoint#ViewEditedCheckedoutDocument";
+		property test.liferay.virtual.instance = "false";
 
 		DMRepository.gotoCP(dmRepositoryName = "Sharepoint Repository Name");
 
@@ -566,7 +566,7 @@ definition {
 	@priority = 4
 	test ViewOriginalFileExtensionAfterUnsuccessfulExtensionChange {
 		property portal.release = "false";
-		property test.name.skip.portal.instance = "CPSharepoint#ViewOriginalFileExtensionAfterUnsuccessfulExtensionChange";
+		property test.liferay.virtual.instance = "false";
 
 		DMRepository.gotoCP(dmRepositoryName = "Sharepoint Repository Name");
 
@@ -605,7 +605,7 @@ definition {
 	@priority = 4
 	test ViewOriginalFileExtensionAfterUnsuccessfulExtensionRemoval {
 		property portal.release = "false";
-		property test.name.skip.portal.instance = "CPSharepoint#ViewOriginalFileExtensionAfterUnsuccessfulExtensionRemoval";
+		property test.liferay.virtual.instance = "false";
 
 		DMRepository.gotoCP(dmRepositoryName = "Sharepoint Repository Name");
 

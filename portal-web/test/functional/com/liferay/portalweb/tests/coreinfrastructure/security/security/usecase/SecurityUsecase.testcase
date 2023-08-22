@@ -12,9 +12,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -60,7 +60,7 @@ definition {
 	@description = "This is a use case for LPS-83566."
 	@priority = 5
 	test EscapeUrlRedirectWithGroovyScript {
-		property test.name.skip.portal.instance = "SecurityUsecase#EscapeUrlRedirectWithGroovyScript";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -84,7 +84,7 @@ out.println(PortalUtil.escapeRedirect("/"));
 	@priority = 4
 	test ExecuteScriptWithPredefinedProperty {
 		property custom.properties = "partnerstamm-api-user = his_user";
-		property test.name.skip.portal.instance = "SecurityUsecase#ExecuteScriptWithPredefinedProperty";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -118,7 +118,7 @@ out.println(PortalUtil.escapeRedirect("/"));
 	@description = "This is a use case for LPS-87768."
 	@priority = 5
 	test NoPermissionFromUnauthorizedURLAsPowerUser {
-		property test.name.skip.portal.instance = "SecurityUsecase#NoPermissionFromUnauthorizedURLAsPowerUser";
+		property test.liferay.virtual.instance = "false";
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -174,7 +174,7 @@ out.println(PortalUtil.escapeRedirect("/"));
 	@priority = 5
 	test UserCanAccessPermissionsWindowWithPermissionFromAdmin {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property test.name.skip.portal.instance = "SecurityUsecase#UserCanAccessPermissionsWindowWithPermissionFromAdmin";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -233,7 +233,7 @@ out.println(PortalUtil.escapeRedirect("/"));
 	@priority = 4
 	test ValidateCannotStealAdminAccount {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property test.name.skip.portal.instance = "SecurityUsecase#ValidateCannotStealAdminAccount";
+		property test.liferay.virtual.instance = "false";
 
 		var pAuth = Api.getPAuth();
 		var portalURL = PropsUtil.get("portal.url");

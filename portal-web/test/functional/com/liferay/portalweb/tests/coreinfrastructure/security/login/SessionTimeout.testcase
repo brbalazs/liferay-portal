@@ -12,9 +12,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -26,7 +26,7 @@ definition {
 	@priority = 5
 	test RedirectOnExpire {
 		property custom.properties = "session.timeout.redirect.on.expire=true";
-		property test.name.skip.portal.instance = "SessionTimeout#RedirectOnExpire";
+		property test.liferay.virtual.instance = "false";
 		property web.xml.timeout = "2";
 
 		Navigator.openURL();

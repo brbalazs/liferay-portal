@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -307,7 +307,7 @@ definition {
 	test AssertSuggestionsCannotOfferInvalidWordsAsSuggestion {
 		property custom.properties = "locales.enabled=de_DE,en_US${line.separator}locales=de_DE,en_US${line.separator}index.search.spell.checker.dictionary[de_DE]=spellchecker/dictionary_de_DE.txt${line.separator}index.search.spell.checker.supported.locales=en_US,es_ES,de_DE";
 		property index.search.spell.checker.enabled = "true";
-		property test.name.skip.portal.instance = "Search#AssertSuggestionsCannotOfferInvalidWordsAsSuggestion";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -2265,7 +2265,7 @@ definition {
 	@description = "This is a use case for LPS-74299."
 	@priority = 3
 	test ViewFacetPersistence {
-		property test.name.skip.portal.instance = "Search#ViewFacetPersistence";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -2692,7 +2692,7 @@ definition {
 	@priority = 5
 	test ViewSearchResultDetails {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "Search#ViewSearchResultDetails";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

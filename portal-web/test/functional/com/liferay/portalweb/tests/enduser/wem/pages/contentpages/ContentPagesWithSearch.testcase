@@ -47,9 +47,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -61,7 +61,7 @@ definition {
 	@priority = 5
 	test FilterByPageFacet {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "ContentPagesWithSearch#FilterByPageFacet";
+		property test.liferay.virtual.instance = "false";
 
 		task ("Add a Static Text fragment to the content page") {
 			PageEditor.addFragment(
@@ -110,7 +110,7 @@ definition {
 	@ignore = "true"
 	@priority = 3
 	test SearchContentPagesWithDeletedCategory {
-		property test.name.skip.portal.instance = "ContentPagesWithSearch#SearchContentPagesWithDeletedCategory";
+		property test.liferay.virtual.instance = "false";
 
 		task ("Add a a vocabulary with a category") {
 			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name");
@@ -181,7 +181,7 @@ definition {
 	@priority = 5
 	test SearchEditableText {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "ContentPagesWithSearch#SearchEditableText";
+		property test.liferay.virtual.instance = "false";
 
 		task ("Add a Rich Text fragment to the content page") {
 			PageEditor.addFragment(
@@ -241,7 +241,7 @@ definition {
 	@priority = 5
 	test SearchStaticText {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "ContentPagesWithSearch#SearchStaticText";
+		property test.liferay.virtual.instance = "false";
 
 		task ("Add a Static Text fragment to the content page") {
 			PageEditor.addFragment(

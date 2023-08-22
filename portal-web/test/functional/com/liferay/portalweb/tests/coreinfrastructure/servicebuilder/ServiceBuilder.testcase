@@ -11,9 +11,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 	}
@@ -22,7 +22,7 @@ definition {
 	test ExternalDataSourceSmoke {
 		property skip.start-app-server = "true";
 		property test.assert.warning.exceptions = "true";
-		property test.name.skip.portal.instance = "ServiceBuilder#ExternalDataSourceSmoke";
+		property test.liferay.virtual.instance = "false";
 
 		var liferayHome = PropsUtil.get("liferay.home.dir.name");
 		var appServerDir = PropsUtil.get("app.server.dir");
@@ -57,7 +57,7 @@ definition {
 	@priority = 4
 	test RenameFinderColumn {
 		property test.assert.warning.exceptions = "true";
-		property test.name.skip.portal.instance = "ServiceBuilder#RenameFinderColumn";
+		property test.liferay.virtual.instance = "false";
 
 		AntCommands.runCommand("build-test.xml", "rename-finder-column");
 

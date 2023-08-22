@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -35,7 +35,7 @@ definition {
 	@description = "LPS-89260 - Verify that rules are working for multiple selection fields"
 	@priority = 4
 	test CanUseRuleOnMultipleSelectionField {
-		property test.name.skip.portal.instance = "FormRules#CanUseRuleOnMultipleSelectionField";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -102,7 +102,7 @@ definition {
 	test CanUtilizeDataProvidersInAutofillRule {
 		property portal.acceptance = "true";
 		property portal.upstream = "true";
-		property test.name.skip.portal.instance = "FormsRulesActions#CanUtilizeDataProvidersInAutofillRule";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -201,7 +201,7 @@ definition {
 	@priority = 5
 	test ConfigureAutofillRule {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "FormRules#ConfigureAutofillRule";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -508,7 +508,7 @@ definition {
 	@priority = 5
 	test ConfigureShowRuleUsingAndCondition {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "Forms#ConfigureShowRuleUsingAndCondition";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -621,7 +621,7 @@ definition {
 
 	@priority = 4
 	test ConfigureUserBelongsToRule {
-		property test.name.skip.portal.instance = "FormRules#ConfigureUserBelongsToRule";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -861,7 +861,7 @@ definition {
 	test SyncBetweenFormAndRuleBuilder {
 		property portal.acceptance = "true";
 		property portal.upstream = "true";
-		property test.name.skip.portal.instance = "FormRules#SyncBetweenFormAndRuleBuilder";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 

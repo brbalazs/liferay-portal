@@ -14,9 +14,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -270,7 +270,7 @@ definition {
 
 	@priority = 3
 	test AddSubcategoryConfigureParentCategory {
-		property test.name.skip.portal.instance = "CategoriesUseCase#AddSubcategoryConfigureParentCategory";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1279,7 +1279,7 @@ definition {
 
 	@priority = 3
 	test ViewFlattenedTreeCategoryNavigationDisplayStyle {
-		property test.name.skip.portal.instance = "CategoriesUseCase#ViewFlattenedTreeCategoryNavigationDisplayStyle";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

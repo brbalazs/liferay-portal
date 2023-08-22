@@ -17,9 +17,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -31,7 +31,7 @@ definition {
 
 	@priority = 5
 	test AddAndDeleteBlogEntriesOnSeparateNodes {
-		property test.name.skip.portal.instance = "Clustering#AddAndDeleteBlogEntriesOnSeparateNodes";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -157,7 +157,7 @@ definition {
 
 	@priority = 4
 	test CanInvokeMethods {
-		property test.name.skip.portal.instance = "Clustering#CanInvokeMethods";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.runGroovyScript(
 			nodePort = 8080,
@@ -222,7 +222,7 @@ definition {
 
 	@priority = 5
 	test ShutdownAndStartupNodes {
-		property test.name.skip.portal.instance = "Clustering#ShutdownAndStartupNodes";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -284,7 +284,7 @@ definition {
 
 	@priority = 4
 	test SlaveNodeCanBecomeMasterNode {
-		property test.name.skip.portal.instance = "Clustering#SlaveNodeCanBecomeMasterNode";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.runGroovyScript(
 			nodePort = 8080,
@@ -338,7 +338,7 @@ definition {
 	@priority = 4
 	test TCPControlChannelProperties {
 		property custom.properties = "cluster.link.channel.properties.control=tcp.xml";
-		property test.name.skip.portal.instance = "Clustering#TCPControlChannelProperties";
+		property test.liferay.virtual.instance = "false";
 
 		for (var serverPort : list "8080,9080") {
 			Clustering.viewTextPresentOnSpecificNode(
@@ -359,7 +359,7 @@ definition {
 	@priority = 4
 	test UDPControlChannelProperties {
 		property custom.properties = "cluster.link.channel.properties.control=udp.xml${line.separator}cluster.link.channel.properties.transport.0=udp.xml";
-		property test.name.skip.portal.instance = "Clustering#UDPControlChannelProperties";
+		property test.liferay.virtual.instance = "false";
 
 		for (var serverPort : list "8080,9080") {
 			Clustering.viewTextPresentOnSpecificNode(
@@ -380,7 +380,7 @@ definition {
 	@priority = 4
 	test ValidateDocumentOnSeparateNodes {
 		property custom.properties = "default.layout.template.id=1_column";
-		property test.name.skip.portal.instance = "Clustering#ValidateDocumentOnSeparateNodes";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -437,7 +437,7 @@ definition {
 	@priority = 5
 	test ValidateLiveUsers {
 		property custom.properties = "live.users.enabled=true";
-		property test.name.skip.portal.instance = "Clustering#ValidateLiveUsers";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -490,7 +490,7 @@ definition {
 	@description = "This is a use case for LPS-142472."
 	@priority = 4
 	test ValidatePublishOnTwoNodes {
-		property test.name.skip.portal.instance = "Clustering#ValidatePublishOnTwoNodes";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -585,7 +585,7 @@ definition {
 
 	@priority = 4
 	test ValidateSchedulerOnSeparateNodes {
-		property test.name.skip.portal.instance = "Clustering#ValidateSchedulerOnSeparateNodes";
+		property test.liferay.virtual.instance = "false";
 
 		var siteName = TestCase.getSiteName();
 

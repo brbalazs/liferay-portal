@@ -23,9 +23,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -35,7 +35,7 @@ definition {
 
 	@priority = 4
 	test MoveCurrentLanguagesToAvailable {
-		property test.name.skip.portal.instance = "LocalizationUsecase#MoveCurrentLanguagesToAvailable";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Localization";
 
 		Navigator.gotoSitePage(
@@ -67,7 +67,7 @@ definition {
 
 	@priority = 4
 	test ViewDisplayOptionsViaLanguagePortlet {
-		property test.name.skip.portal.instance = "LocalizationUsecase#ViewDisplayOptionsViaLanguagePortlet";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Localization";
 
 		Navigator.gotoSitePage(
@@ -127,7 +127,7 @@ definition {
 
 	@priority = 4
 	test ViewRemovedCurrentPortalLanguagesViaLanguagePortlet {
-		property test.name.skip.portal.instance = "LocalizationUsecase#ViewRemovedCurrentPortalLanguagesViaLanguagePortlet";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Localization";
 
 		Navigator.gotoSitePage(
@@ -160,7 +160,7 @@ definition {
 
 	@priority = 4
 	test ViewRemovedCurrentSiteLanguagesViaLanguagePortlet {
-		property test.name.skip.portal.instance = "LocalizationUsecase#ViewRemovedCurrentSiteLanguageViaLanguagePortlet";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Localization";
 
 		Navigator.gotoSitePage(

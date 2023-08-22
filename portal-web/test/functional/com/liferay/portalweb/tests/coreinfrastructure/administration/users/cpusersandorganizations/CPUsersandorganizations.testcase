@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -356,7 +356,7 @@ definition {
 	@priority = 5
 	test AddOrganizationTeam {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CPUsersandorganizations#AddOrganizationTeam";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(
@@ -1955,7 +1955,7 @@ definition {
 
 	@priority = 4
 	test ViewUpdateUserViaJSONWS {
-		property test.name.skip.portal.instance = "CPUsersandorganizations#ViewUpdateUserViaJSONWS";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

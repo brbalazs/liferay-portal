@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -612,7 +612,7 @@ definition {
 
 	@priority = 5
 	test AddFormWithSpanishAsDefaultPortalLanguage {
-		property test.name.skip.portal.instance = "Forms#AddFormWithSpanishAsDefaultPortalLanguage";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -696,7 +696,7 @@ definition {
 	@description = "This is a use case for LPS-75410, LPS-75457, LPS-80246 and LPS-75393. Automate Numeric field with Decimal configurations."
 	@priority = 4
 	test AutomateNumericFieldWithDecimalConfigurations {
-		property test.name.skip.portal.instance = "Forms#AutomateNumericFieldWithDecimalConfigurations";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1148,7 +1148,7 @@ definition {
 	@description = "This is a use case for LPS-68418."
 	@priority = 3
 	test ConfigureAutosave {
-		property test.name.skip.portal.instance = "Forms#ConfigureAutosave";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1216,7 +1216,7 @@ definition {
 	@priority = 4
 	test CreateRedirectForm {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "Forms#CreateRedirectForm";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1749,7 +1749,7 @@ definition {
 	@description = "This is a use case for LPS-50757."
 	@priority = 4
 	test EditAllFormFieldsTypesUsedBySystemSettings {
-		property test.name.skip.portal.instance = "Forms#EditAllFormFieldsTypesUsedBySystemSettings";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1935,7 +1935,7 @@ definition {
 	@description = "This is a use case for LPS-59749"
 	@priority = 3
 	test EditFormsConfigurationViaSystemSettings {
-		property test.name.skip.portal.instance = "Forms#EditFormsConfigurationViaSystemSettings";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -1994,7 +1994,7 @@ definition {
 	@description = "This is a use case for LPS-69100 and LPS-69334."
 	@priority = 2
 	test EditFormWithUpdatedSiteAndUserLocale {
-		property test.name.skip.portal.instance = "Forms#EditFormWithUpdatedSiteAndUserLocale";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -2651,7 +2651,7 @@ definition {
 	@description = "LPS-90435 This is a test verifying that the Single Selection Form field added before default site language toggle can be loaded"
 	@priority = 4
 	test SingleSelectionFormFieldAddedBeforeDefaultSiteLanguageToggleCanBeLoaded {
-		property test.name.skip.portal.instance = "Forms#SingleSelectionFormFieldAddedBeforeDefaultSiteLanguageToggleCanBeLoaded";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -2709,7 +2709,7 @@ definition {
 
 	@description = "LPS-90435 This is a test verifying that the Single Selection Form field name and options can be added to non-English default site language site"
 	test SingleSelectionFormFieldNameAndOptionsCanBeAddedToNonEnglishDefaultSiteLanguageSite {
-		property test.name.skip.portal.instance = "Forms#SingleSelectionFormFieldNameAndOptionsCanBeAddedToNonEnglishDefaultSiteLanguageSite";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -3129,7 +3129,7 @@ definition {
 
 	@priority = 4
 	test SubmitFormAndViewEmailNotification {
-		property test.name.skip.portal.instance = "Forms#SubmitFormAndViewEmailNotification";
+		property test.liferay.virtual.instance = "false";
 		property test.smtp.server.enabled = "true";
 
 		Navigator.openURL();
@@ -4924,7 +4924,7 @@ definition {
 	@description = "This is a use case for LPS-126817."
 	@priority = 5
 	test ViewSelectFromListOptionValueWithCharacter {
-		property test.name.skip.portal.instance = "Forms#ViewSelectFromListOptionValueWithCharacter";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 

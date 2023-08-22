@@ -12,9 +12,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -75,7 +75,7 @@ definition {
 
 	@priority = 4
 	test EditExportTemplate {
-		property test.name.skip.portal.instance = "ExportImport#EditExportTemplate";
+		property test.liferay.virtual.instance = "false";
 
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
@@ -364,7 +364,7 @@ definition {
 
 	@priority = 5
 	test ExportImportDDLViaGlobal {
-		property test.name.skip.portal.instance = "ExportImport#ExportImportDDLViaGlobal";
+		property test.liferay.virtual.instance = "false";
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -458,7 +458,7 @@ definition {
 
 	@priority = 4
 	test ExportImportDeletions {
-		property test.name.skip.portal.instance = "ExportImport#ExportImportDeletions";
+		property test.liferay.virtual.instance = "false";
 
 		JSONWebcontent.addWebContent(
 			content = "Web Content Content",
@@ -524,7 +524,7 @@ definition {
 	@description = "This is a use case for LPS-91735."
 	@priority = 3
 	test ExportImportGlobalDDMStructureViaInstances {
-		property test.name.skip.portal.instance = "ExportImport#ExportImportGlobalDDMStructureViaInstances";
+		property test.liferay.virtual.instance = "false";
 
 		SitePages.openPagesAdmin(siteURLKey = "Global");
 
@@ -583,7 +583,7 @@ definition {
 	@description = "This is a use case for LPS-91440."
 	@priority = 3
 	test ExportImportGlobalPagesViaInstances {
-		property test.name.skip.portal.instance = "ExportImport#ExportImportGlobalPagesViaInstances";
+		property test.liferay.virtual.instance = "false";
 
 		SitePages.openPagesAdmin(siteURLKey = "Global");
 
@@ -825,7 +825,7 @@ definition {
 	@priority = 5
 	test ExportImportPrivatePage {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "ExportImport#ExportImportPrivatePage";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(
@@ -877,7 +877,7 @@ definition {
 	test ExportImportSampleLARPortlet {
 		property portal.acceptance = "true";
 		property portlet.plugins.includes = "sample-lar-portlet";
-		property test.name.skip.portal.instance = "ExportImport#ExportImportSampleLARPortlet";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -1378,7 +1378,7 @@ definition {
 	@priority = 5
 	test ExportImportValidation {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "ExportImport#ExportImportValidation";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 
 		Navigator.openURL();
@@ -1753,7 +1753,7 @@ definition {
 
 	@priority = 4
 	test ExportImportWithExportTemplate {
-		property test.name.skip.portal.instance = "ExportImport#ExportImportWithExportTemplate";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1794,7 +1794,7 @@ definition {
 	test ExportViaGuest {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.release = "false";
-		property test.name.skip.portal.instance = "ExportImport#ExportViaGuest";
+		property test.liferay.virtual.instance = "false";
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -1928,7 +1928,7 @@ definition {
 	@description = "This is a test for LPS-89616."
 	@priority = 4
 	test ImportNavigationMenuItemWithMissingReferenceError {
-		property test.name.skip.portal.instance = "ExportImport#ImportNavigationMenuItemWithMissingReferenceError";
+		property test.liferay.virtual.instance = "false";
 
 		task ("Add two new sites") {
 			JSONGroup.addGroup(groupName = "site1");
@@ -1981,7 +1981,7 @@ definition {
 	@description = "This is a use case for LPS-88571."
 	@priority = 3
 	test ImportSiteWithMissingReferenceOfPreloadedEntry {
-		property test.name.skip.portal.instance = "ExportImport#ImportSiteWithMissingReferenceOfPreloadedEntry";
+		property test.liferay.virtual.instance = "false";
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "Global");
 
@@ -2305,7 +2305,7 @@ definition {
 	@description = "This is a test for LPS-91233."
 	@priority = 3
 	test PublishWebContentWithBrokenLink {
-		property test.name.skip.portal.instance = "ExportImport#PublishWebContentWithBrokenLink";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

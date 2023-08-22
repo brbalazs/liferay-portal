@@ -20,7 +20,7 @@ definition {
 	@priority = 5
 	test InstallFixPackViaRollingRestart {
 		property portal.fixpack.release = "true";
-		property test.name.skip.portal.instance = "RollingRestartEE#InstallFixPackViaRollingRestart";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -168,7 +168,7 @@ definition {
 	test InstallFixPackWithMultipleClusters {
 		property app.server.bundles.size = "2";
 		property portal.fixpack.release = "true";
-		property test.name.skip.portal.instance = "RollingRestartEE#InstallFixPackWithMultipleClusters";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -419,7 +419,7 @@ definition {
 		property osgi.module.configuration.file.names = "com.liferay.frontend.js.spa.web.configuration.SPAConfiguration.cfg";
 		property osgi.module.configurations = "userNotificationTimeout=30000";
 		property portal.fixpack.release = "true";
-		property test.name.skip.portal.instance = "RollingRestartEE#InstallFixPackWithNewOSGIConfiguration";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -605,7 +605,7 @@ definition {
 		property app.server.bundles.size = "2";
 		property portal.fixpack.release = "true";
 		property skip.install-patch = "true";
-		property test.name.skip.portal.instance = "RollingRestartEE#RevertFixPackWithMultipleClusters";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -884,7 +884,7 @@ definition {
 		property custom.properties = "company.security.auth.type=emailAddress";
 		property portal.release = "true";
 		property portal.upstream = "true";
-		property test.name.skip.portal.instance = "RollingRestartEE#UpdatePortalPropertiesWithMultipleClusters";
+		property test.liferay.virtual.instance = "false";
 
 		Clustering.viewClusterStatusInConsole();
 

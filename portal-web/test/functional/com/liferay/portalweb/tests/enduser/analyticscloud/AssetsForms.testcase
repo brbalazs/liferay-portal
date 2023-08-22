@@ -21,13 +21,13 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
 		ACUtils.tearDownAC();
 
 		ACUtils.tearDownDXP();
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -38,7 +38,7 @@ definition {
 	@description = "Form known individuals shows which individuals interact with the form"
 	@priority = 5
 	test KnownIndividualsShowsWhichIndividualsInteractWithForm {
-		property test.name.skip.portal.instance = "AssetsForms#KnownIndividualsShowsWhichIndividualsInteractWithForm";
+		property test.liferay.virtual.instance = "false";
 
 		var nameList = "ac ac,liferay liferay,dxp dxp";
 		var usernameList = "ac,liferay,dxp";
@@ -90,7 +90,7 @@ definition {
 	@description = "Forms visitor behavior card shows expected amount of views"
 	@priority = 5
 	test VisitorBehaviorCardShowsExpectedAmountOfViews {
-		property test.name.skip.portal.instance = "AssetsForms#VisitorBehaviorCardShowsExpectedAmountOfViews";
+		property test.liferay.virtual.instance = "false";
 
 		var propertyName = ACDXPSettings.connectDXPtoAnalyticsCloud(siteName = "Site Name");
 

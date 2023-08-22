@@ -27,9 +27,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -435,7 +435,7 @@ ${httpUtil.URLtoString(request.getAttribute("CTX").getResource(".").toURI().crea
 
 	@priority = 4
 	test LocalizeWebContent {
-		property test.name.skip.portal.instance = "WebContentDisplay#LocalizeWebContent";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Localization,Web Content Display";
 
 		JSONLayout.addWidgetToPublicLayout(
@@ -707,7 +707,7 @@ ${runtimeInstance}
 
 	@priority = 4
 	test ViewAllFileTypesEnabled {
-		property test.name.skip.portal.instance = "WebContentDisplay#ViewAllFileTypesEnabled";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Web Content Display";
 
 		Navigator.gotoSitePage(
@@ -755,7 +755,7 @@ ${runtimeInstance}
 
 	@priority = 4
 	test ViewAllSettingsEnabledWCDConfiguration {
-		property test.name.skip.portal.instance = "WebContentDisplay#ViewAllSettingsEnabledWCDConfiguration";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Web Content Display";
 
 		JSONWebcontent.addWebContent(

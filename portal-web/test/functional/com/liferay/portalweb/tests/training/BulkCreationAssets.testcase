@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -35,7 +35,7 @@ definition {
 
 	@priority = 5
 	test AddBlogsWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddBlogsWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 
@@ -67,7 +67,7 @@ definition {
 
 	@priority = 5
 	test AddCategoriesWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddCategoriesWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 
@@ -101,7 +101,7 @@ definition {
 
 	@priority = 5
 	test AddDocumentsWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddDocumentsWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 
@@ -133,7 +133,7 @@ definition {
 
 	@priority = 5
 	test AddOrganizationsWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddOrganizationsWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 
@@ -169,7 +169,7 @@ definition {
 
 	@priority = 5
 	test AddPagesWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddPagesWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 
@@ -197,7 +197,7 @@ definition {
 
 	@priority = 5
 	test AddRolesWithGroovyScript {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddRolesWithGroovyScript";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -248,7 +248,7 @@ for (int i = 1; i <= numberToAdd; i++) {
 
 	@priority = 5
 	test AddSitesWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddSitesWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 
@@ -277,7 +277,7 @@ for (int i = 1; i <= numberToAdd; i++) {
 
 	@priority = 5
 	test AddThreadsWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddThreadsWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 
@@ -310,7 +310,7 @@ for (int i = 1; i <= numberToAdd; i++) {
 
 	@priority = 5
 	test AddUsersWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddUsersWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 
@@ -339,7 +339,7 @@ for (int i = 1; i <= numberToAdd; i++) {
 
 	@priority = 5
 	test AddWebcontentArticlesWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddWebcontentArticlesWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 
@@ -373,7 +373,7 @@ for (int i = 1; i <= numberToAdd; i++) {
 
 	@priority = 5
 	test AddWikisWithDummyFactory {
-		property test.name.skip.portal.instance = "BulkCreationAssets#AddWikisWithDummyFactory";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 		property timeout.explicit.wait = "600";
 

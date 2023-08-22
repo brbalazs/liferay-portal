@@ -28,9 +28,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -57,7 +57,7 @@ definition {
 	@priority = 4
 	test AddAndEditAssetsViaVirtualHostOrganizations {
 		property custom.properties = "virtual.hosts.valid.hosts=localhost,127.0.0.1,www.able.com,www.baker.com";
-		property test.name.skip.portal.instance = "AssetPublisherUseCase#AddAndEditAssetsViaVirtualHostOrganizations";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -293,7 +293,7 @@ definition {
 
 	@priority = 3
 	test AssetPublisherCategoriesLocalization {
-		property test.name.skip.portal.instance = "AssetPublisherUseCase#AssetPublisherCategoriesLocalization";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1004,7 +1004,7 @@ definition {
 
 	@priority = 3
 	test AssetPublisherHasOpenOfficeFileTypeLinks {
-		property test.name.skip.portal.instance = "AssetPublisherUseCase#AssetPublisherHasOpenOfficeFileTypeLinks";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1080,7 +1080,7 @@ definition {
 	@priority = 5
 	test AssetPublisherSiteAndGlobalScopeAccessibility {
 		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "AssetPublisherUseCase#AssetPublisherSiteAndGlobalScopeAccessibility";
+		property test.liferay.virtual.instance = "false";
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -1141,7 +1141,7 @@ definition {
 
 	@priority = 4
 	test AssetPublisherTogglingBetweenSites {
-		property test.name.skip.portal.instance = "AssetPublisherUseCase#AssetPublisherTogglingBetweenSites";
+		property test.liferay.virtual.instance = "false";
 
 		var siteName = TestCase.getSiteViaEnvironment(siteName = ${siteName});
 

@@ -12,9 +12,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -83,7 +83,7 @@ definition {
 	@priority = 5
 	test AvailableSiteLocalesSubsetNotAllowed {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "LocalizationWithSites#AvailableSiteLocalesSubsetOfAvailablePortalLocales";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Site Localization";
 
 		ProductMenu.gotoPortlet(
@@ -119,7 +119,7 @@ definition {
 	@priority = 3
 	test LocalizationStyle0 {
 		property custom.properties = "locale.prepend.friendly.url.style=0";
-		property test.name.skip.portal.instance = "LocalizationWithSites#LocalizationStyle0";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Site Localization";
 
 		var portalURL = PropsUtil.get("portal.url");
@@ -159,7 +159,7 @@ definition {
 	@priority = 3
 	test LocalizationStyle1 {
 		property custom.properties = "locale.prepend.friendly.url.style=1";
-		property test.name.skip.portal.instance = "LocalizationWithSites#LocalizationStyle1";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Site Localization";
 
 		var portalURL = PropsUtil.get("portal.url");
@@ -199,7 +199,7 @@ definition {
 	@priority = 3
 	test LocalizationStyle2 {
 		property custom.properties = "locale.prepend.friendly.url.style=2";
-		property test.name.skip.portal.instance = "LocalizationWithSites#LOcalizationStyle2";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Site Localization";
 
 		var portalURL = PropsUtil.get("portal.url");
@@ -305,7 +305,7 @@ definition {
 	@priority = 3
 	test NoLocalePrependedWhenLocaleMatchMyPreferredLocalization {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property test.name.skip.portal.instance = "LocalizationWithSites#NoLocalePrependedWhenLocaleMatchMyPreferredLocalization";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Site Localization";
 
 		var portalURL = PropsUtil.get("portal.url");
@@ -403,7 +403,7 @@ definition {
 
 	@priority = 4
 	test PortletInteractionLocalization {
-		property test.name.skip.portal.instance = "LocalizationWithSites#PortletInteractionLocalization";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Site Localization";
 
 		ProductMenu.gotoPortlet(
@@ -572,7 +572,7 @@ definition {
 	@description = "This is a use case for LPS-59345"
 	@priority = 4
 	test RedirectLocalizedFriendlyURL {
-		property test.name.skip.portal.instance = "LocalizationWithSites#RedirectLocalizedFriendlyURL";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -622,7 +622,7 @@ definition {
 	@priority = 5
 	test SiteTemplateLocalization {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "LocalizationWithSites#SiteTemplateLocalization";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Site and Page Templates,Site Localization";
 
 		ProductMenu.gotoPortlet(
@@ -681,7 +681,7 @@ definition {
 	@priority = 4
 	test ViewAvailableSiteLocaleAlternatives {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property test.name.skip.portal.instance = "LocalizationWithSites#ViewAvailableSiteLocaleAlternatives";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Site Localization";
 
 		JSONUser.addUser(
@@ -838,7 +838,7 @@ definition {
 	@priority = 5
 	test ViewSiteLocalizationAfterDeletingOriginalLocale {
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "LocalizationWithSites#ViewSiteLocalizationAfterDeletingOriginalLocale";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Site Localization";
 
 		ProductMenu.gotoPortlet(

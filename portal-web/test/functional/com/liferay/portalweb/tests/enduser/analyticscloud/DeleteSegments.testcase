@@ -25,13 +25,13 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
 		ACUtils.tearDownAC();
 
 		ACUtils.tearDownDXP();
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -44,7 +44,7 @@ definition {
 	@description = "Feature ID: Legacy | Automation ID: LRAC-8592 | Test Summary: Deleting a custom field that is used by a segment should reset the data"
 	@priority = 4
 	test DeleteCustomFieldUsedSegmentResetData {
-		property test.name.skip.portal.instance = "DeleteSegments#DeleteCustomFieldUsedSegmentResetData";
+		property test.liferay.virtual.instance = "false";
 
 		task ("Connect DXP to AC") {
 			ACDXPSettings.connectDXPtoAnalyticsCloud(siteName = "Site Name");

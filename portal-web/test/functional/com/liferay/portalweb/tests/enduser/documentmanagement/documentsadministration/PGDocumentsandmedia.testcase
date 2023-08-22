@@ -35,9 +35,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -758,7 +758,7 @@ definition {
 	@priority = 5
 	test EditAndDeleteGoogleDoc {
 		property portal.release = "false";
-		property test.name.skip.portal.instance = "PGDocumentsandmedia#EditAndDeleteGoogleDoc";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1072,7 +1072,7 @@ definition {
 	@priority = 5
 	test MoveGoogleDocToFolder {
 		property portal.release = "false";
-		property test.name.skip.portal.instance = "PGDocumentsandmedia#MoveGoogleDocToFolder";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1605,7 +1605,7 @@ definition {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property osgi.module.configuration.file.names = "com.liferay.portal.search.web.internal.configuration.SearchWebConfiguration.config";
 		property osgi.module.configurations = "classicSearchPortletInFrontPage=\"true\"";
-		property test.name.skip.portal.instance = "PGDocumentsandmedia#ViewSearchResultsForChildObjectRespectsParentFolderPermissions";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(

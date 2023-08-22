@@ -12,9 +12,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -116,7 +116,7 @@ definition {
 		property cluster.enabled = "true";
 		property custom.properties = "virtual.hosts.default.site.name=Guest";
 		property remote.elasticsearch.enabled = "true";
-		property test.name.skip.portal.instance = "OAuth2#AssertAuthorizationCodeWorksInCluster";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -198,7 +198,7 @@ definition {
 	@description = "This is a use case for LPS-110393."
 	@priority = 4
 	test AssertExpandPanelsOnGlobalScopes {
-		property test.name.skip.portal.instance = "OAuth2#AssertExpandPanelsOnGlobalScopes";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -381,7 +381,7 @@ definition {
 
 	test UpdateScopeBundlePrefixes {
 		property liferay.dependency.jars = "com.liferay.oauth2.provider.scope.sample.qa.jar";
-		property test.name.skip.portal.instance = "OAuth2#UpdateScopeBundlePrefixes";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -444,7 +444,7 @@ definition {
 		property liferay.dependency.jars = "com.liferay.oauth2.provider.scope.sample.qa.jar";
 		property osgi.module.configuration.file.names = "com.liferay.oauth2.provider.scope.internal.configuration.ConfigurableScopeMapperConfiguration-liferay-oauth2-scope-sample-qa-app.config";
 		property osgi.module.configurations = "mapping=[\"example-scope-1,example-scope-2\=everything.read,everything.write\"]${line.separator}osgi.jaxrs.name=\"liferay-oauth2-scope-sample-qa-app\"${line.separator}passthrough=\"false\"";
-		property test.name.skip.portal.instance = "OAuth2#UpdateScopeMappings";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -481,7 +481,7 @@ definition {
 		property environment.acceptance = "true";
 		property operating.system.types = "alpine,amazonlinux,centos,debian,fedora,orcllinux,osx,redhat,solaris,suse,ubuntu,windows";
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "OAuth2#ViewAndRevokeGrantedAuthorizations";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

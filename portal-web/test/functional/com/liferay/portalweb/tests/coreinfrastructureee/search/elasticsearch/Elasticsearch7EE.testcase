@@ -17,9 +17,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -36,7 +36,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property cluster.enabled = "true";
 		property remote.elasticsearch7.enabled = "true";
-		property test.name.skip.portal.instance = "Elasticsearch7EE#PortalClusterSmokeTest";
+		property test.liferay.virtual.instance = "false";
 
 		Elasticsearch.viewClusterStatusViaClusterHealthAPI(numberOfNodes = 1);
 
@@ -120,7 +120,7 @@ definition {
 		property elastic.xpack.enabled = "true";
 		property osgi.app.includes = "portal-search-elasticsearch6-xpack-monitoring,portal-search-elasticsearch7";
 		property remote.elasticsearch7.enabled = "true";
-		property test.name.skip.portal.instance = "Elasticsearch7EE#XPackSmokeTest";
+		property test.liferay.virtual.instance = "false";
 
 		JSONWebcontent.addWebContent(
 			content = "WC Content",
@@ -168,7 +168,7 @@ definition {
 		property elastic.xpack.enabled = "true";
 		property osgi.app.includes = "portal-search-elasticsearch6-xpack-monitoring,portal-search-elasticsearch7";
 		property remote.elasticsearch7.enabled = "true";
-		property test.name.skip.portal.instance = "Elasticsearch7EE#XPackWithRestrictedCipherSuitesAndTLSVersions";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Build",

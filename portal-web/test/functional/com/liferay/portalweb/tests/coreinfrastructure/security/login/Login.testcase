@@ -13,7 +13,7 @@ definition {
 	test CASSSOSmoke {
 		property cas.enabled = "true";
 		property dummy.socket.proxy.disabled = "true";
-		property test.name.skip.portal.instance = "Login#CASSSOSmoke";
+		property test.liferay.virtual.instance = "false";
 
 		User.firstLoginPG();
 
@@ -55,7 +55,7 @@ definition {
 	@priority = 4
 	test FacebookSSOSmoke {
 		property dummy.socket.proxy.disabled = "true";
-		property test.name.skip.portal.instance = "Login#FacebookSSOSmoke";
+		property test.liferay.virtual.instance = "false";
 
 		var facebookApplicationID = PropsUtil.get("facebook.application.id");
 		var facebookApplicationSecret = PropsUtil.get("facebook.application.secret");
@@ -95,7 +95,7 @@ definition {
 	@priority = 4
 	test GoogleSSOSmoke {
 		property dummy.socket.proxy.disabled = "true";
-		property test.name.skip.portal.instance = "Login#GoogleSSOSmoke";
+		property test.liferay.virtual.instance = "false";
 
 		var googleClientID = PropsUtil.get("google.client.id.3");
 		var googleClientSecret = PropsUtil.get("google.client.secret.3");
@@ -132,7 +132,7 @@ definition {
 	@ignore = "true"
 	@priority = 5
 	test LoginWithSpanishOnlyEnabledLocale {
-		property test.name.skip.portal.instance = "Login#LoginWithSpanishOnlyEnabledLocale";
+		property test.liferay.virtual.instance = "false";
 
 		// LPS-78681
 
@@ -162,7 +162,7 @@ definition {
 	@priority = 4
 	test OpenIDConnectSmoke {
 		property dummy.socket.proxy.disabled = "true";
-		property test.name.skip.portal.instance = "Login#OpenIDConnectSmoke";
+		property test.liferay.virtual.instance = "false";
 
 		// LRQA-43729
 
@@ -208,7 +208,7 @@ definition {
 		property dummy.socket.proxy.disabled = "true";
 		property osgi.module.configuration.file.names = "com.liferay.captcha.configuration.CaptchaConfiguration.config";
 		property osgi.module.configurations = "createAccountCaptchaEnabled=\"false\"";
-		property test.name.skip.portal.instance = "Login#OpenIDSmoke";
+		property test.liferay.virtual.instance = "false";
 
 		var openIDPassword = PropsUtil.get("email.password.1");
 		var openIDUsername = PropsUtil.get("email.address.1");
@@ -260,7 +260,7 @@ definition {
 	test OpenSSOSmoke {
 		property dummy.socket.proxy.disabled = "true";
 		property openam.enabled = "true";
-		property test.name.skip.portal.instance = "Login#OpenSSOSmoke";
+		property test.liferay.virtual.instance = "false";
 
 		// LRQA-40534
 
@@ -314,7 +314,7 @@ definition {
 
 	@priority = 5
 	test TokenBasedSSOSmoke {
-		property test.name.skip.portal.instance = "Login#TokenBasedSSOSmoke";
+		property test.liferay.virtual.instance = "false";
 
 		User.firstLoginPG();
 

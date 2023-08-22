@@ -22,9 +22,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -35,7 +35,7 @@ definition {
 	@description = "This is a use case for LPS-72088."
 	@priority = 5
 	test ActivateStagingAfterChangingInstanceLanguageToSpanish {
-		property test.name.skip.portal.instance = "Staging#ActivateStagingAfterChangingInstanceLanguageToSpanish";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -113,7 +113,7 @@ definition {
 
 	@priority = 5
 	test ActivateStagingPageVersioningWithCustomDefaultLanguage {
-		property test.name.skip.portal.instance = "Staging#ActivateStagingPageVersioningWithCustomDefaultLanguage";
+		property test.liferay.virtual.instance = "false";
 
 		JSONLayout.addPrivateLayout(
 			groupName = "Site Name",
@@ -270,7 +270,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#AssertTemplatesTitleOfScheduledStagingPublishes";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -758,7 +758,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#PublishChildSiteViaRemoteStagingWithParentStructure";
+		property test.liferay.virtual.instance = "false";
 
 		JSONGroup.addChildSite(
 			groupName = "Child SiteName",
@@ -1850,7 +1850,7 @@ definition {
 	test StagingDemoDocumentsAndMedia {
 		property custom.properties = "default.layout.template.id=1_column";
 		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "Staging#StagingDemoDocumentsAndMedia";
+		property test.liferay.virtual.instance = "false";
 		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(
@@ -2518,7 +2518,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteDMDocumentType";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -2585,7 +2585,7 @@ definition {
 	@priority = 3
 	test StagingRemoteDocumentSubtypeViaAP {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteDocumentSubtypeViaAP";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(siteName = "Site Name");
 
@@ -2649,7 +2649,7 @@ definition {
 	@priority = 5
 	test StagingRemoteLiveBlogsPG {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteLiveBlogsPG";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(siteName = "Site Name");
 
@@ -2704,7 +2704,7 @@ definition {
 	@priority = 5
 	test StagingRemoteLiveBlogsWithWorkflow {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteLiveBlogsWithWorkflow";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(siteName = "Site Name");
 
@@ -2801,7 +2801,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteLivePolls";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -2875,7 +2875,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteLiveWebContent";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3011,7 +3011,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteLiveWebContentViaPortletCP";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3054,7 +3054,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteLiveWebContentViaPortletPG";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3136,7 +3136,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteLiveWebContentWithManualChosenID";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3244,7 +3244,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#StagingRemoteWithDynamicExportLimit";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3349,7 +3349,7 @@ definition {
 
 	@priority = 4
 	test StagingWithPublishTemplate {
-		property test.name.skip.portal.instance = "Staging#StagingWithPublishTemplate";
+		property test.liferay.virtual.instance = "false";
 
 		JSONLayout.addPublicLayout(
 			groupName = "Site Name",
@@ -3493,7 +3493,7 @@ definition {
 	@description = "This is a use case for LPS-110838."
 	@priority = 3
 	test StagingWithReplicateIndividualDeletionsByDefault {
-		property test.name.skip.portal.instance = "Staging#StagingWithReplicateIndividualDeletionsByDefault";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -3692,7 +3692,7 @@ definition {
 	@priority = 4
 	test ViewHistoryVersionWithDeletedUser {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property test.name.skip.portal.instance = "Staging#ViewHistoryVersionWithDeletedUser";
+		property test.liferay.virtual.instance = "false";
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -3800,7 +3800,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#ViewInfoMessageAfterShutDownRemoteSite";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3824,7 +3824,7 @@ definition {
 	@priority = 4
 	test ViewLastPublishDateBehaviourAfterInitialPublication {
 		property portal.release = "false";
-		property test.name.skip.portal.instance = "Staging#ViewLastPublishDateBehaviourAfterInitialPublication";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -4338,7 +4338,7 @@ definition {
 	@description = "This is a use case for LPS-96721."
 	@priority = 4
 	test ViewPublishedContentWithSpecialCharsInDocumentTitle {
-		property test.name.skip.portal.instance = "Staging#ViewPublishedContentWithSpecialCharsInDocumentTitle";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -4897,7 +4897,7 @@ definition {
 		property app.server.bundles.size = "1";
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "Staging#ViewSingleAssetRemotePublication";
+		property test.liferay.virtual.instance = "false";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,

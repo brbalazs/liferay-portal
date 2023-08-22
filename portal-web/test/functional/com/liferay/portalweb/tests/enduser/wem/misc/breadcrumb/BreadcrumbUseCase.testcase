@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -27,7 +27,7 @@ definition {
 
 	@priority = 3
 	test BreadcrumbConfiguration {
-		property test.name.skip.portal.instance = "BreadcrumbUsecase#BreadcrumbConfiguration";
+		property test.liferay.virtual.instance = "false";
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -114,7 +114,7 @@ definition {
 
 	@priority = 4
 	test BreadcrumbLinkPointsToLocalhost {
-		property test.name.skip.portal.instance = "BreadcrumbUsecase#BreadcrumbLinkPointsToLocalhost";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 

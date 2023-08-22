@@ -13,9 +13,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -949,7 +949,7 @@ definition {
 
 	@priority = 4
 	test ViewImportedKBArticleWithSourceURLMetadata {
-		property test.name.skip.portal.instance = "KnowledgebaseUsecase#ViewImportedKBArticleWithSourceURLMetadata";
+		property test.liferay.virtual.instance = "false";
 
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
@@ -1007,7 +1007,7 @@ definition {
 
 	@priority = 4
 	test ViewKBArticleFriendlyURL {
-		property test.name.skip.portal.instance = "KnowledgebaseUsecase#ViewKBArticleFriendlyURL";
+		property test.liferay.virtual.instance = "false";
 
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
@@ -1052,7 +1052,7 @@ definition {
 
 	@priority = 3
 	test ViewKBArticleGitHubSourceURL {
-		property test.name.skip.portal.instance = "KnowledgebaseUsecase#ViewKBArticleGitHubSourceURL";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 

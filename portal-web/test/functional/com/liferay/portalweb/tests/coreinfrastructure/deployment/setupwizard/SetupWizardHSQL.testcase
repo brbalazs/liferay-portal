@@ -12,7 +12,7 @@ definition {
 	test HSQLtoHSQLLportal1SampleDataDisabled {
 		property custom.properties = "setup.wizard.add.sample.data=true";
 		property database.types = "hypersonic";
-		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoHSQLLportal1SampleDataDisabled";
+		property test.liferay.virtual.instance = "false";
 
 		SetupWizard.configurePG(
 			addSampleData = "false",
@@ -34,7 +34,7 @@ definition {
 	@priority = 4
 	test HSQLtoHSQLLportal1SampleDataEnabled {
 		property database.types = "hypersonic";
-		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoHSQLLportal1SampleDataEnabled";
+		property test.liferay.virtual.instance = "false";
 
 		SetupWizard.configurePG(
 			addSampleData = "true",
@@ -60,7 +60,7 @@ definition {
 	@priority = 4
 	test HSQLtoMariaDB {
 		property database.types = "mariadb";
-		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoMariaDB";
+		property test.liferay.virtual.instance = "false";
 
 		SetupWizard.configurePG(
 			addSampleData = "false",
@@ -84,7 +84,7 @@ definition {
 	test HSQLtoMariaDBSampleDataEnabled {
 		property database.types = "mariadb";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoMariaDBSampleDataEnabled";
+		property test.liferay.virtual.instance = "false";
 
 		SetupWizard.configurePG(
 			addSampleData = "true",
@@ -111,7 +111,7 @@ definition {
 	test HSQLtoMySQLSampleDataEnabled {
 		property database.types = "mysql";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoMySQLSampleDataEnabled";
+		property test.liferay.virtual.instance = "false";
 
 		SetupWizard.configurePG(
 			addSampleData = "true",
@@ -137,7 +137,7 @@ definition {
 	@priority = 4
 	test HSQLtoPostgreSQL {
 		property database.types = "postgresql";
-		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoPostgreSQL";
+		property test.liferay.virtual.instance = "false";
 
 		SetupWizard.configurePG(
 			administratorEmail = "test@liferay.com",
@@ -160,7 +160,7 @@ definition {
 	test HSQLtoPostgreSQLSampleDataEnabled {
 		property database.types = "postgresql";
 		property databases.size = "1";
-		property test.name.skip.portal.instance = "SetupWizardHSQL#HSQLtoPostgreSQLSampleDataEnabled";
+		property test.liferay.virtual.instance = "false";
 
 		SetupWizard.configurePG(
 			addSampleData = "true",

@@ -48,9 +48,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -65,7 +65,7 @@ definition {
 	@description = "This is a use case for LPS-69593."
 	@priority = 4
 	test ViewFieldTranslations {
-		property test.name.skip.portal.instance = "DDMStructureWithImageField#ViewFieldTranslations";
+		property test.liferay.virtual.instance = "false";
 
 		WebContentNavigator.gotoAddWithStructureCP(structureName = "WC Structure Name");
 

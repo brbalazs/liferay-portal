@@ -28,13 +28,13 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
 		ACUtils.tearDownAC();
 
 		ACUtils.tearDownDXP();
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -45,7 +45,7 @@ definition {
 	@description = "Web content visitor behavior card shows expected amount of views"
 	@priority = 5
 	test VisitorBehaviorCardShowsExpectedAmountOfViewsInWC {
-		property test.name.skip.portal.instance = "AssetsWebContent#VisitorBehaviorCardShowsExpectedAmountOfViewsInWC";
+		property test.liferay.virtual.instance = "false";
 
 		task ("Connect DXP to Analytics Cloud and get the property name") {
 			ACDXPSettings.connectDXPtoAnalyticsCloud(siteName = "Site Name");

@@ -25,9 +25,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -474,7 +474,7 @@ definition {
 	test DemoTrackbackURL {
 		property custom.properties = "blogs.trackback.enabled=true";
 		property dummy.socket.proxy.disabled = "true";
-		property test.name.skip.portal.instance = "BlogsUsecase#DemoTrackbackURL";
+		property test.liferay.virtual.instance = "false";
 
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry1 Content",
@@ -794,7 +794,7 @@ definition {
 
 	@priority = 4
 	test ViewBlogsEntriesAsGuestViaAP {
-		property test.name.skip.portal.instance = "BlogsUsecase#ViewBlogsEntriesAsGuestViaAP";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -849,7 +849,7 @@ definition {
 
 	@priority = 4
 	test ViewBlogsEntryAsPublishedAfterFutureDisplayDateEditing {
-		property test.name.skip.portal.instance = "BlogsUsecase#ViewBlogsEntryAsPublishedAfterFutureDisplayDateEditing";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -884,7 +884,7 @@ definition {
 
 	@priority = 3
 	test ViewBlogsEntryAsPublishedViaAP {
-		property test.name.skip.portal.instance = "BlogsUsecase#ViewBlogsEntryAsPublishedViaAP";
+		property test.liferay.virtual.instance = "false";
 
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
@@ -953,7 +953,7 @@ definition {
 
 	@priority = 3
 	test ViewBlogsEntryFriendlyURLViaBlogsPortletAndRecentBloggers {
-		property test.name.skip.portal.instance = "BlogsUsecase#ViewBlogsEntryFriendlyURLViaBlogsPortletAndRecentBloggers";
+		property test.liferay.virtual.instance = "false";
 
 		var portalURL = PropsUtil.get("portal.url");
 		var entryAuthor = "Test Test";
@@ -1014,7 +1014,7 @@ definition {
 
 	@priority = 4
 	test ViewBlogsEntryOnMultiplePagesWithDefaultAndPageScope {
-		property test.name.skip.portal.instance = "BlogsUsecase#ViewBlogsEntryOnMultiplePagesWithDefaultAndPageScope";
+		property test.liferay.virtual.instance = "false";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
@@ -1256,7 +1256,7 @@ definition {
 
 	@priority = 4
 	test ViewBlogsEntryWithCustomAbstract {
-		property test.name.skip.portal.instance = "BlogsUsecase#ViewBlogsEntryWithCustomAbstract";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1288,7 +1288,7 @@ definition {
 
 	@priority = 4
 	test ViewBlogsEntryWithDefaultAbstract {
-		property test.name.skip.portal.instance = "BlogsUsecase#ViewBlogsEntryWithDefaultAbstract";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.openURL();
 
@@ -1497,7 +1497,7 @@ definition {
 
 	@priority = 3
 	test ViewBlogsEntryWithSpecialCharactersOnPrivateVirtualHost {
-		property test.name.skip.portal.instance = "BlogsUsecase#ViewBlogsEntriesWithSpecialCharactersOnPublicAndPrivateVirtualHostPages";
+		property test.liferay.virtual.instance = "false";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

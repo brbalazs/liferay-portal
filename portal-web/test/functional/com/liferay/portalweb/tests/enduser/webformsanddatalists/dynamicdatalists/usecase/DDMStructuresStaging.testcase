@@ -31,9 +31,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -48,7 +48,7 @@ definition {
 	@description = "This is a use case for LPS-80085."
 	@priority = 3
 	test AddWebContentTemplateWithSmallImage {
-		property test.name.skip.portal.instance = "DDMStructuresStaging#AddWebContentTemplateWithSmallImage";
+		property test.liferay.virtual.instance = "false";
 
 		Navigator.gotoStagedSitePage(
 			pageName = "Staging Page",

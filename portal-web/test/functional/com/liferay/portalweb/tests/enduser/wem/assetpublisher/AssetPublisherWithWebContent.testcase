@@ -25,9 +25,9 @@ definition {
 	}
 
 	tearDown {
-		var testPortalInstance = PropsUtil.get("test.portal.instance");
+		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 
-		if (${testPortalInstance} == "true") {
+		if (${testLiferayVirtualInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
 		else {
@@ -58,7 +58,7 @@ definition {
 
 	@priority = 4
 	test AddWebContentWithGlobalScopeViaCPToLiferayAP {
-		property test.name.skip.portal.instance = "AssetPublisherWithWebContent#AddWebContentWithGlobalScopeViaCPToLiferayAP";
+		property test.liferay.virtual.instance = "false";
 
 		SitePages.openPagesAdmin(siteURLKey = "global");
 
@@ -234,7 +234,7 @@ definition {
 
 	@priority = 3
 	test AddWebContentWithStructureAndGlobalScopeViaCPToLiferayAP {
-		property test.name.skip.portal.instance = "AssetPublisherWithWebContent#AddWebContentWithStructureAndGlobalScopeViaCPToLiferayAP";
+		property test.liferay.virtual.instance = "false";
 
 		SitePages.openPagesAdmin(siteURLKey = "global");
 
