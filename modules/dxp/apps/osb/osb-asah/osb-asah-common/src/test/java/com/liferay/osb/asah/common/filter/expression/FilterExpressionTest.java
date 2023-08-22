@@ -5,6 +5,7 @@
 
 package com.liferay.osb.asah.common.filter.expression;
 
+import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 import com.liferay.osb.asah.common.date.dog.util.TimeZoneDogUtil;
 import com.liferay.osb.asah.common.findbugs.SuppressFBWarnings;
 import com.liferay.osb.asah.common.util.StringUtil;
@@ -18,6 +19,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 
 import java.util.Arrays;
@@ -36,6 +38,8 @@ import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import org.mockito.Mockito;
 
 import org.springframework.core.io.ClassPathResource;
 
@@ -79,6 +83,40 @@ public class FilterExpressionTest {
 					"cast(Session.sessionEnd as date)"
 				).gt(
 					DSL.function("DATE", Date.class, DSL.val("2022-05-15"))
+				)),
+			"(sessions.filter(filter='(context/deviceType eq ''app'' and " +
+				"between(completeDate,''2022-05-15'',''2022-05-20'') and " +
+					"completeDate gt ''2022-05-15'')'))");
+	}
+
+	@Test
+	public void testBetweenFunctionWithZoneId() {
+		TimeZoneDog timeZoneDog = Mockito.mock(TimeZoneDog.class);
+
+		Mockito.when(
+			timeZoneDog.getZoneId()
+		).thenReturn(
+			ZoneId.of("Japan")
+		);
+
+		TimeZoneDogUtil.setTimeZoneDog(timeZoneDog);
+
+		_assertEquals(
+			DSL.and(
+				DSL.field(
+					"Session.deviceType"
+				).eq(
+					"app"
+				),
+				DSL.field(
+					"Session.sessionEnd"
+				).between(
+					"2022-05-14", "2022-05-19"
+				),
+				DSL.field(
+					"cast(Session.sessionEnd as date)"
+				).gt(
+					DSL.function("DATE", Date.class, DSL.val("2022-05-14"))
 				)),
 			"(sessions.filter(filter='(context/deviceType eq ''app'' and " +
 				"between(completeDate,''2022-05-15'',''2022-05-20'') and " +
