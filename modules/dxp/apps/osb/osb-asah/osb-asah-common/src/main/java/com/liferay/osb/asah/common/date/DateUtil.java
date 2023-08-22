@@ -346,6 +346,16 @@ public class DateUtil {
 		return zonedDateTime.toLocalDate();
 	}
 
+	public static LocalDate toUTCLocalDate(String dateString, ZoneId zoneId) {
+		LocalDate localDate = LocalDate.parse(
+			dateString, DateTimeFormatter.ofPattern(DateUtil.PATTERN_SHORT));
+
+		LocalDateTime localDateTime = toUTCLocalDateTime(
+			localDate.atStartOfDay(), zoneId);
+
+		return localDateTime.toLocalDate();
+	}
+
 	public static LocalDateTime toUTCLocalDateTime(
 		LocalDateTime localDateTime, ZoneId zoneId) {
 
