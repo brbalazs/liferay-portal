@@ -36,6 +36,7 @@ definition {
 	@priority = 4
 	test MoveCurrentLanguagesToAvailable {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Localization";
 
 		Navigator.gotoSitePage(
@@ -68,6 +69,7 @@ definition {
 	@priority = 4
 	test ViewDisplayOptionsViaLanguagePortlet {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Localization";
 
 		Navigator.gotoSitePage(
@@ -128,6 +130,7 @@ definition {
 	@priority = 4
 	test ViewRemovedCurrentPortalLanguagesViaLanguagePortlet {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Localization";
 
 		Navigator.gotoSitePage(
@@ -161,6 +164,7 @@ definition {
 	@priority = 4
 	test ViewRemovedCurrentSiteLanguagesViaLanguagePortlet {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Localization";
 
 		Navigator.gotoSitePage(

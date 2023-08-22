@@ -58,6 +58,7 @@ definition {
 	test AddAndEditAssetsViaVirtualHostOrganizations {
 		property custom.properties = "virtual.hosts.valid.hosts=localhost,127.0.0.1,www.able.com,www.baker.com";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -294,6 +295,7 @@ definition {
 	@priority = 3
 	test AssetPublisherCategoriesLocalization {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 
@@ -1005,6 +1007,7 @@ definition {
 	@priority = 3
 	test AssetPublisherHasOpenOfficeFileTypeLinks {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1081,6 +1084,7 @@ definition {
 	test AssetPublisherSiteAndGlobalScopeAccessibility {
 		property portal.acceptance = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -1142,6 +1146,7 @@ definition {
 	@priority = 4
 	test AssetPublisherTogglingBetweenSites {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var siteName = TestCase.getSiteViaEnvironment(siteName = ${siteName});
 

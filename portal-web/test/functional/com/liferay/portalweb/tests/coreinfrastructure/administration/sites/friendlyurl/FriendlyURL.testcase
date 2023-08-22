@@ -126,6 +126,7 @@ definition {
 	test ViewFriendlyURLWithSharedLocalesButDifferentLanguages {
 		property custom.properties = "locale.prepend.friendly.url.style=2${line.separator}locales.enabled=en_US,fr_FR,fr_CA";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		for (var siteName : list "USA Site Name,France Site Name,Canada Site Name") {
 			JSONGroup.addGroup(groupName = ${siteName});

@@ -34,6 +34,7 @@ definition {
 		property cluster.enabled = "true";
 		property remote.elasticsearch.enabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Elasticsearch.viewClusterStatusViaClusterHealthAPI(numberOfNodes = 1);
 
@@ -118,6 +119,7 @@ definition {
 		property osgi.app.includes = "portal-search-elasticsearch6-xpack-monitoring,portal-search-elasticsearch6-xpack-security";
 		property remote.elasticsearch.enabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONWebcontent.addWebContent(
 			content = "WC Content",
@@ -166,6 +168,7 @@ definition {
 		property osgi.app.includes = "portal-search-elasticsearch6-xpack-monitoring,portal-search-elasticsearch6-xpack-security";
 		property remote.elasticsearch.enabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Build",

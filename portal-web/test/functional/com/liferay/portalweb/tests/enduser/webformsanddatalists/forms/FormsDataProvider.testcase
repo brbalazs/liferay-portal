@@ -25,6 +25,7 @@ definition {
 	@priority = 5
 	test ConfigureAutocompleteWithTextField {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -191,6 +192,7 @@ definition {
 	@priority = 5
 	test ConfigureWithSelectField {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -290,6 +292,7 @@ definition {
 	@priority = 5
 	test ViewDataRetrievedForGuestUser {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 

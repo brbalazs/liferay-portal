@@ -135,6 +135,7 @@ definition {
 	@priority = 4
 	test ViewReportEmailNewConfiguration {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 

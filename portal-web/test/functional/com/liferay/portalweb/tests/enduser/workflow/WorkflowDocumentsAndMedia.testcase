@@ -38,6 +38,7 @@ definition {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property portal.release = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(

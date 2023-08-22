@@ -61,6 +61,7 @@ definition {
 	@priority = 5
 	test EscapeUrlRedirectWithGroovyScript {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -85,6 +86,7 @@ out.println(PortalUtil.escapeRedirect("/"));
 	test ExecuteScriptWithPredefinedProperty {
 		property custom.properties = "partnerstamm-api-user = his_user";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -119,6 +121,7 @@ out.println(PortalUtil.escapeRedirect("/"));
 	@priority = 5
 	test NoPermissionFromUnauthorizedURLAsPowerUser {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -175,6 +178,7 @@ out.println(PortalUtil.escapeRedirect("/"));
 	test UserCanAccessPermissionsWindowWithPermissionFromAdmin {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -234,6 +238,7 @@ out.println(PortalUtil.escapeRedirect("/"));
 	test ValidateCannotStealAdminAccount {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var pAuth = Api.getPAuth();
 		var portalURL = PropsUtil.get("portal.url");

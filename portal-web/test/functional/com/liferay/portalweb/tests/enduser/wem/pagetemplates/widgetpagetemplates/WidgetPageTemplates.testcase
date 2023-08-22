@@ -336,6 +336,7 @@ definition {
 	@priority = 4
 	test LocalizeDefaultPageTemplates {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SitePages.openPagesAdmin(siteURLKey = "global");
 

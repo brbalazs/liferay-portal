@@ -39,6 +39,7 @@ definition {
 	@priority = 5
 	test KnownIndividualsShowsWhichIndividualsInteractWithForm {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var nameList = "ac ac,liferay liferay,dxp dxp";
 		var usernameList = "ac,liferay,dxp";
@@ -91,6 +92,7 @@ definition {
 	@priority = 5
 	test VisitorBehaviorCardShowsExpectedAmountOfViews {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var propertyName = ACDXPSettings.connectDXPtoAnalyticsCloud(siteName = "Site Name");
 

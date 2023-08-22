@@ -276,6 +276,7 @@ definition {
 	@priority = 4
 	test DeleteSiteTemplateImportedToVirtualInstance {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SiteTemplatesNavigator.openSiteTemplatesAdmin();
 
@@ -398,6 +399,7 @@ definition {
 	@priority = 4
 	test LocalizeDefaultSiteTemplates {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",

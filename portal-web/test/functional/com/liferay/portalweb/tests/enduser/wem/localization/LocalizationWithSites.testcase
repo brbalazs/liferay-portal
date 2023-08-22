@@ -84,6 +84,7 @@ definition {
 	test AvailableSiteLocalesSubsetNotAllowed {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Site Localization";
 
 		ProductMenu.gotoPortlet(
@@ -120,6 +121,7 @@ definition {
 	test LocalizationStyle0 {
 		property custom.properties = "locale.prepend.friendly.url.style=0";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Site Localization";
 
 		var portalURL = PropsUtil.get("portal.url");
@@ -160,6 +162,7 @@ definition {
 	test LocalizationStyle1 {
 		property custom.properties = "locale.prepend.friendly.url.style=1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Site Localization";
 
 		var portalURL = PropsUtil.get("portal.url");
@@ -200,6 +203,7 @@ definition {
 	test LocalizationStyle2 {
 		property custom.properties = "locale.prepend.friendly.url.style=2";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Site Localization";
 
 		var portalURL = PropsUtil.get("portal.url");
@@ -306,6 +310,7 @@ definition {
 	test NoLocalePrependedWhenLocaleMatchMyPreferredLocalization {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Site Localization";
 
 		var portalURL = PropsUtil.get("portal.url");
@@ -404,6 +409,7 @@ definition {
 	@priority = 4
 	test PortletInteractionLocalization {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Site Localization";
 
 		ProductMenu.gotoPortlet(
@@ -573,6 +579,7 @@ definition {
 	@priority = 4
 	test RedirectLocalizedFriendlyURL {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -623,6 +630,7 @@ definition {
 	test SiteTemplateLocalization {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Site and Page Templates,Site Localization";
 
 		ProductMenu.gotoPortlet(
@@ -682,6 +690,7 @@ definition {
 	test ViewAvailableSiteLocaleAlternatives {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Site Localization";
 
 		JSONUser.addUser(
@@ -839,6 +848,7 @@ definition {
 	test ViewSiteLocalizationAfterDeletingOriginalLocale {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Site Localization";
 
 		ProductMenu.gotoPortlet(

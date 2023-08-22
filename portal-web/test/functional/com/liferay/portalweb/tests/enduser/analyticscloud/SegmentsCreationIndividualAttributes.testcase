@@ -65,6 +65,7 @@ definition {
 	@priority = 4
 	test CanAddSegmentUsingIndividualPropertyUserGroup {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		task ("Add a new user group and assign to the user") {
 			JSONUserGroup.addUserGroup(
@@ -129,6 +130,7 @@ definition {
 	@priority = 4
 	test CanAddSegmentWithCustomFieldsForIndividuals {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		task ("Add a user custom field") {
 			ApplicationsMenu.gotoPortlet(
@@ -224,6 +226,7 @@ definition {
 	@priority = 4
 	test CanAddSegmentWithCustomFieldsForOrganizations {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		task ("Add a new organization and assign to the user") {
 			JSONOrganization.addOrganization(organizationName = "Organization Name");

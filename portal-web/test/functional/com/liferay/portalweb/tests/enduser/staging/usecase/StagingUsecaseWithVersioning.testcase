@@ -955,6 +955,7 @@ definition {
 	@priority = 3
 	test ViewChildPageNameViaLocalizedPage {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
 

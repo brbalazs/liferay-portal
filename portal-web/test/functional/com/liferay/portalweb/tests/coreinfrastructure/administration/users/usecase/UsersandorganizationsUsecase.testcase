@@ -242,6 +242,7 @@ definition {
 	@priority = 4
 	test ImpersonatingAdministratorandOwner {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
@@ -406,6 +407,7 @@ definition {
 	@priority = 5
 	test MultipleUsersandOrganizations {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
@@ -947,6 +949,7 @@ definition {
 	@priority = 3
 	test OrganizationSiteDefaultUserAssociations {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -1207,6 +1210,7 @@ definition {
 	@priority = 4
 	test ViewContentInCustomOrganizationTypeSite {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 

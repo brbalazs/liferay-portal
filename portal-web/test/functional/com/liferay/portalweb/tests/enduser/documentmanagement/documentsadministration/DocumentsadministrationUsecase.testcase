@@ -176,6 +176,7 @@ definition {
 	@priority = 4
 	test AssertFileSizeValidation {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 
@@ -537,6 +538,7 @@ definition {
 	@priority = 5
 	test CheckValidationForFileEntries {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -715,6 +717,7 @@ definition {
 		property custom.properties = "xuggler.enabled=true${line.separator}dl.file.entry.preview.video.width=0${line.separator}dl.file.entry.preview.video.height=0";
 		property dummy.socket.proxy.disabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -869,6 +872,7 @@ definition {
 	@priority = 3
 	test GifFileCanBeAddedToEditorAfterDisablingGifMimeTypeInAM {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SystemSettings.openSystemSettingsAdmin();
 
@@ -1208,6 +1212,7 @@ definition {
 	test UpdateDocumentTypeWithPermissions {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});

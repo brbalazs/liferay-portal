@@ -1611,6 +1611,7 @@ definition {
 	@priority = 3
 	test ViewFacetPersistence {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -2038,6 +2039,7 @@ definition {
 	test ViewSearchResultDetails {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

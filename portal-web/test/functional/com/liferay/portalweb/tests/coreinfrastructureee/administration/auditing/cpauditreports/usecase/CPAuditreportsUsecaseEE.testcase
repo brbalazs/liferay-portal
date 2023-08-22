@@ -30,6 +30,7 @@ definition {
 	test ViewResourceActionsCP {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

@@ -46,6 +46,7 @@ definition {
 	@priority = 5
 	test VisitorBehaviorCardShowsExpectedAmountOfViewsInWC {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		task ("Connect DXP to Analytics Cloud and get the property name") {
 			ACDXPSettings.connectDXPtoAnalyticsCloud(siteName = "Site Name");

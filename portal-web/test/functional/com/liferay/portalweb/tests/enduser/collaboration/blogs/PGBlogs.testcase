@@ -1515,6 +1515,7 @@ definition {
 	@priority = 5
 	test ViewBlogsEntryReadingTime {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		BlogsConfiguration.enableReadingTime();
 

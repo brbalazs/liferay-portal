@@ -29,6 +29,7 @@ definition {
 	test AddFormWithSpanishAsOnlyLocale {
 		property custom.properties = "company.default.locale=es_ES${line.separator}locales.enabled=es_ES${line.separator}locales=es_ES";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG(
 			localization = "ES",
@@ -191,6 +192,7 @@ definition {
 	test PrependFriendlyURLStyle {
 		property custom.properties = "locale.prepend.friendly.url.style=3";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -278,6 +280,7 @@ definition {
 	test RestrictAvailableLocales {
 		property custom.properties = "locales=ca_ES,zh_CN,nl_NL,en_AU,en_GB,en_US,fi_FI,fr_FR,de_DE,it_IT,iw_IL,hu_HU,ja_JP,pt_BR,es_ES";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG();
 
@@ -306,6 +309,7 @@ definition {
 		property custom.properties = "company.default.locale=es_ES";
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG(
 			localization = "ES",
@@ -333,6 +337,7 @@ definition {
 	test RestrictEnabledLocales {
 		property custom.properties = "locales.enabled=zh_CN,en_US,fr_FR,de_DE,es_ES${line.separator}locales=zh_CN-en_US,fr_FR,de_DE,es_ES,pt_BR,hu_HU";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG();
 
@@ -365,6 +370,7 @@ definition {
 	test RestrictInstanceAvailableTimeZones {
 		property custom.properties = "time.zones=America/Phoenix,UTC,Asia/Tokyo";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG();
 
@@ -420,6 +426,7 @@ definition {
 	@priority = 3
 	test UserLockoutShowsTimezoneInformation {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property user.time.zone = "UTC";
 
 		User.firstLoginPG();
@@ -478,6 +485,7 @@ definition {
 		property custom.properties = "locales.enabled=en_US,zh_CN,fr_FR${line.separator}locale.use.default.if.not.available=true";
 		property custom.system.properties = "user.country=US${line.separator}user.language=en";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG();
 
@@ -501,6 +509,7 @@ definition {
 	@priority = 4
 	test ViewDefaultAvailableTimeZonesForInstancesAndUsers {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG();
 
@@ -565,6 +574,7 @@ definition {
 	@priority = 4
 	test ViewLocaleInNewVirtualInstance {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG();
 

@@ -95,6 +95,7 @@ definition {
 	@priority = 5
 	test ViewWikiCommentMentionedUser {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 

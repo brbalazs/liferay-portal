@@ -23,6 +23,7 @@ definition {
 		property skip.start-app-server = "true";
 		property test.assert.warning.exceptions = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var liferayHome = PropsUtil.get("liferay.home.dir.name");
 		var appServerDir = PropsUtil.get("app.server.dir");
@@ -58,6 +59,7 @@ definition {
 	test RenameFinderColumn {
 		property test.assert.warning.exceptions = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		AntCommands.runCommand("build-test.xml", "rename-finder-column");
 

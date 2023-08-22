@@ -10,6 +10,7 @@ definition {
 	test BasicConfigurationVisualLook {
 		property database.types = "mysql";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.viewDefaultPortalNamePG();
 
@@ -25,6 +26,7 @@ definition {
 		property database.types = "mysql";
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePG(
 			administratorEmail = "test@liferay.com",
@@ -46,6 +48,7 @@ definition {
 		property database.types = "hypersonic";
 		property portal.acceptance = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePortalNamePG(portalName = "");
 
@@ -113,6 +116,7 @@ definition {
 	test ViewConfiguredSetupWizardValue {
 		property database.types = "mysql";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.viewDefaultPortalNamePG();
 

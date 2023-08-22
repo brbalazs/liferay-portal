@@ -11,6 +11,7 @@ definition {
 	@priority = 4
 	test DecrementCoreSchemaMajorVersion {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var script = '''
 			import com.liferay.portal.kernel.model.*;
@@ -49,6 +50,7 @@ definition {
 	@priority = 4
 	test DecrementCoreSchemaMicroVersion {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var script = '''
 			import com.liferay.portal.kernel.model.*;
@@ -98,6 +100,7 @@ definition {
 	@priority = 3
 	test DecrementCoreSchemaMinorVersion {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var script = '''
 			import com.liferay.portal.kernel.model.*;
@@ -218,6 +221,7 @@ definition {
 	@priority = 4
 	test UpgradeCoreSchemaVersion {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var printSchemaVersionScript = '''
 			import com.liferay.portal.kernel.model.*;

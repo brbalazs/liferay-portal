@@ -59,6 +59,7 @@ definition {
 	@priority = 4
 	test AddWebContentWithGlobalScopeViaCPToLiferayAP {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SitePages.openPagesAdmin(siteURLKey = "global");
 
@@ -235,6 +236,7 @@ definition {
 	@priority = 3
 	test AddWebContentWithStructureAndGlobalScopeViaCPToLiferayAP {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SitePages.openPagesAdmin(siteURLKey = "global");
 

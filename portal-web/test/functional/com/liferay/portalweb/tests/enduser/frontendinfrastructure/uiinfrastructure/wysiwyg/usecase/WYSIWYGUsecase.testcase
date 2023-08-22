@@ -159,6 +159,7 @@ definition {
 	@priority = 4
 	test ViewWikiFrontPageRightToLeft {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Build",

@@ -27,6 +27,7 @@ definition {
 	@priority = 4
 	test AccessGogoShellCommandViaPortlet {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -47,6 +48,7 @@ definition {
 	@priority = 4
 	test GogoShellPortletOnlyOnMainInstance {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -82,6 +84,7 @@ definition {
 	test OmniAdminCanAccessGogoShellCommandViaPortlet {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -116,6 +119,7 @@ definition {
 	test SiteAdminCannotAccessGogoShellPortlet {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",

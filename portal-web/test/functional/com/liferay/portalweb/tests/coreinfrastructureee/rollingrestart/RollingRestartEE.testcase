@@ -21,6 +21,7 @@ definition {
 	test InstallFixPackViaRollingRestart {
 		property portal.fixpack.release = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -169,6 +170,7 @@ definition {
 		property app.server.bundles.size = "2";
 		property portal.fixpack.release = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -420,6 +422,7 @@ definition {
 		property osgi.module.configurations = "userNotificationTimeout=30000";
 		property portal.fixpack.release = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -606,6 +609,7 @@ definition {
 		property portal.fixpack.release = "true";
 		property skip.install-patch = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -885,6 +889,7 @@ definition {
 		property portal.release = "true";
 		property portal.upstream = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Clustering.viewClusterStatusInConsole();
 

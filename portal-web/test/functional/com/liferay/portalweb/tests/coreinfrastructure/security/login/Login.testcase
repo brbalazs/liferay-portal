@@ -14,6 +14,7 @@ definition {
 		property cas.enabled = "true";
 		property dummy.socket.proxy.disabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG();
 
@@ -56,6 +57,7 @@ definition {
 	test FacebookSSOSmoke {
 		property dummy.socket.proxy.disabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var facebookApplicationID = PropsUtil.get("facebook.application.id");
 		var facebookApplicationSecret = PropsUtil.get("facebook.application.secret");
@@ -96,6 +98,7 @@ definition {
 	test GoogleSSOSmoke {
 		property dummy.socket.proxy.disabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var googleClientID = PropsUtil.get("google.client.id.3");
 		var googleClientSecret = PropsUtil.get("google.client.secret.3");
@@ -133,6 +136,7 @@ definition {
 	@priority = 5
 	test LoginWithSpanishOnlyEnabledLocale {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		// LPS-78681
 
@@ -163,6 +167,7 @@ definition {
 	test OpenIDConnectSmoke {
 		property dummy.socket.proxy.disabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		// LRQA-43729
 
@@ -209,6 +214,7 @@ definition {
 		property osgi.module.configuration.file.names = "com.liferay.captcha.configuration.CaptchaConfiguration.config";
 		property osgi.module.configurations = "createAccountCaptchaEnabled=\"false\"";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var openIDPassword = PropsUtil.get("email.password.1");
 		var openIDUsername = PropsUtil.get("email.address.1");
@@ -261,6 +267,7 @@ definition {
 		property dummy.socket.proxy.disabled = "true";
 		property openam.enabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		// LRQA-40534
 
@@ -315,6 +322,7 @@ definition {
 	@priority = 5
 	test TokenBasedSSOSmoke {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		User.firstLoginPG();
 

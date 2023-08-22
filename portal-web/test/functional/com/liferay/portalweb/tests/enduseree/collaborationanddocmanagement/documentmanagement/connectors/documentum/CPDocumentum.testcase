@@ -137,6 +137,7 @@ definition {
 	@priority = 5
 	test AddAllDocumentTypes {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		for (var dmDocumentTitle : list "Document_1.doc,Document_1.docx,Document_1.jpeg,Document_1.jpg,Document_1.mp4,Document_1.pdf,Document_1.png,Document_1.ppt,Document_1.pptx,Document_1.txt,Document_1.xls,Document_1.xlsx") {
 			DMRepository.gotoCP(dmRepositoryName = "Documentum Repository Name");
@@ -159,6 +160,7 @@ definition {
 	@priority = 5
 	test CheckinDocument {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Documentum Repository Name");
 
@@ -266,6 +268,7 @@ definition {
 	test DeleteDocumentInSubfolder {
 		property portal.acceptance = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training";
 
 		DMRepository.gotoCP(dmRepositoryName = "Documentum Repository Name");
@@ -322,6 +325,7 @@ definition {
 	@priority = 5
 	test DeleteSubfolder {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Documentum Repository Name");
 
@@ -341,6 +345,7 @@ definition {
 	@priority = 5
 	test EditDocumentFile {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Documentum Repository Name");
 
@@ -426,6 +431,7 @@ definition {
 	@priority = 5
 	test EditDocumentTitleRemoveFileExtension {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Documentum Repository Name");
 
@@ -456,6 +462,7 @@ definition {
 	@priority = 5
 	test MoveCheckedoutDocumentToFolder {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 
@@ -532,6 +539,7 @@ definition {
 	@priority = 5
 	test MoveDocumentToHome {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Documentum Repository Name");
 
@@ -569,6 +577,7 @@ definition {
 	@priority = 5
 	test SearchDocumentViaHome {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Documentum Repository Name");
 
@@ -588,6 +597,7 @@ definition {
 	@priority = 5
 	test ViewEditedCheckedoutDocument {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Documentum Repository Name");
 
@@ -634,6 +644,7 @@ definition {
 	@priority = 5
 	test ViewRepository {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 

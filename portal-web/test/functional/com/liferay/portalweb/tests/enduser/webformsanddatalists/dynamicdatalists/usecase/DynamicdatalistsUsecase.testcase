@@ -87,6 +87,7 @@ definition {
 	@priority = 4
 	test AddListWithXSSWorkflowDefinition {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1867,6 +1868,7 @@ definition {
 	@priority = 3
 	test EditDefaultLanguageAndPublishRecord {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 

@@ -436,6 +436,7 @@ ${httpUtil.URLtoString(request.getAttribute("CTX").getResource(".").toURI().crea
 	@priority = 4
 	test LocalizeWebContent {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Localization,Web Content Display";
 
 		JSONLayout.addWidgetToPublicLayout(
@@ -708,6 +709,7 @@ ${runtimeInstance}
 	@priority = 4
 	test ViewAllFileTypesEnabled {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Web Content Display";
 
 		Navigator.gotoSitePage(
@@ -756,6 +758,7 @@ ${runtimeInstance}
 	@priority = 4
 	test ViewAllSettingsEnabledWCDConfiguration {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Web Content Display";
 
 		JSONWebcontent.addWebContent(

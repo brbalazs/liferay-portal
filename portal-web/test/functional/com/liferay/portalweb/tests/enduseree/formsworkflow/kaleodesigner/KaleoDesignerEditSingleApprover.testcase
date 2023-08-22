@@ -35,6 +35,7 @@ definition {
 	@priority = 5
 	test DeleteTaskNode {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		PortletEntry.inputTitle(title = "Edited Workflow Definition");
 
@@ -77,6 +78,7 @@ definition {
 	@priority = 4
 	test ViewNodeNotificationRecipientPersistsAfterSwitchingTabs {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		KaleoDesigner.selectNode(nodeNodeLabel = "review");
 

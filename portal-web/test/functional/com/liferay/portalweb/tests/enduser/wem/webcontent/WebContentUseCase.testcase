@@ -342,6 +342,7 @@ definition {
 		property dummy.socket.proxy.disabled = "true";
 		property portal.acceptance = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training,Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -719,6 +720,7 @@ definition {
 	@priority = 5
 	test AddLocalizedWebContentViaSourceEditor {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training,Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -908,6 +910,7 @@ definition {
 		property custom.properties = "editor.wysiwyg.portal-impl.portlet.ddm.text_html.ftl=ckeditor";
 		property dummy.socket.proxy.disabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -987,6 +990,7 @@ definition {
 	@priority = 5
 	test AddWebContentFromImportedStructureAndTemplate {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training";
 
 		JSONGroup.addGroup(groupName = "Site Name");
@@ -1060,6 +1064,7 @@ definition {
 	@priority = 4
 	test AddWebContentRemoveGuestViewPermission {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Permissions,Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -1994,6 +1999,7 @@ definition {
 	@priority = 5
 	test ImportAndUseGlobalStructureAndTemplate {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training";
 
 		JSONGroup.addGroup(groupName = "Site Name");
@@ -2417,6 +2423,7 @@ definition {
 	@priority = 5
 	test UndeployWebContentDisplayModuleViaGogoShell {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -2467,6 +2474,7 @@ definition {
 	@priority = 4
 	test UseStructureAndTemplateFromParentSiteHierarchy {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Web Content Administration";
 
 		ProductMenu.gotoPortlet(
@@ -3032,6 +3040,7 @@ definition {
 	@priority = 4
 	test WebContentAdministrationLocalization {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Localization,Web Content Administration";
 
 		ProductMenu.gotoPortlet(

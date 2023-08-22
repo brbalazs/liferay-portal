@@ -1605,6 +1605,7 @@ definition {
 	test ViewBlogsPermissionsRegRole {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Permissions.setUpRegRoleLoginUserPG(
 			pageName = "Blogs Page",

@@ -14,6 +14,7 @@ definition {
 	test HSQLtoDB2 {
 		property database.types = "db2";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePG(
 			administratorEmail = "test@liferay.com",
@@ -37,6 +38,7 @@ definition {
 		property database.types = "db2";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePG(
 			addSampleData = "true",
@@ -63,6 +65,7 @@ definition {
 	test HSQLtoOracle {
 		property database.types = "oracle";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePG(
 			administratorEmail = "test@liferay.com",
@@ -86,6 +89,7 @@ definition {
 		property database.types = "oracle";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePG(
 			addSampleData = "true",
@@ -113,6 +117,7 @@ definition {
 		property database.types = "sqlserver";
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePG(
 			administratorEmail = "test@liferay.com",
@@ -136,6 +141,7 @@ definition {
 		property database.types = "sqlserver";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePG(
 			addSampleData = "true",
@@ -162,6 +168,7 @@ definition {
 	test HSQLtoSybase {
 		property database.types = "sybase";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePG(
 			administratorEmail = "test@liferay.com",
@@ -185,6 +192,7 @@ definition {
 		property database.types = "sybase";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		SetupWizard.configurePG(
 			addSampleData = "true",

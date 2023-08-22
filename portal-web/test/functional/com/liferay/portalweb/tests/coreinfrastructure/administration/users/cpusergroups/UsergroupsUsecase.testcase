@@ -178,6 +178,7 @@ definition {
 	test UserGroupSiteOwnerPermissions {
 		property portal.release = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -401,6 +402,7 @@ definition {
 	@priority = 4
 	test UserGroupSiteTemplates {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

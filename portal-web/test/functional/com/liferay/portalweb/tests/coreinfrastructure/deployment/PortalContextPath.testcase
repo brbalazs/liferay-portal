@@ -15,6 +15,7 @@ definition {
 		property skip.clean-app-server-deploy-dir = "true";
 		property test.assert.warning.exceptions = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Smoke.viewWelcomePage();
 

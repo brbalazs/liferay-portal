@@ -40,6 +40,7 @@ definition {
 	@priority = 5
 	test CheckSystemSettingsScopeIsCorrected {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		task ("Naviagte to System Settings") {
 			ProductMenu.gotoPortlet(
@@ -93,6 +94,7 @@ definition {
 	test EditDefaultUserAssociationsOrganizationSites {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -153,6 +155,7 @@ definition {
 	test EditDefaultUserAssociationsRoles {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -200,6 +203,7 @@ definition {
 	test EditDefaultUserAssociationsSites {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -244,6 +248,7 @@ definition {
 	test EditDefaultUserAssociationsUserGroups {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Users",
@@ -291,6 +296,7 @@ definition {
 	test EnterReservedEmailAddress {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -315,6 +321,7 @@ definition {
 	test EnterReservedScreenName {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -338,6 +345,7 @@ definition {
 	@priority = 4
 	test ViewContentSharingDisabledAcrossSitesViaAP {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
@@ -445,6 +453,7 @@ definition {
 	@priority = 4
 	test ViewContentSharingEnabledAcrossSitesViaAP {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
@@ -517,6 +526,7 @@ definition {
 	@priority = 3
 	test ViewDefaultUserAssociations {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -529,6 +539,7 @@ definition {
 	@priority = 3
 	test ViewEmailNotificationsAccountCreatedNotification {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -541,6 +552,7 @@ definition {
 	@priority = 3
 	test ViewEmailNotificationsPasswordChangedNotification {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -553,6 +565,7 @@ definition {
 	@priority = 3
 	test ViewEmailNotificationsSender {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -565,6 +578,7 @@ definition {
 	@priority = 3
 	test ViewReservedCredentialsScreenNames {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

@@ -759,6 +759,7 @@ definition {
 	test EditAndDeleteGoogleDoc {
 		property portal.release = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1073,6 +1074,7 @@ definition {
 	test MoveGoogleDocToFolder {
 		property portal.release = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -1606,6 +1608,7 @@ definition {
 		property osgi.module.configuration.file.names = "com.liferay.portal.search.web.internal.configuration.SearchWebConfiguration.config";
 		property osgi.module.configurations = "classicSearchPortletInFrontPage=\"true\"";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(

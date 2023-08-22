@@ -977,6 +977,7 @@ definition {
 	@priority = 3
 	test PublishWebContentWithFeeds {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Web Content Administration";
 
 		ProductMenu.gotoPortlet(

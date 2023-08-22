@@ -24,6 +24,7 @@ definition {
 	@priority = 4
 	test BlacklistComponent {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -50,6 +51,7 @@ definition {
 	test BlacklistModuleBundleSymbolicName {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -93,6 +95,7 @@ definition {
 		property osgi.app.includes = "gogo-shell";
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -134,6 +137,7 @@ definition {
 	@priority = 4
 	test BlacklistModuleWar {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Page.viewCurrentTheme(
 			page = "Public Pages",
@@ -175,6 +179,7 @@ definition {
 	@priority = 5
 	test ExportBundleBlacklistConfig {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

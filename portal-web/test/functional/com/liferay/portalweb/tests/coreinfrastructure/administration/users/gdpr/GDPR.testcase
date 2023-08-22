@@ -53,6 +53,7 @@ definition {
 	@priority = 4
 	test AnonymizeEntryFromApplication {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
@@ -103,6 +104,7 @@ definition {
 	test DeleteEntryFromApplication {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONBlog.addEntry(
 			entryContent = "Blogs Entry Content",
@@ -146,6 +148,7 @@ definition {
 	@priority = 4
 	test EditEntryFromApplication {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
@@ -201,6 +204,7 @@ definition {
 	@priority = 4
 	test ExportAllEntries {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",

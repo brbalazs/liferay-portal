@@ -613,6 +613,7 @@ definition {
 	@priority = 4
 	test ViewURLValidate {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var maliciousURL1 = '''
 				http://localhost:8080/c/portal/flash?title=abc</title><script%0d%0a>alert(3.1415926)</script%0d%0a><title>aaa

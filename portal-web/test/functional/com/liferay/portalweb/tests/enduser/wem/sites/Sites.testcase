@@ -26,6 +26,7 @@ definition {
 	@priority = 4
 	test ActivateSite {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -306,6 +307,7 @@ definition {
 	@priority = 3
 	test EditSiteFriendlyURLInvalid {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 

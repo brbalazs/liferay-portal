@@ -27,6 +27,7 @@ definition {
 	@priority = 5
 	test AddPortalInstance {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -44,6 +45,7 @@ definition {
 	@priority = 5
 	test DefaultPortalLandingPage {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -84,6 +86,7 @@ definition {
 	test DefaultPortalLandingPageSetByProperty {
 		property custom.properties = "default.landing.page.path=/web/guest/landing${line.separator}company.default.home.url=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -108,6 +111,7 @@ definition {
 	@priority = 5
 	test DeletePortalInstance {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -125,6 +129,7 @@ definition {
 	@priority = 4
 	test PermissionCheckPortalInstances {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -183,6 +188,7 @@ definition {
 	@priority = 5
 	test ViewDeactivatedPortalInstance {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -297,6 +303,7 @@ definition {
 	test ViewVirtualHostPrivateSitePage {
 		property custom.properties = "virtual.hosts.valid.hosts=localhost,127.0.0.1,www.able.com,www.baker.com,www.charlie.com";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -364,6 +371,7 @@ definition {
 	@priority = 4
 	test ViewVirtualInstanceInheritsSystemSettings {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

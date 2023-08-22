@@ -33,6 +33,7 @@ definition {
 	@priority = 4
 	test AssertIndexOnStartup {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
@@ -129,6 +130,7 @@ definition {
 		property portal.acceptance = "true";
 		property remote.elasticsearch7.enabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Elasticsearch.viewClusterStatusViaClusterHealthAPI(numberOfNodes = 2);
 
@@ -177,6 +179,7 @@ definition {
 	test HotDeployElasticsearch7App {
 		property hot.deploy.osgi.app.includes = "portal-search-elasticsearch7";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = JSONCompany.getPortalURL();
 
@@ -290,6 +293,7 @@ definition {
 	test UpdateSystemSettingsWithoutPortalRestart {
 		property remote.elasticsearch7.enabled = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var elasticsearchVersion = Elasticsearch.getServerVersion();
 		var liferayHome = PropsUtil.get("liferay.home.dir.name");

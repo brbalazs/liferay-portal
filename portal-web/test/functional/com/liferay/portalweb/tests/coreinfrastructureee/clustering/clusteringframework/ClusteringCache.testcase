@@ -28,6 +28,7 @@ definition {
 	test DoNotReplicatePut {
 		property custom.properties = "ehcache.replicator.properties.test.cache=replicatePuts=false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -128,6 +129,7 @@ definition {
 	test ReplicateByCopy {
 		property custom.properties = "ehcache.replicator.properties.test.cache=replicatePutsViaCopy=true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Clustering.viewClusterStatusInConsole();
 
@@ -208,6 +210,7 @@ definition {
 	test ReplicateByRemove {
 		property custom.properties = "ehcache.replicator.properties.test.cache=replicatePutsViaCopy=false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Clustering.viewClusterStatusInConsole();
 

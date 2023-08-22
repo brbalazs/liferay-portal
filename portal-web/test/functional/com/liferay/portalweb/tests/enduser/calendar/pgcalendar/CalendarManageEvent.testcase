@@ -59,6 +59,7 @@ definition {
 	@priority = 5
 	test DeleteRegular {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
 
@@ -107,6 +108,7 @@ definition {
 	test DeleteRepeatingAllFollowing {
 		property portal.acceptance = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CalendarNavigator.gotoAddEvent();
 
@@ -739,6 +741,7 @@ definition {
 	@priority = 5
 	test ViewCalendarEventDetailViaMailLink {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property test.smtp.server.enabled = "true";
 
 		JSONGroup.addGroup(groupName = "Site Name");

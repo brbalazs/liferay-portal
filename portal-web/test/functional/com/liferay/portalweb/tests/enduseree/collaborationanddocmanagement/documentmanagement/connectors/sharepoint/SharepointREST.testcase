@@ -145,6 +145,7 @@ definition {
 	@priority = 4
 	test CheckinDocument {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -200,6 +201,7 @@ definition {
 	@priority = 4
 	test DeleteDocumentInSubfolder {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -260,6 +262,7 @@ definition {
 	@priority = 4
 	test DeleteSubfolder {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -284,6 +287,7 @@ definition {
 	@priority = 4
 	test EditDocumentFile {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -335,6 +339,7 @@ definition {
 	@priority = 4
 	test MoveCheckedoutDocumentToFolder {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -404,6 +409,7 @@ definition {
 	@priority = 4
 	test MoveDocumentToHome {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -441,6 +447,7 @@ definition {
 	@priority = 4
 	test SearchDocumentViaHome {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -465,6 +472,7 @@ definition {
 	@priority = 4
 	test ViewDocumentAsGuest {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Build",
@@ -516,6 +524,7 @@ definition {
 	@priority = 4
 	test ViewEditedCheckedoutDocument {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -567,6 +576,7 @@ definition {
 	@priority = 4
 	test ViewOriginalFileExtensionAfterUnsuccessfulExtensionChange {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -605,6 +615,7 @@ definition {
 	@priority = 4
 	test ViewOriginalFileExtensionAfterUnsuccessfulExtensionRemoval {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 
@@ -643,6 +654,7 @@ definition {
 	@priority = 4
 	test ViewRepository {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		DMRepository.gotoCP(dmRepositoryName = "Collaboration Test Application");
 

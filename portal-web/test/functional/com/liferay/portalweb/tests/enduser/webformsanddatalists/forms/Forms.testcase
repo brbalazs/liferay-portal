@@ -613,6 +613,7 @@ definition {
 	@priority = 5
 	test AddFormWithSpanishAsDefaultPortalLanguage {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -697,6 +698,7 @@ definition {
 	@priority = 4
 	test AutomateNumericFieldWithDecimalConfigurations {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 
@@ -1149,6 +1151,7 @@ definition {
 	@priority = 3
 	test ConfigureAutosave {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 
@@ -1217,6 +1220,7 @@ definition {
 	test CreateRedirectForm {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 
@@ -1750,6 +1754,7 @@ definition {
 	@priority = 4
 	test EditAllFormFieldsTypesUsedBySystemSettings {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 
@@ -1936,6 +1941,7 @@ definition {
 	@priority = 3
 	test EditFormsConfigurationViaSystemSettings {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -1995,6 +2001,7 @@ definition {
 	@priority = 2
 	test EditFormWithUpdatedSiteAndUserLocale {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 
@@ -2652,6 +2659,7 @@ definition {
 	@priority = 4
 	test SingleSelectionFormFieldAddedBeforeDefaultSiteLanguageToggleCanBeLoaded {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -2710,6 +2718,7 @@ definition {
 	@description = "LPS-90435 This is a test verifying that the Single Selection Form field name and options can be added to non-English default site language site"
 	test SingleSelectionFormFieldNameAndOptionsCanBeAddedToNonEnglishDefaultSiteLanguageSite {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -3130,6 +3139,7 @@ definition {
 	@priority = 4
 	test SubmitFormAndViewEmailNotification {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property test.smtp.server.enabled = "true";
 
 		Navigator.openURL();
@@ -4925,6 +4935,7 @@ definition {
 	@priority = 5
 	test ViewSelectFromListOptionValueWithCharacter {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openURL();
 

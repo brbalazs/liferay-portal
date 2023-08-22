@@ -43,6 +43,7 @@ definition {
 	@priority = 4
 	test ViewNewSiteMember {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONGroup.addGroup(groupName = "Site Name");
 

@@ -63,6 +63,7 @@ definition {
 	@priority = 3
 	test ConfigureNoSave {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Breadcrumb";
 
 		JSONGroup.addGroup(groupName = "Site Name");
@@ -470,6 +471,7 @@ definition {
 	@priority = 4
 	test EnableShowGuestSite {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Breadcrumb";
 
 		ProductMenu.gotoPortlet(

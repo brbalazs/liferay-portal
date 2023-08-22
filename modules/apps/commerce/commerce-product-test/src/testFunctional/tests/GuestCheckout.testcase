@@ -51,6 +51,7 @@ definition {
 	test AssertGuestCartIsTransferredToAccount {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -151,6 +152,7 @@ definition {
 	test AssertGuestCartItemIsNotTransferredIfSkuIsAlreadyPresent {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -281,6 +283,7 @@ definition {
 	test AssertGuestCartItemIsTransferredToExistingCart {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -411,6 +414,7 @@ definition {
 	test AssertGuestCheckoutAuthenticationPage {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -463,6 +467,7 @@ definition {
 	test AssertGuestsWithSameEmailHaveDifferentAccounts {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -584,6 +589,7 @@ definition {
 	test AssertNewAccountIsCreatedAfterGuestCheckout {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -660,6 +666,7 @@ definition {
 	test GuestAccountIsNotCombinedWithExistingUserAccount {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -825,6 +832,7 @@ definition {
 	test GuestCheckoutDisabled {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -925,6 +933,7 @@ definition {
 	test GuestCheckoutEnabled {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -988,6 +997,7 @@ definition {
 	test GuestCheckoutWithNoShippableProduct {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -1068,6 +1078,7 @@ definition {
 	test GuestCheckoutWithShippableProduct {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		CommerceAccelerators.initializeAccelerator(siteName = "Speedwell");
 
@@ -1129,6 +1140,7 @@ definition {
 	test UserAccountIsNotCombinedWithExistingGuestAccount {
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

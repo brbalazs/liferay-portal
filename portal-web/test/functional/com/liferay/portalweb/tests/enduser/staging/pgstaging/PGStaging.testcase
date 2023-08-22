@@ -849,6 +849,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			pageVersioningEnabled = "true",

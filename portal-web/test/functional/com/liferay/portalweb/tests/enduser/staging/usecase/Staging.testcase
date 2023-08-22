@@ -36,6 +36,7 @@ definition {
 	@priority = 5
 	test ActivateStagingAfterChangingInstanceLanguageToSpanish {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -114,6 +115,7 @@ definition {
 	@priority = 5
 	test ActivateStagingPageVersioningWithCustomDefaultLanguage {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONLayout.addPrivateLayout(
 			groupName = "Site Name",
@@ -271,6 +273,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -759,6 +762,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONGroup.addChildSite(
 			groupName = "Child SiteName",
@@ -1851,6 +1855,7 @@ definition {
 		property custom.properties = "default.layout.template.id=1_column";
 		property portal.acceptance = "true";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 		property testray.component.names = "Training";
 
 		ProductMenu.gotoPortlet(
@@ -2519,6 +2524,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -2586,6 +2592,7 @@ definition {
 	test StagingRemoteDocumentSubtypeViaAP {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(siteName = "Site Name");
 
@@ -2650,6 +2657,7 @@ definition {
 	test StagingRemoteLiveBlogsPG {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(siteName = "Site Name");
 
@@ -2705,6 +2713,7 @@ definition {
 	test StagingRemoteLiveBlogsWithWorkflow {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(siteName = "Site Name");
 
@@ -2802,6 +2811,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -2876,6 +2886,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3012,6 +3023,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3055,6 +3067,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3137,6 +3150,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3245,6 +3259,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3350,6 +3365,7 @@ definition {
 	@priority = 4
 	test StagingWithPublishTemplate {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONLayout.addPublicLayout(
 			groupName = "Site Name",
@@ -3494,6 +3510,7 @@ definition {
 	@priority = 3
 	test StagingWithReplicateIndividualDeletionsByDefault {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
@@ -3693,6 +3710,7 @@ definition {
 	test ViewHistoryVersionWithDeletedUser {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		JSONUser.addUser(
 			userEmailAddress = "userea@liferay.com",
@@ -3801,6 +3819,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,
@@ -3825,6 +3844,7 @@ definition {
 	test ViewLastPublishDateBehaviourAfterInitialPublication {
 		property portal.release = "false";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -4339,6 +4359,7 @@ definition {
 	@priority = 4
 	test ViewPublishedContentWithSpecialCharsInDocumentTitle {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Navigator.openSiteURL(siteName = "Site Name");
 
@@ -4898,6 +4919,7 @@ definition {
 		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 		property databases.size = "1";
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		Staging.remoteStagingSetUp(
 			remotePort = 9080,

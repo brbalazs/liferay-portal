@@ -218,6 +218,7 @@ definition {
 	@priority = 4
 	test ImportOldSchemaVerion {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		ProductMenu.gotoPortlet(
 			category = "Sites",
@@ -601,6 +602,7 @@ definition {
 	@priority = 4
 	test SiteTemplatePageLinkInWebContentRedirectCorrectly {
 		property test.liferay.virtual.instance = "false";
+		property test.run.type = "single";
 
 		var portalURL = PropsUtil.get("portal.url");
 		var siteName = TestCase.getSiteName(siteName = ${siteName});
