@@ -301,7 +301,7 @@ public class AnalyticsEventsRestController {
 				Set<String> suppressedEmailAddresses =
 					_dataControlTaskDog.getSuppressedEmailAddresses();
 
-				Set<String> suppressedEmailAddressHashed = SetUtil.map(
+				Set<String> suppressedEmailAddressHashedSet = SetUtil.map(
 					_dataControlTaskDog.getSuppressedEmailAddresses(),
 					emailAddress -> DigestUtils.sha256Hex(
 						StringUtils.lowerCase(emailAddress)));
@@ -309,7 +309,7 @@ public class AnalyticsEventsRestController {
 				String emailAddressHashed =
 					analyticsEventsMessage.getEmailAddressHashed();
 
-				if (!suppressedEmailAddressHashed.contains(
+				if (!suppressedEmailAddressHashedSet.contains(
 						emailAddressHashed)) {
 
 					analyticsEvent.setEmailAddressHashed(emailAddressHashed);
