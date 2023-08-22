@@ -392,7 +392,8 @@ public class FilterExpressionConditionVisitor
 			Param param1 = (Param)parameters.get(1);
 			Param param2 = (Param)parameters.get(2);
 
-			condition = field.between(param1.getValue(), param2.getValue());
+			condition = field.between(
+				_getParamValue(param1), _getParamValue(param2));
 		}
 		else if (functionName.equalsIgnoreCase("contains")) {
 			Param param = (Param)parameters.get(1);
@@ -1310,6 +1311,21 @@ public class FilterExpressionConditionVisitor
 		return _visitChild(parserRuleContext, 0);
 	}
 
+	private Object _getParamValue(Param param) {
+		Object value = param.getValue();
+
+		if ((value instanceof String) &&
+			DateUtil.isValidPatternShort((String)value)) {
+
+			LocalDate localDate = DateUtil.toUTCLocalDate(
+				(String)value, TimeZoneDogUtil.getZoneId());
+
+			return DSL.val(localDate.toString());
+		}
+
+		return value;
+	}
+
 	private Field _getRightField(ParserRuleContext parserRuleContext) {
 		Field rightField = _visitChild(parserRuleContext, 2);
 
@@ -1328,6 +1344,13 @@ public class FilterExpressionConditionVisitor
 
 			if (_timeFrameParameterNames.contains(value)) {
 				return _getTimeFrameParam(value);
+			}
+
+			if ((value != null) && DateUtil.isValidPatternShort(value)) {
+				LocalDate localDate = DateUtil.toUTCLocalDate(
+					value, TimeZoneDogUtil.getZoneId());
+
+				return DSL.val(localDate.toString());
 			}
 		}
 
