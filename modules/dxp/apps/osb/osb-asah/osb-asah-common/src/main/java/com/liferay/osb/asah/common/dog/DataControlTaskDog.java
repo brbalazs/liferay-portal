@@ -393,7 +393,7 @@ public class DataControlTaskDog {
 		if (_log.isInfoEnabled()) {
 			_log.info(
 				String.format(
-					"Individual associated with email %s suppressed " +
+					"Individual associated with email address %s suppressed " +
 						"successfully",
 					emailAddress));
 		}
