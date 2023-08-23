@@ -210,17 +210,7 @@ public class LiferayFileItem extends DiskFileItem implements FileItem {
 	}
 
 	@Override
-	public void setString(String encode) {
-		try {
-			_encodedString = getString(encode);
-		}
-		catch (UnsupportedEncodingException uee) {
-			_log.error(uee, uee);
-		}
-	}
-
-	@Override
-	protected File getTempFile() {
+	public File getTempFile() {
 		if (_tempFile != null) {
 			return _tempFile;
 		}
@@ -241,6 +231,16 @@ public class LiferayFileItem extends DiskFileItem implements FileItem {
 			FinalizeManager.PHANTOM_REFERENCE_FACTORY);
 
 		return _tempFile;
+	}
+
+	@Override
+	public void setString(String encode) {
+		try {
+			_encodedString = getString(encode);
+		}
+		catch (UnsupportedEncodingException uee) {
+			_log.error(uee, uee);
+		}
 	}
 
 	private static String _getUniqueId() {
