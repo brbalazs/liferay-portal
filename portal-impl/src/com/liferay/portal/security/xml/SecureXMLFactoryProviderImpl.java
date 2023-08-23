@@ -78,8 +78,10 @@ public class SecureXMLFactoryProviderImpl implements SecureXMLFactoryProvider {
 	public TransformerFactory newTransformerFactory()
 		throws TransformerFactoryConfigurationError {
 
-		TransformerFactory transformerFactory =
-			TransformerFactory.newInstance();
+		TransformerFactory transformerFactory = TransformerFactory.newInstance(
+			"com.sun.org.apache.xalan.internal.xsltc.trax." +
+				"TransformerFactoryImpl",
+			SecureXMLFactoryProviderImpl.class.getClassLoader());
 
 		if (!PropsValues.XML_SECURITY_ENABLED) {
 			return transformerFactory;
