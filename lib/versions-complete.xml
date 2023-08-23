@@ -232,6 +232,17 @@
 				</licenses>
 			</library>
 			<library>
+				<file-name>com.liferay.calendar.service.jar!net.fortuna.ical4j.jar</file-name>
+				<version>1.0</version>
+				<project-name>iCal4j</project-name>
+				<project-url>http://modularity.net.au</project-url>
+				<licenses>
+					<license>
+						<license-name>LICENSE</license-name>
+					</license>
+				</licenses>
+			</library>
+			<library>
 				<file-name>com.liferay.captcha.api.jar!filters.jar</file-name>
 				<version>2.0.235</version>
 				<project-name>JHLabs Image Processing Filters</project-name>
@@ -1723,7 +1734,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.odata.impl.jar!netty-codec-http.jar</file-name>
-				<version>4.1.86.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty/Codec/HTTP</project-name>
 				<project-url>https://netty.io/</project-url>
 				<licenses>
@@ -1735,7 +1746,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.odata.impl.jar!netty-common.jar</file-name>
-				<version>4.1.86.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty/Common</project-name>
 				<project-url>https://netty.io/</project-url>
 				<licenses>
@@ -2025,7 +2036,8 @@
 				<project-url>https://www.jruby.org</project-url>
 				<licenses>
 					<license>
-						<license-name>http://www.gnu.org/licenses/gpl-2.0-standalone.html, http://www.gnu.org/licenses/lgpl-2.1-standalone.html, http://www.eclipse.org/legal/epl-v20.html</license-name>
+						<license-name>LGPL-2.1</license-name>
+						<license-url>http://www.gnu.org/licenses/lgpl-2.1-standalone.html</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -2394,7 +2406,8 @@
 				<project-name>jts-core</project-name>
 				<licenses>
 					<license>
-						<license-name>https://github.com/locationtech/jts/blob/master/LICENSE_EPLv1.txt, https://github.com/locationtech/jts/blob/master/LICENSE_EDLv1.txt</license-name>
+						<license-name>Eclipse Publish License, Version 1.0</license-name>
+						<license-url>https://github.com/locationtech/jts/blob/master/LICENSE_EPLv1.txt</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -3142,7 +3155,8 @@
 				<project-url>http://www.oracle.com</project-url>
 				<licenses>
 					<license>
-						<license-name>http://www.eclipse.org/legal/epl-2.0, https://www.gnu.org/software/classpath/license.html, http://www.eclipse.org/org/documents/edl-v10.php</license-name>
+						<license-name>GPL2 w/ CPE</license-name>
+						<license-url>https://www.gnu.org/software/classpath/license.html</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -3861,7 +3875,8 @@
 				<project-name>JGraphT - Core</project-name>
 				<licenses>
 					<license>
-						<license-name>http://jgrapht.sourceforge.net/LGPL.html, http://www.eclipse.org/legal/epl-v10.html</license-name>
+						<license-name>GNU Lesser General Public License Version 2.1, February 1999</license-name>
+						<license-url>http://jgrapht.sourceforge.net/LGPL.html</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -4147,7 +4162,8 @@
 				<project-url>http://www.javassist.org/</project-url>
 				<licenses>
 					<license>
-						<license-name>http://www.mozilla.org/MPL/MPL-1.1.html, http://www.gnu.org/licenses/lgpl-2.1.html, http://www.apache.org/licenses/</license-name>
+						<license-name>MPL 1.1</license-name>
+						<license-url>http://www.mozilla.org/MPL/MPL-1.1.html</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -4170,7 +4186,8 @@
 				<project-url>http://github.com/ronmamo/reflections</project-url>
 				<licenses>
 					<license>
-						<license-name>http://www.wtfpl.net/, http://www.opensource.org/licenses/bsd-license.html</license-name>
+						<license-name>WTFPL</license-name>
+						<license-url>http://www.wtfpl.net/</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -4256,7 +4273,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-codec-dns.jar</file-name>
-				<version>4.1.86.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty/Codec/DNS</project-name>
 				<project-url>https://netty.io/</project-url>
 				<licenses>
@@ -4268,7 +4285,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-codec-http.jar</file-name>
-				<version>4.1.86.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty/Codec/HTTP</project-name>
 				<project-url>https://netty.io/</project-url>
 				<licenses>
@@ -4280,7 +4297,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-codec-http2.jar</file-name>
-				<version>4.1.86.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty/Codec/HTTP2</project-name>
 				<project-url>https://netty.io/</project-url>
 				<licenses>
@@ -4292,7 +4309,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-codec-socks.jar</file-name>
-				<version>4.1.86.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty/Codec/Socks</project-name>
 				<project-url>https://netty.io/</project-url>
 				<licenses>
@@ -4304,7 +4321,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-common.jar</file-name>
-				<version>4.1.86.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty/Common</project-name>
 				<project-url>https://netty.io/</project-url>
 				<licenses>
@@ -4316,7 +4333,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-handler-proxy.jar</file-name>
-				<version>4.1.86.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty/Handler/Proxy</project-name>
 				<project-url>https://netty.io/</project-url>
 				<licenses>
@@ -4328,7 +4345,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.push.notifications.sender.apple.jar!netty-resolver-dns.jar</file-name>
-				<version>4.1.86.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty/Resolver/DNS</project-name>
 				<project-url>https://netty.io/</project-url>
 				<licenses>
@@ -7448,7 +7465,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/netty-all.jar</file-name>
-				<version>4.1.72.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty</project-name>
 				<project-url>http://netty.io</project-url>
 				<licenses>
@@ -7460,7 +7477,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/netty-buffer.jar</file-name>
-				<version>4.1.72.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty</project-name>
 				<project-url>http://netty.io</project-url>
 				<licenses>
@@ -7472,7 +7489,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/netty-codec.jar</file-name>
-				<version>4.1.72.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty</project-name>
 				<project-url>http://netty.io</project-url>
 				<licenses>
@@ -7484,7 +7501,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/netty-common.jar</file-name>
-				<version>4.1.72.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty</project-name>
 				<project-url>http://netty.io</project-url>
 				<licenses>
@@ -7496,7 +7513,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/netty-handler.jar</file-name>
-				<version>4.1.72.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty</project-name>
 				<project-url>http://netty.io</project-url>
 				<licenses>
@@ -7508,7 +7525,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/netty-resolver.jar</file-name>
-				<version>4.1.72.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty</project-name>
 				<project-url>http://netty.io</project-url>
 				<licenses>
@@ -7520,7 +7537,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/netty-transport.jar</file-name>
-				<version>4.1.72.Final</version>
+				<version>4.1.94.Final</version>
 				<project-name>Netty</project-name>
 				<project-url>http://netty.io</project-url>
 				<licenses>
