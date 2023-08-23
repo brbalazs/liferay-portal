@@ -221,6 +221,10 @@ public class LiferayFileItem extends DiskFileItem implements FileItem {
 
 	@Override
 	protected File getTempFile() {
+		if (_tempFile != null) {
+			return _tempFile;
+		}
+
 		String tempFileName = "upload_" + _getUniqueId();
 
 		String extension = getFileNameExtension();
@@ -229,13 +233,14 @@ public class LiferayFileItem extends DiskFileItem implements FileItem {
 			tempFileName += "." + extension;
 		}
 
-		File tempFile = new File(_repository, tempFileName);
+		_tempFile = new File(_repository, tempFileName);
 
 		FinalizeManager.register(
-			tempFile, new DeleteFileFinalizeAction(tempFile.getAbsolutePath()),
+			_tempFile,
+			new DeleteFileFinalizeAction(_tempFile.getAbsolutePath()),
 			FinalizeManager.PHANTOM_REFERENCE_FACTORY);
 
-		return tempFile;
+		return _tempFile;
 	}
 
 	private static String _getUniqueId() {
@@ -263,5 +268,6 @@ public class LiferayFileItem extends DiskFileItem implements FileItem {
 	private String _fileName;
 	private final File _repository;
 	private final int _sizeThreshold;
+	private File _tempFile;
 
 }
