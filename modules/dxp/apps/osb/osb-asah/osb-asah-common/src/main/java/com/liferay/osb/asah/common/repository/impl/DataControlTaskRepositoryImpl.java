@@ -11,6 +11,7 @@ import com.liferay.osb.asah.common.repository.CustomDataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -218,6 +219,101 @@ public class DataControlTaskRepositoryImpl
 		).where(
 			_getConditions(
 				null, emailAddress, endCompleteDate, null, statuses, types)
+		).fetch(
+			record -> new DataControlTask(record.intoMap())
+		);
+	}
+
+	@Override
+	public List<DataControlTask> searchPendingDataControlTasks() {
+		Condition condition = DSL.or(
+			DSL.and(
+				DSL.field(
+					"status"
+				).eq(
+					DataControlTaskStatus.PENDING.toString()
+				),
+				DSL.field(
+					"type"
+				).in(
+					Arrays.asList(
+						DataControlTask.Type.ACCESS.toString(),
+						DataControlTask.Type.SUPPRESS.toString(),
+						DataControlTask.Type.UNSUPPRESS.toString())
+				)),
+			DSL.and(
+				DSL.field(
+					"status"
+				).eq(
+					DataControlTaskStatus.RUNNING.toString()
+				),
+				DSL.field(
+					"type"
+				).in(
+					Arrays.asList(
+						DataControlTask.Type.SUPPRESS.toString(),
+						DataControlTask.Type.UNSUPPRESS.toString())
+				),
+				DSL.field(
+					"continueDate"
+				).lt(
+					DSL.currentTimestamp()
+				)));
+
+		return _dslContext.select(
+		).from(
+			"DataControlTask"
+		).where(
+			condition
+		).unionAll(
+			_dslContext.select(
+				DSL.field("DeleteDataControlTask.*")
+			).from(
+				DSL.table(
+					"DataControlTask"
+				).as(
+					"DeleteDataControlTask"
+				)
+			).join(
+				_dslContext.select(
+				).from(
+					"DataControlTask"
+				).where(
+					_getConditions(
+						null, null, null, null,
+						Arrays.asList(
+							DataControlTaskStatus.COMPLETED.toString(),
+							DataControlTaskStatus.ERROR.toString()),
+						Collections.singletonList(
+							DataControlTask.Type.SUPPRESS))
+				).asTable(
+					"SuppressDataControlTask"
+				)
+			).on(
+				DSL.and(
+					DSL.field(
+						"DeleteDataControlTask.batchId"
+					).eq(
+						DSL.field("SuppressDataControlTask.batchId")
+					),
+					DSL.field(
+						"DeleteDataControlTask.emailAddress"
+					).eq(
+						DSL.field("SuppressDataControlTask.emailAddress")
+					))
+			).where(
+				DSL.and(
+					DSL.field(
+						"DeleteDataControlTask.status"
+					).eq(
+						DataControlTaskStatus.PENDING.toString()
+					),
+					DSL.field(
+						"DeleteDataControlTask.type"
+					).eq(
+						DataControlTask.Type.DELETE.toString()
+					))
+			)
 		).fetch(
 			record -> new DataControlTask(record.intoMap())
 		);
