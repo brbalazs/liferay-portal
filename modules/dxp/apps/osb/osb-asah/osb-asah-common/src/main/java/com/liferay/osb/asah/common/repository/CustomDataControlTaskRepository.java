@@ -32,8 +32,8 @@ public interface CustomDataControlTaskRepository {
 		@Nullable Long batchId, @Nullable List<String> statuses);
 
 	@Cacheable
-	public Optional<DataControlTask> findLatestCompletedDataControlTask(
-		String emailAddress, @Nullable List<DataControlTask.Type> types);
+	public Optional<DataControlTask> findLatestSuppressionDataControlTask(
+		String emailAddress);
 
 	@Cacheable
 	public Set<String> findSuppressedEmailAddresses();

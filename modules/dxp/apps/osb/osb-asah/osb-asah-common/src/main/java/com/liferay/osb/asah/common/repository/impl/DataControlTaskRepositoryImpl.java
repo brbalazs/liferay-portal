@@ -80,19 +80,42 @@ public class DataControlTaskRepositoryImpl
 	}
 
 	@Override
-	public Optional<DataControlTask> findLatestCompletedDataControlTask(
-		String emailAddress, @Nullable List<DataControlTask.Type> types) {
+	public Optional<DataControlTask> findLatestSuppressionDataControlTask(
+		String emailAddress) {
 
 		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
 
 		return selectSelectStep.from(
 			"DataControlTask"
 		).where(
-			_getConditions(
-				null, emailAddress, null, null,
-				Collections.singletonList(
-					DataControlTaskStatus.COMPLETED.toString()),
-				types)
+			DSL.and(
+				DSL.field(
+					"emailAddress"
+				).eq(
+					emailAddress
+				),
+				DSL.field(
+					"type"
+				).in(
+					Arrays.asList(
+						DataControlTask.Type.SUPPRESS.toString(),
+						DataControlTask.Type.UNSUPPRESS.toString())
+				),
+				DSL.or(
+					DSL.field(
+						"status"
+					).eq(
+						DataControlTaskStatus.COMPLETED.toString()
+					),
+					DSL.and(
+						DSL.field(
+							"status"
+						).eq(
+							DataControlTaskStatus.RUNNING.toString()
+						),
+						DSL.field(
+							"continueDate"
+						).isNotNull())))
 		).orderBy(
 			DSL.field(
 				"completeDate"
