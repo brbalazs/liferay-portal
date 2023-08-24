@@ -13,20 +13,6 @@ BEGIN
 
 	UPDATE BQEvent SET emailAddressHashed = NULL WHERE emailAddressHashed = '${individual_id}';
 
-	UPDATE BQEvent SET userId = '${new_identity_id}' WHERE userId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE BQIdentityActivitySummary SET identityId = '${new_identity_id}' WHERE identityId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE BQIdentityInterestPage SET identityId = '${new_identity_id}' WHERE identityId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE BQIdentityInterestScore SET identityId = '${new_identity_id}' WHERE identityId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE BQSession SET userId = '${new_identity_id}' WHERE userId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE BQSessionInterestScore SET identityId = '${new_identity_id}' WHERE identityId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE BlogDaily SET userId = '${new_identity_id}' WHERE userId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE DocumentLibraryDaily SET userId = '${new_identity_id}' WHERE userId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE FormDaily SET userId = '${new_identity_id}' WHERE userId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE JournalDaily SET userId = '${new_identity_id}' WHERE userId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-	UPDATE PageDaily SET userId = '${new_identity_id}' WHERE userId IN (SELECT id FROM BQIdentity WHERE individualId = '${individual_id}');
-
-	UPDATE BQIdentity_Raw SET id = '${new_identity_id}' WHERE individualId = '${individual_id}';
-
 	UPDATE BQIdentityActivitySummary SET individualId = NULL WHERE individualId = '${individual_id}';
 	UPDATE BQIdentity_Raw SET individualId = NULL WHERE individualId = '${individual_id}';
 
