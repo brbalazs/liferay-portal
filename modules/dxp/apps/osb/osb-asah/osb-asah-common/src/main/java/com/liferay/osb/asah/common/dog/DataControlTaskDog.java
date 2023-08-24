@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -379,6 +380,15 @@ public class DataControlTaskDog {
 			return true;
 		}
 
+		if (Objects.isNull(dataControlTask.getContinueDate())) {
+			dataControlTask.setContinueDate(
+				DateUtil.addMinutes(dataControlTask.getStartDate(), 90));
+
+			updateDataControlTask(dataControlTask);
+
+			return false;
+		}
+
 		String emailAddress = dataControlTask.getEmailAddress();
 
 		String individualId = DigestUtils.sha256Hex(emailAddress);
@@ -452,6 +462,15 @@ public class DataControlTaskDog {
 			}
 
 			return true;
+		}
+
+		if (Objects.isNull(dataControlTask.getContinueDate())) {
+			dataControlTask.setContinueDate(
+				DateUtil.addMinutes(dataControlTask.getStartDate(), 90));
+
+			updateDataControlTask(dataControlTask);
+
+			return false;
 		}
 
 		String individualId = DigestUtils.sha256Hex(
