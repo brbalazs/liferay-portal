@@ -130,14 +130,28 @@ public class DataControlTaskRepositoryImpl
 			).from(
 				"DataControlTask"
 			).where(
-				DSL.field(
-					"status"
-				).eq(
-					DataControlTaskStatus.COMPLETED.toString()
-				),
-				typeField.in(
-					DataControlTask.Type.SUPPRESS.toString(),
-					DataControlTask.Type.UNSUPPRESS.toString())
+				DSL.or(
+					DSL.and(
+						DSL.field(
+							"status"
+						).eq(
+							DataControlTaskStatus.COMPLETED.toString()
+						),
+						typeField.in(
+							DataControlTask.Type.SUPPRESS.toString(),
+							DataControlTask.Type.UNSUPPRESS.toString())),
+					DSL.and(
+						DSL.field(
+							"status"
+						).eq(
+							DataControlTaskStatus.RUNNING.toString()
+						),
+						typeField.in(
+							DataControlTask.Type.SUPPRESS.toString(),
+							DataControlTask.Type.UNSUPPRESS.toString()),
+						DSL.field(
+							"continueDate"
+						).isNotNull()))
 			)
 		).selectDistinct(
 			emailAddressField
