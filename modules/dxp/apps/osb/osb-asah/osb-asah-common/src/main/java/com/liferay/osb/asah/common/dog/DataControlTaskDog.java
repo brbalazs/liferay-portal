@@ -300,6 +300,29 @@ public class DataControlTaskDog {
 	}
 
 	private boolean _delete(DataControlTask dataControlTask) throws Exception {
+		DataControlTask suppressDataControlTask =
+			_dataControlTaskRepository.
+				findByBatchIdAndEmailAddressAndStatusInAndType(
+					dataControlTask.getBatchId(),
+					dataControlTask.getEmailAddress(),
+					Arrays.asList(
+						DataControlTaskStatus.COMPLETED.toString(),
+						DataControlTaskStatus.ERROR.toString()),
+					DataControlTask.Type.SUPPRESS.toString());
+
+		if (suppressDataControlTask == null) {
+			throw new RuntimeException(
+				"Unable to find the corresponding suppression task for " +
+					"deletion");
+		}
+
+		String status = suppressDataControlTask.getStatus();
+
+		if (status.equals(DataControlTaskStatus.ERROR.toString())) {
+			throw new RuntimeException(
+				"Unable to process deletion due to failure of the " +
+					"corresponding suppression task");
+		}
 
 		// DXP User
 
@@ -326,10 +349,14 @@ public class DataControlTaskDog {
 				ResourceUtil.readResourceToString(
 					"dependencies/delete_individual_data_statement.sql",
 					getClass()),
-				new String[] {"${individual_id}", "${new_identity_id}"},
+				new String[] {
+					"${individual_id}", "${new_identity_id}",
+					"${range_end_date}"
+				},
 				new String[] {
 					DigestUtils.sha256Hex(dataControlTask.getEmailAddress()),
-					String.valueOf(UUID.randomUUID())
+					String.valueOf(UUID.randomUUID()),
+					DateUtil.toUTCString(suppressDataControlTask.getStartDate())
 				}));
 
 		if (_log.isInfoEnabled()) {

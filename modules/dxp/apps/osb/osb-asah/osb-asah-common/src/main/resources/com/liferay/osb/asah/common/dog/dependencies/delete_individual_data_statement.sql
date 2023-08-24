@@ -11,14 +11,15 @@ BEGIN
 
 	-- Individual's activities anonymization
 
-	UPDATE BQEvent SET emailAddressHashed = NULL WHERE emailAddressHashed = '${individual_id}';
+	UPDATE BQEvent SET emailAddressHashed = NULL WHERE emailAddressHashed = '${individual_id}' AND eventDate <= timestamp '${range_end_date}';
 
-	UPDATE BQIdentityActivitySummary SET individualId = NULL WHERE individualId = '${individual_id}';
-	UPDATE BQIdentity_Raw SET individualId = NULL WHERE individualId = '${individual_id}';
+	UPDATE BQIdentityActivitySummary SET individualId = NULL WHERE individualId = '${individual_id}' AND lastActivityDate <= timestamp '${range_end_date}';
+	UPDATE BQIdentity_Raw SET individualId = NULL WHERE individualId = '${individual_id}' AND createDate <= timestamp '${range_end_date}';
 
 	COMMIT TRANSACTION;
 
 EXCEPTION WHEN ERROR THEN
-	SELECT @@error.message;
 	ROLLBACK TRANSACTION;
+
+	SELECT ERROR(@@error.message);
 END
