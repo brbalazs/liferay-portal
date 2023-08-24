@@ -197,6 +197,22 @@ public class SuppressionRepositoryImpl
 		_queryExecutor.queryExecute(insertValuesStep5);
 	}
 
+	@Override
+	public void unhideSuppression(String emailAddress) {
+		_queryExecutor.queryExecute(
+			_dslContext.update(
+				DSL.table("Suppression")
+			).set(
+				DSL.field("hidden", Boolean.class), false
+			).where(
+				DSL.field(
+					"emailAddress"
+				).eq(
+					emailAddress
+				)
+			));
+	}
+
 	private Condition _getCondition(String emailAddress) {
 		Condition condition = DSL.or(
 			DSL.field(

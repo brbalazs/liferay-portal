@@ -70,6 +70,10 @@ public class SuppressionDog {
 		_suppressionRepository.hideSuppression(emailAddress);
 	}
 
+	public void unhideSuppressionByEmailAddress(String emailAddress) {
+		_suppressionRepository.unhideSuppression(emailAddress);
+	}
+
 	@Autowired
 	private SuppressionRepository _suppressionRepository;
 

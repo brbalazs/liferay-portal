@@ -266,6 +266,11 @@ public class DataControlTaskDog {
 		catch (Exception exception) {
 			_log.error(exception, exception);
 
+			if (type == DataControlTask.Type.UNSUPPRESS) {
+				_suppressionDog.unhideSuppressionByEmailAddress(
+					dataControlTask.getEmailAddress());
+			}
+
 			_updateDataControlTaskStatus(
 				dataControlTask, DataControlTaskStatus.ERROR);
 		}

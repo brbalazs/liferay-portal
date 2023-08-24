@@ -31,7 +31,5 @@ BEGIN
 EXCEPTION WHEN ERROR THEN
 	ROLLBACK TRANSACTION;
 
-	UPDATE Suppression SET hidden = false WHERE emailAddress = '${email_address}';
-
 	SELECT ERROR(@@error.message);
 END

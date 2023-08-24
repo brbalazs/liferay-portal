@@ -33,11 +33,15 @@ public interface CustomSuppressionRepository {
 	public List<Suppression> getSuppressions(
 		@Nullable String emailAddress, Pageable pageable);
 
+	@Modifying
 	public void hideSuppression(String emailAddress);
 
 	@Modifying
 	public Suppression insert(Suppression suppression);
 
 	public void insertAll(List<Suppression> suppressions);
+
+	@Modifying
+	public void unhideSuppression(String emailAddress);
 
 }
