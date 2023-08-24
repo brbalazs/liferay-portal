@@ -402,16 +402,34 @@ public class DataControlTaskDog {
 		return ListUtil.map(csvParser.parseAll(file), row -> row[0]);
 	}
 
+	private boolean _skipSuppression(String emailAddress) {
+		DataControlTask dataControlTask = fetchLatestSuppressionDataControlTask(
+			emailAddress);
+
+		if (Objects.isNull(dataControlTask) ||
+			(dataControlTask.getType() == DataControlTask.Type.UNSUPPRESS)) {
+
+			return false;
+		}
+
+		String status = dataControlTask.getStatus();
+
+		if ((dataControlTask.getType() == DataControlTask.Type.SUPPRESS) &&
+			StringUtils.isNotBlank(status) &&
+			status.equals(DataControlTaskStatus.RUNNING.toString())) {
+
+			return false;
+		}
+
+		return true;
+	}
+
 	private boolean _suppress(DataControlTask dataControlTask)
 		throws Exception {
 
-		DataControlTask.Type type = fetchLatestCompletedDataControlTaskType(
-			dataControlTask.getEmailAddress(),
-			Arrays.asList(
-				DataControlTask.Type.SUPPRESS,
-				DataControlTask.Type.UNSUPPRESS));
+		String emailAddress = dataControlTask.getEmailAddress();
 
-		if (type == DataControlTask.Type.SUPPRESS) {
+		if (_skipSuppression(emailAddress)) {
 			return true;
 		}
 
@@ -425,8 +443,6 @@ public class DataControlTaskDog {
 
 			return false;
 		}
-
-		String emailAddress = dataControlTask.getEmailAddress();
 
 		String individualId = DigestUtils.sha256Hex(emailAddress);
 
