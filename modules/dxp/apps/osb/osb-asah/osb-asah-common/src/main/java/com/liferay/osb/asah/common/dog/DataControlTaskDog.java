@@ -382,7 +382,9 @@ public class DataControlTaskDog {
 
 		if (Objects.isNull(dataControlTask.getContinueDate())) {
 			dataControlTask.setContinueDate(
-				DateUtil.addMinutes(dataControlTask.getStartDate(), 90));
+				DateUtil.addMinutes(
+					dataControlTask.getStartDate(),
+					_dataControlTaskDelayMinutes));
 
 			updateDataControlTask(dataControlTask);
 
@@ -466,7 +468,9 @@ public class DataControlTaskDog {
 
 		if (Objects.isNull(dataControlTask.getContinueDate())) {
 			dataControlTask.setContinueDate(
-				DateUtil.addMinutes(dataControlTask.getStartDate(), 90));
+				DateUtil.addMinutes(
+					dataControlTask.getStartDate(),
+					_dataControlTaskDelayMinutes));
 
 			updateDataControlTask(dataControlTask);
 
@@ -581,6 +585,9 @@ public class DataControlTaskDog {
 
 	@Autowired
 	private BQMembershipIndividualDog _bqMembershipIndividualDog;
+
+	@Value("${data.control.task.delay.minutes:90}")
+	private int _dataControlTaskDelayMinutes;
 
 	@Autowired
 	private DataControlTaskRepository _dataControlTaskRepository;
