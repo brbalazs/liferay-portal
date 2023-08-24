@@ -74,6 +74,26 @@ public class DateUtil {
 		return toUTCString(calendar.getTime());
 	}
 
+	public static Date addMinutes(Date date, int minutes) {
+		Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+
+		calendar.setTime(date);
+
+		calendar.add(Calendar.MINUTE, minutes);
+
+		return calendar.getTime();
+	}
+
+	public static String addMinutes(String dateString, int minutes) {
+		Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+
+		calendar.setTime(toUTCDate(dateString));
+
+		calendar.add(Calendar.MINUTE, minutes);
+
+		return toUTCString(calendar.getTime());
+	}
+
 	public static String addMonths(String dateString, int months) {
 		Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 
