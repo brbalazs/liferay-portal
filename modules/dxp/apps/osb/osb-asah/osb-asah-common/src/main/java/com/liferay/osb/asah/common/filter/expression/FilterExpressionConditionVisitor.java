@@ -1318,7 +1318,8 @@ public class FilterExpressionConditionVisitor
 			DateUtil.isValidPatternShort((String)value)) {
 
 			LocalDate localDate = DateUtil.toUTCLocalDate(
-				(String)value, TimeZoneDogUtil.getZoneId());
+				(String)value, DateUtil.PATTERN_SHORT,
+				TimeZoneDogUtil.getZoneId());
 
 			return DSL.val(localDate.toString());
 		}
@@ -1348,7 +1349,7 @@ public class FilterExpressionConditionVisitor
 
 			if ((value != null) && DateUtil.isValidPatternShort(value)) {
 				LocalDate localDate = DateUtil.toUTCLocalDate(
-					value, TimeZoneDogUtil.getZoneId());
+					value, DateUtil.PATTERN_SHORT, TimeZoneDogUtil.getZoneId());
 
 				return DSL.val(localDate.toString());
 			}
