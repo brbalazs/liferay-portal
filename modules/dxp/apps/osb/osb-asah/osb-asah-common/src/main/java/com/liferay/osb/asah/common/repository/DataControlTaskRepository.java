@@ -21,6 +21,9 @@ public interface DataControlTaskRepository
 	public Boolean existsByEmailAddressAndStatusAndType(
 		String emailAddress, String status, String type);
 
+	public DataControlTask findByBatchIdAndEmailAddressAndStatusInAndType(
+		Long batchId, String emailAddress, List<String> status, String type);
+
 	public DataControlTask findByIdAndStatus(Long id, String status);
 
 }
