@@ -28,6 +28,7 @@ import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
 import java.io.File;
+import java.io.Serializable;
 
 import java.nio.file.Path;
 
@@ -38,6 +39,7 @@ import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -204,23 +206,7 @@ public class DataControlTaskDog {
 			_dataControlTaskRepository.searchDataControlTasks(
 				null, endCompleteDate, statuses, types);
 
-		dataControlTasks.sort(
-			(dataControlTask1, dataControlTask2) -> {
-				Date createDate1 = dataControlTask1.getCreateDate();
-				Date createDate2 = dataControlTask2.getCreateDate();
-
-				if ((createDate1 != null) && (createDate2 != null) &&
-					(createDate1.getTime() != createDate2.getTime())) {
-
-					return createDate1.compareTo(createDate2);
-				}
-
-				DataControlTask.Type type1 = dataControlTask1.getType();
-				DataControlTask.Type type2 = dataControlTask2.getType();
-
-				return Integer.compare(
-					type1.getPriority(), type2.getPriority());
-			});
+		dataControlTasks.sort(new DataControlTaskComparator());
 
 		return dataControlTasks;
 	}
@@ -232,6 +218,15 @@ public class DataControlTaskDog {
 
 		return _dataControlTaskRepository.searchDataControlTasks(
 			filterHelper, status);
+	}
+
+	public List<DataControlTask> getPrioritizedPendingDataControlTasks() {
+		List<DataControlTask> dataControlTasks =
+			_dataControlTaskRepository.searchPendingDataControlTasks();
+
+		dataControlTasks.sort(new DataControlTaskComparator());
+
+		return dataControlTasks;
 	}
 
 	public Set<String> getSuppressedEmailAddresses() {
@@ -677,5 +672,30 @@ public class DataControlTaskDog {
 
 	@Autowired
 	private TimeZoneDog _timeZoneDog;
+
+	private static class DataControlTaskComparator
+		implements Comparator<DataControlTask>, Serializable {
+
+		@Override
+		public int compare(
+			DataControlTask dataControlTask1,
+			DataControlTask dataControlTask2) {
+
+			Date createDate1 = dataControlTask1.getCreateDate();
+			Date createDate2 = dataControlTask2.getCreateDate();
+
+			if ((createDate1 != null) && (createDate2 != null) &&
+				(createDate1.getTime() != createDate2.getTime())) {
+
+				return createDate1.compareTo(createDate2);
+			}
+
+			DataControlTask.Type type1 = dataControlTask1.getType();
+			DataControlTask.Type type2 = dataControlTask2.getType();
+
+			return Integer.compare(type1.getPriority(), type2.getPriority());
+		}
+
+	}
 
 }

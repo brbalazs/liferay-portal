@@ -48,9 +48,7 @@ public class DataControlNanite extends BaseNanite {
 	@Override
 	public void run(JSONObject contextJSONObject) {
 		List<DataControlTask> pendingDataControlTasks =
-			_dataControlTaskDog.getPrioritizedDataControlTasks(
-				null, Arrays.asList(DataControlTaskStatus.PENDING.toString()),
-				null);
+			_dataControlTaskDog.getPrioritizedPendingDataControlTasks();
 
 		for (DataControlTask pendingDataControlTask : pendingDataControlTasks) {
 			_runDataControlTask(pendingDataControlTask);
