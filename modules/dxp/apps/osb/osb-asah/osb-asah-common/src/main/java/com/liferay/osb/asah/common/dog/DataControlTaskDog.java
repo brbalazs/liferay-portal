@@ -428,13 +428,15 @@ public class DataControlTaskDog {
 					"${data_control_task_batch_id}",
 					"${data_control_task_create_date}",
 					"${delete_membership_statement}", "${email_address}",
-					"${individual_id}", "${new_identity_id}"
+					"${individual_id}", "${new_identity_id}",
+					"${range_end_date}"
 				},
 				new String[] {
 					String.valueOf(dataControlTask.getBatchId()),
 					DateUtil.toUTCString(dataControlTask.getCreateDate()),
 					deleteMembershipStatement, emailAddress, individualId,
-					String.valueOf(UUID.randomUUID())
+					String.valueOf(UUID.randomUUID()),
+					DateUtil.toUTCString(dataControlTask.getStartDate())
 				}));
 
 		_updateSegments(updateSegments);
