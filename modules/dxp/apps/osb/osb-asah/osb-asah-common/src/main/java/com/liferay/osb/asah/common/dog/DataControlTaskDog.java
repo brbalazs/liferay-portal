@@ -142,23 +142,18 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.findByIdAndStatus(id, status);
 	}
 
-	public DataControlTask.Type fetchLatestCompletedDataControlTaskType(
-		@Nullable String emailAddress,
-		List<DataControlTask.Type> dataControlTaskTypes) {
+	public DataControlTask fetchLatestSuppressionDataControlTask(
+		@Nullable String emailAddress) {
 
-		if (StringUtils.isBlank(emailAddress)) {
+		if (Objects.isNull(emailAddress)) {
 			return null;
 		}
 
 		Optional<DataControlTask> dataControlTaskOptional =
-			_dataControlTaskRepository.findLatestCompletedDataControlTask(
-				emailAddress, dataControlTaskTypes);
+			_dataControlTaskRepository.findLatestSuppressionDataControlTask(
+				emailAddress);
 
-		return dataControlTaskOptional.map(
-			DataControlTask::getType
-		).orElse(
-			null
-		);
+		return dataControlTaskOptional.orElse(null);
 	}
 
 	public Page<DataControlTask> getDataControlTaskPage(
