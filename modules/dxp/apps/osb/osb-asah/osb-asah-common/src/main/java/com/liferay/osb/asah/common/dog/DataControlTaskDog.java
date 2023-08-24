@@ -477,6 +477,21 @@ public class DataControlTaskDog {
 			return false;
 		}
 
+		DataControlTask suppressionDataControlTask =
+			_dataControlTaskRepository.
+				findByBatchIdAndEmailAddressAndStatusInAndType(
+					suppression.getDataControlTaskBatchId(),
+					suppression.getEmailAddress(),
+					Collections.singletonList(
+						DataControlTaskStatus.COMPLETED.toString()),
+					DataControlTask.Type.SUPPRESS.toString());
+
+		if (suppressionDataControlTask == null) {
+			throw new RuntimeException(
+				"Unable to find the corresponding suppression task for " +
+					"unsuppression");
+		}
+
 		String individualId = DigestUtils.sha256Hex(
 			dataControlTask.getEmailAddress());
 
@@ -487,11 +502,14 @@ public class DataControlTaskDog {
 						"dependencies/unsuppress_individual_statement.sql",
 						getClass()),
 					new String[] {
-						"${email_address}", "${individual_id}", "${start_date}"
+						"${email_address}", "${individual_id}",
+						"${range_end_date}", "${range_start_date}"
 					},
 					new String[] {
 						emailAddress, individualId,
-						DateUtil.toUTCString(suppression.getCreateDate())
+						DateUtil.toUTCString(dataControlTask.getStartDate()),
+						DateUtil.toUTCString(
+							suppressionDataControlTask.getStartDate())
 					}));
 		}
 		else {
@@ -509,11 +527,14 @@ public class DataControlTaskDog {
 							getClass()),
 						new String[] {
 							"${new_identity_id}", "${old_identity_id}",
-							"${start_date}"
+							"${range_end_date}", "${range_start_date}"
 						},
 						new String[] {
 							String.valueOf(UUID.randomUUID()), identityId,
-							DateUtil.toUTCString(suppression.getCreateDate())
+							DateUtil.toUTCString(
+								dataControlTask.getStartDate()),
+							DateUtil.toUTCString(
+								suppressionDataControlTask.getStartDate())
 						}));
 				sb.append("\n");
 			}
@@ -526,11 +547,14 @@ public class DataControlTaskDog {
 						getClass()),
 					new String[] {
 						"${anonymize_activities_statement}", "${email_address}",
-						"${individual_id}", "${start_date}"
+						"${individual_id}", "${range_end_date}",
+						"${range_start_date}"
 					},
 					new String[] {
 						sb.toString(), emailAddress, individualId,
-						DateUtil.toUTCString(suppression.getCreateDate())
+						DateUtil.toUTCString(dataControlTask.getStartDate()),
+						DateUtil.toUTCString(
+							suppressionDataControlTask.getStartDate())
 					}));
 		}
 
