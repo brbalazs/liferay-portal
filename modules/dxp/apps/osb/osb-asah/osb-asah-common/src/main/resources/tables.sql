@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS DataControlTask (
 	id BIGSERIAL PRIMARY KEY,
 	batchId BIGINT,
 	completeDate TIMESTAMPTZ,
+	continueDate TIMESTAMPTZ,
 	createDate TIMESTAMPTZ,
 	emailAddress TEXT,
 	ownerId TEXT,

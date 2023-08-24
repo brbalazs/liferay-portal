@@ -50,6 +50,7 @@ public final class DataControlTask implements Persistable<Long> {
 
 		if (Objects.equals(_batchId, dataControlTask._batchId) &&
 			Objects.equals(_completeDate, dataControlTask._completeDate) &&
+			Objects.equals(_continueDate, dataControlTask._continueDate) &&
 			Objects.equals(_createDate, dataControlTask._createDate) &&
 			Objects.equals(_emailAddress, dataControlTask._emailAddress) &&
 			Objects.equals(_id, dataControlTask._id) &&
@@ -80,6 +81,19 @@ public final class DataControlTask implements Persistable<Long> {
 		}
 
 		return new Date(_completeDate.getTime());
+	}
+
+	@AccessType(AccessType.Type.PROPERTY)
+	@JsonFormat(
+		pattern = DateUtil.PATTERN_ISO_8601, shape = JsonFormat.Shape.STRING,
+		timezone = "UTC"
+	)
+	public Date getContinueDate() {
+		if (_continueDate == null) {
+			return null;
+		}
+
+		return new Date(_continueDate.getTime());
 	}
 
 	@AccessType(AccessType.Type.PROPERTY)
@@ -149,8 +163,8 @@ public final class DataControlTask implements Persistable<Long> {
 	@Override
 	public int hashCode() {
 		return Objects.hash(
-			_batchId, _completeDate, _createDate, _emailAddress, _id, _type,
-			_status, _userId, _userName);
+			_batchId, _completeDate, _continueDate, _createDate, _emailAddress,
+			_id, _type, _status, _userId, _userName);
 	}
 
 	@JsonIgnore
@@ -170,6 +184,12 @@ public final class DataControlTask implements Persistable<Long> {
 	public void setCompleteDate(Date completeDate) {
 		if (completeDate != null) {
 			_completeDate = new Date(completeDate.getTime());
+		}
+	}
+
+	public void setContinueDate(Date continueDate) {
+		if (continueDate != null) {
+			_continueDate = new Date(continueDate.getTime());
 		}
 	}
 
@@ -247,6 +267,9 @@ public final class DataControlTask implements Persistable<Long> {
 
 	@Transient
 	private Date _completeDate;
+
+	@Transient
+	private Date _continueDate;
 
 	@Transient
 	private Date _createDate;
