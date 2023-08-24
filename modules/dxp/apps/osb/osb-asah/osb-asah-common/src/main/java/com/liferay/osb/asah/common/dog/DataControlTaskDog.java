@@ -242,21 +242,25 @@ public class DataControlTaskDog {
 		DataControlTask.Type type = dataControlTask.getType();
 
 		try {
+			boolean complete = true;
+
 			if (type == DataControlTask.Type.ACCESS) {
-				_access(dataControlTask);
+				complete = _access(dataControlTask);
 			}
 			else if (type == DataControlTask.Type.DELETE) {
-				_delete(dataControlTask);
+				complete = _delete(dataControlTask);
 			}
 			else if (type == DataControlTask.Type.SUPPRESS) {
-				_suppress(dataControlTask);
+				complete = _suppress(dataControlTask);
 			}
 			else if (type == DataControlTask.Type.UNSUPPRESS) {
-				_unsuppress(dataControlTask);
+				complete = _unsuppress(dataControlTask);
 			}
 
-			_updateDataControlTaskStatus(
-				dataControlTask, DataControlTaskStatus.COMPLETED);
+			if (complete) {
+				_updateDataControlTaskStatus(
+					dataControlTask, DataControlTaskStatus.COMPLETED);
+			}
 		}
 		catch (Exception exception) {
 			_log.error(exception, exception);
@@ -284,15 +288,17 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.save(dataControlTask);
 	}
 
-	private void _access(DataControlTask dataControlTask) throws Exception {
+	private boolean _access(DataControlTask dataControlTask) throws Exception {
 		DataExporter dataExporter = new BigQueryDataExporter(
 			_bigQuery, dataControlTask, _dslContext, _exportPath,
 			Arrays.asList("event", "expandovalue", "user"));
 
 		dataExporter.export();
+
+		return true;
 	}
 
-	private void _delete(DataControlTask dataControlTask) throws Exception {
+	private boolean _delete(DataControlTask dataControlTask) throws Exception {
 
 		// DXP User
 
@@ -332,6 +338,8 @@ public class DataControlTaskDog {
 						"successfully",
 					dataControlTask.getEmailAddress()));
 		}
+
+		return true;
 	}
 
 	private Date _getStartCreateDate(Integer rangeKey) {
@@ -358,7 +366,9 @@ public class DataControlTaskDog {
 		return ListUtil.map(csvParser.parseAll(file), row -> row[0]);
 	}
 
-	private void _suppress(DataControlTask dataControlTask) throws Exception {
+	private boolean _suppress(DataControlTask dataControlTask)
+		throws Exception {
+
 		DataControlTask.Type type = fetchLatestCompletedDataControlTaskType(
 			dataControlTask.getEmailAddress(),
 			Arrays.asList(
@@ -366,7 +376,7 @@ public class DataControlTaskDog {
 				DataControlTask.Type.UNSUPPRESS));
 
 		if (type == DataControlTask.Type.SUPPRESS) {
-			return;
+			return true;
 		}
 
 		String emailAddress = dataControlTask.getEmailAddress();
@@ -424,9 +434,13 @@ public class DataControlTaskDog {
 						"successfully",
 					emailAddress));
 		}
+
+		return true;
 	}
 
-	private void _unsuppress(DataControlTask dataControlTask) throws Exception {
+	private boolean _unsuppress(DataControlTask dataControlTask)
+		throws Exception {
+
 		String emailAddress = dataControlTask.getEmailAddress();
 
 		Suppression suppression = _suppressionDog.fetchSuppression(
@@ -437,7 +451,7 @@ public class DataControlTaskDog {
 				_log.warn("Unable to find suppression for " + emailAddress);
 			}
 
-			return;
+			return true;
 		}
 
 		String individualId = DigestUtils.sha256Hex(
@@ -496,6 +510,8 @@ public class DataControlTaskDog {
 						DateUtil.toUTCString(suppression.getCreateDate())
 					}));
 		}
+
+		return true;
 	}
 
 	private DataControlTask _updateDataControlTaskStatus(
