@@ -114,44 +114,57 @@ public class DataControlTaskRepositoryImpl
 			"LatestDataControlTasks"
 		).as(
 			_dslContext.select(
-				emailAddressField, DSL.field("type", String.class),
+				emailAddressField, typeField,
 				DSL.rowNumber(
 				).over(
 					DSL.partitionBy(
 						emailAddressField
 					).orderBy(
 						DSL.field(
-							"completeDate"
+							"compareDate"
 						).desc()
 					)
 				).as(
 					"rowNumber"
 				)
 			).from(
-				"DataControlTask"
-			).where(
-				DSL.or(
-					DSL.and(
+				_dslContext.select(
+					emailAddressField, typeField,
+					DSL.when(
 						DSL.field(
-							"status"
-						).eq(
-							DataControlTaskStatus.COMPLETED.toString()
-						),
-						typeField.in(
-							DataControlTask.Type.SUPPRESS.toString(),
-							DataControlTask.Type.UNSUPPRESS.toString())),
-					DSL.and(
-						DSL.field(
-							"status"
-						).eq(
-							DataControlTaskStatus.RUNNING.toString()
-						),
-						typeField.in(
-							DataControlTask.Type.SUPPRESS.toString(),
-							DataControlTask.Type.UNSUPPRESS.toString()),
-						DSL.field(
-							"continueDate"
-						).isNotNull()))
+							"completeDate"
+						).isNull(),
+						DSL.field("startDate")
+					).otherwise(
+						DSL.field("completeDate")
+					).as(
+						"compareDate"
+					)
+				).from(
+					"DataControlTask"
+				).where(
+					DSL.or(
+						DSL.and(
+							DSL.field(
+								"status"
+							).eq(
+								DataControlTaskStatus.COMPLETED.toString()
+							),
+							typeField.in(
+								DataControlTask.Type.SUPPRESS.toString(),
+								DataControlTask.Type.UNSUPPRESS.toString())),
+						DSL.and(
+							DSL.field(
+								"status"
+							).eq(
+								DataControlTaskStatus.RUNNING.toString()
+							),
+							typeField.eq(
+								DataControlTask.Type.SUPPRESS.toString()),
+							DSL.field(
+								"continueDate"
+							).isNotNull()))
+				)
 			)
 		).selectDistinct(
 			emailAddressField
