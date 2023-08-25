@@ -27,6 +27,7 @@ import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Record1;
+import org.jooq.SelectFinalStep;
 import org.jooq.SelectSelectStep;
 import org.jooq.impl.DSL;
 
@@ -225,53 +226,38 @@ public class DataControlTaskRepositoryImpl
 	}
 
 	@Override
-	public List<DataControlTask> searchPendingDataControlTasks() {
-		Condition condition = DSL.or(
-			DSL.and(
-				DSL.field(
-					"status"
-				).eq(
-					DataControlTaskStatus.PENDING.toString()
-				),
-				DSL.field(
-					"type"
-				).in(
-					Collections.singletonList(
-						DataControlTask.Type.ACCESS.toString())
-				)),
-			DSL.and(
-				DSL.field(
-					"status"
-				).eq(
-					DataControlTaskStatus.RUNNING.toString()
-				),
-				DSL.field(
-					"type"
-				).in(
-					Arrays.asList(
-						DataControlTask.Type.SUPPRESS.toString(),
-						DataControlTask.Type.UNSUPPRESS.toString())
-				),
-				DSL.field(
-					"continueDate"
-				).lt(
-					DSL.currentTimestamp()
-				)));
-
+	public List<DataControlTask> searchPendingAccessDataControlTasks() {
 		return _dslContext.select(
 		).from(
 			"DataControlTask"
 		).where(
-			condition
-		).unionAll(
+			DSL.or(
+				DSL.and(
+					DSL.field(
+						"status"
+					).eq(
+						DataControlTaskStatus.PENDING.toString()
+					),
+					DSL.field(
+						"type"
+					).in(
+						Collections.singletonList(
+							DataControlTask.Type.ACCESS.toString())
+					)))
+		).fetch(
+			record -> new DataControlTask(record.intoMap())
+		);
+	}
+
+	@Override
+	public List<DataControlTask> searchPendingDeleteDataControlTasks() {
+		return _dslContext.with(
+			"DeleteDataControlTask"
+		).as(
 			_dslContext.select(
-				DSL.field("DeleteDataControlTask.*")
+				DSL.field("DataControlTask.*")
 			).from(
-				DSL.table(
-					"DataControlTask"
-				).as(
-					"DeleteDataControlTask"
-				)
+				"DataControlTask"
 			).join(
 				_dslContext.select(
 				).from(
@@ -290,27 +276,77 @@ public class DataControlTaskRepositoryImpl
 			).on(
 				DSL.and(
 					DSL.field(
-						"DeleteDataControlTask.batchId"
+						"DataControlTask.batchId"
 					).eq(
 						DSL.field("SuppressDataControlTask.batchId")
 					),
 					DSL.field(
-						"DeleteDataControlTask.emailAddress"
+						"DataControlTask.emailAddress"
 					).eq(
 						DSL.field("SuppressDataControlTask.emailAddress")
 					))
 			).where(
 				DSL.and(
 					DSL.field(
-						"DeleteDataControlTask.status"
+						"DataControlTask.status"
 					).eq(
 						DataControlTaskStatus.PENDING.toString()
 					),
 					DSL.field(
-						"DeleteDataControlTask.type"
+						"DataControlTask.type"
 					).eq(
 						DataControlTask.Type.DELETE.toString()
 					))
+			)
+		).select(
+		).from(
+			"DeleteDataControlTask"
+		).fetch(
+			record -> new DataControlTask(record.intoMap())
+		);
+	}
+
+	@Override
+	public List<DataControlTask> searchPendingSuppressDataControlTasks() {
+		SelectFinalStep selectFinalStep =
+			_getAvailableDataControlTaskSelectFinalStep(
+				DataControlTask.Type.SUPPRESS);
+
+		return selectFinalStep.fetch(
+			record -> new DataControlTask(record.intoMap()));
+	}
+
+	@Override
+	public List<DataControlTask> searchPendingUnsuppressDataControlTasks() {
+		SelectFinalStep selectFinalStep =
+			_getAvailableDataControlTaskSelectFinalStep(
+				DataControlTask.Type.UNSUPPRESS);
+
+		return selectFinalStep.fetch(
+			record -> new DataControlTask(record.intoMap()));
+	}
+
+	private SelectFinalStep _getAvailableDataControlTaskSelectFinalStep(
+		DataControlTask.Type type) {
+
+		return _dslContext.select(
+		).from(
+			"DataControlTask"
+		).where(
+			DSL.field(
+				"status"
+			).eq(
+				DataControlTaskStatus.RUNNING.toString()
+			),
+			DSL.field(
+				"type"
+			).eq(
+				type.toString()
+			),
+			DSL.field(
+				"continueDate"
+			).lt(
+				DSL.currentTimestamp()
 			)
 		).unionAll(
 			_dslContext.select(
@@ -355,10 +391,8 @@ public class DataControlTaskRepositoryImpl
 						),
 						DSL.field(
 							"type"
-						).in(
-							Arrays.asList(
-								DataControlTask.Type.SUPPRESS.toString(),
-								DataControlTask.Type.UNSUPPRESS.toString())
+						).eq(
+							type.toString()
 						)
 					).asTable(
 						"RunningDataControlTask"
@@ -377,10 +411,8 @@ public class DataControlTaskRepositoryImpl
 					),
 					DSL.field(
 						"PendingDataControlTask.type"
-					).in(
-						Arrays.asList(
-							DataControlTask.Type.SUPPRESS.toString(),
-							DataControlTask.Type.UNSUPPRESS.toString())
+					).eq(
+						type.toString()
 					),
 					DSL.field(
 						"RunningDataControlTask.id"
@@ -393,8 +425,6 @@ public class DataControlTaskRepositoryImpl
 					1
 				)
 			)
-		).fetch(
-			record -> new DataControlTask(record.intoMap())
 		);
 	}
 

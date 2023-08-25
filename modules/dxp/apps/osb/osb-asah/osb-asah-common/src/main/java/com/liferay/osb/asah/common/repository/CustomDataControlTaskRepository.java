@@ -54,6 +54,12 @@ public interface CustomDataControlTaskRepository {
 		@Nullable List<String> statuses,
 		@Nullable List<DataControlTask.Type> types);
 
-	public List<DataControlTask> searchPendingDataControlTasks();
+	public List<DataControlTask> searchPendingAccessDataControlTasks();
+
+	public List<DataControlTask> searchPendingDeleteDataControlTasks();
+
+	public List<DataControlTask> searchPendingSuppressDataControlTasks();
+
+	public List<DataControlTask> searchPendingUnsuppressDataControlTasks();
 
 }

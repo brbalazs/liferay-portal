@@ -221,8 +221,17 @@ public class DataControlTaskDog {
 	}
 
 	public List<DataControlTask> getPrioritizedPendingDataControlTasks() {
-		List<DataControlTask> dataControlTasks =
-			_dataControlTaskRepository.searchPendingDataControlTasks();
+		List<DataControlTask> dataControlTasks = new ArrayList<>();
+
+		dataControlTasks.addAll(
+			_dataControlTaskRepository.searchPendingAccessDataControlTasks());
+		dataControlTasks.addAll(
+			_dataControlTaskRepository.searchPendingDeleteDataControlTasks());
+		dataControlTasks.addAll(
+			_dataControlTaskRepository.searchPendingSuppressDataControlTasks());
+		dataControlTasks.addAll(
+			_dataControlTaskRepository.
+				searchPendingUnsuppressDataControlTasks());
 
 		dataControlTasks.sort(new DataControlTaskComparator());
 
