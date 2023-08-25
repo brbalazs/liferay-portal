@@ -329,7 +329,15 @@ public class DataControlTaskRepositoryImpl
 	private SelectFinalStep _getAvailableDataControlTaskSelectFinalStep(
 		DataControlTask.Type type) {
 
+		List<Field> fields = Arrays.asList(
+			DSL.field("id"), DSL.field("batchId"), DSL.field("completeDate"),
+			DSL.field("continueDate"), DSL.field("createDate"),
+			DSL.field("emailAddress"), DSL.field("ownerId"),
+			DSL.field("startDate"), DSL.field("status"), DSL.field("type"),
+			DSL.field("userId"), DSL.field("userName"));
+
 		return _dslContext.select(
+			fields
 		).from(
 			"DataControlTask"
 		).where(
@@ -350,12 +358,7 @@ public class DataControlTaskRepositoryImpl
 			)
 		).unionAll(
 			_dslContext.select(
-				DSL.field("id"), DSL.field("batchId"),
-				DSL.field("completeDate"), DSL.field("continueDate"),
-				DSL.field("createDate"), DSL.field("emailAddress"),
-				DSL.field("ownerId"), DSL.field("startDate"),
-				DSL.field("status"), DSL.field("type"), DSL.field("userId"),
-				DSL.field("userName")
+				fields
 			).from(
 				_dslContext.select(
 					DSL.field("PendingDataControlTask.*"),
