@@ -32,7 +32,7 @@ public interface CustomDataControlTaskRepository {
 		@Nullable Long batchId, @Nullable List<String> statuses);
 
 	@Cacheable
-	public Optional<DataControlTask> findLatestSuppressionDataControlTask(
+	public Optional<DataControlTask> findLatestActiveSuppressionDataControlTask(
 		String emailAddress);
 
 	@Cacheable

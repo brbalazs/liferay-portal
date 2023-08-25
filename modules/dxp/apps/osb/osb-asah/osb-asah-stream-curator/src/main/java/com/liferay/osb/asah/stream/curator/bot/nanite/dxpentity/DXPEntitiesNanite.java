@@ -139,12 +139,10 @@ public class DXPEntitiesNanite implements Nanite {
 
 		if ((dxpEntityType == null) || dxpEntityType.isUser()) {
 			DataControlTask dataControlTask =
-				_dataControlTaskDog.fetchLatestSuppressionDataControlTask(
+				_dataControlTaskDog.fetchLatestActiveSuppressionDataControlTask(
 					objectJSONObject.optString("emailAddress"));
 
-			if (!Objects.isNull(dataControlTask) &&
-				(dataControlTask.getType() == DataControlTask.Type.SUPPRESS)) {
-
+			if (!Objects.isNull(dataControlTask)) {
 				return;
 			}
 		}

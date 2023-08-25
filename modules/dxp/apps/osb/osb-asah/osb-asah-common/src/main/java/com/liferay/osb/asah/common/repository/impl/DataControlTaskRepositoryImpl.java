@@ -80,12 +80,37 @@ public class DataControlTaskRepositoryImpl
 	}
 
 	@Override
-	public Optional<DataControlTask> findLatestSuppressionDataControlTask(
+	public Optional<DataControlTask> findLatestActiveSuppressionDataControlTask(
 		String emailAddress) {
 
-		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+		Condition condition = DSL.and(
+			DSL.field(
+				"emailAddress"
+			).eq(
+				emailAddress
+			),
+			DSL.field(
+				"status"
+			).eq(
+				DataControlTaskStatus.COMPLETED.toString()
+			),
+			DSL.field(
+				"type"
+			).eq(
+				DataControlTask.Type.UNSUPPRESS.toString()
+			));
 
-		return selectSelectStep.from(
+		SelectFinalStep<Record1<Object>> latestUnsuppressDateSelectFinalStep =
+			_dslContext.select(
+				DSL.max(DSL.field("completeDate"))
+			).from(
+				"DataControlTask"
+			).where(
+				condition
+			);
+
+		return _dslContext.select(
+		).from(
 			"DataControlTask"
 		).where(
 			DSL.and(
@@ -96,10 +121,8 @@ public class DataControlTaskRepositoryImpl
 				),
 				DSL.field(
 					"type"
-				).in(
-					Arrays.asList(
-						DataControlTask.Type.SUPPRESS.toString(),
-						DataControlTask.Type.UNSUPPRESS.toString())
+				).eq(
+					DataControlTask.Type.SUPPRESS.toString()
 				),
 				DSL.or(
 					DSL.field(
@@ -115,10 +138,31 @@ public class DataControlTaskRepositoryImpl
 						),
 						DSL.field(
 							"continueDate"
-						).isNotNull())))
+						).isNotNull())),
+				DSL.or(
+					DSL.notExists(
+						_dslContext.select(
+						).from(
+							"DataControlTask"
+						).where(
+							condition
+						)),
+					DSL.field(
+						"completeDate"
+					).gt(
+						latestUnsuppressDateSelectFinalStep
+					),
+					DSL.field(
+						"startDate"
+					).gt(
+						latestUnsuppressDateSelectFinalStep
+					)))
 		).orderBy(
 			DSL.field(
 				"completeDate"
+			).desc(),
+			DSL.field(
+				"startDate"
 			).desc()
 		).limit(
 			1

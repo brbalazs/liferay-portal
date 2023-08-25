@@ -142,7 +142,7 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.findByIdAndStatus(id, status);
 	}
 
-	public DataControlTask fetchLatestSuppressionDataControlTask(
+	public DataControlTask fetchLatestActiveSuppressionDataControlTask(
 		@Nullable String emailAddress) {
 
 		if (Objects.isNull(emailAddress)) {
@@ -150,8 +150,8 @@ public class DataControlTaskDog {
 		}
 
 		Optional<DataControlTask> dataControlTaskOptional =
-			_dataControlTaskRepository.findLatestSuppressionDataControlTask(
-				emailAddress);
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(emailAddress);
 
 		return dataControlTaskOptional.orElse(null);
 	}
@@ -403,12 +403,10 @@ public class DataControlTaskDog {
 	}
 
 	private boolean _skipSuppression(String emailAddress) {
-		DataControlTask dataControlTask = fetchLatestSuppressionDataControlTask(
-			emailAddress);
+		DataControlTask dataControlTask =
+			fetchLatestActiveSuppressionDataControlTask(emailAddress);
 
-		if (Objects.isNull(dataControlTask) ||
-			(dataControlTask.getType() == DataControlTask.Type.UNSUPPRESS)) {
-
+		if (Objects.isNull(dataControlTask)) {
 			return false;
 		}
 
