@@ -1,0 +1,2 @@
+INSERT INTO DataControlTask (id, completeDate, continueDate, emailAddress, startDate, status, type, userId, userName) VALUES (1111, timestamp '2023-08-24T17:00:00.000Z', timestamp '2023-08-24T16:30:00.000Z', 'test1@liferay.com', timestamp '2023-08-24T15:00:00.000Z', 'COMPLETED', 'SUPPRESS', '12345', 'Test Test');
+INSERT INTO DataControlTask (id, completeDate, continueDate, emailAddress, startDate, status, type, userId, userName) VALUES (2222, null, null,'test1@liferay.com', null, 'PENDING', 'DELETE', '12345', 'Test Test');

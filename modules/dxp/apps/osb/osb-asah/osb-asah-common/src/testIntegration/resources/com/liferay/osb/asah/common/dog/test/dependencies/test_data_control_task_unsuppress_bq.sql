@@ -635,4 +635,4 @@ INSERT INTO SessionInterestScore (identityId, recordedDate) VALUES ('21685976-c7
 INSERT INTO SessionInterestScore (identityId, recordedDate) VALUES ('21685976-c772-4c2f-afbe-2a872b53057c', '2023-08-04');
 INSERT INTO SessionInterestScore (identityId, recordedDate) VALUES ('21685976-c772-4c2f-afbe-2a872b53057c', '2023-08-05');
 
-INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress) VALUES (timestamp '2023-08-01T00:00:00.000Z', 11111, timestamp '2023-08-01T00:00:00.000Z', 'test1@liferay.com');
+INSERT INTO Suppression (createDate, dataControlTaskBatchId, dataControlTaskCreateDate, emailAddress, hidden) VALUES (timestamp '2023-08-01T02:00:00.000Z', 87654, timestamp '2023-07-31T23:55:00.000Z', 'test1@liferay.com', true);
