@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.webserver.WebServerServletTokenUtil;
@@ -407,31 +408,31 @@ public class CommerceOrderEditDisplayContext {
 
 		StringBundler sb = new StringBundler((commerceRegion == null) ? 6 : 8);
 
-		sb.append(commerceAddress.getStreet1());
+		sb.append(HtmlUtil.escape(commerceAddress.getStreet1()));
 		sb.append(StringPool.COMMA);
 		sb.append(StringPool.SPACE);
 
 		if (!Validator.isBlank(commerceAddress.getStreet2())) {
-			sb.append(commerceAddress.getStreet2());
+			sb.append(HtmlUtil.escape(commerceAddress.getStreet2()));
 			sb.append(StringPool.COMMA);
 			sb.append(StringPool.SPACE);
 		}
 
 		if (!Validator.isBlank(commerceAddress.getStreet3())) {
-			sb.append(commerceAddress.getStreet3());
+			sb.append(HtmlUtil.escape(commerceAddress.getStreet3()));
 			sb.append(StringPool.COMMA);
 			sb.append(StringPool.SPACE);
 		}
 
-		sb.append(commerceAddress.getCity());
+		sb.append(HtmlUtil.escape(commerceAddress.getCity()));
 		sb.append(StringPool.NEW_LINE);
 
 		if (commerceRegion != null) {
-			sb.append(commerceRegion.getCode());
+			sb.append(HtmlUtil.escape(commerceRegion.getCode()));
 			sb.append(StringPool.SPACE);
 		}
 
-		sb.append(commerceAddress.getZip());
+		sb.append(HtmlUtil.escape(commerceAddress.getZip()));
 
 		return sb.toString();
 	}
