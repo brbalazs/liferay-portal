@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
@@ -198,6 +199,75 @@ public class DataControlTaskRepositoryTest
 
 		Assertions.assertEquals(
 			_dataControlTask, dataControlTasks, _dataControlTask.toString());
+	}
+
+	@SQLResource(
+		resourcePath = "test_find_latest_active_suppression_data_control_task.sql"
+	)
+	@Test
+	public void testFindLatestActiveSuppressionDataControlTask() {
+		Optional<DataControlTask> dataControlTaskOptional =
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(
+					"joan.doe@liferay.com");
+
+		Assertions.assertFalse(dataControlTaskOptional.isPresent());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(
+					"jane.doe@liferay.com");
+
+		Assertions.assertFalse(dataControlTaskOptional.isPresent());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(
+					"john.doe@liferay.com");
+
+		Assertions.assertTrue(dataControlTaskOptional.isPresent());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(
+					"jack.doe@liferay.com");
+
+		Assertions.assertTrue(dataControlTaskOptional.isPresent());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(
+					"jill.doe@liferay.com");
+
+		Assertions.assertFalse(dataControlTaskOptional.isPresent());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(
+					"jeff.doe@liferay.com");
+
+		Assertions.assertFalse(dataControlTaskOptional.isPresent());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(
+					"joe.doe@liferay.com");
+
+		Assertions.assertFalse(dataControlTaskOptional.isPresent());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(
+					"jen.doe@liferay.com");
+
+		Assertions.assertTrue(dataControlTaskOptional.isPresent());
+
+		dataControlTaskOptional =
+			_dataControlTaskRepository.
+				findLatestActiveSuppressionDataControlTask(
+					"joel.doe@liferay.com");
+
+		Assertions.assertFalse(dataControlTaskOptional.isPresent());
 	}
 
 	@SQLResource(resourcePath = "test_find_suppressed_email_addresses.sql")
