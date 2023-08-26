@@ -11,12 +11,14 @@ import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
+import com.liferay.osb.asah.test.util.annotation.SQLResource;
 import com.liferay.osb.asah.test.util.configuration.JDBCTestConfiguration;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -37,6 +39,10 @@ public class DataControlTaskRepositoryTest
 
 	@BeforeEach
 	public void setUp() {
+		if (_dataControlTaskRepository.count() > 1) {
+			return;
+		}
+
 		_dataControlTaskRepository.deleteAll();
 
 		Date date1 = new Date();
@@ -194,11 +200,25 @@ public class DataControlTaskRepositoryTest
 			_dataControlTask, dataControlTasks, _dataControlTask.toString());
 	}
 
+	@SQLResource(resourcePath = "test_find_suppressed_email_addresses.sql")
 	@Test
 	public void testFindSuppressedEmailAddresses() {
-		Assertions.assertEquals(
-			Collections.singleton("john.doe@liferay.com"),
-			_dataControlTaskRepository.findSuppressedEmailAddresses());
+		Set<String> suppressedEmailAddresses =
+			_dataControlTaskRepository.findSuppressedEmailAddresses();
+
+		Assertions.assertEquals(3, suppressedEmailAddresses.size());
+
+		Set<String> expectedSuppressedEmailAddresses = new HashSet<String>() {
+			{
+				add("jack.doe@liferay.com");
+				add("joe.doe@liferay.com");
+				add("john.doe@liferay.com");
+			}
+		};
+
+		Assertions.assertTrue(
+			suppressedEmailAddresses.containsAll(
+				expectedSuppressedEmailAddresses));
 	}
 
 	@Test
