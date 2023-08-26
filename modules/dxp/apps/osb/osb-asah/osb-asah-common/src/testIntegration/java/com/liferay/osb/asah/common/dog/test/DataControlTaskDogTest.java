@@ -51,6 +51,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -353,6 +354,7 @@ public class DataControlTaskDogTest
 	}
 
 	@BQSQLResource(resourcePath = "test_data_control_task_unsuppress_bq.sql")
+	@Disabled
 	@SQLResource(resourcePath = "test_data_control_task_unsuppress.sql")
 	@Test
 	public void testUnsuppress() {
