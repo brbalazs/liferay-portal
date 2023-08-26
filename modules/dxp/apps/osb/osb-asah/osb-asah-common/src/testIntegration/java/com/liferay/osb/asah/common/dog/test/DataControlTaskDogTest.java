@@ -43,6 +43,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
@@ -320,6 +322,93 @@ public class DataControlTaskDogTest
 						"'2023-08-09')",
 					DataControlTaskStatus.PENDING.toString()),
 				DataControlTask::getId));
+	}
+
+	@SQLResource(
+		resourcePath = "test_get_prioritized_pending_data_control_tasks_1.sql"
+	)
+	@Test
+	public void testGetPrioritizedPendingDataControlTasks1() {
+		List<DataControlTask> dataControlTasks =
+			_dataControlTaskDog.getPrioritizedPendingDataControlTasks();
+
+		Assertions.assertEquals(5, dataControlTasks.size());
+
+		Stream<DataControlTask> stream = dataControlTasks.stream();
+
+		List<Long> dataControlTaskIds = stream.map(
+			DataControlTask::getId
+		).collect(
+			Collectors.toList()
+		);
+
+		Assertions.assertTrue(
+			dataControlTaskIds.containsAll(
+				Arrays.asList(1111L, 2222L, 3333L, 4444L, 5555L)));
+	}
+
+	@SQLResource(
+		resourcePath = "test_get_prioritized_pending_data_control_tasks_2.sql"
+	)
+	@Test
+	public void testGetPrioritizedPendingDataControlTasks2() {
+		List<DataControlTask> dataControlTasks =
+			_dataControlTaskDog.getPrioritizedPendingDataControlTasks();
+
+		Assertions.assertEquals(1, dataControlTasks.size());
+
+		DataControlTask dataControlTask = dataControlTasks.get(0);
+
+		Assertions.assertEquals(4444L, dataControlTask.getId());
+		Assertions.assertEquals(
+			DataControlTaskStatus.PENDING.toString(),
+			dataControlTask.getStatus());
+		Assertions.assertEquals(
+			DataControlTask.Type.DELETE, dataControlTask.getType());
+	}
+
+	@SQLResource(
+		resourcePath = "test_get_prioritized_pending_data_control_tasks_3.sql"
+	)
+	@Test
+	public void testGetPrioritizedPendingDataControlTasks3() {
+		List<DataControlTask> dataControlTasks =
+			_dataControlTaskDog.getPrioritizedPendingDataControlTasks();
+
+		Assertions.assertEquals(2, dataControlTasks.size());
+
+		Stream<DataControlTask> stream = dataControlTasks.stream();
+
+		List<Long> dataControlTaskIds = stream.map(
+			DataControlTask::getId
+		).collect(
+			Collectors.toList()
+		);
+
+		Assertions.assertTrue(
+			dataControlTaskIds.containsAll(Arrays.asList(3333L, 4444L)));
+	}
+
+	@SQLResource(
+		resourcePath = "test_get_prioritized_pending_data_control_tasks_4.sql"
+	)
+	@Test
+	public void testGetPrioritizedPendingDataControlTasks4() {
+		List<DataControlTask> dataControlTasks =
+			_dataControlTaskDog.getPrioritizedPendingDataControlTasks();
+
+		Assertions.assertEquals(2, dataControlTasks.size());
+
+		Stream<DataControlTask> stream = dataControlTasks.stream();
+
+		List<Long> dataControlTaskIds = stream.map(
+			DataControlTask::getId
+		).collect(
+			Collectors.toList()
+		);
+
+		Assertions.assertTrue(
+			dataControlTaskIds.containsAll(Arrays.asList(1111L, 6666L)));
 	}
 
 	@Test

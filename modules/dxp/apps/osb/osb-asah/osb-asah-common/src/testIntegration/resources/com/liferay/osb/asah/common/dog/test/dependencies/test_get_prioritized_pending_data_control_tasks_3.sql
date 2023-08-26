@@ -1,0 +1,4 @@
+INSERT INTO DataControlTask (id, batchId, continueDate, createDate, emailAddress, startDate, status, type) VALUES (1111, 1234, timestamp '${now+90m}', timestamp '${now}', 'test1@liferay.com', timestamp '${now}', 'RUNNING', 'SUPPRESS');
+INSERT INTO DataControlTask (id, batchId, continueDate, createDate, emailAddress, startDate, status, type) VALUES (2222, 2345, timestamp '${now+90m}', timestamp '${now}', 'test2@liferay.com', timestamp '${now}', 'RUNNING', 'UNSUPPRESS');
+INSERT INTO DataControlTask (id, batchId, continueDate, createDate, emailAddress, startDate, status, type) VALUES (3333, 3456, timestamp '${now-30m}', timestamp '${now-2h}', 'test3@liferay.com', timestamp '${now-2h}', 'RUNNING', 'SUPPRESS');
+INSERT INTO DataControlTask (id, batchId, continueDate, createDate, emailAddress, startDate, status, type) VALUES (4444, 4567, timestamp '${now-30m}', timestamp '${now-2h}', 'test4@liferay.com', timestamp '${now-2h}', 'RUNNING', 'UNSUPPRESS');
