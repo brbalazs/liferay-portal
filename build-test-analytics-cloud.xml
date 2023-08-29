@@ -265,9 +265,49 @@ OSB_FARO_FRONTEND_URL=${analytics.cloud.faro.frontend.url}</echo>
 						analytics.cloud.repository.dir="${analytics.cloud.faro.dir}"
 					/>
 
-					<local name="portal.gradlew" />
+					<local name="analytics.cloud.faro.gradlew" />
+					<local name="analytics.cloud.faro.gradlew.parent" />
 
-					<property location="${project.dir}/gradlew" name="portal.gradlew" />
+					<beanshell>
+						<![CDATA[
+							import com.liferay.jenkins.results.parser.JenkinsResultsParserUtil;
+
+							public File getGradlewParentFile(File file) {
+								if (!file.isDirectory()) {
+									return getGradlewParentFile(file.getParentFile());
+								}
+
+								File gradlewFile = new File(file, "gradlew");
+
+								if (!gradlewFile.exists()) {
+									return getGradlewParentFile(file.getParentFile());
+								}
+
+								return file;
+							}
+
+							File analyticsCloudFaroDir = new File(project.getProperty("analytics.cloud.faro.dir"));
+
+							File gradlewParentFile = JenkinsResultsParserUtil.getCanonicalFile(getGradlewParentFile(analyticsCloudFaroDir));
+
+							project.setProperty("analytics.cloud.faro.gradlew", gradlewParentFile + "/gradlew");
+							project.setProperty("analytics.cloud.faro.gradlew.parent", gradlewParentFile.toString());
+						]]>
+					</beanshell>
+
+					<if>
+						<and>
+							<not>
+								<equals arg1="${lp.version.major}" arg2="7.4" />
+							</not>
+							<available file="${analytics.cloud.faro.gradlew.parent}/build.xml" />
+						</and>
+						<then>
+							<execute dir="${analytics.cloud.faro.gradlew.parent}">
+								ant clean compile install-portal-snapshots
+							</execute>
+						</then>
+					</if>
 
 					<loadfile
 						property="analytics.cloud.docker.test.yaml.content"
@@ -283,11 +323,9 @@ OSB_FARO_FRONTEND_URL=${analytics.cloud.faro.frontend.url}</echo>
 					/>
 
 					<execute dir="${analytics.cloud.faro.dir}">
-						${portal.gradlew} createDocker -Pcom.liferay.osb.faro.environment.name=local -Dliferay.ci=true
+						${analytics.cloud.faro.gradlew} buildAppDockerImage -Pcom.liferay.osb.faro.environment.name=local -Dliferay.ci=true
 
 						docker tag ${analytics.cloud.faro.image.name} ${analytics.cloud.faro.tag.name}
-
-						docker rm ${analytics.cloud.faro.container.name}
 					</execute>
 				</then>
 			</if>
