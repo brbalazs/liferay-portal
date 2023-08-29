@@ -93,6 +93,7 @@ public final class Experiment implements Persistable<Long> {
 			Objects.equals(_pageTitle, experiment._pageTitle) &&
 			Objects.equals(_pageURL, experiment._pageURL) &&
 			Objects.equals(_processedDate, experiment._processedDate) &&
+			Objects.equals(_publishable, experiment._publishable) &&
 			Objects.equals(
 				_publishedDXPVariantId, experiment._publishedDXPVariantId) &&
 			Objects.equals(_startedDate, experiment._startedDate) &&
@@ -279,6 +280,11 @@ public final class Experiment implements Persistable<Long> {
 	}
 
 	@AccessType(AccessType.Type.PROPERTY)
+	public Boolean getPublishable() {
+		return _publishable;
+	}
+
+	@AccessType(AccessType.Type.PROPERTY)
 	public String getPublishedDXPVariantId() {
 		return _publishedDXPVariantId;
 	}
@@ -318,7 +324,7 @@ public final class Experiment implements Persistable<Long> {
 			_dxpLayoutId, _dxpSegmentId, _dxpSegmentName, _experimentVariants,
 			_experimentStatus, _experimentType, _finishedDate, _goal, _id,
 			_modifiedDate, _name, _pageRelativePath, _pageTitle, _pageURL,
-			_processedDate, _publishedDXPVariantId, _startedDate,
+			_processedDate, _publishable, _publishedDXPVariantId, _startedDate,
 			_winnerDXPVariantId);
 	}
 
@@ -330,6 +336,11 @@ public final class Experiment implements Persistable<Long> {
 		}
 
 		return false;
+	}
+
+	@AccessType(AccessType.Type.PROPERTY)
+	public Boolean isPublishable() {
+		return getPublishable();
 	}
 
 	public void setChannelId(Long channelId) {
@@ -444,6 +455,10 @@ public final class Experiment implements Persistable<Long> {
 		}
 	}
 
+	public void setPublishable(Boolean publishable) {
+		_publishable = publishable;
+	}
+
 	public void setPublishedDXPVariantId(String publishedDXPVariantId) {
 		_publishedDXPVariantId = publishedDXPVariantId;
 	}
@@ -532,6 +547,9 @@ public final class Experiment implements Persistable<Long> {
 
 	@Transient
 	private Date _processedDate;
+
+	@Transient
+	private Boolean _publishable;
 
 	@Transient
 	private String _publishedDXPVariantId;
