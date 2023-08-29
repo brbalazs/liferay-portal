@@ -281,6 +281,10 @@ public class ExperimentDog {
 			existingExperiment.setPageURL(experiment.getPageURL());
 		}
 
+		if (experiment.getPublishable() != null) {
+			existingExperiment.setPublishable(experiment.getPublishable());
+		}
+
 		return updateExperiment(existingExperiment);
 	}
 
