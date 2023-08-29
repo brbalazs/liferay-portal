@@ -90,6 +90,7 @@ public class ExperimentDTO {
 		_pageTitle = experiment.getPageTitle();
 		_pageURL = experiment.getPageURL();
 		_processedDate = experiment.getProcessedDate();
+		_publishable = experiment.isPublishable();
 		_publishedDXPVariantId = experiment.getPublishedDXPVariantId();
 		_startedDate = experiment.getStartedDate();
 		_winnerDXPVariantId = experiment.getWinnerDXPVariantId();
@@ -293,6 +294,10 @@ public class ExperimentDTO {
 		return new Date(_processedDate.getTime());
 	}
 
+	public Boolean getPublishable() {
+		return _publishable;
+	}
+
 	public String getPublishedDXPVariantId() {
 		return _publishedDXPVariantId;
 	}
@@ -444,6 +449,10 @@ public class ExperimentDTO {
 		}
 	}
 
+	public void setPublishable(Boolean publishable) {
+		_publishable = publishable;
+	}
+
 	public void setPublishedDXPVariantId(String publishedDXPVariantId) {
 		_publishedDXPVariantId = publishedDXPVariantId;
 	}
@@ -483,6 +492,7 @@ public class ExperimentDTO {
 	private String _pageTitle;
 	private String _pageURL;
 	private Date _processedDate;
+	private Boolean _publishable;
 	private String _publishedDXPVariantId;
 	private Date _startedDate;
 	private String _winnerDXPVariantId;
