@@ -736,8 +736,18 @@ public class BQMembershipRepositoryImpl
 					).as(
 						"identityId"
 					),
-					DSL.field(
-						"Identity.individualId", String.class
+					DSL.when(
+						DSL.or(
+							DSL.field(
+								"Individual.suppressed", Boolean.class
+							).isNull(),
+							DSL.field(
+								"Individual.suppressed", Boolean.class
+							).ne(
+								Boolean.TRUE
+							)
+						),
+						DSL.field("Individual.id", String.class)
 					).as(
 						"individualId"
 					),
@@ -830,8 +840,8 @@ public class BQMembershipRepositoryImpl
 				selectJoinStep.where(
 					conditions
 				).groupBy(
-					DSL.field("Identity.id"),
-					DSL.field("Identity.individualId"), DSL.field("segmentId")
+					DSL.field("Identity.id"), DSL.field("individualId"),
+					DSL.field("segmentId")
 				)
 			));
 	}
