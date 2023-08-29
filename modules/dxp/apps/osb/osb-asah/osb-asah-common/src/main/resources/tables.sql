@@ -220,6 +220,7 @@ CREATE TABLE IF NOT EXISTS Experiment (
 	pageURL TEXT,
 	processedDate TIMESTAMPTZ,
 	publishedDXPVariantId TEXT,
+	publishable BOOLEAN,
 	startedDate TIMESTAMPTZ,
 	status TEXT,
 	target TEXT,
