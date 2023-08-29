@@ -1,6 +1,7 @@
 @component-name = "extra-apps-content-targeting"
 definition {
 
+	property ci.retries.disabled = "true";
 	property custom.properties = "layout.parallel.render.enable=false";
 	property extraapps.plugins.includes = "content-targeting";
 	property ignore.errors = "IX_DC6100CC";

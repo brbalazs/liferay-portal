@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property ci.retries.disabled = "true";
 	property osgi.app.includes = "commerce";
 	property portal.release = "true";
 	property portal.upstream = "true";
