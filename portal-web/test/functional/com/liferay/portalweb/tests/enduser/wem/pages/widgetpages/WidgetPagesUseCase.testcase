@@ -362,6 +362,10 @@ definition {
 			requireReset = "false",
 			userEmailAddress = "userea@liferay.com");
 
+		Site.openSiteSettingsAdmin(siteURLKey = "site-name");
+
+		Site.manageMembershipOptions(allowManualMembershipManagement = "true");
+
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
