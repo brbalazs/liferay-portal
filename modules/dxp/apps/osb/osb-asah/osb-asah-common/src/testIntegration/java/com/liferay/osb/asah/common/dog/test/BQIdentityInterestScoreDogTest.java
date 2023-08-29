@@ -30,13 +30,8 @@ public class BQIdentityInterestScoreDogTest
 	implements OSBAsahCommonSpringTestContext,
 			   OSBAsahTestExecutionListenersContext {
 
-	@RepositoryResource(
-		repositoryClass = BQIdentityRepository.class,
-		resourcePath = "osbasahfaroinfo/bq_identity_interest_score_identities.json"
-	)
-	@RepositoryResource(
-		repositoryClass = BQIdentityInterestScoreRepository.class,
-		resourcePath = "osbasahfaroinfo/bq_identity_interest_score_info.json"
+	@BQSQLResource(
+		resourcePath = "test_get_bq_identity_interest_scores_page.sql"
 	)
 	@Test
 	public void testGetBQIdentityInterestScorePage() {
@@ -93,6 +88,26 @@ public class BQIdentityInterestScoreDogTest
 			"javascript", identityInterestScore2.getKeyword());
 		Assertions.assertEquals(
 			2L, identityInterestScore2.getContributingPagesCount());
+	}
+
+	@BQSQLResource(
+		resourcePath = "test_get_bq_identity_interest_scores_page_with_suppression.sql"
+	)
+	@Test
+	public void testGetBQIdentityInterestScorePageWithSuppression() {
+		Page<BQIdentityInterestScore> interestPage =
+			_bqIdentityInterestScoreDog.getBQIdentityInterestScorePage(
+				null,
+				"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7" +
+					"e485",
+				20, 0);
+
+		Assertions.assertEquals(0, interestPage.getTotalElements());
+
+		List<BQIdentityInterestScore> bqIdentityInterestScores =
+			interestPage.getContent();
+
+		Assertions.assertTrue(bqIdentityInterestScores.isEmpty());
 	}
 
 	@Autowired

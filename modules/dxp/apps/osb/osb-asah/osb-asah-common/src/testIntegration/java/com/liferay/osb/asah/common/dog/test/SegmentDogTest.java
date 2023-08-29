@@ -10,10 +10,12 @@ import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.faro.info.dog.test.BaseFaroInfoDogTestCase;
 import com.liferay.osb.asah.common.spring.http.exception.OSBAsahDuplicateNameException;
 import com.liferay.osb.asah.common.spring.http.exception.OSBAsahNameException;
+import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.annotation.SQLResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -67,6 +69,23 @@ public class SegmentDogTest
 			});
 
 		Assertions.assertEquals("Name is already used", exception.getMessage());
+	}
+
+	@BQSQLResource(resourcePath = "test_get_bq_individual_segments_bq.sql")
+	@SQLResource(resourcePath = "test_get_bq_individual_segments.sql")
+	@Test
+	public void testGetBQIndividualSegments() {
+		List<Segment> segments = _segmentDog.getBQIndividualSegments(
+			"47dcdddfd3819371e7b5ff33a62ebedd0db27fd651a5b5810488b36dd8818532");
+
+		Assertions.assertEquals(
+			Arrays.asList(12345L, 23456L, 45678L, 56789L),
+			ListUtil.map(segments, Segment::getId));
+
+		segments = _segmentDog.getBQIndividualSegments(
+			"47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1");
+
+		Assertions.assertTrue(segments.isEmpty());
 	}
 
 	@BQSQLResource(resourcePath = "test_referenced_objects_bq.sql")

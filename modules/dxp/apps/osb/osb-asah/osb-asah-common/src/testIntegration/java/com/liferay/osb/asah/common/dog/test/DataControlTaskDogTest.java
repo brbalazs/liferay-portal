@@ -53,9 +53,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.Set;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -555,8 +555,7 @@ public class DataControlTaskDogTest
 
 		_dataControlTaskDog.run(dataControlTaskOptional.get());
 
-		dataControlTaskOptional =
-			_dataControlTaskRepository.findById(12345L);
+		dataControlTaskOptional = _dataControlTaskRepository.findById(12345L);
 
 		DataControlTask dataControlTask = dataControlTaskOptional.orElse(null);
 
@@ -633,8 +632,7 @@ public class DataControlTaskDogTest
 
 		_dataControlTaskDog.run(dataControlTaskOptional.get());
 
-		dataControlTaskOptional =
-			_dataControlTaskRepository.findById(12345L);
+		dataControlTaskOptional = _dataControlTaskRepository.findById(12345L);
 
 		DataControlTask dataControlTask = dataControlTaskOptional.orElse(null);
 

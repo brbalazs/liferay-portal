@@ -33,6 +33,7 @@ import com.liferay.osb.asah.common.repository.BQSessionRepository;
 import com.liferay.osb.asah.common.repository.DXPEntityRepository;
 import com.liferay.osb.asah.common.repository.DataSourceRepository;
 import com.liferay.osb.asah.common.repository.SegmentRepository;
+import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
@@ -42,6 +43,7 @@ import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContex
 import com.liferay.osb.asah.test.util.util.RandomTestUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -336,9 +338,9 @@ public class BQIndividualDogTest
 				organizationIds.toArray(new Long[0])));
 	}
 
-	@BQSQLResource(resourcePath = "test_bq_identity_activities.sql")
+	@BQSQLResource(resourcePath = "test_bq_identity_activities_1.sql")
 	@Test
-	public void testFetchBQIndividual() {
+	public void testFetchBQIndividual1() {
 		Individual individual = _bqIndividualDog.fetchBQIndividual(
 			1L,
 			"05574696b257a38dc21009122d33550c299f822dc768984c95693e6d5c4ed006");
@@ -370,6 +372,16 @@ public class BQIndividualDogTest
 		Assertions.assertEquals(
 			"joe.bloggs@liferay.com",
 			FaroInfoIndividualUtil.getIndividualEmail(individual));
+	}
+
+	@BQSQLResource(resourcePath = "test_bq_identity_activities_2.sql")
+	@Test
+	public void testFetchBQIndividual2() {
+		Assertions.assertNull(
+			_bqIndividualDog.fetchBQIndividual(
+				1L,
+				"05574696b257a38dc21009122d33550c299f822dc768984c95693e6d5c4e" +
+					"d006"));
 	}
 
 	@BQSQLResource(
@@ -631,6 +643,70 @@ public class BQIndividualDogTest
 		segmentIds = individual.getSegmentIds();
 
 		Assertions.assertEquals(0, segmentIds.size(), segmentIds.toString());
+	}
+
+	@BQSQLResource(resourcePath = "test_search_bq_individual_page_1.sql")
+	@Test
+	public void testSearchBQIndividualPage1() {
+		Page<Individual> bqIndividualPage =
+			_bqIndividualDog.searchBQIndividualPage(null, 0, null, 10);
+
+		Assertions.assertEquals(15, bqIndividualPage.getTotalElements());
+		Assertions.assertEquals(2, bqIndividualPage.getTotalPages());
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"1", "11", "12", "13", "14", "15", "16", "17", "18", "19"),
+			ListUtil.map(bqIndividualPage.getContent(), Individual::getId));
+
+		bqIndividualPage = _bqIndividualDog.searchBQIndividualPage(
+			null, 1, null, 10);
+
+		Assertions.assertEquals(
+			Arrays.asList("20", "3", "5", "7", "9"),
+			ListUtil.map(bqIndividualPage.getContent(), Individual::getId));
+	}
+
+	@BQSQLResource(resourcePath = "test_search_bq_individual_page_2.sql")
+	@Test
+	public void testSearchBQIndividualPage2() {
+		Page<Individual> bqIndividualPage =
+			_bqIndividualDog.searchBQIndividualPage(1L, 0, null, 2);
+
+		Assertions.assertEquals(5, bqIndividualPage.getTotalElements());
+		Assertions.assertEquals(3, bqIndividualPage.getTotalPages());
+
+		Assertions.assertEquals(
+			Arrays.asList("1", "3"),
+			ListUtil.map(bqIndividualPage.getContent(), Individual::getId));
+
+		bqIndividualPage = _bqIndividualDog.searchBQIndividualPage(
+			1L, 1, null, 2);
+
+		Assertions.assertEquals(
+			Arrays.asList("5", "7"),
+			ListUtil.map(bqIndividualPage.getContent(), Individual::getId));
+
+		bqIndividualPage = _bqIndividualDog.searchBQIndividualPage(
+			1L, 2, null, 2);
+
+		Assertions.assertEquals(
+			Arrays.asList("9"),
+			ListUtil.map(bqIndividualPage.getContent(), Individual::getId));
+	}
+
+	@BQSQLResource(resourcePath = "test_search_bq_individual_page_3.sql")
+	@Test
+	public void testSearchBQIndividualPage3() {
+		Page<Individual> bqIndividualPage =
+			_bqIndividualDog.searchBQIndividualPage(1L, 0, "9", 20);
+
+		Assertions.assertEquals(1, bqIndividualPage.getTotalElements());
+		Assertions.assertEquals(1, bqIndividualPage.getTotalPages());
+
+		Assertions.assertEquals(
+			Arrays.asList("9"),
+			ListUtil.map(bqIndividualPage.getContent(), Individual::getId));
 	}
 
 	@BQSQLResource(resourcePath = "test_get_bq_individual_page.sql")

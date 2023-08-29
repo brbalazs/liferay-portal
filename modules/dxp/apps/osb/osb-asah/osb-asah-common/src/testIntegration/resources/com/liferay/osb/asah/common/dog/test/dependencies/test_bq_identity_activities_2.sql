@@ -1,0 +1,35 @@
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '1', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '2', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '3', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '4', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '5', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '6', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '7', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '8', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '9', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '10', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '11', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '12', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '13', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '14', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '15', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '16', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '17', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '18', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '19', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '20', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '21', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:26:53.218-00', 'webContentViewed', '22', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '23', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-12 20:36:53.218-00', 'webContentViewed', '24', '123123-sadf-32423-234afsd');
+INSERT INTO Event (applicationId, channelId, eventDate, eventId, id, userId) VALUES ('WebContent', 1, timestamp '2019-02-11 20:26:53.218-00', 'webContentViewed', '25', '123123-sadf-32423-234afsd');
+
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, dataSourceId, eventId, firstActivityDate, identityId, individualId, lastActivityDate) VALUES (13, 1, 1, 'webContentViewed', timestamp '2019-02-11 20:26:53-00', '123123-sadf-32423-234afsd', '05574696b257a38dc21009122d33550c299f822dc768984c95693e6d5c4ed006', timestamp '2019-02-11 20:26:53.218-00');
+INSERT INTO IdentityActivitySummary (activitiesCount, channelId, dataSourceId, eventId, firstActivityDate, identityId, individualId, lastActivityDate) VALUES (12, 1, 1, 'webContentViewed', timestamp '2019-02-12 20:26:53-00', '123123-sadf-32423-234afsd', '05574696b257a38dc21009122d33550c299f822dc768984c95693e6d5c4ed006', timestamp '2019-02-12 20:36:53.218-00');
+
+INSERT INTO Identity_Raw (createDate, id, individualId) VALUES (timestamp '2019-02-11T20:26:53.218-00', '123123-sadf-32423-4245', '05574696b257a38dc21009122d33550c299f822dc768984c95693e6d5c4ed006');
+INSERT INTO Identity_Raw (createDate, id, individualId) VALUES (timestamp '2019-02-12T20:26:53.218-00', '123123-sadf-32423-234afsd', '05574696b257a38dc21009122d33550c299f822dc768984c95693e6d5c4ed006');
+
+INSERT INTO Individual (createDate, emailAddress, fields, firstName, id, jobTitle, lastName, middleName, modifiedDate, screenName, suppressed) VALUES (timestamp '2019-02-11T20:26:53.218-00', 'joe.bloggs@liferay.com', ARRAY<STRUCT<dataSourceId INT64, name STRING, value STRING>> [(1, 'custom', 'custom'),(1, 'emailAddress', 'joe.bloggs@liferay.com'),(1, 'firstName', 'Joe'),(1, 'lastName', 'Bloggs'),(1, 'screenName', 'joe.bloggs')], 'Joe', '05574696b257a38dc21009122d33550c299f822dc768984c95693e6d5c4ed006', 'Engineer', 'Bloggs', '', timestamp '2019-02-11T20:26:53.218-00', 'joe.bloggs', true);
+
+INSERT INTO Suppression (emailAddress) VALUES ('joe.bloggs@liferay.com');
