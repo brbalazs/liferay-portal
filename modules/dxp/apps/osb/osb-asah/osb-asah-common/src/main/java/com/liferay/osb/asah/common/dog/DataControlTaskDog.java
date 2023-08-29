@@ -277,8 +277,12 @@ public class DataControlTaskDog {
 	}
 
 	public void run(DataControlTask dataControlTask) {
-		_updateDataControlTaskStatus(
-			dataControlTask, DataControlTaskStatus.RUNNING);
+		String status = dataControlTask.getStatus();
+
+		if (!status.equals(DataControlTaskStatus.RUNNING.toString())) {
+			_updateDataControlTaskStatus(
+				dataControlTask, DataControlTaskStatus.RUNNING);
+		}
 
 		processDataControlTask(dataControlTask);
 	}
