@@ -304,6 +304,8 @@ OSB_FARO_FRONTEND_URL=${analytics.cloud.faro.frontend.url}</echo>
 						</and>
 						<then>
 							<execute dir="${analytics.cloud.faro.gradlew.parent}">
+								ant setup-profile-dxp
+
 								ant clean compile install-portal-snapshots
 							</execute>
 						</then>
