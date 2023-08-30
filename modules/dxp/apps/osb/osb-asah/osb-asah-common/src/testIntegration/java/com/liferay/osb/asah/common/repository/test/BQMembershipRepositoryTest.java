@@ -9,6 +9,7 @@ import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.entity.BQMembership;
 import com.liferay.osb.asah.common.model.MembershipCountSnapshot;
 import com.liferay.osb.asah.common.repository.BQMembershipRepository;
+import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.annotation.SQLResource;
 import com.liferay.osb.asah.test.util.configuration.JDBCTestConfiguration;
@@ -19,9 +20,11 @@ import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.collections4.IterableUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -47,6 +50,21 @@ public class BQMembershipRepositoryTest
 			2,
 			_bqMembershipRepository.countActiveMembersBySegmentId(
 				false, 34L, ZoneId.of("UTC")));
+	}
+
+	@BQSQLResource(
+		resourcePath = "test_bq_membership_repository_with_suppression_bq.sql"
+	)
+	@Test
+	public void testCountActiveMembersBySegmentIdWithSuppression() {
+		Assertions.assertEquals(
+			3,
+			_bqMembershipRepository.countActiveMembersBySegmentId(
+				false, 123L, ZoneId.of("UTC")));
+		Assertions.assertEquals(
+			5,
+			_bqMembershipRepository.countActiveMembersBySegmentId(
+				true, 123L, ZoneId.of("UTC")));
 	}
 
 	@BQSQLResource(resourcePath = "test_bq_membership_repository_bq.sql")
@@ -353,6 +371,42 @@ public class BQMembershipRepositoryTest
 		Assertions.assertEquals(
 			1L, membershipCountSnapshot.getIndividualsCount());
 		Assertions.assertEquals(34L, membershipCountSnapshot.getSegmentId());
+	}
+
+	@BQSQLResource(
+		resourcePath = "test_update_membership_with_suppressed_individual_bq.sql"
+	)
+	@SQLResource(
+		resourcePath = "test_update_membership_with_suppressed_individual.sql"
+	)
+	@Test
+	public void testUpdateMembershipWithSuppressedIndividual() {
+		_bqMembershipRepository.updateBQMemberships(
+			1L, "(((demographics/jobTitle/value ne null)))", true, 111L);
+
+		List<BQMembership> bqMemberships =
+			_bqMembershipRepository.findBySegmentIdAndStatus(
+				111L, "ACTIVE", PageRequest.of(0, 20));
+
+		Assertions.assertEquals(6, bqMemberships.size());
+
+		Assertions.assertEquals(
+			Arrays.asList(
+				"identity1", "identity10", "identity2", "identity4",
+				"identity5", "identity8"),
+			ListUtil.map(bqMemberships, BQMembership::getIdentityId));
+
+		Stream<BQMembership> stream = bqMemberships.stream();
+
+		Assertions.assertEquals(
+			Arrays.asList("1", "2", "4", "8"),
+			stream.map(
+				BQMembership::getIndividualId
+			).filter(
+				StringUtils::isNotBlank
+			).collect(
+				Collectors.toList()
+			));
 	}
 
 	@Autowired
