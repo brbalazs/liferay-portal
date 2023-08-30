@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-package com.liferay.akismet.internal.portlet;
+package com.liferay.akismet.web.internal.portlet;
 
 import com.liferay.akismet.client.AkismetClient;
 import com.liferay.akismet.client.util.AkismetServiceConfigurationUtil;
-import com.liferay.akismet.internal.constants.ModerationPortletKeys;
+import com.liferay.akismet.web.internal.constants.ModerationPortletKeys;
 import com.liferay.message.boards.kernel.exception.NoSuchMessageException;
 import com.liferay.message.boards.kernel.exception.RequiredMessageException;
 import com.liferay.message.boards.kernel.model.MBMessage;

@@ -14,7 +14,7 @@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %><%@
 taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.akismet.internal.util.ModerationUtil" %><%@
+<%@ page import="com.liferay.akismet.web.internal.util.ModerationUtil" %><%@
 page import="com.liferay.message.boards.kernel.exception.NoSuchMessageException" %><%@
 page import="com.liferay.message.boards.kernel.exception.RequiredMessageException" %><%@
 page import="com.liferay.message.boards.kernel.model.MBMessage" %><%@
