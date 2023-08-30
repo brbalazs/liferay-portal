@@ -86,11 +86,46 @@ public class BQMembershipRepositoryImpl
 
 		return _queryExecutor.queryForLong(
 			_dslContext.with(
+				"SuppressedIdentityActivity"
+			).as(
+				_dslContext.select(
+					DSL.field("IdentityActivity.identityId"),
+					DSL.when(
+						DSL.not(
+							DSL.coalesce(
+								DSL.field(
+									"Individual.suppressed", Boolean.class),
+								false)),
+						DSL.field("IdentityActivity.individualId")
+					).as(
+						"individualId"
+					),
+					DSL.field("IdentityActivity.lastActivityDate")
+				).from(
+					DSL.table(
+						"BQIdentityActivity"
+					).as(
+						"IdentityActivity"
+					)
+				).leftJoin(
+					DSL.table(
+						"BQIndividual"
+					).as(
+						"Individual"
+					)
+				).on(
+					DSL.field(
+						"IdentityActivity.individualId"
+					).eq(
+						DSL.field("Individual.id")
+					)
+				)
+			).with(
 				"ActiveMembers"
 			).as(
 				_dslContext.select(
-					DSL.field("IdentityActivity.individualId"),
-					DSL.field("IdentityActivity.identityId")
+					DSL.field("SuppressedIdentityActivity.individualId"),
+					DSL.field("SuppressedIdentityActivity.identityId")
 				).from(
 					DSL.table(
 						"BQMembership"
@@ -98,15 +133,11 @@ public class BQMembershipRepositoryImpl
 						"Membership"
 					)
 				).leftJoin(
-					DSL.table(
-						"BQIdentityActivity"
-					).as(
-						"IdentityActivity"
-					)
+					"SuppressedIdentityActivity"
 				).on(
 					DSL.and(
 						DSL.field(
-							"IdentityActivity.lastActivityDate"
+							"SuppressedIdentityActivity.lastActivityDate"
 						).greaterOrEqual(
 							DSL.field(
 								"TIMESTAMP '" +
@@ -115,19 +146,21 @@ public class BQMembershipRepositoryImpl
 						DSL.field(
 							"Membership.identityId"
 						).eq(
-							DSL.field("IdentityActivity.identityId")
+							DSL.field("SuppressedIdentityActivity.identityId")
 						),
 						DSL.coalesce(
 							DSL.field("Membership.individualId"), ""
 						).eq(
 							DSL.coalesce(
-								DSL.field("IdentityActivity.individualId"), "")
+								DSL.field(
+									"SuppressedIdentityActivity.individualId"),
+								"")
 						))
 				).where(
 					conditions
 				).groupBy(
-					DSL.field("IdentityActivity.individualId"),
-					DSL.field("IdentityActivity.identityId")
+					DSL.field("SuppressedIdentityActivity.individualId"),
+					DSL.field("SuppressedIdentityActivity.identityId")
 				)
 			).select(
 				DSL.countDistinct(
@@ -745,8 +778,7 @@ public class BQMembershipRepositoryImpl
 								"Individual.suppressed", Boolean.class
 							).ne(
 								Boolean.TRUE
-							)
-						),
+							)),
 						DSL.field("Individual.id", String.class)
 					).as(
 						"individualId"
