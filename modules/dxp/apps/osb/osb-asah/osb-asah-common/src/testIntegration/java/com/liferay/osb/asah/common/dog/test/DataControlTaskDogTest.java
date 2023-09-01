@@ -9,6 +9,7 @@ import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.entity.BQEvent;
+import com.liferay.osb.asah.common.entity.BQIdentity;
 import com.liferay.osb.asah.common.entity.BQIndividual;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.entity.Segment;
@@ -28,6 +29,7 @@ import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.DataSourceRepository;
 import com.liferay.osb.asah.common.repository.SegmentRepository;
 import com.liferay.osb.asah.common.repository.SuppressionRepository;
+import com.liferay.osb.asah.common.repository.executor.BigQueryQueryExecutor;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
@@ -58,9 +60,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import org.jooq.DSLContext;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -190,7 +195,89 @@ public class DataControlTaskDogTest
 			_bqIndividualRepository.countBQIndividuals(
 				null, "email eq 'test1@liferay.com'", null, null, null));
 		Assertions.assertEquals(1, _bqUserRepository.count());
-		Assertions.assertNull(_bqIdentityRepository.getBQIndividualId("1"));
+
+		List<BQIdentity> bqIdentities = _bqIdentityRepository.findAll();
+
+		Stream<BQIdentity> stream = bqIdentities.stream();
+
+		Map<String, List<BQIdentity>> bqIdentitiesByIndividualId =
+			stream.filter(
+				bqIdentity -> StringUtils.isNotBlank(
+					bqIdentity.getIndividualId())
+			).collect(
+				Collectors.groupingBy(BQIdentity::getIndividualId)
+			);
+
+		String individualId =
+			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485";
+
+		Assertions.assertEquals(
+			1,
+			_bqEventRepository.countBQEvents(
+				null, individualId, null,
+				LocalDateTime.parse("2023-12-31T00:00:00"),
+				LocalDateTime.parse("2023-01-01T00:00:00"), "UTC"));
+
+		List<BQIdentity> suppressedBQIdentities =
+			bqIdentitiesByIndividualId.get(individualId);
+
+		Assertions.assertEquals(1, suppressedBQIdentities.size());
+
+		BQIdentity bqIdentity = suppressedBQIdentities.get(0);
+
+		Assertions.assertEquals(
+			DateUtil.toUTCDate("2023-08-25T00:00:00.000Z"),
+			bqIdentity.getCreateDate());
+
+		individualId =
+			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f";
+
+		Assertions.assertEquals(
+			4,
+			_bqEventRepository.countBQEvents(
+				null, individualId, null,
+				LocalDateTime.parse("2023-12-31T00:00:00"),
+				LocalDateTime.parse("2023-01-01T00:00:00"), "UTC"));
+
+		List<BQIdentity> nonsuppressedBQIdentities =
+			bqIdentitiesByIndividualId.get(individualId);
+
+		Assertions.assertEquals(1, nonsuppressedBQIdentities.size());
+
+		bqIdentity = nonsuppressedBQIdentities.get(0);
+
+		Assertions.assertEquals(
+			DateUtil.toUTCDate("2023-08-23T00:00:00.000Z"),
+			bqIdentity.getCreateDate());
+	}
+
+	@BQSQLResource(resourcePath = "test_data_control_task_delete_bq.sql")
+	@SQLResource(resourcePath = "test_data_control_task_delete_with_error.sql")
+	@Test
+	public void testDeleteDataWithSuppressTaskError() {
+		Optional<DataControlTask> dataControlTaskOptional =
+			_dataControlTaskRepository.findById(2222L);
+
+		Assertions.assertTrue(dataControlTaskOptional.isPresent());
+
+		_dataControlTaskDog.run(dataControlTaskOptional.get());
+
+		dataControlTaskOptional = _dataControlTaskRepository.findById(2222L);
+
+		Assertions.assertTrue(dataControlTaskOptional.isPresent());
+
+		DataControlTask dataControlTask = dataControlTaskOptional.get();
+
+		Assertions.assertNull(dataControlTask.getCompleteDate());
+		Assertions.assertEquals(
+			DataControlTaskStatus.ERROR.toString(),
+			dataControlTask.getStatus());
+
+		Assertions.assertEquals(1, _bqExpandoValueRepository.count());
+		Assertions.assertEquals(
+			1,
+			_bqIndividualRepository.countBQIndividuals(
+				null, "email eq 'test1@liferay.com'", null, null, null));
 	}
 
 	@RepositoryResource(
@@ -765,6 +852,9 @@ public class DataControlTaskDogTest
 	private AuditEventRepository _auditEventRepository;
 
 	@Autowired
+	private BigQueryQueryExecutor _bigQueryQueryExecutor;
+
+	@Autowired
 	private BQEventRepository _bqEventRepository;
 
 	@Autowired
@@ -790,6 +880,9 @@ public class DataControlTaskDogTest
 
 	@Autowired
 	private DataControlTaskRepository _dataControlTaskRepository;
+
+	@Autowired
+	private DSLContext _dslContext;
 
 	@Autowired
 	private SegmentRepository _segmentRepository;
