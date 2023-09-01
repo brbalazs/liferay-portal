@@ -17,6 +17,7 @@ import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -117,6 +118,26 @@ public class PageAssetMetricRepositoryTest
 			_assetMetricRepository.getGeolocationMetrics(
 				"https://www.beryl.com/delivery", "Beryl Delivery", 1L,
 				PageMetricType.VIEWS, TimeRange.LAST_30_DAYS));
+	}
+
+	@BQSQLResource(resourcePath = "page_asset_metric_segment.sql")
+	@Test
+	public void testGetSegmentMetricsLast7Days() {
+		assertMetrics(
+			Collections.singletonList(new Tuple2("192837465", 2D)),
+			_assetMetricRepository.getSegmentMetrics(
+				"https://www.beryl.com/delivery", "Asset Title 2", 1L,
+				PageMetricType.VIEWS, TimeRange.LAST_7_DAYS));
+	}
+
+	@BQSQLResource(resourcePath = "page_asset_metric_segment.sql")
+	@Test
+	public void testGetSegmentMetricsLast24Hours() {
+		assertMetrics(
+			Collections.singletonList(new Tuple2("192837465", 2D)),
+			_assetMetricRepository.getSegmentMetrics(
+				"https://www.beryl.com/delivery", "Title 2", 1L,
+				PageMetricType.VIEWS, TimeRange.LAST_24_HOURS));
 	}
 
 	@BQSQLResource(

@@ -17,6 +17,7 @@ import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -214,6 +215,26 @@ public class DocumentLibraryAssetMetricRepositoryTest
 		Metric ratingsMetric = documentLibraryMetric.getRatingsMetric();
 
 		Assertions.assertEquals(0.9, ratingsMetric.getValue(), 0.01);
+	}
+
+	@BQSQLResource(resourcePath = "document_library_asset_metric_segment.sql")
+	@Test
+	public void testGetSegmentMetricsLast7Days() {
+		assertMetrics(
+			Collections.singletonList(new Tuple2("192837465", 2D)),
+			_assetMetricRepository.getSegmentMetrics(
+				"e131fabc", null, 1L, DocumentLibraryMetricType.PREVIEWS,
+				TimeRange.LAST_7_DAYS));
+	}
+
+	@BQSQLResource(resourcePath = "document_library_asset_metric_segment.sql")
+	@Test
+	public void testGetSegmentMetricsLast24Hours() {
+		assertMetrics(
+			Collections.singletonList(new Tuple2("192837465", 2D)),
+			_assetMetricRepository.getSegmentMetrics(
+				"e131fabc", null, 1L, DocumentLibraryMetricType.PREVIEWS,
+				TimeRange.LAST_24_HOURS));
 	}
 
 	@Override
