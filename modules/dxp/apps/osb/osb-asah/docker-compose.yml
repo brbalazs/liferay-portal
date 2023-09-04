@@ -28,6 +28,34 @@ services:
             test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/status" ]
         ports:
             - "3001:3000"
+    kong:
+        container_name: kong
+        environment:
+            KONG_ADMIN_ACCESS_LOG: /dev/stdout
+            KONG_ADMIN_ERROR_LOG: /dev/stderr
+            KONG_ADMIN_GUI_URL: http://localhost:8002
+            KONG_ADMIN_LISTEN: 0.0.0.0:8001
+            KONG_DATABASE: "off"
+            KONG_DECLARATIVE_CONFIG: /usr/local/kong/declarative/kong.yml
+            KONG_LOG_LEVEL: warn
+            KONG_PROXY_ACCESS_LOG: /dev/stdout
+            KONG_PROXY_ERROR_LOG: /dev/stderr
+        healthcheck:
+            interval: 120s
+            retries: 3
+            test: [ "CMD", "kong", "health" ]
+            timeout: 10s
+        image: kong/kong-gateway:3.4.0.0
+        ports:
+            - "8001:8001"
+            - "8444:8444"
+            - "8000:8000"
+            - "8002:8002"
+            - "8443:8443"
+            - "9080:9080"
+            - "9081:9081"
+        volumes:
+            - ./kong/declarative:/usr/local/kong/declarative
     osbapiemulator:
         build: ./devtools/osb-api-emulator
         container_name: osbapiemulator
@@ -97,6 +125,7 @@ services:
             context: ./osb-asah-publisher
         container_name: osbasahpublisher
         depends_on:
+            - kong
             - osbasahupgrade
             - pubsubemulator
         env_file:
@@ -166,7 +195,7 @@ services:
         image: liferay/com-liferay-osb-faro:master
         ports:
             - "11311:11311"
-            - "8000:8000"
+            - "6000:8000"
             - "8080:8080"
         volumes:
             - faro:/opt/liferay/data
