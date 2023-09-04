@@ -1,12 +1,6 @@
-@default = "robotType"
+@default = "robotTypeShortcut"
 @summary = "Type to '${locator1}' the value '${value1}'"
 definition {
-
-	function robotType {
-		WaitForSPARefresh();
-
-		selenium.robotType();
-	}
 
 	function robotTypeShortcut {
 		WaitForSPARefresh();
