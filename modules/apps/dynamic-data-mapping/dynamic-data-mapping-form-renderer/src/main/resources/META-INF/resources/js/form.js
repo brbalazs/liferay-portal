@@ -125,6 +125,18 @@ AUI.add(
 						return container.ancestor('form', true);
 					},
 
+					getFormTitle: function() {
+						var instance = this;
+
+						var formNode = instance.getFormNode();
+
+						if (!formNode) {
+							return 0;
+						}
+
+						return formNode.getData('form-title');
+					},
+
 					getSubmitButton: function() {
 						var instance = this;
 
@@ -172,7 +184,8 @@ AUI.add(
 									Liferay.fire(
 										'ddmFormSubmit',
 										{
-											formId: instance.getFormId()
+											formId: instance.getFormId(),
+											title: instance.getFormTitle()
 										}
 									);
 
