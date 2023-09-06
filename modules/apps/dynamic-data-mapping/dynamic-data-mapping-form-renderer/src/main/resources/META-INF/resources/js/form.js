@@ -131,10 +131,10 @@ AUI.add(
 						var formNode = instance.getFormNode();
 
 						if (!formNode) {
-							return 0;
+							return null;
 						}
-
-						return formNode.getData('form-title');
+						
+						return formNode._node.querySelector('[data-form-title]').textContent;
 					},
 
 					getSubmitButton: function() {
