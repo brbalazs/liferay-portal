@@ -31,12 +31,49 @@ import org.springframework.util.Assert;
  */
 public class FilterExpression {
 
-	public FilterExpression(String filterExpressionString) {
-		this(filterExpressionString, null, false);
+	public FilterExpression(Long channelId, String filterExpressionString) {
+		this(channelId, filterExpressionString, null, false);
 	}
 
-	public FilterExpression(String filterExpressionString, boolean segment) {
-		this(filterExpressionString, null, segment);
+	public FilterExpression(
+		Long channelId, String filterExpressionString, boolean segment) {
+
+		this(channelId, filterExpressionString, null, segment);
+	}
+
+	public FilterExpression(
+		Long channelId, String filterExpressionString, FilterType filterType) {
+
+		this(channelId, filterExpressionString, filterType, false);
+	}
+
+	public FilterExpression(
+		Long channelId, String filterExpressionString, FilterType filterType,
+		boolean segment) {
+
+		Assert.notNull(
+			filterExpressionString, "Filter expression string is null");
+
+		FilterExpressionParser.ExpressionContext expressionContext = _parse(
+			_rewriteFilterExpression(channelId, filterExpressionString));
+
+		if (filterType != null) {
+			_filterType = filterType;
+		}
+
+		if ((_filterType == null) && segment) {
+			_filterType = FilterType.INDIVIDUALS;
+		}
+
+		FilterExpressionConditionVisitor filterExpressionConditionVisitor =
+			new FilterExpressionConditionVisitor(channelId, _filterType);
+
+		expressionContext.accept(filterExpressionConditionVisitor);
+
+		_condition = (Condition)expressionContext.accept(
+			filterExpressionConditionVisitor);
+		_referencedTableNames =
+			filterExpressionConditionVisitor.getReferencedTableNames();
 	}
 
 	public FilterExpression(
@@ -50,40 +87,6 @@ public class FilterExpression {
 			filterExpressionString);
 
 		expressionContext.accept(filterExpressionVisitor);
-	}
-
-	public FilterExpression(
-		String filterExpressionString, FilterType filterType) {
-
-		this(filterExpressionString, filterType, false);
-	}
-
-	public FilterExpression(
-		String filterExpressionString, FilterType filterType, boolean segment) {
-
-		Assert.notNull(
-			filterExpressionString, "Filter expression string is null");
-
-		FilterExpressionParser.ExpressionContext expressionContext = _parse(
-			_rewriteFilterExpression(filterExpressionString));
-
-		if (filterType != null) {
-			_filterType = filterType;
-		}
-
-		if ((_filterType == null) && segment) {
-			_filterType = FilterType.INDIVIDUALS;
-		}
-
-		FilterExpressionConditionVisitor filterExpressionConditionVisitor =
-			new FilterExpressionConditionVisitor(_filterType);
-
-		expressionContext.accept(filterExpressionConditionVisitor);
-
-		_condition = (Condition)expressionContext.accept(
-			filterExpressionConditionVisitor);
-		_referencedTableNames =
-			filterExpressionConditionVisitor.getReferencedTableNames();
 	}
 
 	public Condition getCondition() {
@@ -171,10 +174,17 @@ public class FilterExpression {
 		}
 	}
 
-	private String _rewriteFilterExpression(String filterExpressionString) {
+	private String _rewriteFilterExpression(
+		Long channelId, String filterExpressionString) {
+
 		Matcher matcher = _activityKeyPattern.matcher(filterExpressionString);
 
 		while (matcher.find()) {
+			if (channelId == null) {
+				throw new IllegalArgumentException(
+					"Unable to process activities filter without channel ID");
+			}
+
 			String applicationId = matcher.group("applicationId");
 
 			String eventId = matcher.group("eventId");
@@ -187,9 +197,10 @@ public class FilterExpression {
 			}
 
 			String expression =
-				"applicationId eq ''" + applicationId + "'' and eventId eq ''" +
-					eventId + "'' and sha256Hex(assetId) eq ''" +
-						matcher.group("assetIdHashed") + "''";
+				"applicationId eq ''" + applicationId + "'' and channelId eq " +
+					channelId + " and eventId eq ''" + eventId +
+						"'' and sha256Hex(assetId) eq ''" +
+							matcher.group("assetIdHashed") + "''";
 
 			filterExpressionString = matcher.replaceFirst(expression);
 
