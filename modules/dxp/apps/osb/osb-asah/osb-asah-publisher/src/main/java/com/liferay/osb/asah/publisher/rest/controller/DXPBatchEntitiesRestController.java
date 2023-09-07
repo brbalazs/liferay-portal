@@ -331,7 +331,7 @@ public class DXPBatchEntitiesRestController {
 	private DataControlTaskDog _dataControlTaskDog;
 
 	@Value(
-		"${osb.asah.dxp.batch.entities.google.bucket:-{googleProjectId}-dxp-entities}"
+		"${osb.asah.dxp.batch.entities.google.bucket:{googleProjectId}-dxp-entities}"
 	)
 	private String _dxpBatchEntitiesBucketTemplate;
 
