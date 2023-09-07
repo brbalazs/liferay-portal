@@ -1793,7 +1793,7 @@ public class FilterExpressionTest {
 	@Test
 	public void testIndividualSegmentIdsFilterExpression() {
 		FilterExpression filterExpression = new FilterExpression(
-			"individualSegmentIds eq '1'", true);
+			null, "individualSegmentIds eq '1'", true);
 
 		Assertions.assertEquals(
 			DSL.field(
@@ -1827,6 +1827,7 @@ public class FilterExpressionTest {
 			));
 
 		FilterExpression filterExpression = new FilterExpression(
+			null,
 			"channelIds eq '506297979389450553' and (demographics/email" +
 				"/value ne null)",
 			true);
@@ -2899,7 +2900,7 @@ public class FilterExpressionTest {
 		boolean segment) {
 
 		FilterExpression filterExpression = new FilterExpression(
-			actualFilterExpressionString, segment);
+			null, actualFilterExpressionString, segment);
 
 		Assertions.assertEquals(
 			expectedCondition, filterExpression.getCondition());
@@ -2919,7 +2920,7 @@ public class FilterExpressionTest {
 		Set<String> includedTableNames, boolean segment) {
 
 		FilterExpression filterExpression = new FilterExpression(
-			actualFilterExpressionString, segment);
+			null, actualFilterExpressionString, segment);
 
 		Assertions.assertEquals(
 			expectedCondition, filterExpression.getCondition());
@@ -2933,7 +2934,7 @@ public class FilterExpressionTest {
 
 		Assertions.assertThrows(
 			FilterExpressionParserException.class,
-			() -> new FilterExpression(filterExpressionString), message);
+			() -> new FilterExpression(null, filterExpressionString), message);
 	}
 
 	@SuppressFBWarnings
