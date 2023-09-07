@@ -6,15 +6,13 @@
 package com.liferay.osb.asah.common.data.exporter;
 
 import com.google.api.gax.paging.Page;
-import com.google.cloud.bigquery.BigQuery;
-import com.google.cloud.bigquery.BigQueryOptions;
-import com.google.cloud.bigquery.QueryJobConfiguration;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.entity.DataExportTask;
+import com.liferay.osb.asah.common.repository.executor.BigQueryQueryExecutor;
 import com.liferay.osb.asah.common.util.IOUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
@@ -51,22 +49,23 @@ import org.jooq.impl.DSL;
 public class BigQueryDataExporter implements DataExporter {
 
 	public BigQueryDataExporter(
-		BigQuery bigQuery, DataControlTask dataControlTask,
-		DSLContext dslContext, String exportPath, List<String> tableNames) {
+		BigQueryQueryExecutor bigQueryQueryExecutor,
+		DataControlTask dataControlTask, DSLContext dslContext,
+		String exportPath, List<String> tableNames) {
 
-		this(bigQuery, dslContext, exportPath, tableNames);
+		this(bigQueryQueryExecutor, dslContext, exportPath, tableNames);
 
 		_dataControlTask = dataControlTask;
 	}
 
 	public BigQueryDataExporter(
-		BigQuery bigQuery, List<Condition> conditions,
+		BigQueryQueryExecutor bigQueryQueryExecutor, List<Condition> conditions,
 		DataExportTask dataExportTask, String dateFieldName,
 		DSLContext dslContext, String exportPath,
 		List<String> selectedFieldNames, String tableName) {
 
 		this(
-			bigQuery, dslContext, exportPath,
+			bigQueryQueryExecutor, dslContext, exportPath,
 			Collections.singletonList(tableName));
 
 		_conditions = conditions;
@@ -86,15 +85,13 @@ public class BigQueryDataExporter implements DataExporter {
 	}
 
 	private BigQueryDataExporter(
-		BigQuery bigQuery, DSLContext dslContext, String exportPath,
-		List<String> tableNames) {
+		BigQueryQueryExecutor bigQueryQueryExecutor, DSLContext dslContext,
+		String exportPath, List<String> tableNames) {
 
-		_bigQuery = bigQuery;
+		_bigQueryQueryExecutor = bigQueryQueryExecutor;
 		_dslContext = dslContext;
 		_exportPath = exportPath;
 		_tableNames = tableNames;
-
-		_bigQueryOptions = bigQuery.getOptions();
 
 		StorageOptions storageOptions = StorageOptions.getDefaultInstance();
 
@@ -192,7 +189,7 @@ public class BigQueryDataExporter implements DataExporter {
 	private void _exportDataControlTask() throws Exception {
 		String exportBucket = StringUtils.replace(
 			_DATA_EXPORTER_BUCKET_TEMPLATE, "{googleProjectId}",
-			_bigQueryOptions.getProjectId());
+			_bigQueryQueryExecutor.getGoogleProjectId());
 
 		String exportBucketFolder =
 			ProjectIdThreadLocal.getProjectId() + "/" +
@@ -209,7 +206,7 @@ public class BigQueryDataExporter implements DataExporter {
 	private void _exportDataExportTask() throws Exception {
 		String exportBucket = StringUtils.replace(
 			_DATA_EXPORTER_BUCKET_TEMPLATE, "{googleProjectId}",
-			_bigQueryOptions.getProjectId());
+			_bigQueryQueryExecutor.getGoogleProjectId());
 
 		String exportBucketFolder =
 			ProjectIdThreadLocal.getProjectId() + "/" + _dataExportTask.getId();
@@ -217,12 +214,6 @@ public class BigQueryDataExporter implements DataExporter {
 		_runBigQueryExportJob(exportBucket, exportBucketFolder);
 
 		_createDataExportZipFile(exportBucket, exportBucketFolder);
-	}
-
-	private String _getBigQueryTableName(String tableName) {
-		return "`" + _bigQueryOptions.getProjectId() + "." +
-			ProjectIdThreadLocal.getProjectId() + "." +
-				StringUtils.lowerCase(tableName + "`");
 	}
 
 	private List<Condition> _getConditions() {
@@ -280,7 +271,7 @@ public class BigQueryDataExporter implements DataExporter {
 		if (tableName.equalsIgnoreCase("event")) {
 			query = _dslContext.select(
 			).from(
-				_getBigQueryTableName("event")
+				"BQEvent"
 			).where(
 				DSL.field(
 					"emailAddressHashed"
@@ -294,13 +285,13 @@ public class BigQueryDataExporter implements DataExporter {
 				DSL.field("user.emailAddress"), DSL.field("expandoValue.*")
 			).from(
 				DSL.table(
-					_getBigQueryTableName("expandovalue")
+					"BQExpandoValue"
 				).as(
 					"expandoValue"
 				)
 			).innerJoin(
 				DSL.table(
-					_getBigQueryTableName("user")
+					"BQUser"
 				).as(
 					"user"
 				)
@@ -322,18 +313,14 @@ public class BigQueryDataExporter implements DataExporter {
 			query = String.join(
 				"", "SELECT * EXCEPT(fields), (SELECT '{' || STRING_AGG(",
 				"format('\"%s\": \"%s\"', name, value)) || '}' FROM UNNEST(",
-				"fields)) AS fields FROM ", _getBigQueryTableName("user"),
-				" WHERE emailAddress = '", emailAddress, "'");
+				"fields)) AS fields FROM ", "BQUser", " WHERE emailAddress = '",
+				emailAddress, "'");
 		}
 
-		QueryJobConfiguration queryJobConfiguration =
-			QueryJobConfiguration.newBuilder(
-				String.format(
-					_EXPORT_DATA_CSV_QUERY_TEMPLATE, exportBucket,
-					exportBucketFolder, tableName, query)
-			).build();
-
-		_bigQuery.query(queryJobConfiguration);
+		_bigQueryQueryExecutor.queryExecute(
+			String.format(
+				_EXPORT_DATA_CSV_QUERY_TEMPLATE, exportBucket,
+				exportBucketFolder, tableName, query));
 	}
 
 	private void _runBigQueryExportJob(
@@ -342,19 +329,15 @@ public class BigQueryDataExporter implements DataExporter {
 
 		SelectSelectStep<Record> selectSelectStep = _getSelectSelectStep();
 
-		QueryJobConfiguration queryJobConfiguration =
-			QueryJobConfiguration.newBuilder(
-				String.format(
-					_EXPORT_DATA_JSON_QUERY_TEMPLATE, exportBucket,
-					exportBucketFolder,
-					selectSelectStep.from(
-						_getBigQueryTableName(_tableNames.get(0))
-					).where(
-						_getConditions()
-					))
-			).build();
-
-		_bigQuery.query(queryJobConfiguration);
+		_bigQueryQueryExecutor.queryExecute(
+			String.format(
+				_EXPORT_DATA_JSON_QUERY_TEMPLATE, exportBucket,
+				exportBucketFolder,
+				selectSelectStep.from(
+					_tableNames.get(0)
+				).where(
+					_getConditions()
+				)));
 	}
 
 	private static final String _DATA_EXPORTER_BUCKET_TEMPLATE =
@@ -371,8 +354,7 @@ public class BigQueryDataExporter implements DataExporter {
 	private static final Log _log = LogFactory.getLog(
 		BigQueryDataExporter.class);
 
-	private final BigQuery _bigQuery;
-	private final BigQueryOptions _bigQueryOptions;
+	private final BigQueryQueryExecutor _bigQueryQueryExecutor;
 	private List<Condition> _conditions;
 	private DataControlTask _dataControlTask;
 	private DataExportTask _dataExportTask;

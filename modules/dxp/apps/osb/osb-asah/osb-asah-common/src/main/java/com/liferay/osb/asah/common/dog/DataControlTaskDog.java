@@ -291,8 +291,8 @@ public class DataControlTaskDog {
 
 	private boolean _access(DataControlTask dataControlTask) throws Exception {
 		DataExporter dataExporter = new BigQueryDataExporter(
-			_bigQuery, dataControlTask, _dslContext, _exportPath,
-			Arrays.asList("event", "expandovalue", "user"));
+			_bigQueryQueryExecutor, dataControlTask, _dslContext, _exportPath,
+			Arrays.asList("BQEvent", "BQExpandoValue", "BQUser"));
 
 		dataExporter.export();
 

@@ -7,13 +7,12 @@ package com.liferay.osb.asah.batch.curator.bot.nanite;
 
 import com.fasterxml.jackson.core.JsonFactory;
 
-import com.google.cloud.bigquery.BigQuery;
-
 import com.liferay.osb.asah.common.data.exporter.BigQueryDataExporter;
 import com.liferay.osb.asah.common.data.exporter.DataExporter;
 import com.liferay.osb.asah.common.data.exporter.PostgreSQLDataExporter;
 import com.liferay.osb.asah.common.dog.DataExportTaskDog;
 import com.liferay.osb.asah.common.entity.DataExportTask;
+import com.liferay.osb.asah.common.repository.executor.BigQueryQueryExecutor;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,10 +47,10 @@ public class DataExportNanite extends BaseNanite {
 
 	@Autowired
 	public DataExportNanite(
-		BigQuery bigQuery, DataExportTaskDog dataExportTaskDog,
-		DSLContext dslContext) {
+		BigQueryQueryExecutor bigQueryQueryExecutor,
+		DataExportTaskDog dataExportTaskDog, DSLContext dslContext) {
 
-		_bigQuery = bigQuery;
+		_bigQueryQueryExecutor = bigQueryQueryExecutor;
 		_dataExportTaskDog = dataExportTaskDog;
 		_dslContext = dslContext;
 	}
@@ -82,8 +81,9 @@ public class DataExportNanite extends BaseNanite {
 
 		if (dataExportTask.getType() == DataExportTask.Type.EVENT) {
 			dataExporter = new BigQueryDataExporter(
-				_bigQuery, Collections.emptyList(), dataExportTask, "eventDate",
-				_dslContext, _exportPath, Collections.emptyList(), "Event");
+				_bigQueryQueryExecutor, Collections.emptyList(), dataExportTask,
+				"eventDate", _dslContext, _exportPath, Collections.emptyList(),
+				"BQEvent");
 		}
 		else if (dataExportTask.getType() == DataExportTask.Type.IDENTITY) {
 			Condition condition = DSL.field(
@@ -97,9 +97,9 @@ public class DataExportNanite extends BaseNanite {
 			);
 
 			dataExporter = new BigQueryDataExporter(
-				_bigQuery, Collections.singletonList(condition), dataExportTask,
-				"createDate", _dslContext, _exportPath, Collections.emptyList(),
-				"Identity");
+				_bigQueryQueryExecutor, Collections.singletonList(condition),
+				dataExportTask, "createDate", _dslContext, _exportPath,
+				Collections.emptyList(), "BQIdentity");
 		}
 		else if (dataExportTask.getType() == DataExportTask.Type.INDIVIDUAL) {
 			Condition condition = DSL.or(
@@ -113,20 +113,21 @@ public class DataExportNanite extends BaseNanite {
 				));
 
 			dataExporter = new BigQueryDataExporter(
-				_bigQuery, Collections.singletonList(condition), dataExportTask,
-				"createDate", _dslContext, _exportPath, Collections.emptyList(),
-				"Individual");
+				_bigQueryQueryExecutor, Collections.singletonList(condition),
+				dataExportTask, "createDate", _dslContext, _exportPath,
+				Collections.emptyList(), "BQIndividual");
 		}
 		else if (dataExportTask.getType() == DataExportTask.Type.MEMBERSHIP) {
 			dataExporter = new BigQueryDataExporter(
-				_bigQuery, Collections.emptyList(), dataExportTask,
+				_bigQueryQueryExecutor, Collections.emptyList(), dataExportTask,
 				"createDate", _dslContext, _exportPath, Collections.emptyList(),
-				"Membership");
+				"BQMembership");
 		}
 		else if (dataExportTask.getType() == DataExportTask.Type.PAGE) {
 			dataExporter = new BigQueryDataExporter(
-				_bigQuery, Collections.emptyList(), dataExportTask, "eventDate",
-				_dslContext, _exportPath, Collections.emptyList(), "PageDaily");
+				_bigQueryQueryExecutor, Collections.emptyList(), dataExportTask,
+				"eventDate", _dslContext, _exportPath, Collections.emptyList(),
+				"PageDaily");
 		}
 		else {
 			throw new IllegalArgumentException(
@@ -186,7 +187,7 @@ public class DataExportNanite extends BaseNanite {
 
 	private static final Log _log = LogFactory.getLog(DataExportNanite.class);
 
-	private final BigQuery _bigQuery;
+	private final BigQueryQueryExecutor _bigQueryQueryExecutor;
 	private final DataExportTaskDog _dataExportTaskDog;
 	private final DSLContext _dslContext;
 
