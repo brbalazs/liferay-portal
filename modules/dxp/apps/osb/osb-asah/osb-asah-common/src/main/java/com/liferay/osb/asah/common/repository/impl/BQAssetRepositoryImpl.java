@@ -37,7 +37,7 @@ public class BQAssetRepositoryImpl
 	@Override
 	public long countBQAssets(String filterString) {
 		FilterExpression filterExpression = new FilterExpression(
-			filterString, FilterExpression.FilterType.ASSETS);
+			null, filterString, FilterExpression.FilterType.ASSETS);
 
 		return _queryExecutor.queryForLong(
 			_dslContext.selectCount(
@@ -74,7 +74,7 @@ public class BQAssetRepositoryImpl
 		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
 
 		FilterExpression filterExpression = new FilterExpression(
-			filterString, FilterExpression.FilterType.ASSETS);
+			null, filterString, FilterExpression.FilterType.ASSETS);
 
 		return _queryExecutor.queryForList(
 			BQAsset::new,

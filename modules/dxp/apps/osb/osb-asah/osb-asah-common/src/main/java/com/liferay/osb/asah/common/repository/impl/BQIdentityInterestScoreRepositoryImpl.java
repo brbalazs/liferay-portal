@@ -666,7 +666,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 
 		if (!StringUtils.isEmpty(filterString)) {
 			FilterExpression filterExpression = new FilterExpression(
-				filterString);
+				null, filterString);
 
 			conditions.add(filterExpression.getCondition());
 		}
@@ -1035,7 +1035,7 @@ public class BQIdentityInterestScoreRepositoryImpl
 
 		if (StringUtils.isNotBlank(filterString)) {
 			FilterExpression filterExpression = new FilterExpression(
-				filterString);
+				null, filterString);
 
 			conditions.add(filterExpression.getCondition());
 		}

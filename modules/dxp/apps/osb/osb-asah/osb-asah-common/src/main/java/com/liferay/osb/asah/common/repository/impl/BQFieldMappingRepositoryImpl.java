@@ -46,7 +46,8 @@ public class BQFieldMappingRepositoryImpl
 
 	@Override
 	public long countByFilterString(String filterString) {
-		FilterExpression filterExpression = new FilterExpression(filterString);
+		FilterExpression filterExpression = new FilterExpression(
+			null, filterString);
 
 		SelectSelectStep<Record1<Integer>> selectCount =
 			_dslContext.selectCount();
@@ -160,7 +161,8 @@ public class BQFieldMappingRepositoryImpl
 	public List<BQFieldMapping> searchByFilterString(
 		String filterString, Pageable pageable) {
 
-		FilterExpression filterExpression = new FilterExpression(filterString);
+		FilterExpression filterExpression = new FilterExpression(
+			null, filterString);
 
 		return _queryExecutor.queryForList(
 			BQFieldMapping::new,

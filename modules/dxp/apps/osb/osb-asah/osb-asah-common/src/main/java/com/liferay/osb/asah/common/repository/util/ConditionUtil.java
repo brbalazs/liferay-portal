@@ -38,7 +38,7 @@ public class ConditionUtil {
 		}
 
 		FilterExpression filterExpression = new FilterExpression(
-			filterString,
+			null, filterString,
 			FilterExpression.FilterType.of(
 				filterStringConverterHelper.getFilterType()));
 

@@ -209,7 +209,7 @@ public class AssetRepositoryImpl
 
 		if (StringUtils.isNotBlank(filterString)) {
 			FilterExpression filterExpression = new FilterExpression(
-				filterString);
+				null, filterString);
 
 			conditions.add(filterExpression.getCondition());
 		}

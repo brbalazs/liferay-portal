@@ -94,7 +94,7 @@ public class SuppressionRepositoryImpl
 
 		if (StringUtils.isNotBlank(filterString)) {
 			FilterExpression filterExpression = new FilterExpression(
-				filterString);
+				null, filterString);
 
 			condition = filterExpression.getCondition();
 		}

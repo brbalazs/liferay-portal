@@ -380,7 +380,7 @@ public class BQIdentityInterestPageRepositoryImpl
 
 		if (StringUtils.isNotBlank(filterString)) {
 			FilterExpression filterExpression = new FilterExpression(
-				filterString);
+				channelId, filterString);
 
 			conditions.add(filterExpression.getCondition());
 		}

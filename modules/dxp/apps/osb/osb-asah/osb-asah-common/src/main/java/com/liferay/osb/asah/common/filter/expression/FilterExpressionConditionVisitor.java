@@ -50,8 +50,9 @@ public class FilterExpressionConditionVisitor
 	extends FilterExpressionBaseVisitor<Object> {
 
 	public FilterExpressionConditionVisitor(
-		FilterExpression.FilterType filterType) {
+		Long channelId, FilterExpression.FilterType filterType) {
 
+		_channelId = channelId;
 		_filterType = filterType;
 
 		if ((filterType != null) && _tableReferences.containsKey(filterType)) {
@@ -221,7 +222,7 @@ public class FilterExpressionConditionVisitor
 			filterByCountExpressionContext.filter);
 
 		FilterExpression filterExpression = new FilterExpression(
-			filterString.substring(1, filterString.length() - 1),
+			_channelId, filterString.substring(1, filterString.length() - 1),
 			FilterExpression.FilterType.of(
 				filterByCountExpressionContext.filterType.getText()));
 
@@ -312,7 +313,7 @@ public class FilterExpressionConditionVisitor
 			filterExpressionContext.filter);
 
 		FilterExpression filterExpression = new FilterExpression(
-			filterString.substring(1, filterString.length() - 1),
+			_channelId, filterString.substring(1, filterString.length() - 1),
 			FilterExpression.FilterType.of(
 				filterExpressionContext.filterType.getText()));
 
@@ -1583,6 +1584,7 @@ public class FilterExpressionConditionVisitor
 		"last24Hours", "last28Days", "last30Days", "last7Days", "last90Days",
 		"yesterday");
 
+	private final Long _channelId;
 	private final Map<String, String> _fieldMappers =
 		new HashMap<String, String>() {
 			{

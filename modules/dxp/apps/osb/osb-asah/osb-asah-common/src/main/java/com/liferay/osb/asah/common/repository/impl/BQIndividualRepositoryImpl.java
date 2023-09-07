@@ -129,7 +129,7 @@ public class BQIndividualRepositoryImpl
 		@Nullable Long segmentId) {
 
 		FilterExpression filterExpression = new FilterExpression(
-			filterString, true);
+			channelId, filterString, true);
 
 		Set<String> referencedTableNames = new HashSet<>();
 
@@ -318,7 +318,7 @@ public class BQIndividualRepositoryImpl
 
 		if (StringUtils.isNotBlank(filterString)) {
 			FilterExpression filterExpression = new FilterExpression(
-				filterString);
+				channelId, filterString);
 
 			conditions.add(filterExpression.getCondition());
 		}
@@ -657,7 +657,7 @@ public class BQIndividualRepositoryImpl
 		@Nullable String query, @Nullable Long segmentId) {
 
 		FilterExpression filterExpression = new FilterExpression(
-			filterString, true);
+			channelId, filterString, true);
 
 		Set<String> referencedTableNames = new HashSet<>(
 			filterExpression.getReferencedTableNames());
@@ -848,7 +848,7 @@ public class BQIndividualRepositoryImpl
 
 		if (StringUtils.isNotBlank(filterString)) {
 			FilterExpression filterExpression = new FilterExpression(
-				filterString);
+				channelId, filterString);
 
 			conditions.add(filterExpression.getCondition());
 		}
@@ -1010,7 +1010,8 @@ public class BQIndividualRepositoryImpl
 
 		if (StringUtils.isNotBlank(filterString)) {
 			FilterExpression filterExpression = new FilterExpression(
-				filterString, FilterExpression.FilterType.INDIVIDUALS);
+				channelId, filterString,
+				FilterExpression.FilterType.INDIVIDUALS);
 
 			conditions.add(filterExpression.getCondition());
 		}

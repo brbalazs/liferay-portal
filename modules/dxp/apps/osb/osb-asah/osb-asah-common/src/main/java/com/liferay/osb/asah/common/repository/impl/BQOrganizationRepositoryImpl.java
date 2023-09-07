@@ -403,7 +403,7 @@ public class BQOrganizationRepositoryImpl
 
 		if (StringUtils.isNotBlank(filterString)) {
 			FilterExpression filterExpression = new FilterExpression(
-				filterString);
+				channelId, filterString);
 
 			conditions.add(filterExpression.getCondition());
 		}

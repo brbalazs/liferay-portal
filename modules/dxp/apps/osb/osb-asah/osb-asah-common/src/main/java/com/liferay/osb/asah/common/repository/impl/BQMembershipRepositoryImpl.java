@@ -820,7 +820,7 @@ public class BQMembershipRepositoryImpl
 				));
 
 		FilterExpression filterExpression = new FilterExpression(
-			filterString, true);
+			channelId, filterString, true);
 
 		selectJoinStep = _getSelectJoinStep(
 			includeAnonymousUsers, filterExpression.getReferencedTableNames(),
