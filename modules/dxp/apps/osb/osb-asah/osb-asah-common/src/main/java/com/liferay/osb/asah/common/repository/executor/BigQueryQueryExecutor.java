@@ -59,6 +59,12 @@ public class BigQueryQueryExecutor implements QueryExecutor {
 	@Autowired
 	public BigQueryQueryExecutor(BigQuery bigQuery) {
 		_bigQuery = bigQuery;
+
+		_bigQueryOptions = bigQuery.getOptions();
+	}
+
+	public String getGoogleProjectId() {
+		return _bigQueryOptions.getProjectId();
 	}
 
 	@Override
@@ -444,5 +450,6 @@ public class BigQueryQueryExecutor implements QueryExecutor {
 		BigQueryQueryExecutor.class);
 
 	private final BigQuery _bigQuery;
+	private final BigQueryOptions _bigQueryOptions;
 
 }
