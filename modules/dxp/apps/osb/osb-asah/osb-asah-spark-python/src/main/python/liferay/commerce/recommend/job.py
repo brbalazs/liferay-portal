@@ -496,12 +496,16 @@ class ProductContentBigQueryDataFrameReaderSparkJob(BaseBigQueryDataFrameReaderS
 				f"""
 				(
 					SELECT
-						SAFE_CAST(JSON_VALUE(value, '$.{locale}') AS STRING)
+						STRING_AGG(
+							SAFE_CAST(
+								JSON_VALUE(value, '$.{locale}') AS STRING
+							)
+						)
 					FROM
 						UNNEST(productSpecifications)
 					WHERE
 						specificationKey = '{specificationKey}'
-				) AS SPECIFICATION_{specificationKey},
+				) AS SPECIFICATION_{specificationKey.replace('-', '_')},
 				"""
 			]
 
