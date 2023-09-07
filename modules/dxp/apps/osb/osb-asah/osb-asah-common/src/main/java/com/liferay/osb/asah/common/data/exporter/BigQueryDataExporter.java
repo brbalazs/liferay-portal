@@ -268,7 +268,7 @@ public class BigQueryDataExporter implements DataExporter {
 			_dataControlTask.getEmailAddress());
 		String query = null;
 
-		if (tableName.equalsIgnoreCase("event")) {
+		if (tableName.equalsIgnoreCase("BQEvent")) {
 			query = _dslContext.select(
 			).from(
 				"BQEvent"
@@ -280,7 +280,7 @@ public class BigQueryDataExporter implements DataExporter {
 				)
 			).toString();
 		}
-		else if (tableName.equalsIgnoreCase("expandovalue")) {
+		else if (tableName.equalsIgnoreCase("BQExpandoValue")) {
 			query = _dslContext.select(
 				DSL.field("user.emailAddress"), DSL.field("expandoValue.*")
 			).from(
@@ -309,7 +309,7 @@ public class BigQueryDataExporter implements DataExporter {
 				)
 			).toString();
 		}
-		else if (tableName.equalsIgnoreCase("user")) {
+		else if (tableName.equalsIgnoreCase("BQUser")) {
 			query = String.join(
 				"", "SELECT * EXCEPT(fields), (SELECT '{' || STRING_AGG(",
 				"format('\"%s\": \"%s\"', name, value)) || '}' FROM UNNEST(",
