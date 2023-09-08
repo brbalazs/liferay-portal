@@ -3,25 +3,45 @@ definition {
 	macro _writeAdjustedBoldItalicText {
 		Click(locator1 = "PortalShowcase#WRITEABLE_FIELD");
 
-		RobotType.robotTypeShortcut(locator1 = "Ctrl + a");
+		Type.sendKeys(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "keys=CONTROL,a");
 
-		RobotType(locator1 = "Hel");
+		Type(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "Hel");
 
-		RobotType.robotTypeShortcut(locator1 = "Ctrl + b");
+		Type.sendKeys(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "keys=CONTROL,b");
 
-		RobotType(locator1 = "lo t");
+		Type(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "lo t");
 
-		RobotType.robotTypeShortcut(locator1 = "Ctrl + i");
+		Type.sendKeys(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "keys=CONTROL,i");
 
-		RobotType(locator1 = "o the wh");
+		Type(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "o the wh");
 
-		RobotType.robotTypeShortcut(locator1 = "Ctrl + b");
+		Type.sendKeys(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "keys=CONTROL,b");
 
-		RobotType(locator1 = "ole Wor");
+		Type(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "ole Wor");
 
-		RobotType.robotTypeShortcut(locator1 = "Ctrl + i");
+		Type.sendKeys(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "keys=CONTROL,i");
 
-		RobotType(locator1 = "ld!");
+		Type(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "ld!");
 
 		PortalShowcase.submit();
 	}
@@ -29,17 +49,29 @@ definition {
 	macro _writeAdjustedBoldText {
 		Click(locator1 = "PortalShowcase#WRITEABLE_FIELD");
 
-		RobotType.robotTypeShortcut(locator1 = "Ctrl + a");
+		Type.sendKeys(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "keys=CONTROL,a");
 
-		RobotType(locator1 = "Hel");
+		Type(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "Hel");
 
-		RobotType.robotTypeShortcut(locator1 = "Ctrl + b");
+		Type.sendKeys(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "keys=CONTROL,b");
 
-		RobotType(locator1 = "lo to the wh");
+		Type(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "lo to the wh");
 
-		RobotType.robotTypeShortcut(locator1 = "Ctrl + b");
+		Type.sendKeys(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "keys=CONTROL,b");
 
-		RobotType(locator1 = "ole World!");
+		Type(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = "ole World!");
 
 		PortalShowcase.submit();
 	}
@@ -47,7 +79,9 @@ definition {
 	macro _writeText {
 		Click(locator1 = "PortalShowcase#WRITEABLE_FIELD");
 
-		RobotType(locator1 = ${text});
+		Type(
+			locator1 = "PortalShowcase#WRITEABLE_FIELD",
+			value1 = ${text});
 
 		PortalShowcase.submit();
 	}
@@ -127,7 +161,9 @@ definition {
 		if (${immediate} == "true") {
 			Click(locator1 = "PortalShowcase#WRITEABLE_FIELD");
 
-			RobotType(locator1 = ${text});
+			Type(
+				locator1 = "PortalShowcase#WRITEABLE_FIELD",
+				value1 = ${text});
 
 			Click(locator1 = "PortalShowcase#SUBMIT_BUTTON");
 
@@ -143,7 +179,9 @@ definition {
 		if (${immediate} == "false") {
 			Click(locator1 = "PortalShowcase#WRITEABLE_FIELD_2");
 
-			RobotType(locator1 = ${text});
+			Type(
+				locator1 = "PortalShowcase#WRITEABLE_FIELD",
+				value1 = ${text});
 
 			Click(locator1 = "PortalShowcase#SUBMIT_BUTTON_2");
 
