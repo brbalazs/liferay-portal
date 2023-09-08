@@ -5,6 +5,7 @@
 
 package com.liferay.osb.asah.common.dog;
 
+import com.liferay.osb.asah.common.entity.AuditEvent;
 import com.liferay.osb.asah.common.entity.Channel;
 import com.liferay.osb.asah.common.entity.ChannelDataSource;
 import com.liferay.osb.asah.common.entity.DataSource;
@@ -98,7 +99,10 @@ public class ChannelDog {
 	}
 
 	@Transactional
-	public void clearChannels(Set<Long> channelIds) throws Exception {
+	public void clearChannels(
+			Set<Long> channelIds, boolean clear, String userId, String userName)
+		throws Exception {
+
 		_customAssetDashboardRepository.deleteByChannelIdIn(channelIds);
 		_eventAnalysisRepository.deleteByChannelIdIn(channelIds);
 		_experimentRepository.deleteByChannelIdIn(channelIds);
@@ -109,12 +113,25 @@ public class ChannelDog {
 				ResourceUtil.readResourceToString(
 					"dependencies/clear_channel_statement.sql", getClass()),
 				"${channel_ids}", StringUtils.join(channelIds, ",")));
+
+		if (clear) {
+			_auditEventDog.addAuditEvent(
+				String.format("Cleared channels %s", channelIds),
+				AuditEvent.Type.CHANNEL_CLEAR, userId, userName);
+		}
 	}
 
-	public void deleteChannels(Set<Long> channelIds) throws Exception {
-		clearChannels(channelIds);
+	public void deleteChannels(
+			Set<Long> channelIds, String userId, String userName)
+		throws Exception {
+
+		clearChannels(channelIds, false, userId, userName);
 
 		_channelRepository.deleteByIdIn(new HashSet<>(channelIds));
+
+		_auditEventDog.addAuditEvent(
+			String.format("Deleted channels %s", channelIds),
+			AuditEvent.Type.CHANNEL_DELETE, userId, userName);
 	}
 
 	public Channel fetchChannel(Long channelId) {
@@ -423,6 +440,9 @@ public class ChannelDog {
 	private static final String _CHANNEL_TYPE_MULTIPLE = "multiple";
 
 	private static final Log _log = LogFactory.getLog(ChannelDog.class);
+
+	@Autowired
+	private AuditEventDog _auditEventDog;
 
 	@Autowired
 	private BigQueryQueryExecutor _bigQueryQueryExecutor;
