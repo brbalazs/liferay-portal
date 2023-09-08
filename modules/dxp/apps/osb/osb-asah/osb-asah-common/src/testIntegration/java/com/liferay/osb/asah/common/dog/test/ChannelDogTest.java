@@ -72,7 +72,7 @@ public class ChannelDogTest
 	@SQLResource(resourcePath = "test_clear_channels.sql")
 	@Test
 	public void testClearChannels() throws Exception {
-		_channelDog.clearChannels(SetUtil.of(1L, 2L));
+		_channelDog.clearChannels(SetUtil.of(1L, 2L), true, "0", "test");
 
 		Assertions.assertEquals(1, _customAssetDashboardRepository.count());
 		Assertions.assertEquals(1, _experimentRepository.count());
@@ -102,7 +102,7 @@ public class ChannelDogTest
 	)
 	@Test
 	public void testDeleteChannels() throws Exception {
-		_channelDog.deleteChannels(SetUtil.of(1L, 3L));
+		_channelDog.deleteChannels(SetUtil.of(1L, 3L), "0", "test");
 
 		Assertions.assertEquals(2, _assetRepository.count());
 
