@@ -54,18 +54,38 @@ public class ChannelsRestController extends BaseRestController {
 
 	@CacheEvict("getGraphQLExecutionResult")
 	@PostMapping("/clear")
-	public void clearChannel(@RequestBody List<String> ids) {
+	public void clearChannel(@RequestBody String json) {
+		JSONObject jsonObject = new JSONObject(json);
+
 		_asahTaskDog.scheduleAsahTask(
-			"ClearChannelsNanite", JSONUtil.put("channelIds", ids));
+			"ClearChannelsNanite",
+			JSONUtil.put(
+				"channelIds", jsonObject.get("channelIds")
+			).put(
+				"userId", jsonObject.get("userId")
+			).put(
+				"userName", jsonObject.get("userName")
+			));
 	}
 
 	@DeleteMapping
-	public void deleteChannels(@RequestBody List<String> ids) {
+	public void deleteChannels(@RequestBody String json) {
+		JSONObject jsonObject = new JSONObject(json);
+
+		List<String> channelIds = (List<String>)jsonObject.get("channelIds");
+
 		_channelDog.updateState(
-			ListUtil.map(ids, Long::valueOf), "IN_PROGRESS_DELETING");
+			ListUtil.map(channelIds, Long::valueOf), "IN_PROGRESS_DELETING");
 
 		_asahTaskDog.scheduleAsahTask(
-			"DeleteChannelsNanite", JSONUtil.put("channelIds", ids));
+			"DeleteChannelsNanite",
+			JSONUtil.put(
+				"channelIds", channelIds
+			).put(
+				"userId", jsonObject.get("userId")
+			).put(
+				"userName", jsonObject.get("userName")
+			));
 	}
 
 	@GetMapping("/{id}")
