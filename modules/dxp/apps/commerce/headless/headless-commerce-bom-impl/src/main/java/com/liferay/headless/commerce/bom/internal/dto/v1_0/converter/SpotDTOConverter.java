@@ -49,12 +49,14 @@ public class SpotDTOConverter implements DTOConverter<CommerceBOMEntry, Spot> {
 				position = _positionDTOConverter.toDTO(dtoConverterContext);
 				productId = commerceBOMEntry.getCPInstanceUuid();
 
-				if (cpInstance == null) {
-					sku = StringPool.BLANK;
-				}
-				else {
-					sku = cpInstance.getSku();
-				}
+				setSku(
+					() -> {
+						if (cpInstance == null) {
+							return StringPool.BLANK;
+						}
+
+						return cpInstance.getSku();
+					});
 			}
 		};
 	}
