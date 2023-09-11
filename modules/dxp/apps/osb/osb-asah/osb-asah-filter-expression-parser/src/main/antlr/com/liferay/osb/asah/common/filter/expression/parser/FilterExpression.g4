@@ -168,12 +168,12 @@ STRING_LITERAL
 	;
 
 VARIABLE_SIMPLE_IDENTIFIER
-	: NAME_START_CHAR NAME_CHAR*
+	: NAME_CHAR*
 	;
 
 VARIABLE_QUALIFIED_IDENTIFIER
-    : NAME_START_CHAR NAME_CHAR* '/' NAME_START_CHAR NAME_CHAR*
-	| NAME_START_CHAR NAME_CHAR* '/' NAME_START_CHAR NAME_CHAR* '/value'
+    : NAME_CHAR* '/' NAME_CHAR*
+	| NAME_CHAR* '/' NAME_CHAR* '/value'
 	;
 
 fragment
@@ -188,14 +188,9 @@ MINUS
 
 fragment
 NAME_CHAR
-   : NAME_START_CHAR
-   | '0'..'9'
-   ;
-
-fragment
-NAME_START_CHAR
    : '_'
    | 'A'..'Z' | 'a'..'z'
+   | '0'..'9'
    ;
 
 WS
