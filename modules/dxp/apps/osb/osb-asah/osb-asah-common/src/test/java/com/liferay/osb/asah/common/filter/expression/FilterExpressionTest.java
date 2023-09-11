@@ -326,6 +326,46 @@ public class FilterExpressionTest {
 	}
 
 	@Test
+	public void testEqualOperatorCustomField() {
+		_assertEquals(
+			DSL.and(
+				DSL.field(
+					"ExpandoValue_Boolean_Field.fieldName"
+				).eq(
+					"Boolean_Field"
+				),
+				DSL.condition(
+					String.join(
+						"", "CASE WHEN STARTS_WITH(",
+						"ExpandoValue_Boolean_Field.value, '[') AND ENDS_WITH(",
+						"ExpandoValue_Boolean_Field.value, ']') THEN ( EXISTS ",
+						"(SELECT value FROM UNNEST(JSON_EXTRACT_STRING_ARRAY(",
+						"ExpandoValue_Boolean_Field.value,'$')) AS value ",
+						"WHERE LOWER(value) = 'false')) ELSE LOWER(",
+						"ExpandoValue_Boolean_Field.value) = 'false' END"))),
+			"(custom/Boolean_Field/value eq 'false')");
+
+		_assertEquals(
+			DSL.and(
+				DSL.field(
+					"ExpandoValue_05_IsHeadQuater.fieldName"
+				).eq(
+					"05_IsHeadQuater"
+				),
+				DSL.condition(
+					String.join(
+						"", "CASE WHEN STARTS_WITH(",
+						"ExpandoValue_05_IsHeadQuater.value, '[') AND ",
+						"ENDS_WITH(ExpandoValue_05_IsHeadQuater.value, ']') ",
+						"THEN ( EXISTS (SELECT value FROM UNNEST(",
+						"JSON_EXTRACT_STRING_ARRAY(",
+						"ExpandoValue_05_IsHeadQuater.value,'$')) AS value",
+						" WHERE LOWER(value) = 'false')) ELSE LOWER(",
+						"ExpandoValue_05_IsHeadQuater.value) = 'false' END"))),
+			"(custom/05_IsHeadQuater/value eq 'false')");
+	}
+
+	@Test
 	public void testEscapeOperator() {
 		_assertEquals(
 			DSL.field(
