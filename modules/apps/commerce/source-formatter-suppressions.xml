@@ -24,6 +24,20 @@
 		<suppress checks="JavaInternalPackageCheck" files="commerce-service/.*" />
 		<suppress checks="JavaVariableTypeCheck" files="commerce-product-api/src/main/java/com/liferay/commerce/product/option/CommerceOptionValue\.java" />
 		<suppress checks="JSONPackageJSONDependencyVersionCheck" files=".*" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/macros/CommerceAcceleratorsInitializer\.macro" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/macros/CommerceConfiguration\.macro" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/macros/CommerceEntry\.macro" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/macros/CommerceOptions\.macro" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/macros/CPCommerceCatalog\.macro" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/macros/FrontStore\.macro" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/tests/CommerceAccelerators\.testcase" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/tests/CommerceFrontStore\.testcase" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/tests/CommerceSmoke\.testcase" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/tests/CPCommerceCatalogs\.testcase" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/tests/CPCommerceChannels\.testcase" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/tests/CPCommerceOrders\.testcase" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/tests/CPCommerceProducts\.testcase" />
+		<suppress checks="PoshiPauseUsageCheck" files="commerce-product-test/src/testFunctional/tests/GuestCheckout\.testcase" />
 		<suppress checks="PropertiesLiferayPluginPackageLiferayVersionsCheck" files="commerce-theme-minium/commerce-theme-minium/src/WEB-INF/liferay-plugin-package\.properties" />
 		<suppress checks="PropertiesLiferayPluginPackageLiferayVersionsCheck" files="commerce-theme-speedwell/commerce-theme-speedwell/src/WEB-INF/liferay-plugin-package\.properties" />
 		<suppress checks="XMLCustomSQLStylingCheck" files="commerce-inventory-service/src/main/resources/META-INF/custom-sql/default\.xml" />
