@@ -457,6 +457,12 @@ public class ExperimentDog {
 
 			experiment.setPublishedDXPVariantId(publishedDXPVariantId);
 		}
+
+		if ((experimentStatus == ExperimentStatus.TERMINATED) &&
+			(publishedDXPVariantId != null)) {
+
+			experiment.setPublishedDXPVariantId(publishedDXPVariantId);
+		}
 	}
 
 	private static final Log _log = LogFactory.getLog(ExperimentDog.class);
