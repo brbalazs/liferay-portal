@@ -510,6 +510,7 @@ type Experiment {
 	modifiedDate: String
 	name: String
 	pageURL: String
+	publishable: Boolean
 	publishedDXPVariantId: String
 	sessions: Int
 	sessionsHistogram: [HistogramMetric]
