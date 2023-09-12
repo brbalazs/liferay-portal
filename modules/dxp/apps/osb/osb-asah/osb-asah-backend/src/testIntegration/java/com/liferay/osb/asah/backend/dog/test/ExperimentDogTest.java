@@ -414,6 +414,32 @@ public class ExperimentDogTest implements OSBAsahBackendSpringTestContext {
 		Assertions.assertEquals(3L, variantUniqueVisitors2);
 	}
 
+	@BQSQLResource(resourcePath = "bq_experiment_pages.sql")
+	@RepositoryResource(
+		repositoryClass = ChannelRepository.class,
+		resourcePath = "osbasahfaroinfo/channels.json"
+	)
+	@RepositoryResource(
+		repositoryClass = ExperimentRepository.class,
+		resourcePath = "osbasahfaroinfo/experiments.json"
+	)
+	@Test
+	public void testPatchExperiment() {
+		Experiment experiment = _experimentDog.fetchExperiment(1L);
+
+		experiment.setExperimentStatus(ExperimentStatus.TERMINATED);
+		experiment.setPublishedDXPVariantId("DEFAULT");
+
+		Experiment actualExperiment = _experimentDog.patchExperiment(
+			experiment, null);
+
+		Assertions.assertEquals(
+			ExperimentStatus.TERMINATED,
+			actualExperiment.getExperimentStatus());
+		Assertions.assertEquals(
+			"DEFAULT", actualExperiment.getPublishedDXPVariantId());
+	}
+
 	private void _assertExperimentVariantMetric(
 		ExperimentVariantMetric actualExperimentVariantMetric,
 		BigDecimal[] expectedConfidenceIntervals, double expectetedImprovement,
