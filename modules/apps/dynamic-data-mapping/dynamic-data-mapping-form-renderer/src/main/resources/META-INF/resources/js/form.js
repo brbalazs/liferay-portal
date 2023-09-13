@@ -133,7 +133,7 @@ AUI.add(
 						if (!formNode) {
 							return null;
 						}
-						
+
 						return formNode._node.querySelector('[data-form-title]').textContent;
 					},
 
