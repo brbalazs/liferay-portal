@@ -125,16 +125,19 @@ AUI.add(
 						return container.ancestor('form', true);
 					},
 
-					getFormTitle: function() {
-						var instance = this;
-
-						var formNode = instance.getFormNode();
-
-						if (!formNode) {
-							return null;
+					getFormTitle: function(form) {
+						if (form) {
+							formTitle = form.querySelector('[data-form-title]');
 						}
-
-						return formNode._node.querySelector('[data-form-title]').textContent;
+						else {
+							 formTitle = document.querySelector('[data-form-title]');
+						}
+						
+						if(!formTitle) {
+							return
+						}
+						
+						return formTitle.innerText;
 					},
 
 					getSubmitButton: function() {
@@ -185,7 +188,7 @@ AUI.add(
 										'ddmFormSubmit',
 										{
 											formId: instance.getFormId(),
-											title: instance.getFormTitle()
+											title: instance.getFormTitle(formNode._node)
 										}
 									);
 
