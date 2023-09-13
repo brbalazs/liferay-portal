@@ -462,3 +462,8 @@ edf9f5cdabb7b328d0d0aeb5194e857c871dfe5c^..fddbd7ea3feb4aa60a54237865cb420afe5c6
 # Bundle Version 2.0.93
 #
 fddbd7ea3feb4aa60a54237865cb420afe5c6840^..47a426d8cc68202a33ebdbcb51f61c5433dbd04c=LPS-77699
+
+#
+# Bundle Version 2.0.94
+#
+47a426d8cc68202a33ebdbcb51f61c5433dbd04c^..dbab9b5c998505d3d4cfe2f8e60e254191836f1e=LPS-77699 LPS-191374
