@@ -19,6 +19,7 @@ import java.io.Serializable;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.portlet.PortletPreferences;
 import javax.portlet.PreferencesValidator;
@@ -78,8 +79,9 @@ public class PortletPreferencesImpl
 			(getOwnerId() == portletPreferences.getOwnerId()) &&
 			(getOwnerType() == portletPreferences.getOwnerType()) &&
 			(getPlid() == portletPreferences.getPlid()) &&
-			getPortletId().equals(portletPreferences.getPortletId()) &&
-			getPreferences().equals(portletPreferences.getPreferences())) {
+			Objects.equals(getPortletId(), portletPreferences.getPortletId()) &&
+			Objects.equals(
+				getPreferences(), portletPreferences.getPreferences())) {
 
 			return true;
 		}

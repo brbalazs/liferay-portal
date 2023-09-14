@@ -11,6 +11,8 @@ import com.liferay.portal.kernel.pop.MessageListener;
 import com.liferay.portal.kernel.pop.MessageListenerException;
 import com.liferay.portal.kernel.util.ClassUtil;
 
+import java.util.Objects;
+
 import javax.mail.Message;
 
 /**
@@ -67,7 +69,7 @@ public class MessageListenerWrapper implements MessageListener {
 
 		String id = messageListener.getId();
 
-		return getId().equals(id);
+		return Objects.equals(getId(), id);
 	}
 
 	@Override

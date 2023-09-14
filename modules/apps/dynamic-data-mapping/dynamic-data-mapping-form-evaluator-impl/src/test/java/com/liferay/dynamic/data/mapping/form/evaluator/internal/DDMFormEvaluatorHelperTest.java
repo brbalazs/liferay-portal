@@ -50,6 +50,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -977,10 +978,8 @@ public class DDMFormEvaluatorHelperTest {
 
 		Optional<DDMFormFieldValue> actualDDMFormFieldValue =
 			evaluatedDDMFormFieldValuesStream.filter(
-				ddmFormFieldValue -> ddmFormFieldValue.getName(
-				).equals(
-					"field2"
-				)
+				ddmFormFieldValue -> Objects.equals(
+					ddmFormFieldValue.getName(), "field2")
 			).findFirst();
 
 		Value actualValue = actualDDMFormFieldValue.get(

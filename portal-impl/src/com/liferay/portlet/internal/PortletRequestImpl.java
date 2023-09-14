@@ -738,8 +738,8 @@ public abstract class PortletRequestImpl implements LiferayPortletRequest {
 				}
 			}
 
-			if ((getLifecycle().equals(PortletRequest.HEADER_PHASE) ||
-				 getLifecycle().equals(PortletRequest.RENDER_PHASE)) &&
+			if ((Objects.equals(getLifecycle(), PortletRequest.HEADER_PHASE) ||
+				 Objects.equals(getLifecycle(), PortletRequest.RENDER_PHASE)) &&
 				!LiferayWindowState.isExclusive(request) &&
 				!LiferayWindowState.isPopUp(request)) {
 

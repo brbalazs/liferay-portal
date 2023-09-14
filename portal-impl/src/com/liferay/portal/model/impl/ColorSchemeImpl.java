@@ -16,6 +16,7 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.io.IOException;
 
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -56,7 +57,7 @@ public class ColorSchemeImpl implements ColorScheme {
 
 		String colorSchemeId = colorScheme.getColorSchemeId();
 
-		if (getColorSchemeId().equals(colorSchemeId)) {
+		if (Objects.equals(getColorSchemeId(), colorSchemeId)) {
 			return true;
 		}
 
