@@ -88,10 +88,10 @@ public class DXPBatchEntitiesRestController {
 				"Received download request for resource: " + resourceName);
 		}
 
-		Storage storage = _storageFactory.getStorage(
-			_getStorageConfiguration(dataSourceId));
+		Storage downloadStorage = _storageFactory.getStorage(
+			_getDownloadStorageConfiguration(dataSourceId));
 
-		File file = storage.readSparkJobResult(
+		File file = downloadStorage.readSparkJobResult(
 			_parseDate(ifModifiedSince), resourceName);
 
 		if (file == null) {
@@ -194,7 +194,7 @@ public class DXPBatchEntitiesRestController {
 		return commerceChanelIdChannelIds;
 	}
 
-	private StorageConfiguration _getStorageConfiguration(
+	private StorageConfiguration _getDownloadStorageConfiguration(
 		String googleBucketFolder) {
 
 		StorageConfiguration.Builder builder = StorageConfiguration.builder(
@@ -207,7 +207,7 @@ public class DXPBatchEntitiesRestController {
 
 		builder.googleBucket(
 			StringUtils.replace(
-				_dxpBatchEntitiesBucketTemplate, "{googleProjectId}",
+				_dxpEntitiesBucketTemplate, "{googleProjectId}",
 				_gcloudProjectId));
 		builder.googleBucketFolder(googleBucketFolder);
 
@@ -333,7 +333,7 @@ public class DXPBatchEntitiesRestController {
 	@Value(
 		"${osb.asah.dxp.batch.entities.google.bucket:{googleProjectId}-dxp-entities}"
 	)
-	private String _dxpBatchEntitiesBucketTemplate;
+	private String _dxpEntitiesBucketTemplate;
 
 	@Value(
 		"${osb.asah.dxp.batch.entities.storage.path:/storage/{projectId}/dxp_batch_entities.json"
