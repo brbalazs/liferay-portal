@@ -7,21 +7,22 @@ package com.liferay.osb.asah.common.dog.test;
 
 import com.liferay.osb.asah.common.dog.ChannelDog;
 import com.liferay.osb.asah.common.entity.Asset;
+import com.liferay.osb.asah.common.entity.BQSession;
 import com.liferay.osb.asah.common.entity.Channel;
 import com.liferay.osb.asah.common.entity.ChannelDataSource;
-import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.faro.info.dog.test.BaseFaroInfoDogTestCase;
 import com.liferay.osb.asah.common.repository.AssetRepository;
-import com.liferay.osb.asah.common.repository.BQIndividualRepository;
+import com.liferay.osb.asah.common.repository.BQEventRepository;
+import com.liferay.osb.asah.common.repository.BQSessionRepository;
 import com.liferay.osb.asah.common.repository.ChannelRepository;
 import com.liferay.osb.asah.common.repository.CustomAssetDashboardRepository;
 import com.liferay.osb.asah.common.repository.ExperimentRepository;
 import com.liferay.osb.asah.common.repository.SegmentRepository;
+import com.liferay.osb.asah.common.repository.executor.QueryExecutor;
 import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.annotation.RepositoryResource;
 import com.liferay.osb.asah.test.util.annotation.SQLResource;
-import com.liferay.osb.asah.test.util.repository.CrudBQBlogRepository;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 import com.liferay.osb.asah.test.util.util.RandomTestUtil;
 
@@ -34,21 +35,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.commons.collections4.IterableUtils;
-
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.jooq.impl.DSL;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 /**
  * @author André Miranda
@@ -74,84 +67,48 @@ public class ChannelDogTest
 	public void testClearChannels() throws Exception {
 		_channelDog.clearChannels(SetUtil.of(1L, 2L), true, "0", "test");
 
+		_assertClearChannels(1L);
+
+		Assertions.assertEquals(
+			0,
+			_bqEventRepository.countTotalBQEvents(
+				1L, null, null, null, null, "UTC"));
+
+		List<BQSession> bqSessions = _bqSessionRepository.findAllById(
+			Collections.singleton("366909399944213421"));
+
+		Assertions.assertEquals(0, bqSessions.size());
+
 		Assertions.assertEquals(1, _customAssetDashboardRepository.count());
 		Assertions.assertEquals(1, _experimentRepository.count());
 		Assertions.assertEquals(1, _segmentRepository.count());
+
+		Assertions.assertNotNull(_channelDog.fetchChannel(1L));
 	}
 
-	@Disabled
-	@RepositoryResource(
-		repositoryClass = CrudBQBlogRepository.class,
-		resourcePath = "osbasahcerebroinfo/blogs_delete_channels.json"
-	)
-	@RepositoryResource(
-		repositoryClass = BQIndividualRepository.class,
-		resourcePath = "osbasahfaroinfo/individuals_delete_channels.json"
-	)
-	@RepositoryResource(
-		repositoryClass = AssetRepository.class,
-		resourcePath = "osbasahfaroinfo/assets_delete_channels.json"
-	)
-	@RepositoryResource(
-		repositoryClass = ChannelRepository.class,
-		resourcePath = "osbasahfaroinfo/channels.json"
-	)
-	@RepositoryResource(
-		repositoryClass = SegmentRepository.class,
-		resourcePath = "osbasahfaroinfo/individual_segments_delete_channels.json"
-	)
+	@BQSQLResource(resourcePath = "test_bq_delete_channels.sql")
+	@SQLResource(resourcePath = "test_delete_channels.sql")
 	@Test
 	public void testDeleteChannels() throws Exception {
-		_channelDog.deleteChannels(SetUtil.of(1L, 3L), "0", "test");
+		_channelDog.deleteChannels(SetUtil.of(1L), "0", "test");
 
-		Assertions.assertEquals(2, _assetRepository.count());
-
-		MatcherAssert.assertThat(
-			new String[] {"2"},
-			Matchers.arrayContainingInAnyOrder(
-				_getChannelAssetChannelIds(386700631786606770L)));
-
-		MatcherAssert.assertThat(
-			new String[] {"2", "4"},
-			Matchers.arrayContainingInAnyOrder(
-				_getChannelAssetChannelIds(386700631786606772L)));
-
-		// TODO Asset only Blog entries data from not deleted channel is present
-
-		List<Segment> segments = _segmentRepository.findByChannelIdIn(
-			Collections.singleton(2L), PageRequest.of(0, 10));
-
-		Assertions.assertEquals(1, segments.size());
-
-		// TODO Fetch individual
-
-		JSONObject individualJSONObject = new JSONObject();
-
-		JSONArray individualActivitiesCountsJSONArray =
-			individualJSONObject.getJSONArray("activitiesCounts");
+		_assertClearChannels(1L);
 
 		Assertions.assertEquals(
-			0, individualActivitiesCountsJSONArray.length());
+			0,
+			_bqEventRepository.countTotalBQEvents(
+				1L, null, null, null, null, "UTC"));
 
-		JSONArray channelIdsJSONArray = individualJSONObject.getJSONArray(
-			"channelIds");
+		List<BQSession> bqSessions = _bqSessionRepository.findAllById(
+			Collections.singleton("366909399944213421"));
 
-		Assertions.assertEquals(0, channelIdsJSONArray.length());
+		Assertions.assertEquals(0, bqSessions.size());
 
-		JSONArray individualLastActivityDatesJSONArray =
-			individualJSONObject.getJSONArray("lastActivityDates");
+		Assertions.assertEquals(0, _customAssetDashboardRepository.count());
+		Assertions.assertEquals(0, _experimentRepository.count());
+		Assertions.assertEquals(0, _segmentRepository.count());
 
-		Assertions.assertEquals(
-			0, individualLastActivityDatesJSONArray.length());
-
-		List<Channel> channels = IterableUtils.toList(
-			_channelRepository.findAll());
-
-		Assertions.assertEquals(1, channels.size());
-
-		Channel channel = channels.get(0);
-
-		Assertions.assertEquals(2, channel.getId());
+		Assertions.assertNull(_channelDog.fetchChannel(1L));
 	}
 
 	@RepositoryResource(
@@ -307,6 +264,30 @@ public class ChannelDogTest
 		Assertions.assertEquals("channel1 (1)", channel.getName());
 	}
 
+	private void _assertClearChannels(long channelId) {
+		String[] tableNames = {
+			"BlogDaily", "DocumentLibraryDaily", "FormDaily",
+			"BQIdentityInterestPage", "BQIdentityInterestScore", "JournalDaily",
+			"PageDaily", "BQSessionInterestScore"
+		};
+
+		for (String tableName : tableNames) {
+			Assertions.assertEquals(
+				0,
+				_queryExecutor.queryForLong(
+					DSL.selectCount(
+					).from(
+						tableName
+					).where(
+						DSL.field(
+							"channelId"
+						).eq(
+							channelId
+						)
+					)));
+		}
+	}
+
 	private ChannelDataSource _findFirstChannelDataSource(
 		Long dataSourceId, Set<ChannelDataSource> channelDataSources) {
 
@@ -341,6 +322,12 @@ public class ChannelDogTest
 	private AssetRepository _assetRepository;
 
 	@Autowired
+	private BQEventRepository _bqEventRepository;
+
+	@Autowired
+	private BQSessionRepository _bqSessionRepository;
+
+	@Autowired
 	private ChannelDog _channelDog;
 
 	@Autowired
@@ -351,6 +338,9 @@ public class ChannelDogTest
 
 	@Autowired
 	private ExperimentRepository _experimentRepository;
+
+	@Autowired
+	private QueryExecutor _queryExecutor;
 
 	@Autowired
 	private SegmentRepository _segmentRepository;
