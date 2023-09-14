@@ -53,7 +53,7 @@
 			"templated": true
 		},
 		"channels": {
-			"href": "{url}/channels{?filter,page,size,sort*}",
+			"href": "{url}/channels{?filter,ids*,page,size,sort*}",
 			"templated": true
 		},
 		"csv-individuals": {

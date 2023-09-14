@@ -19,11 +19,13 @@ import com.liferay.osb.asah.common.spring.annotation.CacheEvict;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.SetUtil;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -112,9 +114,19 @@ public class ChannelsRestController extends BaseRestController {
 	@GetMapping
 	public PageDTO<ChannelDTO> getChannelDTOPageDTO(
 		@RequestParam(name = "filter", required = false) String filterString,
+		@RequestParam(required = false) String[] ids,
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "20") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
+
+		if (!ArrayUtils.isEmpty(ids)) {
+			List<Channel> channels = _channelDog.getChannels(
+				ListUtil.map(Arrays.asList(ids), Long::valueOf));
+
+			return new PageDTO<>(
+				"_embedded", new ChannelDTO(channels), 0, channels.size(),
+				(long)channels.size(), 1);
+		}
 
 		return _toPageDTO(
 			_channelDog.getChannelPage(filterString, page, size, sorts));
