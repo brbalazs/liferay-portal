@@ -197,7 +197,7 @@ public class LayoutSetPrototypeDisplayContext {
 
 		boolean orderByAsc = false;
 
-		if (getOrderByType().equals("asc")) {
+		if (Objects.equals(getOrderByType(), "asc")) {
 			orderByAsc = true;
 		}
 
