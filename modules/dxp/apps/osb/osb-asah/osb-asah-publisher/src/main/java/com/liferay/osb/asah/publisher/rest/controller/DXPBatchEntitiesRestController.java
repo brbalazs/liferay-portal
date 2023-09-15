@@ -42,7 +42,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipInputStream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -135,13 +134,8 @@ public class DXPBatchEntitiesRestController {
 				_clamAVScanner.scan(multipartFile.getInputStream());
 			}
 
-			ZipInputStream zipInputStream = new ZipInputStream(
-				multipartFile.getInputStream());
-
-			zipInputStream.getNextEntry();
-
-			boolean success = _publishMessages(
-				dataSourceId, name, zipInputStream, uploadType);
+			boolean success = _storeMessages(
+				dataSourceId, name, multipartFile.getInputStream(), uploadType);
 
 			_messageBus.sendMessage(
 				Channel.COMPOSER,
@@ -197,19 +191,52 @@ public class DXPBatchEntitiesRestController {
 	private StorageConfiguration _getDownloadStorageConfiguration(
 		String googleBucketFolder) {
 
-		StorageConfiguration.Builder builder = StorageConfiguration.builder(
-			String.format(
-				"%s/batch-%d",
-				StringUtils.replace(
-					_dxpBatchEntitiesStoragePathTemplate, "{projectId}",
-					ProjectIdThreadLocal.getProjectId()),
-				System.currentTimeMillis()));
+		StorageConfiguration.Builder builder = StorageConfiguration.builder();
 
 		builder.googleBucket(
 			StringUtils.replace(
 				_dxpEntitiesBucketTemplate, "{googleProjectId}",
 				_gcloudProjectId));
 		builder.googleBucketFolder(googleBucketFolder);
+
+		return builder.build();
+	}
+
+	private StorageConfiguration _getUploadStorageConfiguration(
+		String dataSourceId, String resourceName, String uploadType) {
+
+		String dateString = DateUtil.newDateString();
+
+		StorageConfiguration.Builder builder = StorageConfiguration.builder(
+			String.format(
+				"%s/%s/%s.zip",
+				StringUtils.replace(
+					_dxpBatchEntitiesStoragePathTemplate, "{projectId}",
+					ProjectIdThreadLocal.getProjectId()),
+				resourceName, dateString));
+
+		builder.fileFormat(StorageConfiguration.FileFormat.JSON);
+
+		builder.googleBucket(
+			StringUtils.replace(
+				_dxpEntitiesBucketTemplate, "{googleProjectId}",
+				_gcloudProjectId));
+
+		StringBuilder sb = new StringBuilder(7);
+
+		sb.append(dataSourceId);
+		sb.append("/");
+		sb.append(resourceName);
+
+		if (StringUtils.isNotBlank(uploadType)) {
+			sb.append("/");
+			sb.append(uploadType);
+		}
+
+		sb.append("/");
+		sb.append(dateString);
+
+		builder.googleBucketFolder(sb.toString());
 
 		return builder.build();
 	}
@@ -309,6 +336,17 @@ public class DXPBatchEntitiesRestController {
 		return status;
 	}
 
+	private boolean _storeMessages(
+		String dataSourceId, String resourceName, InputStream inputStream,
+		String uploadType) {
+
+		Storage uploadStorage = _storageFactory.getStorage(
+			_getUploadStorageConfiguration(
+				dataSourceId, resourceName, uploadType));
+
+		return uploadStorage.write(inputStream);
+	}
+
 	private static final String[]
 		_REQUIRE_COMMERCE_CHANNEL_ID_CHANNEL_ID_RESOURCE_NAMES = {
 			"com.liferay.headless.commerce.machine.learning.dto.v1_0.Order",
@@ -330,15 +368,13 @@ public class DXPBatchEntitiesRestController {
 	@Autowired
 	private DataControlTaskDog _dataControlTaskDog;
 
+	@Value("${osb.asah.dxp.batch.entities.storage.path:/storage/{projectId}}")
+	private String _dxpBatchEntitiesStoragePathTemplate;
+
 	@Value(
 		"${osb.asah.dxp.batch.entities.google.bucket:{googleProjectId}-dxp-entities}"
 	)
 	private String _dxpEntitiesBucketTemplate;
-
-	@Value(
-		"${osb.asah.dxp.batch.entities.storage.path:/storage/{projectId}/dxp_batch_entities.json"
-	)
-	private String _dxpBatchEntitiesStoragePathTemplate;
 
 	@Autowired
 	private DXPEntitiesChannels _dxpEntitiesChannels;

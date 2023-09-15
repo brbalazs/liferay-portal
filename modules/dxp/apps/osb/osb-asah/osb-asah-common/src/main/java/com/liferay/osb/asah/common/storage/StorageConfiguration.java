@@ -13,6 +13,10 @@ import org.apache.avro.Schema;
  */
 public class StorageConfiguration {
 
+	public static Builder builder() {
+		return new Builder(null);
+	}
+
 	public static Builder builder(String path) {
 		return new Builder(path);
 	}
@@ -44,10 +48,6 @@ public class StorageConfiguration {
 	public static class Builder {
 
 		public Builder(String path) {
-			if (path == null) {
-				throw new IllegalArgumentException("Path is null");
-			}
-
 			_storageConfiguration._path = path;
 		}
 
