@@ -49,6 +49,116 @@ import org.springframework.core.io.ClassPathResource;
 public class FilterExpressionTest {
 
 	@Test
+	public void testActivityKeyFilter1() {
+		Field userIdField = DSL.field("Event.userId");
+
+		Condition condition = DSL.and(
+			DSL.field(
+				"Event.applicationId"
+			).eq(
+				"Page"
+			),
+			DSL.field(
+				"Event.channelId"
+			).eq(
+				123456789L
+			),
+			DSL.field(
+				"Event.eventId"
+			).eq(
+				"pageViewed"
+			),
+			DSL.field(
+				"TO_HEX(SHA256(Event.assetId))"
+			).eq(
+				"5ffef165b9aa10b11bc186bc8782f792b0ca33c07d156672270bbf4cc0a5" +
+					"86fa"
+			));
+
+		_assertEquals(
+			DSL.or(
+				DSL.field(
+					"Identity.id"
+				).in(
+					DSL.select(
+						userIdField
+					).from(
+						DSL.table(
+							"BQEvent"
+						).as(
+							"Event"
+						)
+					).where(
+						condition
+					).groupBy(
+						userIdField
+					).having(
+						DSL.count(
+							userIdField
+						).ge(
+							1
+						)
+					)
+				),
+				DSL.field(
+					"Individual.id"
+				).in(
+					DSL.selectDistinct(
+						DSL.field("Identity.individualId")
+					).from(
+						DSL.table(
+							"BQEvent"
+						).as(
+							"Event"
+						).join(
+							DSL.table(
+								"BQIdentity"
+							).as(
+								"Identity"
+							)
+						).on(
+							DSL.field(
+								"Event.userId"
+							).eq(
+								DSL.field("Identity.id")
+							)
+						)
+					).where(
+						DSL.and(
+							condition,
+							DSL.field(
+								"Identity.individualId"
+							).isNotNull())
+					).groupBy(
+						userIdField, DSL.field("Identity.individualId")
+					).having(
+						DSL.count(
+							userIdField
+						).ge(
+							1
+						)
+					)
+				)),
+			"(activities.filterByCount(filter='(activityKey eq ''Page#" +
+				"pageViewed#5ffef165b9aa10b11bc186bc8782f792b0ca33c07d1566722" +
+					"70bbf4cc0a586fa'')',operator='ge',value=1))",
+			123456789L, new HashSet<>(Arrays.asList("Event", "Individual")),
+			true);
+	}
+
+	@Test
+	public void testActivityKeyFilter2() {
+		Assertions.assertThrows(
+			IllegalArgumentException.class,
+			() -> new FilterExpression(
+				null,
+				"(activities.filterByCount(filter='(activityKey eq ''Page#" +
+					"pageViewed#5ffef165b9aa10b11bc186bc8782f792b0ca33c07d156" +
+						"672270bbf4cc0a586fa'')',operator='ge',value=1))",
+				true));
+	}
+
+	@Test
 	public void testAndOperator() {
 		_assertEquals(
 			DSL.and(
@@ -2908,6 +3018,20 @@ public class FilterExpressionTest {
 
 	private void _assertEquals(
 		Condition expectedCondition, String actualFilterExpressionString,
+		Long channelId, Set<String> includedTableNames, boolean segment) {
+
+		FilterExpression filterExpression = new FilterExpression(
+			channelId, actualFilterExpressionString, segment);
+
+		Assertions.assertEquals(
+			expectedCondition, filterExpression.getCondition());
+
+		Assertions.assertEquals(
+			includedTableNames, filterExpression.getReferencedTableNames());
+	}
+
+	private void _assertEquals(
+		Condition expectedCondition, String actualFilterExpressionString,
 		Set<String> includedTableNames) {
 
 		_assertEquals(
@@ -2919,14 +3043,9 @@ public class FilterExpressionTest {
 		Condition expectedCondition, String actualFilterExpressionString,
 		Set<String> includedTableNames, boolean segment) {
 
-		FilterExpression filterExpression = new FilterExpression(
-			null, actualFilterExpressionString, segment);
-
-		Assertions.assertEquals(
-			expectedCondition, filterExpression.getCondition());
-
-		Assertions.assertEquals(
-			includedTableNames, filterExpression.getReferencedTableNames());
+		_assertEquals(
+			expectedCondition, actualFilterExpressionString, null,
+			includedTableNames, segment);
 	}
 
 	private void _assertThrowsException(
