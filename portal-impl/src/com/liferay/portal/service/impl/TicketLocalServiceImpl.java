@@ -58,11 +58,6 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 	}
 
 	@Override
-	public Ticket fetchTicket(long ticketId) {
-		return ticketPersistence.fetchByPrimaryKey(ticketId);
-	}
-
-	@Override
 	public Ticket fetchTicket(String key) {
 		return ticketPersistence.fetchByKey(key);
 	}
@@ -107,4 +102,5 @@ public class TicketLocalServiceImpl extends TicketLocalServiceBaseImpl {
 
 		return ticketPersistence.update(ticket);
 	}
+
 }
