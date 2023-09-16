@@ -3926,7 +3926,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				sb.append(serviceContext.getPlid());
 				sb.append("&ticketKey=");
 				sb.append(ticket.getTicketId());
-				sb.append("_");
+				sb.append(StringPool.UNDERLINE);
 				sb.append(ticket.getKey());
 
 			String passwordResetURL = sb.toString();

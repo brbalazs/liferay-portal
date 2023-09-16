@@ -5,6 +5,7 @@
 
 package com.liferay.portal.action;
 
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.UserPasswordException;
@@ -135,7 +136,7 @@ public class UpdatePasswordAction extends Action {
 		}
 
 		try {
-			String[] ticketParts = ticketParam.split("_");
+			String[] ticketParts = ticketParam.split(StringPool.UNDERLINE);
 
 			if (ticketParts.length != 2) {
 				httpServletRequest.setAttribute("oldFormat", Boolean.TRUE);
