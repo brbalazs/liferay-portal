@@ -167,7 +167,9 @@ public class FilterExpressionConditionVisitor
 		if (DateUtil.isValidPatternShort(value) &&
 			!fieldName.equalsIgnoreCase("cast")) {
 
-			leftField = DSL.date(leftField);
+			leftField = DSL.function(
+				"DATE", Date.class, leftField,
+				DSL.val(TimeZoneDogUtil.getZoneId()));
 
 			Param<String> param = (Param<String>)rightField;
 
@@ -391,10 +393,27 @@ public class FilterExpressionConditionVisitor
 
 		if (functionName.equalsIgnoreCase("between")) {
 			Param param1 = (Param)parameters.get(1);
+
+			Object object1 = param1.getValue();
+
 			Param param2 = (Param)parameters.get(2);
 
-			condition = field.between(
-				_getParamValue(param1), _getParamValue(param2));
+			Object object2 = param2.getValue();
+
+			if ((object1 instanceof String) &&
+				DateUtil.isValidPatternShort((String)object1) &&
+				(object2 instanceof String) &&
+				DateUtil.isValidPatternShort((String)object2)) {
+
+				field = DSL.function(
+					"DATE", Date.class, field,
+					DSL.val(TimeZoneDogUtil.getZoneId()));
+
+				object1 = DSL.function("DATE", Date.class, DSL.val(object1));
+				object2 = DSL.function("DATE", Date.class, DSL.val(object2));
+			}
+
+			condition = field.between(object1, object2);
 		}
 		else if (functionName.equalsIgnoreCase("contains")) {
 			Param param = (Param)parameters.get(1);
@@ -581,7 +600,9 @@ public class FilterExpressionConditionVisitor
 		if (DateUtil.isValidPatternShort(value) &&
 			!fieldName.equalsIgnoreCase("cast")) {
 
-			leftField = DSL.date(leftField);
+			leftField = DSL.function(
+				"DATE", Date.class, leftField,
+				DSL.val(TimeZoneDogUtil.getZoneId()));
 
 			Param<String> param = (Param<String>)rightField;
 
@@ -630,7 +651,9 @@ public class FilterExpressionConditionVisitor
 		if (DateUtil.isValidPatternShort(value) &&
 			!fieldName.equalsIgnoreCase("cast")) {
 
-			leftField = DSL.date(leftField);
+			leftField = DSL.function(
+				"DATE", Date.class, leftField,
+				DSL.val(TimeZoneDogUtil.getZoneId()));
 
 			Param<String> param = (Param<String>)rightField;
 
@@ -726,7 +749,9 @@ public class FilterExpressionConditionVisitor
 		if (DateUtil.isValidPatternShort(value) &&
 			!fieldName.equalsIgnoreCase("cast")) {
 
-			leftField = DSL.date(leftField);
+			leftField = DSL.function(
+				"DATE", Date.class, leftField,
+				DSL.val(TimeZoneDogUtil.getZoneId()));
 
 			Param<String> param = (Param<String>)rightField;
 
@@ -775,7 +800,9 @@ public class FilterExpressionConditionVisitor
 		if (DateUtil.isValidPatternShort(value) &&
 			!fieldName.equalsIgnoreCase("cast")) {
 
-			leftField = DSL.date(leftField);
+			leftField = DSL.function(
+				"DATE", Date.class, leftField,
+				DSL.val(TimeZoneDogUtil.getZoneId()));
 
 			Param<String> param = (Param<String>)rightField;
 
@@ -1312,22 +1339,6 @@ public class FilterExpressionConditionVisitor
 		return _visitChild(parserRuleContext, 0);
 	}
 
-	private Object _getParamValue(Param param) {
-		Object value = param.getValue();
-
-		if ((value instanceof String) &&
-			DateUtil.isValidPatternShort((String)value)) {
-
-			LocalDate localDate = DateUtil.toUTCLocalDate(
-				(String)value, DateUtil.PATTERN_SHORT,
-				TimeZoneDogUtil.getZoneId());
-
-			return DSL.val(localDate.toString());
-		}
-
-		return value;
-	}
-
 	private Field _getRightField(ParserRuleContext parserRuleContext) {
 		Field rightField = _visitChild(parserRuleContext, 2);
 
@@ -1346,13 +1357,6 @@ public class FilterExpressionConditionVisitor
 
 			if (_timeFrameParameterNames.contains(value)) {
 				return _getTimeFrameParam(value);
-			}
-
-			if ((value != null) && DateUtil.isValidPatternShort(value)) {
-				LocalDate localDate = DateUtil.toUTCLocalDate(
-					value, DateUtil.PATTERN_SHORT, TimeZoneDogUtil.getZoneId());
-
-				return DSL.val(localDate.toString());
 			}
 		}
 
