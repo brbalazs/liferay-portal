@@ -36,6 +36,7 @@ import org.jooq.Field;
 import org.jooq.impl.DSL;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -47,6 +48,19 @@ import org.springframework.core.io.ClassPathResource;
  * @author Marcellus Tavares
  */
 public class FilterExpressionTest {
+
+	@BeforeEach
+	public void setUp() {
+		TimeZoneDog timeZoneDog = Mockito.mock(TimeZoneDog.class);
+
+		Mockito.when(
+			timeZoneDog.getZoneId()
+		).thenReturn(
+			ZoneId.of("UTC")
+		);
+
+		TimeZoneDogUtil.setTimeZoneDog(timeZoneDog);
+	}
 
 	@Test
 	public void testActivityKeyFilter1() {
@@ -185,12 +199,13 @@ public class FilterExpressionTest {
 					"app"
 				),
 				DSL.field(
-					"Session.sessionEnd"
+					"DATE(Session.sessionEnd, 'UTC')"
 				).between(
-					"2022-05-15", "2022-05-20"
+					DSL.function("DATE", Date.class, DSL.val("2022-05-15")),
+					DSL.function("DATE", Date.class, DSL.val("2022-05-20"))
 				),
 				DSL.field(
-					"cast(Session.sessionEnd as date)"
+					"DATE(Session.sessionEnd, 'UTC')"
 				).gt(
 					DSL.function("DATE", Date.class, DSL.val("2022-05-15"))
 				)),
@@ -219,14 +234,15 @@ public class FilterExpressionTest {
 					"app"
 				),
 				DSL.field(
-					"Session.sessionEnd"
+					"DATE(Session.sessionEnd, 'Japan')"
 				).between(
-					"2022-05-14", "2022-05-19"
+					DSL.function("DATE", Date.class, DSL.val("2022-05-15")),
+					DSL.function("DATE", Date.class, DSL.val("2022-05-20"))
 				),
 				DSL.field(
-					"cast(Session.sessionEnd as date)"
+					"DATE(Session.sessionEnd, 'Japan')"
 				).gt(
-					DSL.function("DATE", Date.class, DSL.val("2022-05-14"))
+					DSL.function("DATE", Date.class, DSL.val("2022-05-15"))
 				)),
 			"(sessions.filter(filter='(context/deviceType eq ''app'' and " +
 				"between(completeDate,''2022-05-15'',''2022-05-20'') and " +
