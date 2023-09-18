@@ -7,12 +7,16 @@ package com.liferay.osb.asah.common.repository.test;
 
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
 import com.liferay.osb.asah.common.date.DateUtil;
+import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
+import com.liferay.osb.asah.common.date.dog.util.TimeZoneDogUtil;
 import com.liferay.osb.asah.common.model.Distribution;
 import com.liferay.osb.asah.common.model.Individual;
 import com.liferay.osb.asah.common.repository.BQIndividualRepository;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.configuration.JDBCTestConfiguration;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
+
+import java.time.ZoneId;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +29,8 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import org.mockito.Mockito;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
@@ -121,6 +127,32 @@ public class BQIndividualRepositoryTest
 				"(activities.filterByCount(filter='(activityKey eq ''Blog#" +
 					"commentPosted#" + assetId + "'' and day lt ''" +
 						"2022-12-17'')', operator='ge', value=1))",
+				false, null, null));
+	}
+
+	@BQSQLResource(resourcePath = "test_bq_individual_repository_1.sql")
+	@Test
+	public void testCountBQIndividualsActivitiesFilterWithTimeZoneId() {
+		TimeZoneDog timeZoneDog = Mockito.mock(TimeZoneDog.class);
+
+		Mockito.when(
+			timeZoneDog.getZoneId()
+		).thenReturn(
+			ZoneId.of("Japan")
+		);
+
+		TimeZoneDogUtil.setTimeZoneDog(timeZoneDog);
+
+		String assetId =
+			"da70dfa4d9f95ac979f921e8e623358236313f334afcd06cddf8a5621cf6a1e9";
+
+		Assertions.assertEquals(
+			1,
+			_bqIndividualRepository.countBQIndividuals(
+				11L,
+				"(activities.filterByCount(filter='(activityKey eq " +
+					"''WebContent#webContentViewed#" + assetId + "'' and day " +
+						"eq ''2022-12-18'')', operator='ge', value=1))",
 				false, null, null));
 	}
 

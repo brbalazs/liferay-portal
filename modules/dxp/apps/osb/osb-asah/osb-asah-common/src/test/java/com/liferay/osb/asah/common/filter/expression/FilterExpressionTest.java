@@ -419,6 +419,69 @@ public class FilterExpressionTest {
 	}
 
 	@Test
+	public void testDateEqualFunctionWithZoneId() {
+		TimeZoneDog timeZoneDog = Mockito.mock(TimeZoneDog.class);
+
+		Mockito.when(
+			timeZoneDog.getZoneId()
+		).thenReturn(
+			ZoneId.of("Japan")
+		);
+
+		TimeZoneDogUtil.setTimeZoneDog(timeZoneDog);
+
+		_assertEquals(
+			DSL.field(
+				"DATE(day, 'Japan')"
+			).eq(
+				DSL.function("DATE", Date.class, DSL.val("2023-09-14"))
+			),
+			"day eq '2023-09-14'");
+	}
+
+	@Test
+	public void testDateGreaterThanFunctionWithZoneId() {
+		TimeZoneDog timeZoneDog = Mockito.mock(TimeZoneDog.class);
+
+		Mockito.when(
+			timeZoneDog.getZoneId()
+		).thenReturn(
+			ZoneId.of("Japan")
+		);
+
+		TimeZoneDogUtil.setTimeZoneDog(timeZoneDog);
+
+		_assertEquals(
+			DSL.field(
+				"DATE(day, 'Japan')"
+			).gt(
+				DSL.function("DATE", Date.class, DSL.val("2023-09-14"))
+			),
+			"day gt '2023-09-14'");
+	}
+
+	@Test
+	public void testDateLessThanFunctionWithZoneId() {
+		TimeZoneDog timeZoneDog = Mockito.mock(TimeZoneDog.class);
+
+		Mockito.when(
+			timeZoneDog.getZoneId()
+		).thenReturn(
+			ZoneId.of("Japan")
+		);
+
+		TimeZoneDogUtil.setTimeZoneDog(timeZoneDog);
+
+		_assertEquals(
+			DSL.field(
+				"DATE(day, 'Japan')"
+			).lt(
+				DSL.function("DATE", Date.class, DSL.val("2023-09-14"))
+			),
+			"day lt '2023-09-14'");
+	}
+
+	@Test
 	public void testDoubleValue() {
 		_assertEquals(
 			DSL.field(
