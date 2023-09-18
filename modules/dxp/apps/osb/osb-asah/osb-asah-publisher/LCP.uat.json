@@ -15,5 +15,8 @@
 			"protocol": "TCP",
 			"targetPort": 8080
 		}
-	]
+	],
+	"volumes": {
+		"storage": "/storage"
+	}
 }
