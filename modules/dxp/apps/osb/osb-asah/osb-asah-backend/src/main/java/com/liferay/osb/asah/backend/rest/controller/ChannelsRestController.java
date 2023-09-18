@@ -62,7 +62,7 @@ public class ChannelsRestController extends BaseRestController {
 		_asahTaskDog.scheduleAsahTask(
 			"ClearChannelsNanite",
 			JSONUtil.put(
-				"channelIds", jsonObject.get("channelIds")
+				"channelIds", jsonObject.getJSONArray("channelIds")
 			).put(
 				"userId", jsonObject.get("userId")
 			).put(
@@ -74,15 +74,16 @@ public class ChannelsRestController extends BaseRestController {
 	public void deleteChannels(@RequestBody String json) {
 		JSONObject jsonObject = new JSONObject(json);
 
-		List<String> channelIds = (List<String>)jsonObject.get("channelIds");
+		JSONArray jsonArray = jsonObject.getJSONArray("channelIds");
 
 		_channelDog.updateState(
-			ListUtil.map(channelIds, Long::valueOf), "IN_PROGRESS_DELETING");
+			ListUtil.map(JSONUtil.toStringList(jsonArray), Long::valueOf),
+			"IN_PROGRESS_DELETING");
 
 		_asahTaskDog.scheduleAsahTask(
 			"DeleteChannelsNanite",
 			JSONUtil.put(
-				"channelIds", channelIds
+				"channelIds", jsonArray
 			).put(
 				"userId", jsonObject.get("userId")
 			).put(
