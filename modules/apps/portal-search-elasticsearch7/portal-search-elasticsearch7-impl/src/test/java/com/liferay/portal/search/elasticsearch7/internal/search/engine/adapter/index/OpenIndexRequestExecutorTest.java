@@ -11,7 +11,7 @@ import com.liferay.portal.search.engine.adapter.index.OpenIndexRequest;
 
 import org.elasticsearch.action.admin.indices.open.OpenIndexRequestBuilder;
 import org.elasticsearch.action.support.ActiveShardCount;
-import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.core.TimeValue;
 
 import org.junit.After;
 import org.junit.Assert;

@@ -12,7 +12,7 @@ import com.liferay.portal.search.elasticsearch7.internal.connection.EmbeddedElas
 import org.elasticsearch.cluster.service.ClusterService;
 import org.elasticsearch.cluster.service.MasterService;
 import org.elasticsearch.common.inject.Injector;
-import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.core.TimeValue;
 import org.elasticsearch.node.Node;
 
 import org.junit.After;
