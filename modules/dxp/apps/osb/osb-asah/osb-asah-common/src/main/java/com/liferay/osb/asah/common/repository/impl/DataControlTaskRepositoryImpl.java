@@ -9,6 +9,7 @@ import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.repository.CustomDataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
+import com.liferay.osb.asah.common.util.PostgresDialectThreadLocal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -287,28 +288,35 @@ public class DataControlTaskRepositoryImpl
 	public List<DataControlTask> searchDataControlTasks(
 		FilterHelper filterHelper, @Nullable String status) {
 
-		List<Condition> conditions = new ArrayList<>();
+		try {
+			PostgresDialectThreadLocal.setPostgresDialect(true);
 
-		conditions.add(filterHelper.getCondition());
+			List<Condition> conditions = new ArrayList<>();
 
-		if ((status != null) && !status.isEmpty()) {
-			conditions.add(
-				DSL.field(
-					"status"
-				).in(
-					status
-				));
+			conditions.add(filterHelper.getCondition());
+
+			if ((status != null) && !status.isEmpty()) {
+				conditions.add(
+					DSL.field(
+						"status"
+					).in(
+						status
+					));
+			}
+
+			SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+
+			return selectSelectStep.from(
+				"DataControlTask"
+			).where(
+				conditions
+			).fetch(
+				record -> new DataControlTask(record.intoMap())
+			);
 		}
-
-		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
-
-		return selectSelectStep.from(
-			"DataControlTask"
-		).where(
-			conditions
-		).fetch(
-			record -> new DataControlTask(record.intoMap())
-		);
+		finally {
+			PostgresDialectThreadLocal.remove();
+		}
 	}
 
 	@Override
