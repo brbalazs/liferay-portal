@@ -714,7 +714,7 @@ definition {
 
 	@priority = 3
 	test ConfigureXugglerVideoPreviewSizePG {
-		property custom.properties = "xuggler.enabled=true${line.separator}dl.file.entry.preview.video.width=0${line.separator}dl.file.entry.preview.video.height=0";
+		property custom.properties = "dl.file.entry.preview.video.height=0${line.separator}dl.file.entry.preview.video.width=0${line.separator}xuggler.enabled=true";
 		property dummy.socket.proxy.disabled = "true";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";

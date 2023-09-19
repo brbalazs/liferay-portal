@@ -2,7 +2,7 @@
 definition {
 
 	property cmis.repository.type = "documentum6";
-	property custom.properties = "session.store.password=true${line.separator}company.security.auth.type=screenName";
+	property custom.properties = "company.security.auth.type=screenName${line.separator}session.store.password=true";
 	property dummy.socket.proxy.disabled = "true";
 	property osgi.app.includes = "documentum";
 	property portal.release = "false";

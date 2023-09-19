@@ -33,7 +33,7 @@ definition {
 	@description = "This is a use case for LPS-89175."
 	@priority = 3
 	test StagingRemoteLiveDeleteDocumentWithWebContentField {
-		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
+		property custom.properties = "auth.verifier.TunnelAuthVerifier.hosts.allowed=${line.separator}tunneling.servlet.shared.secret=1234567890123456";
 
 		Staging.remoteStagingSetUp(siteName = "Site Name");
 
@@ -118,7 +118,7 @@ definition {
 	@description = "This test covers LPS-83426. It views management bar details in the staging site."
 	@priority = 4
 	test StagingViewManagementBarDetails {
-		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
+		property custom.properties = "auth.verifier.TunnelAuthVerifier.hosts.allowed=${line.separator}tunneling.servlet.shared.secret=1234567890123456";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 

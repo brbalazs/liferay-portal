@@ -28,7 +28,7 @@ definition {
 
 	@priority = 3
 	test AutomaticChangesToDisplayStyle {
-		property custom.properties = "display.style.options=from-level-1-to-all-sublevels${line.separator}navigation.display.style[from-level-1-with-title]=root-layout,absolute,1,auto,true${line.separator}display.style.default=";
+		property custom.properties = "display.style.default=${line.separator}display.style.options=from-level-1-to-all-sublevels${line.separator}navigation.display.style[from-level-1-with-title]=root-layout,absolute,1,auto,true";
 		property testray.component.names = "Navigation";
 
 		ProductMenu.gotoPortlet(
