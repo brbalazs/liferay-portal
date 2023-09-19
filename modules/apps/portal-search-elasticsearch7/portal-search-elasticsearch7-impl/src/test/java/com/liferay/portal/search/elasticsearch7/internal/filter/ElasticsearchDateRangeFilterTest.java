@@ -11,9 +11,8 @@ import com.liferay.portal.search.test.util.indexing.IndexingFixture;
 
 import org.elasticsearch.action.search.SearchPhaseExecutionException;
 
-import org.junit.Rule;
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * @author Eric Yan
@@ -45,28 +44,22 @@ public class ElasticsearchDateRangeFilterTest
 
 	@Test
 	public void testMalformed() throws Exception {
-		expectedException.expect(SearchPhaseExecutionException.class);
-		expectedException.expectMessage("all shards failed");
-
 		addDocument(getDate(2000, 11, 22));
 
 		dateRangeFilterBuilder.setFrom("11212000000000");
 		dateRangeFilterBuilder.setTo("11232000000000");
 
-		assertNoHits();
+		_assertSearchPhaseExecutionException();
 	}
 
 	@Test
 	public void testMalformedMultiple() throws Exception {
-		expectedException.expect(SearchPhaseExecutionException.class);
-		expectedException.expectMessage("all shards failed");
-
 		addDocument(getDate(2000, 11, 22));
 
 		dateRangeFilterBuilder.setFrom("2000");
 		dateRangeFilterBuilder.setTo("11232000000000");
 
-		assertNoHits();
+		_assertSearchPhaseExecutionException();
 	}
 
 	@Test
@@ -80,12 +73,28 @@ public class ElasticsearchDateRangeFilterTest
 		assertHits("20001122000000");
 	}
 
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
-
 	@Override
 	protected IndexingFixture createIndexingFixture() throws Exception {
 		return LiferayElasticsearchIndexingFixtureFactory.getInstance();
+	}
+
+	private void _assertSearchPhaseExecutionException() {
+		assertSearch(
+			indexingTestHelper -> {
+				indexingTestHelper.setFilter(dateRangeFilterBuilder.build());
+
+				try {
+					indexingTestHelper.search();
+					Assert.fail();
+				}
+				catch (SearchPhaseExecutionException
+							searchPhaseExecutionException) {
+
+					Assert.assertEquals(
+						"all shards failed",
+						searchPhaseExecutionException.getMessage());
+				}
+			});
 	}
 
 }
