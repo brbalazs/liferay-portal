@@ -204,6 +204,10 @@ public class DXPEntitiesNanite implements Nanite {
 	private void _processObject(
 		String action, JSONObject objectJSONObject, DXPEntity.Type type) {
 
+		if (type == null) {
+			return;
+		}
+
 		if (action.equalsIgnoreCase("addAssociation") ||
 			action.equalsIgnoreCase("deleteAssociation")) {
 
