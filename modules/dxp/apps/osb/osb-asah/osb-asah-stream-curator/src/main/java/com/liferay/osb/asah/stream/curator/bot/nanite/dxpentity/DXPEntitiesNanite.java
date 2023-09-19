@@ -335,7 +335,7 @@ public class DXPEntitiesNanite implements Nanite {
 					JSONUtil.put(
 						"name", "classPK"
 					).put(
-						"value", dxpEntity.getId()
+						"value", dxpEntity.getIdFieldValue()
 					))
 			).put(
 				"id", dxpEntity.getIdFieldValue()
