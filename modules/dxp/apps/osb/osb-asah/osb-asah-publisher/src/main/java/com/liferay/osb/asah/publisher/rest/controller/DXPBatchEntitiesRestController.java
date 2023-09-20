@@ -205,38 +205,11 @@ public class DXPBatchEntitiesRestController {
 	private StorageConfiguration _getUploadStorageConfiguration(
 		String dataSourceId, String resourceName, String uploadType) {
 
-		String dateString = DateUtil.newDateString();
-
 		StorageConfiguration.Builder builder = StorageConfiguration.builder(
 			String.format(
-				"%s/%s/%s.zip",
-				StringUtils.replace(
-					_dxpBatchEntitiesStoragePathTemplate, "{projectId}",
-					ProjectIdThreadLocal.getProjectId()),
-				resourceName, dateString));
-
-		builder.fileFormat(StorageConfiguration.FileFormat.JSON);
-
-		builder.googleBucket(
-			StringUtils.replace(
-				_dxpEntitiesBucketTemplate, "{googleProjectId}",
-				_gcloudProjectId));
-
-		StringBuilder sb = new StringBuilder(7);
-
-		sb.append(dataSourceId);
-		sb.append("/");
-		sb.append(resourceName);
-
-		if (StringUtils.isNotBlank(uploadType)) {
-			sb.append("/");
-			sb.append(uploadType);
-		}
-
-		sb.append("/");
-		sb.append(dateString);
-
-		builder.googleBucketFolder(sb.toString());
+				"%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
+				ProjectIdThreadLocal.getProjectId(), dataSourceId, resourceName,
+				uploadType, DateUtil.newDateString()));
 
 		return builder.build();
 	}
@@ -368,8 +341,8 @@ public class DXPBatchEntitiesRestController {
 	@Autowired
 	private DataControlTaskDog _dataControlTaskDog;
 
-	@Value("${osb.asah.dxp.batch.entities.storage.path:/storage/{projectId}}")
-	private String _dxpBatchEntitiesStoragePathTemplate;
+	@Value("${osb.asah.dxp.batch.entities.storage.path:/storage}")
+	private String _dxpBatchEntitiesStoragePath;
 
 	@Value(
 		"${osb.asah.dxp.batch.entities.google.bucket:{googleProjectId}-dxp-entities}"

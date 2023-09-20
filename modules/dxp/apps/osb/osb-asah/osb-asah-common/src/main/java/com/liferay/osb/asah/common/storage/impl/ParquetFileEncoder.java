@@ -5,6 +5,8 @@
 
 package com.liferay.osb.asah.common.storage.impl;
 
+import java.io.OutputStream;
+
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.hadoop.fs.Path;
@@ -45,6 +47,11 @@ public class ParquetFileEncoder implements FileEncoder {
 	@Override
 	public long getDataSize() {
 		return _parquetWriter.getDataSize();
+	}
+
+	@Override
+	public OutputStream getOutputStream() {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

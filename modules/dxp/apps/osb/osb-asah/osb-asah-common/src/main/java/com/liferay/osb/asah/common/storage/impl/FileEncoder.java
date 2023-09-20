@@ -5,6 +5,8 @@
 
 package com.liferay.osb.asah.common.storage.impl;
 
+import java.io.OutputStream;
+
 /**
  * @author Marcellus Tavares
  */
@@ -15,6 +17,8 @@ public interface FileEncoder {
 	public void encode(String data) throws Exception;
 
 	public long getDataSize();
+
+	public OutputStream getOutputStream();
 
 	public void open() throws Exception;
 

@@ -8,6 +8,7 @@ package com.liferay.osb.asah.common.storage.impl;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 import java.nio.charset.StandardCharsets;
 
@@ -39,6 +40,11 @@ public class JSONFileEncoder implements FileEncoder {
 	@Override
 	public long getDataSize() {
 		return _file.length();
+	}
+
+	@Override
+	public OutputStream getOutputStream() {
+		return _fileOutputStream;
 	}
 
 	@Override

@@ -15,12 +15,9 @@ import java.io.InputStream;
 
 import java.util.Date;
 
-import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.owasp.esapi.ESAPI;
-import org.owasp.esapi.Validator;
 
 /**
  * @author Marcellus Tavares
@@ -114,17 +111,7 @@ public class LocalStorage implements Storage {
 		boolean status = true;
 
 		try {
-			Validator validator = ESAPI.validator();
-
-			String line = null;
-
-			while ((line = validator.safeReadLine(
-						inputStream, _FILE_MAX_ALLOWED_SIZE)) != null) {
-
-				if (!write(line)) {
-					status = false;
-				}
-			}
+			IOUtils.copy(inputStream, _fileEncoder.getOutputStream());
 
 			flush();
 
@@ -268,9 +255,6 @@ public class LocalStorage implements Storage {
 
 		_open();
 	}
-
-	private static final int _FILE_MAX_ALLOWED_SIZE = NumberUtils.toInt(
-		System.getenv("FILE_MAX_ALLOWED_SIZE"), 2 * 1024 * 1024);
 
 	private static final Log _log = LogFactory.getLog(LocalStorage.class);
 
