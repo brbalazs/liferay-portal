@@ -51,6 +51,13 @@ public class GoogleStorageArchiver {
 			() -> _archive(bucket, bucketFolder, file, fileName, projectId));
 	}
 
+	public void archiveSync(
+		String bucket, String bucketFolder, File file, String fileName,
+		String projectId) {
+
+		_archive(bucket, bucketFolder, file, fileName, projectId);
+	}
+
 	public File readSparkJobResult(
 			String bucket, String bucketFolder, String projectId,
 			Date sparkJobResultDateAfter, String sparkJobResultPathPrefix)
