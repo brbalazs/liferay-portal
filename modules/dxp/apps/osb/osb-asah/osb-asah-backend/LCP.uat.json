@@ -7,9 +7,6 @@
 	},
 	"id": "osbasahbackend",
 	"kind": "Deployment",
-	"loadBalancer": {
-		"cdn": false
-	},
 	"memory": 3072,
 	"ports": [
 		{
