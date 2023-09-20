@@ -124,6 +124,14 @@ public class DXPBatchEntitiesRestController {
 				return new ResponseEntity(
 					Collections.emptyList(), HttpStatus.INTERNAL_SERVER_ERROR);
 			}
+
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					String.format(
+						"Uploaded resource %s (%s B) from data source ID %s " +
+							"saved successfully",
+						name, multipartFile.getSize(), dataSourceId));
+			}
 		}
 
 		return ResponseEntity.ok(Collections.emptyList());
