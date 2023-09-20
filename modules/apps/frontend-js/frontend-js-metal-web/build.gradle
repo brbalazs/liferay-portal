@@ -1,0 +1,11 @@
+tasks.register('replaceIsServerSide') {
+	doLast {
+		ant.replace(
+			file: 'classes/META-INF/resources/node_modules/frontend-js-metal-web$metal@2.16.8/lib/coreNamed.js',
+			token: 'function isServerSide',
+			value: 'function isServerSide() { return false; }\n\n    function _isServerSide'
+		)
+	}
+}
+
+jar.dependsOn replaceIsServerSide
