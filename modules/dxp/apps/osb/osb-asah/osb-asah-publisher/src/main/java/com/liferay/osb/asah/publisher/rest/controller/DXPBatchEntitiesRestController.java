@@ -5,31 +5,16 @@
 
 package com.liferay.osb.asah.publisher.rest.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import com.liferay.osb.asah.common.antivirus.ClamAVScanner;
 import com.liferay.osb.asah.common.constants.HeaderConstants;
 import com.liferay.osb.asah.common.date.DateUtil;
-import com.liferay.osb.asah.common.dog.ChannelDog;
-import com.liferay.osb.asah.common.dog.DataControlTaskDog;
-import com.liferay.osb.asah.common.entity.ChannelDataSource;
-import com.liferay.osb.asah.common.json.JSONUtil;
-import com.liferay.osb.asah.common.messaging.Channel;
-import com.liferay.osb.asah.common.messaging.MessageBus;
 import com.liferay.osb.asah.common.storage.Storage;
 import com.liferay.osb.asah.common.storage.StorageConfiguration;
 import com.liferay.osb.asah.common.storage.StorageFactory;
-import com.liferay.osb.asah.common.util.ArrayUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
-import com.liferay.osb.asah.publisher.messaging.DXPEntitiesChannels;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import java.nio.charset.StandardCharsets;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -39,9 +24,7 @@ import java.time.format.DateTimeParseException;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -137,22 +120,6 @@ public class DXPBatchEntitiesRestController {
 			boolean success = _storeMessages(
 				dataSourceId, name, multipartFile.getInputStream(), uploadType);
 
-			_messageBus.sendMessage(
-				Channel.COMPOSER,
-				JSONUtil.put(
-					"dataSourceId", dataSourceId
-				).put(
-					"projectId", ProjectIdThreadLocal.getProjectId()
-				).put(
-					"resourceName", name
-				).put(
-					"uploadComplete", success
-				).put(
-					"uploadTime", DateUtil.toUTCString(new Date())
-				).put(
-					"uploadType", (uploadType != null) ? uploadType : "FULL"
-				).toString());
-
 			if (!success) {
 				return new ResponseEntity(
 					Collections.emptyList(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -235,9 +202,6 @@ public class DXPBatchEntitiesRestController {
 	private static final DateTimeFormatter _dateTimeFormatter =
 		DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss zzz");
 
-	@Autowired
-	private ChannelDog _channelDog;
-
 	@Autowired(required = false)
 	private ClamAVScanner _clamAVScanner;
 
@@ -251,9 +215,6 @@ public class DXPBatchEntitiesRestController {
 
 	@Value("${osb.asah.gcloud.project.id:liferaycloud-customer-ac}")
 	private String _gcloudProjectId;
-
-	@Autowired
-	private MessageBus _messageBus;
 
 	@Autowired
 	private StorageFactory _storageFactory;
