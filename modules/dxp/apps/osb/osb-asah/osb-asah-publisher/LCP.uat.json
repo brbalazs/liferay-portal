@@ -8,8 +8,7 @@
 	"id": "osbasahpublisher",
 	"kind": "Deployment",
 	"loadBalancer": {
-		"cdn": false,
-		"targetPort": 8080
+		"cdn": false
 	},
 	"memory": 2048,
 	"ports": [
