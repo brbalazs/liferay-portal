@@ -162,32 +162,6 @@ public class DXPBatchEntitiesRestController {
 		return ResponseEntity.ok(Collections.emptyList());
 	}
 
-	private Map<Long, Long> _getCommerceChannelIdChannelIds(long dataSourceId) {
-		List<com.liferay.osb.asah.common.entity.Channel> channels =
-			_channelDog.getChannels(dataSourceId);
-
-		Map<Long, Long> commerceChanelIdChannelIds = new HashMap<>();
-
-		for (com.liferay.osb.asah.common.entity.Channel channel : channels) {
-			for (ChannelDataSource channelDataSource :
-					channel.getChannelDataSources()) {
-
-				if (channelDataSource.getCommerceChannelIds() == null) {
-					continue;
-				}
-
-				for (Long commerceChannelId :
-						channelDataSource.getCommerceChannelIds()) {
-
-					commerceChanelIdChannelIds.put(
-						commerceChannelId, channel.getId());
-				}
-			}
-		}
-
-		return commerceChanelIdChannelIds;
-	}
-
 	private StorageConfiguration _getDownloadStorageConfiguration(
 		String googleBucketFolder) {
 
@@ -244,71 +218,6 @@ public class DXPBatchEntitiesRestController {
 		}
 	}
 
-	private boolean _publishMessages(
-			String dataSourceId, String resourceName, InputStream inputStream,
-			String uploadType)
-		throws Exception {
-
-		Channel channel = _dxpEntitiesChannels.getChannel(resourceName);
-
-		Map<String, String> messageAttributes = new HashMap<>();
-
-		if (ArrayUtil.contains(
-				_REQUIRE_COMMERCE_CHANNEL_ID_CHANNEL_ID_RESOURCE_NAMES,
-				resourceName)) {
-
-			messageAttributes.put(
-				"commerceChannelIdChannelIds",
-				_objectMapper.writeValueAsString(
-					_getCommerceChannelIdChannelIds(
-						Long.parseLong(dataSourceId))));
-		}
-		else {
-			messageAttributes.put(
-				"suppressedEmailAddresses",
-				_objectMapper.writeValueAsString(
-					_dataControlTaskDog.getSuppressedEmailAddresses()));
-		}
-
-		messageAttributes.put("dataSourceId", dataSourceId);
-		messageAttributes.put("projectId", ProjectIdThreadLocal.getProjectId());
-		messageAttributes.put("resourceName", resourceName);
-		messageAttributes.put("uploadTime", DateUtil.toUTCString(new Date()));
-		messageAttributes.put(
-			"uploadType", (uploadType != null) ? uploadType : "FULL");
-
-		boolean status = false;
-
-		try (BufferedReader bufferedReader = new BufferedReader(
-				new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-
-			long count = 1;
-
-			String line = bufferedReader.readLine();
-
-			while (line != null) {
-				String nextLine = bufferedReader.readLine();
-
-				messageAttributes.put("count", String.valueOf(count));
-				messageAttributes.put(
-					"last", (nextLine == null) ? "true" : "false");
-
-				_messageBus.sendMessage(channel, line, messageAttributes);
-
-				count += 1;
-
-				line = nextLine;
-			}
-
-			status = true;
-		}
-		catch (IOException ioException) {
-			_log.error(ioException, ioException);
-		}
-
-		return status;
-	}
-
 	private boolean _storeMessages(
 		String dataSourceId, String resourceName, InputStream inputStream,
 		String uploadType) {
@@ -319,12 +228,6 @@ public class DXPBatchEntitiesRestController {
 
 		return uploadStorage.write(inputStream);
 	}
-
-	private static final String[]
-		_REQUIRE_COMMERCE_CHANNEL_ID_CHANNEL_ID_RESOURCE_NAMES = {
-			"com.liferay.headless.commerce.machine.learning.dto.v1_0.Order",
-			"com.liferay.headless.commerce.machine.learning.dto.v1_0.Product"
-		};
 
 	private static final Log _log = LogFactory.getLog(
 		DXPBatchEntitiesRestController.class);
@@ -338,9 +241,6 @@ public class DXPBatchEntitiesRestController {
 	@Autowired(required = false)
 	private ClamAVScanner _clamAVScanner;
 
-	@Autowired
-	private DataControlTaskDog _dataControlTaskDog;
-
 	@Value("${osb.asah.dxp.batch.entities.storage.path:/storage}")
 	private String _dxpBatchEntitiesStoragePath;
 
@@ -349,17 +249,11 @@ public class DXPBatchEntitiesRestController {
 	)
 	private String _dxpEntitiesBucketTemplate;
 
-	@Autowired
-	private DXPEntitiesChannels _dxpEntitiesChannels;
-
 	@Value("${osb.asah.gcloud.project.id:liferaycloud-customer-ac}")
 	private String _gcloudProjectId;
 
 	@Autowired
 	private MessageBus _messageBus;
-
-	@Autowired
-	private ObjectMapper _objectMapper;
 
 	@Autowired
 	private StorageFactory _storageFactory;
