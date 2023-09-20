@@ -154,9 +154,13 @@ public class DXPBatchEntitiesRestController {
 	private StorageConfiguration _getUploadStorageConfiguration(
 		String dataSourceId, String resourceName, String uploadType) {
 
+		if (StringUtils.isBlank(uploadType)) {
+			uploadType = "FULL";
+		}
+
 		StorageConfiguration.Builder builder = StorageConfiguration.builder(
 			String.format(
-				"%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
+				"%s/%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
 				ProjectIdThreadLocal.getProjectId(), dataSourceId, resourceName,
 				uploadType, DateUtil.newDateString()));
 
