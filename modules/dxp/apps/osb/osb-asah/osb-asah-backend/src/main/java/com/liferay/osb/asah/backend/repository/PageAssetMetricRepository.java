@@ -40,6 +40,10 @@ public interface PageAssetMetricRepository
 		@Nullable String displayLanguageId, String individualId,
 		Pageable pageable, TimeRange timeRange);
 
+	public Long getRecentPagesCount(
+		@Nullable String displayLanguageId, String individualId,
+		TimeRange timeRange);
+
 	public Long getUniqueSessionsCount(Long experimentId, TimeRange timeRange);
 
 	public Long getVariantUniqueVisitors(

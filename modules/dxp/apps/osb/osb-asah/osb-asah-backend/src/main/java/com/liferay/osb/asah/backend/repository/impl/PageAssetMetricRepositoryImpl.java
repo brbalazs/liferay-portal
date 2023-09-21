@@ -264,38 +264,62 @@ public class PageAssetMetricRepositoryImpl
 			));
 	}
 
-	private Collection<SortField<?>> _getSortFields(Sort sort) {
-		Collection<SortField<?>> sortFields = new ArrayList<>();
+	@Override
+	public Long getRecentPagesCount(
+		@Nullable String displayLanguageId, String individualId,
+		TimeRange timeRange) {
 
-		List<Sort.Order> sortOrders = new ArrayList<>();
-
-		if (sort != null) {
-			sortOrders = sort.toList();
-		}
-
-		if (sortOrders.isEmpty()) {
-			sortFields.add(
-				DSL.field(
-					"counts"
-				).desc());
-
-			return sortFields;
-		}
-
-		for (Sort.Order sortOrder : sortOrders) {
-			String fieldName = sortOrder.getProperty();
-
-			Field<?> field = DSL.field(fieldName);
-
-			if (sortOrder.getDirection() == Sort.Direction.ASC) {
-				sortFields.add(field.asc());
-			}
-			else {
-				sortFields.add(field.desc());
-			}
-		}
-
-		return sortFields;
+		return queryExecutor.queryForLong(
+			dslContext.with(
+				"RecentPages"
+			).as(
+				dslContext.select(
+					DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
+				).from(
+					getTableName(timeRange)
+				).join(
+					DSL.table(
+						"BQIdentity"
+					).as(
+						"Identity"
+					)
+				).on(
+					DSL.field(
+						getTableName(timeRange) + ".userId"
+					).eq(
+						DSL.field("Identity.id")
+					)
+				).leftJoin(
+					DSL.table(
+						"BQIndividual"
+					).as(
+						"Individual"
+					)
+				).on(
+					DSL.and(
+						DSL.field(
+							"Individual.id"
+						).eq(
+							DSL.field("Identity.individualId")
+						),
+						DSL.or(
+							DSL.field(
+								"Individual.suppressed"
+							).isNull(),
+							DSL.field(
+								"Individual.suppressed"
+							).notEqual(
+								DSL.val(Boolean.TRUE)
+							)))
+				).where(
+					_getConditions(displayLanguageId, individualId, timeRange)
+				).groupBy(
+					DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
+				)
+			).selectCount(
+			).from(
+				"RecentPages"
+			));
 	}
 
 	@Override
