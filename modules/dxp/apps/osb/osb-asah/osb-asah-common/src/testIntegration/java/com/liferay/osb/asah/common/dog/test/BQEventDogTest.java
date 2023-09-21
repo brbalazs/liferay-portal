@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -153,7 +155,7 @@ public class BQEventDogTest
 	}
 
 	@Test
-	public void testGetSearchKeywords() throws Exception {
+	public void testGetSearchKeywords1() throws Exception {
 		Channel channel = _channelDog.addChannel("Test Channel");
 
 		_bqEventDog.addBQEvent(
@@ -167,7 +169,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), null, "", "", null,
 			DateUtil.newDate(), "pageViewed", "", "analyticsEventId1", "",
 			"en_US", "", "", "", "", "", "", "",
 			"http://localhost:8080/search?q=Liferay%20DXP", "userId", "");
@@ -183,7 +185,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), null, "", "", null,
 			DateUtil.newDate(), "pageViewed", "", "analyticsEventId2", "",
 			"en_US", "", "", "", "", "", "", "",
 			"http://localhost:8080/search?q=Liferay", "userId", "");
@@ -199,7 +201,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), null, "", "", null,
 			DateUtil.newDate(), "pageViewed", "", "analyticsEventId3", "",
 			"en_US", "", "", "", "", "", "", "",
 			"http://localhost:8080/search?q=Liferay+DXP", "userId", "");
@@ -215,7 +217,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
 			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), null, "", "", null,
 			DateUtil.newDate(), "pageViewed", "", "analyticsEventId4", "",
 			"en_US", "", "", "", "", "", "", "",
 			"http://localhost:8080/search?q=Diamond+Bar", "userId", "");
@@ -261,9 +263,348 @@ public class BQEventDogTest
 		Assertions.assertEquals("diamond bar", searchKeyword.getKeywords());
 
 		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
-			null, null, 3, 0, 1, Sort.by(Sort.Order.desc("counts")));
+			null, null, null, 3, 0, 1, Sort.by(Sort.Order.desc("counts")),
+			null);
 
 		Assertions.assertEquals(0, searchKeywordPage.getTotalElements());
+	}
+
+	@Test
+	public void testGetSearchKeywords2() throws Exception {
+		Channel channel = _channelDog.addChannel("Test Channel");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
+			"userId", "");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay", "userId", "");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay+DXP", "userId",
+			"");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
+			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test2@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Diamond+Bar", "userId",
+			"");
+
+		Page<SearchKeyword> searchKeywordPage =
+			_bqEventDog.getSearchKeywordPage(
+				null, null, DigestUtils.sha256Hex("test@liferay.com"), 1, 0, 2,
+				Sort.by(Sort.Order.desc("counts")), TimeRange.LAST_24_HOURS);
+
+		Assertions.assertEquals(2, searchKeywordPage.getTotalElements());
+
+		List<SearchKeyword> searchKeywords = searchKeywordPage.getContent();
+
+		Assertions.assertEquals(2, searchKeywords.size());
+
+		SearchKeyword[] searchKeywordsArray = searchKeywords.toArray(
+			new SearchKeyword[0]);
+
+		SearchKeyword searchKeyword = searchKeywordsArray[0];
+
+		Assertions.assertEquals(2, searchKeyword.getCounts());
+		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
+		Assertions.assertEquals("3212", searchKeyword.getGroupId());
+		Assertions.assertEquals("liferay dxp", searchKeyword.getKeywords());
+
+		searchKeyword = searchKeywordsArray[1];
+
+		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
+		Assertions.assertEquals("3212", searchKeyword.getGroupId());
+		Assertions.assertEquals("liferay", searchKeyword.getKeywords());
+	}
+
+	@Test
+	public void testGetSearchKeywords3() throws Exception {
+		Channel channel = _channelDog.addChannel("Test Channel");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
+			"userId", "");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay", "userId", "");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay+DXP", "userId",
+			"");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
+			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Diamond+Bar", "userId",
+			"");
+
+		Page<SearchKeyword> searchKeywordPage =
+			_bqEventDog.getSearchKeywordPage(
+				"pt_BR", null, DigestUtils.sha256Hex("test@liferay.com"), 1, 0,
+				2, new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+
+		Assertions.assertEquals(1, searchKeywordPage.getTotalElements());
+
+		List<SearchKeyword> searchKeywords = searchKeywordPage.getContent();
+
+		Assertions.assertEquals(1, searchKeywords.size());
+
+		SearchKeyword[] searchKeywordsArray = searchKeywords.toArray(
+			new SearchKeyword[0]);
+
+		SearchKeyword searchKeyword = searchKeywordsArray[0];
+
+		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals("pt_BR", searchKeyword.getDisplayLanguageId());
+		Assertions.assertEquals("3212", searchKeyword.getGroupId());
+		Assertions.assertEquals("diamond bar", searchKeyword.getKeywords());
+
+		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
+			"en_US", null, DigestUtils.sha256Hex("test@liferay.com"), 1, 0, 2,
+			new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+
+		Assertions.assertEquals(2, searchKeywordPage.getTotalElements());
+
+		searchKeywords = searchKeywordPage.getContent();
+
+		Assertions.assertEquals(2, searchKeywords.size());
+
+		searchKeywordsArray = searchKeywords.toArray(new SearchKeyword[0]);
+
+		searchKeyword = searchKeywordsArray[0];
+
+		Assertions.assertEquals(2, searchKeyword.getCounts());
+		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
+		Assertions.assertEquals("3212", searchKeyword.getGroupId());
+		Assertions.assertEquals("liferay dxp", searchKeyword.getKeywords());
+
+		searchKeyword = searchKeywordsArray[1];
+
+		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
+		Assertions.assertEquals("3212", searchKeyword.getGroupId());
+		Assertions.assertEquals("liferay", searchKeyword.getKeywords());
+	}
+
+	@Test
+	public void testGetSearchKeywords4() throws Exception {
+		Channel channel = _channelDog.addChannel("Test Channel");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
+			"userId", "");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay", "userId", "");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay+DXP", "userId",
+			"");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
+			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3213\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Diamond+Bar", "userId",
+			"");
+
+		Page<SearchKeyword> searchKeywordPage =
+			_bqEventDog.getSearchKeywordPage(
+				null, "3213", DigestUtils.sha256Hex("test@liferay.com"), 1, 0,
+				2, new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+
+		Assertions.assertEquals(1, searchKeywordPage.getTotalElements());
+
+		List<SearchKeyword> searchKeywords = searchKeywordPage.getContent();
+
+		Assertions.assertEquals(1, searchKeywords.size());
+
+		SearchKeyword[] searchKeywordsArray = searchKeywords.toArray(
+			new SearchKeyword[0]);
+
+		SearchKeyword searchKeyword = searchKeywordsArray[0];
+
+		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals("pt_BR", searchKeyword.getDisplayLanguageId());
+		Assertions.assertEquals("3213", searchKeyword.getGroupId());
+		Assertions.assertEquals("diamond bar", searchKeyword.getKeywords());
+
+		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
+			null, "3212", DigestUtils.sha256Hex("test@liferay.com"), 1, 0, 2,
+			new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+
+		Assertions.assertEquals(2, searchKeywordPage.getTotalElements());
+
+		searchKeywords = searchKeywordPage.getContent();
+
+		Assertions.assertEquals(2, searchKeywords.size());
+
+		searchKeywordsArray = searchKeywords.toArray(new SearchKeyword[0]);
+
+		searchKeyword = searchKeywordsArray[0];
+
+		Assertions.assertEquals(2, searchKeyword.getCounts());
+		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
+		Assertions.assertEquals("3212", searchKeyword.getGroupId());
+		Assertions.assertEquals("liferay dxp", searchKeyword.getKeywords());
+
+		searchKeyword = searchKeywordsArray[1];
+
+		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
+		Assertions.assertEquals("3212", searchKeyword.getGroupId());
+		Assertions.assertEquals("liferay", searchKeyword.getKeywords());
 	}
 
 	@Test

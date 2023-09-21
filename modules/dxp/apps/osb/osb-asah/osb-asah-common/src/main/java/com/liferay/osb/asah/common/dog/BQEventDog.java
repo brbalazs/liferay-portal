@@ -60,7 +60,7 @@ public class BQEventDog {
 
 		return addBQEvent(
 			applicationId, bqEventProperties, null, null, channelId, null, null,
-			null, null, createDate, dataSourceId, null, null, eventDate,
+			null, null, createDate, dataSourceId, null, null, null, eventDate,
 			eventId, null, id, null, null, null, null, null, null, sessionId,
 			null, null, null, userId, null);
 	}
@@ -75,7 +75,7 @@ public class BQEventDog {
 
 		return addBQEvent(
 			applicationId, bqEventProperties, null, null, channelId, null, null,
-			null, null, createDate, dataSourceId, null, null, eventDate,
+			null, null, createDate, dataSourceId, null, null, null, eventDate,
 			eventId, null, id, null, null, null, null, null, null, sessionId,
 			null, title, null, userId, null);
 	}
@@ -86,19 +86,19 @@ public class BQEventDog {
 			String browserName, String canonicalUrl, Long channelId,
 			String city, String contentLanguageId, String context,
 			String country, Date createDate, Long dataSourceId,
-			String description, String deviceType, Date eventDate,
-			String eventId, String experienceId, String id, String keywords,
-			String languageId, String platformName, String projectTimeZoneId,
-			String referrer, String region, String sessionId,
-			String timezoneOffset, String title, String url, String userId,
-			String variantId)
+			String description, String deviceType, String emailAddressHashed,
+			Date eventDate, String eventId, String experienceId, String id,
+			String keywords, String languageId, String platformName,
+			String projectTimeZoneId, String referrer, String region,
+			String sessionId, String timezoneOffset, String title, String url,
+			String userId, String variantId)
 		throws Exception {
 
 		BQEvent bqEvent = _bqEventRepository.insert(
 			new BQEvent(
 				applicationId, browserName, canonicalUrl, channelId, city,
 				contentLanguageId, context, country, createDate, dataSourceId,
-				description, deviceType, eventDate, eventId,
+				description, deviceType, emailAddressHashed, eventDate, eventId,
 				_objectMapper.writeValueAsString(bqEventProperties),
 				experienceId, id, keywords, languageId, platformName,
 				projectTimeZoneId, referrer, region, sessionId, timezoneOffset,

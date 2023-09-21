@@ -28,11 +28,12 @@ public class BQEvent {
 		String applicationId, String browserName, String canonicalUrl,
 		Long channelId, String city, String contentLanguageId, String context,
 		String country, Date createDate, Long dataSourceId, String description,
-		String deviceType, Date eventDate, String eventId,
-		String eventProperties, String experienceId, String id, String keywords,
-		String languageId, String platformName, String projectTimeZoneId,
-		String referrer, String region, String sessionId, String timezoneOffset,
-		String title, String url, String userId, String variantId) {
+		String deviceType, String emailAddressHashed, Date eventDate,
+		String eventId, String eventProperties, String experienceId, String id,
+		String keywords, String languageId, String platformName,
+		String projectTimeZoneId, String referrer, String region,
+		String sessionId, String timezoneOffset, String title, String url,
+		String userId, String variantId) {
 
 		_applicationId = applicationId;
 		_browserName = browserName;
@@ -48,6 +49,7 @@ public class BQEvent {
 		_dataSourceId = dataSourceId;
 		_description = description;
 		_deviceType = deviceType;
+		_emailAddressHashed = emailAddressHashed;
 
 		setEventDate(eventDate);
 
