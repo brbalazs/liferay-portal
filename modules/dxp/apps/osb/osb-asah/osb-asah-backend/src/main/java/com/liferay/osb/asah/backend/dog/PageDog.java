@@ -8,9 +8,11 @@ package com.liferay.osb.asah.backend.dog;
 import com.liferay.osb.asah.backend.dog.helper.SearchQueryContext;
 import com.liferay.osb.asah.backend.model.Metric;
 import com.liferay.osb.asah.backend.model.PageMetric;
-import com.liferay.osb.asah.backend.repository.AssetMetricRepository;
+import com.liferay.osb.asah.backend.repository.PageAssetMetricRepository;
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
+import com.liferay.osb.asah.common.dog.util.SortUtil;
 import com.liferay.osb.asah.common.model.PageMetricType;
+import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.TimeRange;
 
 import java.time.LocalDate;
@@ -19,7 +21,10 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +37,7 @@ public class PageDog {
 	public long getIndirectAccessMetricValue(
 		SearchQueryContext searchQueryContext) {
 
-		PageMetric pageMetric = _pageMetricAssetMetricRepository.getAssetMetric(
+		PageMetric pageMetric = _pageAssetMetricRepository.getAssetMetric(
 			searchQueryContext.getAssetId(), searchQueryContext.getTitle(),
 			searchQueryContext.getChannelIdAsLong(),
 			Collections.singleton(PageMetricType.INDIRECT_ACCESS.getName()),
@@ -49,6 +54,23 @@ public class PageDog {
 			canonicalUrl, fromLocalDate, PageMetricType.READS, toLocalDate);
 
 		return _getLongValue(pageMetric.getReadsMetric());
+	}
+
+	public Page<RecentPage> getRecentPagesPage(
+		@Nullable String displayLanguageId, String individualId, int page,
+		int rangeKey, int size, String[] sorts) {
+
+		Sort sort = SortUtil.getSort(Sort.by(Sort.Order.desc("counts")), sorts);
+
+		TimeRange timeRange = TimeRange.of(rangeKey);
+
+		return PageableExecutionUtils.getPage(
+			_pageAssetMetricRepository.getRecentPages(
+				displayLanguageId, individualId,
+				PageRequest.of(page, size, sort), timeRange),
+			PageRequest.of(page, size, sort),
+			() -> _pageAssetMetricRepository.getRecentPagesCount(
+				displayLanguageId, individualId, timeRange));
 	}
 
 	public long getViewsMetricValue(@Nullable String canonicalUrl) {
@@ -119,14 +141,13 @@ public class PageDog {
 		@Nullable String canonicalUrl, PageMetricType pageMetricType,
 		TimeRange timeRange) {
 
-		return _pageMetricAssetMetricRepository.getAssetMetric(
+		return _pageAssetMetricRepository.getAssetMetric(
 			canonicalUrl, null, null,
 			Collections.singleton(pageMetricType.getName()), timeRange);
 	}
 
 	@Autowired
-	@Qualifier("PageAssetMetricRepository")
-	private AssetMetricRepository<PageMetric> _pageMetricAssetMetricRepository;
+	private PageAssetMetricRepository _pageAssetMetricRepository;
 
 	@Autowired
 	private TimeZoneDog _timeZoneDog;

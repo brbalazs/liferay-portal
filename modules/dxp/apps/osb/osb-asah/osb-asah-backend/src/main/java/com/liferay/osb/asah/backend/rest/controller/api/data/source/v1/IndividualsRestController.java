@@ -5,8 +5,10 @@
 
 package com.liferay.osb.asah.backend.rest.controller.api.data.source.v1;
 
+import com.liferay.osb.asah.backend.dog.PageDog;
 import com.liferay.osb.asah.backend.dto.IndividualDTO;
 import com.liferay.osb.asah.backend.dto.PageDTO;
+import com.liferay.osb.asah.backend.dto.RecentPageDTO;
 import com.liferay.osb.asah.backend.dto.RecentSiteDTO;
 import com.liferay.osb.asah.backend.dto.SearchKeywordDTO;
 import com.liferay.osb.asah.backend.dto.SegmentDTO;
@@ -20,6 +22,7 @@ import com.liferay.osb.asah.common.dog.DataSourceDog;
 import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.model.Individual;
+import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
 import com.liferay.osb.asah.common.model.TimeRange;
@@ -211,6 +214,25 @@ public class IndividualsRestController extends BaseRestController {
 			includeAnonymousUsers) {
 
 		return _bqIndividualDog.countIndividuals(includeAnonymousUsers);
+	}
+
+	@GetMapping("/{id}/recent-pages")
+	public PageDTO<RecentPageDTO> getRecentPageDTOPageDTO(
+		@PathVariable String id,
+		@RequestParam(required = false) String displayLanguageId,
+		@RequestParam(defaultValue = "0") int page,
+		@RequestParam(defaultValue = "7") int rangeKey,
+		@RequestParam(defaultValue = "5") int size,
+		@RequestParam(name = "sort", required = false) String[] sorts) {
+
+		Page<RecentPage> recentPagesPage = _pageDog.getRecentPagesPage(
+			displayLanguageId, id, page, rangeKey, size, sorts);
+
+		return new PageDTO<>(
+			"_embedded", new RecentPageDTO(recentPagesPage.getContent()),
+			recentPagesPage.getNumber(), recentPagesPage.getSize(),
+			recentPagesPage.getTotalElements(),
+			recentPagesPage.getTotalPages());
 	}
 
 	@GetMapping("/{id}/recent-sites")
@@ -418,6 +440,9 @@ public class IndividualsRestController extends BaseRestController {
 
 	@Autowired
 	private DataSourceDog _dataSourceDog;
+
+	@Autowired
+	private PageDog _pageDog;
 
 	@Autowired
 	private SegmentDog _segmentDog;
