@@ -1,3 +1,4 @@
+com/liferay/osb/asah/batch/curator/bot/nanite/DXPBatchEntitiesNanite._dxpBatchEntitiesStoragePath:SAFE
 com/liferay/osb/asah/batch/curator/bot/nanite/DataControlNanite._exportPathName:SAFE
 com/liferay/osb/asah/batch/curator/bot/nanite/DataExportNanite._exportPath:SAFE
 com/liferay/osb/asah/batch/curator/bot/nanite/DeleteTempFilesNanite._tempPathName:SAFE
