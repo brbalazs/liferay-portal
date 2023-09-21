@@ -45,6 +45,7 @@ import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -194,14 +195,22 @@ public class BQEventDog {
 		@Nullable String individualId, int minCounts, int page, int size,
 		String[] sorts, @Nullable TimeRange timeRange) {
 
+		Pageable pageable = PageRequest.of(page, size, _getSort(sorts));
+
+		if ((individualId != null) &&
+			_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
+
+			return PageableExecutionUtils.getPage(
+				Collections.emptyList(), pageable, () -> 0);
+		}
+
 		Set<String> searchQueryStrings = _getSearchQueryStrings();
 
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getSearchKeywords(
-				displayLanguageId, groupId, individualId, minCounts,
-				PageRequest.of(page, size, _getSort(sorts)), searchQueryStrings,
-				timeRange),
-			PageRequest.of(page, size, _getSort(sorts)),
+				displayLanguageId, groupId, individualId, minCounts, pageable,
+				searchQueryStrings, timeRange),
+			pageable,
 			() -> _bqEventRepository.getSearchKeywordsCount(
 				displayLanguageId, groupId, individualId, minCounts,
 				searchQueryStrings, timeRange));
@@ -323,6 +332,9 @@ public class BQEventDog {
 
 	@Autowired
 	private BQEventRepository _bqEventRepository;
+
+	@Autowired
+	private DataControlTaskDog _dataControlTaskDog;
 
 	@Autowired
 	private EventAttributeDefinitionDog _eventAttributeDefinitionDog;
