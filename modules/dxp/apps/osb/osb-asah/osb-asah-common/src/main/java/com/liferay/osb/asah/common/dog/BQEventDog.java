@@ -32,9 +32,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import org.json.JSONArray;
 
@@ -188,17 +192,16 @@ public class BQEventDog {
 	public Page<SearchKeyword> getSearchKeywordPage(
 		@Nullable String displayLanguageId, @Nullable String groupId,
 		@Nullable String individualId, int minCounts, int page, int size,
-		org.springframework.data.domain.Sort sort,
-		@Nullable TimeRange timeRange) {
+		String[] sorts, @Nullable TimeRange timeRange) {
 
 		Set<String> searchQueryStrings = _getSearchQueryStrings();
 
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getSearchKeywords(
 				displayLanguageId, groupId, individualId, minCounts,
-				PageRequest.of(page, size, sort), searchQueryStrings,
+				PageRequest.of(page, size, _getSort(sorts)), searchQueryStrings,
 				timeRange),
-			PageRequest.of(page, size, sort),
+			PageRequest.of(page, size, _getSort(sorts)),
 			() -> _bqEventRepository.getSearchKeywordsCount(
 				displayLanguageId, groupId, individualId, minCounts,
 				searchQueryStrings, timeRange));
@@ -275,6 +278,44 @@ public class BQEventDog {
 		searchQueryStrings.add("q");
 
 		return searchQueryStrings;
+	}
+
+	private org.springframework.data.domain.Sort _getSort(String[] sorts) {
+		if (ArrayUtils.isEmpty(sorts)) {
+			return org.springframework.data.domain.Sort.by(
+				org.springframework.data.domain.Sort.Order.desc("counts"));
+		}
+
+		List<org.springframework.data.domain.Sort.Order> orders =
+			new ArrayList<>();
+
+		for (int i = 0; i < sorts.length; i++) {
+			String sort = sorts[i];
+
+			String order = null;
+
+			String[] properties = sort.split(",");
+
+			if (properties.length == 1) {
+				order = sorts[++i];
+			}
+			else {
+				order = properties[1];
+			}
+
+			if (Objects.equals(order, "asc")) {
+				orders.add(
+					org.springframework.data.domain.Sort.Order.asc(
+						StringUtils.lowerCase(properties[0])));
+			}
+			else {
+				orders.add(
+					org.springframework.data.domain.Sort.Order.desc(
+						StringUtils.lowerCase(properties[0])));
+			}
+		}
+
+		return org.springframework.data.domain.Sort.by(orders);
 	}
 
 	@Autowired

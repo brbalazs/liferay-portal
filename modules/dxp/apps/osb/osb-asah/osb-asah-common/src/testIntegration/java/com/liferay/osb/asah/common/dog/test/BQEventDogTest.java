@@ -40,7 +40,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 
 /**
  * @author Leslie Wong
@@ -224,7 +223,7 @@ public class BQEventDogTest
 
 		Page<SearchKeyword> searchKeywordPage =
 			_bqEventDog.getSearchKeywordPage(
-				null, null, null, 1, 0, 2, Sort.by(Sort.Order.desc("counts")),
+				null, null, null, 1, 0, 2, new String[] {"counts", "desc"},
 				null);
 
 		Assertions.assertEquals(3, searchKeywordPage.getTotalElements());
@@ -245,7 +244,7 @@ public class BQEventDogTest
 
 		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
 			null, null, null, 0, 0, 1,
-			Sort.by(Sort.Order.desc("lastmodifieddate")), null);
+			new String[] {"lastmodifieddate", "desc"}, null);
 
 		Assertions.assertEquals(3, searchKeywordPage.getTotalElements());
 
@@ -263,8 +262,7 @@ public class BQEventDogTest
 		Assertions.assertEquals("diamond bar", searchKeyword.getKeywords());
 
 		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
-			null, null, null, 3, 0, 1, Sort.by(Sort.Order.desc("counts")),
-			null);
+			null, null, null, 3, 0, 1, new String[] {"counts", "desc"}, null);
 
 		Assertions.assertEquals(0, searchKeywordPage.getTotalElements());
 	}
@@ -343,7 +341,7 @@ public class BQEventDogTest
 		Page<SearchKeyword> searchKeywordPage =
 			_bqEventDog.getSearchKeywordPage(
 				null, null, DigestUtils.sha256Hex("test@liferay.com"), 1, 0, 2,
-				Sort.by(Sort.Order.desc("counts")), TimeRange.LAST_24_HOURS);
+				new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
 
 		Assertions.assertEquals(2, searchKeywordPage.getTotalElements());
 

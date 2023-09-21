@@ -31,12 +31,10 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -45,7 +43,6 @@ import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -226,8 +223,8 @@ public class IndividualsRestController extends BaseRestController {
 
 		return _toSearchKeywordDTOPageDTO(
 			_bqEventDog.getSearchKeywordPage(
-				displayLanguageId, groupId, id, minCounts, page, size,
-				_getSort(sorts), TimeRange.of(rangeKey)));
+				displayLanguageId, groupId, id, minCounts, page, size, sorts,
+				TimeRange.of(rangeKey)));
 	}
 
 	@GetMapping("/{id}/individual-segments")
@@ -332,40 +329,6 @@ public class IndividualsRestController extends BaseRestController {
 			bqIndividualFieldValuePage.getSize(),
 			bqIndividualFieldValuePage.getTotalElements(),
 			bqIndividualFieldValuePage.getTotalPages());
-	}
-
-	private Sort _getSort(String[] sorts) {
-		if (ArrayUtils.isEmpty(sorts)) {
-			return Sort.by(Sort.Order.desc("counts"));
-		}
-
-		List<Sort.Order> orders = new ArrayList<>();
-
-		for (int i = 0; i < sorts.length; i++) {
-			String sort = sorts[i];
-
-			String order = null;
-
-			String[] properties = sort.split(",");
-
-			if (properties.length == 1) {
-				order = sorts[++i];
-			}
-			else {
-				order = properties[1];
-			}
-
-			if (Objects.equals(order, "asc")) {
-				orders.add(
-					Sort.Order.asc(StringUtils.lowerCase(properties[0])));
-			}
-			else {
-				orders.add(
-					Sort.Order.desc(StringUtils.lowerCase(properties[0])));
-			}
-		}
-
-		return Sort.by(orders);
 	}
 
 	private PageDTO<IndividualDTO> _toIndividualDTOPageDTO(

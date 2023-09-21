@@ -22,20 +22,15 @@ import com.liferay.osb.asah.common.model.TimeRange;
 
 import java.time.LocalDate;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import org.json.JSONArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -198,8 +193,8 @@ public class PagesRestController extends BaseRestController {
 
 		return _toSearchKeywordDTOPageDTO(
 			_bqEventDog.getSearchKeywordPage(
-				displayLanguageId, groupId, null, minCounts, page, size,
-				_getSort(sorts), null));
+				displayLanguageId, groupId, null, minCounts, page, size, sorts,
+				null));
 	}
 
 	@GetMapping("/social-page-referrers")
@@ -287,40 +282,6 @@ public class PagesRestController extends BaseRestController {
 		).put(
 			"value", totalMetricValue
 		).toString();
-	}
-
-	private Sort _getSort(String[] sorts) {
-		if (ArrayUtils.isEmpty(sorts)) {
-			return Sort.by(Sort.Order.desc("counts"));
-		}
-
-		List<Sort.Order> orders = new ArrayList<>();
-
-		for (int i = 0; i < sorts.length; i++) {
-			String sort = sorts[i];
-
-			String order = null;
-
-			String[] properties = sort.split(",");
-
-			if (properties.length == 1) {
-				order = sorts[++i];
-			}
-			else {
-				order = properties[1];
-			}
-
-			if (Objects.equals(order, "asc")) {
-				orders.add(
-					Sort.Order.asc(StringUtils.lowerCase(properties[0])));
-			}
-			else {
-				orders.add(
-					Sort.Order.desc(StringUtils.lowerCase(properties[0])));
-			}
-		}
-
-		return Sort.by(orders);
 	}
 
 	private PageDTO<SearchKeywordDTO> _toSearchKeywordDTOPageDTO(
