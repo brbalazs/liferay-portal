@@ -4,6 +4,8 @@ com/liferay/osb/asah/common/storage/StorageConfiguration.builder(Ljava/lang/Stri
 com/liferay/osb/asah/common/storage/StorageConfiguration.getPath()Ljava/lang/String;:0
 com/liferay/osb/asah/common/storage/StorageFactory.getStorage(Lcom/liferay/osb/asah/common/storage/StorageConfiguration;)Lcom/liferay/osb/asah/common/storage/Storage;:0
 com/liferay/osb/asah/common/util/ProjectIdThreadLocal.getProjectId()Ljava/lang/String;:SAFE
+com/liferay/osb/asah/publisher/rest/controller/DXPBatchEntitiesRestController._getDownloadStorageConfiguration(Ljava/lang/String;)Lcom/liferay/osb/asah/common/storage/StorageConfiguration;:SAFE
+com/liferay/osb/asah/publisher/rest/controller/DXPBatchEntitiesRestController._getValidatedUploadPath(Ljava/lang/String;)Ljava/lang/String;:SAFE
 java/io/File.<init>(Ljava/lang/String;)V:0#1,2
 java/nio/file/Path.toString()Ljava/lang/String;:0
 java/nio/file/Paths.get(Ljava/lang/String;[Ljava/lang/String;)Ljava/nio/file/Path;:0,1

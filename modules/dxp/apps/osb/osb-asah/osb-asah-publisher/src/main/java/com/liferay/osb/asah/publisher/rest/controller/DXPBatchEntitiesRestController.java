@@ -25,7 +25,9 @@ import java.time.format.DateTimeParseException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -146,7 +148,7 @@ public class DXPBatchEntitiesRestController {
 			StringUtils.replace(
 				_dxpEntitiesBucketTemplate, "{googleProjectId}",
 				_gcloudProjectId));
-		builder.googleBucketFolder(googleBucketFolder);
+		builder.googleBucketFolder(_getValidatedFileName(googleBucketFolder));
 
 		return builder.build();
 	}
@@ -158,13 +160,31 @@ public class DXPBatchEntitiesRestController {
 			uploadType = "FULL";
 		}
 
+		String path = String.format(
+			"%s/%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
+			ProjectIdThreadLocal.getProjectId(), dataSourceId, resourceName,
+			uploadType, DateUtil.newDateString());
+
 		StorageConfiguration.Builder builder = StorageConfiguration.builder(
-			String.format(
-				"%s/%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
-				ProjectIdThreadLocal.getProjectId(), dataSourceId, resourceName,
-				uploadType, DateUtil.newDateString()));
+			_getValidatedUploadPath(path));
 
 		return builder.build();
+	}
+
+	private String _getValidatedFileName(String fileName) {
+		if (!Objects.equals(fileName, FilenameUtils.getName(fileName))) {
+			throw new IllegalArgumentException("Invalid file name");
+		}
+
+		return fileName;
+	}
+
+	private String _getValidatedUploadPath(String path) {
+		if (!Objects.equals(path, FilenameUtils.normalize(path))) {
+			throw new IllegalArgumentException("Invalid storage path");
+		}
+
+		return path;
 	}
 
 	private Date _parseDate(String dateString) {
