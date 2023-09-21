@@ -8,12 +8,14 @@ package com.liferay.osb.asah.backend.repository;
 import com.liferay.osb.asah.backend.model.HistogramMetric;
 import com.liferay.osb.asah.backend.model.PageMetric;
 import com.liferay.osb.asah.common.model.PageMetricType;
+import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.TimeRange;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
 
 /**
@@ -33,6 +35,10 @@ public interface PageAssetMetricRepository
 	public Optional<PageMetric> getExperimentPageMetric(
 		String canonicalUrl, Set<PageMetricType> pageMetricTypes,
 		TimeRange timeRange);
+
+	public List<RecentPage> getRecentPages(
+		@Nullable String displayLanguageId, String individualId,
+		Pageable pageable, TimeRange timeRange);
 
 	public Long getUniqueSessionsCount(Long experimentId, TimeRange timeRange);
 
