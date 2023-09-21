@@ -60,12 +60,11 @@ public class DXPBatchEntitiesRestController {
 
 	@GetMapping(produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public ResponseEntity<Resource> get(
-			@RequestHeader(value = HeaderConstants.DATA_SOURCE_ID) String
-				dataSourceId,
-			@RequestParam("resourceName") String resourceName,
-			@RequestHeader(required = false, value = "If-Modified-Since") String
-				ifModifiedSince)
-		throws Exception {
+		@RequestHeader(value = HeaderConstants.DATA_SOURCE_ID) String
+			dataSourceId,
+		@RequestParam("resourceName") String resourceName,
+		@RequestHeader(required = false, value = "If-Modified-Since") String
+			ifModifiedSince) {
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
@@ -146,7 +145,7 @@ public class DXPBatchEntitiesRestController {
 
 		builder.googleBucket(
 			StringUtils.replace(
-				_dxpEntitiesBucketTemplate, "{googleProjectId}",
+				_dxpBatchEntitiesBucketTemplate, "{googleProjectId}",
 				_gcloudProjectId));
 		builder.googleBucketFolder(_getValidatedFileName(googleBucketFolder));
 
@@ -237,13 +236,13 @@ public class DXPBatchEntitiesRestController {
 	@Autowired(required = false)
 	private ClamAVScanner _clamAVScanner;
 
-	@Value("${osb.asah.dxp.batch.entities.storage.path:/storage}")
-	private String _dxpBatchEntitiesStoragePath;
-
 	@Value(
 		"${osb.asah.dxp.batch.entities.google.bucket:{googleProjectId}-dxp-entities}"
 	)
-	private String _dxpEntitiesBucketTemplate;
+	private String _dxpBatchEntitiesBucketTemplate;
+
+	@Value("${osb.asah.dxp.batch.entities.storage.path:/storage}")
+	private String _dxpBatchEntitiesStoragePath;
 
 	@Value("${osb.asah.gcloud.project.id:liferaycloud-customer-ac}")
 	private String _gcloudProjectId;
