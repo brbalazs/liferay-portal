@@ -7,9 +7,11 @@ package com.liferay.osb.asah.backend.rest.controller.api.data.source.v1;
 
 import com.liferay.osb.asah.backend.dto.IndividualDTO;
 import com.liferay.osb.asah.backend.dto.PageDTO;
+import com.liferay.osb.asah.backend.dto.SearchKeywordDTO;
 import com.liferay.osb.asah.backend.dto.SegmentDTO;
 import com.liferay.osb.asah.backend.dto.TransformationDTO;
 import com.liferay.osb.asah.backend.rest.controller.BaseRestController;
+import com.liferay.osb.asah.common.dog.BQEventDog;
 import com.liferay.osb.asah.common.dog.BQIndividualDog;
 import com.liferay.osb.asah.common.dog.BQMembershipChangeDog;
 import com.liferay.osb.asah.common.dog.BQMembershipDog;
@@ -17,6 +19,8 @@ import com.liferay.osb.asah.common.dog.DataSourceDog;
 import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.model.Individual;
+import com.liferay.osb.asah.common.model.SearchKeyword;
+import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.model.Transformation;
 import com.liferay.osb.asah.common.spring.http.exception.OSBAsahException;
 import com.liferay.osb.asah.common.util.MatcherUtil;
@@ -27,10 +31,12 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,6 +45,7 @@ import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -207,6 +214,22 @@ public class IndividualsRestController extends BaseRestController {
 		return _bqIndividualDog.countIndividuals(includeAnonymousUsers);
 	}
 
+	@GetMapping("/{id}/search-keywords")
+	public PageDTO<SearchKeywordDTO> getSearchKeywords(
+		@RequestParam(required = false) String displayLanguageId,
+		@RequestParam(required = false) String groupId, @PathVariable String id,
+		@RequestParam(required = false) int minCounts,
+		@RequestParam(defaultValue = "0") int page,
+		@RequestParam(required = false) int rangeKey,
+		@RequestParam(defaultValue = "5") int size,
+		@RequestParam(name = "sort", required = false) String[] sorts) {
+
+		return _toSearchKeywordDTOPageDTO(
+			_bqEventDog.getSearchKeywordPage(
+				displayLanguageId, groupId, id, minCounts, page, size,
+				_getSort(sorts), TimeRange.of(rangeKey)));
+	}
+
 	@GetMapping("/{id}/individual-segments")
 	public PageDTO<SegmentDTO> getSegmentDTOPageDTO(
 		@PathVariable String id, @RequestParam(required = false) String expand,
@@ -311,6 +334,40 @@ public class IndividualsRestController extends BaseRestController {
 			bqIndividualFieldValuePage.getTotalPages());
 	}
 
+	private Sort _getSort(String[] sorts) {
+		if (ArrayUtils.isEmpty(sorts)) {
+			return Sort.by(Sort.Order.desc("counts"));
+		}
+
+		List<Sort.Order> orders = new ArrayList<>();
+
+		for (int i = 0; i < sorts.length; i++) {
+			String sort = sorts[i];
+
+			String order = null;
+
+			String[] properties = sort.split(",");
+
+			if (properties.length == 1) {
+				order = sorts[++i];
+			}
+			else {
+				order = properties[1];
+			}
+
+			if (Objects.equals(order, "asc")) {
+				orders.add(
+					Sort.Order.asc(StringUtils.lowerCase(properties[0])));
+			}
+			else {
+				orders.add(
+					Sort.Order.desc(StringUtils.lowerCase(properties[0])));
+			}
+		}
+
+		return Sort.by(orders);
+	}
+
 	private PageDTO<IndividualDTO> _toIndividualDTOPageDTO(
 		Page<Individual> individualsPage) {
 
@@ -328,6 +385,16 @@ public class IndividualsRestController extends BaseRestController {
 			"_embedded", individualDTO, individualsPage.getNumber(),
 			individualsPage.getSize(), individualsPage.getTotalElements(),
 			individualsPage.getTotalPages());
+	}
+
+	private PageDTO<SearchKeywordDTO> _toSearchKeywordDTOPageDTO(
+		Page<SearchKeyword> searchKeywordsPage) {
+
+		return new PageDTO<>(
+			"_embedded", new SearchKeywordDTO(searchKeywordsPage.getContent()),
+			searchKeywordsPage.getNumber(), searchKeywordsPage.getSize(),
+			searchKeywordsPage.getTotalElements(),
+			searchKeywordsPage.getTotalPages());
 	}
 
 	private PageDTO<SegmentDTO> _toSegmentDTOPageDTO(
@@ -355,6 +422,9 @@ public class IndividualsRestController extends BaseRestController {
 
 	private static final Log _log = LogFactory.getLog(
 		IndividualsRestController.class);
+
+	@Autowired
+	private BQEventDog _bqEventDog;
 
 	@Autowired
 	private BQIndividualDog _bqIndividualDog;
