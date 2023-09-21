@@ -1109,6 +1109,25 @@ public class BQEventRepositoryImpl
 				));
 		}
 
+		if (individualId != null) {
+			condition = condition.and(
+				DSL.field(
+					"emailAddressHashed"
+				).eq(
+					individualId
+				));
+		}
+
+		if (timeRange != null) {
+			condition = condition.and(
+				DSL.field(
+					"eventDate"
+				).between(
+					_dslHelper.getDateParam(timeRange.getStartDate()),
+					_dslHelper.getDateParam(timeRange.getEndDate())
+				));
+		}
+
 		return condition;
 	}
 
