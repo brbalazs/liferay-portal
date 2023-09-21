@@ -222,7 +222,8 @@ public class BQEventDogTest
 
 		Page<SearchKeyword> searchKeywordPage =
 			_bqEventDog.getSearchKeywordPage(
-				null, null, 1, 0, 2, Sort.by(Sort.Order.desc("counts")));
+				null, null, null, 1, 0, 2, Sort.by(Sort.Order.desc("counts")),
+				null);
 
 		Assertions.assertEquals(3, searchKeywordPage.getTotalElements());
 
@@ -241,7 +242,8 @@ public class BQEventDogTest
 		Assertions.assertEquals("liferay dxp", searchKeyword.getKeywords());
 
 		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
-			null, null, 0, 0, 1, Sort.by(Sort.Order.desc("lastmodifieddate")));
+			null, null, null, 0, 0, 1,
+			Sort.by(Sort.Order.desc("lastmodifieddate")), null);
 
 		Assertions.assertEquals(3, searchKeywordPage.getTotalElements());
 

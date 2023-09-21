@@ -187,18 +187,21 @@ public class BQEventDog {
 
 	public Page<SearchKeyword> getSearchKeywordPage(
 		@Nullable String displayLanguageId, @Nullable String groupId,
-		int minCounts, int page, int size,
-		org.springframework.data.domain.Sort sort) {
+		@Nullable String individualId, int minCounts, int page, int size,
+		org.springframework.data.domain.Sort sort,
+		@Nullable TimeRange timeRange) {
 
 		Set<String> searchQueryStrings = _getSearchQueryStrings();
 
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getSearchKeywords(
-				displayLanguageId, groupId, minCounts,
-				PageRequest.of(page, size, sort), searchQueryStrings),
+				displayLanguageId, groupId, individualId, minCounts,
+				PageRequest.of(page, size, sort), searchQueryStrings,
+				timeRange),
 			PageRequest.of(page, size, sort),
 			() -> _bqEventRepository.getSearchKeywordsCount(
-				displayLanguageId, groupId, minCounts, searchQueryStrings));
+				displayLanguageId, groupId, individualId, minCounts,
+				searchQueryStrings, timeRange));
 	}
 
 	public List<BQEvent> searchBQEvents(

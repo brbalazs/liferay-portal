@@ -198,8 +198,8 @@ public class PagesRestController extends BaseRestController {
 
 		return _toSearchKeywordDTOPageDTO(
 			_bqEventDog.getSearchKeywordPage(
-				displayLanguageId, groupId, minCounts, page, size,
-				_getSort(sorts)));
+				displayLanguageId, groupId, null, minCounts, page, size,
+				_getSort(sorts), null));
 	}
 
 	@GetMapping("/social-page-referrers")

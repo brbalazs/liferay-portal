@@ -105,11 +105,13 @@ public interface CustomBQEventRepository {
 
 	public List<SearchKeyword> getSearchKeywords(
 		@Nullable String displayLanguageId, @Nullable String groupId,
-		int minCounts, Pageable pageable, Set<String> searchQueryParams);
+		@Nullable String individualId, int minCounts, Pageable pageable,
+		Set<String> searchQueryParams, @Nullable TimeRange timeRange);
 
 	public long getSearchKeywordsCount(
 		@Nullable String displayLanguageId, @Nullable String groupId,
-		int minCounts, Set<String> searchQueryParams);
+		@Nullable String individualId, int minCounts,
+		Set<String> searchQueryParams, @Nullable TimeRange timeRange);
 
 	public Map<String, BigDecimal> getSearchTerms(
 		Long channelId, String[] searchQueryParams, int size, int start,
