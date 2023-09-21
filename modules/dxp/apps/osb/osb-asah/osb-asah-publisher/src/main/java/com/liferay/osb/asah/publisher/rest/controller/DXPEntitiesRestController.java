@@ -98,7 +98,9 @@ public class DXPEntitiesRestController {
 				"objectJSONObject");
 			String type = jsonObject.getString("type");
 
-			if (type.equals(DXPEntity.Type.CLASS_NAME_CONTACT)) {
+			if (type.equals(DXPEntity.Type.CLASS_NAME_CONTACT) &&
+				!action.equalsIgnoreCase("delete")) {
+
 				Date date = DateUtil.newDate();
 
 				JSONObject contactJSONObject = JSONUtil.put(
