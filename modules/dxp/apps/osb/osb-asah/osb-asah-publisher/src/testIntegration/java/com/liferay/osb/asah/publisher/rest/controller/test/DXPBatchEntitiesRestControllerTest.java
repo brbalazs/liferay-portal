@@ -17,6 +17,7 @@ import com.liferay.osb.asah.publisher.OSBAsahPublisherSpringTestContext;
 import com.liferay.osb.asah.test.util.util.RandomTestUtil;
 
 import java.io.File;
+import java.io.InputStream;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -25,13 +26,11 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 import java.util.Date;
-import java.util.Map;
 
 import org.assertj.core.api.Assertions;
 
 import org.junit.jupiter.api.Test;
 
-import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
@@ -203,6 +202,19 @@ public class DXPBatchEntitiesRestControllerTest
 
 	@Test
 	public void testPost() throws Exception {
+		Mockito.when(
+			_storageFactory.getStorage(
+				ArgumentMatchers.any(StorageConfiguration.class))
+		).thenReturn(
+			_storage
+		);
+
+		Mockito.when(
+			_storage.write(ArgumentMatchers.any(InputStream.class))
+		).thenReturn(
+			true
+		);
+
 		MultipartBodyBuilder multipartBodyBuilder = new MultipartBodyBuilder();
 
 		multipartBodyBuilder.part("file", _getFileSystemResource());
@@ -225,22 +237,10 @@ public class DXPBatchEntitiesRestControllerTest
 			HttpStatus.valueOf(200)
 		);
 
-		ArgumentCaptor<Map<String, String>> argumentCaptor =
-			ArgumentCaptor.forClass(Map.class);
-
 		Mockito.verify(
-			_messageBus, Mockito.times(5)
-		).sendMessage(
-			ArgumentMatchers.any(), ArgumentMatchers.anyString(),
-			argumentCaptor.capture()
-		);
-
-		Map<String, String> attributes = argumentCaptor.getValue();
-
-		Assertions.assertThat(
-			attributes.get("uploadType")
-		).isEqualTo(
-			"FULL"
+			_storage, Mockito.times(1)
+		).write(
+			ArgumentMatchers.any(InputStream.class)
 		);
 	}
 
