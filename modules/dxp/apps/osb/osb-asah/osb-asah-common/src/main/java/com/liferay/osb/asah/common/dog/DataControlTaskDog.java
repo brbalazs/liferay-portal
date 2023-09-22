@@ -237,7 +237,13 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.findSuppressedEmailAddresses();
 	}
 
-	public boolean isSuppressedEmailAddress(String emailAddressHashed) {
+	public boolean isSuppressedEmailAddress(
+		@Nullable String emailAddressHashed) {
+
+		if (StringUtils.isBlank(emailAddressHashed)) {
+			return false;
+		}
+
 		DataControlTask dataControlTask =
 			_dataControlTaskRepository.fetchLastByEmailAddressHashedAndTypesIn(
 				emailAddressHashed,

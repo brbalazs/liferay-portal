@@ -197,9 +197,7 @@ public class BQEventDog {
 
 		Pageable pageable = PageRequest.of(page, size, _getSort(sorts));
 
-		if ((individualId != null) &&
-			_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
-
+		if (_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
 			return PageableExecutionUtils.getPage(
 				Collections.emptyList(), pageable, () -> 0);
 		}
