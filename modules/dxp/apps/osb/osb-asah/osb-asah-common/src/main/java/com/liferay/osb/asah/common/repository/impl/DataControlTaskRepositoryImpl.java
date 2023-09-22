@@ -106,6 +106,8 @@ public class DataControlTaskRepositoryImpl
 			DSL.field(
 				"completeDate"
 			).desc()
+		).limit(
+			1
 		).fetchOne(
 			record -> new DataControlTask(record.intoMap())
 		);
