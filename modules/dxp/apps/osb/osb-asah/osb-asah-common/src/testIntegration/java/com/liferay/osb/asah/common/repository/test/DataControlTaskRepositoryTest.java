@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -188,6 +190,24 @@ public class DataControlTaskRepositoryTest
 				123457L,
 				Arrays.asList(
 					String.valueOf(DataControlTaskStatus.COMPLETED))));
+	}
+
+	@Test
+	public void testFetchLastByEmailAddressHashedAndTypesIn() {
+		DataControlTask dataControlTask =
+			_dataControlTaskRepository.fetchLastByEmailAddressHashedAndTypesIn(
+				DigestUtils.sha256Hex("jane.doe@liferay.com"),
+				Arrays.asList(
+					DataControlTask.Type.SUPPRESS,
+					DataControlTask.Type.UNSUPPRESS));
+
+		Assertions.assertEquals(
+			"jane.doe@liferay.com", dataControlTask.getEmailAddress());
+		Assertions.assertEquals(
+			String.valueOf(DataControlTaskStatus.COMPLETED),
+			dataControlTask.getStatus());
+		Assertions.assertEquals(
+			DataControlTask.Type.UNSUPPRESS, dataControlTask.getType());
 	}
 
 	@Test

@@ -46,6 +46,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -434,6 +435,21 @@ public class DataControlTaskDogTest
 		Assertions.assertEquals(
 			SetUtil.of("test1@liferay.com", "test2@liferay.com"),
 			_dataControlTaskDog.getSuppressedEmailAddresses());
+	}
+
+	@RepositoryResource(
+		repositoryClass = DataControlTaskRepository.class,
+		resourcePath = "osbasahfaroinfo/data_control_tasks.json"
+	)
+	@Test
+	public void testIsSuppressedEmailAddress() {
+		Assertions.assertFalse(
+			_dataControlTaskDog.isSuppressedEmailAddress(
+				DigestUtils.sha256Hex("test@liferay.com")));
+
+		Assertions.assertTrue(
+			_dataControlTaskDog.isSuppressedEmailAddress(
+				DigestUtils.sha256Hex("john.doe@liferay.com")));
 	}
 
 	@BQSQLResource(resourcePath = "test_data_control_task_unsuppress_bq.sql")
