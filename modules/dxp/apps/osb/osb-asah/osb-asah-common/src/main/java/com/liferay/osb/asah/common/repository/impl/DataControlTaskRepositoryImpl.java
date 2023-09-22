@@ -27,6 +27,7 @@ import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Record1;
+import org.jooq.Result;
 import org.jooq.SelectFinalStep;
 import org.jooq.SelectSelectStep;
 import org.jooq.impl.DSL;
@@ -77,6 +78,44 @@ public class DataControlTaskRepositoryImpl
 			).where(
 				_getConditions(batchId, null, null, null, statuses, null)
 			));
+	}
+
+	@Override
+	public DataControlTask fetchLastByEmailAddressHashedAndTypesIn(
+		String emailAddressHashed, List<DataControlTask.Type> types) {
+
+		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+
+		List<Condition> conditions = _getConditions(
+			null, null, null, null,
+			Collections.singletonList(
+				String.valueOf(DataControlTaskStatus.COMPLETED)),
+			types);
+
+		conditions.add(
+			DSL.field(
+				"encode(sha256(emailAddress::bytea), 'hex')"
+			).eq(
+				emailAddressHashed
+			));
+
+		Result<Record> result = selectSelectStep.from(
+			"DataControlTask"
+		).where(
+			conditions
+		).orderBy(
+			DSL.field(
+				"completeDate"
+			).desc()
+		).fetch();
+
+		if (result.size() > 0) {
+			Record record = result.get(0);
+
+			return new DataControlTask(record.intoMap());
+		}
+
+		return null;
 	}
 
 	@Override

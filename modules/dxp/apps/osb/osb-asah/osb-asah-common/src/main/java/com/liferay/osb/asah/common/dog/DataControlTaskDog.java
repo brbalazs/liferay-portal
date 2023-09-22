@@ -237,6 +237,23 @@ public class DataControlTaskDog {
 		return _dataControlTaskRepository.findSuppressedEmailAddresses();
 	}
 
+	public boolean isSuppressedEmailAddress(String emailAddressHashed) {
+		DataControlTask dataControlTask =
+			_dataControlTaskRepository.fetchLastByEmailAddressHashedAndTypesIn(
+				emailAddressHashed,
+				Arrays.asList(
+					DataControlTask.Type.SUPPRESS,
+					DataControlTask.Type.UNSUPPRESS));
+
+		if ((dataControlTask != null) &&
+			(dataControlTask.getType() == DataControlTask.Type.SUPPRESS)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
 	@Transactional
 	public void processDataControlTask(DataControlTask dataControlTask) {
 		DataControlTask.Type type = dataControlTask.getType();
