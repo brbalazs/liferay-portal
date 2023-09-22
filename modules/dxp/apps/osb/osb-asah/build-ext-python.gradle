@@ -76,7 +76,7 @@ configure(subprojects.findAll { FileUtil.exists(it, "src/main/python")}) {
 	}
 
 	pythonPlugin {
-		minicondaVersion.set("py37_4.9.2")
+		condaVersion.set("py37_4.9.2")
 		pythonVersion.set("3.7.9")
 	}
 

@@ -1,4 +1,4 @@
 pythonPlugin {
-	minicondaVersion.set("py38_4.11.0")
+	condaVersion.set("py38_4.11.0")
 	pythonVersion.set("3.8.12")
 }
