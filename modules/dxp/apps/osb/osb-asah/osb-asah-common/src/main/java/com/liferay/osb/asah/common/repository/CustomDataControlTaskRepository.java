@@ -35,6 +35,7 @@ public interface CustomDataControlTaskRepository {
 	public Optional<DataControlTask> findLatestActiveSuppressionDataControlTask(
 		String emailAddress);
 
+	@Cacheable
 	public Optional<DataControlTask> findLatestByEmailAddressHashedAndTypesIn(
 		String emailAddressHashed, List<DataControlTask.Type> types);
 
