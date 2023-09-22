@@ -194,12 +194,16 @@ public class DataControlTaskRepositoryTest
 
 	@Test
 	public void testFetchLastByEmailAddressHashedAndTypesIn() {
-		DataControlTask dataControlTask =
-			_dataControlTaskRepository.fetchLastByEmailAddressHashedAndTypesIn(
+		Optional<DataControlTask> dataControlTaskOptional =
+			_dataControlTaskRepository.findLatestByEmailAddressHashedAndTypesIn(
 				DigestUtils.sha256Hex("jane.doe@liferay.com"),
 				Arrays.asList(
 					DataControlTask.Type.SUPPRESS,
 					DataControlTask.Type.UNSUPPRESS));
+
+		Assertions.assertTrue(dataControlTaskOptional.isPresent());
+
+		DataControlTask dataControlTask = dataControlTaskOptional.get();
 
 		Assertions.assertEquals(
 			"jane.doe@liferay.com", dataControlTask.getEmailAddress());
