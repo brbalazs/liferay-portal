@@ -80,40 +80,6 @@ public class DataControlTaskRepositoryImpl
 	}
 
 	@Override
-	public DataControlTask fetchLastByEmailAddressHashedAndTypesIn(
-		String emailAddressHashed, List<DataControlTask.Type> types) {
-
-		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
-
-		List<Condition> conditions = _getConditions(
-			null, null, null, null,
-			Collections.singletonList(
-				String.valueOf(DataControlTaskStatus.COMPLETED)),
-			types);
-
-		conditions.add(
-			DSL.field(
-				"encode(sha256(emailAddress::bytea), 'hex')"
-			).eq(
-				emailAddressHashed
-			));
-
-		return selectSelectStep.from(
-			"DataControlTask"
-		).where(
-			conditions
-		).orderBy(
-			DSL.field(
-				"completeDate"
-			).desc()
-		).limit(
-			1
-		).fetchOne(
-			record -> new DataControlTask(record.intoMap())
-		);
-	}
-
-	@Override
 	public Optional<DataControlTask> findLatestActiveSuppressionDataControlTask(
 		String emailAddress) {
 
@@ -197,6 +163,40 @@ public class DataControlTaskRepositoryImpl
 			).desc(),
 			DSL.field(
 				"startDate"
+			).desc()
+		).limit(
+			1
+		).fetchOptional(
+			record -> new DataControlTask(record.intoMap())
+		);
+	}
+
+	@Override
+	public Optional<DataControlTask> findLatestByEmailAddressHashedAndTypesIn(
+		String emailAddressHashed, List<DataControlTask.Type> types) {
+
+		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+
+		List<Condition> conditions = _getConditions(
+			null, null, null, null,
+			Collections.singletonList(
+				String.valueOf(DataControlTaskStatus.COMPLETED)),
+			types);
+
+		conditions.add(
+			DSL.field(
+				"encode(sha256(emailAddress::bytea), 'hex')"
+			).eq(
+				emailAddressHashed
+			));
+
+		return selectSelectStep.from(
+			"DataControlTask"
+		).where(
+			conditions
+		).orderBy(
+			DSL.field(
+				"completeDate"
 			).desc()
 		).limit(
 			1

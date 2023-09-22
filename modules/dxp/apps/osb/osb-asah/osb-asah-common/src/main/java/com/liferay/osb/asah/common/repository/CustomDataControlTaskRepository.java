@@ -31,12 +31,12 @@ public interface CustomDataControlTaskRepository {
 	public Boolean existsByBatchIdAndStatusIn(
 		@Nullable Long batchId, @Nullable List<String> statuses);
 
-	public DataControlTask fetchLastByEmailAddressHashedAndTypesIn(
-		String emailAddressHashed, List<DataControlTask.Type> types);
-
 	@Cacheable
 	public Optional<DataControlTask> findLatestActiveSuppressionDataControlTask(
 		String emailAddress);
+
+	public Optional<DataControlTask> findLatestByEmailAddressHashedAndTypesIn(
+		String emailAddressHashed, List<DataControlTask.Type> types);
 
 	@Cacheable
 	public Set<String> findSuppressedEmailAddresses();

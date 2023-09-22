@@ -244,20 +244,19 @@ public class DataControlTaskDog {
 			return false;
 		}
 
-		DataControlTask dataControlTask =
-			_dataControlTaskRepository.fetchLastByEmailAddressHashedAndTypesIn(
+		Optional<DataControlTask> dataControlTaskOptional =
+			_dataControlTaskRepository.findLatestByEmailAddressHashedAndTypesIn(
 				emailAddressHashed,
 				Arrays.asList(
 					DataControlTask.Type.SUPPRESS,
 					DataControlTask.Type.UNSUPPRESS));
 
-		if ((dataControlTask != null) &&
-			(dataControlTask.getType() == DataControlTask.Type.SUPPRESS)) {
-
-			return true;
-		}
-
-		return false;
+		return dataControlTaskOptional.map(
+			dataControlTask -> Objects.equals(
+				dataControlTask.getType(), DataControlTask.Type.SUPPRESS)
+		).orElse(
+			false
+		);
 	}
 
 	@Transactional
