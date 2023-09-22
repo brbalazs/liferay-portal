@@ -27,7 +27,6 @@ import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Record1;
-import org.jooq.Result;
 import org.jooq.SelectFinalStep;
 import org.jooq.SelectSelectStep;
 import org.jooq.impl.DSL;
@@ -99,7 +98,7 @@ public class DataControlTaskRepositoryImpl
 				emailAddressHashed
 			));
 
-		Result<Record> result = selectSelectStep.from(
+		return selectSelectStep.from(
 			"DataControlTask"
 		).where(
 			conditions
@@ -107,15 +106,9 @@ public class DataControlTaskRepositoryImpl
 			DSL.field(
 				"completeDate"
 			).desc()
-		).fetch();
-
-		if (result.size() > 0) {
-			Record record = result.get(0);
-
-			return new DataControlTask(record.intoMap());
-		}
-
-		return null;
+		).fetchOne(
+			record -> new DataControlTask(record.intoMap())
+		);
 	}
 
 	@Override
