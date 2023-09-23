@@ -39,6 +39,7 @@ import org.jooq.Condition;
 import org.jooq.DatePart;
 import org.jooq.Field;
 import org.jooq.Record;
+import org.jooq.SelectHavingStep;
 import org.jooq.SelectJoinStep;
 import org.jooq.SelectSelectStep;
 import org.jooq.SortField;
@@ -179,22 +180,10 @@ public class PageAssetMetricRepositoryImpl
 		@Nullable String displayLanguageId, String individualId,
 		Pageable pageable, TimeRange timeRange) {
 
-		Field<String> displayLanguageIdField = DSL.field(
-			"contentLanguageId", String.class
-		).as(
-			"displayLanguageId"
-		);
-
 		Field<Date> eventDateField = DSL.field("eventDate", Date.class);
 
-		Field<String> urlField = DSL.field(
-			"canonicalUrl", String.class
-		).as(
-			"url"
-		);
-
-		return queryExecutor.queryForList(
-			RecentPage::new,
+		SelectHavingStep selectHavingStep = _getRecentPagesSelectHavingStep(
+			displayLanguageId, individualId,
 			dslContext.select(
 				DSL.min(
 					eventDateField
@@ -208,54 +197,26 @@ public class PageAssetMetricRepositoryImpl
 				).as(
 					"counts"
 				),
-				displayLanguageIdField,
+				DSL.field(
+					"contentLanguageId", String.class
+				).as(
+					"displayLanguageId"
+				),
 				DSL.max(
 					eventDateField
 				).as(
 					"lastModifiedDate"
 				),
-				urlField
-			).from(
-				getTableName(timeRange)
-			).join(
-				DSL.table(
-					"BQIdentity"
-				).as(
-					"Identity"
-				)
-			).on(
 				DSL.field(
-					getTableName(timeRange) + ".userId"
-				).eq(
-					DSL.field("Identity.id")
-				)
-			).leftJoin(
-				DSL.table(
-					"BQIndividual"
+					"canonicalUrl", String.class
 				).as(
-					"Individual"
-				)
-			).on(
-				DSL.and(
-					DSL.field(
-						"Individual.id"
-					).eq(
-						DSL.field("Identity.individualId")
-					),
-					DSL.or(
-						DSL.field(
-							"Individual.suppressed"
-						).isNull(),
-						DSL.field(
-							"Individual.suppressed"
-						).notEqual(
-							DSL.val(Boolean.TRUE)
-						)))
-			).where(
-				_getConditions(displayLanguageId, individualId, timeRange)
-			).groupBy(
-				displayLanguageIdField, urlField
-			).orderBy(
+					"url"
+				)),
+			timeRange);
+
+		return queryExecutor.queryForList(
+			RecentPage::new,
+			selectHavingStep.orderBy(
 				_getSortFields(pageable.getSort())
 			).limit(
 				pageable.getPageSize()
@@ -273,49 +234,12 @@ public class PageAssetMetricRepositoryImpl
 			dslContext.with(
 				"RecentPages"
 			).as(
-				dslContext.select(
-					DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
-				).from(
-					getTableName(timeRange)
-				).join(
-					DSL.table(
-						"BQIdentity"
-					).as(
-						"Identity"
-					)
-				).on(
-					DSL.field(
-						getTableName(timeRange) + ".userId"
-					).eq(
-						DSL.field("Identity.id")
-					)
-				).leftJoin(
-					DSL.table(
-						"BQIndividual"
-					).as(
-						"Individual"
-					)
-				).on(
-					DSL.and(
-						DSL.field(
-							"Individual.id"
-						).eq(
-							DSL.field("Identity.individualId")
-						),
-						DSL.or(
-							DSL.field(
-								"Individual.suppressed"
-							).isNull(),
-							DSL.field(
-								"Individual.suppressed"
-							).notEqual(
-								DSL.val(Boolean.TRUE)
-							)))
-				).where(
-					_getConditions(displayLanguageId, individualId, timeRange)
-				).groupBy(
-					DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
-				)
+				_getRecentPagesSelectHavingStep(
+					displayLanguageId, individualId,
+					dslContext.select(
+						DSL.field("contentLanguageId"),
+						DSL.field("canonicalUrl")),
+					timeRange)
 			).selectCount(
 			).from(
 				"RecentPages"
@@ -693,6 +617,53 @@ public class PageAssetMetricRepositoryImpl
 			metricName -> getMetricFieldAliased(metricName, timeRange)
 		).collect(
 			Collectors.toList()
+		);
+	}
+
+	private SelectHavingStep _getRecentPagesSelectHavingStep(
+		String displayLanguageId, String individualId,
+		SelectSelectStep selectSelectStep, TimeRange timeRange) {
+
+		return selectSelectStep.from(
+			getTableName(timeRange)
+		).join(
+			DSL.table(
+				"BQIdentity"
+			).as(
+				"Identity"
+			)
+		).on(
+			DSL.field(
+				getTableName(timeRange) + ".userId"
+			).eq(
+				DSL.field("Identity.id")
+			)
+		).leftJoin(
+			DSL.table(
+				"BQIndividual"
+			).as(
+				"Individual"
+			)
+		).on(
+			DSL.and(
+				DSL.field(
+					"Individual.id"
+				).eq(
+					DSL.field("Identity.individualId")
+				),
+				DSL.or(
+					DSL.field(
+						"Individual.suppressed"
+					).isNull(),
+					DSL.field(
+						"Individual.suppressed"
+					).notEqual(
+						DSL.val(Boolean.TRUE)
+					)))
+		).where(
+			_getConditions(displayLanguageId, individualId, timeRange)
+		).groupBy(
+			DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
 		);
 	}
 
