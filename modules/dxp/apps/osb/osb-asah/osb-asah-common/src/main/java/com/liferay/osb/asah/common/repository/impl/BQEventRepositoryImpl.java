@@ -709,6 +709,53 @@ public class BQEventRepositoryImpl
 		@Nullable String individualId, int minCounts, Pageable pageable,
 		Set<String> searchQueryParams, @Nullable TimeRange timeRange) {
 
+		SelectJoinStep selectJoinStep = _dslContext.select(
+			DSL.count(
+				DSL.asterisk()
+			).as(
+				"counts"
+			),
+			DSL.min(
+				DSL.field("BQEvent.eventDate", Date.class)
+			).as(
+				"createdate"
+			),
+			DSL.field(
+				"BQEvent.contentLanguageId"
+			).as(
+				"displaylanguageid"
+			),
+			_dslHelper.jsonExtractScalar(
+				"BQEvent.context", "groupId"
+			).as(
+				"groupid"
+			),
+			DSL.field(
+				_getKeywordsField(searchQueryParams)
+			).as(
+				"keywords"
+			),
+			DSL.max(
+				DSL.field("BQEvent.eventDate", Date.class)
+			).as(
+				"lastmodifieddate"
+			)
+		).from(
+			DSL.table("BQEvent")
+		);
+
+		if (individualId != null) {
+			selectJoinStep = selectJoinStep.join(
+				DSL.table("BQIdentity")
+			).on(
+				DSL.field(
+					"BQEvent.userId"
+				).eq(
+					DSL.field("BQIdentity.id")
+				)
+			);
+		}
+
 		return _queryExecutor.queryForList(
 			recordMap -> {
 				Object counts = recordMap.get("counts");
@@ -732,40 +779,7 @@ public class BQEventRepositoryImpl
 
 				return new SearchKeyword(recordMap);
 			},
-			_dslContext.select(
-				DSL.count(
-					DSL.asterisk()
-				).as(
-					"counts"
-				),
-				DSL.min(
-					DSL.field("eventDate", Date.class)
-				).as(
-					"createdate"
-				),
-				DSL.field(
-					"contentLanguageId"
-				).as(
-					"displaylanguageid"
-				),
-				_dslHelper.jsonExtractScalar(
-					"context", "groupId"
-				).as(
-					"groupid"
-				),
-				DSL.field(
-					_getKeywordsField(searchQueryParams)
-				).as(
-					"keywords"
-				),
-				DSL.max(
-					DSL.field("eventDate", Date.class)
-				).as(
-					"lastmodifieddate"
-				)
-			).from(
-				DSL.table("BQEvent")
-			).where(
+			selectJoinStep.where(
 				_createCondition(
 					displayLanguageId, groupId, individualId, searchQueryParams,
 					timeRange)
@@ -797,32 +811,46 @@ public class BQEventRepositoryImpl
 		SelectSelectStep<Record1<Integer>> selectSelectStep =
 			_dslContext.selectCount();
 
+		SelectJoinStep selectJoinStep = _dslContext.select(
+			DSL.field(
+				"BQEvent.contentLanguageId"
+			).as(
+				"displaylanguageid"
+			),
+			DSL.count(
+				DSL.asterisk()
+			).as(
+				"counts"
+			),
+			_dslHelper.jsonExtractScalar(
+				"BQEvent.context", "groupId"
+			).as(
+				"groupid"
+			),
+			DSL.field(
+				_getKeywordsField(searchQueryParams)
+			).as(
+				"keywords"
+			)
+		).from(
+			"BQEvent"
+		);
+
+		if (individualId != null) {
+			selectJoinStep = selectJoinStep.join(
+				DSL.table("BQIdentity")
+			).on(
+				DSL.field(
+					"BQEvent.userId"
+				).eq(
+					DSL.field("BQIdentity.id")
+				)
+			);
+		}
+
 		return _queryExecutor.queryForLong(
 			selectSelectStep.from(
-				_dslContext.select(
-					DSL.field(
-						"contentLanguageId"
-					).as(
-						"displaylanguageid"
-					),
-					DSL.count(
-						DSL.asterisk()
-					).as(
-						"counts"
-					),
-					_dslHelper.jsonExtractScalar(
-						"context", "groupId"
-					).as(
-						"groupid"
-					),
-					DSL.field(
-						_getKeywordsField(searchQueryParams)
-					).as(
-						"keywords"
-					)
-				).from(
-					"BQEvent"
-				).where(
+				selectJoinStep.where(
 					_createCondition(
 						displayLanguageId, groupId, individualId,
 						searchQueryParams, timeRange)
@@ -1081,20 +1109,24 @@ public class BQEventRepositoryImpl
 		@Nullable String individualId, Set<String> searchQueryParams,
 		@Nullable TimeRange timeRange) {
 
-		Condition condition = DSL.and(
-			DSL.field(
-				"eventId"
-			).eq(
-				"pageViewed"
-			),
-			_dslHelper.regexpContains(
-				"url",
-				"[?&](?:" + String.join("|", searchQueryParams) + ")=([^&]+)"));
+		Condition condition = DSL.field(
+			"BQEvent.eventId"
+		).eq(
+			"pageViewed"
+		);
+
+		if (!searchQueryParams.isEmpty()) {
+			condition = condition.and(
+				_dslHelper.regexpContains(
+					"BQEvent.url",
+					"[?&](?:" + String.join("|", searchQueryParams) +
+						")=([^&]+)"));
+		}
 
 		if (Objects.nonNull(displayLanguageId)) {
 			condition = condition.and(
 				DSL.field(
-					"contentLanguageId"
+					"BQEvent.contentLanguageId"
 				).eq(
 					displayLanguageId
 				));
@@ -1103,7 +1135,7 @@ public class BQEventRepositoryImpl
 		if (Objects.nonNull(groupId)) {
 			condition = condition.and(
 				_dslHelper.jsonExtractScalar(
-					"context", "groupId"
+					"BQEvent.context", "groupId"
 				).eq(
 					groupId
 				));
@@ -1112,7 +1144,7 @@ public class BQEventRepositoryImpl
 		if (individualId != null) {
 			condition = condition.and(
 				DSL.field(
-					"emailAddressHashed"
+					"BQIdentity.individualId"
 				).eq(
 					individualId
 				));
@@ -1121,7 +1153,7 @@ public class BQEventRepositoryImpl
 		if (timeRange != null) {
 			condition = condition.and(
 				DSL.field(
-					"eventDate"
+					"BQEvent.eventDate"
 				).between(
 					_dslHelper.getDateParam(timeRange.getStartDate()),
 					_dslHelper.getDateParam(timeRange.getEndDate())
@@ -1854,7 +1886,7 @@ public class BQEventRepositoryImpl
 	private Field<String> _getKeywordsField(Set<String> searchQueryParams) {
 		return DSL.lower(
 			_dslHelper.regexpExtract(
-				_dslHelper.regexpReplace("url", "(?:%20|\\s)", "+"),
+				_dslHelper.regexpReplace("BQEvent.url", "(?:%20|\\s)", "+"),
 				"[?&](?:" + String.join("|", searchQueryParams) + ")=([^&]+)"));
 	}
 
