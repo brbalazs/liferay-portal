@@ -215,9 +215,9 @@ public class IndividualsRestController extends BaseRestController {
 	public PageDTO<SearchKeywordDTO> getSearchKeywords(
 		@RequestParam(required = false) String displayLanguageId,
 		@RequestParam(required = false) String groupId, @PathVariable String id,
-		@RequestParam(required = false) int minCounts,
+		@RequestParam(defaultValue = "0") int minCounts,
 		@RequestParam(defaultValue = "0") int page,
-		@RequestParam(required = false) int rangeKey,
+		@RequestParam(defaultValue = "7") int rangeKey,
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
