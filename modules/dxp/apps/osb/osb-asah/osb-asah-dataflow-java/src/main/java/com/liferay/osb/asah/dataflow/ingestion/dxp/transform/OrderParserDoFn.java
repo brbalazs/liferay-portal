@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Riccardo Ferrari
  */
-public class OrderParserPTransform
+public class OrderParserDoFn
 	extends DoFn<DXPEntityMessageWrapper, Order> {
 
 	@ProcessElement
@@ -62,6 +62,6 @@ public class OrderParserPTransform
 	}
 
 	private static final Logger _logger = LoggerFactory.getLogger(
-		OrderParserPTransform.class);
+		OrderParserDoFn.class);
 
 }
