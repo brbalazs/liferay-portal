@@ -11,10 +11,10 @@ import com.liferay.osb.asah.dataflow.common.ObjectMapperUtil;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityMessageWrapper;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.Order;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.beam.sdk.transforms.DoFn;
+import org.apache.beam.sdk.values.PCollectionView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +22,14 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Riccardo Ferrari
  */
-public class OrderParserDoFn
-	extends DoFn<DXPEntityMessageWrapper, Order> {
+public class OrderParserDoFn extends DoFn<DXPEntityMessageWrapper, Order> {
+
+	public OrderParserDoFn(
+		PCollectionView<Map<Long, Long>> commerceChannelIdMapPCollectionView) {
+
+		_commerceChannelIdMapPCollectionView =
+			commerceChannelIdMapPCollectionView;
+	}
 
 	@ProcessElement
 	public void processElement(ProcessContext processContext) {
@@ -34,16 +40,14 @@ public class OrderParserDoFn
 			Order order = ObjectMapperUtil.readValue(
 				Order.class, dxpEntityMessageWrapper.payload);
 
-			// TODO Pass channelIds as a side input
-
-			Map<Long, Long> channelIds = new HashMap<>();
+			Map<Long, Long> channelIds = processContext.sideInput(
+				_commerceChannelIdMapPCollectionView);
 
 			if (_logger.isDebugEnabled()) {
 				_logger.debug(
-					String.format(
-						"Analytics Cloud channel ID %s and commerce channel ID %s",
-						channelIds.get(order.commerceChannelId),
-						order.commerceChannelId));
+					"Analytics Cloud channel ID {} and commerce channel ID {}",
+					channelIds.get(order.commerceChannelId),
+					order.commerceChannelId);
 			}
 
 			order.channelId = channelIds.get(order.commerceChannelId);
@@ -63,5 +67,8 @@ public class OrderParserDoFn
 
 	private static final Logger _logger = LoggerFactory.getLogger(
 		OrderParserDoFn.class);
+
+	private final PCollectionView<Map<Long, Long>>
+		_commerceChannelIdMapPCollectionView;
 
 }
