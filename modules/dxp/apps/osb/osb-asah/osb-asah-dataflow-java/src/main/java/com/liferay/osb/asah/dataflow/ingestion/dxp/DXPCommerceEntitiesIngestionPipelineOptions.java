@@ -23,48 +23,14 @@ public interface DXPCommerceEntitiesIngestionPipelineOptions
 	@Validation.Required
 	public String getOrderBigQueryTable();
 
-	@Description(
-		"Return the order queue pubsub subscription name. The name should be in the format of projects/<project-id>/subscriptions/<subscription-name>."
-	)
-	@Validation.Required
-	public String getOrderPubsubSubscription();
-
 	@Description("Return the product BigQuery table name.")
 	@Validation.Required
 	public String getProductBigQueryTable();
-
-	@Description(
-		"Return the product queue pubsub subscription name. The name should be in the format of projects/<project-id>/subscriptions/<subscription-name>."
-	)
-	@Validation.Required
-	public String getProductPubsubSubscription();
-
-	@Description("Return the shard count")
-	@Validation.Required
-	public int getShardCount();
-
-	@Description("Return the trigger minimum element count")
-	@Validation.Required
-	public int getTriggerElementCount();
-
-	@Description("Return the trigger interval duration in seconds")
-	@Validation.Required
-	public long getTriggerIntervalDuration();
 
 	public void setGCSBucket(String gcsBucket);
 
 	public void setOrderBigQueryTable(String orderBigQueryTable);
 
-	public void setOrderPubsubSubscription(String pubsubSubscription);
-
 	public void setProductBigQueryTable(String productBigQueryTable);
-
-	public void setProductPubsubSubscription(String pubsubSubscription);
-
-	public void setShardCount(int shardCount);
-
-	public void setTriggerElementCount(int triggerElementCount);
-
-	public void setTriggerIntervalDuration(long triggerIntervalDuration);
 
 }
