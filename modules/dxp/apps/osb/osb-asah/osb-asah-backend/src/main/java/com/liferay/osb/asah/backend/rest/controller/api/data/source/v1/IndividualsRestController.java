@@ -9,6 +9,7 @@ import com.liferay.osb.asah.backend.dto.IndividualDTO;
 import com.liferay.osb.asah.backend.dto.PageDTO;
 import com.liferay.osb.asah.backend.dto.SearchKeywordDTO;
 import com.liferay.osb.asah.backend.dto.SegmentDTO;
+import com.liferay.osb.asah.backend.dto.SiteDTO;
 import com.liferay.osb.asah.backend.dto.TransformationDTO;
 import com.liferay.osb.asah.backend.rest.controller.BaseRestController;
 import com.liferay.osb.asah.common.dog.BQEventDog;
@@ -20,6 +21,7 @@ import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.model.Individual;
 import com.liferay.osb.asah.common.model.SearchKeyword;
+import com.liferay.osb.asah.common.model.Site;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.model.Transformation;
 import com.liferay.osb.asah.common.spring.http.exception.OSBAsahException;
@@ -283,6 +285,22 @@ public class IndividualsRestController extends BaseRestController {
 		}
 
 		return _toSegmentDTOPageDTO(new SegmentDTO(segmentDTOs), segmentsPage);
+	}
+
+	@GetMapping("/{id}/recent-sites")
+	public PageDTO<SiteDTO> getSites(
+		@PathVariable String id, @RequestParam(defaultValue = "0") int page,
+		@RequestParam(defaultValue = "7") int rangeKey,
+		@RequestParam(defaultValue = "5") int size,
+		@RequestParam(name = "sort", required = false) String[] sorts) {
+
+		Page<Site> groupIdsPage = _bqEventDog.getSitesPage(
+			id, page, size, sorts, TimeRange.of(rangeKey));
+
+		return new PageDTO<>(
+			"_embedded", new SiteDTO(groupIdsPage.getContent()),
+			groupIdsPage.getNumber(), groupIdsPage.getSize(),
+			groupIdsPage.getTotalElements(), groupIdsPage.getTotalPages());
 	}
 
 	@GetMapping(params = "apply")
