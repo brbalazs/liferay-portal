@@ -40,12 +40,10 @@ public class DXPOrderIngestionPipeline {
 
 		Pipeline pipeline = Pipeline.create(dxpOrderIngestionPipelineOptions);
 
-		String filePattern =
-			dxpOrderIngestionPipelineOptions.getGCSBucket() + "/*.zip";
-
 		PCollection<DXPEntityMessageWrapper>
 			dxpEntityMessageWrapperPCollection = pipeline.apply(
-				new DXPEntityMessageWrapperZipReaderPTransform(filePattern));
+				new DXPEntityMessageWrapperZipReaderPTransform(
+					dxpOrderIngestionPipelineOptions.getZipFilePath()));
 
 		PCollectionView<Map<Long, Long>> commerceChannelIdMapPCollectionView =
 			pipeline.apply(
@@ -65,7 +63,8 @@ public class DXPOrderIngestionPipeline {
 			"Write Orders",
 			new BigQueryWriterPTransform<>(
 				dxpOrderIngestionPipelineOptions.getOrderBigQueryTable(),
-				dxpOrderIngestionPipelineOptions.getGCSBucket() + "/order-temp")
+				dxpOrderIngestionPipelineOptions.
+					getBigQueryWriterTempLocation())
 		);
 
 		return pipeline.run();
