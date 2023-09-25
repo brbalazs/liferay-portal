@@ -17,6 +17,7 @@ import com.liferay.osb.asah.common.model.EventAnalysisBreakdown;
 import com.liferay.osb.asah.common.model.EventAnalysisFilter;
 import com.liferay.osb.asah.common.model.Interval;
 import com.liferay.osb.asah.common.model.SearchKeyword;
+import com.liferay.osb.asah.common.model.Site;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.model.filter.FilterOperator;
 import com.liferay.osb.asah.common.model.filter.FilterOperators;
@@ -930,6 +931,94 @@ public class BQEventRepositoryImpl
 					timeRange.getStartLocalDateTime(), searchTermField,
 					timeZoneId)
 			));
+	}
+
+	@Override
+	public List<Site> getSites(
+		String individualId, Pageable pageable, TimeRange timeRange) {
+
+		return _queryExecutor.queryForList(
+			Site::new,
+			_dslContext.select(
+				_dslHelper.jsonExtractScalar(
+					"BQEvent.context", "groupId"
+				).as(
+					"groupid"
+				),
+				DSL.min(
+					DSL.field("BQEvent.eventDate")
+				).as(
+					"createDate"
+				),
+				DSL.count(
+					DSL.asterisk()
+				).as(
+					"counts"
+				),
+				DSL.max(
+					DSL.field("BQEvent.eventDate")
+				).as(
+					"lastModifiedDate"
+				)
+			).from(
+				DSL.table("BQEvent")
+			).join(
+				DSL.table("BQIdentity")
+			).on(
+				DSL.field(
+					"BQEvent.userId"
+				).eq(
+					DSL.field("BQIdentity.id")
+				)
+			).where(
+				_createCondition(
+					null, null, individualId, Collections.emptySet(), timeRange)
+			).groupBy(
+				DSL.field("groupid")
+			).orderBy(
+				getSortFields(pageable.getSort(), null)
+			).limit(
+				pageable.getPageSize()
+			).offset(
+				pageable.getOffset()
+			));
+	}
+
+	@Override
+	public long getSitesCount(String individualId, TimeRange timeRange) {
+		SelectSelectStep<Record1<Integer>> selectSelectStep =
+			_dslContext.selectCount();
+
+		return _queryExecutor.queryForLong(
+			selectSelectStep.from(
+				_dslContext.select(
+					DSL.count(
+						DSL.asterisk()
+					).as(
+						"counts"
+					),
+					_dslHelper.jsonExtractScalar(
+						"BQEvent.context", "groupId"
+					).as(
+						"groupid"
+					)
+				).from(
+					"BQEvent"
+				).join(
+					DSL.table("BQIdentity")
+				).on(
+					DSL.field(
+						"BQEvent.userId"
+					).eq(
+						DSL.field("BQIdentity.id")
+					)
+				).where(
+					_createCondition(
+						null, null, individualId, Collections.emptySet(),
+						timeRange)
+				).groupBy(
+					DSL.field("groupid")
+				)));
 	}
 
 	@Override

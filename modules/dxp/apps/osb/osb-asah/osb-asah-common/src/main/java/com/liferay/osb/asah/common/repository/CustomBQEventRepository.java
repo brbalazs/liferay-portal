@@ -12,6 +12,7 @@ import com.liferay.osb.asah.common.model.EventAnalysisBreakdown;
 import com.liferay.osb.asah.common.model.EventAnalysisFilter;
 import com.liferay.osb.asah.common.model.Interval;
 import com.liferay.osb.asah.common.model.SearchKeyword;
+import com.liferay.osb.asah.common.model.Site;
 import com.liferay.osb.asah.common.model.TimeRange;
 
 import java.math.BigDecimal;
@@ -120,6 +121,13 @@ public interface CustomBQEventRepository {
 	public long getSearchTermsCount(
 		Long channelId, String[] searchQueryParams, TimeRange timeRange,
 		String timeZoneId);
+
+	public List<Site> getSites(
+		@Nullable String individualId, Pageable pageable,
+		@Nullable TimeRange timeRange);
+
+	public long getSitesCount(
+		@Nullable String individualId, @Nullable TimeRange timeRange);
 
 	public BQEvent insert(BQEvent bqEvent);
 
