@@ -27,10 +27,16 @@ public interface DXPCommerceEntitiesIngestionPipelineOptions
 	@Validation.Required
 	public String getProductBigQueryTable();
 
+	@Description("Return the Analytics Cloud project ID")
+	@Validation.Required
+	public String getProjectId();
+
 	public void setGCSBucket(String gcsBucket);
 
 	public void setOrderBigQueryTable(String orderBigQueryTable);
 
 	public void setProductBigQueryTable(String productBigQueryTable);
+
+	public String setProjectId();
 
 }
