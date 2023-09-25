@@ -12,16 +12,12 @@ import org.apache.beam.sdk.options.Validation;
 /**
  * @author Riccardo Ferrari
  */
-public interface DXPCommerceEntitiesIngestionPipelineOptions
+public interface DXPProductIngestionPipelineOptions
 	extends DataflowPipelineOptions {
 
 	@Description("Return the GCS output bucket")
 	@Validation.Required
 	public String getGCSBucket();
-
-	@Description("Return the order BigQuery table name.")
-	@Validation.Required
-	public String getOrderBigQueryTable();
 
 	@Description("Return the product BigQuery table name.")
 	@Validation.Required
@@ -32,8 +28,6 @@ public interface DXPCommerceEntitiesIngestionPipelineOptions
 	public String getProjectId();
 
 	public void setGCSBucket(String gcsBucket);
-
-	public void setOrderBigQueryTable(String orderBigQueryTable);
 
 	public void setProductBigQueryTable(String productBigQueryTable);
 
