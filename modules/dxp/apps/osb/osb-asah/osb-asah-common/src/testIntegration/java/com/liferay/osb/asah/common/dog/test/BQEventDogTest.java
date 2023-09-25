@@ -18,6 +18,7 @@ import com.liferay.osb.asah.common.entity.BQEventProperty;
 import com.liferay.osb.asah.common.entity.Channel;
 import com.liferay.osb.asah.common.model.BQEventPropertyValue;
 import com.liferay.osb.asah.common.model.SearchKeyword;
+import com.liferay.osb.asah.common.model.Site;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.annotation.SQLResource;
@@ -609,6 +610,119 @@ public class BQEventDogTest
 		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("liferay", searchKeyword.getKeywords());
+	}
+
+	@BQSQLResource(resourcePath = "test_bq_identity.sql")
+	@Test
+	public void testGetSites() throws Exception {
+		Channel channel = _channelDog.addChannel("Test Channel");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3213\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
+			"123123-sadf-32423-4245", "");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay",
+			"123123-sadf-32423-4245", "");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
+			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Liferay+DXP",
+			"123123-sadf-32423-4245", "");
+
+		_bqEventDog.addBQEvent(
+			"Page",
+			new HashSet<BQEventProperty>() {
+				{
+					add(
+						new BQEventProperty(
+							null, "viewDuration", "testValue1"));
+				}
+			},
+			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
+			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3212\"}",
+			"United States", DateUtil.newDate(), null, "", "",
+			DigestUtils.sha256Hex("test2@liferay.com"), DateUtil.newDate(),
+			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
+			"", "", "", "http://localhost:8080/search?q=Diamond+Bar",
+			"123123-sadf-32423-234afsd", "");
+
+		Page<Site> sitesPage = _bqEventDog.getSitesPage(
+			DigestUtils.sha256Hex("test2@liferay.com"), 0, 5,
+			new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+
+		Assertions.assertEquals(1, sitesPage.getTotalElements());
+
+		List<Site> sites = sitesPage.getContent();
+
+		Assertions.assertEquals(1, sites.size());
+
+		Site[] sitesArray = sites.toArray(new Site[0]);
+
+		Site site = sitesArray[0];
+
+		Assertions.assertEquals(1, site.getCounts());
+		Assertions.assertEquals("3212", site.getGroupId());
+
+		sitesPage = _bqEventDog.getSitesPage(
+			DigestUtils.sha256Hex("test@liferay.com"), 0, 5,
+			new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+
+		Assertions.assertEquals(2, sitesPage.getTotalElements());
+
+		sites = sitesPage.getContent();
+
+		Assertions.assertEquals(2, sites.size());
+
+		sitesArray = sites.toArray(new Site[0]);
+
+		site = sitesArray[0];
+
+		Assertions.assertEquals(2, site.getCounts());
+		Assertions.assertEquals("3212", site.getGroupId());
+
+		site = sitesArray[1];
+
+		Assertions.assertEquals(1, site.getCounts());
+		Assertions.assertEquals("3213", site.getGroupId());
 	}
 
 	@Test
