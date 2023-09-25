@@ -85,7 +85,8 @@ public class PipelineBuilder {
 			parsedMessagesPCollectionTuple.get(
 				parserPTransform.getSuccessTupleTag()
 			).apply(
-				new BigQueryWriterPTransform<>(bigQueryWriterStep.getTable())
+				new BigQueryWriterPTransform<>(
+					bigQueryWriterStep.getTable(), null)
 			);
 		}
 

@@ -10,9 +10,9 @@ import com.google.api.services.bigquery.model.TableRow;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.util.TableRowConverter;
 
 import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO;
-import org.apache.beam.sdk.io.gcp.bigquery.InsertRetryPolicy;
 import org.apache.beam.sdk.io.gcp.bigquery.TableDestination;
 import org.apache.beam.sdk.io.gcp.bigquery.WriteResult;
+import org.apache.beam.sdk.options.ValueProvider;
 import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.transforms.PTransform;
 import org.apache.beam.sdk.transforms.SerializableFunction;
@@ -26,8 +26,9 @@ import org.apache.beam.sdk.values.ValueInSingleWindow;
 public class BigQueryWriterPTransform<T>
 	extends PTransform<PCollection<T>, WriteResult> {
 
-	public BigQueryWriterPTransform(String tableName) {
+	public BigQueryWriterPTransform(String tableName, String gcsTempLocation) {
 		_tableName = tableName;
+		_gcsTempLocation = gcsTempLocation;
 	}
 
 	@Override
@@ -64,17 +65,29 @@ public class BigQueryWriterPTransform<T>
 				}
 			).withCreateDisposition(
 				BigQueryIO.Write.CreateDisposition.CREATE_NEVER
-			).withExtendedErrorInfo(
-			).withFailedInsertRetryPolicy(
-				InsertRetryPolicy.retryTransientErrors()
+			).withCustomGcsTempLocation(
+				new ValueProvider<String>() {
+
+					@Override
+					public String get() {
+						return _gcsTempLocation;
+					}
+
+					@Override
+					public boolean isAccessible() {
+						return true;
+					}
+
+				}
 			).withMethod(
-				BigQueryIO.Write.Method.STREAMING_INSERTS
+				BigQueryIO.Write.Method.FILE_LOADS
 			).withWriteDisposition(
 				BigQueryIO.Write.WriteDisposition.WRITE_APPEND
 			).withoutValidation()
 		);
 	}
 
+	private final String _gcsTempLocation;
 	private final String _tableName;
 
 }
