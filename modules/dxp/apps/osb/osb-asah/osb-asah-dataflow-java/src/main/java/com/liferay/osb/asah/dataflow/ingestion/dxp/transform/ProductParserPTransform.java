@@ -6,30 +6,27 @@
 package com.liferay.osb.asah.dataflow.ingestion.dxp.transform;
 
 import com.liferay.osb.asah.dataflow.common.ObjectMapperUtil;
-import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityPubsubMessage;
+import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityMessageWrapper;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.Product;
 
 /**
  * @author Riccardo Ferrari
  */
 public class ProductParserPTransform
-	extends BaseParserPTransform<DXPEntityPubsubMessage, Product> {
+	extends BaseParserPTransform<DXPEntityMessageWrapper, Product> {
 
 	@Override
-	protected Product doParse(DXPEntityPubsubMessage dxpEntityPubsubMessage)
+	protected Product doParse(DXPEntityMessageWrapper dxpEntityMessageWrapper)
 		throws Exception {
 
 		Product product = ObjectMapperUtil.readValue(
-			Product.class, dxpEntityPubsubMessage.getPayload());
-
-		DXPEntityPubsubMessage.Attributes attributes =
-			dxpEntityPubsubMessage.getAttributes();
+			Product.class, dxpEntityMessageWrapper.payload);
 
 		product.channelId = product.catalogId;
-		product.dataSourceId = attributes.getDataSourceId();
-		product.projectId = attributes.getProjectId();
-		product.uploadDate = attributes.getUploadTime();
-		product.uploadType = attributes.getUploadType();
+		product.dataSourceId = dxpEntityMessageWrapper.dataSourceId;
+		product.projectId = dxpEntityMessageWrapper.projectId;
+		product.uploadDate = dxpEntityMessageWrapper.uploadTime;
+		product.uploadType = dxpEntityMessageWrapper.uploadType;
 
 		return product;
 	}

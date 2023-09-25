@@ -5,8 +5,6 @@
 
 package com.liferay.osb.asah.dataflow.ingestion.dxp;
 
-import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.Order;
-import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.Product;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.transform.OrderParserPTransform;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.transform.ProductParserPTransform;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.util.PipelineBuilder;
@@ -39,41 +37,25 @@ public class DXPCommerceEntitiesIngestionPipeline {
 		PipelineBuilder orderPipelineBuilder = new PipelineBuilder(
 			Pipeline.create(dxpCommerceEntitiesIngestionPipelineOptions));
 
-		Pipeline pipeline = orderPipelineBuilder.<Order>withBigQueryWriter(
+		Pipeline pipeline = orderPipelineBuilder.withBigQueryWriter(
 			new OrderParserPTransform(),
 			dxpCommerceEntitiesIngestionPipelineOptions.getOrderBigQueryTable()
-		).withGCSWriter(
+		).withGCSReader(
 			dxpCommerceEntitiesIngestionPipelineOptions.getGCSBucket(),
-			dxpCommerceEntitiesIngestionPipelineOptions.getShardCount(),
-			dxpCommerceEntitiesIngestionPipelineOptions.
-				getTriggerElementCount(),
-			dxpCommerceEntitiesIngestionPipelineOptions.
-				getTriggerIntervalDuration()
-		).withPubsubSubscription(
-			dxpCommerceEntitiesIngestionPipelineOptions.
-				getOrderPubsubSubscription(),
-			"Order"
+			"com.liferay.headless.commerce.machine.learning.dto.v1_0.Order"
 		).build();
 
 		// Product
 
 		PipelineBuilder productPipelineBuilder = new PipelineBuilder(pipeline);
 
-		pipeline = productPipelineBuilder.<Product>withBigQueryWriter(
+		pipeline = productPipelineBuilder.withBigQueryWriter(
 			new ProductParserPTransform(),
 			dxpCommerceEntitiesIngestionPipelineOptions.
 				getProductBigQueryTable()
-		).withGCSWriter(
+		).withGCSReader(
 			dxpCommerceEntitiesIngestionPipelineOptions.getGCSBucket(),
-			dxpCommerceEntitiesIngestionPipelineOptions.getShardCount(),
-			dxpCommerceEntitiesIngestionPipelineOptions.
-				getTriggerElementCount(),
-			dxpCommerceEntitiesIngestionPipelineOptions.
-				getTriggerIntervalDuration()
-		).withPubsubSubscription(
-			dxpCommerceEntitiesIngestionPipelineOptions.
-				getProductPubsubSubscription(),
-			"Product"
+			"com.liferay.headless.commerce.machine.learning.dto.v1_0.Product"
 		).build();
 
 		return pipeline.run();

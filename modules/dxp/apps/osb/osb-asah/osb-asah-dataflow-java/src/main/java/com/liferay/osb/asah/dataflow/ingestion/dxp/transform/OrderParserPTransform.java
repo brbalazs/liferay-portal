@@ -6,9 +6,10 @@
 package com.liferay.osb.asah.dataflow.ingestion.dxp.transform;
 
 import com.liferay.osb.asah.dataflow.common.ObjectMapperUtil;
-import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityPubsubMessage;
+import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityMessageWrapper;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.Order;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -18,20 +19,18 @@ import org.slf4j.LoggerFactory;
  * @author Riccardo Ferrari
  */
 public class OrderParserPTransform
-	extends BaseParserPTransform<DXPEntityPubsubMessage, Order> {
+	extends BaseParserPTransform<DXPEntityMessageWrapper, Order> {
 
 	@Override
-	protected Order doParse(DXPEntityPubsubMessage dxpEntityPubsubMessage)
+	protected Order doParse(DXPEntityMessageWrapper dxpEntityMessageWrapper)
 		throws Exception {
 
 		Order order = ObjectMapperUtil.readValue(
-			Order.class, dxpEntityPubsubMessage.getPayload());
+			Order.class, dxpEntityMessageWrapper.payload);
 
-		DXPEntityPubsubMessage.Attributes attributes =
-			dxpEntityPubsubMessage.getAttributes();
+		// TODO Pass channelIds as a side input
 
-		Map<Long, Long> channelIds =
-			attributes.getCommerceChannelIdChannelIds();
+		Map<Long, Long> channelIds = new HashMap<>();
 
 		if (_logger.isDebugEnabled()) {
 			_logger.debug(
@@ -42,10 +41,10 @@ public class OrderParserPTransform
 		}
 
 		order.channelId = channelIds.get(order.commerceChannelId);
-		order.dataSourceId = attributes.getDataSourceId();
-		order.projectId = attributes.getProjectId();
-		order.uploadDate = attributes.getUploadTime();
-		order.uploadType = attributes.getUploadType();
+		order.dataSourceId = dxpEntityMessageWrapper.dataSourceId;
+		order.projectId = dxpEntityMessageWrapper.projectId;
+		order.uploadDate = dxpEntityMessageWrapper.uploadTime;
+		order.uploadType = dxpEntityMessageWrapper.uploadType;
 
 		return order;
 	}
