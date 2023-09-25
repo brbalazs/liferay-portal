@@ -5,27 +5,26 @@
 
 package com.liferay.osb.asah.dataflow.ingestion.dxp;
 
-import com.google.api.services.bigquery.model.TableRow;
+import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityMessageWrapper;
+import com.liferay.osb.asah.dataflow.ingestion.dxp.transform.BigQueryWriterPTransform;
+import com.liferay.osb.asah.dataflow.ingestion.dxp.transform.CommerceChannelIdMapPTransform;
+import com.liferay.osb.asah.dataflow.ingestion.dxp.transform.DXPEntityMessageWrapperZipReaderPTransform;
+import com.liferay.osb.asah.dataflow.ingestion.dxp.transform.OrderParserDoFn;
+import com.liferay.osb.asah.dataflow.ingestion.dxp.transform.ProductParserDoFn;
 
-import com.liferay.osb.asah.dataflow.ingestion.dxp.transform.OrderParserPTransform;
-import com.liferay.osb.asah.dataflow.ingestion.dxp.transform.ProductParserPTransform;
-import com.liferay.osb.asah.dataflow.ingestion.dxp.util.PipelineBuilder;
-
-import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.PipelineResult;
-import org.apache.beam.sdk.io.gcp.bigquery.BigQueryIO;
 import org.apache.beam.sdk.options.PipelineOptionsFactory;
-import org.apache.beam.sdk.transforms.Combine;
-import org.apache.beam.sdk.transforms.MapElements;
-import org.apache.beam.sdk.transforms.SerializableFunction;
-import org.apache.beam.sdk.transforms.View;
-import org.apache.beam.sdk.values.KV;
+import org.apache.beam.sdk.transforms.DoFn;
+import org.apache.beam.sdk.transforms.ParDo;
+import org.apache.beam.sdk.values.PCollection;
+import org.apache.beam.sdk.values.PCollectionTuple;
 import org.apache.beam.sdk.values.PCollectionView;
-import org.apache.beam.sdk.values.TypeDescriptors;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.beam.sdk.values.TupleTag;
+import org.apache.beam.sdk.values.TupleTagList;
 
 /**
  * @author Riccardo Ferrari
@@ -46,105 +45,108 @@ public class DXPCommerceEntitiesIngestionPipeline {
 		DXPCommerceEntitiesIngestionPipelineOptions
 			dxpCommerceEntitiesIngestionPipelineOptions) {
 
-		// Order Side Input
-
 		Pipeline pipeline = Pipeline.create(
 			dxpCommerceEntitiesIngestionPipelineOptions);
 
-		PCollectionView<Map<Long, Long>>
-			commerceChanelIdChannelIdPCollectionView = pipeline.apply(
-				"Read Commerce Channels from BigQuery",
-				BigQueryIO.readTableRows(
-				).fromQuery(
-					StringUtils.replaceEach(
-						_COMMERCE_CHANNEL_IDS_QUERY_TEMPLATE,
-						new String[] {
-							"${googleProjectId}", "${projectId}", "${region}"
-						},
-						new String[] {
-							dxpCommerceEntitiesIngestionPipelineOptions.
-								getProject(),
-							dxpCommerceEntitiesIngestionPipelineOptions.
-								getProjectId(),
-							dxpCommerceEntitiesIngestionPipelineOptions.
-								getRegion()
-						})
-				).usingStandardSql(
-				).withMethod(
-					BigQueryIO.TypedRead.Method.DIRECT_READ
-				).withQueryLocation(
-					dxpCommerceEntitiesIngestionPipelineOptions.getRegion()
-				).withoutValidation()
-			).apply(
-				"Map Table Row Results",
-				MapElements.into(
-					TypeDescriptors.kvs(
-						TypeDescriptors.longs(), TypeDescriptors.longs())
-				).via(
-					new SerializableFunction<TableRow, KV<Long, Long>>() {
+		String filePattern =
+			dxpCommerceEntitiesIngestionPipelineOptions.getGCSBucket() +
+				"/*.zip";
 
-						@Override
-						public KV<Long, Long> apply(TableRow tableRow) {
-							String commerceChannelId = (String)tableRow.get(
-								"commercechannelid");
-							String channelId = (String)tableRow.get("id");
+		PCollection<DXPEntityMessageWrapper>
+			dxpEntityMessageWrapperPCollection = pipeline.apply(
+				new DXPEntityMessageWrapperZipReaderPTransform(filePattern));
 
-							return KV.of(
-								Long.parseLong(commerceChannelId),
-								Long.parseLong(channelId));
+		PCollectionTuple pCollectionTuple =
+			dxpEntityMessageWrapperPCollection.apply(
+				"Branch by Resource Name",
+				ParDo.of(
+					new DoFn
+						<DXPEntityMessageWrapper, DXPEntityMessageWrapper>() {
+
+						@ProcessElement
+						public void processElement(
+							ProcessContext processContext) {
+
+							DXPEntityMessageWrapper dxpEntityMessageWrapper =
+								processContext.element();
+
+							if (Objects.equals(
+									dxpEntityMessageWrapper.resourceName,
+									_ORDER_V1_RESOURCE_NAME)) {
+
+								processContext.output(
+									_orderTupleTag, dxpEntityMessageWrapper);
+							}
+							else if (Objects.equals(
+										dxpEntityMessageWrapper.resourceName,
+										_PRODUCT_V1_RESOURCE_NAME)) {
+
+								processContext.output(
+									_productTupleTag, dxpEntityMessageWrapper);
+							}
 						}
 
 					}
-				)
-			).apply(
-				Combine.perKey(
-					new SerializableFunction<Iterable<Long>, Long>() {
-
-						@Override
-						public Long apply(Iterable<Long> input) {
-							Iterator<Long> iterator = input.iterator();
-
-							return iterator.next();
-						}
-
-					})
-			).apply(
-				View.asMap()
-			);
+				).withOutputTags(
+					_orderTupleTag, TupleTagList.of(_productTupleTag)
+				));
 
 		// Order
 
-		PipelineBuilder orderPipelineBuilder = new PipelineBuilder(pipeline);
+		PCollectionView<Map<Long, Long>> commerceChannelIdMapPCollectionView =
+			pipeline.apply(
+				new CommerceChannelIdMapPTransform(
+					dxpCommerceEntitiesIngestionPipelineOptions.getProject(),
+					dxpCommerceEntitiesIngestionPipelineOptions.getProjectId(),
+					dxpCommerceEntitiesIngestionPipelineOptions.getRegion()));
 
-		orderPipelineBuilder.withBigQueryWriter(
-			new OrderParserPTransform(),
-			dxpCommerceEntitiesIngestionPipelineOptions.getOrderBigQueryTable()
-		).withGCSReader(
-			dxpCommerceEntitiesIngestionPipelineOptions.getGCSBucket(),
-			"com.liferay.headless.commerce.machine.learning.dto.v1_0.Order"
-		).build();
+		pCollectionTuple.get(
+			_orderTupleTag
+		).apply(
+			"Parse Orders",
+			ParDo.of(
+				new OrderParserDoFn(commerceChannelIdMapPCollectionView)
+			).withSideInputs(
+				commerceChannelIdMapPCollectionView
+			)
+		).apply(
+			"Write Orders",
+			new BigQueryWriterPTransform<>(
+				dxpCommerceEntitiesIngestionPipelineOptions.
+					getOrderBigQueryTable(),
+				dxpCommerceEntitiesIngestionPipelineOptions.getGCSBucket() +
+					"/order-temp")
+		);
 
 		// Product
 
-		PipelineBuilder productPipelineBuilder = new PipelineBuilder(pipeline);
-
-		pipeline = productPipelineBuilder.withBigQueryWriter(
-			new ProductParserPTransform(),
-			dxpCommerceEntitiesIngestionPipelineOptions.
-				getProductBigQueryTable()
-		).withGCSReader(
-			dxpCommerceEntitiesIngestionPipelineOptions.getGCSBucket(),
-			"com.liferay.headless.commerce.machine.learning.dto.v1_0.Product"
-		).build();
+		pCollectionTuple.get(
+			_productTupleTag
+		).apply(
+			"Parse Products", ParDo.of(new ProductParserDoFn())
+		).apply(
+			"Write Products",
+			new BigQueryWriterPTransform<>(
+				dxpCommerceEntitiesIngestionPipelineOptions.
+					getProductBigQueryTable(),
+				dxpCommerceEntitiesIngestionPipelineOptions.getGCSBucket() +
+					"/product-temp")
+		);
 
 		return pipeline.run();
 	}
 
-	private static final String _COMMERCE_CHANNEL_IDS_QUERY_TEMPLATE =
-		"SELECT * FROM EXTERNAL_QUERY('${googleProjectId}.${region}." +
-			"postgresql', 'SELECT unnest(commercechannelids) AS " +
-				"commercechannelid, id FROM ${projectId}.channel JOIN " +
-					"${projectId}.channeldatasource ON (channel.id = " +
-						"channeldatasource.channelid);')";
+	private static final String _ORDER_V1_RESOURCE_NAME =
+		"com.liferay.headless.commerce.machine.learning.dto.v1_0.Order";
+
+	private static final String _PRODUCT_V1_RESOURCE_NAME =
+		"com.liferay.headless.commerce.machine.learning.dto.v1_0.Product";
+
+	private static final TupleTag<DXPEntityMessageWrapper> _orderTupleTag =
+		new TupleTag<DXPEntityMessageWrapper>() {
+		};
+	private static final TupleTag<DXPEntityMessageWrapper> _productTupleTag =
+		new TupleTag<DXPEntityMessageWrapper>() {
+		};
 
 }
