@@ -5,30 +5,47 @@
 
 package com.liferay.osb.asah.dataflow.ingestion.dxp.transform;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.liferay.osb.asah.dataflow.common.ObjectMapperUtil;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityMessageWrapper;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.Product;
 
+import org.apache.beam.sdk.transforms.DoFn;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author Riccardo Ferrari
  */
-public class ProductParserDoFn
-	extends BaseParserPTransform<DXPEntityMessageWrapper, Product> {
+public class ProductParserDoFn extends DoFn<DXPEntityMessageWrapper, Product> {
 
-	@Override
-	protected Product doParse(DXPEntityMessageWrapper dxpEntityMessageWrapper)
-		throws Exception {
+	@ProcessElement
+	public void processElement(ProcessContext processContext) {
+		DXPEntityMessageWrapper dxpEntityMessageWrapper =
+			processContext.element();
 
-		Product product = ObjectMapperUtil.readValue(
-			Product.class, dxpEntityMessageWrapper.payload);
+		try {
+			Product product = ObjectMapperUtil.readValue(
+				Product.class, dxpEntityMessageWrapper.payload);
 
-		product.channelId = product.catalogId;
-		product.dataSourceId = dxpEntityMessageWrapper.dataSourceId;
-		product.projectId = dxpEntityMessageWrapper.projectId;
-		product.uploadDate = dxpEntityMessageWrapper.uploadTime;
-		product.uploadType = dxpEntityMessageWrapper.uploadType;
+			product.channelId = product.catalogId;
+			product.dataSourceId = dxpEntityMessageWrapper.dataSourceId;
+			product.projectId = dxpEntityMessageWrapper.projectId;
+			product.uploadDate = dxpEntityMessageWrapper.uploadTime;
+			product.uploadType = dxpEntityMessageWrapper.uploadType;
 
-		return product;
+			processContext.output(product);
+		}
+		catch (JsonProcessingException jsonProcessingException) {
+			_logger.error(
+				"Unable to parse product message {}",
+				dxpEntityMessageWrapper.payload);
+		}
 	}
+
+	private static final Logger _logger = LoggerFactory.getLogger(
+		ProductParserDoFn.class);
 
 }
