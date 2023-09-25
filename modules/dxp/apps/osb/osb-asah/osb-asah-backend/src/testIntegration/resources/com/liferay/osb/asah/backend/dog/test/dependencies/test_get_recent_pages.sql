@@ -1,0 +1,1 @@
+INSERT INTO DataControlTask (id, completeDate, continueDate, emailAddress, status, type) VALUES (1357, timestamp '${now}', timestamp '${today}', 'test3@liferay.com', 'COMPLETED', 'SUPPRESS');
