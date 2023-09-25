@@ -35,6 +35,10 @@ import org.slf4j.LoggerFactory;
 public class DXPEntityMessageWrapperZipReaderPTransform
 	extends PTransform<PBegin, PCollection<DXPEntityMessageWrapper>> {
 
+	public DXPEntityMessageWrapperZipReaderPTransform(String filePattern) {
+		this(filePattern, null);
+	}
+
 	public DXPEntityMessageWrapperZipReaderPTransform(
 		String filePattern, String resourceNameFilter) {
 
@@ -85,7 +89,9 @@ public class DXPEntityMessageWrapperZipReaderPTransform
 
 			String resourceName = split[length - 4];
 
-			if (!Objects.equals(_resourceNameFilter, resourceName)) {
+			if ((_resourceNameFilter != null) &&
+				!Objects.equals(_resourceNameFilter, resourceName)) {
+
 				if (_logger.isInfoEnabled()) {
 					_logger.error(
 						"Skipping resource {} because it does not match with " +
