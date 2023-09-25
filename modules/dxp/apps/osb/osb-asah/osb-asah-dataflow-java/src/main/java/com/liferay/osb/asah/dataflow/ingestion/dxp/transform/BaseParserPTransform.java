@@ -6,7 +6,6 @@
 package com.liferay.osb.asah.dataflow.ingestion.dxp.transform;
 
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.BaseDXPEntity;
-import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityPubsubMessage;
 
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.transforms.PTransform;
@@ -23,20 +22,19 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Riccardo Ferrari
  */
-public abstract class BaseParserPTransform<T extends BaseDXPEntity>
-	extends PTransform<PCollection<DXPEntityPubsubMessage>, PCollectionTuple> {
+public abstract class BaseParserPTransform<E, T extends BaseDXPEntity>
+	extends PTransform<PCollection<E>, PCollectionTuple> {
 
 	@Override
-	public PCollectionTuple expand(PCollection<DXPEntityPubsubMessage> input) {
+	public PCollectionTuple expand(PCollection<E> input) {
 		return input.apply(
 			"Parse DXP Entity",
 			ParDo.of(
-				new DoFn<DXPEntityPubsubMessage, T>() {
+				new DoFn<E, T>() {
 
 					@ProcessElement
 					public void processElement(ProcessContext processContext) {
-						DXPEntityPubsubMessage element =
-							processContext.element();
+						E element = processContext.element();
 
 						try {
 							T t = doParse(element);
@@ -62,7 +60,7 @@ public abstract class BaseParserPTransform<T extends BaseDXPEntity>
 			));
 	}
 
-	public TupleTag<KV<String, DXPEntityPubsubMessage>> getFailTupleTag() {
+	public TupleTag<KV<String, E>> getFailTupleTag() {
 		return _failTupleTag;
 	}
 
@@ -70,14 +68,13 @@ public abstract class BaseParserPTransform<T extends BaseDXPEntity>
 		return _successTupleTag;
 	}
 
-	protected abstract T doParse(DXPEntityPubsubMessage dxpEntityPubsubMessage)
-		throws Exception;
+	protected abstract T doParse(E e) throws Exception;
 
 	private static final Logger _logger = LoggerFactory.getLogger(
 		BaseParserPTransform.class);
 
-	private final TupleTag<KV<String, DXPEntityPubsubMessage>> _failTupleTag =
-		new TupleTag<KV<String, DXPEntityPubsubMessage>>() {
+	private final TupleTag<KV<String, E>> _failTupleTag =
+		new TupleTag<KV<String, E>>() {
 		};
 	private final TupleTag<T> _successTupleTag = new TupleTag<T>() {
 	};

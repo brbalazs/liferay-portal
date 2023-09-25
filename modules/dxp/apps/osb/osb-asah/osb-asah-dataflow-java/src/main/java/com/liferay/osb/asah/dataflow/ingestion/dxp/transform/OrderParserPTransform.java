@@ -17,7 +17,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Riccardo Ferrari
  */
-public class OrderParserPTransform extends BaseParserPTransform<Order> {
+public class OrderParserPTransform
+	extends BaseParserPTransform<DXPEntityPubsubMessage, Order> {
 
 	@Override
 	protected Order doParse(DXPEntityPubsubMessage dxpEntityPubsubMessage)

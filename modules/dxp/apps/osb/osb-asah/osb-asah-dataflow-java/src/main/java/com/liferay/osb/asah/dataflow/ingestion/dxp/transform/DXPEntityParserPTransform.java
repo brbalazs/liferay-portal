@@ -22,7 +22,8 @@ import org.slf4j.LoggerFactory;
  * @author Marcos Martins
  * @author Rachael Koestartyo
  */
-public class DXPEntityParserPTransform extends BaseParserPTransform<DXPEntity> {
+public class DXPEntityParserPTransform
+	extends BaseParserPTransform<DXPEntityPubsubMessage, DXPEntity> {
 
 	@Override
 	protected DXPEntity doParse(DXPEntityPubsubMessage dxpEntityPubsubMessage)
