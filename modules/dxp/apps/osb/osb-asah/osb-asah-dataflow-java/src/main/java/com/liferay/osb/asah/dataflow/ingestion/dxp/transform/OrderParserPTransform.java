@@ -5,12 +5,16 @@
 
 package com.liferay.osb.asah.dataflow.ingestion.dxp.transform;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.liferay.osb.asah.dataflow.common.ObjectMapperUtil;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityMessageWrapper;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.Order;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.beam.sdk.transforms.DoFn;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,34 +23,42 @@ import org.slf4j.LoggerFactory;
  * @author Riccardo Ferrari
  */
 public class OrderParserPTransform
-	extends BaseParserPTransform<DXPEntityMessageWrapper, Order> {
+	extends DoFn<DXPEntityMessageWrapper, Order> {
 
-	@Override
-	protected Order doParse(DXPEntityMessageWrapper dxpEntityMessageWrapper)
-		throws Exception {
+	@ProcessElement
+	public void processElement(ProcessContext processContext) {
+		DXPEntityMessageWrapper dxpEntityMessageWrapper =
+			processContext.element();
 
-		Order order = ObjectMapperUtil.readValue(
-			Order.class, dxpEntityMessageWrapper.payload);
+		try {
+			Order order = ObjectMapperUtil.readValue(
+				Order.class, dxpEntityMessageWrapper.payload);
 
-		// TODO Pass channelIds as a side input
+			// TODO Pass channelIds as a side input
 
-		Map<Long, Long> channelIds = new HashMap<>();
+			Map<Long, Long> channelIds = new HashMap<>();
 
-		if (_logger.isDebugEnabled()) {
-			_logger.debug(
-				String.format(
-					"Analytics Cloud channel ID %s and commerce channel ID %s",
-					channelIds.get(order.commerceChannelId),
-					order.commerceChannelId));
+			if (_logger.isDebugEnabled()) {
+				_logger.debug(
+					String.format(
+						"Analytics Cloud channel ID %s and commerce channel ID %s",
+						channelIds.get(order.commerceChannelId),
+						order.commerceChannelId));
+			}
+
+			order.channelId = channelIds.get(order.commerceChannelId);
+			order.dataSourceId = dxpEntityMessageWrapper.dataSourceId;
+			order.projectId = dxpEntityMessageWrapper.projectId;
+			order.uploadDate = dxpEntityMessageWrapper.uploadTime;
+			order.uploadType = dxpEntityMessageWrapper.uploadType;
+
+			processContext.output(order);
 		}
-
-		order.channelId = channelIds.get(order.commerceChannelId);
-		order.dataSourceId = dxpEntityMessageWrapper.dataSourceId;
-		order.projectId = dxpEntityMessageWrapper.projectId;
-		order.uploadDate = dxpEntityMessageWrapper.uploadTime;
-		order.uploadType = dxpEntityMessageWrapper.uploadType;
-
-		return order;
+		catch (JsonProcessingException jsonProcessingException) {
+			_logger.error(
+				"Unable to parse order message {}",
+				dxpEntityMessageWrapper.payload);
+		}
 	}
 
 	private static final Logger _logger = LoggerFactory.getLogger(
