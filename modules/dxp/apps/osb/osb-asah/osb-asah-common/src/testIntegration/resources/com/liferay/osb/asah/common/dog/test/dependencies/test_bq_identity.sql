@@ -1,0 +1,2 @@
+INSERT INTO Identity_Raw (createDate, id, individualId) VALUES (timestamp '2019-02-11T20:26:53.218-00', '123123-sadf-32423-4245', '47ff64395860b1d498241d907069f649b98c198a95b3ba5303b87094058590c1');
+INSERT INTO Identity_Raw (createDate, id, individualId) VALUES (timestamp '2019-02-12T20:26:53.218-00', '123123-sadf-32423-234afsd', '09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f');

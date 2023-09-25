@@ -267,6 +267,7 @@ public class BQEventDogTest
 		Assertions.assertEquals(0, searchKeywordPage.getTotalElements());
 	}
 
+	@BQSQLResource(resourcePath = "test_bq_identity.sql")
 	@Test
 	public void testGetSearchKeywords2() throws Exception {
 		Channel channel = _channelDog.addChannel("Test Channel");
@@ -286,7 +287,7 @@ public class BQEventDogTest
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
-			"userId", "");
+			"123123-sadf-32423-4245", "");
 
 		_bqEventDog.addBQEvent(
 			"Page",
@@ -302,7 +303,8 @@ public class BQEventDogTest
 			"United States", DateUtil.newDate(), null, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
-			"", "", "", "http://localhost:8080/search?q=Liferay", "userId", "");
+			"", "", "", "http://localhost:8080/search?q=Liferay",
+			"123123-sadf-32423-4245", "");
 
 		_bqEventDog.addBQEvent(
 			"Page",
@@ -318,8 +320,8 @@ public class BQEventDogTest
 			"United States", DateUtil.newDate(), null, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
-			"", "", "", "http://localhost:8080/search?q=Liferay+DXP", "userId",
-			"");
+			"", "", "", "http://localhost:8080/search?q=Liferay+DXP",
+			"123123-sadf-32423-4245", "");
 
 		_bqEventDog.addBQEvent(
 			"Page",
@@ -367,6 +369,7 @@ public class BQEventDogTest
 		Assertions.assertEquals("liferay", searchKeyword.getKeywords());
 	}
 
+	@BQSQLResource(resourcePath = "test_bq_identity.sql")
 	@Test
 	public void testGetSearchKeywords3() throws Exception {
 		Channel channel = _channelDog.addChannel("Test Channel");
@@ -386,7 +389,7 @@ public class BQEventDogTest
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
-			"userId", "");
+			"123123-sadf-32423-4245", "");
 
 		_bqEventDog.addBQEvent(
 			"Page",
@@ -402,7 +405,8 @@ public class BQEventDogTest
 			"United States", DateUtil.newDate(), null, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
-			"", "", "", "http://localhost:8080/search?q=Liferay", "userId", "");
+			"", "", "", "http://localhost:8080/search?q=Liferay",
+			"123123-sadf-32423-4245", "");
 
 		_bqEventDog.addBQEvent(
 			"Page",
@@ -418,8 +422,8 @@ public class BQEventDogTest
 			"United States", DateUtil.newDate(), null, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
-			"", "", "", "http://localhost:8080/search?q=Liferay+DXP", "userId",
-			"");
+			"", "", "", "http://localhost:8080/search?q=Liferay+DXP",
+			"123123-sadf-32423-4245", "");
 
 		_bqEventDog.addBQEvent(
 			"Page",
@@ -435,8 +439,8 @@ public class BQEventDogTest
 			"United States", DateUtil.newDate(), null, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
-			"", "", "", "http://localhost:8080/search?q=Diamond+Bar", "userId",
-			"");
+			"", "", "", "http://localhost:8080/search?q=Diamond+Bar",
+			"123123-sadf-32423-4245", "");
 
 		Page<SearchKeyword> searchKeywordPage =
 			_bqEventDog.getSearchKeywordPage(
@@ -486,6 +490,7 @@ public class BQEventDogTest
 		Assertions.assertEquals("liferay", searchKeyword.getKeywords());
 	}
 
+	@BQSQLResource(resourcePath = "test_bq_identity.sql")
 	@Test
 	public void testGetSearchKeywords4() throws Exception {
 		Channel channel = _channelDog.addChannel("Test Channel");
@@ -505,7 +510,7 @@ public class BQEventDogTest
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
-			"userId", "");
+			"123123-sadf-32423-4245", "");
 
 		_bqEventDog.addBQEvent(
 			"Page",
@@ -521,7 +526,8 @@ public class BQEventDogTest
 			"United States", DateUtil.newDate(), null, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
-			"", "", "", "http://localhost:8080/search?q=Liferay", "userId", "");
+			"", "", "", "http://localhost:8080/search?q=Liferay",
+			"123123-sadf-32423-4245", "");
 
 		_bqEventDog.addBQEvent(
 			"Page",
@@ -537,8 +543,8 @@ public class BQEventDogTest
 			"United States", DateUtil.newDate(), null, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
-			"", "", "", "http://localhost:8080/search?q=Liferay+DXP", "userId",
-			"");
+			"", "", "", "http://localhost:8080/search?q=Liferay+DXP",
+			"123123-sadf-32423-4245", "");
 
 		_bqEventDog.addBQEvent(
 			"Page",
@@ -554,8 +560,8 @@ public class BQEventDogTest
 			"United States", DateUtil.newDate(), null, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
-			"", "", "", "http://localhost:8080/search?q=Diamond+Bar", "userId",
-			"");
+			"", "", "", "http://localhost:8080/search?q=Diamond+Bar",
+			"123123-sadf-32423-4245", "");
 
 		Page<SearchKeyword> searchKeywordPage =
 			_bqEventDog.getSearchKeywordPage(
