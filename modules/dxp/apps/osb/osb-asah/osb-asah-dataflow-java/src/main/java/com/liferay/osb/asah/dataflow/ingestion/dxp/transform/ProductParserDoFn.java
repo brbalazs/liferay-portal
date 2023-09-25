@@ -12,7 +12,7 @@ import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.Product;
 /**
  * @author Riccardo Ferrari
  */
-public class ProductParserPTransform
+public class ProductParserDoFn
 	extends BaseParserPTransform<DXPEntityMessageWrapper, Product> {
 
 	@Override
