@@ -8,10 +8,12 @@ package com.liferay.osb.asah.dataflow.ingestion.dxp.transform;
 import com.liferay.osb.asah.dataflow.ingestion.dxp.entity.DXPEntityMessageWrapper;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.StandardCharsets;
 
 import java.util.Objects;
 
@@ -74,7 +76,9 @@ public class DXPEntityMessageWrapperZipReaderPTransform
 		extends DoFn<FileIO.ReadableFile, DXPEntityMessageWrapper> {
 
 		@ProcessElement
-		public void processElement(ProcessContext processContext) {
+		public void processElement(ProcessContext processContext)
+			throws IOException {
+
 			FileIO.ReadableFile readableFile = processContext.element();
 
 			MatchResult.Metadata metadata = readableFile.getMetadata();
@@ -107,36 +111,31 @@ public class DXPEntityMessageWrapperZipReaderPTransform
 			String uploadTime = split[length - 2];
 			String uploadType = split[length - 3];
 
-			try {
-				Compression compression = readableFile.getCompression();
+			Compression compression = readableFile.getCompression();
 
-				ReadableByteChannel readableByteChannel =
-					compression.readDecompressed(FileSystems.open(resourceId));
+			ReadableByteChannel readableByteChannel =
+				compression.readDecompressed(FileSystems.open(resourceId));
 
-				try (BufferedReader bufferedReader = new BufferedReader(
-						new InputStreamReader(
-							Channels.newInputStream(readableByteChannel)))) {
+			try (BufferedReader bufferedReader = new BufferedReader(
+					new InputStreamReader(
+						Channels.newInputStream(readableByteChannel),
+						StandardCharsets.UTF_8))) {
 
-					String line = null;
+				String line = null;
 
-					while ((line = bufferedReader.readLine()) != null) {
-						DXPEntityMessageWrapper dxpEntityMessageWrapper =
-							new DXPEntityMessageWrapper();
+				while ((line = bufferedReader.readLine()) != null) {
+					DXPEntityMessageWrapper dxpEntityMessageWrapper =
+						new DXPEntityMessageWrapper();
 
-						dxpEntityMessageWrapper.dataSourceId = dataSourceId;
-						dxpEntityMessageWrapper.payload = line;
-						dxpEntityMessageWrapper.projectId = projectId;
-						dxpEntityMessageWrapper.resourceName = resourceName;
-						dxpEntityMessageWrapper.uploadTime = uploadTime;
-						dxpEntityMessageWrapper.uploadType = uploadType;
+					dxpEntityMessageWrapper.dataSourceId = dataSourceId;
+					dxpEntityMessageWrapper.payload = line;
+					dxpEntityMessageWrapper.projectId = projectId;
+					dxpEntityMessageWrapper.resourceName = resourceName;
+					dxpEntityMessageWrapper.uploadTime = uploadTime;
+					dxpEntityMessageWrapper.uploadType = uploadType;
 
-						processContext.output(dxpEntityMessageWrapper);
-					}
+					processContext.output(dxpEntityMessageWrapper);
 				}
-			}
-			catch (Exception exception) {
-				_logger.error(
-					"Unable to read file: {}", resourceId.getFilename());
 			}
 		}
 
