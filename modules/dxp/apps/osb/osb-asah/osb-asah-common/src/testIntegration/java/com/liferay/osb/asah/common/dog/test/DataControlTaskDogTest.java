@@ -41,6 +41,7 @@ import java.time.LocalDateTime;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -310,18 +311,17 @@ public class DataControlTaskDogTest
 				88888888L),
 			ListUtil.map(
 				_dataControlTaskDog.getPrioritizedDataControlTasks(
-					"(createDate ge '2023-08-02' and createDate le " +
-						"'2023-08-09')",
-					null),
+					null, new Date("2023-08-02"), null, null,
+					new Date("2023-08-09")),
 				DataControlTask::getId));
 
 		Assertions.assertEquals(
 			Arrays.asList(55555555L, 66666666L),
 			ListUtil.map(
 				_dataControlTaskDog.getPrioritizedDataControlTasks(
-					"(createDate ge '2023-08-02' and createDate le " +
-						"'2023-08-09')",
-					DataControlTaskStatus.PENDING.toString()),
+					null, new Date("2023-08-02"), null,
+					DataControlTaskStatus.PENDING.toString(),
+					new Date("2023-08-09")),
 				DataControlTask::getId));
 	}
 

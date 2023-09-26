@@ -37,7 +37,7 @@ public class DataControlTasksRestControllerTest
 	@Test
 	public void testDownloadLogs() throws Exception {
 		ResponseEntity responseEntity =
-			_dataControlTasksRestController.downloadLogs("");
+			_dataControlTasksRestController.downloadLogs(null, null);
 
 		FileSystemResource fileSystemResource =
 			(FileSystemResource)responseEntity.getBody();

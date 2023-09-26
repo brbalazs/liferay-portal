@@ -35,6 +35,7 @@ import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.impl.DSL;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -51,6 +52,19 @@ public class FilterExpressionTest {
 
 	@BeforeEach
 	public void setUp() {
+		TimeZoneDog timeZoneDog = Mockito.mock(TimeZoneDog.class);
+
+		Mockito.when(
+			timeZoneDog.getZoneId()
+		).thenReturn(
+			ZoneId.of("UTC")
+		);
+
+		TimeZoneDogUtil.setTimeZoneDog(timeZoneDog);
+	}
+
+	@AfterEach
+	public void tearDown() {
 		TimeZoneDog timeZoneDog = Mockito.mock(TimeZoneDog.class);
 
 		Mockito.when(

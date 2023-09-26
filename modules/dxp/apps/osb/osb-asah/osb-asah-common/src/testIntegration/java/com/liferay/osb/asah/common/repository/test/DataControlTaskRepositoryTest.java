@@ -10,7 +10,6 @@ import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
-import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 import com.liferay.osb.asah.test.util.annotation.SQLResource;
 import com.liferay.osb.asah.test.util.configuration.JDBCTestConfiguration;
 
@@ -331,11 +330,10 @@ public class DataControlTaskRepositoryTest
 
 	@Test
 	public void testSearchDataControlTasks2() {
-		FilterHelper filterHelper = new FilterHelper("(batchId eq 123457)");
-
 		List<DataControlTask> dataControlTasks =
 			_dataControlTaskRepository.searchDataControlTasks(
-				filterHelper, String.valueOf(DataControlTaskStatus.COMPLETED));
+				123457L, null, null,
+				String.valueOf(DataControlTaskStatus.COMPLETED), null);
 
 		Assertions.assertEquals(
 			2, dataControlTasks.size(), dataControlTasks.toString());
