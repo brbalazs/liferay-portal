@@ -743,7 +743,7 @@ public class BQEventRepositoryImpl
 				)
 			).where(
 				DSL.and(
-					_createCondition(
+					_createConditions(
 						null, null, individualId, Collections.emptySet(),
 						timeRange),
 					DSL.field(
@@ -792,7 +792,7 @@ public class BQEventRepositoryImpl
 					)
 				).where(
 					DSL.and(
-						_createCondition(
+						_createConditions(
 							null, null, individualId, Collections.emptySet(),
 							timeRange),
 						DSL.field(
@@ -882,7 +882,7 @@ public class BQEventRepositoryImpl
 				return new SearchKeyword(recordMap);
 			},
 			selectJoinStep.where(
-				_createCondition(
+				_createConditions(
 					displayLanguageId, groupId, individualId, searchQueryParams,
 					timeRange)
 			).groupBy(
@@ -953,7 +953,7 @@ public class BQEventRepositoryImpl
 		return _queryExecutor.queryForLong(
 			selectSelectStep.from(
 				selectJoinStep.where(
-					_createCondition(
+					_createConditions(
 						displayLanguageId, groupId, individualId,
 						searchQueryParams, timeRange)
 				).groupBy(
@@ -1206,65 +1206,6 @@ public class BQEventRepositoryImpl
 		return selectJoinStep;
 	}
 
-	private Condition _createCondition(
-		@Nullable String displayLanguageId, @Nullable String groupId,
-		@Nullable String individualId, Set<String> searchQueryParams,
-		@Nullable TimeRange timeRange) {
-
-		Condition condition = DSL.field(
-			"BQEvent.eventId"
-		).eq(
-			"pageViewed"
-		);
-
-		if (!searchQueryParams.isEmpty()) {
-			condition = condition.and(
-				_dslHelper.regexpContains(
-					"BQEvent.url",
-					"[?&](?:" + String.join("|", searchQueryParams) +
-						")=([^&]+)"));
-		}
-
-		if (Objects.nonNull(displayLanguageId)) {
-			condition = condition.and(
-				DSL.field(
-					"BQEvent.contentLanguageId"
-				).eq(
-					displayLanguageId
-				));
-		}
-
-		if (Objects.nonNull(groupId)) {
-			condition = condition.and(
-				_dslHelper.jsonExtractScalar(
-					"BQEvent.context", "groupId"
-				).eq(
-					groupId
-				));
-		}
-
-		if (individualId != null) {
-			condition = condition.and(
-				DSL.field(
-					"BQIdentity.individualId"
-				).eq(
-					individualId
-				));
-		}
-
-		if (timeRange != null) {
-			condition = condition.and(
-				DSL.field(
-					"BQEvent.eventDate"
-				).between(
-					_dslHelper.getDateParam(timeRange.getStartDate()),
-					_dslHelper.getDateParam(timeRange.getEndDate())
-				));
-		}
-
-		return condition;
-	}
-
 	private List<Condition> _createConditions(
 		@Nullable Long channelId, String keyword,
 		LocalDateTime rangeEndLocalDateTime,
@@ -1383,6 +1324,68 @@ public class BQEventRepositoryImpl
 					"BQIdentity.individualId"
 				).eq(
 					individualId
+				));
+		}
+
+		return conditions;
+	}
+
+	private List<Condition> _createConditions(
+		@Nullable String displayLanguageId, @Nullable String groupId,
+		@Nullable String individualId, Set<String> searchQueryParams,
+		@Nullable TimeRange timeRange) {
+
+		List<Condition> conditions = new ArrayList<>();
+
+		conditions.add(
+			DSL.field(
+				"BQEvent.eventId"
+			).eq(
+				"pageViewed"
+			));
+
+		if (!searchQueryParams.isEmpty()) {
+			conditions.add(
+				_dslHelper.regexpContains(
+					"BQEvent.url",
+					"[?&](?:" + String.join("|", searchQueryParams) +
+						")=([^&]+)"));
+		}
+
+		if (Objects.nonNull(displayLanguageId)) {
+			conditions.add(
+				DSL.field(
+					"BQEvent.contentLanguageId"
+				).eq(
+					displayLanguageId
+				));
+		}
+
+		if (Objects.nonNull(groupId)) {
+			conditions.add(
+				_dslHelper.jsonExtractScalar(
+					"BQEvent.context", "groupId"
+				).eq(
+					groupId
+				));
+		}
+
+		if (individualId != null) {
+			conditions.add(
+				DSL.field(
+					"BQIdentity.individualId"
+				).eq(
+					individualId
+				));
+		}
+
+		if (timeRange != null) {
+			conditions.add(
+				DSL.field(
+					"BQEvent.eventDate"
+				).between(
+					_dslHelper.getDateParam(timeRange.getStartDate()),
+					_dslHelper.getDateParam(timeRange.getEndDate())
 				));
 		}
 
