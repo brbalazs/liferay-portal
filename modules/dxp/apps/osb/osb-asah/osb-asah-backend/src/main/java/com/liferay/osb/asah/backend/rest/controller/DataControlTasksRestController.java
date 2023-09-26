@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -117,7 +118,10 @@ public class DataControlTasksRestController extends BaseRestController {
 
 	@GetMapping("/logs")
 	public ResponseEntity downloadLogs(
-			@RequestParam Date fromDate, @RequestParam Date toDate)
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Date
+				fromDate,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam Date
+				toDate)
 		throws Exception {
 
 		List<DataControlTask> dataControlTasks =
