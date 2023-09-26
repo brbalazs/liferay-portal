@@ -37,11 +37,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -304,24 +306,26 @@ public class DataControlTaskDogTest
 
 	@SQLResource(resourcePath = "test_data_control_task_dog_test.sql")
 	@Test
-	public void testGetPrioritizedDataControlTasks2() {
+	public void testGetPrioritizedDataControlTasks2() throws Exception {
+		DateFormat dateFormat = new SimpleDateFormat(DateUtil.PATTERN_SHORT);
+
 		Assertions.assertEquals(
 			Arrays.asList(
 				33333333L, 44444444L, 55555555L, 66666666L, 77777777L,
 				88888888L),
 			ListUtil.map(
 				_dataControlTaskDog.getPrioritizedDataControlTasks(
-					null, new Date("2023-08-02"), null, null,
-					new Date("2023-08-09")),
+					null, dateFormat.parse("2023-08-02"), null, null,
+					dateFormat.parse("2023-08-09")),
 				DataControlTask::getId));
 
 		Assertions.assertEquals(
 			Arrays.asList(55555555L, 66666666L),
 			ListUtil.map(
 				_dataControlTaskDog.getPrioritizedDataControlTasks(
-					null, new Date("2023-08-02"), null,
+					null, dateFormat.parse("2023-08-02"), null,
 					DataControlTaskStatus.PENDING.toString(),
-					new Date("2023-08-09")),
+					dateFormat.parse("2023-08-09")),
 				DataControlTask::getId));
 	}
 
