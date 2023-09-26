@@ -743,8 +743,7 @@ public class BQEventRepositoryImpl
 				)
 			).where(
 				_createConditions(
-					null, null, individualId, Collections.emptySet(),
-					timeRange)
+					null, null, individualId, Collections.emptySet(), timeRange)
 			).groupBy(
 				DSL.field("groupid")
 			).orderBy(
