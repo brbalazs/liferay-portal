@@ -6,7 +6,6 @@
 package com.liferay.osb.asah.common.repository;
 
 import com.liferay.osb.asah.common.entity.DataControlTask;
-import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 
 import java.util.Date;
 import java.util.List;
@@ -44,7 +43,8 @@ public interface CustomDataControlTaskRepository {
 
 	@Cacheable
 	public List<DataControlTask> searchDataControlTasks(
-		FilterHelper filterHelper, @Nullable String status);
+		@Nullable Long batchId, @Nullable Date fromDate, @Nullable Long[] ids,
+		@Nullable String status, @Nullable Date toDate);
 
 	@Cacheable
 	public List<DataControlTask> searchDataControlTasks(

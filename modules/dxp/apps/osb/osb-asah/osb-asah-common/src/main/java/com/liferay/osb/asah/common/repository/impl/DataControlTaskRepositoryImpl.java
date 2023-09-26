@@ -5,11 +5,13 @@
 
 package com.liferay.osb.asah.common.repository.impl;
 
+import com.liferay.osb.asah.common.date.dog.util.TimeZoneDogUtil;
 import com.liferay.osb.asah.common.entity.DataControlTask;
 import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.repository.CustomDataControlTaskRepository;
-import com.liferay.osb.asah.common.repository.helper.FilterHelper;
-import com.liferay.osb.asah.common.util.PostgresDialectThreadLocal;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -286,37 +288,73 @@ public class DataControlTaskRepositoryImpl
 
 	@Override
 	public List<DataControlTask> searchDataControlTasks(
-		FilterHelper filterHelper, @Nullable String status) {
+		@Nullable Long batchId, @Nullable Date fromDate, @Nullable Long[] ids,
+		@Nullable String status, @Nullable Date toDate) {
 
-		try {
-			PostgresDialectThreadLocal.setPostgresDialect(true);
+		List<Condition> conditions = new ArrayList<>();
 
-			List<Condition> conditions = new ArrayList<>();
-
-			conditions.add(filterHelper.getCondition());
-
-			if ((status != null) && !status.isEmpty()) {
-				conditions.add(
-					DSL.field(
-						"status"
-					).in(
-						status
-					));
-			}
-
-			SelectSelectStep<Record> selectSelectStep = _dslContext.select();
-
-			return selectSelectStep.from(
-				"DataControlTask"
-			).where(
-				conditions
-			).fetch(
-				record -> new DataControlTask(record.intoMap())
-			);
+		if (batchId != null) {
+			conditions.add(
+				DSL.field(
+					"batchId"
+				).eq(
+					batchId
+				));
 		}
-		finally {
-			PostgresDialectThreadLocal.remove();
+
+		ZoneId zoneId = TimeZoneDogUtil.getZoneId();
+
+		Field<Date> createDateField = null;
+
+		if (StringUtils.equals(zoneId.toString(), "UTC")) {
+			createDateField = DSL.function(
+				"DATE", Date.class, DSL.field("createDate"));
 		}
+		else {
+			createDateField = DSL.function(
+				"DATE", Date.class,
+				DSL.field(
+					String.format(
+						"%s AT TIME ZONE '%s'", DSL.field("createDate"),
+						zoneId),
+					OffsetDateTime.class));
+		}
+
+		if (fromDate != null) {
+			conditions.add(createDateField.greaterOrEqual(fromDate));
+		}
+
+		if ((ids != null) && (ids.length > 0)) {
+			conditions.add(
+				DSL.field(
+					"id"
+				).in(
+					ids
+				));
+		}
+
+		if ((status != null) && !status.isEmpty()) {
+			conditions.add(
+				DSL.field(
+					"status"
+				).in(
+					status
+				));
+		}
+
+		if (toDate != null) {
+			conditions.add(createDateField.lessOrEqual(toDate));
+		}
+
+		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
+
+		return selectSelectStep.from(
+			"DataControlTask"
+		).where(
+			conditions
+		).fetch(
+			record -> new DataControlTask(record.intoMap())
+		);
 	}
 
 	@Override
