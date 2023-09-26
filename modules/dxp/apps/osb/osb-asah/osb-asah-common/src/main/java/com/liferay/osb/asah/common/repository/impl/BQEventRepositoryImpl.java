@@ -16,8 +16,8 @@ import com.liferay.osb.asah.common.model.DateGrouping;
 import com.liferay.osb.asah.common.model.EventAnalysisBreakdown;
 import com.liferay.osb.asah.common.model.EventAnalysisFilter;
 import com.liferay.osb.asah.common.model.Interval;
+import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
-import com.liferay.osb.asah.common.model.Site;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.model.filter.FilterOperator;
 import com.liferay.osb.asah.common.model.filter.FilterOperators;
@@ -705,6 +705,107 @@ public class BQEventRepositoryImpl
 	}
 
 	@Override
+	public List<RecentSite> getRecentSites(
+		String individualId, Pageable pageable, TimeRange timeRange) {
+
+		return _queryExecutor.queryForList(
+			RecentSite::new,
+			_dslContext.select(
+				_dslHelper.jsonExtractScalar(
+					"BQEvent.context", "groupId"
+				).as(
+					"groupid"
+				),
+				DSL.min(
+					DSL.field("BQEvent.eventDate")
+				).as(
+					"createDate"
+				),
+				DSL.count(
+					DSL.asterisk()
+				).as(
+					"counts"
+				),
+				DSL.max(
+					DSL.field("BQEvent.eventDate")
+				).as(
+					"lastModifiedDate"
+				)
+			).from(
+				DSL.table("BQEvent")
+			).join(
+				DSL.table("BQIdentity")
+			).on(
+				DSL.field(
+					"BQEvent.userId"
+				).eq(
+					DSL.field("BQIdentity.id")
+				)
+			).where(
+				DSL.and(
+					_createCondition(
+						null, null, individualId, Collections.emptySet(),
+						timeRange),
+					DSL.field(
+						"BQEvent.eventId"
+					).eq(
+						"pageViewed"
+					))
+			).groupBy(
+				DSL.field("groupid")
+			).orderBy(
+				getSortFields(pageable.getSort(), null)
+			).limit(
+				pageable.getPageSize()
+			).offset(
+				pageable.getOffset()
+			));
+	}
+
+	@Override
+	public long getRecentSitesCount(String individualId, TimeRange timeRange) {
+		SelectSelectStep<Record1<Integer>> selectSelectStep =
+			_dslContext.selectCount();
+
+		return _queryExecutor.queryForLong(
+			selectSelectStep.from(
+				_dslContext.select(
+					DSL.count(
+						DSL.asterisk()
+					).as(
+						"counts"
+					),
+					_dslHelper.jsonExtractScalar(
+						"BQEvent.context", "groupId"
+					).as(
+						"groupid"
+					)
+				).from(
+					"BQEvent"
+				).join(
+					DSL.table("BQIdentity")
+				).on(
+					DSL.field(
+						"BQEvent.userId"
+					).eq(
+						DSL.field("BQIdentity.id")
+					)
+				).where(
+					DSL.and(
+						_createCondition(
+							null, null, individualId, Collections.emptySet(),
+							timeRange),
+						DSL.field(
+							"BQEvent.eventId"
+						).eq(
+							"pageViewed"
+						))
+				).groupBy(
+					DSL.field("groupid")
+				)));
+	}
+
+	@Override
 	public List<SearchKeyword> getSearchKeywords(
 		@Nullable String displayLanguageId, @Nullable String groupId,
 		@Nullable String individualId, int minCounts, Pageable pageable,
@@ -931,107 +1032,6 @@ public class BQEventRepositoryImpl
 					timeRange.getStartLocalDateTime(), searchTermField,
 					timeZoneId)
 			));
-	}
-
-	@Override
-	public List<Site> getSites(
-		String individualId, Pageable pageable, TimeRange timeRange) {
-
-		return _queryExecutor.queryForList(
-			Site::new,
-			_dslContext.select(
-				_dslHelper.jsonExtractScalar(
-					"BQEvent.context", "groupId"
-				).as(
-					"groupid"
-				),
-				DSL.min(
-					DSL.field("BQEvent.eventDate")
-				).as(
-					"createDate"
-				),
-				DSL.count(
-					DSL.asterisk()
-				).as(
-					"counts"
-				),
-				DSL.max(
-					DSL.field("BQEvent.eventDate")
-				).as(
-					"lastModifiedDate"
-				)
-			).from(
-				DSL.table("BQEvent")
-			).join(
-				DSL.table("BQIdentity")
-			).on(
-				DSL.field(
-					"BQEvent.userId"
-				).eq(
-					DSL.field("BQIdentity.id")
-				)
-			).where(
-				DSL.and(
-					_createCondition(
-						null, null, individualId, Collections.emptySet(),
-						timeRange),
-					DSL.field(
-						"BQEvent.eventId"
-					).eq(
-						"pageViewed"
-					))
-			).groupBy(
-				DSL.field("groupid")
-			).orderBy(
-				getSortFields(pageable.getSort(), null)
-			).limit(
-				pageable.getPageSize()
-			).offset(
-				pageable.getOffset()
-			));
-	}
-
-	@Override
-	public long getSitesCount(String individualId, TimeRange timeRange) {
-		SelectSelectStep<Record1<Integer>> selectSelectStep =
-			_dslContext.selectCount();
-
-		return _queryExecutor.queryForLong(
-			selectSelectStep.from(
-				_dslContext.select(
-					DSL.count(
-						DSL.asterisk()
-					).as(
-						"counts"
-					),
-					_dslHelper.jsonExtractScalar(
-						"BQEvent.context", "groupId"
-					).as(
-						"groupid"
-					)
-				).from(
-					"BQEvent"
-				).join(
-					DSL.table("BQIdentity")
-				).on(
-					DSL.field(
-						"BQEvent.userId"
-					).eq(
-						DSL.field("BQIdentity.id")
-					)
-				).where(
-					DSL.and(
-						_createCondition(
-							null, null, individualId, Collections.emptySet(),
-							timeRange),
-						DSL.field(
-							"BQEvent.eventId"
-						).eq(
-							"pageViewed"
-						))
-				).groupBy(
-					DSL.field("groupid")
-				)));
 	}
 
 	@Override

@@ -11,8 +11,8 @@ import com.liferay.osb.asah.common.model.BreakdownRow;
 import com.liferay.osb.asah.common.model.EventAnalysisBreakdown;
 import com.liferay.osb.asah.common.model.EventAnalysisFilter;
 import com.liferay.osb.asah.common.model.Interval;
+import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
-import com.liferay.osb.asah.common.model.Site;
 import com.liferay.osb.asah.common.model.TimeRange;
 
 import java.math.BigDecimal;
@@ -104,6 +104,13 @@ public interface CustomBQEventRepository {
 	public Map<String, Date> getLastSeenDateDateGroupedByColumnName(
 		String columnName, int size);
 
+	public List<RecentSite> getRecentSites(
+		@Nullable String individualId, Pageable pageable,
+		@Nullable TimeRange timeRange);
+
+	public long getRecentSitesCount(
+		@Nullable String individualId, @Nullable TimeRange timeRange);
+
 	public List<SearchKeyword> getSearchKeywords(
 		@Nullable String displayLanguageId, @Nullable String groupId,
 		@Nullable String individualId, int minCounts, Pageable pageable,
@@ -121,13 +128,6 @@ public interface CustomBQEventRepository {
 	public long getSearchTermsCount(
 		Long channelId, String[] searchQueryParams, TimeRange timeRange,
 		String timeZoneId);
-
-	public List<Site> getSites(
-		@Nullable String individualId, Pageable pageable,
-		@Nullable TimeRange timeRange);
-
-	public long getSitesCount(
-		@Nullable String individualId, @Nullable TimeRange timeRange);
 
 	public BQEvent insert(BQEvent bqEvent);
 

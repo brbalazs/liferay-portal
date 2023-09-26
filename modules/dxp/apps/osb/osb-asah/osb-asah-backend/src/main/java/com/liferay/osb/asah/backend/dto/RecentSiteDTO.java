@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import com.liferay.osb.asah.common.date.DateUtil;
-import com.liferay.osb.asah.common.model.Site;
+import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.util.SetUtil;
 
 import java.util.Date;
@@ -23,20 +23,20 @@ import java.util.Set;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonRootName("recent-sites")
-public class SiteDTO {
+public class RecentSiteDTO {
 
-	public SiteDTO() {
+	public RecentSiteDTO() {
 	}
 
-	public SiteDTO(List<Site> sites) {
-		_siteDTOs = SetUtil.map(sites, SiteDTO::new);
+	public RecentSiteDTO(List<RecentSite> recentSites) {
+		_recentSiteDTOs = SetUtil.map(recentSites, RecentSiteDTO::new);
 	}
 
-	public SiteDTO(Site site) {
-		_count = site.getCounts();
-		_createDate = site.getCreateDate();
-		_groupId = site.getGroupId();
-		_lastModifiedDate = site.getLastModifiedDate();
+	public RecentSiteDTO(RecentSite recentSite) {
+		_count = recentSite.getCounts();
+		_createDate = recentSite.getCreateDate();
+		_groupId = recentSite.getGroupId();
+		_lastModifiedDate = recentSite.getLastModifiedDate();
 	}
 
 	public Long getCount() {
@@ -72,14 +72,14 @@ public class SiteDTO {
 	}
 
 	@JsonProperty("recent-sites")
-	public Set<SiteDTO> getSiteDTOs() {
-		return _siteDTOs;
+	public Set<RecentSiteDTO> getRecentSiteDTOs() {
+		return _recentSiteDTOs;
 	}
 
 	private Long _count;
 	private Date _createDate;
 	private String _groupId;
 	private Date _lastModifiedDate;
-	private Set<SiteDTO> _siteDTOs;
+	private Set<RecentSiteDTO> _recentSiteDTOs;
 
 }

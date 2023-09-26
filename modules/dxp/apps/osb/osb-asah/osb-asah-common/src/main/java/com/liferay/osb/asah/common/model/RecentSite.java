@@ -13,12 +13,12 @@ import java.util.Map;
 /**
  * @author Marcos Martins
  */
-public class Site {
+public class RecentSite {
 
-	public Site() {
+	public RecentSite() {
 	}
 
-	public Site(Map<String, Object> source) {
+	public RecentSite(Map<String, Object> source) {
 		BeanUtils.copyProperties(source, this);
 	}
 

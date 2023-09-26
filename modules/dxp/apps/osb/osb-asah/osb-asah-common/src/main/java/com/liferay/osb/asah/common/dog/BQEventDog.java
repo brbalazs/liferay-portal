@@ -15,8 +15,8 @@ import com.liferay.osb.asah.common.entity.EventAttributeDefinition;
 import com.liferay.osb.asah.common.entity.Preference;
 import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.model.BQEventPropertyValue;
+import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
-import com.liferay.osb.asah.common.model.Site;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.repository.BQEventPropertyRepository;
@@ -191,6 +191,27 @@ public class BQEventDog {
 			columnName, size);
 	}
 
+	public Page<RecentSite> getRecentSitePage(
+		String individualId, int page, int size, String[] sorts,
+		TimeRange timeRange) {
+
+		Pageable pageable = PageRequest.of(page, size, _getSort(sorts));
+
+		if ((individualId != null) &&
+			_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
+
+			return PageableExecutionUtils.getPage(
+				Collections.emptyList(), pageable, () -> 0);
+		}
+
+		return PageableExecutionUtils.getPage(
+			_bqEventRepository.getRecentSites(
+				individualId, pageable, timeRange),
+			pageable,
+			() -> _bqEventRepository.getRecentSitesCount(
+				individualId, timeRange));
+	}
+
 	public Page<SearchKeyword> getSearchKeywordPage(
 		@Nullable String displayLanguageId, @Nullable String groupId,
 		@Nullable String individualId, int minCounts, int page, int size,
@@ -213,25 +234,6 @@ public class BQEventDog {
 			() -> _bqEventRepository.getSearchKeywordsCount(
 				displayLanguageId, groupId, individualId, minCounts,
 				searchQueryStrings, timeRange));
-	}
-
-	public Page<Site> getSitesPage(
-		String individualId, int page, int size, String[] sorts,
-		TimeRange timeRange) {
-
-		Pageable pageable = PageRequest.of(page, size, _getSort(sorts));
-
-		if ((individualId != null) &&
-			_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
-
-			return PageableExecutionUtils.getPage(
-				Collections.emptyList(), pageable, () -> 0);
-		}
-
-		return PageableExecutionUtils.getPage(
-			_bqEventRepository.getSites(individualId, pageable, timeRange),
-			pageable,
-			() -> _bqEventRepository.getSitesCount(individualId, timeRange));
 	}
 
 	public List<BQEvent> searchBQEvents(
