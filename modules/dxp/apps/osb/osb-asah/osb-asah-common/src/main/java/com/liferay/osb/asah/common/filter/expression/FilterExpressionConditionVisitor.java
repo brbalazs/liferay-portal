@@ -9,15 +9,12 @@ import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.date.dog.util.TimeZoneDogUtil;
 import com.liferay.osb.asah.common.filter.expression.parser.FilterExpressionBaseVisitor;
 import com.liferay.osb.asah.common.filter.expression.parser.FilterExpressionParser;
-import com.liferay.osb.asah.common.util.PostgresDialectThreadLocal;
 import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.common.util.StringUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -1076,21 +1073,8 @@ public class FilterExpressionConditionVisitor
 	}
 
 	private Field _getDateField(Field field) {
-		ZoneId zoneId = TimeZoneDogUtil.getZoneId();
-
-		if (PostgresDialectThreadLocal.isPostgresDialect()) {
-			if (StringUtils.equals(zoneId.toString(), "UTC")) {
-				return DSL.function("DATE", Date.class, field);
-			}
-
-			return DSL.function(
-				"DATE", Date.class,
-				DSL.field(
-					String.format("%s AT TIME ZONE '%s'", field, zoneId),
-					OffsetDateTime.class));
-		}
-
-		return DSL.function("DATE", Date.class, field, DSL.val(zoneId));
+		return DSL.function(
+			"DATE", Date.class, field, DSL.val(TimeZoneDogUtil.getZoneId()));
 	}
 
 	private Condition _getDemographicsFieldCondition(
