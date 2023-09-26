@@ -14,7 +14,7 @@ import org.apache.beam.sdk.options.Validation;
  */
 public interface DXPIngestionPipelineOptions extends DataflowPipelineOptions {
 
-	@Description("Return the Zip file path")
+	@Description("Return the BigQuery GCS temporary location")
 	@Validation.Required
 	public String getBigQueryWriterTempLocation();
 
