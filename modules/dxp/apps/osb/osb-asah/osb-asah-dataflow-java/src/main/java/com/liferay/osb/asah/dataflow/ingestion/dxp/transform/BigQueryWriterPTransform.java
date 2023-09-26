@@ -26,9 +26,9 @@ import org.apache.beam.sdk.values.ValueInSingleWindow;
 public class BigQueryWriterPTransform<T>
 	extends PTransform<PCollection<T>, WriteResult> {
 
-	public BigQueryWriterPTransform(String tableName, String gcsTempLocation) {
-		_tableName = tableName;
+	public BigQueryWriterPTransform(String gcsTempLocation, String tableName) {
 		_gcsTempLocation = gcsTempLocation;
+		_tableName = tableName;
 	}
 
 	@Override

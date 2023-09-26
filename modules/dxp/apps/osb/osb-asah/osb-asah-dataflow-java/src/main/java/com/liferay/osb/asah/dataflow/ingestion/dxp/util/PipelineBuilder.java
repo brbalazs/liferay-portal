@@ -71,7 +71,7 @@ public class PipelineBuilder {
 				parserPTransform.getSuccessTupleTag()
 			).apply(
 				new BigQueryWriterPTransform<>(
-					bigQueryWriterStep.getTable(), null)
+					null, bigQueryWriterStep.getTable())
 			);
 
 			if (_steps.containsKey("withFailedParsedItemsToGCS")) {

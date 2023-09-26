@@ -46,9 +46,9 @@ public class DXPProductIngestionPipeline {
 		).apply(
 			"Write Products",
 			new BigQueryWriterPTransform<>(
-				dxpProductIngestionPipelineOptions.getProductBigQueryTable(),
 				dxpProductIngestionPipelineOptions.
-					getBigQueryWriterTempLocation())
+					getBigQueryWriterTempLocation(),
+				dxpProductIngestionPipelineOptions.getProductBigQueryTable())
 		);
 
 		return pipeline.run();

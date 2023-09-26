@@ -62,9 +62,9 @@ public class DXPOrderIngestionPipeline {
 		).apply(
 			"Write Orders",
 			new BigQueryWriterPTransform<>(
-				dxpOrderIngestionPipelineOptions.getOrderBigQueryTable(),
 				dxpOrderIngestionPipelineOptions.
-					getBigQueryWriterTempLocation())
+					getBigQueryWriterTempLocation(),
+				dxpOrderIngestionPipelineOptions.getOrderBigQueryTable())
 		);
 
 		return pipeline.run();
