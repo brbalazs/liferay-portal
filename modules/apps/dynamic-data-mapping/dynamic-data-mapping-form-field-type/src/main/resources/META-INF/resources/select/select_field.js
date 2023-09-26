@@ -396,6 +396,10 @@ AUI.add(
 							);
 						}
 
+						instance.onceAfter('render', function() {
+							instance.showErrorMessage();
+						});
+
 						return instance;
 					},
 
