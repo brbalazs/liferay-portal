@@ -971,8 +971,15 @@ public class BQEventRepositoryImpl
 					DSL.field("BQIdentity.id")
 				)
 			).where(
-				_createCondition(
-					null, null, individualId, Collections.emptySet(), timeRange)
+				DSL.and(
+					_createCondition(
+						null, null, individualId, Collections.emptySet(),
+						timeRange),
+					DSL.field(
+						"BQEvent.eventId"
+					).eq(
+						"pageViewed"
+					))
 			).groupBy(
 				DSL.field("groupid")
 			).orderBy(
@@ -1013,9 +1020,15 @@ public class BQEventRepositoryImpl
 						DSL.field("BQIdentity.id")
 					)
 				).where(
-					_createCondition(
-						null, null, individualId, Collections.emptySet(),
-						timeRange)
+					DSL.and(
+						_createCondition(
+							null, null, individualId, Collections.emptySet(),
+							timeRange),
+						DSL.field(
+							"BQEvent.eventId"
+						).eq(
+							"pageViewed"
+						))
 				).groupBy(
 					DSL.field("groupid")
 				)));
