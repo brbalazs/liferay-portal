@@ -17,6 +17,7 @@ import com.liferay.osb.asah.common.zip.ZipFileBuilder;
 import java.io.File;
 import java.io.FileInputStream;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,8 @@ public class DataControlTasksRestController extends BaseRestController {
 
 	@GetMapping
 	public ResponseEntity downloadBatch(
-			@RequestParam("filter") String filterString)
+			@RequestParam(required = false) Long batchId,
+			@RequestParam(required = false) Long[] ids)
 		throws Exception {
 
 		File file = File.createTempFile(
@@ -76,7 +78,8 @@ public class DataControlTasksRestController extends BaseRestController {
 
 		List<DataControlTask> dataControlTasks =
 			_dataControlTaskDog.getPrioritizedDataControlTasks(
-				filterString, DataControlTaskStatus.COMPLETED.toString());
+				batchId, null, ids, DataControlTaskStatus.COMPLETED.toString(),
+				null);
 
 		ZipFileBuilder zipFileBuilder = new ZipFileBuilder(file);
 
@@ -114,13 +117,12 @@ public class DataControlTasksRestController extends BaseRestController {
 
 	@GetMapping("/logs")
 	public ResponseEntity downloadLogs(
-			@RequestParam(name = "filter", required = false) String
-				filterString)
+			@RequestParam Date fromDate, @RequestParam Date toDate)
 		throws Exception {
 
 		List<DataControlTask> dataControlTasks =
 			_dataControlTaskDog.getPrioritizedDataControlTasks(
-				filterString, null);
+				null, fromDate, null, null, toDate);
 
 		Stream<DataControlTask> stream = dataControlTasks.stream();
 

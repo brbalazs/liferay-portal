@@ -19,7 +19,6 @@ import com.liferay.osb.asah.common.model.DataControlTaskStatus;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.repository.DataControlTaskRepository;
 import com.liferay.osb.asah.common.repository.executor.BigQueryQueryExecutor;
-import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 import com.liferay.osb.asah.common.spring.resource.ResourceUtil;
 import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.TimeOrderedUuidGenerator;
@@ -207,12 +206,11 @@ public class DataControlTaskDog {
 	}
 
 	public List<DataControlTask> getPrioritizedDataControlTasks(
-		String filterString, String status) {
-
-		FilterHelper filterHelper = new FilterHelper(filterString);
+		@Nullable Long batchId, @Nullable Date fromDate, @Nullable Long[] ids,
+		@Nullable String status, @Nullable Date toDate) {
 
 		return _dataControlTaskRepository.searchDataControlTasks(
-			filterHelper, status);
+			batchId, fromDate, ids, status, toDate);
 	}
 
 	public List<DataControlTask> getPrioritizedPendingDataControlTasks() {
