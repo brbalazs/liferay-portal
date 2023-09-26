@@ -16,6 +16,7 @@ import com.liferay.osb.asah.common.model.DateGrouping;
 import com.liferay.osb.asah.common.model.EventAnalysisBreakdown;
 import com.liferay.osb.asah.common.model.EventAnalysisFilter;
 import com.liferay.osb.asah.common.model.Interval;
+import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
 import com.liferay.osb.asah.common.model.TimeRange;
@@ -702,6 +703,76 @@ public class BQEventRepositoryImpl
 				size
 			),
 			value -> (Date)value);
+	}
+
+	@Override
+	public List<RecentPage> getRecentPages(
+		@Nullable String displayLanguageId, String individualId,
+		Pageable pageable, TimeRange timeRange) {
+
+		Field<Date> eventDateField = DSL.field("eventDate", Date.class);
+
+		SelectHavingStep selectHavingStep = _getRecentPagesSelectHavingStep(
+			displayLanguageId, individualId,
+			_dslContext.select(
+				DSL.min(
+					eventDateField
+				).as(
+					"createDate"
+				),
+				DSL.count(
+				).cast(
+					BigDecimal.class
+				).as(
+					"counts"
+				),
+				DSL.field(
+					"contentLanguageId", String.class
+				).as(
+					"displayLanguageId"
+				),
+				DSL.max(
+					eventDateField
+				).as(
+					"lastModifiedDate"
+				),
+				DSL.field(
+					"canonicalUrl", String.class
+				).as(
+					"url"
+				)),
+			timeRange);
+
+		return _queryExecutor.queryForList(
+			RecentPage::new,
+			selectHavingStep.orderBy(
+				getSortFields(pageable.getSort(), null)
+			).limit(
+				pageable.getPageSize()
+			).offset(
+				pageable.getOffset()
+			));
+	}
+
+	@Override
+	public Long getRecentPagesCount(
+		@Nullable String displayLanguageId, String individualId,
+		TimeRange timeRange) {
+
+		return _queryExecutor.queryForLong(
+			_dslContext.with(
+				"RecentPages"
+			).as(
+				_getRecentPagesSelectHavingStep(
+					displayLanguageId, individualId,
+					_dslContext.select(
+						DSL.field("contentLanguageId"),
+						DSL.field("canonicalUrl")),
+					timeRange)
+			).selectCount(
+			).from(
+				"RecentPages"
+			));
 	}
 
 	@Override
@@ -1986,6 +2057,51 @@ public class BQEventRepositoryImpl
 			_dslHelper.regexpExtract(
 				_dslHelper.regexpReplace("BQEvent.url", "(?:%20|\\s)", "+"),
 				"[?&](?:" + String.join("|", searchQueryParams) + ")=([^&]+)"));
+	}
+
+	private SelectHavingStep _getRecentPagesSelectHavingStep(
+		String displayLanguageId, String individualId,
+		SelectSelectStep selectSelectStep, TimeRange timeRange) {
+
+		return selectSelectStep.from(
+			"BQEvent"
+		).join(
+			DSL.table("BQIdentity")
+		).on(
+			DSL.field(
+				"BQEvent.userId"
+			).eq(
+				DSL.field("BQIdentity.id")
+			)
+		).join(
+			DSL.table(
+				"BQIndividual"
+			).as(
+				"Individual"
+			)
+		).on(
+			DSL.and(
+				DSL.field(
+					"Individual.id"
+				).eq(
+					DSL.field("BQIdentity.individualId")
+				),
+				DSL.or(
+					DSL.field(
+						"Individual.suppressed"
+					).isNull(),
+					DSL.field(
+						"Individual.suppressed"
+					).notEqual(
+						DSL.val(Boolean.TRUE)
+					)))
+		).where(
+			_createConditions(
+				displayLanguageId, null, individualId, Collections.emptySet(),
+				timeRange)
+		).groupBy(
+			DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
+		);
 	}
 
 	private String _getSanitizedEventAttributeDefinitionName(

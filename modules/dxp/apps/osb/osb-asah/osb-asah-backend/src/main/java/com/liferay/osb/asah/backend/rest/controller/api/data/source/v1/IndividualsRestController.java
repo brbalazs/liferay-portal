@@ -5,7 +5,6 @@
 
 package com.liferay.osb.asah.backend.rest.controller.api.data.source.v1;
 
-import com.liferay.osb.asah.backend.dog.PageDog;
 import com.liferay.osb.asah.backend.dto.IndividualDTO;
 import com.liferay.osb.asah.backend.dto.PageDTO;
 import com.liferay.osb.asah.backend.dto.RecentPageDTO;
@@ -225,7 +224,7 @@ public class IndividualsRestController extends BaseRestController {
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
-		Page<RecentPage> recentPagesPage = _pageDog.getRecentPagesPage(
+		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
 			displayLanguageId, id, page, rangeKey, size, sorts);
 
 		return new PageDTO<>(
@@ -440,9 +439,6 @@ public class IndividualsRestController extends BaseRestController {
 
 	@Autowired
 	private DataSourceDog _dataSourceDog;
-
-	@Autowired
-	private PageDog _pageDog;
 
 	@Autowired
 	private SegmentDog _segmentDog;

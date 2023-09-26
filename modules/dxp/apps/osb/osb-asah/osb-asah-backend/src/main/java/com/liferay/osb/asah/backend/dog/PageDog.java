@@ -12,9 +12,7 @@ import com.liferay.osb.asah.backend.repository.PageAssetMetricRepository;
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.dog.SuppressionDog;
-import com.liferay.osb.asah.common.dog.util.SortUtil;
 import com.liferay.osb.asah.common.model.PageMetricType;
-import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.TimeRange;
 
 import java.time.LocalDate;
@@ -23,11 +21,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
@@ -57,29 +50,6 @@ public class PageDog {
 			canonicalUrl, fromLocalDate, PageMetricType.READS, toLocalDate);
 
 		return _getLongValue(pageMetric.getReadsMetric());
-	}
-
-	public Page<RecentPage> getRecentPagesPage(
-		@Nullable String displayLanguageId, String individualId, int page,
-		int rangeKey, int size, String[] sorts) {
-
-		Pageable pageable = PageRequest.of(
-			page, size,
-			SortUtil.getSort(Sort.by(Sort.Order.desc("counts")), sorts));
-
-		if (_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
-			return PageableExecutionUtils.getPage(
-				Collections.emptyList(), pageable, () -> 0);
-		}
-
-		TimeRange timeRange = TimeRange.of(rangeKey);
-
-		return PageableExecutionUtils.getPage(
-			_pageAssetMetricRepository.getRecentPages(
-				displayLanguageId, individualId, pageable, timeRange),
-			pageable,
-			() -> _pageAssetMetricRepository.getRecentPagesCount(
-				displayLanguageId, individualId, timeRange));
 	}
 
 	public long getViewsMetricValue(@Nullable String canonicalUrl) {

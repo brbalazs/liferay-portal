@@ -8,6 +8,7 @@ package com.liferay.osb.asah.common.dog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
+import com.liferay.osb.asah.common.dog.util.SortUtil;
 import com.liferay.osb.asah.common.entity.BQEvent;
 import com.liferay.osb.asah.common.entity.BQEventProperty;
 import com.liferay.osb.asah.common.entity.BQSession;
@@ -15,6 +16,7 @@ import com.liferay.osb.asah.common.entity.EventAttributeDefinition;
 import com.liferay.osb.asah.common.entity.Preference;
 import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.model.BQEventPropertyValue;
+import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
 import com.liferay.osb.asah.common.model.Sort;
@@ -189,6 +191,32 @@ public class BQEventDog {
 
 		return _bqEventRepository.getLastSeenDateDateGroupedByColumnName(
 			columnName, size);
+	}
+
+	public Page<RecentPage> getRecentPagesPage(
+		@Nullable String displayLanguageId, String individualId, int page,
+		int rangeKey, int size, String[] sorts) {
+
+		Pageable pageable = PageRequest.of(
+			page, size,
+			SortUtil.getSort(
+				org.springframework.data.domain.Sort.by(
+					org.springframework.data.domain.Sort.Order.desc("counts")),
+				sorts));
+
+		if (_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
+			return PageableExecutionUtils.getPage(
+				Collections.emptyList(), pageable, () -> 0);
+		}
+
+		TimeRange timeRange = TimeRange.of(rangeKey);
+
+		return PageableExecutionUtils.getPage(
+			_bqEventRepository.getRecentPages(
+				displayLanguageId, individualId, pageable, timeRange),
+			pageable,
+			() -> _bqEventRepository.getRecentPagesCount(
+				displayLanguageId, individualId, timeRange));
 	}
 
 	public Page<RecentSite> getRecentSitePage(

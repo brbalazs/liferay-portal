@@ -13,7 +13,6 @@ import com.liferay.osb.asah.backend.repository.PageAssetMetricRepository;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.model.MetricType;
 import com.liferay.osb.asah.common.model.PageMetricType;
-import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.TimeRange;
 
 import java.math.BigDecimal;
@@ -22,7 +21,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,14 +37,10 @@ import org.jooq.Condition;
 import org.jooq.DatePart;
 import org.jooq.Field;
 import org.jooq.Record;
-import org.jooq.SelectHavingStep;
 import org.jooq.SelectJoinStep;
 import org.jooq.SelectSelectStep;
-import org.jooq.SortField;
 import org.jooq.impl.DSL;
 
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
@@ -173,77 +167,6 @@ public class PageAssetMetricRepositoryImpl
 					dslHelper.getDateParam(
 						timeRange.getEndLocalDateTime(), zoneId.toString())
 				)));
-	}
-
-	@Override
-	public List<RecentPage> getRecentPages(
-		@Nullable String displayLanguageId, String individualId,
-		Pageable pageable, TimeRange timeRange) {
-
-		Field<Date> eventDateField = DSL.field("eventDate", Date.class);
-
-		SelectHavingStep selectHavingStep = _getRecentPagesSelectHavingStep(
-			displayLanguageId, individualId,
-			dslContext.select(
-				DSL.min(
-					eventDateField
-				).as(
-					"createDate"
-				),
-				DSL.sum(
-					DSL.field("views", Long.class)
-				).cast(
-					BigDecimal.class
-				).as(
-					"counts"
-				),
-				DSL.field(
-					"contentLanguageId", String.class
-				).as(
-					"displayLanguageId"
-				),
-				DSL.max(
-					eventDateField
-				).as(
-					"lastModifiedDate"
-				),
-				DSL.field(
-					"canonicalUrl", String.class
-				).as(
-					"url"
-				)),
-			timeRange);
-
-		return queryExecutor.queryForList(
-			RecentPage::new,
-			selectHavingStep.orderBy(
-				_getSortFields(pageable.getSort())
-			).limit(
-				pageable.getPageSize()
-			).offset(
-				pageable.getOffset()
-			));
-	}
-
-	@Override
-	public Long getRecentPagesCount(
-		@Nullable String displayLanguageId, String individualId,
-		TimeRange timeRange) {
-
-		return queryExecutor.queryForLong(
-			dslContext.with(
-				"RecentPages"
-			).as(
-				_getRecentPagesSelectHavingStep(
-					displayLanguageId, individualId,
-					dslContext.select(
-						DSL.field("contentLanguageId"),
-						DSL.field("canonicalUrl")),
-					timeRange)
-			).selectCount(
-			).from(
-				"RecentPages"
-			));
 	}
 
 	@Override
@@ -572,42 +495,6 @@ public class PageAssetMetricRepositoryImpl
 		return conditions;
 	}
 
-	private List<Condition> _getConditions(
-		@Nullable String displayLanguageId, String individualId,
-		TimeRange timeRange) {
-
-		ZoneId zoneId = timeZoneDog.getZoneId();
-
-		List<Condition> conditions = new ArrayList<>();
-
-		conditions.add(
-			DSL.field(
-				"eventDate"
-			).between(
-				dslHelper.getDateParam(
-					timeRange.getStartLocalDateTime(), zoneId.toString()),
-				dslHelper.getDateParam(
-					timeRange.getEndLocalDateTime(), zoneId.toString())
-			));
-		conditions.add(
-			DSL.field(
-				"Identity.individualId"
-			).eq(
-				individualId
-			));
-
-		if (StringUtils.isNotBlank(displayLanguageId)) {
-			conditions.add(
-				DSL.field(
-					"contentLanguageId"
-				).eq(
-					displayLanguageId
-				));
-		}
-
-		return conditions;
-	}
-
 	private List<Field<BigDecimal>> _getMetricFields(
 		Set<PageMetricType> pageMetricTypes, TimeRange timeRange) {
 
@@ -618,87 +505,6 @@ public class PageAssetMetricRepositoryImpl
 		).collect(
 			Collectors.toList()
 		);
-	}
-
-	private SelectHavingStep _getRecentPagesSelectHavingStep(
-		String displayLanguageId, String individualId,
-		SelectSelectStep selectSelectStep, TimeRange timeRange) {
-
-		return selectSelectStep.from(
-			getTableName(timeRange)
-		).join(
-			DSL.table(
-				"BQIdentity"
-			).as(
-				"Identity"
-			)
-		).on(
-			DSL.field(
-				getTableName(timeRange) + ".userId"
-			).eq(
-				DSL.field("Identity.id")
-			)
-		).leftJoin(
-			DSL.table(
-				"BQIndividual"
-			).as(
-				"Individual"
-			)
-		).on(
-			DSL.and(
-				DSL.field(
-					"Individual.id"
-				).eq(
-					DSL.field("Identity.individualId")
-				),
-				DSL.or(
-					DSL.field(
-						"Individual.suppressed"
-					).isNull(),
-					DSL.field(
-						"Individual.suppressed"
-					).notEqual(
-						DSL.val(Boolean.TRUE)
-					)))
-		).where(
-			_getConditions(displayLanguageId, individualId, timeRange)
-		).groupBy(
-			DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
-		);
-	}
-
-	private Collection<SortField<?>> _getSortFields(Sort sort) {
-		Collection<SortField<?>> sortFields = new ArrayList<>();
-
-		List<Sort.Order> sortOrders = new ArrayList<>();
-
-		if (sort != null) {
-			sortOrders = sort.toList();
-		}
-
-		if (sortOrders.isEmpty()) {
-			sortFields.add(
-				DSL.field(
-					"counts"
-				).desc());
-
-			return sortFields;
-		}
-
-		for (Sort.Order sortOrder : sortOrders) {
-			String fieldName = sortOrder.getProperty();
-
-			Field<?> field = DSL.field(fieldName);
-
-			if (sortOrder.getDirection() == Sort.Direction.ASC) {
-				sortFields.add(field.asc());
-			}
-			else {
-				sortFields.add(field.desc());
-			}
-		}
-
-		return sortFields;
 	}
 
 	private PageMetric _toPageMetric(
