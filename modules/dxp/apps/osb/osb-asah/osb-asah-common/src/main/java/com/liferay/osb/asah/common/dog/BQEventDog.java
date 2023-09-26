@@ -211,12 +211,15 @@ public class BQEventDog {
 
 		TimeRange timeRange = TimeRange.of(rangeKey);
 
+		String timeZoneId = _timeZoneDog.getTimeZoneId();
+
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getRecentPages(
-				displayLanguageId, individualId, pageable, timeRange),
+				displayLanguageId, individualId, pageable, timeRange,
+				timeZoneId),
 			pageable,
 			() -> _bqEventRepository.getRecentPagesCount(
-				displayLanguageId, individualId, timeRange));
+				displayLanguageId, individualId, timeRange, timeZoneId));
 	}
 
 	public Page<RecentSite> getRecentSitePage(
@@ -232,12 +235,14 @@ public class BQEventDog {
 				Collections.emptyList(), pageable, () -> 0);
 		}
 
+		String timeZoneId = _timeZoneDog.getTimeZoneId();
+
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getRecentSites(
-				individualId, pageable, timeRange),
+				individualId, pageable, timeRange, timeZoneId),
 			pageable,
 			() -> _bqEventRepository.getRecentSitesCount(
-				individualId, timeRange));
+				individualId, timeRange, timeZoneId));
 	}
 
 	public Page<SearchKeyword> getSearchKeywordPage(
@@ -254,14 +259,16 @@ public class BQEventDog {
 
 		Set<String> searchQueryStrings = _getSearchQueryStrings();
 
+		String timeZoneId = _timeZoneDog.getTimeZoneId();
+
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getSearchKeywords(
 				displayLanguageId, groupId, individualId, minCounts, pageable,
-				searchQueryStrings, timeRange),
+				searchQueryStrings, timeRange, timeZoneId),
 			pageable,
 			() -> _bqEventRepository.getSearchKeywordsCount(
 				displayLanguageId, groupId, individualId, minCounts,
-				searchQueryStrings, timeRange));
+				searchQueryStrings, timeRange, timeZoneId));
 	}
 
 	public List<BQEvent> searchBQEvents(

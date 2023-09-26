@@ -708,7 +708,7 @@ public class BQEventRepositoryImpl
 	@Override
 	public List<RecentPage> getRecentPages(
 		@Nullable String displayLanguageId, String individualId,
-		Pageable pageable, TimeRange timeRange) {
+		Pageable pageable, TimeRange timeRange, String timeZoneId) {
 
 		Field<Date> eventDateField = DSL.field("eventDate", Date.class);
 
@@ -741,7 +741,7 @@ public class BQEventRepositoryImpl
 				).as(
 					"url"
 				)),
-			timeRange);
+			timeRange, timeZoneId);
 
 		return _queryExecutor.queryForList(
 			RecentPage::new,
@@ -757,7 +757,7 @@ public class BQEventRepositoryImpl
 	@Override
 	public Long getRecentPagesCount(
 		@Nullable String displayLanguageId, String individualId,
-		TimeRange timeRange) {
+		TimeRange timeRange, String timeZoneId) {
 
 		return _queryExecutor.queryForLong(
 			_dslContext.with(
@@ -768,7 +768,7 @@ public class BQEventRepositoryImpl
 					_dslContext.select(
 						DSL.field("contentLanguageId"),
 						DSL.field("canonicalUrl")),
-					timeRange)
+					timeRange, timeZoneId)
 			).selectCount(
 			).from(
 				"RecentPages"
@@ -777,7 +777,8 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public List<RecentSite> getRecentSites(
-		String individualId, Pageable pageable, TimeRange timeRange) {
+		String individualId, Pageable pageable, TimeRange timeRange,
+		String timeZoneId) {
 
 		return _queryExecutor.queryForList(
 			RecentSite::new,
@@ -814,7 +815,8 @@ public class BQEventRepositoryImpl
 				)
 			).where(
 				_createConditions(
-					null, null, individualId, Collections.emptySet(), timeRange)
+					null, null, individualId, Collections.emptySet(), timeRange,
+					timeZoneId)
 			).groupBy(
 				DSL.field("groupid")
 			).orderBy(
@@ -827,7 +829,9 @@ public class BQEventRepositoryImpl
 	}
 
 	@Override
-	public long getRecentSitesCount(String individualId, TimeRange timeRange) {
+	public long getRecentSitesCount(
+		String individualId, TimeRange timeRange, String timeZoneId) {
+
 		SelectSelectStep<Record1<Integer>> selectSelectStep =
 			_dslContext.selectCount();
 
@@ -857,7 +861,7 @@ public class BQEventRepositoryImpl
 				).where(
 					_createConditions(
 						null, null, individualId, Collections.emptySet(),
-						timeRange)
+						timeRange, timeZoneId)
 				).groupBy(
 					DSL.field("groupid")
 				)));
@@ -867,7 +871,8 @@ public class BQEventRepositoryImpl
 	public List<SearchKeyword> getSearchKeywords(
 		@Nullable String displayLanguageId, @Nullable String groupId,
 		@Nullable String individualId, int minCounts, Pageable pageable,
-		Set<String> searchQueryParams, @Nullable TimeRange timeRange) {
+		Set<String> searchQueryParams, @Nullable TimeRange timeRange,
+		String timeZoneId) {
 
 		SelectJoinStep selectJoinStep = _dslContext.select(
 			DSL.count(
@@ -942,7 +947,7 @@ public class BQEventRepositoryImpl
 			selectJoinStep.where(
 				_createConditions(
 					displayLanguageId, groupId, individualId, searchQueryParams,
-					timeRange)
+					timeRange, timeZoneId)
 			).groupBy(
 				DSL.field("displaylanguageid"), DSL.field("groupid"),
 				_dslHelper.getField(
@@ -966,7 +971,8 @@ public class BQEventRepositoryImpl
 	public long getSearchKeywordsCount(
 		@Nullable String displayLanguageId, @Nullable String groupId,
 		@Nullable String individualId, int minCounts,
-		Set<String> searchQueryParams, @Nullable TimeRange timeRange) {
+		Set<String> searchQueryParams, @Nullable TimeRange timeRange,
+		String timeZoneId) {
 
 		SelectSelectStep<Record1<Integer>> selectSelectStep =
 			_dslContext.selectCount();
@@ -1013,7 +1019,7 @@ public class BQEventRepositoryImpl
 				selectJoinStep.where(
 					_createConditions(
 						displayLanguageId, groupId, individualId,
-						searchQueryParams, timeRange)
+						searchQueryParams, timeRange, timeZoneId)
 				).groupBy(
 					DSL.field("displaylanguageid"), DSL.field("groupid"),
 					_dslHelper.getField(
@@ -1391,7 +1397,7 @@ public class BQEventRepositoryImpl
 	private List<Condition> _createConditions(
 		@Nullable String displayLanguageId, @Nullable String groupId,
 		@Nullable String individualId, Set<String> searchQueryParams,
-		@Nullable TimeRange timeRange) {
+		@Nullable TimeRange timeRange, String timeZoneId) {
 
 		List<Condition> conditions = new ArrayList<>();
 
@@ -1448,8 +1454,10 @@ public class BQEventRepositoryImpl
 				DSL.field(
 					"BQEvent.eventDate"
 				).between(
-					_dslHelper.getDateParam(timeRange.getStartDate()),
-					_dslHelper.getDateParam(timeRange.getEndDate())
+					_dslHelper.getDateParam(
+						timeRange.getStartLocalDateTime(), timeZoneId),
+					_dslHelper.getDateParam(
+						timeRange.getEndLocalDateTime(), timeZoneId)
 				));
 		}
 
@@ -2061,7 +2069,8 @@ public class BQEventRepositoryImpl
 
 	private SelectHavingStep _getRecentPagesSelectHavingStep(
 		String displayLanguageId, String individualId,
-		SelectSelectStep selectSelectStep, TimeRange timeRange) {
+		SelectSelectStep selectSelectStep, TimeRange timeRange,
+		String timeZoneId) {
 
 		return selectSelectStep.from(
 			"BQEvent"
@@ -2098,7 +2107,7 @@ public class BQEventRepositoryImpl
 		).where(
 			_createConditions(
 				displayLanguageId, null, individualId, Collections.emptySet(),
-				timeRange)
+				timeRange, timeZoneId)
 		).groupBy(
 			DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
 		);

@@ -107,28 +107,31 @@ public interface CustomBQEventRepository {
 
 	public List<RecentPage> getRecentPages(
 		@Nullable String displayLanguageId, String individualId,
-		Pageable pageable, TimeRange timeRange);
+		Pageable pageable, TimeRange timeRange, String timeZoneId);
 
 	public Long getRecentPagesCount(
 		@Nullable String displayLanguageId, String individualId,
-		TimeRange timeRange);
+		TimeRange timeRange, String timeZoneId);
 
 	public List<RecentSite> getRecentSites(
 		@Nullable String individualId, Pageable pageable,
-		@Nullable TimeRange timeRange);
+		@Nullable TimeRange timeRange, String timeZoneId);
 
 	public long getRecentSitesCount(
-		@Nullable String individualId, @Nullable TimeRange timeRange);
+		@Nullable String individualId, @Nullable TimeRange timeRange,
+		String timeZoneId);
 
 	public List<SearchKeyword> getSearchKeywords(
 		@Nullable String displayLanguageId, @Nullable String groupId,
 		@Nullable String individualId, int minCounts, Pageable pageable,
-		Set<String> searchQueryParams, @Nullable TimeRange timeRange);
+		Set<String> searchQueryParams, @Nullable TimeRange timeRange,
+		String timeZoneId);
 
 	public long getSearchKeywordsCount(
 		@Nullable String displayLanguageId, @Nullable String groupId,
 		@Nullable String individualId, int minCounts,
-		Set<String> searchQueryParams, @Nullable TimeRange timeRange);
+		Set<String> searchQueryParams, @Nullable TimeRange timeRange,
+		String timeZoneId);
 
 	public Map<String, BigDecimal> getSearchTerms(
 		Long channelId, String[] searchQueryParams, int size, int start,
