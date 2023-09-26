@@ -1327,6 +1327,12 @@ public class BQEventRepositoryImpl
 
 		conditions.add(
 			DSL.field(
+				"BQEvent.applicationId"
+			).eq(
+				"Page"
+			));
+		conditions.add(
+			DSL.field(
 				"BQEvent.eventId"
 			).eq(
 				"pageViewed"
