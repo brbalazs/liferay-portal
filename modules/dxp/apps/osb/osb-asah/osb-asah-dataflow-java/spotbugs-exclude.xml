@@ -21,6 +21,9 @@
 		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.transform.BigQueryWriterPTransform$1" />
 	</Match>
 	<Match>
+		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.transform.CommerceChannelIdMapPTransform" />
+	</Match>
+	<Match>
 		<Class name="com.liferay.osb.asah.dataflow.ingestion.event.EventIngestionPipeline$EventBigQueryWriter$1" />
 	</Match>
 	<Match>
