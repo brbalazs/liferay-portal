@@ -7,7 +7,6 @@ Import-Package:\
 	\
 	!com.beust.jcommander.*,\
 	\
-	!com.google.common.*,\
 	!com.google.errorprone.*,\
 	\
 	!com.sun.*,\
