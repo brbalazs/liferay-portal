@@ -19,8 +19,8 @@ import java.util.Set;
  */
 public enum ExperimentStatus {
 
-	COMPLETED(true), DRAFT(true), FINISHED_NO_WINNER(false),
-	FINISHED_WINNER(false), PAUSED(true), RUNNING(false), SCHEDULED(true),
+	COMPLETED(true), DRAFT(true), FINISHED_NO_WINNER(true),
+	FINISHED_WINNER(true), PAUSED(true), RUNNING(false), SCHEDULED(true),
 	TERMINATED(true);
 
 	public static boolean isValidTransition(
