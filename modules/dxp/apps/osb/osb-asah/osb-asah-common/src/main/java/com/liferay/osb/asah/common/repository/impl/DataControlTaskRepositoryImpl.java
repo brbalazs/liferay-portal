@@ -327,7 +327,7 @@ public class DataControlTaskRepositoryImpl
 		if ((ids != null) && (ids.length > 0)) {
 			conditions.add(
 				DSL.field(
-					"id"
+					"id", Long.class
 				).in(
 					ids
 				));
