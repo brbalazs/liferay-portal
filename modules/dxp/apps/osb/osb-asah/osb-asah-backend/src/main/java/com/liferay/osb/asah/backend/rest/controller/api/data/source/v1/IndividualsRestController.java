@@ -224,14 +224,13 @@ public class IndividualsRestController extends BaseRestController {
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			displayLanguageId, id, page, rangeKey, size, sorts);
 
 		return new PageDTO<>(
-			"_embedded", new RecentPageDTO(recentPagesPage.getContent()),
-			recentPagesPage.getNumber(), recentPagesPage.getSize(),
-			recentPagesPage.getTotalElements(),
-			recentPagesPage.getTotalPages());
+			"_embedded", new RecentPageDTO(recentPagePage.getContent()),
+			recentPagePage.getNumber(), recentPagePage.getSize(),
+			recentPagePage.getTotalElements(), recentPagePage.getTotalPages());
 	}
 
 	@GetMapping("/{id}/recent-sites")

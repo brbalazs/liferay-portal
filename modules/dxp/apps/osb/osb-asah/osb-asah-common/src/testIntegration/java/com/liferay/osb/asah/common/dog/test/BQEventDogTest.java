@@ -162,15 +162,15 @@ public class BQEventDogTest
 	@SQLResource(resourcePath = "test_get_recent_pages.sql")
 	@Test
 	public void testGetRecentPagesLast7Days() {
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 7, 10, new String[0]);
 
-		Assertions.assertEquals(2, recentPagesPage.getTotalElements());
-		Assertions.assertEquals(1, recentPagesPage.getTotalPages());
+		Assertions.assertEquals(2, recentPagePage.getTotalElements());
+		Assertions.assertEquals(1, recentPagePage.getTotalPages());
 
-		List<RecentPage> recentPages = recentPagesPage.getContent();
+		List<RecentPage> recentPages = recentPagePage.getContent();
 
 		Assertions.assertFalse(recentPages.isEmpty());
 
@@ -200,22 +200,22 @@ public class BQEventDogTest
 		expectedRecentPages.add(recentPage);
 
 		Assertions.assertEquals(
-			expectedRecentPages, recentPagesPage.getContent());
+			expectedRecentPages, recentPagePage.getContent());
 	}
 
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
 	@SQLResource(resourcePath = "test_get_recent_pages.sql")
 	@Test
 	public void testGetRecentPagesLast24Hours() {
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 0, 10, new String[0]);
 
-		Assertions.assertEquals(4, recentPagesPage.getTotalElements());
-		Assertions.assertEquals(1, recentPagesPage.getTotalPages());
+		Assertions.assertEquals(4, recentPagePage.getTotalElements());
+		Assertions.assertEquals(1, recentPagePage.getTotalPages());
 
-		List<RecentPage> recentPages = recentPagesPage.getContent();
+		List<RecentPage> recentPages = recentPagePage.getContent();
 
 		Assertions.assertFalse(recentPages.isEmpty());
 
@@ -256,13 +256,13 @@ public class BQEventDogTest
 	@SQLResource(resourcePath = "test_get_recent_pages.sql")
 	@Test
 	public void testGetRecentPagesLast28Days() {
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 28, 10, new String[0]);
 
-		Assertions.assertEquals(4, recentPagesPage.getTotalElements());
-		Assertions.assertEquals(1, recentPagesPage.getTotalPages());
+		Assertions.assertEquals(4, recentPagePage.getTotalElements());
+		Assertions.assertEquals(1, recentPagePage.getTotalPages());
 
 		List<RecentPage> expectedRecentPages = new ArrayList<>();
 
@@ -313,20 +313,20 @@ public class BQEventDogTest
 		expectedRecentPages.add(recentPage);
 
 		Assertions.assertEquals(
-			expectedRecentPages, recentPagesPage.getContent());
+			expectedRecentPages, recentPagePage.getContent());
 	}
 
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
 	@SQLResource(resourcePath = "test_get_recent_pages.sql")
 	@Test
 	public void testGetRecentPagesLast30Days() {
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[0]);
 
-		Assertions.assertEquals(4, recentPagesPage.getTotalElements());
-		Assertions.assertEquals(1, recentPagesPage.getTotalPages());
+		Assertions.assertEquals(4, recentPagePage.getTotalElements());
+		Assertions.assertEquals(1, recentPagePage.getTotalPages());
 
 		List<RecentPage> expectedRecentPages = new ArrayList<>();
 
@@ -377,7 +377,7 @@ public class BQEventDogTest
 		expectedRecentPages.add(recentPage);
 
 		Assertions.assertEquals(
-			expectedRecentPages, recentPagesPage.getContent());
+			expectedRecentPages, recentPagePage.getContent());
 	}
 
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
@@ -422,23 +422,23 @@ public class BQEventDogTest
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentPage4.setUrl("https://www.beryl.com/delivery");
 
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"counts", "asc", "url", "asc"});
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage4, recentPage3, recentPage1, recentPage2),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 
-		recentPagesPage = _bqEventDog.getRecentPagesPage(
+		recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"counts", "desc", "url", "asc"});
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage1, recentPage2, recentPage4, recentPage3),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 	}
 
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
@@ -483,23 +483,23 @@ public class BQEventDogTest
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentPage4.setUrl("https://www.beryl.com/delivery");
 
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"createDate", "asc"});
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage1, recentPage2, recentPage4, recentPage3),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 
-		recentPagesPage = _bqEventDog.getRecentPagesPage(
+		recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"createDate", "desc"});
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage3, recentPage4, recentPage2, recentPage1),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 	}
 
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
@@ -544,16 +544,16 @@ public class BQEventDogTest
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentPage4.setUrl("https://www.beryl.com/delivery");
 
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"displayLanguageId", "asc", "url", "asc"});
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage1, recentPage3, recentPage4, recentPage2),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 
-		recentPagesPage = _bqEventDog.getRecentPagesPage(
+		recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10,
@@ -561,7 +561,7 @@ public class BQEventDogTest
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage4, recentPage2, recentPage1, recentPage3),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 	}
 
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
@@ -606,23 +606,23 @@ public class BQEventDogTest
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentPage4.setUrl("https://www.beryl.com/delivery");
 
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"lastModifiedDate", "asc"});
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage4, recentPage3, recentPage1, recentPage2),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 
-		recentPagesPage = _bqEventDog.getRecentPagesPage(
+		recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"lastModifiedDate", "desc"});
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage2, recentPage1, recentPage3, recentPage4),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 	}
 
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
@@ -654,13 +654,13 @@ public class BQEventDogTest
 
 		expectedRecentPages.add(recentPage);
 
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			"en-US",
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[0]);
 
 		Assertions.assertEquals(
-			expectedRecentPages, recentPagesPage.getContent());
+			expectedRecentPages, recentPagePage.getContent());
 	}
 
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
@@ -705,38 +705,38 @@ public class BQEventDogTest
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentPage4.setUrl("https://www.beryl.com/delivery");
 
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 2, new String[] {"counts", "desc", "url", "asc"});
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage1, recentPage2),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 
-		recentPagesPage = _bqEventDog.getRecentPagesPage(
+		recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			1, 30, 2, new String[] {"counts", "desc", "url", "asc"});
 
 		Assertions.assertEquals(
 			Arrays.asList(recentPage4, recentPage3),
-			recentPagesPage.getContent());
+			recentPagePage.getContent());
 	}
 
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
 	@SQLResource(resourcePath = "test_get_recent_pages.sql")
 	@Test
 	public void testGetRecentPagesWithSuppression() {
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 30, 10, new String[] {"counts", "desc", "url", "asc"});
 
-		Assertions.assertEquals(0L, recentPagesPage.getTotalElements());
-		Assertions.assertEquals(0L, recentPagesPage.getTotalPages());
+		Assertions.assertEquals(0L, recentPagePage.getTotalElements());
+		Assertions.assertEquals(0L, recentPagePage.getTotalPages());
 
-		List<RecentPage> recentPages = recentPagesPage.getContent();
+		List<RecentPage> recentPages = recentPagePage.getContent();
 
 		Assertions.assertTrue(recentPages.isEmpty());
 	}
@@ -745,15 +745,15 @@ public class BQEventDogTest
 	@SQLResource(resourcePath = "test_get_recent_pages.sql")
 	@Test
 	public void testGetRecentPagesYesterday() {
-		Page<RecentPage> recentPagesPage = _bqEventDog.getRecentPagesPage(
+		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 1, 10, new String[0]);
 
-		Assertions.assertEquals(4, recentPagesPage.getTotalElements());
-		Assertions.assertEquals(1, recentPagesPage.getTotalPages());
+		Assertions.assertEquals(4, recentPagePage.getTotalElements());
+		Assertions.assertEquals(1, recentPagePage.getTotalPages());
 
-		List<RecentPage> recentPages = recentPagesPage.getContent();
+		List<RecentPage> recentPages = recentPagePage.getContent();
 
 		Assertions.assertFalse(recentPages.isEmpty());
 

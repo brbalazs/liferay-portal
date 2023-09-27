@@ -193,7 +193,7 @@ public class BQEventDog {
 			columnName, size);
 	}
 
-	public Page<RecentPage> getRecentPagesPage(
+	public Page<RecentPage> getRecentPagePage(
 		@Nullable String displayLanguageId, String individualId, int page,
 		int rangeKey, int size, String[] sorts) {
 
