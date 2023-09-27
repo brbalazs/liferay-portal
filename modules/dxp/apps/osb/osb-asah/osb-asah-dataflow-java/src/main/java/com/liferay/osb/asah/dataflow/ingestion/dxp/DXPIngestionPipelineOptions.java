@@ -22,7 +22,7 @@ public interface DXPIngestionPipelineOptions extends DataflowPipelineOptions {
 	@Validation.Required
 	public String getProjectId();
 
-	@Description("Return the Zip file path")
+	@Description("Return the ZIP file path")
 	@Validation.Required
 	public String getZipFilePath();
 
