@@ -6,7 +6,6 @@
 package com.liferay.osb.asah.common.repository.test;
 
 import com.liferay.osb.asah.common.OSBAsahCommonSpringTestContext;
-import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.repository.BQOrderRepository;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
@@ -40,8 +39,7 @@ public class BQOrderRepositoryTest
 		Map<String, BigDecimal> orderAccountAverageCurrencyValues =
 			_bqOrderRepository.getOrderAccountAverageCurrencyValues(
 				123L, timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(),
-				_timeZoneDog.getTimeZoneId());
+				timeRange.getStartLocalDateTime(), "UTC");
 
 		Assertions.assertNotNull(orderAccountAverageCurrencyValues);
 		Assertions.assertNotNull(orderAccountAverageCurrencyValues.get("USD"));
@@ -73,8 +71,7 @@ public class BQOrderRepositoryTest
 			Collections.emptyMap(),
 			_bqOrderRepository.getOrderAccountAverageCurrencyValues(
 				null, timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(),
-				_timeZoneDog.getTimeZoneId()));
+				timeRange.getStartLocalDateTime(), "UTC"));
 	}
 
 	@BQSQLResource(resourcePath = "test_bq_order.sql")
@@ -85,8 +82,7 @@ public class BQOrderRepositoryTest
 		Map<String, BigDecimal> orderAverageCurrencyValues =
 			_bqOrderRepository.getOrderAverageCurrencyValues(
 				123L, timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(),
-				_timeZoneDog.getTimeZoneId());
+				timeRange.getStartLocalDateTime(), "UTC");
 
 		Assertions.assertNotNull(orderAverageCurrencyValues);
 		Assertions.assertNotNull(orderAverageCurrencyValues.get("USD"));
@@ -118,8 +114,7 @@ public class BQOrderRepositoryTest
 			Collections.emptyMap(),
 			_bqOrderRepository.getOrderAverageCurrencyValues(
 				null, timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(),
-				_timeZoneDog.getTimeZoneId()));
+				timeRange.getStartLocalDateTime(), "UTC"));
 	}
 
 	@BQSQLResource(resourcePath = "test_bq_order.sql")
@@ -130,8 +125,7 @@ public class BQOrderRepositoryTest
 		Map<String, BigDecimal> orderIncompleteCurrencyValues =
 			_bqOrderRepository.getOrderIncompleteCurrencyValues(
 				123L, timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(),
-				_timeZoneDog.getTimeZoneId());
+				timeRange.getStartLocalDateTime(), "UTC");
 
 		Assertions.assertNotNull(orderIncompleteCurrencyValues);
 		Assertions.assertNotNull(orderIncompleteCurrencyValues.get("USD"));
@@ -163,8 +157,7 @@ public class BQOrderRepositoryTest
 			Collections.emptyMap(),
 			_bqOrderRepository.getOrderIncompleteCurrencyValues(
 				null, timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(),
-				_timeZoneDog.getTimeZoneId()));
+				timeRange.getStartLocalDateTime(), "UTC"));
 	}
 
 	@BQSQLResource(resourcePath = "test_bq_order.sql")
@@ -175,8 +168,7 @@ public class BQOrderRepositoryTest
 		Map<String, BigDecimal> orderTotalCurrencyValues =
 			_bqOrderRepository.getOrderTotalCurrencyValues(
 				123L, timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(),
-				_timeZoneDog.getTimeZoneId());
+				timeRange.getStartLocalDateTime(), "UTC");
 
 		Assertions.assertNotNull(orderTotalCurrencyValues);
 		Assertions.assertNotNull(orderTotalCurrencyValues.get("USD"));
@@ -208,14 +200,10 @@ public class BQOrderRepositoryTest
 			Collections.emptyMap(),
 			_bqOrderRepository.getOrderTotalCurrencyValues(
 				null, timeRange.getEndLocalDateTime(),
-				timeRange.getStartLocalDateTime(),
-				_timeZoneDog.getTimeZoneId()));
+				timeRange.getStartLocalDateTime(), "UTC"));
 	}
 
 	@Autowired
 	private BQOrderRepository _bqOrderRepository;
-
-	@Autowired
-	private TimeZoneDog _timeZoneDog;
 
 }
