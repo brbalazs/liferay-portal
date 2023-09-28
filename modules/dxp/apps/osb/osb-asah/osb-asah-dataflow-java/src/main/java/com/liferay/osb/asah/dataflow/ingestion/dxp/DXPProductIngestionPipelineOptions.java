@@ -5,8 +5,8 @@
 
 package com.liferay.osb.asah.dataflow.ingestion.dxp;
 
+import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
-import org.apache.beam.sdk.options.Validation;
 
 /**
  * @author Riccardo Ferrari
@@ -14,8 +14,8 @@ import org.apache.beam.sdk.options.Validation;
 public interface DXPProductIngestionPipelineOptions
 	extends DXPIngestionPipelineOptions {
 
+	@Default.String("product_raw")
 	@Description("Return the product BigQuery table name.")
-	@Validation.Required
 	public String getProductBigQueryTable();
 
 	public void setProductBigQueryTable(String productBigQueryTable);

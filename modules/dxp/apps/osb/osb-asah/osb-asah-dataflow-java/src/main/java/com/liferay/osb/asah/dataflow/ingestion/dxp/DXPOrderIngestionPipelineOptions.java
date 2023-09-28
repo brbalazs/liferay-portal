@@ -5,8 +5,8 @@
 
 package com.liferay.osb.asah.dataflow.ingestion.dxp;
 
+import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
-import org.apache.beam.sdk.options.Validation;
 
 /**
  * @author Riccardo Ferrari
@@ -14,8 +14,8 @@ import org.apache.beam.sdk.options.Validation;
 public interface DXPOrderIngestionPipelineOptions
 	extends DXPIngestionPipelineOptions {
 
+	@Default.String("order_raw")
 	@Description("Return the order BigQuery table name.")
-	@Validation.Required
 	public String getOrderBigQueryTable();
 
 	public void setOrderBigQueryTable(String orderBigQueryTable);
