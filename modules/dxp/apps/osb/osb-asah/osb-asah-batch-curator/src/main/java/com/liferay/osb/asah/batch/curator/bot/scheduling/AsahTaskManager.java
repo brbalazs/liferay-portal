@@ -51,10 +51,6 @@ public class AsahTaskManager {
 		if ((latestRunLog != null) &&
 			Objects.equals(latestRunLog.getStatus(), "STARTED")) {
 
-			_log.error(
-				"Nanite is already running: " +
-					latestRunLog.getNaniteClassName());
-
 			return true;
 		}
 
