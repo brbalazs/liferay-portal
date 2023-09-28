@@ -26,7 +26,10 @@ public interface DXPIngestionPipelineOptions extends DataflowPipelineOptions {
 	@Validation.Required
 	public String getZipFilePath();
 
-	public String setProjectId();
+	public void setBigQueryWriterTempLocation(
+		String bigQueryWriterTempLocation);
+
+	public void setProjectId(String projectId);
 
 	public void setZipFilePath(String zipFilePath);
 
