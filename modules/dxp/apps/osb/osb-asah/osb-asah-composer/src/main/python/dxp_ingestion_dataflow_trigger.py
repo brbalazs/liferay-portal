@@ -75,23 +75,6 @@ for project in response.json():
 	commerce_channels_selected = project.get('commerceChannelsSelected')
 
 	if commerce_channels_selected:
-		# Product
-
-		dag_id = 'dxp_product_ingestion_dataflow_trigger_{}'.format(
-			project.get('id')
-		)
-
-		globals()[dag_id] = create_dag(
-			project.get('id'), dag_id,
-			'DXP Product Ingestion Dataflow Trigger For {}'.format(
-				project.get('id')
-			),
-			'com.liferay.osb.asah.dataflow.ingestion.dxp.DXPProductIngestionPipeline',
-			'dxpproductingestionpipeline-{}'.format(project.get('id')),
-			'product_merge'
-			'dxp_product_ingestion_dataflow_trigger'
-		)
-
 		# Order
 
 		dag_id = 'dxp_order_ingestion_dataflow_trigger_{}'.format(
@@ -107,4 +90,21 @@ for project in response.json():
 			'dxporderingestionpipeline-{}'.format(project.get('id')),
 			'order_merge'
 			'dxp_order_ingestion_dataflow_trigger'
+		)
+
+		# Product
+
+		dag_id = 'dxp_product_ingestion_dataflow_trigger_{}'.format(
+			project.get('id')
+		)
+
+		globals()[dag_id] = create_dag(
+			project.get('id'), dag_id,
+			'DXP Product Ingestion Dataflow Trigger For {}'.format(
+				project.get('id')
+			),
+			'com.liferay.osb.asah.dataflow.ingestion.dxp.DXPProductIngestionPipeline',
+			'dxpproductingestionpipeline-{}'.format(project.get('id')),
+			'product_merge'
+			'dxp_product_ingestion_dataflow_trigger'
 		)
