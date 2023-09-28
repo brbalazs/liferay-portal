@@ -66,8 +66,41 @@ public class AsahTaskManager {
 	}
 
 	public void executeAsahTask(AsahTask asahTask, boolean force) {
-		if (Objects.equals(
-				asahTask.getClassName(), "PastUserSessionFinalizerNanite")) {
+		if (Objects.equals(asahTask.getClassName(), "ClearChannelsNanite") ||
+			Objects.equals(asahTask.getClassName(), "DeleteChannelsNanite")) {
+
+			if (checkNanite("DataControlNanite")) {
+				if (_log.isDebugEnabled()) {
+					_log.debug("Pending running " + asahTask.getClassName());
+				}
+
+				return;
+			}
+
+			_boundedExecutor.runAsync(
+				new AsahTaskRunnable(
+					asahTask, _asahTaskDog, force,
+					_nanitesMap.get(asahTask.getClassName()), _runLogDog));
+		}
+		else if (Objects.equals(asahTask.getClassName(), "DataControlNanite")) {
+			if (checkNanite("ClearChannelsNanite") ||
+				checkNanite("DeleteChannelsNanite")) {
+
+				if (_log.isDebugEnabled()) {
+					_log.debug("Pending running DataControlNanite");
+				}
+
+				return;
+			}
+
+			_boundedExecutor.runAsync(
+				new AsahTaskRunnable(
+					asahTask, _asahTaskDog, force,
+					_nanitesMap.get(asahTask.getClassName()), _runLogDog));
+		}
+		else if (Objects.equals(
+					asahTask.getClassName(),
+					"PastUserSessionFinalizerNanite")) {
 
 			if (_pastUserSessionFinalizerBoundedExecutor.countPendingTasks() >
 					0) {
