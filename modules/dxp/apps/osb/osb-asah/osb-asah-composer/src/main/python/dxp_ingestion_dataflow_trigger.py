@@ -12,6 +12,8 @@
 from airflow.models import Variable
 from airflow.providers.google.cloud.operators.dataflow import DataflowCreateJavaJobOperator
 
+from liferay.bigquery import BigQueryInsertJobFromTemplateOperator
+
 import airflow
 import datetime
 import os
@@ -19,7 +21,10 @@ import requests
 
 DATAFLOW_BUCKET = 'gs://{}-dataflow'.format(os.environ['GOOGLE_PROJECT_ID'])
 
-def create_dag(ac_project_id, dag_id, dag_description, job_class, job_name, task_id):
+def create_dag(
+	ac_project_id, dag_id, dag_description, job_class, job_name,
+	merge_job_task_id, task_id
+):
 	with (airflow.DAG(
 		dag_id=dag_id,
 		default_args={
@@ -36,7 +41,7 @@ def create_dag(ac_project_id, dag_id, dag_description, job_class, job_name, task
 		max_active_runs=1,
 		schedule_interval=None
 	) as dag):
-		DataflowCreateJavaJobOperator(
+		dataflow_create_java_job_operator = DataflowCreateJavaJobOperator(
 			dag=dag,
 			jar=DATAFLOW_BUCKET.concat('/pipeline/osb-asah-dataflow-java.jar'),
 			job_class=job_class,
@@ -52,6 +57,8 @@ def create_dag(ac_project_id, dag_id, dag_description, job_class, job_name, task
 			start_date=datetime.datetime.now(),
 			task_id=task_id
 		)
+
+		dataflow_create_java_job_operator >> BigQueryInsertJobFromTemplateOperator(task_id=merge_job_task_id)
 
 		return dag
 
@@ -81,6 +88,7 @@ for project in response.json():
 			),
 			'com.liferay.osb.asah.dataflow.ingestion.dxp.DXPProductIngestionPipeline',
 			'dxpproductingestionpipeline-{}'.format(project.get('id')),
+			'product_merge'
 			'dxp_product_ingestion_dataflow_trigger'
 		)
 
@@ -97,5 +105,6 @@ for project in response.json():
 			),
 			'com.liferay.osb.asah.dataflow.ingestion.dxp.DXPOrderIngestionPipeline',
 			'dxporderingestionpipeline-{}'.format(project.get('id')),
+			'order_merge'
 			'dxp_order_ingestion_dataflow_trigger'
 		)

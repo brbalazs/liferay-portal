@@ -18,8 +18,7 @@ import datetime
 import requests
 
 def create_dag(
-	ac_project_id, accounts_selected, commerce_channels_selected,
-	contacts_selected, dag_id, dag_description
+	ac_project_id, accounts_selected, contacts_selected, dag_id, dag_description
 ):
 
 	with airflow.DAG(
@@ -39,12 +38,6 @@ def create_dag(
 			big_query_jobs += [
 				BigQueryInsertJobFromTemplateOperator(task_id='account_entry_merge'),
 				BigQueryInsertJobFromTemplateOperator(task_id='account_group_merge')
-			]
-
-		if commerce_channels_selected:
-			big_query_jobs += [
-				BigQueryInsertJobFromTemplateOperator(task_id='order_merge'),
-				BigQueryInsertJobFromTemplateOperator(task_id='product_merge')
 			]
 
 		if contacts_selected:
@@ -79,10 +72,9 @@ for project in response.json():
 	dag_id = 'merge_dxp_entity_{}'.format(project.get('id'))
 
 	accounts_selected = project.get('accountsSelected')
-	commerce_channels_selected = project.get('commerceChannelsSelected')
 	contacts_selected = project.get('contactsSelected')
 
-	if accounts_selected or commerce_channels_selected or contacts_selected:
+	if accounts_selected or contacts_selected:
 		globals()[dag_id] = create_dag(
 			project.get('id'), accounts_selected, commerce_channels_selected,
 			contacts_selected, dag_id,
