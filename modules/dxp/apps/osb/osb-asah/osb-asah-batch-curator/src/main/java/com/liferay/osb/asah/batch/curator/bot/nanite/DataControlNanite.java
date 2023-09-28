@@ -46,6 +46,11 @@ import org.springframework.stereotype.Component;
 public class DataControlNanite extends BaseNanite {
 
 	@Override
+	public boolean isLogRunEnabled() {
+		return true;
+	}
+
+	@Override
 	public void run(JSONObject contextJSONObject) {
 		List<DataControlTask> pendingDataControlTasks =
 			_dataControlTaskDog.getPrioritizedPendingDataControlTasks();
