@@ -227,45 +227,35 @@ public class AsahTaskManager {
 	}
 
 	public void runDataControlNaniteForAllProjects() {
-		try {
-			List<Project> projects = _projectDog.getProjects();
+		for (Project project : _projectDog.getProjects()) {
+			try {
+				ProjectIdThreadLocal.setProjectId(project.getId());
 
-			for (Project project : projects) {
-				try {
-					ProjectIdThreadLocal.setProjectId(project.getId());
+				if (checkNanite("ClearChannelsNanite") ||
+					checkNanite("DeleteChannelsNanite")) {
 
-					if (checkNanite("ClearChannelsNanite") ||
-						checkNanite("DeleteChannelsNanite")) {
-
-						if (_log.isDebugEnabled()) {
-							_log.debug(
-								"Pending running DataControlNanite for " +
-									project.getId());
-						}
-
-						continue;
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"Pending running DataControlNanite for " +
+								project.getId());
 					}
 
-					_boundedExecutor.runAsync(
-						new AsahTaskRunnable(
-							_asahTaskDog, project.getId(), _runLogDog,
-							_nanitesMap.get("DataControlNanite")));
+					continue;
 				}
-				catch (Exception exception) {
-					_log.error(
-						"Unable to run DataControlNanite for " +
-							project.getId(),
-						exception);
-				}
-				finally {
-					ProjectIdThreadLocal.remove();
-				}
+
+				_boundedExecutor.runAsync(
+					new AsahTaskRunnable(
+						_asahTaskDog, project.getId(), _runLogDog,
+						_nanitesMap.get("DataControlNanite")));
 			}
-		}
-		catch (Exception exception) {
-			_log.error(
-				"Unable to run data control nanites for all projects",
-				exception);
+			catch (Exception exception) {
+				_log.error(
+					"Unable to run DataControlNanite for " + project.getId(),
+					exception);
+			}
+			finally {
+				ProjectIdThreadLocal.remove();
+			}
 		}
 	}
 
