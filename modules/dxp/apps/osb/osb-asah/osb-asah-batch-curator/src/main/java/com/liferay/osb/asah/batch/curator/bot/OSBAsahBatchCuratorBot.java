@@ -86,7 +86,7 @@ public class OSBAsahBatchCuratorBot {
 
 	@Scheduled(fixedDelay = DateUtil.MINUTE * 5)
 	public void runDataControlNanite() {
-		_asahTaskManager.runNanitesForAllProjects("DataControlNanite");
+		_asahTaskManager.runDataControlNaniteForAllProjects();
 	}
 
 	@Scheduled(fixedDelay = DateUtil.MINUTE * 5)

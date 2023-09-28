@@ -226,6 +226,49 @@ public class AsahTaskManager {
 		_asahTaskDog.deleteAsahTasks();
 	}
 
+	public void runDataControlNaniteForAllProjects() {
+		try {
+			List<Project> projects = _projectDog.getProjects();
+
+			for (Project project : projects) {
+				try {
+					ProjectIdThreadLocal.setProjectId(project.getId());
+
+					if (checkNanite("ClearChannelsNanite") ||
+						checkNanite("DeleteChannelsNanite")) {
+
+						if (_log.isDebugEnabled()) {
+							_log.debug(
+								"Pending running DataControlNanite for " +
+									project.getId());
+						}
+
+						continue;
+					}
+
+					_boundedExecutor.runAsync(
+						new AsahTaskRunnable(
+							_asahTaskDog, project.getId(), _runLogDog,
+							_nanitesMap.get("DataControlNanite")));
+				}
+				catch (Exception exception) {
+					_log.error(
+						"Unable to run DataControlNanite for " +
+							project.getId(),
+						exception);
+				}
+				finally {
+					ProjectIdThreadLocal.remove();
+				}
+			}
+		}
+		catch (Exception exception) {
+			_log.error(
+				"Unable to run data control nanites for all projects",
+				exception);
+		}
+	}
+
 	public void runNanites(String... naniteClassNames) {
 		Stream<String> stream = Arrays.stream(naniteClassNames);
 
