@@ -33,8 +33,8 @@ public class ClearChannelsNanite extends BaseNanite {
 	public void run(JSONObject contextJSONObject) throws Exception {
 		_channelDog.clearChannels(
 			JSONUtil.toLongSet(contextJSONObject.getJSONArray("channelIds")),
-			true, (String)contextJSONObject.get("userId"),
-			(String)contextJSONObject.get("userName"));
+			true, String.valueOf(contextJSONObject.get("userId")),
+			String.valueOf(contextJSONObject.get("userName")));
 	}
 
 	@Override
