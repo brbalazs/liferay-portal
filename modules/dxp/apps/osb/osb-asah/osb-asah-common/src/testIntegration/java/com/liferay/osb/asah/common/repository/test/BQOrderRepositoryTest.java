@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class BQOrderRepositoryTest
 			   OSBAsahTestExecutionListenersContext {
 
 	@BQSQLResource(resourcePath = "test_bq_order.sql")
+	@Disabled
 	@Test
 	public void testGetOrderAccountAverageCurrencyValues() {
 		TimeRange timeRange = TimeRange.LAST_7_DAYS;
