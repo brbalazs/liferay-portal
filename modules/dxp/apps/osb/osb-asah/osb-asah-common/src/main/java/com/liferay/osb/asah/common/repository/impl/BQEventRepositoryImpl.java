@@ -815,8 +815,8 @@ public class BQEventRepositoryImpl
 				)
 			).where(
 				_createConditions(
-					null, null, individualId, Collections.emptySet(), timeRange,
-					timeZoneId)
+					null, null, null, null, individualId,
+					Collections.emptySet(), timeRange, timeZoneId)
 			).groupBy(
 				DSL.field("groupid")
 			).orderBy(
@@ -860,8 +860,8 @@ public class BQEventRepositoryImpl
 					)
 				).where(
 					_createConditions(
-						null, null, individualId, Collections.emptySet(),
-						timeRange, timeZoneId)
+						null, null, null, null, individualId,
+						Collections.emptySet(), timeRange, timeZoneId)
 				).groupBy(
 					DSL.field("groupid")
 				)));
@@ -946,8 +946,8 @@ public class BQEventRepositoryImpl
 			},
 			selectJoinStep.where(
 				_createConditions(
-					displayLanguageId, groupId, individualId, searchQueryParams,
-					timeRange, timeZoneId)
+					null, displayLanguageId, null, groupId, individualId,
+					searchQueryParams, timeRange, timeZoneId)
 			).groupBy(
 				DSL.field("displaylanguageid"), DSL.field("groupid"),
 				_dslHelper.getField(
@@ -1018,7 +1018,7 @@ public class BQEventRepositoryImpl
 			selectSelectStep.from(
 				selectJoinStep.where(
 					_createConditions(
-						displayLanguageId, groupId, individualId,
+						null, displayLanguageId, null, groupId, individualId,
 						searchQueryParams, timeRange, timeZoneId)
 				).groupBy(
 					DSL.field("displaylanguageid"), DSL.field("groupid"),
@@ -1395,24 +1395,29 @@ public class BQEventRepositoryImpl
 	}
 
 	private List<Condition> _createConditions(
-		@Nullable String displayLanguageId, @Nullable String groupId,
+		@Nullable String applicationId, @Nullable String displayLanguageId,
+		@Nullable String eventId, @Nullable String groupId,
 		@Nullable String individualId, Set<String> searchQueryParams,
 		@Nullable TimeRange timeRange, String timeZoneId) {
 
 		List<Condition> conditions = new ArrayList<>();
 
-		conditions.add(
-			DSL.field(
-				"BQEvent.applicationId"
-			).eq(
-				"Page"
-			));
-		conditions.add(
-			DSL.field(
-				"BQEvent.eventId"
-			).eq(
-				"pageViewed"
-			));
+		if (StringUtils.isNotBlank(applicationId)) {
+			conditions.add(
+				DSL.field(
+					"BQEvent.applicationId"
+				).eq(
+					applicationId
+				));
+		}
+		else {
+			conditions.add(
+				DSL.field(
+					"BQEvent.applicationId"
+				).eq(
+					"Page"
+				));
+		}
 
 		if (!searchQueryParams.isEmpty()) {
 			conditions.add(
@@ -1428,6 +1433,23 @@ public class BQEventRepositoryImpl
 					"BQEvent.contentLanguageId"
 				).eq(
 					displayLanguageId
+				));
+		}
+
+		if (StringUtils.isNotBlank(eventId)) {
+			conditions.add(
+				DSL.field(
+					"BQEvent.eventId"
+				).eq(
+					eventId
+				));
+		}
+		else {
+			conditions.add(
+				DSL.field(
+					"BQEvent.eventId"
+				).eq(
+					"pageViewed"
 				));
 		}
 
@@ -2106,8 +2128,8 @@ public class BQEventRepositoryImpl
 					)))
 		).where(
 			_createConditions(
-				displayLanguageId, null, individualId, Collections.emptySet(),
-				timeRange, timeZoneId)
+				null, displayLanguageId, null, null, individualId,
+				Collections.emptySet(), timeRange, timeZoneId)
 		).groupBy(
 			DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
 		);
