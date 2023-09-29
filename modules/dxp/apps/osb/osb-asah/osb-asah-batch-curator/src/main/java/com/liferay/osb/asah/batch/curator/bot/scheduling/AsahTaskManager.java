@@ -236,7 +236,7 @@ public class AsahTaskManager {
 
 					if (_log.isDebugEnabled()) {
 						_log.debug(
-							"Pending running DataControlNanite for " +
+							"Pending data control nanite for " +
 								project.getId());
 					}
 
@@ -250,7 +250,7 @@ public class AsahTaskManager {
 			}
 			catch (Exception exception) {
 				_log.error(
-					"Unable to run DataControlNanite for " + project.getId(),
+					"Unable to run data control nanite for " + project.getId(),
 					exception);
 			}
 			finally {
