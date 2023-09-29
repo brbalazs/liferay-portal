@@ -77,11 +77,15 @@ public class DataControlNanite extends BaseNanite {
 		if (types.contains(DataControlTask.Type.SUPPRESS) ||
 			types.contains(DataControlTask.Type.UNSUPPRESS)) {
 
+			String projectId = ProjectIdThreadLocal.getProjectId();
+
 			AsahTaskRunnable asahTaskRunnable = new AsahTaskRunnable(
-				_asahTaskDog, ProjectIdThreadLocal.getProjectId(), _runLogDog,
+				_asahTaskDog, projectId, _runLogDog,
 				new Nanite[] {_updateMembershipsNanite});
 
 			asahTaskRunnable.run();
+
+			ProjectIdThreadLocal.setProjectId(projectId);
 		}
 	}
 
