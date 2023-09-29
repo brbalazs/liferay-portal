@@ -110,6 +110,10 @@ public interface CustomBQEventRepository {
 		String applicationId, String eventId, String individualId,
 		Pageable pageable, TimeRange timeRange, String timeZoneId);
 
+	public Long getRecentAssetsCount(
+		String applicationId, String eventId, String individualId,
+		TimeRange timeRange, String timeZoneId);
+
 	public List<RecentPage> getRecentPages(
 		@Nullable String displayLanguageId, String individualId,
 		Pageable pageable, TimeRange timeRange, String timeZoneId);

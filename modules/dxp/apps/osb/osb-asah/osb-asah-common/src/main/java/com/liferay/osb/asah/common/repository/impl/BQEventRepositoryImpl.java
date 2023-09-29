@@ -711,8 +711,8 @@ public class BQEventRepositoryImpl
 		String applicationId, String eventId, String individualId,
 		Pageable pageable, TimeRange timeRange, String timeZoneId) {
 
-		return _queryExecutor.queryForList(
-			RecentAsset::new,
+		SelectHavingStep selectHavingStep = _getRecentAssetsSelectHavingStep(
+			applicationId, eventId, individualId,
 			_dslContext.select(
 				DSL.field("assetId"), DSL.field("assetTitle"),
 				DSL.val(
@@ -738,26 +738,38 @@ public class BQEventRepositoryImpl
 					"canonicalUrl"
 				).as(
 					"url"
-				)
-			).from(
-				"BQEvent"
-			).join(
-				"BQIdentity"
-			).on(
-				DSL.field(
-					"BQEvent.userId"
-				).eq(
-					DSL.field("BQIdentity.id")
-				)
-			).where(
-				_createConditions(
-					applicationId, null, eventId, null, individualId,
-					Collections.emptySet(), timeRange, timeZoneId)
-			).groupBy(
-				DSL.field("applicationId"), DSL.field("assetId"),
-				DSL.field("assetTitle"), DSL.field("canonicalUrl")
-			).orderBy(
+				)),
+			timeRange, timeZoneId);
+
+		return _queryExecutor.queryForList(
+			RecentAsset::new,
+			selectHavingStep.orderBy(
 				getSortFields(pageable.getSort(), null)
+			).limit(
+				pageable.getPageSize()
+			).offset(
+				pageable.getOffset()
+			));
+	}
+
+	@Override
+	public Long getRecentAssetsCount(
+		String applicationId, String eventId, String individualId,
+		TimeRange timeRange, String timeZoneId) {
+
+		return _queryExecutor.queryForLong(
+			_dslContext.with(
+				"RecentAssets"
+			).as(
+				_getRecentAssetsSelectHavingStep(
+					applicationId, eventId, individualId,
+					_dslContext.select(
+						DSL.field("assetId"), DSL.field("assetTitle"),
+						DSL.field("canonicalUrl")),
+					timeRange, timeZoneId)
+			).selectCount(
+			).from(
+				"RecentAssets"
 			));
 	}
 
@@ -2143,6 +2155,53 @@ public class BQEventRepositoryImpl
 			_dslHelper.regexpExtract(
 				_dslHelper.regexpReplace("BQEvent.url", "(?:%20|\\s)", "+"),
 				"[?&](?:" + String.join("|", searchQueryParams) + ")=([^&]+)"));
+	}
+
+	private SelectHavingStep _getRecentAssetsSelectHavingStep(
+		String applicationId, String eventId, String individualId,
+		SelectSelectStep selectSelectStep, TimeRange timeRange,
+		String timeZoneId) {
+
+		return selectSelectStep.from(
+			"BQEvent"
+		).join(
+			DSL.table("BQIdentity")
+		).on(
+			DSL.field(
+				"BQEvent.userId"
+			).eq(
+				DSL.field("BQIdentity.id")
+			)
+		).join(
+			DSL.table(
+				"BQIndividual"
+			).as(
+				"Individual"
+			)
+		).on(
+			DSL.and(
+				DSL.field(
+					"Individual.id"
+				).eq(
+					DSL.field("BQIdentity.individualId")
+				),
+				DSL.or(
+					DSL.field(
+						"Individual.suppressed"
+					).isNull(),
+					DSL.field(
+						"Individual.suppressed"
+					).notEqual(
+						DSL.val(Boolean.TRUE)
+					)))
+		).where(
+			_createConditions(
+				applicationId, null, eventId, null, individualId,
+				Collections.emptySet(), timeRange, timeZoneId)
+		).groupBy(
+			DSL.field("applicationId"), DSL.field("assetId"),
+			DSL.field("assetTitle"), DSL.field("canonicalUrl")
+		);
 	}
 
 	private SelectHavingStep _getRecentPagesSelectHavingStep(
