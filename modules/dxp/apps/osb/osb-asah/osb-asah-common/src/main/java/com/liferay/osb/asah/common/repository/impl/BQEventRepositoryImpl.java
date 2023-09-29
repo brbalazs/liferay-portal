@@ -16,6 +16,7 @@ import com.liferay.osb.asah.common.model.DateGrouping;
 import com.liferay.osb.asah.common.model.EventAnalysisBreakdown;
 import com.liferay.osb.asah.common.model.EventAnalysisFilter;
 import com.liferay.osb.asah.common.model.Interval;
+import com.liferay.osb.asah.common.model.RecentAsset;
 import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
@@ -703,6 +704,61 @@ public class BQEventRepositoryImpl
 				size
 			),
 			value -> (Date)value);
+	}
+
+	@Override
+	public List<RecentAsset> getRecentAssets(
+		String applicationId, String eventId, String individualId,
+		Pageable pageable, TimeRange timeRange, String timeZoneId) {
+
+		return _queryExecutor.queryForList(
+			RecentAsset::new,
+			_dslContext.select(
+				DSL.field("assetId"), DSL.field("assetTitle"),
+				DSL.val(
+					StringUtils.upperCase(applicationId)
+				).as(
+					"contentType"
+				),
+				DSL.count(
+				).as(
+					"counts"
+				),
+				DSL.min(
+					DSL.field("eventDate", Date.class)
+				).as(
+					"createDate"
+				),
+				DSL.max(
+					DSL.field("eventDate", Date.class)
+				).as(
+					"lastModifiedDate"
+				),
+				DSL.field(
+					"canonicalUrl"
+				).as(
+					"url"
+				)
+			).from(
+				"BQEvent"
+			).join(
+				"BQIdentity"
+			).on(
+				DSL.field(
+					"BQEvent.userId"
+				).eq(
+					DSL.field("BQIdentity.id")
+				)
+			).where(
+				_createConditions(
+					applicationId, null, eventId, null, individualId,
+					Collections.emptySet(), timeRange, timeZoneId)
+			).groupBy(
+				DSL.field("applicationId"), DSL.field("assetId"),
+				DSL.field("assetTitle"), DSL.field("canonicalUrl")
+			).orderBy(
+				getSortFields(pageable.getSort(), null)
+			));
 	}
 
 	@Override

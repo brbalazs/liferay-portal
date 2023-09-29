@@ -11,6 +11,7 @@ import com.liferay.osb.asah.common.model.BreakdownRow;
 import com.liferay.osb.asah.common.model.EventAnalysisBreakdown;
 import com.liferay.osb.asah.common.model.EventAnalysisFilter;
 import com.liferay.osb.asah.common.model.Interval;
+import com.liferay.osb.asah.common.model.RecentAsset;
 import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
@@ -104,6 +105,10 @@ public interface CustomBQEventRepository {
 
 	public Map<String, Date> getLastSeenDateDateGroupedByColumnName(
 		String columnName, int size);
+
+	public List<RecentAsset> getRecentAssets(
+		String applicationId, String eventId, String individualId,
+		Pageable pageable, TimeRange timeRange, String timeZoneId);
 
 	public List<RecentPage> getRecentPages(
 		@Nullable String displayLanguageId, String individualId,
