@@ -7,6 +7,7 @@ package com.liferay.osb.asah.backend.rest.controller.api.data.source.v1;
 
 import com.liferay.osb.asah.backend.dto.IndividualDTO;
 import com.liferay.osb.asah.backend.dto.PageDTO;
+import com.liferay.osb.asah.backend.dto.RecentAssetDTO;
 import com.liferay.osb.asah.backend.dto.RecentPageDTO;
 import com.liferay.osb.asah.backend.dto.RecentSiteDTO;
 import com.liferay.osb.asah.backend.dto.SearchKeywordDTO;
@@ -21,6 +22,7 @@ import com.liferay.osb.asah.common.dog.DataSourceDog;
 import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.model.Individual;
+import com.liferay.osb.asah.common.model.RecentAsset;
 import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
@@ -213,6 +215,25 @@ public class IndividualsRestController extends BaseRestController {
 			includeAnonymousUsers) {
 
 		return _bqIndividualDog.countIndividuals(includeAnonymousUsers);
+	}
+
+	@GetMapping("/{id}/recent-assets")
+	public PageDTO<RecentAssetDTO> getRecentAssetDTOPageDTO(
+		@PathVariable String id, @RequestParam String contentType,
+		@RequestParam(defaultValue = "0") int page,
+		@RequestParam(required = false) int rangeKey,
+		@RequestParam(defaultValue = "5") int size,
+		@RequestParam(name = "sort", required = false) String[] sorts) {
+
+		Page<RecentAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
+			RecentAsset.ContentType.of(contentType), id, page, size, sorts,
+			TimeRange.of(rangeKey));
+
+		return new PageDTO<>(
+			"_embedded", new RecentAssetDTO(recentAssetPage.getContent()),
+			recentAssetPage.getNumber(), recentAssetPage.getSize(),
+			recentAssetPage.getTotalElements(),
+			recentAssetPage.getTotalPages());
 	}
 
 	@GetMapping("/{id}/recent-pages")
