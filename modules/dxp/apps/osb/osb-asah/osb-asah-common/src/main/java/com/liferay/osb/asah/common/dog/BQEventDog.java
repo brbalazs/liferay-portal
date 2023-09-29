@@ -16,6 +16,7 @@ import com.liferay.osb.asah.common.entity.EventAttributeDefinition;
 import com.liferay.osb.asah.common.entity.Preference;
 import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.model.BQEventPropertyValue;
+import com.liferay.osb.asah.common.model.RecentAsset;
 import com.liferay.osb.asah.common.model.RecentPage;
 import com.liferay.osb.asah.common.model.RecentSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
@@ -163,6 +164,31 @@ public class BQEventDog {
 			() -> _bqEventRepository.countBQEvents(
 				channelId, keywords, timeRange.getEndLocalDateTime(),
 				timeRange.getStartLocalDateTime(), timeZoneId, userIds));
+	}
+
+	public Page<RecentAsset> getRecentAssetPage(
+		RecentAsset.ContentType contentType, String individualId, int page,
+		int size, String[] sorts, TimeRange timeRange) {
+
+		Pageable pageable = PageRequest.of(page, size, _getSort(sorts));
+
+		if ((individualId != null) &&
+			_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
+
+			return PageableExecutionUtils.getPage(
+				Collections.emptyList(), pageable, () -> 0);
+		}
+
+		String timeZoneId = _timeZoneDog.getTimeZoneId();
+
+		return PageableExecutionUtils.getPage(
+			_bqEventRepository.getRecentAssets(
+				contentType.getApplicationId(), contentType.getEventId(),
+				individualId, pageable, timeRange, timeZoneId),
+			pageable,
+			() -> _bqEventRepository.getRecentAssetsCount(
+				contentType.getApplicationId(), contentType.getEventId(),
+				individualId, timeRange, timeZoneId));
 	}
 
 	public List<BQEventPropertyValue> getRecentBQEventPropertyValues(
