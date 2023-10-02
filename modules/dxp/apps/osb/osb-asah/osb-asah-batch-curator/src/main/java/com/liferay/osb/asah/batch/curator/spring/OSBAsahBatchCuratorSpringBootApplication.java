@@ -9,11 +9,13 @@ import com.liferay.osb.asah.common.spring.OSBAsahSpringBootApplication;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author Brian Wing Shun Chan
  */
 @ComponentScan("com.liferay.osb.asah.batch.curator")
+@EnableScheduling
 public class OSBAsahBatchCuratorSpringBootApplication
 	extends OSBAsahSpringBootApplication {
 
