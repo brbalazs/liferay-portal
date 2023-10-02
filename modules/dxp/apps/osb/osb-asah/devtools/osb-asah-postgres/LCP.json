@@ -6,7 +6,7 @@
 		"POSTGRES_USER": "postgres"
 	},
 	"id": "osbasahpostgres",
-	"image": "postgres:13.1",
+	"image": "postgres:15.2",
 	"kind": "Deployment",
 	"memory": 2024,
 	"ports": [
