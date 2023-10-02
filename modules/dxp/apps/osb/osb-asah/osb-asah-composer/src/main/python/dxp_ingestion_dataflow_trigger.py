@@ -32,9 +32,7 @@ def create_dag(
 			'owner': 'Liferay',
 			'dataflow_default_options': {
 				'project': os.environ['GOOGLE_PROJECT_ID'],
-				'stagingLocation': 'gs://{}-dataflow/temp/staging'.format(
-					os.environ['GOOGLE_PROJECT_ID']
-				),
+				'stagingLocation': DATAFLOW_BUCKET.concat('/staging/temp'),
 			}
 		},
 		description=dag_description,
