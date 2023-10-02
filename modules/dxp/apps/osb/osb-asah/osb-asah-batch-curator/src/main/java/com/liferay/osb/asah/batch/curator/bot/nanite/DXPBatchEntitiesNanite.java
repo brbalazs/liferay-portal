@@ -7,6 +7,7 @@ package com.liferay.osb.asah.batch.curator.bot.nanite;
 
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.json.JSONUtil;
+import com.liferay.osb.asah.common.spring.annotation.ConditionalOnGoogleApplicationCredentials;
 import com.liferay.osb.asah.common.spring.http.Http;
 import com.liferay.osb.asah.common.storage.impl.GoogleStorageArchiver;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
@@ -41,6 +42,7 @@ import org.springframework.stereotype.Component;
  * @author Marcellus Tavares
  */
 @Component
+@ConditionalOnGoogleApplicationCredentials
 public class DXPBatchEntitiesNanite extends BaseNanite {
 
 	public DXPBatchEntitiesNanite() {
