@@ -33,6 +33,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 /**
@@ -114,18 +116,22 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 			bucketName, folderName, file, fileName,
 			ProjectIdThreadLocal.getProjectId());
 
+		String dagId = String.format(
+			"dxp_%s_ingestion_dataflow_trigger_%s", _entities.get(resourceName),
+			ProjectIdThreadLocal.getProjectId());
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Scheduling DAG " + dagId);
+		}
+
 		HttpHeaders httpHeaders = new HttpHeaders();
 
 		httpHeaders.add(HttpHeaders.ACCEPT, "application/json");
 
 		httpHeaders.setBearerAuth(_composerAuthToken);
 
-		_http.exchange(
-			_composerEndpoint,
-			String.format(
-				"/api/v1/dags/dxp_%s_ingestion_dataflow_trigger_%s/dagRuns",
-				_entities.get(resourceName),
-				ProjectIdThreadLocal.getProjectId()),
+		ResponseEntity<String> responseEntity = _http.exchangeResponseEntity(
+			_composerEndpoint, "/api/v1/dags/" + dagId + "/dagRuns",
 			HttpMethod.POST,
 			JSONUtil.put(
 				"conf",
@@ -133,7 +139,14 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 					"zipFilePath", bucketName + folderName + "/" + fileName)
 			).put(
 				"logical_date", DateUtil.newDateString()
-			));
+			),
+			httpHeaders);
+
+		if (responseEntity.getStatusCode() != HttpStatus.OK) {
+			_log.error(
+				"Unable to schedule DXP ingestion DAG. Code: " +
+					responseEntity.getStatusCodeValue());
+		}
 	}
 
 	private static final Log _log = LogFactory.getLog(
