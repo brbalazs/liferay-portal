@@ -52,14 +52,6 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 
 	@Override
 	public void run(JSONObject contextJSONObject) throws Exception {
-		if (_googleStorageArchiver == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn("Skipping DXP entities Cloud Storage upload");
-			}
-
-			return;
-		}
-
 		String dxpBatchEntitiesStoragePath =
 			_dxpBatchEntitiesStoragePath + "/" +
 				ProjectIdThreadLocal.getProjectId();
@@ -147,10 +139,10 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 	private static final Log _log = LogFactory.getLog(
 		DXPBatchEntitiesNanite.class);
 
-	@Value("${osb.asah.composer.auth.token:}")
+	@Value("${osb.asah.composer.auth.token}")
 	private String _composerAuthToken;
 
-	@Value("${osb.asah.composer.endpoint:}")
+	@Value("${osb.asah.composer.endpoint}")
 	private String _composerEndpoint;
 
 	@Value(
@@ -166,7 +158,7 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 	@Value("${osb.asah.gcloud.project.id:liferaycloud-customer-ac}")
 	private String _gcloudProjectId;
 
-	@Autowired(required = false)
+	@Autowired
 	private GoogleStorageArchiver _googleStorageArchiver;
 
 	@Autowired
