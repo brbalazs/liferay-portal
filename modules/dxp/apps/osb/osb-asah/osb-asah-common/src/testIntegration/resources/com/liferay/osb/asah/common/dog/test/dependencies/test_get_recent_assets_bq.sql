@@ -127,8 +127,6 @@ INSERT INTO Event (applicationId, assetId, assetTitle, canonicalUrl, channelId, 
 INSERT INTO Event (applicationId, assetId, assetTitle, canonicalUrl, channelId, emailAddressHashed, eventDate, eventId, title, userId) VALUES ('WebContent', 'c73ihsy9', 'WebContent Title 4', 'https://www.beryl.com/journals/journal-4', 1, 'c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485', timestamp '${today-28d}', 'webContentViewed', 'Title 4', 'identity3');
 INSERT INTO Event (applicationId, assetId, assetTitle, canonicalUrl, channelId, emailAddressHashed, eventDate, eventId, title, userId) VALUES ('WebContent', 'c73ihsy9', 'WebContent Title 4', 'https://www.beryl.com/journals/journal-4', 1, '09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f', timestamp '${today-32d}', 'webContentViewed', 'Title 4', 'identity2');
 
-
-
 INSERT INTO Identity_Raw (id, individualId) VALUES ('identity1', 'c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485');
 INSERT INTO Identity_Raw (id, individualId) VALUES ('identity2', '09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f');
 INSERT INTO Identity_Raw (id, individualId) VALUES ('identity3', 'c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485');
