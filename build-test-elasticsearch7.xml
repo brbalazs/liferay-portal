@@ -96,7 +96,7 @@ xpack.license.self_generated.type: trial</echo>
 					<contains string="${elasticsearch.version}" substring="7.9" />
 				</not>
 				<then>
-					<echo file="${elasticsearch.dir}-2/config/elasticsearch.yml">${line.separator}ingest.geoip.downloader.enabled: false</echo>
+					<echo append="true" file="${elasticsearch.dir}-2/config/elasticsearch.yml">${line.separator}ingest.geoip.downloader.enabled: false</echo>
 				</then>
 			</if>
 		</sequential>
@@ -120,7 +120,7 @@ xpack.license.self_generated.type: trial</echo>
 					<contains string="${elasticsearch.version}" substring="7.9" />
 				</not>
 				<then>
-					<echo file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}ingest.geoip.downloader.enabled: false</echo>
+					<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}ingest.geoip.downloader.enabled: false</echo>
 				</then>
 			</if>
 		</sequential>
