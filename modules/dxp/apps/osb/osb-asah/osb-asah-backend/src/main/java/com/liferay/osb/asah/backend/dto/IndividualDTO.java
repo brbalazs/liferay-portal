@@ -515,15 +515,6 @@ public class IndividualDTO {
 
 	}
 
-	private Field _createField(String name, Object value) {
-		Field field = new Field();
-
-		field.setName(name);
-		field.setValue(value);
-
-		return field;
-	}
-
 	private Long _activitiesCount;
 	private List<ActivitiesCountDTO> _activitiesCountDTOs;
 	private Set<ActivityDateDTO> _activityDateDTOs;

@@ -1165,23 +1165,6 @@ public class ReportRestController extends BaseRestController {
 			).withSelfRel());
 	}
 
-	private EntityModel<FormPagesReport> _toFormPagesReportEntityModel(
-		FormPagesReport formPagesReport, int rangeKey) {
-
-		return EntityModel.of(
-			formPagesReport,
-			WebMvcLinkBuilder.linkTo(
-				WebMvcLinkBuilder.methodOn(
-					ReportRestController.class
-				).getFormAssetReportEntityModel(
-					Collections.emptySet(), formPagesReport.getFormId(),
-					formPagesReport.getFormTitle(), rangeKey
-				)
-			).withRel(
-				"parent"
-			));
-	}
-
 	private EntityModel<AssetReport> _toJournalAssetReportEntityModel(
 		AssetReport assetReport, int rangeKey) {
 

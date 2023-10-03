@@ -486,26 +486,6 @@ public class DataSourceDog {
 		return name;
 	}
 
-	private JSONObject _getEmptyDataJSONObject(DataSource dataSource) {
-		String providerType = dataSource.getProviderType();
-
-		if (providerType.equals("CSV")) {
-			return JSONUtil.put("fields", new JSONObject());
-		}
-
-		if (providerType.equals("LIFERAY")) {
-			return JSONUtil.put("contact", new JSONObject());
-		}
-
-		if (!providerType.equals("SALESFORCE") && _log.isWarnEnabled()) {
-			_log.warn(
-				"Invalid provider type " + providerType + " for data source " +
-					dataSource.getId());
-		}
-
-		return new JSONObject();
-	}
-
 	private Pageable _getPageable(Integer size, Sort sort) {
 		if (size == null) {
 			size = 10;

@@ -563,15 +563,6 @@ public class Individual {
 
 	}
 
-	private Field _createField(String name, Object value) {
-		Field field = new Field();
-
-		field.setName(name);
-		field.setValue(value);
-
-		return field;
-	}
-
 	private Long _activitiesCount;
 	private Set<BQDataSourceUser> _bqDataSourceUsers = new HashSet<>();
 	private Set<Long> _channelIds = new HashSet<>();

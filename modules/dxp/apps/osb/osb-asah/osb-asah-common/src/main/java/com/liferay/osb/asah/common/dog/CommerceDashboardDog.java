@@ -6,8 +6,6 @@
 package com.liferay.osb.asah.common.dog;
 
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
-import com.liferay.osb.asah.common.entity.Channel;
-import com.liferay.osb.asah.common.entity.ChannelDataSource;
 import com.liferay.osb.asah.common.model.CurrencyValue;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.repository.BQOrderRepository;
@@ -16,11 +14,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -229,21 +223,6 @@ public class CommerceDashboardDog {
 		}
 
 		return orderTotalCurrencyValues;
-	}
-
-	private List<Long> _getDataSourceIds(Long channelId) {
-		Channel channel = _channelDog.fetchChannel(channelId);
-
-		Set<ChannelDataSource> channelDataSources =
-			channel.getChannelDataSources();
-
-		Stream<ChannelDataSource> stream = channelDataSources.stream();
-
-		return stream.map(
-			ChannelDataSource::getDataSourceId
-		).collect(
-			Collectors.toList()
-		);
 	}
 
 	private double _getPercentageVariation(

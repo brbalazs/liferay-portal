@@ -6,7 +6,6 @@
 package com.liferay.osb.asah.common.dog.test;
 
 import com.liferay.osb.asah.common.dog.ChannelDog;
-import com.liferay.osb.asah.common.entity.Asset;
 import com.liferay.osb.asah.common.entity.BQSession;
 import com.liferay.osb.asah.common.entity.Channel;
 import com.liferay.osb.asah.common.entity.ChannelDataSource;
@@ -30,7 +29,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -300,22 +298,6 @@ public class ChannelDogTest
 		}
 
 		return null;
-	}
-
-	private String[] _getChannelAssetChannelIds(Long assetId) {
-		Optional<Asset> assetOptional = _assetRepository.findById(assetId);
-
-		Asset asset = assetOptional.get();
-
-		Set<Long> channelIds = asset.getChannelIds();
-
-		Stream<Long> stream = channelIds.stream();
-
-		return stream.map(
-			String::valueOf
-		).toArray(
-			String[]::new
-		);
 	}
 
 	@Autowired

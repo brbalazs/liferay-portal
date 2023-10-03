@@ -58,7 +58,6 @@ import org.jooq.SelectOnStep;
 import org.jooq.SelectSeekStep1;
 import org.jooq.SelectSelectStep;
 import org.jooq.SortField;
-import org.jooq.Table;
 import org.jooq.impl.DSL;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1291,28 +1290,6 @@ public class BQIndividualRepositoryImpl
 		).orderBy(
 			sortFields
 		);
-	}
-
-	private <R extends Record> Table<R> _getIndividualTable(
-		Condition condition, String interestName, Long segmentId,
-		SelectSelectStep<R> selectSelectStep) {
-
-		SelectJoinStep<R> selectJoinStep = _getSelectJoinStep(
-			interestName, segmentId, selectSelectStep);
-
-		return selectJoinStep.where(
-			DSL.and(
-				condition,
-				DSL.or(
-					DSL.field(
-						"suppressed"
-					).isNull(),
-					DSL.field(
-						"suppressed"
-					).notEqual(
-						Boolean.TRUE
-					)))
-		).asTable();
 	}
 
 	private Condition _getQueryCondition(String query) {
