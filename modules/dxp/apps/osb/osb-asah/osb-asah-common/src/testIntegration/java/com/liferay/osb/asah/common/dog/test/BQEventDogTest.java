@@ -203,7 +203,7 @@ public class BQEventDogTest
 			expectedRecentPages, recentPagePage.getContent());
 	}
 
-	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
+	@BQSQLResource(resourcePath = "test_get_recent_pages_bq_last_24_hours.sql")
 	@SQLResource(resourcePath = "test_get_recent_pages.sql")
 	@Test
 	public void testGetRecentPagesLast24Hours() {
