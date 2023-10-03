@@ -3,7 +3,6 @@
 <suppressions>
 	<checkstyle>
 		<suppress checks="JSONUtilCheck" files="osb-asah-common/src/test/java/com/liferay/osb/asah/common/json/JSONUtilTest\.java" />
-		<suppress checks="UnusedMethodCheck" />
 		<suppress checks="UnusedParameterCheck" />
 		<suppress checks="UnusedVariableCheck" />
 	</checkstyle>
