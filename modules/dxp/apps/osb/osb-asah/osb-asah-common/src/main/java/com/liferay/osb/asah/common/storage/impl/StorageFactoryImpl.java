@@ -20,8 +20,7 @@ public class StorageFactoryImpl implements StorageFactory {
 
 	@Override
 	public Storage getStorage(StorageConfiguration storageConfiguration) {
-		LocalStorage localStorage = new LocalStorage(
-			_jsonAvroTransformer, storageConfiguration);
+		LocalStorage localStorage = new LocalStorage(storageConfiguration);
 
 		localStorage.setGoogleStorageArchiver(_googleStorageArchiver);
 
@@ -30,8 +29,5 @@ public class StorageFactoryImpl implements StorageFactory {
 
 	@Autowired(required = false)
 	private GoogleStorageArchiver _googleStorageArchiver;
-
-	@Autowired
-	private JSONAvroTransformer _jsonAvroTransformer;
 
 }
