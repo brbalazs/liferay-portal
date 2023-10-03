@@ -2162,6 +2162,25 @@ public class BQEventRepositoryImpl
 		SelectSelectStep selectSelectStep, TimeRange timeRange,
 		String timeZoneId) {
 
+		List<Condition> conditions = _createConditions(
+			applicationId, null, eventId, null, individualId,
+			Collections.emptySet(), timeRange, timeZoneId);
+
+		conditions.add(
+			DSL.and(
+				DSL.field(
+					"assetId"
+				).isNotNull(),
+				DSL.field(
+					"assetTitle"
+				).isNotNull(),
+				DSL.field(
+					"canonicalUrl"
+				).isNotNull(),
+				DSL.field(
+					"title"
+				).isNotNull()));
+
 		return selectSelectStep.from(
 			"BQEvent"
 		).join(
@@ -2195,9 +2214,7 @@ public class BQEventRepositoryImpl
 						DSL.val(Boolean.TRUE)
 					)))
 		).where(
-			_createConditions(
-				applicationId, null, eventId, null, individualId,
-				Collections.emptySet(), timeRange, timeZoneId)
+			conditions
 		).groupBy(
 			DSL.field("applicationId"), DSL.field("assetId"),
 			DSL.field("assetTitle"), DSL.field("canonicalUrl")
