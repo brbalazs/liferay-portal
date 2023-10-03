@@ -298,9 +298,6 @@ public class AnalyticsEventsRestController {
 					analyticsEventsMessage.getCreateDate());
 				analyticsEvent.setDataSourceId(dataSourceId);
 
-				Set<String> suppressedEmailAddresses =
-					_dataControlTaskDog.getSuppressedEmailAddresses();
-
 				Set<String> suppressedEmailAddressHashedSet = SetUtil.map(
 					_dataControlTaskDog.getSuppressedEmailAddresses(),
 					emailAddress -> DigestUtils.sha256Hex(

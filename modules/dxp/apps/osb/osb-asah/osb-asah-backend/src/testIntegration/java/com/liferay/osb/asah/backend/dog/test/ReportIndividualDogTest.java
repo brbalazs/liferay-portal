@@ -130,10 +130,6 @@ public class ReportIndividualDogTest
 		Assertions.assertEquals("john@acme.com", individual.getEmailAddress());
 	}
 
-	private static final String[] _FIELD_NAMES = {
-		"email", "familyName", "givenName"
-	};
-
 	@Autowired
 	private DataSourceRepository _dataSourceRepository;
 

@@ -110,9 +110,6 @@ public class BQCSVUserRepositoryTest {
 		Assertions.assertEquals(2L, bqCSVIdentitiesById.size());
 	}
 
-	private BQCSVUser _bqCSVUser1;
-	private BQCSVUser _bqCSVUser2;
-
 	@Autowired
 	private BQCSVUserRepository _bqCSVUserRepository;
 

@@ -1382,10 +1382,6 @@ public class BQIndividualDogTest
 		}
 	}
 
-	private static final String[] _FIELD_NAMES = {
-		"country", "email", "middleName"
-	};
-
 	@Autowired
 	private BQIndividualDog _bqIndividualDog;
 
