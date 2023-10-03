@@ -73,7 +73,10 @@ for project in response.json():
 	commerce_channels_selected = project.get('commerceChannelsSelected')
 
 	if commerce_channels_selected:
+
+		#
 		# Order
+		#
 
 		dag_id = 'dxp_order_ingestion_dataflow_trigger_{}'.format(
 			project.get('id')
@@ -90,7 +93,9 @@ for project in response.json():
 			'dxp_order_ingestion_dataflow_trigger'
 		)
 
+		#
 		# Product
+		#
 
 		dag_id = 'dxp_product_ingestion_dataflow_trigger_{}'.format(
 			project.get('id')
