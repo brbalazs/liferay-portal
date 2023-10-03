@@ -146,7 +146,7 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 
 		if (responseEntity.getStatusCode() != HttpStatus.OK) {
 			_log.error(
-				"Unable to schedule DXP ingestion DAG. Code: " +
+				"Unable to schedule DXP ingestion DAG: " +
 					responseEntity.getStatusCodeValue());
 		}
 	}
