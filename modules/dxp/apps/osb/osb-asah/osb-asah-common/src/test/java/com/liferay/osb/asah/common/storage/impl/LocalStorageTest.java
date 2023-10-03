@@ -75,8 +75,7 @@ public class LocalStorageTest {
 			_PATH
 		);
 
-		LocalStorage localStorage = new LocalStorage(
-			null, storageConfiguration);
+		LocalStorage localStorage = new LocalStorage(storageConfiguration);
 
 		Assertions.assertTrue(localStorage.write(_getInputStream()));
 	}
