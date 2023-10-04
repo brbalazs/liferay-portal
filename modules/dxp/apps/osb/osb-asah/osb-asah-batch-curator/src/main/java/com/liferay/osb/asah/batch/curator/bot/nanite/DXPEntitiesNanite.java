@@ -53,8 +53,12 @@ public class DXPEntitiesNanite extends BaseNanite {
 		String lastSuccessfulDateString = asahMarkerContextJSONObject.optString(
 			"lastSuccessfulDate", null);
 
+		String uploadType = "FULL";
+
 		if (lastSuccessfulDateString != null) {
 			lastSuccessfulDate = DateUtil.toUTCDate(lastSuccessfulDateString);
+
+			uploadType = "INCREMENTAL";
 		}
 
 		String projectId = ProjectIdThreadLocal.getProjectId();
@@ -63,20 +67,28 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 		_run(
 			currentDate, lastSuccessfulDate, projectId,
-			DXPEntity.Type.ANALYTICS_DELETE_MESSAGE);
+			DXPEntity.Type.ANALYTICS_DELETE_MESSAGE, uploadType);
 		_run(
 			currentDate, lastSuccessfulDate, projectId,
-			DXPEntity.Type.EXPANDO_COLUMN);
-		_run(currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.GROUP);
+			DXPEntity.Type.EXPANDO_COLUMN, uploadType);
+		_run(
+			currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.GROUP,
+			uploadType);
 		_run(
 			currentDate, lastSuccessfulDate, projectId,
-			DXPEntity.Type.ORGANIZATION);
-		_run(currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.ROLE);
-		_run(currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.TEAM);
-		_run(currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.USER);
+			DXPEntity.Type.ORGANIZATION, uploadType);
+		_run(
+			currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.ROLE,
+			uploadType);
+		_run(
+			currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.TEAM,
+			uploadType);
+		_run(
+			currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.USER,
+			uploadType);
 		_run(
 			currentDate, lastSuccessfulDate, projectId,
-			DXPEntity.Type.USER_GROUP);
+			DXPEntity.Type.USER_GROUP, uploadType);
 
 		_boundedExecutor.awaitPendingTasks();
 
@@ -213,7 +225,7 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 	private void _run(
 		Date currentDate, Date lastSuccessfulDate, String projectId,
-		DXPEntity.Type type) {
+		DXPEntity.Type type, String uploadType) {
 
 		Map<String, String> messageAttributes = new HashMap<>();
 
@@ -222,7 +234,7 @@ public class DXPEntitiesNanite extends BaseNanite {
 			"resourceName",
 			"com.liferay.analytics.dxp.entity.rest.dto.v1_0.DXPEntity");
 		messageAttributes.put("uploadTime", DateUtil.toUTCString(new Date()));
-		messageAttributes.put("uploadType", "FULL");
+		messageAttributes.put("uploadType", uploadType);
 
 		_boundedExecutor.runAsync(
 			() -> {
