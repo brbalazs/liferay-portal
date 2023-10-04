@@ -40,10 +40,10 @@ public class RecentAssetDTO {
 
 		_contentType = contentType.getValue();
 
-		_counts = recentAsset.getCounts();
-		_createDate = recentAsset.getCreateDate();
-		_lastModifiedDate = recentAsset.getLastModifiedDate();
+		_firstVisitDate = recentAsset.getFirstVisitDate();
+		_lastVisitDate = recentAsset.getLastVisitDate();
 		_url = recentAsset.getUrl();
+		_visits = recentAsset.getVisits();
 	}
 
 	@JsonProperty("assetId")
@@ -61,35 +61,30 @@ public class RecentAssetDTO {
 		return _contentType;
 	}
 
-	@JsonProperty("counts")
-	public Long getCounts() {
-		return _counts;
+	@JsonFormat(
+		pattern = DateUtil.PATTERN_ISO_8601, shape = JsonFormat.Shape.STRING,
+		timezone = "UTC"
+	)
+	@JsonProperty("firstVisitDate")
+	public Date getFirstVisitDate() {
+		if (_firstVisitDate == null) {
+			return null;
+		}
+
+		return new Date(_firstVisitDate.getTime());
 	}
 
 	@JsonFormat(
 		pattern = DateUtil.PATTERN_ISO_8601, shape = JsonFormat.Shape.STRING,
 		timezone = "UTC"
 	)
-	@JsonProperty("createDate")
-	public Date getCreateDate() {
-		if (_createDate == null) {
+	@JsonProperty("lastVisitDate")
+	public Date getLastVisitDate() {
+		if (_lastVisitDate == null) {
 			return null;
 		}
 
-		return new Date(_createDate.getTime());
-	}
-
-	@JsonFormat(
-		pattern = DateUtil.PATTERN_ISO_8601, shape = JsonFormat.Shape.STRING,
-		timezone = "UTC"
-	)
-	@JsonProperty("lastModifiedDate")
-	public Date getLastModifiedDate() {
-		if (_lastModifiedDate == null) {
-			return null;
-		}
-
-		return new Date(_lastModifiedDate.getTime());
+		return new Date(_lastVisitDate.getTime());
 	}
 
 	@JsonProperty("recent-assets")
@@ -102,13 +97,18 @@ public class RecentAssetDTO {
 		return _url;
 	}
 
+	@JsonProperty("visits")
+	public Long getVisits() {
+		return _visits;
+	}
+
 	private String _assetId;
 	private String _assetTitle;
 	private String _contentType;
-	private Long _counts;
-	private Date _createDate;
-	private Date _lastModifiedDate;
+	private Date _firstVisitDate;
+	private Date _lastVisitDate;
 	private Set<RecentAssetDTO> _recentAssetDTOs;
 	private String _url;
+	private Long _visits;
 
 }

@@ -720,24 +720,24 @@ public class BQEventRepositoryImpl
 				).as(
 					"contentType"
 				),
-				DSL.count(
-				).as(
-					"counts"
-				),
 				DSL.min(
 					DSL.field("eventDate", Date.class)
 				).as(
-					"createDate"
+					"firstVisitDate"
 				),
 				DSL.max(
 					DSL.field("eventDate", Date.class)
 				).as(
-					"lastModifiedDate"
+					"lastVisitDate"
 				),
 				DSL.field(
 					"canonicalUrl"
 				).as(
 					"url"
+				),
+				DSL.count(
+				).as(
+					"visits"
 				)),
 			timeRange, timeZoneId);
 
