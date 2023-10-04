@@ -859,17 +859,17 @@ public class BQEventRepositoryImpl
 				DSL.min(
 					DSL.field("BQEvent.eventDate")
 				).as(
-					"createDate"
-				),
-				DSL.count(
-					DSL.asterisk()
-				).as(
-					"counts"
+					"firstVisitDate"
 				),
 				DSL.max(
 					DSL.field("BQEvent.eventDate")
 				).as(
-					"lastModifiedDate"
+					"lastVisitDate"
+				),
+				DSL.count(
+					DSL.asterisk()
+				).as(
+					"visits"
 				)
 			).from(
 				DSL.table("BQEvent")

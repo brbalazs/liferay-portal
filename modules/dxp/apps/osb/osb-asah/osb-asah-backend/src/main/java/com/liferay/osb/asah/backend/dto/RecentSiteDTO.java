@@ -33,26 +33,22 @@ public class RecentSiteDTO {
 	}
 
 	public RecentSiteDTO(RecentSite recentSite) {
-		_count = recentSite.getCounts();
-		_createDate = recentSite.getCreateDate();
+		_firstVisitDate = recentSite.getFirstVisitDate();
 		_groupId = recentSite.getGroupId();
-		_lastModifiedDate = recentSite.getLastModifiedDate();
-	}
-
-	public Long getCount() {
-		return _count;
+		_lastVisitDate = recentSite.getLastVisitDate();
+		_visits = recentSite.getVisits();
 	}
 
 	@JsonFormat(
 		pattern = DateUtil.PATTERN_ISO_8601, shape = JsonFormat.Shape.STRING,
 		timezone = "UTC"
 	)
-	public Date getCreateDate() {
-		if (_createDate == null) {
+	public Date getFirstVisitDate() {
+		if (_firstVisitDate == null) {
 			return null;
 		}
 
-		return new Date(_createDate.getTime());
+		return new Date(_firstVisitDate.getTime());
 	}
 
 	public String getGroupId() {
@@ -63,12 +59,12 @@ public class RecentSiteDTO {
 		pattern = DateUtil.PATTERN_ISO_8601, shape = JsonFormat.Shape.STRING,
 		timezone = "UTC"
 	)
-	public Date getLastModifiedDate() {
-		if (_lastModifiedDate == null) {
+	public Date getLastVisitDate() {
+		if (_lastVisitDate == null) {
 			return null;
 		}
 
-		return new Date(_lastModifiedDate.getTime());
+		return new Date(_lastVisitDate.getTime());
 	}
 
 	@JsonProperty("recent-sites")
@@ -76,10 +72,14 @@ public class RecentSiteDTO {
 		return _recentSiteDTOs;
 	}
 
-	private Long _count;
-	private Date _createDate;
+	public Long getVisits() {
+		return _visits;
+	}
+
+	private Date _firstVisitDate;
 	private String _groupId;
-	private Date _lastModifiedDate;
+	private Date _lastVisitDate;
 	private Set<RecentSiteDTO> _recentSiteDTOs;
+	private Long _visits;
 
 }

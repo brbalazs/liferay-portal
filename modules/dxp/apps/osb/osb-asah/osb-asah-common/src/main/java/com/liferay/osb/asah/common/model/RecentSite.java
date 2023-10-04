@@ -9,6 +9,7 @@ import com.liferay.osb.asah.common.util.BeanUtils;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Marcos Martins
@@ -22,37 +23,61 @@ public class RecentSite {
 		BeanUtils.copyProperties(source, this);
 	}
 
-	public Long getCounts() {
-		return _counts;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof RecentSite)) {
+			return false;
+		}
+
+		RecentSite recentSite = (RecentSite)obj;
+
+		if (Objects.equals(_firstVisitDate, recentSite._firstVisitDate) &&
+			Objects.equals(_groupId, recentSite._groupId) &&
+			Objects.equals(_lastVisitDate, recentSite._lastVisitDate) &&
+			Objects.equals(_visits, recentSite._visits)) {
+
+			return true;
+		}
+
+		return false;
 	}
 
-	public Date getCreateDate() {
-		if (_createDate == null) {
+	public Date getFirstVisitDate() {
+		if (_firstVisitDate == null) {
 			return null;
 		}
 
-		return new Date(_createDate.getTime());
+		return new Date(_firstVisitDate.getTime());
 	}
 
 	public String getGroupId() {
 		return _groupId;
 	}
 
-	public Date getLastModifiedDate() {
-		if (_lastModifiedDate == null) {
+	public Date getLastVisitDate() {
+		if (_lastVisitDate == null) {
 			return null;
 		}
 
-		return new Date(_lastModifiedDate.getTime());
+		return new Date(_lastVisitDate.getTime());
 	}
 
-	public void setCounts(Long counts) {
-		_counts = counts;
+	public Long getVisits() {
+		return _visits;
 	}
 
-	public void setCreateDate(Date createDate) {
-		if (createDate != null) {
-			_createDate = new Date(createDate.getTime());
+	@Override
+	public int hashCode() {
+		return Objects.hash(_firstVisitDate, _groupId, _lastVisitDate, _visits);
+	}
+
+	public void setFirstVisitDate(Date firstVisitDate) {
+		if (firstVisitDate != null) {
+			_firstVisitDate = new Date(firstVisitDate.getTime());
 		}
 	}
 
@@ -60,15 +85,19 @@ public class RecentSite {
 		_groupId = groupId;
 	}
 
-	public void setLastModifiedDate(Date lastModifiedDate) {
-		if (lastModifiedDate != null) {
-			_lastModifiedDate = new Date(lastModifiedDate.getTime());
+	public void setLastVisitDate(Date lastVisitDate) {
+		if (lastVisitDate != null) {
+			_lastVisitDate = new Date(lastVisitDate.getTime());
 		}
 	}
 
-	private Long _counts;
-	private Date _createDate;
+	public void setVisits(Long visits) {
+		_visits = visits;
+	}
+
+	private Date _firstVisitDate;
 	private String _groupId;
-	private Date _lastModifiedDate;
+	private Date _lastVisitDate;
+	private Long _visits;
 
 }
