@@ -786,13 +786,7 @@ public class BQEventRepositoryImpl
 				DSL.min(
 					eventDateField
 				).as(
-					"createDate"
-				),
-				DSL.count(
-				).cast(
-					BigDecimal.class
-				).as(
-					"counts"
+					"firstVisitDate"
 				),
 				DSL.field(
 					"contentLanguageId", String.class
@@ -802,12 +796,18 @@ public class BQEventRepositoryImpl
 				DSL.max(
 					eventDateField
 				).as(
-					"lastModifiedDate"
+					"lastVisitDate"
 				),
 				DSL.field(
 					"canonicalUrl", String.class
 				).as(
 					"url"
+				),
+				DSL.count(
+				).cast(
+					BigDecimal.class
+				).as(
+					"visits"
 				)),
 			timeRange, timeZoneId);
 

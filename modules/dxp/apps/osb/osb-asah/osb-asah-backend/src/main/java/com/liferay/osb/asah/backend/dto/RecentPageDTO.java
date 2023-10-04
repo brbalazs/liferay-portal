@@ -33,16 +33,11 @@ public class RecentPageDTO {
 	}
 
 	public RecentPageDTO(RecentPage recentPage) {
-		_counts = recentPage.getCounts();
-		_createDate = recentPage.getCreateDate();
+		_createDate = recentPage.getFirstVisitDate();
 		_displayLanguageId = recentPage.getDisplayLanguageId();
-		_lastModifiedDate = recentPage.getLastModifiedDate();
+		_lastModifiedDate = recentPage.getLastVisitDate();
 		_url = recentPage.getUrl();
-	}
-
-	@JsonProperty("counts")
-	public Long getCounts() {
-		return _counts;
+		_visits = recentPage.getVisits();
 	}
 
 	@JsonFormat(
@@ -86,11 +81,16 @@ public class RecentPageDTO {
 		return _recentPageDTOs;
 	}
 
-	private Long _counts;
+	@JsonProperty("visits")
+	public Long getVisits() {
+		return _visits;
+	}
+
 	private Date _createDate;
 	private String _displayLanguageId;
 	private Date _lastModifiedDate;
 	private Set<RecentPageDTO> _recentPageDTOs;
 	private String _url;
+	private Long _visits;
 
 }

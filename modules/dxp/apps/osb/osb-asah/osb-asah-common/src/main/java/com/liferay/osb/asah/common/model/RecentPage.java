@@ -35,11 +35,11 @@ public class RecentPage {
 
 		RecentPage recentPage = (RecentPage)obj;
 
-		if (Objects.equals(_counts, recentPage._counts) &&
-			Objects.equals(_createDate, recentPage._createDate) &&
+		if (Objects.equals(_firstVisitDate, recentPage._firstVisitDate) &&
 			Objects.equals(_displayLanguageId, recentPage._displayLanguageId) &&
-			Objects.equals(_lastModifiedDate, recentPage._lastModifiedDate) &&
-			Objects.equals(_url, recentPage._url)) {
+			Objects.equals(_lastVisitDate, recentPage._lastVisitDate) &&
+			Objects.equals(_url, recentPage._url) &&
+			Objects.equals(_visits, recentPage._visits)) {
 
 			return true;
 		}
@@ -47,57 +47,53 @@ public class RecentPage {
 		return false;
 	}
 
-	public Long getCounts() {
-		return _counts;
-	}
-
-	public Date getCreateDate() {
-		if (_createDate == null) {
-			return null;
-		}
-
-		return new Date(_createDate.getTime());
-	}
-
 	public String getDisplayLanguageId() {
 		return _displayLanguageId;
 	}
 
-	public Date getLastModifiedDate() {
-		if (_lastModifiedDate == null) {
+	public Date getFirstVisitDate() {
+		if (_firstVisitDate == null) {
 			return null;
 		}
 
-		return new Date(_lastModifiedDate.getTime());
+		return new Date(_firstVisitDate.getTime());
+	}
+
+	public Date getLastVisitDate() {
+		if (_lastVisitDate == null) {
+			return null;
+		}
+
+		return new Date(_lastVisitDate.getTime());
 	}
 
 	public String getUrl() {
 		return _url;
 	}
 
+	public Long getVisits() {
+		return _visits;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(
-			_counts, _createDate, _displayLanguageId, _lastModifiedDate, _url);
-	}
-
-	public void setCounts(Long counts) {
-		_counts = counts;
-	}
-
-	public void setCreateDate(Date createDate) {
-		if (createDate != null) {
-			_createDate = new Date(createDate.getTime());
-		}
+			_firstVisitDate, _displayLanguageId, _lastVisitDate, _url, _visits);
 	}
 
 	public void setDisplayLanguageId(String displayLanguageId) {
 		_displayLanguageId = displayLanguageId;
 	}
 
-	public void setLastModifiedDate(Date lastModifiedDate) {
-		if (lastModifiedDate != null) {
-			_lastModifiedDate = new Date(lastModifiedDate.getTime());
+	public void setFirstVisitDate(Date firstVisitDate) {
+		if (firstVisitDate != null) {
+			_firstVisitDate = new Date(firstVisitDate.getTime());
+		}
+	}
+
+	public void setLastVisitDate(Date lastVisitDate) {
+		if (lastVisitDate != null) {
+			_lastVisitDate = new Date(lastVisitDate.getTime());
 		}
 	}
 
@@ -105,10 +101,14 @@ public class RecentPage {
 		_url = url;
 	}
 
-	private Long _counts;
-	private Date _createDate;
+	public void setVisits(Long visits) {
+		_visits = visits;
+	}
+
 	private String _displayLanguageId;
-	private Date _lastModifiedDate;
+	private Date _firstVisitDate;
+	private Date _lastVisitDate;
 	private String _url;
+	private Long _visits;
 
 }
