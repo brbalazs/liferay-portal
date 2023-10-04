@@ -7,9 +7,9 @@ package com.liferay.osb.asah.backend.rest.controller.api.data.source.v1;
 
 import com.liferay.osb.asah.backend.dto.IndividualDTO;
 import com.liferay.osb.asah.backend.dto.PageDTO;
-import com.liferay.osb.asah.backend.dto.RecentAssetDTO;
-import com.liferay.osb.asah.backend.dto.RecentPageDTO;
-import com.liferay.osb.asah.backend.dto.RecentSiteDTO;
+import com.liferay.osb.asah.backend.dto.RecentVisitAssetDTO;
+import com.liferay.osb.asah.backend.dto.RecentVisitPageDTO;
+import com.liferay.osb.asah.backend.dto.RecentVisitSiteDTO;
 import com.liferay.osb.asah.backend.dto.SearchKeywordDTO;
 import com.liferay.osb.asah.backend.dto.SegmentDTO;
 import com.liferay.osb.asah.backend.dto.TransformationDTO;
@@ -22,9 +22,9 @@ import com.liferay.osb.asah.common.dog.DataSourceDog;
 import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.entity.Segment;
 import com.liferay.osb.asah.common.model.Individual;
-import com.liferay.osb.asah.common.model.RecentAsset;
-import com.liferay.osb.asah.common.model.RecentPage;
-import com.liferay.osb.asah.common.model.RecentSite;
+import com.liferay.osb.asah.common.model.RecentVisitAsset;
+import com.liferay.osb.asah.common.model.RecentVisitPage;
+import com.liferay.osb.asah.common.model.RecentVisitSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.model.Transformation;
@@ -218,26 +218,26 @@ public class IndividualsRestController extends BaseRestController {
 	}
 
 	@GetMapping("/{id}/recent-assets")
-	public PageDTO<RecentAssetDTO> getRecentAssetDTOPageDTO(
+	public PageDTO<RecentVisitAssetDTO> getRecentVisitAssetDTOPageDTO(
 		@PathVariable String id, @RequestParam String contentType,
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(required = false) int rangeKey,
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
-		Page<RecentAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentAsset.ContentType.of(contentType), id, page, size, sorts,
+		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
+			RecentVisitAsset.ContentType.of(contentType), id, page, size, sorts,
 			TimeRange.of(rangeKey));
 
 		return new PageDTO<>(
-			"_embedded", new RecentAssetDTO(recentAssetPage.getContent()),
+			"_embedded", new RecentVisitAssetDTO(recentAssetPage.getContent()),
 			recentAssetPage.getNumber(), recentAssetPage.getSize(),
 			recentAssetPage.getTotalElements(),
 			recentAssetPage.getTotalPages());
 	}
 
 	@GetMapping("/{id}/recent-pages")
-	public PageDTO<RecentPageDTO> getRecentPageDTOPageDTO(
+	public PageDTO<RecentVisitPageDTO> getRecentVisitPageDTOPageDTO(
 		@PathVariable String id,
 		@RequestParam(required = false) String displayLanguageId,
 		@RequestParam(defaultValue = "0") int page,
@@ -245,27 +245,27 @@ public class IndividualsRestController extends BaseRestController {
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
-		Page<RecentPage> recentPagePage = _bqEventDog.getRecentPagePage(
+		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
 			displayLanguageId, id, page, rangeKey, size, sorts);
 
 		return new PageDTO<>(
-			"_embedded", new RecentPageDTO(recentPagePage.getContent()),
+			"_embedded", new RecentVisitPageDTO(recentPagePage.getContent()),
 			recentPagePage.getNumber(), recentPagePage.getSize(),
 			recentPagePage.getTotalElements(), recentPagePage.getTotalPages());
 	}
 
 	@GetMapping("/{id}/recent-sites")
-	public PageDTO<RecentSiteDTO> getRecentSiteDTOPageDTO(
+	public PageDTO<RecentVisitSiteDTO> getRecentVisitSiteDTOPageDTO(
 		@PathVariable String id, @RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "7") int rangeKey,
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
-		Page<RecentSite> recentSitePage = _bqEventDog.getRecentSitePage(
+		Page<RecentVisitSite> recentSitePage = _bqEventDog.getRecentSitePage(
 			id, page, size, sorts, TimeRange.of(rangeKey));
 
 		return new PageDTO<>(
-			"_embedded", new RecentSiteDTO(recentSitePage.getContent()),
+			"_embedded", new RecentVisitSiteDTO(recentSitePage.getContent()),
 			recentSitePage.getNumber(), recentSitePage.getSize(),
 			recentSitePage.getTotalElements(), recentSitePage.getTotalPages());
 	}

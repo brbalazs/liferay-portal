@@ -16,9 +16,9 @@ import com.liferay.osb.asah.common.entity.EventAttributeDefinition;
 import com.liferay.osb.asah.common.entity.Preference;
 import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.model.BQEventPropertyValue;
-import com.liferay.osb.asah.common.model.RecentAsset;
-import com.liferay.osb.asah.common.model.RecentPage;
-import com.liferay.osb.asah.common.model.RecentSite;
+import com.liferay.osb.asah.common.model.RecentVisitAsset;
+import com.liferay.osb.asah.common.model.RecentVisitPage;
+import com.liferay.osb.asah.common.model.RecentVisitSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
 import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.model.TimeRange;
@@ -162,8 +162,8 @@ public class BQEventDog {
 				timeRange.getStartLocalDateTime(), timeZoneId, userIds));
 	}
 
-	public Page<RecentAsset> getRecentAssetPage(
-		RecentAsset.ContentType contentType, String individualId, int page,
+	public Page<RecentVisitAsset> getRecentAssetPage(
+		RecentVisitAsset.ContentType contentType, String individualId, int page,
 		int size, String[] sorts, TimeRange timeRange) {
 
 		Pageable pageable = PageRequest.of(
@@ -221,7 +221,7 @@ public class BQEventDog {
 			columnName, size);
 	}
 
-	public Page<RecentPage> getRecentPagePage(
+	public Page<RecentVisitPage> getRecentPagePage(
 		@Nullable String displayLanguageId, String individualId, int page,
 		int rangeKey, int size, String[] sorts) {
 
@@ -251,7 +251,7 @@ public class BQEventDog {
 				displayLanguageId, individualId, timeRange, timeZoneId));
 	}
 
-	public Page<RecentSite> getRecentSitePage(
+	public Page<RecentVisitSite> getRecentSitePage(
 		String individualId, int page, int size, String[] sorts,
 		TimeRange timeRange) {
 

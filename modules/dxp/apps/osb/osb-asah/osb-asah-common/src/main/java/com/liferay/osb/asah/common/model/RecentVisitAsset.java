@@ -7,7 +7,6 @@ package com.liferay.osb.asah.common.model;
 
 import com.liferay.osb.asah.common.util.BeanUtils;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -16,12 +15,12 @@ import java.util.Optional;
 /**
  * @author Leslie Wong
  */
-public class RecentAsset {
+public class RecentVisitAsset extends RecentVisit {
 
-	public RecentAsset() {
+	public RecentVisitAsset() {
 	}
 
-	public RecentAsset(Map<String, Object> source) {
+	public RecentVisitAsset(Map<String, Object> source) {
 		BeanUtils.copyProperties(source, this);
 	}
 
@@ -31,19 +30,19 @@ public class RecentAsset {
 			return true;
 		}
 
-		if (!(obj instanceof RecentAsset)) {
+		if (!(obj instanceof RecentVisitAsset)) {
 			return false;
 		}
 
-		RecentAsset recentAsset = (RecentAsset)obj;
+		RecentVisitAsset recentVisitAsset = (RecentVisitAsset)obj;
 
-		if (Objects.equals(_assetId, recentAsset._assetId) &&
-			Objects.equals(_assetTitle, recentAsset._assetTitle) &&
-			Objects.equals(_contentType, recentAsset._contentType) &&
-			Objects.equals(_firstVisitDate, recentAsset._firstVisitDate) &&
-			Objects.equals(_lastVisitDate, recentAsset._lastVisitDate) &&
-			Objects.equals(_url, recentAsset._url) &&
-			Objects.equals(_visits, recentAsset._visits)) {
+		if (Objects.equals(firstVisitDate, recentVisitAsset.firstVisitDate) &&
+			Objects.equals(lastVisitDate, recentVisitAsset.lastVisitDate) &&
+			Objects.equals(visits, recentVisitAsset.visits) &&
+			Objects.equals(_assetId, recentVisitAsset._assetId) &&
+			Objects.equals(_assetTitle, recentVisitAsset._assetTitle) &&
+			Objects.equals(_contentType, recentVisitAsset._contentType) &&
+			Objects.equals(_url, recentVisitAsset._url)) {
 
 			return true;
 		}
@@ -63,35 +62,15 @@ public class RecentAsset {
 		return _contentType;
 	}
 
-	public Date getFirstVisitDate() {
-		if (_firstVisitDate == null) {
-			return null;
-		}
-
-		return new Date(_firstVisitDate.getTime());
-	}
-
-	public Date getLastVisitDate() {
-		if (_lastVisitDate == null) {
-			return null;
-		}
-
-		return new Date(_lastVisitDate.getTime());
-	}
-
 	public String getUrl() {
 		return _url;
-	}
-
-	public Long getVisits() {
-		return _visits;
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(
-			_assetId, _assetTitle, _contentType, _firstVisitDate,
-			_lastVisitDate, _url, _visits);
+			firstVisitDate, lastVisitDate, visits, _assetId, _assetTitle,
+			_contentType, _url);
 	}
 
 	public void setAssetId(String assetId) {
@@ -106,24 +85,8 @@ public class RecentAsset {
 		_contentType = contentType;
 	}
 
-	public void setFirstVisitDate(Date firstVisitDate) {
-		if (firstVisitDate != null) {
-			_firstVisitDate = new Date(firstVisitDate.getTime());
-		}
-	}
-
-	public void setLastVisitDate(Date lastVisitDate) {
-		if (lastVisitDate != null) {
-			_lastVisitDate = new Date(lastVisitDate.getTime());
-		}
-	}
-
 	public void setUrl(String url) {
 		_url = url;
-	}
-
-	public void setVisits(Long visits) {
-		_visits = visits;
 	}
 
 	public enum ContentType {
@@ -179,9 +142,6 @@ public class RecentAsset {
 	private String _assetId;
 	private String _assetTitle;
 	private ContentType _contentType;
-	private Date _firstVisitDate;
-	private Date _lastVisitDate;
 	private String _url;
-	private Long _visits;
 
 }

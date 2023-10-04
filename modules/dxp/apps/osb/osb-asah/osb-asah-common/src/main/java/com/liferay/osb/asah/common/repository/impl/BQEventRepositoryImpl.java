@@ -16,9 +16,9 @@ import com.liferay.osb.asah.common.model.DateGrouping;
 import com.liferay.osb.asah.common.model.EventAnalysisBreakdown;
 import com.liferay.osb.asah.common.model.EventAnalysisFilter;
 import com.liferay.osb.asah.common.model.Interval;
-import com.liferay.osb.asah.common.model.RecentAsset;
-import com.liferay.osb.asah.common.model.RecentPage;
-import com.liferay.osb.asah.common.model.RecentSite;
+import com.liferay.osb.asah.common.model.RecentVisitAsset;
+import com.liferay.osb.asah.common.model.RecentVisitPage;
+import com.liferay.osb.asah.common.model.RecentVisitSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.model.filter.FilterOperator;
@@ -707,7 +707,7 @@ public class BQEventRepositoryImpl
 	}
 
 	@Override
-	public List<RecentAsset> getRecentAssets(
+	public List<RecentVisitAsset> getRecentAssets(
 		String applicationId, String eventId, String individualId,
 		Pageable pageable, TimeRange timeRange, String timeZoneId) {
 
@@ -742,7 +742,7 @@ public class BQEventRepositoryImpl
 			timeRange, timeZoneId);
 
 		return _queryExecutor.queryForList(
-			RecentAsset::new,
+			RecentVisitAsset::new,
 			selectHavingStep.orderBy(
 				getSortFields(pageable.getSort(), null)
 			).limit(
@@ -774,7 +774,7 @@ public class BQEventRepositoryImpl
 	}
 
 	@Override
-	public List<RecentPage> getRecentPages(
+	public List<RecentVisitPage> getRecentPages(
 		@Nullable String displayLanguageId, String individualId,
 		Pageable pageable, TimeRange timeRange, String timeZoneId) {
 
@@ -812,7 +812,7 @@ public class BQEventRepositoryImpl
 			timeRange, timeZoneId);
 
 		return _queryExecutor.queryForList(
-			RecentPage::new,
+			RecentVisitPage::new,
 			selectHavingStep.orderBy(
 				getSortFields(pageable.getSort(), null)
 			).limit(
@@ -844,12 +844,12 @@ public class BQEventRepositoryImpl
 	}
 
 	@Override
-	public List<RecentSite> getRecentSites(
+	public List<RecentVisitSite> getRecentSites(
 		String individualId, Pageable pageable, TimeRange timeRange,
 		String timeZoneId) {
 
 		return _queryExecutor.queryForList(
-			RecentSite::new,
+			RecentVisitSite::new,
 			_dslContext.select(
 				_dslHelper.jsonExtractScalar(
 					"BQEvent.context", "groupId"

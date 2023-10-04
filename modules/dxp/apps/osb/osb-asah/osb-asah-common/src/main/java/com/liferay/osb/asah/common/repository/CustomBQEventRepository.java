@@ -11,9 +11,9 @@ import com.liferay.osb.asah.common.model.BreakdownRow;
 import com.liferay.osb.asah.common.model.EventAnalysisBreakdown;
 import com.liferay.osb.asah.common.model.EventAnalysisFilter;
 import com.liferay.osb.asah.common.model.Interval;
-import com.liferay.osb.asah.common.model.RecentAsset;
-import com.liferay.osb.asah.common.model.RecentPage;
-import com.liferay.osb.asah.common.model.RecentSite;
+import com.liferay.osb.asah.common.model.RecentVisitAsset;
+import com.liferay.osb.asah.common.model.RecentVisitPage;
+import com.liferay.osb.asah.common.model.RecentVisitSite;
 import com.liferay.osb.asah.common.model.SearchKeyword;
 import com.liferay.osb.asah.common.model.TimeRange;
 
@@ -106,7 +106,7 @@ public interface CustomBQEventRepository {
 	public Map<String, Date> getLastSeenDateDateGroupedByColumnName(
 		String columnName, int size);
 
-	public List<RecentAsset> getRecentAssets(
+	public List<RecentVisitAsset> getRecentAssets(
 		String applicationId, String eventId, String individualId,
 		Pageable pageable, TimeRange timeRange, String timeZoneId);
 
@@ -114,7 +114,7 @@ public interface CustomBQEventRepository {
 		String applicationId, String eventId, String individualId,
 		TimeRange timeRange, String timeZoneId);
 
-	public List<RecentPage> getRecentPages(
+	public List<RecentVisitPage> getRecentPages(
 		@Nullable String displayLanguageId, String individualId,
 		Pageable pageable, TimeRange timeRange, String timeZoneId);
 
@@ -122,7 +122,7 @@ public interface CustomBQEventRepository {
 		@Nullable String displayLanguageId, String individualId,
 		TimeRange timeRange, String timeZoneId);
 
-	public List<RecentSite> getRecentSites(
+	public List<RecentVisitSite> getRecentSites(
 		@Nullable String individualId, Pageable pageable,
 		@Nullable TimeRange timeRange, String timeZoneId);
 
