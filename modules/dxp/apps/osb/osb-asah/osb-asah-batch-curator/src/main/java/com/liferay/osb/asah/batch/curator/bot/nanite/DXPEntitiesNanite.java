@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
  * @author Marcos Martins
  */
 @Component
-public class DXPEntityNanite extends BaseNanite {
+public class DXPEntitiesNanite extends BaseNanite {
 
 	@Override
 	public void run(JSONObject contextJSONObject) throws Exception {
@@ -275,7 +275,7 @@ public class DXPEntityNanite extends BaseNanite {
 		).toString();
 	}
 
-	private static final Log _log = LogFactory.getLog(DXPEntityNanite.class);
+	private static final Log _log = LogFactory.getLog(DXPEntitiesNanite.class);
 
 	private final BoundedExecutor _boundedExecutor =
 		BoundedExecutor.newBoundedExecutor(7, 7);

@@ -6,7 +6,7 @@
 package com.liferay.osb.asah.batch.curator.bot.nanite.test;
 
 import com.liferay.osb.asah.batch.curator.OSBAsahBatchCuratorSpringTestContext;
-import com.liferay.osb.asah.batch.curator.bot.nanite.DXPEntityNanite;
+import com.liferay.osb.asah.batch.curator.bot.nanite.DXPEntitiesNanite;
 import com.liferay.osb.asah.common.dog.DXPEntityDog;
 import com.liferay.osb.asah.common.dog.DataSourceDog;
 import com.liferay.osb.asah.common.entity.DXPEntity;
@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Import;
  * @author Marcos Martins
  */
 @Import(JDBCTestConfiguration.class)
-public class DXPEntityNaniteTest
+public class DXPEntitiesNaniteTest
 	implements OSBAsahBatchCuratorSpringTestContext {
 
 	@BeforeEach
@@ -81,7 +81,7 @@ public class DXPEntityNaniteTest
 
 		_dxpEntityDog.addDXPEntity(dxpEntity, DXPEntity.Type.USER);
 
-		_dxpEntityNanite.run(null);
+		_dxpEntitiesNanite.run(null);
 
 		ArgumentCaptor<String> argumentCaptor = ArgumentCaptor.forClass(
 			String.class);
@@ -119,10 +119,10 @@ public class DXPEntityNaniteTest
 	private Long _dataSourceId;
 
 	@Autowired
-	private DXPEntityDog _dxpEntityDog;
+	private DXPEntitiesNanite _dxpEntitiesNanite;
 
 	@Autowired
-	private DXPEntityNanite _dxpEntityNanite;
+	private DXPEntityDog _dxpEntityDog;
 
 	@MockBean
 	private MessageBus _messageBus;
