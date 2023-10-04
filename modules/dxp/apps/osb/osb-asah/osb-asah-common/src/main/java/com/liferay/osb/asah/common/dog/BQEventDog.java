@@ -36,13 +36,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import org.json.JSONArray;
 
@@ -170,7 +166,13 @@ public class BQEventDog {
 		RecentAsset.ContentType contentType, String individualId, int page,
 		int size, String[] sorts, TimeRange timeRange) {
 
-		Pageable pageable = PageRequest.of(page, size, _getSort(sorts));
+		Pageable pageable = PageRequest.of(
+			page, size,
+			SortUtil.getSort(
+				org.springframework.data.domain.Sort.by(
+					org.springframework.data.domain.Sort.Order.desc("visits"),
+					org.springframework.data.domain.Sort.Order.asc("assetId")),
+				sorts));
 
 		if ((individualId != null) &&
 			_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
@@ -227,7 +229,8 @@ public class BQEventDog {
 			page, size,
 			SortUtil.getSort(
 				org.springframework.data.domain.Sort.by(
-					org.springframework.data.domain.Sort.Order.desc("counts")),
+					org.springframework.data.domain.Sort.Order.desc("visits"),
+					org.springframework.data.domain.Sort.Order.asc("url")),
 				sorts));
 
 		if (_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
@@ -252,7 +255,13 @@ public class BQEventDog {
 		String individualId, int page, int size, String[] sorts,
 		TimeRange timeRange) {
 
-		Pageable pageable = PageRequest.of(page, size, _getSort(sorts));
+		Pageable pageable = PageRequest.of(
+			page, size,
+			SortUtil.getSort(
+				org.springframework.data.domain.Sort.by(
+					org.springframework.data.domain.Sort.Order.desc("visits"),
+					org.springframework.data.domain.Sort.Order.asc("groupId")),
+				sorts));
 
 		if ((individualId != null) &&
 			_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
@@ -276,7 +285,13 @@ public class BQEventDog {
 		@Nullable String individualId, int minCounts, int page, int size,
 		String[] sorts, @Nullable TimeRange timeRange) {
 
-		Pageable pageable = PageRequest.of(page, size, _getSort(sorts));
+		Pageable pageable = PageRequest.of(
+			page, size,
+			SortUtil.getSort(
+				org.springframework.data.domain.Sort.by(
+					org.springframework.data.domain.Sort.Order.desc("counts"),
+					org.springframework.data.domain.Sort.Order.asc("keywords")),
+				sorts));
 
 		if (_dataControlTaskDog.isSuppressedEmailAddress(individualId)) {
 			return PageableExecutionUtils.getPage(
@@ -368,44 +383,6 @@ public class BQEventDog {
 		searchQueryStrings.add("q");
 
 		return searchQueryStrings;
-	}
-
-	private org.springframework.data.domain.Sort _getSort(String[] sorts) {
-		if (ArrayUtils.isEmpty(sorts)) {
-			return org.springframework.data.domain.Sort.by(
-				org.springframework.data.domain.Sort.Order.desc("counts"));
-		}
-
-		List<org.springframework.data.domain.Sort.Order> orders =
-			new ArrayList<>();
-
-		for (int i = 0; i < sorts.length; i++) {
-			String sort = sorts[i];
-
-			String order = null;
-
-			String[] properties = sort.split(",");
-
-			if (properties.length == 1) {
-				order = sorts[++i];
-			}
-			else {
-				order = properties[1];
-			}
-
-			if (Objects.equals(order, "asc")) {
-				orders.add(
-					org.springframework.data.domain.Sort.Order.asc(
-						StringUtils.lowerCase(properties[0])));
-			}
-			else {
-				orders.add(
-					org.springframework.data.domain.Sort.Order.desc(
-						StringUtils.lowerCase(properties[0])));
-			}
-		}
-
-		return org.springframework.data.domain.Sort.by(orders);
 	}
 
 	@Autowired
