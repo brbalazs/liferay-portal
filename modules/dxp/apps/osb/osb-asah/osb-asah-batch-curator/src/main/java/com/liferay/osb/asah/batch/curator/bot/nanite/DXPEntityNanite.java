@@ -63,6 +63,9 @@ public class DXPEntityNanite extends BaseNanite {
 
 		_run(
 			currentDate, lastSuccessfulDate, projectId,
+			DXPEntity.Type.ANALYTICS_DELETE_MESSAGE);
+		_run(
+			currentDate, lastSuccessfulDate, projectId,
 			DXPEntity.Type.EXPANDO_COLUMN);
 		_run(currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.GROUP);
 		_run(

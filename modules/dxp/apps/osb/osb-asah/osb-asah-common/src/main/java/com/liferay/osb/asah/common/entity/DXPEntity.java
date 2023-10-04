@@ -193,6 +193,8 @@ public class DXPEntity implements Persistable<Long> {
 
 	public enum Type {
 
+		ANALYTICS_DELETE_MESSAGE(
+			Type.CLASS_NAME_ANALYTICS_DELETE_MESSAGE, null, null, null, null),
 		EXPANDO_COLUMN(
 			Type.CLASS_NAME_EXPANDO_COLUMN, null, "name", null, null),
 		GROUP(
@@ -214,6 +216,10 @@ public class DXPEntity implements Persistable<Long> {
 		USER_GROUP(
 			Type.CLASS_NAME_USER_GROUP, "user-groups", "userGroupId",
 			"userGroupIds", "referencedUserGroupIds");
+
+		public static final String CLASS_NAME_ANALYTICS_DELETE_MESSAGE =
+			"com.liferay.analytics.message.storage.model." +
+				"AnalyticsDeleteMessage";
 
 		public static final String CLASS_NAME_CONTACT =
 			"com.liferay.portal.kernel.model.Contact";
