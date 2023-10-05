@@ -13,14 +13,20 @@ import com.liferay.osb.asah.common.entity.AsahMarker;
 import com.liferay.osb.asah.common.entity.DXPEntity;
 import com.liferay.osb.asah.common.entity.DataSource;
 import com.liferay.osb.asah.common.json.JSONUtil;
-import com.liferay.osb.asah.common.messaging.Channel;
 import com.liferay.osb.asah.common.messaging.MessageBus;
 import com.liferay.osb.asah.common.util.GetterUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
+import java.nio.charset.StandardCharsets;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.annotation.PreDestroy;
 
@@ -70,30 +76,41 @@ public class DXPEntitiesNanite extends BaseNanite {
 		for (DataSource dataSource :
 				_dataSourceDog.getDataSources("LIFERAY", "ACTIVE")) {
 
+			Long dataSourceId = dataSource.getId();
+
+			String fileName = String.join(
+				"#", String.valueOf(dataSourceId), projectId, uploadType,
+				DateUtil.toUTCString(currentDate));
+
+			File file = File.createTempFile(fileName, ".zip");
+
+			ZipOutputStream zipOutputStream = _getZipOutputStream(file);
+
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.ANALYTICS_DELETE_MESSAGE, uploadType);
+				DXPEntity.Type.ANALYTICS_DELETE_MESSAGE, uploadType,
+				zipOutputStream);
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.EXPANDO_COLUMN, uploadType);
+				DXPEntity.Type.EXPANDO_COLUMN, uploadType, zipOutputStream);
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.GROUP, uploadType);
+				DXPEntity.Type.GROUP, uploadType, zipOutputStream);
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.ORGANIZATION, uploadType);
+				DXPEntity.Type.ORGANIZATION, uploadType, zipOutputStream);
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.ROLE, uploadType);
+				DXPEntity.Type.ROLE, uploadType, zipOutputStream);
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.TEAM, uploadType);
+				DXPEntity.Type.TEAM, uploadType, zipOutputStream);
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.USER, uploadType);
+				DXPEntity.Type.USER, uploadType, zipOutputStream);
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.USER_GROUP, uploadType);
+				DXPEntity.Type.USER_GROUP, uploadType, zipOutputStream);
 		}
 
 		_boundedExecutor.awaitPendingTasks();
@@ -229,9 +246,22 @@ public class DXPEntitiesNanite extends BaseNanite {
 		return jsonArray;
 	}
 
+	private ZipOutputStream _getZipOutputStream(File file) throws Exception {
+		FileOutputStream fileOutputStream = new FileOutputStream(file, true);
+
+		ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
+
+		ZipEntry zipEntry = new ZipEntry("export.jsonl");
+
+		zipOutputStream.putNextEntry(zipEntry);
+
+		return zipOutputStream;
+	}
+
 	private void _run(
 		Date currentDate, Long dataSourceId, Date lastSuccessfulDate,
-		String projectId, DXPEntity.Type type, String uploadType) {
+		String projectId, DXPEntity.Type type, String uploadType,
+		ZipOutputStream zipOutputStream) {
 
 		Map<String, String> messageAttributes = new HashMap<>();
 
@@ -269,9 +299,7 @@ public class DXPEntitiesNanite extends BaseNanite {
 							"dataSourceId",
 							String.valueOf(dxpEntity.getDataSourceId()));
 
-						_messageBus.sendMessage(
-							Channel.DXP_ENTITIES_DEFAULT,
-							_toJSON(dxpEntity), messageAttributes);
+						_write(_toJSONString(dxpEntity), zipOutputStream);
 					}
 				}
 			});
@@ -291,6 +319,15 @@ public class DXPEntitiesNanite extends BaseNanite {
 		).put(
 			"type", type.getClassName()
 		).toString();
+	}
+
+	private void _write(String data, ZipOutputStream zipOutputStream)
+		throws Exception {
+
+		String newLineAppendedData = data + System.lineSeparator();
+
+		zipOutputStream.write(
+			newLineAppendedData.getBytes(StandardCharsets.UTF_8));
 	}
 
 	private static final Log _log = LogFactory.getLog(DXPEntitiesNanite.class);
