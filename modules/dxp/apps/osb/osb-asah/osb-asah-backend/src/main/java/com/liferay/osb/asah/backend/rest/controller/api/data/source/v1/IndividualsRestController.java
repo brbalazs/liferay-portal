@@ -221,7 +221,7 @@ public class IndividualsRestController extends BaseRestController {
 	public PageDTO<RecentVisitAssetDTO> getRecentVisitAssetDTOPageDTO(
 		@PathVariable String id, @RequestParam String contentType,
 		@RequestParam(defaultValue = "0") int page,
-		@RequestParam(required = false) int rangeKey,
+		@RequestParam(defaultValue = "7") int rangeKey,
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
