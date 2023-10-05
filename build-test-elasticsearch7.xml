@@ -85,8 +85,7 @@
 
 	<macrodef name="configure-elasticsearch-local-cluster-properties">
 		<sequential>
-			<echo file="${elasticsearch.dir}-2/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
-cluster.name: LiferayElasticsearchClusterTwo
+			<echo file="${elasticsearch.dir}-2/config/elasticsearch.yml">${line.separator}cluster.name: LiferayElasticsearchClusterTwo
 http.port: 9202
 transport.port: 9500-9600
 xpack.license.self_generated.type: trial</echo>
@@ -110,8 +109,8 @@ xpack.license.self_generated.type: trial</echo>
 
 	<macrodef name="configure-elasticsearch-properties">
 		<sequential>
-			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}bootstrap.system_call_filter: false
-cluster.name: LiferayElasticsearchCluster
+			<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}cluster.name: LiferayElasticsearchCluster
+discovery.type: single-node
 http.host: ["_local_", "_site_"]
 xpack.license.self_generated.type: trial</echo>
 
@@ -517,6 +516,14 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 				regexp="(PASSWORD elastic = )(\S*)"
 				select="\2"
 			/>
+
+			<propertyregex
+				input="${elastic.xpack.user.passwords}"
+				override="true"
+				property="elastic.xpack.kibana.user.password"
+				regexp="(PASSWORD kibana_system = )(\S*)"
+				select="\2"
+			/>
 		</sequential>
 	</macrodef>
 
@@ -585,6 +592,12 @@ ${line.separator}CATALINA_OPTS="${CATALINA_OPTS} -Djavax.net.ssl.trustStore=${el
 	<macrodef name="start-elasticsearch-with-clustering">
 		<sequential>
 			<set-up-standard-elasticsearch />
+
+			<replaceregexp
+				file="${elasticsearch.dir}/config/elasticsearch.yml"
+				match="discovery.type: single-node\n"
+				replace=""
+			/>
 
 			<prepare-additional-elasticsearch-bundles total.bundles="${elasticsearch.cluster.size}" />
 
