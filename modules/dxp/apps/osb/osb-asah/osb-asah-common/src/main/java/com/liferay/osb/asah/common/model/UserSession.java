@@ -247,7 +247,7 @@ public class UserSession implements Serializable {
 		return _timezoneOffset;
 	}
 
-	public Set<String> getUrls() {
+	public Set<String> getURLs() {
 		if (_urls == null) {
 			return Collections.emptySet();
 		}

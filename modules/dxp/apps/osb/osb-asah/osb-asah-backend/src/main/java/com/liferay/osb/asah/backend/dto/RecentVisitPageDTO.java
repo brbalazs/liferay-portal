@@ -34,7 +34,7 @@ public class RecentVisitPageDTO extends RecentVisitDTO {
 		super(recentVisitPage);
 
 		_displayLanguageId = recentVisitPage.getDisplayLanguageId();
-		_url = recentVisitPage.getUrl();
+		_url = recentVisitPage.getURL();
 	}
 
 	@JsonProperty("displayLanguageId")

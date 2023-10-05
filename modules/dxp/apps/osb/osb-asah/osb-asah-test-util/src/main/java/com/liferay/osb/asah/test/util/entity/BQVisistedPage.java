@@ -114,7 +114,7 @@ public class BQVisistedPage implements Persistable<Long> {
 	}
 
 	@AccessType(AccessType.Type.PROPERTY)
-	public String getUrl() {
+	public String getURL() {
 		return _url;
 	}
 

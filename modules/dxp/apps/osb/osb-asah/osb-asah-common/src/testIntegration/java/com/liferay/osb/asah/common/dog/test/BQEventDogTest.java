@@ -2081,7 +2081,7 @@ public class BQEventDogTest
 
 		for (RecentVisitPage recentVisitPage : recentVisitPages) {
 			Pair<String, String> pair = Pair.of(
-				recentVisitPage.getUrl(),
+				recentVisitPage.getURL(),
 				recentVisitPage.getDisplayLanguageId());
 
 			Assertions.assertEquals(
@@ -2667,7 +2667,7 @@ public class BQEventDogTest
 
 		for (RecentVisitPage recentVisitPage : recentVisitPages) {
 			Pair<String, String> pair = Pair.of(
-				recentVisitPage.getUrl(),
+				recentVisitPage.getURL(),
 				recentVisitPage.getDisplayLanguageId());
 
 			Assertions.assertEquals(

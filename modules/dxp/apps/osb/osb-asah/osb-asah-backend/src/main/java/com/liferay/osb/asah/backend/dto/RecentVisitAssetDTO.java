@@ -41,7 +41,7 @@ public class RecentVisitAssetDTO extends RecentVisitDTO {
 
 		_contentType = contentType.getValue();
 
-		_url = recentVisitAsset.getUrl();
+		_url = recentVisitAsset.getURL();
 	}
 
 	@JsonProperty("assetId")
@@ -65,7 +65,7 @@ public class RecentVisitAssetDTO extends RecentVisitDTO {
 	}
 
 	@JsonProperty("url")
-	public String getUrl() {
+	public String getURL() {
 		return _url;
 	}
 

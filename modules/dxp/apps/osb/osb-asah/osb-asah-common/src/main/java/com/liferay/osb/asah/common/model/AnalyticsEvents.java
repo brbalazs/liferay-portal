@@ -106,7 +106,7 @@ public class AnalyticsEvents {
 		return _analyticsEventsList.size();
 	}
 
-	public Set<String> getUrls() {
+	public Set<String> getURLs() {
 		return _urls;
 	}
 

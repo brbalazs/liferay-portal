@@ -171,7 +171,7 @@ public class BQSession {
 	}
 
 	@BigQueryColumn
-	public Set<String> getUrls() {
+	public Set<String> getURLs() {
 		return _urls;
 	}
 

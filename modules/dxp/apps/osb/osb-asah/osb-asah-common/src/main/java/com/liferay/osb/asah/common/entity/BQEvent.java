@@ -281,7 +281,7 @@ public class BQEvent {
 	}
 
 	@BigQueryColumn
-	public String getUrl() {
+	public String getURL() {
 		return _url;
 	}
 

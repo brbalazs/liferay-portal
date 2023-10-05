@@ -30,7 +30,7 @@ public class BQEventDTO {
 		_pageKeywords = bqEvent.getKeywords();
 		_pageTitle = bqEvent.getTitle();
 		_referrer = bqEvent.getReferrer();
-		_url = bqEvent.getUrl();
+		_url = bqEvent.getURL();
 	}
 
 	public String getCanonicalUrl() {
@@ -69,7 +69,7 @@ public class BQEventDTO {
 		return _referrer;
 	}
 
-	public String getUrl() {
+	public String getURL() {
 		return _url;
 	}
 

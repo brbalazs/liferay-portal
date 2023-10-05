@@ -62,7 +62,7 @@ public class RecentVisitAsset extends RecentVisit {
 		return _contentType;
 	}
 
-	public String getUrl() {
+	public String getURL() {
 		return _url;
 	}
 

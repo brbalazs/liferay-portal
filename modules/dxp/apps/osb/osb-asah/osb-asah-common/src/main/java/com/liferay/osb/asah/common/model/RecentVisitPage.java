@@ -51,7 +51,7 @@ public class RecentVisitPage extends RecentVisit {
 		return _displayLanguageId;
 	}
 
-	public String getUrl() {
+	public String getURL() {
 		return _url;
 	}
 
