@@ -9,9 +9,6 @@ import com.liferay.osb.asah.common.entity.BQExpandoValue;
 import com.liferay.osb.asah.common.entity.BQOrganization;
 import com.liferay.osb.asah.common.entity.BQUserGroup;
 import com.liferay.osb.asah.common.entity.DXPEntity;
-import com.liferay.osb.asah.common.messaging.Channel;
-import com.liferay.osb.asah.common.messaging.MessageBus;
-import com.liferay.osb.asah.common.messaging.model.Message;
 import com.liferay.osb.asah.common.repository.BQAccountEntryRepository;
 import com.liferay.osb.asah.common.repository.BQAccountGroupRepository;
 import com.liferay.osb.asah.common.repository.BQExpandoColumnRepository;
@@ -56,15 +53,13 @@ public class DXPEntitiesIngestionNaniteTest
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			_dxpEntitiesIngestionNanite.processMessage(
-				new Message<>(
-					null,
-					new HashMap<String, String>() {
-						{
-							put("dataSourceId", "1");
-							put("projectId", "test");
-						}
-					},
-					null, String.valueOf(jsonArray.getJSONObject(i))));
+				new HashMap<String, String>() {
+					{
+						put("dataSourceId", "1");
+						put("projectId", "test");
+					}
+				},
+				String.valueOf(jsonArray.getJSONObject(i)));
 		}
 
 		Assertions.assertEquals(1, _bqAccountEntryRepository.count());
@@ -94,15 +89,13 @@ public class DXPEntitiesIngestionNaniteTest
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			_dxpEntitiesIngestionNanite.processMessage(
-				new Message<>(
-					null,
-					new HashMap<String, String>() {
-						{
-							put("dataSourceId", "1");
-							put("projectId", "test");
-						}
-					},
-					null, String.valueOf(jsonArray.getJSONObject(i))));
+				new HashMap<String, String>() {
+					{
+						put("dataSourceId", "1");
+						put("projectId", "test");
+					}
+				},
+				String.valueOf(jsonArray.getJSONObject(i)));
 		}
 
 		Optional<BQUserGroup> bqUserGroupOptional =
@@ -119,15 +112,14 @@ public class DXPEntitiesIngestionNaniteTest
 			"dependencies/dxp_entities2.json", this);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
-			_messageBus.sendMessage(
-				Channel.DXP_ENTITIES_DEFAULT,
-				String.valueOf(jsonArray.getJSONObject(i)),
+			_dxpEntitiesIngestionNanite.processMessage(
 				new HashMap<String, String>() {
 					{
 						put("dataSourceId", "1");
 						put("projectId", "test");
 					}
-				});
+				},
+				String.valueOf(jsonArray.getJSONObject(i)));
 		}
 
 		BQOrganization bqOrganization = new BQOrganization();
@@ -198,8 +190,5 @@ public class DXPEntitiesIngestionNaniteTest
 
 	@Autowired
 	private DXPEntitiesIngestionNanite _dxpEntitiesIngestionNanite;
-
-	@Autowired
-	private MessageBus _messageBus;
 
 }

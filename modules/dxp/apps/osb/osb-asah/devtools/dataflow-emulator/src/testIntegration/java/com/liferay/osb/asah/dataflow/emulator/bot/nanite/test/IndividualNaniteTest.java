@@ -9,12 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.liferay.osb.asah.common.entity.BQIndividual;
 import com.liferay.osb.asah.common.json.JSONUtil;
-import com.liferay.osb.asah.common.messaging.model.Message;
-import com.liferay.osb.asah.common.repository.BQExpandoColumnRepository;
-import com.liferay.osb.asah.common.repository.BQExpandoValueRepository;
-import com.liferay.osb.asah.common.repository.BQIdentityRepository;
 import com.liferay.osb.asah.common.repository.BQIndividualRepository;
-import com.liferay.osb.asah.common.repository.BQUserRepository;
 import com.liferay.osb.asah.common.spring.resource.ResourceUtil;
 import com.liferay.osb.asah.dataflow.emulator.bot.nanite.DXPEntitiesIngestionNanite;
 import com.liferay.osb.asah.dataflow.emulator.bot.nanite.IndividualNanite;
@@ -55,15 +50,13 @@ public class IndividualNaniteTest
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			_dxpEntitiesIngestionNanite.processMessage(
-				new Message<>(
-					null,
-					new HashMap<String, String>() {
-						{
-							put("dataSourceId", "1");
-							put("projectId", "test");
-						}
-					},
-					null, String.valueOf(jsonArray.getJSONObject(i))));
+				new HashMap<String, String>() {
+					{
+						put("dataSourceId", "1");
+						put("projectId", "test");
+					}
+				},
+				String.valueOf(jsonArray.getJSONObject(i)));
 		}
 
 		_individualNanite.run();
@@ -100,15 +93,13 @@ public class IndividualNaniteTest
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			_dxpEntitiesIngestionNanite.processMessage(
-				new Message<>(
-					null,
-					new HashMap<String, String>() {
-						{
-							put("dataSourceId", "1");
-							put("projectId", "test");
-						}
-					},
-					null, String.valueOf(jsonArray.getJSONObject(i))));
+				new HashMap<String, String>() {
+					{
+						put("dataSourceId", "1");
+						put("projectId", "test");
+					}
+				},
+				String.valueOf(jsonArray.getJSONObject(i)));
 		}
 
 		_individualNanite.run();
@@ -139,15 +130,13 @@ public class IndividualNaniteTest
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			_dxpEntitiesIngestionNanite.processMessage(
-				new Message<>(
-					null,
-					new HashMap<String, String>() {
-						{
-							put("dataSourceId", "1");
-							put("projectId", "test");
-						}
-					},
-					null, String.valueOf(jsonArray.getJSONObject(i))));
+				new HashMap<String, String>() {
+					{
+						put("dataSourceId", "1");
+						put("projectId", "test");
+					}
+				},
+				String.valueOf(jsonArray.getJSONObject(i)));
 		}
 
 		_individualNanite.run();
@@ -183,15 +172,13 @@ public class IndividualNaniteTest
 
 		for (int i = 0; i < jsonArray.length(); i++) {
 			_dxpEntitiesIngestionNanite.processMessage(
-				new Message<>(
-					null,
-					new HashMap<String, String>() {
-						{
-							put("dataSourceId", "1");
-							put("projectId", "test");
-						}
-					},
-					null, String.valueOf(jsonArray.getJSONObject(i))));
+				new HashMap<String, String>() {
+					{
+						put("dataSourceId", "1");
+						put("projectId", "test");
+					}
+				},
+				String.valueOf(jsonArray.getJSONObject(i)));
 		}
 
 		_individualNanite.run();
@@ -222,19 +209,7 @@ public class IndividualNaniteTest
 	}
 
 	@Autowired
-	private BQExpandoColumnRepository _bqExpandoColumnRepository;
-
-	@Autowired
-	private BQExpandoValueRepository _bqExpandoValueRepository;
-
-	@Autowired
-	private BQIdentityRepository _bqIdentityRepository;
-
-	@Autowired
 	private BQIndividualRepository _bqIndividualRepository;
-
-	@Autowired
-	private BQUserRepository _bqUserRepository;
 
 	@Autowired
 	private DXPEntitiesIngestionNanite _dxpEntitiesIngestionNanite;
