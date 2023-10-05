@@ -117,6 +117,8 @@ public class DXPEntitiesNanite extends BaseNanite {
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate,
 				DXPEntity.Type.USER_GROUP, zipOutputStream);
+
+			zipOutputStream.close();
 		}
 
 		// Move files
