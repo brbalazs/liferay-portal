@@ -5,10 +5,8 @@
 
 package com.liferay.osb.asah.dataflow.emulator.bot.nanite;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.liferay.osb.asah.common.dog.DataControlTaskDog;
 import com.liferay.osb.asah.common.entity.BQAccountEntry;
 import com.liferay.osb.asah.common.entity.BQAccountGroup;
 import com.liferay.osb.asah.common.entity.BQExpandoColumn;
@@ -21,9 +19,7 @@ import com.liferay.osb.asah.common.entity.BQTeam;
 import com.liferay.osb.asah.common.entity.BQUser;
 import com.liferay.osb.asah.common.entity.BQUserGroup;
 import com.liferay.osb.asah.common.entity.DXPEntity;
-import com.liferay.osb.asah.common.messaging.Channel;
-import com.liferay.osb.asah.common.messaging.MessageSubscriber;
-import com.liferay.osb.asah.common.messaging.model.Message;
+import com.liferay.osb.asah.common.entity.Suppression;
 import com.liferay.osb.asah.common.repository.BQAccountEntryRepository;
 import com.liferay.osb.asah.common.repository.BQAccountGroupRepository;
 import com.liferay.osb.asah.common.repository.BQExpandoColumnRepository;
@@ -35,9 +31,24 @@ import com.liferay.osb.asah.common.repository.BQRoleRepository;
 import com.liferay.osb.asah.common.repository.BQTeamRepository;
 import com.liferay.osb.asah.common.repository.BQUserGroupRepository;
 import com.liferay.osb.asah.common.repository.BQUserRepository;
+import com.liferay.osb.asah.common.repository.SuppressionRepository;
 import com.liferay.osb.asah.common.util.MapUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.dataflow.emulator.model.AnalyticsDeleteMessage;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import java.nio.charset.StandardCharsets;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +62,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.zip.ZipInputStream;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -62,6 +74,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -70,8 +83,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DXPEntitiesIngestionNanite {
 
-	public void processMessage(Message<String> message) {
-		Map<String, String> attributes = message.getAttributes();
+	public void processMessage(
+		Map<String, String> attributes, String jsonString) {
 
 		Long dataSourceId = MapUtil.getLong(attributes, "dataSourceId");
 
@@ -79,7 +92,7 @@ public class DXPEntitiesIngestionNanite {
 
 		ProjectIdThreadLocal.setProjectId(projectId);
 
-		JSONObject jsonObject = new JSONObject(message.getObject());
+		JSONObject jsonObject = new JSONObject(jsonString);
 
 		String type = jsonObject.getString("type");
 
@@ -233,8 +246,8 @@ public class DXPEntitiesIngestionNanite {
 		else if (StringUtils.equals(
 					type, "com.liferay.portal.kernel.model.User")) {
 
-			Set<String> suppressedEmailAddresses = _getSuppressedEmailAddresses(
-				attributes);
+			Set<String> suppressedEmailAddresses =
+				_getSuppressedEmailAddresses();
 
 			BQUser bqUser = _objectMapper.convertValue(fields, BQUser.class);
 
@@ -295,33 +308,32 @@ public class DXPEntitiesIngestionNanite {
 	}
 
 	public void run() throws Exception {
-		while (true) {
-			List<Message<String>> messages = _messageSubscriber.pullMessages(
-				100, String::valueOf);
+		String dxpBatchEntitiesStoragePath =
+			_dxpBatchEntitiesStoragePath + "/" +
+				ProjectIdThreadLocal.getProjectId();
 
-			if (messages.isEmpty()) {
-				break;
-			}
+		Files.walkFileTree(
+			Paths.get(dxpBatchEntitiesStoragePath),
+			new SimpleFileVisitor<Path>() {
 
-			Stream<Message<String>> stream = messages.stream();
+				@Override
+				public FileVisitResult visitFile(
+						Path path, BasicFileAttributes basicFileAttributes)
+					throws IOException {
 
-			stream.forEach(this::processMessage);
+					File file = path.toFile();
 
-			_acknowledgeMessages(messages);
-		}
-	}
+					if (StringUtils.contains(file.getName(), ".zip") &&
+						basicFileAttributes.isRegularFile() &&
+						(basicFileAttributes.size() > 0)) {
 
-	private void _acknowledgeMessages(List<Message<String>> messages) {
-		Stream<Message<String>> stream = messages.stream();
+						_processFile(file);
+					}
 
-		_messageSubscriber.sendAckIds(
-			stream.map(
-				Message::getAckId
-			).filter(
-				Objects::nonNull
-			).collect(
-				Collectors.toList()
-			));
+					return FileVisitResult.CONTINUE;
+				}
+
+			});
 	}
 
 	private String _generateBQExpandoValueId(
@@ -340,6 +352,19 @@ public class DXPEntitiesIngestionNanite {
 			String.join(
 				"#", projectId, String.valueOf(dataSourceId),
 				String.valueOf(classPK)));
+	}
+
+	private Map<String, String> _getAttributes(String path) {
+		Map<String, String> attributes = new HashMap<>();
+
+		String[] split = path.split("/");
+
+		int length = split.length;
+
+		attributes.put("dataSourceId", split[length - 4]);
+		attributes.put("projectId", split[length - 5]);
+
+		return attributes;
 	}
 
 	private Set<BQExpandoValue> _getExpandoValues(
@@ -410,23 +435,16 @@ public class DXPEntitiesIngestionNanite {
 		return columnId.replaceAll("[\\W]", "_");
 	}
 
-	private Set<String> _getSuppressedEmailAddresses(
-		Map<String, String> messageAttributes) {
+	private Set<String> _getSuppressedEmailAddresses() {
+		List<Suppression> suppressions = _suppressionRepository.findAll();
 
-		String suppressedEmailAddressesString = messageAttributes.getOrDefault(
-			"suppressedEmailAddresses", null);
+		Stream<Suppression> stream = suppressions.stream();
 
-		if (suppressedEmailAddressesString == null) {
-			return Collections.emptySet();
-		}
-
-		try {
-			return _objectMapper.readValue(
-				suppressedEmailAddressesString, Set.class);
-		}
-		catch (JsonProcessingException jsonProcessingException) {
-			return Collections.emptySet();
-		}
+		return stream.map(
+			Suppression::getEmailAddress
+		).collect(
+			Collectors.toSet()
+		);
 	}
 
 	private Map<String, Object> _parseFields(JSONArray fieldsJSONArray) {
@@ -478,6 +496,28 @@ public class DXPEntitiesIngestionNanite {
 		}
 		else {
 			throw new IllegalStateException("Unsupported entity " + entityName);
+		}
+	}
+
+	private void _processFile(File file) throws IOException {
+		String absolutePath = file.getAbsolutePath();
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Processing file " + absolutePath);
+		}
+
+		Map<String, String> attributes = _getAttributes(absolutePath);
+
+		ZipInputStream zipInputStream = new ZipInputStream(
+			new FileInputStream(file));
+
+		zipInputStream.getNextEntry();
+
+		try (BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(
+					zipInputStream, StandardCharsets.UTF_8))) {
+
+			processMessage(attributes, bufferedReader.readLine());
 		}
 	}
 
@@ -536,13 +576,13 @@ public class DXPEntitiesIngestionNanite {
 	@Autowired
 	private BQUserRepository _bqUserRepository;
 
-	@Autowired
-	private DataControlTaskDog _dataControlTaskDog;
-
-	@MessageSubscriber.Autowired(channel = Channel.DXP_ENTITIES_DEFAULT)
-	private MessageSubscriber _messageSubscriber;
+	@Value("${osb.asah.dxp.batch.entities.storage.path:/storage}")
+	private String _dxpBatchEntitiesStoragePath;
 
 	@Autowired
 	private ObjectMapper _objectMapper;
+
+	@Autowired
+	private SuppressionRepository _suppressionRepository;
 
 }
