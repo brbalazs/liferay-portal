@@ -243,9 +243,13 @@ public class DXPEntitiesNanite extends BaseNanite {
 				int page = 0;
 
 				while (true) {
+					// TODO - Pass the correct data source ID
+
+					Long dataSourceId = null;
+
 					Page<DXPEntity> dxpEntitiesPage =
 						_dxpEntityDog.getDXPEntityPage(
-							lastSuccessfulDate, currentDate, type,
+							dataSourceId, lastSuccessfulDate, currentDate, type,
 							PageRequest.of(
 								page++, 500,
 								Sort.by(Sort.Direction.ASC, "id")));

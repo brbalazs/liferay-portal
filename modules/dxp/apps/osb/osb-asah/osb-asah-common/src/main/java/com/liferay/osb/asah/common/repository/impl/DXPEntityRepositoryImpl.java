@@ -69,7 +69,8 @@ public class DXPEntityRepositoryImpl
 
 	@Override
 	public long countByModifiedDateBetweenAndType(
-		@Nullable Date modifiedDate1, Date modifiedDate2, DXPEntity.Type type) {
+		Long dataSourceId, @Nullable Date modifiedDate1, Date modifiedDate2,
+		DXPEntity.Type type) {
 
 		SelectSelectStep<Record1<Integer>> selectSelectStep =
 			_dslContext.selectCount();
@@ -78,6 +79,11 @@ public class DXPEntityRepositoryImpl
 			selectSelectStep.from(
 				"DXPEntity"
 			).where(
+				DSL.field(
+					"dataSourceId"
+				).eq(
+					dataSourceId
+				),
 				DSL.field(
 					"type"
 				).eq(
@@ -286,14 +292,19 @@ public class DXPEntityRepositoryImpl
 
 	@Override
 	public List<DXPEntity> findByModifiedDateBetweenAndType(
-		@Nullable Date modifiedDate1, Date modifiedDate2, DXPEntity.Type type,
-		Pageable pageable) {
+		Long dataSourceId, @Nullable Date modifiedDate1, Date modifiedDate2,
+		DXPEntity.Type type, Pageable pageable) {
 
 		SelectSelectStep<Record> selectSelectStep = _dslContext.select();
 
 		SelectConditionStep<Record> selectConditionStep = selectSelectStep.from(
 			"DXPEntity"
 		).where(
+			DSL.field(
+				"dataSourceId"
+			).eq(
+				dataSourceId
+			),
 			DSL.field(
 				"type"
 			).eq(

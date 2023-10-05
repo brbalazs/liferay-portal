@@ -113,17 +113,18 @@ public class DXPEntityDog {
 	}
 
 	public Page<DXPEntity> getDXPEntityPage(
-		@Nullable Date fromModifiedDate, Date toModifiedDate,
+		Long dataSourceId, @Nullable Date fromModifiedDate, Date toModifiedDate,
 		DXPEntity.Type type, Pageable pageable) {
 
 		return PageableExecutionUtils.getPage(
 			_mapDXPEntities(
 				_dxpEntityRepository.findByModifiedDateBetweenAndType(
-					fromModifiedDate, toModifiedDate, type, pageable),
+					dataSourceId, fromModifiedDate, toModifiedDate, type,
+					pageable),
 				type),
 			pageable,
 			() -> _dxpEntityRepository.countByModifiedDateBetweenAndType(
-				fromModifiedDate, toModifiedDate, type));
+				dataSourceId, fromModifiedDate, toModifiedDate, type));
 	}
 
 	public Page<DXPEntity> getDXPEntityPage(
