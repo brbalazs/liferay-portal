@@ -259,9 +259,10 @@ public class DXPEntitiesNanite extends BaseNanite {
 	}
 
 	private void _run(
-		Date currentDate, Long dataSourceId, Date lastSuccessfulDate,
-		String projectId, DXPEntity.Type type, String uploadType,
-		ZipOutputStream zipOutputStream) {
+			Date currentDate, Long dataSourceId, Date lastSuccessfulDate,
+			String projectId, DXPEntity.Type type, String uploadType,
+			ZipOutputStream zipOutputStream)
+		throws Exception {
 
 		Map<String, String> messageAttributes = new HashMap<>();
 
@@ -272,37 +273,32 @@ public class DXPEntitiesNanite extends BaseNanite {
 		messageAttributes.put("uploadTime", DateUtil.toUTCString(new Date()));
 		messageAttributes.put("uploadType", uploadType);
 
-		_boundedExecutor.runAsync(
-			() -> {
-				ProjectIdThreadLocal.setProjectId(projectId);
+		int page = 0;
 
-				int page = 0;
+		while (true) {
+			Page<DXPEntity> dxpEntitiesPage =
+				_dxpEntityDog.getDXPEntityPage(
+					dataSourceId, lastSuccessfulDate, currentDate, type,
+					PageRequest.of(
+						page++, 500,
+						Sort.by(Sort.Direction.ASC, "id")));
 
-				while (true) {
-					Page<DXPEntity> dxpEntitiesPage =
-						_dxpEntityDog.getDXPEntityPage(
-							dataSourceId, lastSuccessfulDate, currentDate, type,
-							PageRequest.of(
-								page++, 500,
-								Sort.by(Sort.Direction.ASC, "id")));
+			if (dxpEntitiesPage.isEmpty()) {
+				break;
+			}
 
-					if (dxpEntitiesPage.isEmpty()) {
-						break;
-					}
-
-					for (DXPEntity dxpEntity : dxpEntitiesPage.getContent()) {
-						if (StringUtils.isEmpty(dxpEntity.getIdFieldValue())) {
-							continue;
-						}
-
-						messageAttributes.put(
-							"dataSourceId",
-							String.valueOf(dxpEntity.getDataSourceId()));
-
-						_write(_toJSONString(dxpEntity), zipOutputStream);
-					}
+			for (DXPEntity dxpEntity : dxpEntitiesPage.getContent()) {
+				if (StringUtils.isEmpty(dxpEntity.getIdFieldValue())) {
+					continue;
 				}
-			});
+
+				messageAttributes.put(
+					"dataSourceId",
+					String.valueOf(dxpEntity.getDataSourceId()));
+
+				_write(_toJSONString(dxpEntity), zipOutputStream);
+			}
+		}
 	}
 
 	private String _toJSON(DXPEntity dxpEntity) {
@@ -331,9 +327,6 @@ public class DXPEntitiesNanite extends BaseNanite {
 	}
 
 	private static final Log _log = LogFactory.getLog(DXPEntitiesNanite.class);
-
-	private final BoundedExecutor _boundedExecutor =
-		BoundedExecutor.newBoundedExecutor(7, 7);
 
 	@Autowired
 	private DataSourceDog _dataSourceDog;
