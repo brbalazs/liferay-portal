@@ -19,8 +19,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -33,6 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -68,6 +73,8 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 		Date currentDate = DateUtil.newDate();
 
+		Map<Long, File> files = new HashMap<>();
+
 		for (DataSource dataSource :
 				_dataSourceDog.getDataSources("LIFERAY", "ACTIVE")) {
 
@@ -78,6 +85,8 @@ public class DXPEntitiesNanite extends BaseNanite {
 				DateUtil.toUTCString(currentDate));
 
 			File file = File.createTempFile(fileName, ".zip");
+
+			files.put(dataSourceId, file);
 
 			ZipOutputStream zipOutputStream = _getZipOutputStream(file);
 
@@ -105,6 +114,22 @@ public class DXPEntitiesNanite extends BaseNanite {
 			_run(
 				currentDate, dataSource.getId(), lastSuccessfulDate,
 				DXPEntity.Type.USER_GROUP, zipOutputStream);
+		}
+
+		// Move files
+
+		for (Map.Entry<Long, File> entry : files.entrySet()) {
+			File file = entry.getValue();
+
+			String targetPath = String.format(
+				"%s/%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
+				ProjectIdThreadLocal.getProjectId(), entry.getKey(),
+				"com.liferay.analytics.dxp.entity.rest.dto.v1_0.DXPEntity",
+				uploadType, DateUtil.toString(currentDate));
+
+			Files.move(
+				file.toPath(), Paths.get(targetPath),
+				StandardCopyOption.REPLACE_EXISTING);
 		}
 
 		asahMarkerContextJSONObject.put(
@@ -300,6 +325,9 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 	@Autowired
 	private DataSourceDog _dataSourceDog;
+
+	@Value("${osb.asah.dxp.batch.entities.storage.path:/storage}")
+	private String _dxpBatchEntitiesStoragePath;
 
 	@Autowired
 	private DXPEntityDog _dxpEntityDog;
