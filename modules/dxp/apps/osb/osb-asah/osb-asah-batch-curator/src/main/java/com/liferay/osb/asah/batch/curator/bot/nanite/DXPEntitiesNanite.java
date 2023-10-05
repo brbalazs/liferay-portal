@@ -71,8 +71,6 @@ public class DXPEntitiesNanite extends BaseNanite {
 			uploadType = "INCREMENTAL";
 		}
 
-		String projectId = ProjectIdThreadLocal.getProjectId();
-
 		Date currentDate = DateUtil.newDate();
 
 		Map<Long, File> files = new HashMap<>();
@@ -84,7 +82,8 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 			String fileName = _getValidatedFileName(
 				String.join(
-					"#", String.valueOf(dataSourceId), projectId, uploadType,
+					"#", String.valueOf(dataSourceId),
+					ProjectIdThreadLocal.getProjectId(), uploadType,
 					DateUtil.toUTCString(currentDate)));
 
 			File file = File.createTempFile(fileName, ".zip");
@@ -94,28 +93,28 @@ public class DXPEntitiesNanite extends BaseNanite {
 			ZipOutputStream zipOutputStream = _getZipOutputStream(file);
 
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate,
+				currentDate, dataSourceId, lastSuccessfulDate,
 				DXPEntity.Type.ANALYTICS_DELETE_MESSAGE, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate,
+				currentDate, dataSourceId, lastSuccessfulDate,
 				DXPEntity.Type.EXPANDO_COLUMN, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate,
+				currentDate, dataSourceId, lastSuccessfulDate,
 				DXPEntity.Type.GROUP, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate,
+				currentDate, dataSourceId, lastSuccessfulDate,
 				DXPEntity.Type.ORGANIZATION, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate,
+				currentDate, dataSourceId, lastSuccessfulDate,
 				DXPEntity.Type.ROLE, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate,
+				currentDate, dataSourceId, lastSuccessfulDate,
 				DXPEntity.Type.TEAM, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate,
+				currentDate, dataSourceId, lastSuccessfulDate,
 				DXPEntity.Type.USER, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate,
+				currentDate, dataSourceId, lastSuccessfulDate,
 				DXPEntity.Type.USER_GROUP, zipOutputStream);
 
 			zipOutputStream.close();
