@@ -123,6 +123,9 @@ xpack.license.self_generated.type: trial</echo>
 					<echo append="true" file="${elasticsearch.dir}/config/elasticsearch.yml">${line.separator}ingest.geoip.downloader.enabled: false</echo>
 				</then>
 			</if>
+
+			<echo file="${elasticsearch.dir}/config/jvm.options.d/jvm.options">${line.separator}-Xms2g
+-Xmx2g</echo>
 		</sequential>
 	</macrodef>
 
