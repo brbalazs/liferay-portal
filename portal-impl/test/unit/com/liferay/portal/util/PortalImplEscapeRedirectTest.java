@@ -47,6 +47,7 @@ public class PortalImplEscapeRedirectTest {
 						String.valueOf(10));
 				}
 			});
+
 		PowerMockito.mockStatic(PrefsPropsUtil.class);
 		PowerMockito.when(
 			PrefsPropsUtil.getString(
