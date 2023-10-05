@@ -26,9 +26,11 @@ import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -80,9 +82,10 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 			Long dataSourceId = dataSource.getId();
 
-			String fileName = String.join(
-				"#", String.valueOf(dataSourceId), projectId, uploadType,
-				DateUtil.toUTCString(currentDate));
+			String fileName = _getValidatedFileName(
+				String.join(
+					"#", String.valueOf(dataSourceId), projectId, uploadType,
+					DateUtil.toUTCString(currentDate)));
 
 			File file = File.createTempFile(fileName, ".zip");
 
@@ -121,11 +124,12 @@ public class DXPEntitiesNanite extends BaseNanite {
 		for (Map.Entry<Long, File> entry : files.entrySet()) {
 			File file = entry.getValue();
 
-			String targetPath = String.format(
-				"%s/%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
-				ProjectIdThreadLocal.getProjectId(), entry.getKey(),
-				"com.liferay.analytics.dxp.entity.rest.dto.v1_0.DXPEntity",
-				uploadType, DateUtil.toString(currentDate));
+			String targetPath = _getValidatedPath(
+				String.format(
+					"%s/%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
+					ProjectIdThreadLocal.getProjectId(), entry.getKey(),
+					"com.liferay.analytics.dxp.entity.rest.dto.v1_0.DXPEntity",
+					uploadType, DateUtil.toString(currentDate)));
 
 			Files.move(
 				file.toPath(), Paths.get(targetPath),
@@ -256,6 +260,22 @@ public class DXPEntitiesNanite extends BaseNanite {
 		}
 
 		return jsonArray;
+	}
+
+	private String _getValidatedFileName(String fileName) {
+		if (!Objects.equals(fileName, FilenameUtils.getName(fileName))) {
+			throw new IllegalArgumentException("Invalid file name");
+		}
+
+		return fileName;
+	}
+
+	private String _getValidatedPath(String path) {
+		if (!Objects.equals(path, FilenameUtils.normalize(path))) {
+			throw new IllegalArgumentException("Invalid path");
+		}
+
+		return path;
 	}
 
 	private ZipOutputStream _getZipOutputStream(File file) throws Exception {
