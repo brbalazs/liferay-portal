@@ -5,7 +5,6 @@
 
 package com.liferay.osb.asah.batch.curator.bot.nanite;
 
-import com.liferay.osb.asah.common.concurrent.BoundedExecutor;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.DXPEntityDog;
 import com.liferay.osb.asah.common.dog.DataSourceDog;
@@ -13,7 +12,6 @@ import com.liferay.osb.asah.common.entity.AsahMarker;
 import com.liferay.osb.asah.common.entity.DXPEntity;
 import com.liferay.osb.asah.common.entity.DataSource;
 import com.liferay.osb.asah.common.json.JSONUtil;
-import com.liferay.osb.asah.common.messaging.MessageBus;
 import com.liferay.osb.asah.common.util.GetterUtil;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
@@ -23,12 +21,9 @@ import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import javax.annotation.PreDestroy;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -87,33 +82,30 @@ public class DXPEntitiesNanite extends BaseNanite {
 			ZipOutputStream zipOutputStream = _getZipOutputStream(file);
 
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.ANALYTICS_DELETE_MESSAGE, uploadType,
-				zipOutputStream);
+				currentDate, dataSource.getId(), lastSuccessfulDate,
+				DXPEntity.Type.ANALYTICS_DELETE_MESSAGE, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.EXPANDO_COLUMN, uploadType, zipOutputStream);
+				currentDate, dataSource.getId(), lastSuccessfulDate,
+				DXPEntity.Type.EXPANDO_COLUMN, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.GROUP, uploadType, zipOutputStream);
+				currentDate, dataSource.getId(), lastSuccessfulDate,
+				DXPEntity.Type.GROUP, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.ORGANIZATION, uploadType, zipOutputStream);
+				currentDate, dataSource.getId(), lastSuccessfulDate,
+				DXPEntity.Type.ORGANIZATION, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.ROLE, uploadType, zipOutputStream);
+				currentDate, dataSource.getId(), lastSuccessfulDate,
+				DXPEntity.Type.ROLE, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.TEAM, uploadType, zipOutputStream);
+				currentDate, dataSource.getId(), lastSuccessfulDate,
+				DXPEntity.Type.TEAM, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.USER, uploadType, zipOutputStream);
+				currentDate, dataSource.getId(), lastSuccessfulDate,
+				DXPEntity.Type.USER, zipOutputStream);
 			_run(
-				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
-				DXPEntity.Type.USER_GROUP, uploadType, zipOutputStream);
+				currentDate, dataSource.getId(), lastSuccessfulDate,
+				DXPEntity.Type.USER_GROUP, zipOutputStream);
 		}
-
-		_boundedExecutor.awaitPendingTasks();
 
 		asahMarkerContextJSONObject.put(
 			"lastSuccessfulDate", DateUtil.toString(currentDate));
@@ -124,11 +116,6 @@ public class DXPEntitiesNanite extends BaseNanite {
 	@Override
 	protected Log getLog() {
 		return _log;
-	}
-
-	@PreDestroy
-	private void _destroy() {
-		_boundedExecutor.shutdown();
 	}
 
 	private JSONArray _getExpandoFieldsJSONArray(DXPEntity dxpEntity) {
@@ -260,28 +247,15 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 	private void _run(
 			Date currentDate, Long dataSourceId, Date lastSuccessfulDate,
-			String projectId, DXPEntity.Type type, String uploadType,
-			ZipOutputStream zipOutputStream)
+			DXPEntity.Type type, ZipOutputStream zipOutputStream)
 		throws Exception {
-
-		Map<String, String> messageAttributes = new HashMap<>();
-
-		messageAttributes.put("projectId", ProjectIdThreadLocal.getProjectId());
-		messageAttributes.put(
-			"resourceName",
-			"com.liferay.analytics.dxp.entity.rest.dto.v1_0.DXPEntity");
-		messageAttributes.put("uploadTime", DateUtil.toUTCString(new Date()));
-		messageAttributes.put("uploadType", uploadType);
 
 		int page = 0;
 
 		while (true) {
-			Page<DXPEntity> dxpEntitiesPage =
-				_dxpEntityDog.getDXPEntityPage(
-					dataSourceId, lastSuccessfulDate, currentDate, type,
-					PageRequest.of(
-						page++, 500,
-						Sort.by(Sort.Direction.ASC, "id")));
+			Page<DXPEntity> dxpEntitiesPage = _dxpEntityDog.getDXPEntityPage(
+				dataSourceId, lastSuccessfulDate, currentDate, type,
+				PageRequest.of(page++, 500, Sort.by(Sort.Direction.ASC, "id")));
 
 			if (dxpEntitiesPage.isEmpty()) {
 				break;
@@ -291,10 +265,6 @@ public class DXPEntitiesNanite extends BaseNanite {
 				if (StringUtils.isEmpty(dxpEntity.getIdFieldValue())) {
 					continue;
 				}
-
-				messageAttributes.put(
-					"dataSourceId",
-					String.valueOf(dxpEntity.getDataSourceId()));
 
 				_write(_toJSONString(dxpEntity), zipOutputStream);
 			}
@@ -333,8 +303,5 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 	@Autowired
 	private DXPEntityDog _dxpEntityDog;
-
-	@Autowired
-	private MessageBus _messageBus;
 
 }
