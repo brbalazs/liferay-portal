@@ -8,8 +8,10 @@ package com.liferay.osb.asah.batch.curator.bot.nanite;
 import com.liferay.osb.asah.common.concurrent.BoundedExecutor;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.DXPEntityDog;
+import com.liferay.osb.asah.common.dog.DataSourceDog;
 import com.liferay.osb.asah.common.entity.AsahMarker;
 import com.liferay.osb.asah.common.entity.DXPEntity;
+import com.liferay.osb.asah.common.entity.DataSource;
 import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.messaging.Channel;
 import com.liferay.osb.asah.common.messaging.MessageBus;
@@ -65,30 +67,34 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 		Date currentDate = DateUtil.newDate();
 
-		_run(
-			currentDate, lastSuccessfulDate, projectId,
-			DXPEntity.Type.ANALYTICS_DELETE_MESSAGE, uploadType);
-		_run(
-			currentDate, lastSuccessfulDate, projectId,
-			DXPEntity.Type.EXPANDO_COLUMN, uploadType);
-		_run(
-			currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.GROUP,
-			uploadType);
-		_run(
-			currentDate, lastSuccessfulDate, projectId,
-			DXPEntity.Type.ORGANIZATION, uploadType);
-		_run(
-			currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.ROLE,
-			uploadType);
-		_run(
-			currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.TEAM,
-			uploadType);
-		_run(
-			currentDate, lastSuccessfulDate, projectId, DXPEntity.Type.USER,
-			uploadType);
-		_run(
-			currentDate, lastSuccessfulDate, projectId,
-			DXPEntity.Type.USER_GROUP, uploadType);
+		for (DataSource dataSource :
+				_dataSourceDog.getDataSources("LIFERAY", "ACTIVE")) {
+
+			_run(
+				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
+				DXPEntity.Type.ANALYTICS_DELETE_MESSAGE, uploadType);
+			_run(
+				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
+				DXPEntity.Type.EXPANDO_COLUMN, uploadType);
+			_run(
+				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
+				DXPEntity.Type.GROUP, uploadType);
+			_run(
+				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
+				DXPEntity.Type.ORGANIZATION, uploadType);
+			_run(
+				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
+				DXPEntity.Type.ROLE, uploadType);
+			_run(
+				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
+				DXPEntity.Type.TEAM, uploadType);
+			_run(
+				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
+				DXPEntity.Type.USER, uploadType);
+			_run(
+				currentDate, dataSource.getId(), lastSuccessfulDate, projectId,
+				DXPEntity.Type.USER_GROUP, uploadType);
+		}
 
 		_boundedExecutor.awaitPendingTasks();
 
@@ -224,8 +230,8 @@ public class DXPEntitiesNanite extends BaseNanite {
 	}
 
 	private void _run(
-		Date currentDate, Date lastSuccessfulDate, String projectId,
-		DXPEntity.Type type, String uploadType) {
+		Date currentDate, Long dataSourceId, Date lastSuccessfulDate,
+		String projectId, DXPEntity.Type type, String uploadType) {
 
 		Map<String, String> messageAttributes = new HashMap<>();
 
@@ -243,10 +249,6 @@ public class DXPEntitiesNanite extends BaseNanite {
 				int page = 0;
 
 				while (true) {
-					// TODO - Pass the correct data source ID
-
-					Long dataSourceId = null;
-
 					Page<DXPEntity> dxpEntitiesPage =
 						_dxpEntityDog.getDXPEntityPage(
 							dataSourceId, lastSuccessfulDate, currentDate, type,
@@ -295,6 +297,9 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 	private final BoundedExecutor _boundedExecutor =
 		BoundedExecutor.newBoundedExecutor(7, 7);
+
+	@Autowired
+	private DataSourceDog _dataSourceDog;
 
 	@Autowired
 	private DXPEntityDog _dxpEntityDog;
