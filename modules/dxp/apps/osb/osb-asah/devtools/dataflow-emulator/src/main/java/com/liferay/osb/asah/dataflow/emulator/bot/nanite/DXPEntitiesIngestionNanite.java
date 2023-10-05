@@ -83,8 +83,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class DXPEntitiesIngestionNanite {
 
-	public void processMessage(
-		Map<String, String> attributes, String jsonString) {
+	public void process(
+		Map<String, String> attributes, String dxpEntityJSONString) {
 
 		Long dataSourceId = MapUtil.getLong(attributes, "dataSourceId");
 
@@ -92,7 +92,7 @@ public class DXPEntitiesIngestionNanite {
 
 		ProjectIdThreadLocal.setProjectId(projectId);
 
-		JSONObject jsonObject = new JSONObject(jsonString);
+		JSONObject jsonObject = new JSONObject(dxpEntityJSONString);
 
 		String type = jsonObject.getString("type");
 
@@ -517,7 +517,7 @@ public class DXPEntitiesIngestionNanite {
 				new InputStreamReader(
 					zipInputStream, StandardCharsets.UTF_8))) {
 
-			processMessage(attributes, bufferedReader.readLine());
+			process(attributes, bufferedReader.readLine());
 		}
 	}
 

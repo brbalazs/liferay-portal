@@ -52,7 +52,7 @@ public class DXPEntitiesIngestionNaniteTest
 			"dependencies/dxp_entities1.json", this);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
-			_dxpEntitiesIngestionNanite.processMessage(
+			_dxpEntitiesIngestionNanite.process(
 				new HashMap<String, String>() {
 					{
 						put("dataSourceId", "1");
@@ -88,7 +88,7 @@ public class DXPEntitiesIngestionNaniteTest
 			"dependencies/dxp_entities3.json", this);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
-			_dxpEntitiesIngestionNanite.processMessage(
+			_dxpEntitiesIngestionNanite.process(
 				new HashMap<String, String>() {
 					{
 						put("dataSourceId", "1");
@@ -112,7 +112,7 @@ public class DXPEntitiesIngestionNaniteTest
 			"dependencies/dxp_entities2.json", this);
 
 		for (int i = 0; i < jsonArray.length(); i++) {
-			_dxpEntitiesIngestionNanite.processMessage(
+			_dxpEntitiesIngestionNanite.process(
 				new HashMap<String, String>() {
 					{
 						put("dataSourceId", "1");
