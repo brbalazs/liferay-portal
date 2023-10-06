@@ -20,8 +20,8 @@ import java.io.FileOutputStream;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -82,13 +82,11 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 			String fileName = _getValidatedFileName(
 				String.join(
-					"#", String.valueOf(dataSourceId),
-					ProjectIdThreadLocal.getProjectId(), uploadType,
+					"-", String.valueOf(dataSourceId),
+					ProjectIdThreadLocal.getProjectId(),
 					DateUtil.toUTCString(currentDate)));
 
 			File file = File.createTempFile(fileName, ".zip");
-
-			files.put(dataSourceId, file);
 
 			ZipOutputStream zipOutputStream = _getZipOutputStream(file);
 
@@ -118,6 +116,13 @@ public class DXPEntitiesNanite extends BaseNanite {
 				DXPEntity.Type.USER_GROUP, zipOutputStream);
 
 			zipOutputStream.close();
+
+			if (file.length() == _EMPTY_ZIP_FILE_LENGTH) {
+				file.delete();
+			}
+			else {
+				files.put(dataSourceId, file);
+			}
 		}
 
 		// Move files
@@ -359,6 +364,8 @@ public class DXPEntitiesNanite extends BaseNanite {
 		zipOutputStream.write(
 			newLineAppendedData.getBytes(StandardCharsets.UTF_8));
 	}
+
+	private static final long _EMPTY_ZIP_FILE_LENGTH = 140;
 
 	private static final Log _log = LogFactory.getLog(DXPEntitiesNanite.class);
 
