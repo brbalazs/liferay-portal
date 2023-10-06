@@ -14,9 +14,7 @@ import com.liferay.osb.asah.common.storage.StorageFactory;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 import java.time.Instant;
@@ -201,7 +199,7 @@ public class DXPBatchEntitiesRestController {
 	private void _storeMessages(
 			String dataSourceId, String resourceName, InputStream inputStream,
 			String uploadType)
-		throws IOException {
+		throws Exception {
 
 		if (StringUtils.isBlank(uploadType)) {
 			uploadType = "FULL";
