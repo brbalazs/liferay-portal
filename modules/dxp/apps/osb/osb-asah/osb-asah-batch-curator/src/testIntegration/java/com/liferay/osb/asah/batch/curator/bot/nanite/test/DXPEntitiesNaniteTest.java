@@ -122,7 +122,7 @@ public class DXPEntitiesNaniteTest
 		Assertions.assertEquals("[1,2,3]", jsonObject.get("value"));
 	}
 
-	private List<String> _extractZipFile(Long dataSourceId) throws IOException {
+	private List<String> _extractZipFile(Long dataSourceId) throws Exception {
 		List<String> lines = new ArrayList<>();
 
 		Files.walkFileTree(

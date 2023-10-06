@@ -119,7 +119,12 @@ public class DXPEntitiesNanite extends BaseNanite {
 			zipOutputStream.close();
 
 			if (file.length() == _EMPTY_ZIP_FILE_LENGTH) {
-				file.delete();
+				boolean deleted = file.delete();
+
+				if (!deleted && _log.isWarnEnabled()) {
+					_log.warn(
+						"Unable to delete temp file " + file.getAbsolutePath());
+				}
 			}
 			else {
 				files.put(dataSourceId, file);
