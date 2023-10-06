@@ -8,7 +8,6 @@ package com.liferay.osb.asah.publisher.rest.controller.test;
 import com.liferay.osb.asah.common.constants.HeaderConstants;
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.json.JSONUtil;
-import com.liferay.osb.asah.common.messaging.MessageBus;
 import com.liferay.osb.asah.common.storage.Storage;
 import com.liferay.osb.asah.common.storage.StorageConfiguration;
 import com.liferay.osb.asah.common.storage.StorageFactory;
@@ -17,7 +16,6 @@ import com.liferay.osb.asah.publisher.OSBAsahPublisherSpringTestContext;
 import com.liferay.osb.asah.test.util.util.RandomTestUtil;
 
 import java.io.File;
-import java.io.InputStream;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -47,12 +45,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.MultipartBodyBuilder;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * @author Riccardo Ferrari
  */
+@TestPropertySource(
+	properties = "osb.asah.dxp.batch.entities.storage.path=/tmp"
+)
 public class DXPBatchEntitiesRestControllerTest
 	implements OSBAsahPublisherSpringTestContext {
 
@@ -202,19 +204,6 @@ public class DXPBatchEntitiesRestControllerTest
 
 	@Test
 	public void testPost() throws Exception {
-		Mockito.when(
-			_storageFactory.getStorage(
-				ArgumentMatchers.any(StorageConfiguration.class))
-		).thenReturn(
-			_storage
-		);
-
-		Mockito.when(
-			_storage.write(ArgumentMatchers.any(InputStream.class))
-		).thenReturn(
-			true
-		);
-
 		MultipartBodyBuilder multipartBodyBuilder = new MultipartBodyBuilder();
 
 		multipartBodyBuilder.part("file", _getFileSystemResource());
@@ -235,12 +224,6 @@ public class DXPBatchEntitiesRestControllerTest
 			responseEntity.getStatusCode()
 		).isEqualTo(
 			HttpStatus.valueOf(200)
-		);
-
-		Mockito.verify(
-			_storage, Mockito.times(1)
-		).write(
-			ArgumentMatchers.any(InputStream.class)
 		);
 	}
 
@@ -306,9 +289,6 @@ public class DXPBatchEntitiesRestControllerTest
 
 	private static final DateTimeFormatter _dateTimeFormatter =
 		DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss zzz");
-
-	@MockBean
-	private MessageBus _messageBus;
 
 	@LocalServerPort
 	private int _serverPort;
