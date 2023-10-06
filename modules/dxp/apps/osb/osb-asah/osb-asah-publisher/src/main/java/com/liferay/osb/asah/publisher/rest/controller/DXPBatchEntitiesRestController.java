@@ -14,6 +14,9 @@ import com.liferay.osb.asah.common.storage.StorageFactory;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import java.time.Instant;
@@ -27,7 +30,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -118,13 +123,8 @@ public class DXPBatchEntitiesRestController {
 				_clamAVScanner.scan(multipartFile.getInputStream());
 			}
 
-			boolean success = _storeMessages(
+			_storeMessages(
 				dataSourceId, name, multipartFile.getInputStream(), uploadType);
-
-			if (!success) {
-				return new ResponseEntity(
-					Collections.emptyList(), HttpStatus.INTERNAL_SERVER_ERROR);
-			}
 
 			if (_log.isInfoEnabled()) {
 				_log.info(
@@ -148,24 +148,6 @@ public class DXPBatchEntitiesRestController {
 				_dxpBatchEntitiesBucketTemplate, "{googleProjectId}",
 				_gcloudProjectId));
 		builder.googleBucketFolder(_getValidatedFileName(googleBucketFolder));
-
-		return builder.build();
-	}
-
-	private StorageConfiguration _getUploadStorageConfiguration(
-		String dataSourceId, String resourceName, String uploadType) {
-
-		if (StringUtils.isBlank(uploadType)) {
-			uploadType = "FULL";
-		}
-
-		String path = String.format(
-			"%s/%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
-			ProjectIdThreadLocal.getProjectId(), dataSourceId, resourceName,
-			uploadType, DateUtil.newDateString());
-
-		StorageConfiguration.Builder builder = StorageConfiguration.builder(
-			_getValidatedUploadPath(path));
 
 		return builder.build();
 	}
@@ -216,15 +198,30 @@ public class DXPBatchEntitiesRestController {
 		}
 	}
 
-	private boolean _storeMessages(
-		String dataSourceId, String resourceName, InputStream inputStream,
-		String uploadType) {
+	private void _storeMessages(
+			String dataSourceId, String resourceName, InputStream inputStream,
+			String uploadType)
+		throws IOException {
 
-		Storage uploadStorage = _storageFactory.getStorage(
-			_getUploadStorageConfiguration(
-				dataSourceId, resourceName, uploadType));
+		if (StringUtils.isBlank(uploadType)) {
+			uploadType = "FULL";
+		}
 
-		return uploadStorage.write(inputStream);
+		String path = _getValidatedUploadPath(
+			String.format(
+				"%s/%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
+				ProjectIdThreadLocal.getProjectId(), dataSourceId, resourceName,
+				uploadType, DateUtil.newDateString()));
+
+		File targetFile = new File(path);
+
+		FileUtils.createParentDirectories(targetFile);
+
+		try (FileOutputStream fileOutputStream = new FileOutputStream(
+				targetFile, true)) {
+
+			IOUtils.copy(inputStream, fileOutputStream);
+		}
 	}
 
 	private static final Log _log = LogFactory.getLog(

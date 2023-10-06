@@ -30,6 +30,7 @@ import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -139,7 +140,7 @@ public class DXPEntitiesNanite extends BaseNanite {
 
 			Path path = Paths.get(targetPath);
 
-			_createMissingParentDirectories(path);
+			FileUtils.createParentDirectories(path.toFile());
 
 			Files.move(file.toPath(), path);
 		}
@@ -153,22 +154,6 @@ public class DXPEntitiesNanite extends BaseNanite {
 	@Override
 	protected Log getLog() {
 		return _log;
-	}
-
-	private void _createMissingParentDirectories(Path path) {
-		File file = path.toFile();
-
-		File parentFile = file.getParentFile();
-
-		if (parentFile == null) {
-			return;
-		}
-
-		boolean result = parentFile.mkdirs();
-
-		if (result && _log.isDebugEnabled()) {
-			_log.debug("Parent directories created for file " + file);
-		}
 	}
 
 	private JSONArray _getExpandoFieldsJSONArray(DXPEntity dxpEntity) {
