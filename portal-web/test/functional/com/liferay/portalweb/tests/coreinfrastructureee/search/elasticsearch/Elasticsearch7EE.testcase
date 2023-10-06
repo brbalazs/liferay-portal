@@ -35,6 +35,7 @@ definition {
 	test PortalClusterSmokeTest {
 		property app.server.bundles.size = "1";
 		property cluster.enabled = "true";
+		property minimum.slave.ram = "24";
 		property remote.elasticsearch7.enabled = "true";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
