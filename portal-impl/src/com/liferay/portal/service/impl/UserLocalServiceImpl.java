@@ -3918,16 +3918,16 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				TicketConstants.TYPE_PASSWORD, null, expirationDate,
 				serviceContext);
 
-				StringBundler sb = new StringBundler(8);
+			StringBundler sb = new StringBundler(8);
 
-				sb.append(serviceContext.getPortalURL());
-				sb.append(serviceContext.getPathMain());
-				sb.append("/portal/update_password?p_l_id=");
-				sb.append(serviceContext.getPlid());
-				sb.append("&ticketKey=");
-				sb.append(ticket.getTicketId());
-				sb.append(StringPool.UNDERLINE);
-				sb.append(ticket.getKey());
+			sb.append(serviceContext.getPortalURL());
+			sb.append(serviceContext.getPathMain());
+			sb.append("/portal/update_password?p_l_id=");
+			sb.append(serviceContext.getPlid());
+			sb.append("&ticketKey=");
+			sb.append(ticket.getKey());
+			sb.append("&ticketId=");
+			sb.append(ticket.getTicketId());
 
 			String passwordResetURL = sb.toString();
 
@@ -3936,7 +3936,6 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			sendPasswordNotification(
 				user, companyId, null, passwordResetURL, fromName, fromAddress,
 				subject, body, serviceContext);
-
 		}
 		else if (company.isSendPassword()) {
 			if (!Objects.equals(
@@ -3997,7 +3996,6 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		return company.isSendPassword();
-
 	}
 
 	/**
