@@ -130,11 +130,13 @@ public class DXPEntitiesNanite extends BaseNanite {
 					"%s/%s/%s/%s/%s/%s.zip", _dxpBatchEntitiesStoragePath,
 					ProjectIdThreadLocal.getProjectId(), entry.getKey(),
 					"com.liferay.analytics.dxp.entity.rest.dto.v1_0.DXPEntity",
-					uploadType, DateUtil.toString(currentDate)));
+					uploadType, DateUtil.toUTCString(currentDate)));
 
-			Files.move(
-				file.toPath(), Paths.get(targetPath),
-				StandardCopyOption.REPLACE_EXISTING);
+			Path path = Paths.get(targetPath);
+
+			_createMissingParentDirectories(path);
+
+			Files.move(file.toPath(), path);
 		}
 
 		asahMarkerContextJSONObject.put(
@@ -146,6 +148,22 @@ public class DXPEntitiesNanite extends BaseNanite {
 	@Override
 	protected Log getLog() {
 		return _log;
+	}
+
+	private void _createMissingParentDirectories(Path path) {
+		File file = path.toFile();
+
+		File parentFile = file.getParentFile();
+
+		if (parentFile == null) {
+			return;
+		}
+
+		boolean result = parentFile.mkdirs();
+
+		if (result && _log.isDebugEnabled()) {
+			_log.debug("Parent directories created for file " + file);
+		}
 	}
 
 	private JSONArray _getExpandoFieldsJSONArray(DXPEntity dxpEntity) {
