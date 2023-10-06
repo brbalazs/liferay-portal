@@ -7,9 +7,11 @@ package com.liferay.osb.asah.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.entity.BQEvent;
+import com.liferay.osb.asah.common.graphql.GraphQLProperty;
 import com.liferay.osb.asah.common.graphql.GraphQLType;
 
 import java.util.Date;
@@ -69,6 +71,8 @@ public class BQEventDTO {
 		return _referrer;
 	}
 
+	@GraphQLProperty("url")
+	@JsonProperty("url")
 	public String getURL() {
 		return _url;
 	}
