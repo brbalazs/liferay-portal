@@ -1,33 +1,12 @@
 <FindBugsFilter>
 	<Match>
+		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.DXPEntityIngestionPipeline" />
+	</Match>
+	<Match>
 		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.entity.Field" />
 	</Match>
 	<Match>
-		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.transform.BaseParserPTransform$1" />
-	</Match>
-	<Match>
-		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.transform.BigQueryInsertErrorWriterPTransform$1" />
-	</Match>
-	<Match>
-		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.transform.BigQueryInsertErrorWriterPTransform$1$1" />
-	</Match>
-	<Match>
-		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.transform.BigQueryInsertErrorWriterPTransform$1$2" />
-	</Match>
-	<Match>
-		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.transform.BigQueryInsertErrorWriterPTransform$2" />
-	</Match>
-	<Match>
-		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.transform.BigQueryWriterPTransform$1" />
-	</Match>
-	<Match>
 		<Class name="com.liferay.osb.asah.dataflow.ingestion.dxp.transform.CommerceChannelIdMapPTransform" />
-	</Match>
-	<Match>
-		<Class name="com.liferay.osb.asah.dataflow.ingestion.event.EventIngestionPipeline$EventBigQueryWriter$1" />
-	</Match>
-	<Match>
-		<Class name="com.liferay.osb.asah.dataflow.ingestion.event.EventIngestionPipeline$EventBigQueryWriter$2" />
 	</Match>
 	<Match>
 		<Class name="com.liferay.osb.asah.dataflow.ingestion.event.EventIngestionPipeline$EventPropertyBigQueryWriter$1" />
