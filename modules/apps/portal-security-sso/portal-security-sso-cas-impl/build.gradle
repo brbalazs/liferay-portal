@@ -1,7 +1,7 @@
 dependencies {
-	compileInclude group: "org.bouncycastle", name: "bcpkix-jdk18on", version: "1.69"
-	compileInclude group: "org.bouncycastle", name: "bcprov-jdk18on", version: "1.69"
-	compileInclude group: "org.bouncycastle", name: "bcutil-jdk18on", version: "1.69"
+	compileInclude group: "org.bouncycastle", name: "bcpkix-jdk18on", version: "1.76"
+	compileInclude group: "org.bouncycastle", name: "bcprov-jdk18on", version: "1.76"
+	compileInclude group: "org.bouncycastle", name: "bcutil-jdk18on", version: "1.76"
 	compileInclude group: "org.jasig.cas.client", name: "cas-client-core", version: "3.6.1"
 
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
