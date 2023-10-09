@@ -171,7 +171,7 @@ services:
         container_name: postgresql
         env_file:
             - postgresql.env
-        image: postgres:15.2
+        image: postgres:15.4
         ports:
             - "5432:5432"
         volumes:

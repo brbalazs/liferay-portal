@@ -12,7 +12,7 @@ services:
         container_name: test_postgresql
         env_file:
             - postgresql.env
-        image: postgres:15.2
+        image: postgres:15.4
         mem_limit: 2g
         ports:
             - "5432:5432"
