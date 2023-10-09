@@ -131,7 +131,7 @@ public class UpdatePasswordAction extends Action {
 
 		String ticketKey = ParamUtil.getString(httpServletRequest, "ticketKey");
 
-		if (Validator.isNull(ticketKey) || Validator.isNull(ticketId)) {
+		if (Validator.isNull(ticketId) || Validator.isNull(ticketKey)) {
 			return null;
 		}
 
