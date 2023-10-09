@@ -1936,8 +1936,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!bcpg-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!bcpg-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle OpenPGP API</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -1948,8 +1948,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!bcpkix-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!bcpkix-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle PKIX, CMS, EAC, TSP, PKCS, OCSP, CMP, and CRMF APIs</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -1960,8 +1960,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!bcprov-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!bcprov-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle Provider</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -1972,8 +1972,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!bcutil-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.portal.search.elasticsearch6.impl.jar!bcutil-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle ASN.1 Extension and Utility APIs</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -2844,8 +2844,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.security.sso.cas.impl.jar!bcpkix-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.portal.security.sso.cas.impl.jar!bcpkix-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle PKIX, CMS, EAC, TSP, PKCS, OCSP, CMP, and CRMF APIs</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -2856,8 +2856,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.security.sso.cas.impl.jar!bcprov-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.portal.security.sso.cas.impl.jar!bcprov-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle Provider</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -2868,8 +2868,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.security.sso.cas.impl.jar!bcutil-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.portal.security.sso.cas.impl.jar!bcutil-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle ASN.1 Extension and Utility APIs</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -4488,8 +4488,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.sync.service.jar!bcpg-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.sync.service.jar!bcpg-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle OpenPGP API</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -4500,8 +4500,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.sync.service.jar!bcpkix-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.sync.service.jar!bcpkix-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle PKIX, CMS, EAC, TSP, PKCS, OCSP, CMP, and CRMF APIs</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -4512,8 +4512,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.sync.service.jar!bcprov-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.sync.service.jar!bcprov-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle Provider</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
@@ -4524,8 +4524,8 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.sync.service.jar!bcutil-jdk15on.jar</file-name>
-				<version>1.69</version>
+				<file-name>com.liferay.sync.service.jar!bcutil-jdk18on.jar</file-name>
+				<version>1.76</version>
 				<project-name>Bouncy Castle ASN.1 Extension and Utility APIs</project-name>
 				<project-url>https://www.bouncycastle.org/java.html</project-url>
 				<licenses>
