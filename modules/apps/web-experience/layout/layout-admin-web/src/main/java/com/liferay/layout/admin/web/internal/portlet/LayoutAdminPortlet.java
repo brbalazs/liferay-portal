@@ -533,7 +533,8 @@ public class LayoutAdminPortlet extends MVCPortlet {
 
 		MultiSessionMessages.add(actionRequest, "layoutUpdated", layout);
 
-		String redirect = ParamUtil.getString(actionRequest, "redirect");
+		String redirect = portal.escapeRedirect(
+			ParamUtil.getString(actionRequest, "redirect"));
 
 		if (Validator.isNull(redirect) || redirect.endsWith(oldFriendlyURL)) {
 			redirect = portal.getLayoutFullURL(layout, themeDisplay);
@@ -920,7 +921,8 @@ public class LayoutAdminPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		String redirect = ParamUtil.getString(actionRequest, "redirect");
+		String redirect = portal.escapeRedirect(
+			ParamUtil.getString(actionRequest, "redirect"));
 
 		Layout refererLayout = layoutLocalService.fetchLayout(
 			themeDisplay.getRefererPlid());
