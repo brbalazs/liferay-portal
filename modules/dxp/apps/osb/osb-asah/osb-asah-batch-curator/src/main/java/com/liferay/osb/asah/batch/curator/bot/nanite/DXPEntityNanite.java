@@ -250,13 +250,13 @@ public class DXPEntityNanite extends BaseNanite {
 
 						_messageBus.sendMessage(
 							Channel.DXP_ENTITIES_DEFAULT,
-							_toJSONString(dxpEntity), messageAttributes);
+							_toJSON(dxpEntity), messageAttributes);
 					}
 				}
 			});
 	}
 
-	private String _toJSONString(DXPEntity dxpEntity) {
+	private String _toJSON(DXPEntity dxpEntity) {
 		DXPEntity.Type type = dxpEntity.getType();
 
 		return JSONUtil.put(
