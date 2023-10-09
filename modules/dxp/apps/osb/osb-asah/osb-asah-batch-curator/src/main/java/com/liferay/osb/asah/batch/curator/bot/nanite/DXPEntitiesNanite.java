@@ -325,7 +325,7 @@ public class DXPEntitiesNanite extends BaseNanite {
 					continue;
 				}
 
-				_write(_toJSONString(dxpEntity), zipOutputStream);
+				_write(_toJSON(dxpEntity), zipOutputStream);
 			}
 		}
 	}

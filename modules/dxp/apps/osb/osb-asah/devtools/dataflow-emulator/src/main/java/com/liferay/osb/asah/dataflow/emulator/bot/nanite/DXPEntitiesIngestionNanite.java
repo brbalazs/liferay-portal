@@ -83,9 +83,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DXPEntitiesIngestionNanite {
 
-	public void process(
-		Map<String, String> attributes, String dxpEntityJSON) {
-
+	public void process(Map<String, String> attributes, String dxpEntityJSON) {
 		Long dataSourceId = MapUtil.getLong(attributes, "dataSourceId");
 
 		String projectId = MapUtil.getString(attributes, "projectId");
