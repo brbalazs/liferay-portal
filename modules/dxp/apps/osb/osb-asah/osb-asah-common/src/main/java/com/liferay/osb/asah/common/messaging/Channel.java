@@ -11,8 +11,7 @@ package com.liferay.osb.asah.common.messaging;
 public enum Channel {
 
 	ANALYTICS_EVENTS, ANALYTICS_EVENTS_CUSTOM_ASSET, COMPOSER,
-	DXP_ENTITIES_DEFAULT, DXP_ENTITIES_MESSAGE(true), DXP_ENTITIES_ORDER,
-	DXP_ENTITIES_PRODUCT, IDENTITY_MESSAGE;
+	DXP_ENTITIES_MESSAGE(true), IDENTITY_MESSAGE;
 
 	public boolean isOrderingEnabled() {
 		return _orderingEnabled;
