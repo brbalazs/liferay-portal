@@ -28,7 +28,6 @@ import com.liferay.osb.asah.common.wedeploy.data.WeDeployDataService;
 import java.security.KeyPair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -384,7 +383,9 @@ public class DataSourceDog {
 			_deleteData(
 				dataSourceId, "groups", "roles", "teams", "user-groups",
 				"users");
-			_deleteIndividualReferences(dataSourceId);
+
+			// TODO Remove data source fields references from Individual
+
 		}
 		else if (_log.isWarnEnabled()) {
 			_log.warn(
@@ -422,28 +423,6 @@ public class DataSourceDog {
 			dataSourceId, disabledFieldMappingFieldNames);
 	}
 
-	private void _deleteIndividualReferences(Long dataSourceId)
-		throws Exception {
-
-		for (String collectionName :
-				Arrays.asList("groups", "roles", "teams", "user-groups")) {
-
-			DXPEntity.Type dxpEntityType = DXPEntity.Type.ofCollectionName(
-				collectionName);
-
-			_deleteIndividualReferences(
-				dxpEntityType.getIdFieldName(),
-				_getDataIds(collectionName, dataSourceId));
-		}
-	}
-
-	private void _deleteIndividualReferences(String fieldName, List<Long> ids)
-		throws Exception {
-
-		// TODO Remove data source field name from Individual
-
-	}
-
 	private void _deleteRunLogs(DataSource dataSource) {
 		_runLogDog.deleteRunLogs(
 			dataSource.getId(), WeDeployDataService.OSB_ASAH_FARO_INFO);
@@ -459,20 +438,6 @@ public class DataSourceDog {
 	@PreDestroy
 	private void _destroy() {
 		_boundedExecutor.shutdown();
-	}
-
-	private List<Long> _getDataIds(String collectionName, Long dataSourceId) {
-		List<DXPEntity> dxpEntities = _dxpEntityDog.findByFieldsAndType(
-			Collections.singletonMap("dataSourceId", dataSourceId),
-			DXPEntity.Type.ofCollectionName(collectionName));
-
-		Stream<DXPEntity> stream = dxpEntities.stream();
-
-		return stream.map(
-			DXPEntity::getId
-		).collect(
-			Collectors.toList()
-		);
 	}
 
 	private String _getDataSourceName(String name) {

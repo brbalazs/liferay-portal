@@ -77,7 +77,7 @@ public class BlockedKeywordDog {
 	public Page<BlockedKeyword> getBlockedKeywordPage(
 		String keyword, int page, int size, String[] sorts) {
 
-		Sort sort = _getSort(sorts);
+		Sort sort = Sort.by(Sort.Order.asc("keyword"));
 
 		if (keyword != null) {
 			return PageableExecutionUtils.getPage(
@@ -128,19 +128,6 @@ public class BlockedKeywordDog {
 		).collect(
 			Collectors.toList()
 		);
-	}
-
-	private Sort _getSort(String[] sorts) {
-
-		// TODO sort orders
-
-		List<Sort.Order> orders = Collections.emptyList();
-
-		if (orders.isEmpty()) {
-			return Sort.by(Sort.Order.asc("keyword"));
-		}
-
-		return Sort.by(orders);
 	}
 
 	private Set<String> _normalizeKeywords(Set<String> keywords) {

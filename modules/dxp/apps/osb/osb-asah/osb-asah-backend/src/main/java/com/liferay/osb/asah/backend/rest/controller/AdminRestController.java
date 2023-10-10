@@ -34,14 +34,9 @@ import com.liferay.osb.asah.common.repository.SegmentRepository;
 import com.liferay.osb.asah.common.spring.annotation.CacheEvict;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.common.util.ResourceTemplateUtil;
-import com.liferay.osb.asah.common.wedeploy.data.WeDeployDataService;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import java.util.zip.ZipOutputStream;
 
 import javax.annotation.PostConstruct;
 
@@ -156,10 +151,11 @@ public class AdminRestController extends BaseRestController {
 	}
 
 	@GetMapping("/snapshot")
-	public ResponseEntity downloadSnapshot() throws Exception {
-		File file = _createSnapshot("elasticsearch-snapshot.zip");
+	public ResponseEntity downloadSnapshot() {
+		ResponseEntity.BodyBuilder bodyBuilder = ResponseEntity.status(
+			HttpStatus.NOT_IMPLEMENTED);
 
-		return toDownloadResponse(file, file.getName());
+		return bodyBuilder.build();
 	}
 
 	@PostConstruct
@@ -297,27 +293,6 @@ public class AdminRestController extends BaseRestController {
 
 			_preferenceRepository.save(preference);
 		}
-	}
-
-	private File _createSnapshot(String fileName) throws Exception {
-		try (FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-			ZipOutputStream zipOutputStream = new ZipOutputStream(
-				fileOutputStream)) {
-
-			for (WeDeployDataService weDeployDataService :
-					WeDeployDataService.values()) {
-
-				_saveWeDeployDataService(weDeployDataService, zipOutputStream);
-			}
-		}
-
-		return new File(fileName);
-	}
-
-	private void _saveWeDeployDataService(
-			WeDeployDataService weDeployDataService,
-			ZipOutputStream zipOutputStream)
-		throws Exception {
 	}
 
 	private static final Log _log = LogFactory.getLog(
