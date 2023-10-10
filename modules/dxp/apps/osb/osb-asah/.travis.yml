@@ -8,7 +8,7 @@ cache:
         - .gradle/wrapper/
         - docker_images
     timeout: 600
-dist: bionic
+dist: jammy
 env:
     global:
         - _JAVA_OPTIONS=-Xmx3g
