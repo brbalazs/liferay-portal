@@ -44,7 +44,7 @@ public class DXPEntityUserSuppressor extends DoFn<DXPEntity, DXPEntity> {
 			if (emailAddress == null) {
 				if (_logger.isWarnEnabled()) {
 					_logger.warn(
-						"Discarding DXP User Entity with null email address");
+						"Discarding DXP user entity with null email address");
 				}
 
 				return;
