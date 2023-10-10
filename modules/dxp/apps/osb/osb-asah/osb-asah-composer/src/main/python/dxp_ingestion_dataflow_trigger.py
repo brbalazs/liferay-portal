@@ -10,6 +10,7 @@
 #
 
 from airflow.models import Variable
+from airflow.models.baseoperator import chain
 from airflow.providers.google.cloud.operators.dataflow import DataflowCreateJavaJobOperator
 
 from liferay.bigquery import BigQueryInsertJobFromTemplateOperator
@@ -21,10 +22,28 @@ import requests
 
 DATAFLOW_BUCKET = 'gs://{}-dataflow'.format(os.environ['GOOGLE_PROJECT_ID'])
 
+def create_big_query_jobs(task_ids):
+	big_query_jobs = []
+
+	for task_id in task_ids:
+		if type(task_id) == list:
+			big_query_jobs_map = map(
+				lambda id: BigQueryInsertJobFromTemplateOperator(task_id=id),
+				task_id
+			)
+
+			big_query_jobs.append(list(big_query_jobs_map))
+		else:
+			big_query_jobs.append(
+				BigQueryInsertJobFromTemplateOperator(task_id=task_id)
+			)
+
+	return big_query_jobs
+
 def create_dag(
-	ac_project_id, dag_id, dag_description, job_class, job_name,
-	merge_job_task_id, task_id
-):
+	ac_project_id, dag_id, dag_description, dataflow_job_class,
+	dataflow_job_name, downstream_task_ids, task_id):
+
 	with (airflow.DAG(
 		dag_id=dag_id,
 		default_args={
@@ -42,8 +61,8 @@ def create_dag(
 		dataflow_create_java_job_operator = DataflowCreateJavaJobOperator(
 			dag=dag,
 			jar=DATAFLOW_BUCKET.concat('/pipeline/osb-asah-dataflow-java.jar'),
-			job_class=job_class,
-			job_name=job_name,
+			job_class=dataflow_job_class,
+			job_name=dataflow_job_name,
 			location= os.environ['GOOGLE_REGION'],
 			options={
 				"zipFilePath": "{{ params['zipFilePath'] }}",
@@ -56,7 +75,9 @@ def create_dag(
 			task_id=task_id
 		)
 
-		dataflow_create_java_job_operator >> BigQueryInsertJobFromTemplateOperator(task_id=merge_job_task_id)
+		chain(
+			dataflow_create_java_job_operator,
+			create_big_query_jobs(downstream_task_ids))
 
 		return dag
 
@@ -70,9 +91,43 @@ response = requests.get(
 )
 
 for project in response.json():
-	commerce_channels_selected = project.get('commerceChannelsSelected')
 
-	if commerce_channels_selected:
+	#
+	# DXP Entity
+	#
+
+	downstream_task_ids = []
+
+	if project.get('accountsSelected'):
+		downstream_task_ids.append(['account_entry_merge', 'account_group_merge'])
+
+	if project.get('contactsSelected'):
+		downstream_task_ids.append([
+			'expando_column_merge', 'expando_value_delete',
+			'expando_value_merge', 'group_merge', 'organization_merge',
+			'role_merge', 'team_merge', 'user_group_merge', 'user_merge'
+		])
+
+		downstream_task_ids.append('individual_merge')
+
+	if len(downstream_task_ids) > 0:
+		dag_id = 'dxp_entity_ingestion_dataflow_trigger_{}'.format(
+			project.get('id')
+		)
+
+		globals()[dag_id] = create_dag(
+			project.get('id'), dag_id,
+			'DXP Entity Ingestion Dataflow Trigger For {}'.format(
+				project.get('id')
+			),
+			'com.liferay.osb.asah.dataflow.ingestion.dxp.DXPEntityIngestionPipeline',
+			'dxpentityingestionpipeline-{}'.format(project.get('id')),
+			downstream_task_ids,
+			'dxp_entity_merge'
+			'dxp_entity_ingestion_dataflow_trigger'
+		)
+
+	if project.get('commerceChannelsSelected'):
 
 		#
 		# Order
@@ -89,7 +144,7 @@ for project in response.json():
 			),
 			'com.liferay.osb.asah.dataflow.ingestion.dxp.DXPOrderIngestionPipeline',
 			'dxporderingestionpipeline-{}'.format(project.get('id')),
-			'order_merge'
+			['order_merge'],
 			'dxp_order_ingestion_dataflow_trigger'
 		)
 
@@ -108,6 +163,6 @@ for project in response.json():
 			),
 			'com.liferay.osb.asah.dataflow.ingestion.dxp.DXPProductIngestionPipeline',
 			'dxpproductingestionpipeline-{}'.format(project.get('id')),
-			'product_merge'
+			['product_merge'],
 			'dxp_product_ingestion_dataflow_trigger'
 		)
