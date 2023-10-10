@@ -52,29 +52,30 @@ public class DXPEntityIngestionPipeline {
 				new DXPEntityMessageWrapperZipReaderPTransform(
 					dxpEntityIngestionPipelineOptions.getZipFilePath()));
 
-		PCollection<String> suppressedEmailsPCollection = pipeline.apply(
-			"Read Suppressed Users from BigQuery",
-			BigQueryIO.readTableRows(
-			).fromQuery(
-				String.format(
-					"SELECT emailAddress FROM %s.%s",
-					dxpEntityIngestionPipelineOptions.getProjectId(),
-					"suppression")
-			).withMethod(
-				BigQueryIO.TypedRead.Method.DIRECT_READ
-			)
-		).apply(
-			"Map Table Row Results",
-			MapElements.into(
-				TypeDescriptors.strings()
-			).via(
-				(SerializableFunction<TableRow, String>)
-					tableRow -> (String)tableRow.get("emailAddress")
-			)
-		);
+		PCollection<String> suppressedEmailAddressesPCollection =
+			pipeline.apply(
+				"Read Suppressed Email Addresses from BigQuery",
+				BigQueryIO.readTableRows(
+				).fromQuery(
+					String.format(
+						"SELECT emailAddress FROM %s.%s",
+						dxpEntityIngestionPipelineOptions.getProjectId(),
+						"suppression")
+				).withMethod(
+					BigQueryIO.TypedRead.Method.DIRECT_READ
+				)
+			).apply(
+				"Map Table Row Results",
+				MapElements.into(
+					TypeDescriptors.strings()
+				).via(
+					(SerializableFunction<TableRow, String>)
+						tableRow -> (String)tableRow.get("emailAddress")
+				)
+			);
 
 		PCollectionView<List<String>> suppressedEmailAddressesPCollectionView =
-			suppressedEmailsPCollection.apply(View.asList());
+			suppressedEmailAddressesPCollection.apply(View.asList());
 
 		dxpEntityMessageWrapperPCollection.apply(
 			"Parse DXP Entities", ParDo.of(new DXPEntityParserDoFn())
