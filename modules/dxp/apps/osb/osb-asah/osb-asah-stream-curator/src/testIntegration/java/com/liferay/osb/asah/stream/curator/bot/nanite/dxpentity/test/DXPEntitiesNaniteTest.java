@@ -94,7 +94,7 @@ public class DXPEntitiesNaniteTest
 				},
 				LinkedHashMap::new, Collectors.toList())
 		).forEach(
-			(id, message) -> _populateJSONArray(jsonArray, id, message)
+			(id, message) -> _populateJSONArray(jsonArray, message)
 		);
 
 		JSONAssert.assertEquals(
@@ -109,8 +109,7 @@ public class DXPEntitiesNaniteTest
 	}
 
 	private void _populateJSONArray(
-		JSONArray jsonArray, String projectId,
-		List<Message<JSONArray>> messages) {
+		JSONArray jsonArray, List<Message<JSONArray>> messages) {
 
 		for (Message<JSONArray> message : messages) {
 			JSONArray messageJSONArray = message.getObject();
