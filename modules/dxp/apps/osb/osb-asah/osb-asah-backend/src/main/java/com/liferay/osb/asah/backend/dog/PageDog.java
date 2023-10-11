@@ -10,8 +10,6 @@ import com.liferay.osb.asah.backend.model.Metric;
 import com.liferay.osb.asah.backend.model.PageMetric;
 import com.liferay.osb.asah.backend.repository.PageAssetMetricRepository;
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
-import com.liferay.osb.asah.common.dog.DataControlTaskDog;
-import com.liferay.osb.asah.common.dog.SuppressionDog;
 import com.liferay.osb.asah.common.model.PageMetricType;
 import com.liferay.osb.asah.common.model.TimeRange;
 
@@ -133,13 +131,7 @@ public class PageDog {
 	}
 
 	@Autowired
-	private DataControlTaskDog _dataControlTaskDog;
-
-	@Autowired
 	private PageAssetMetricRepository _pageAssetMetricRepository;
-
-	@Autowired
-	private SuppressionDog _suppressionDog;
 
 	@Autowired
 	private TimeZoneDog _timeZoneDog;
