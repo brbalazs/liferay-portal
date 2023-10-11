@@ -126,7 +126,6 @@ public class PaginationContextProviderTest {
 		_withPageSizeLimit(-1, () -> _test(1, 25, null, 25));
 		_withPageSizeLimit(-1, () -> _test(2, 20, 2, null));
 		_withPageSizeLimit(-1, () -> _test(2, 25, 2, 25));
-
 		_withPageSizeLimit(0, () -> _test(1, 20, null, null));
 		_withPageSizeLimit(0, () -> _test(1, 25, null, 25));
 		_withPageSizeLimit(0, () -> _test(2, 20, 2, null));
@@ -138,7 +137,6 @@ public class PaginationContextProviderTest {
 		_withPageSizeLimit(-1, () -> _test(-1, -1, 0, null));
 		_withPageSizeLimit(-1, () -> _test(-1, -1, null, -1));
 		_withPageSizeLimit(-1, () -> _test(-1, -1, null, 0));
-
 		_withPageSizeLimit(0, () -> _test(-1, -1, -1, null));
 		_withPageSizeLimit(0, () -> _test(-1, -1, 0, null));
 		_withPageSizeLimit(0, () -> _test(-1, -1, null, -1));
