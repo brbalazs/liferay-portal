@@ -37,6 +37,7 @@ public class RecentVisitAsset extends RecentVisit {
 		RecentVisitAsset recentVisitAsset = (RecentVisitAsset)obj;
 
 		if (Objects.equals(firstVisitDate, recentVisitAsset.firstVisitDate) &&
+			Objects.equals(groupId, recentVisitAsset.groupId) &&
 			Objects.equals(lastVisitDate, recentVisitAsset.lastVisitDate) &&
 			Objects.equals(visits, recentVisitAsset.visits) &&
 			Objects.equals(_assetId, recentVisitAsset._assetId) &&
@@ -69,8 +70,8 @@ public class RecentVisitAsset extends RecentVisit {
 	@Override
 	public int hashCode() {
 		return Objects.hash(
-			firstVisitDate, lastVisitDate, visits, _assetId, _assetTitle,
-			_contentType, _url);
+			firstVisitDate, groupId, lastVisitDate, visits, _assetId,
+			_assetTitle, _contentType, _url);
 	}
 
 	public void setAssetId(String assetId) {

@@ -42,6 +42,11 @@ public class RecentVisitPageDTO extends RecentVisitDTO {
 		return _displayLanguageId;
 	}
 
+	@JsonProperty("groupId")
+	public String getGroupId() {
+		return _groupId;
+	}
+
 	@JsonProperty("url")
 	public String getKeywords() {
 		return _url;
@@ -53,6 +58,7 @@ public class RecentVisitPageDTO extends RecentVisitDTO {
 	}
 
 	private String _displayLanguageId;
+	private String _groupId;
 	private Set<RecentVisitPageDTO> _recentVisitPageDTOS;
 	private String _url;
 

@@ -32,12 +32,6 @@ public class RecentVisitSiteDTO extends RecentVisitDTO {
 
 	public RecentVisitSiteDTO(RecentVisitSite recentVisitSite) {
 		super(recentVisitSite);
-
-		_groupId = recentVisitSite.getGroupId();
-	}
-
-	public String getGroupId() {
-		return _groupId;
 	}
 
 	@JsonProperty("recent-sites")
@@ -45,7 +39,6 @@ public class RecentVisitSiteDTO extends RecentVisitDTO {
 		return _recentVisitSiteDTOS;
 	}
 
-	private String _groupId;
 	private Set<RecentVisitSiteDTO> _recentVisitSiteDTOS;
 
 }

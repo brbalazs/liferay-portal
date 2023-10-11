@@ -35,6 +35,7 @@ public class RecentVisitPage extends RecentVisit {
 		RecentVisitPage recentVisitPage = (RecentVisitPage)obj;
 
 		if (Objects.equals(firstVisitDate, recentVisitPage.firstVisitDate) &&
+			Objects.equals(groupId, recentVisitPage.groupId) &&
 			Objects.equals(lastVisitDate, recentVisitPage.lastVisitDate) &&
 			Objects.equals(visits, recentVisitPage.visits) &&
 			Objects.equals(
@@ -58,7 +59,8 @@ public class RecentVisitPage extends RecentVisit {
 	@Override
 	public int hashCode() {
 		return Objects.hash(
-			firstVisitDate, lastVisitDate, visits, _displayLanguageId, _url);
+			firstVisitDate, groupId, lastVisitDate, visits, _displayLanguageId,
+			_url);
 	}
 
 	public void setDisplayLanguageId(String displayLanguageId) {

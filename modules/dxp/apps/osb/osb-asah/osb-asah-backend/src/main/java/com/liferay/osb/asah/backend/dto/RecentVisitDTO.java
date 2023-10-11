@@ -40,6 +40,11 @@ public abstract class RecentVisitDTO {
 		return new Date(_firstVisitDate.getTime());
 	}
 
+	@JsonProperty("groupId")
+	public String getGroupId() {
+		return _groupId;
+	}
+
 	@JsonFormat(
 		pattern = DateUtil.PATTERN_ISO_8601, shape = JsonFormat.Shape.STRING,
 		timezone = "UTC"
@@ -59,6 +64,7 @@ public abstract class RecentVisitDTO {
 	}
 
 	private Date _firstVisitDate;
+	private String _groupId;
 	private Date _lastVisitDate;
 	private Long _visits;
 

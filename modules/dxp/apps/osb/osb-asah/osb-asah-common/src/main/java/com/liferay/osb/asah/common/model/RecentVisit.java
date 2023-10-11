@@ -20,6 +20,10 @@ public abstract class RecentVisit {
 		return new Date(firstVisitDate.getTime());
 	}
 
+	public String getGroupId() {
+		return groupId;
+	}
+
 	public Date getLastVisitDate() {
 		if (lastVisitDate == null) {
 			return null;
@@ -38,6 +42,10 @@ public abstract class RecentVisit {
 		}
 	}
 
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
 	public void setLastVisitDate(Date lastVisitDate) {
 		if (lastVisitDate != null) {
 			this.lastVisitDate = new Date(lastVisitDate.getTime());
@@ -49,6 +57,7 @@ public abstract class RecentVisit {
 	}
 
 	protected Date firstVisitDate;
+	protected String groupId;
 	protected Date lastVisitDate;
 	protected Long visits;
 
