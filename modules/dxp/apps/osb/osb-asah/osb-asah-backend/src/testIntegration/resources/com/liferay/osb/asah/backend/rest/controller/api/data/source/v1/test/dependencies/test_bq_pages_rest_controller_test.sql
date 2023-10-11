@@ -1,0 +1,8 @@
+INSERT INTO PageDaily (canonicalUrl, channelId, eventDate, title, reads, userId, views) VALUES ('https://liferay.com', 1, TIMESTAMP(DATETIME_TRUNC(timestamp '${now-1d}', HOUR)), 'Page 1', 0, '1', 1);
+INSERT INTO PageDaily (canonicalUrl, channelId, eventDate, title, reads, userId, views) VALUES ('https://liferay.com', 1, TIMESTAMP(DATETIME_TRUNC(timestamp '${now-1d}', HOUR)), 'Page 1', 0, '2', 2);
+INSERT INTO PageDaily (canonicalUrl, channelId, eventDate, title, reads, userId, views) VALUES ('https://liferay.com', 1, TIMESTAMP(DATETIME_TRUNC(timestamp '${now-1d}', HOUR)), 'Page 1', 1, '3', 1);
+INSERT INTO PageDaily (canonicalUrl, channelId, eventDate, title, reads, userId, views) VALUES ('https://liferay.com', 1, TIMESTAMP(DATETIME_TRUNC(timestamp '${now-1d}', HOUR)), 'Page 1', 2, '4', 1);
+INSERT INTO PageDaily (canonicalUrl, channelId, eventDate, title, reads, userId, views) VALUES ('https://liferay.com', 1, TIMESTAMP(DATETIME_TRUNC(timestamp '${now-1d}', HOUR)), 'Page 1', NULL, '5', 1);
+INSERT INTO PageDaily (canonicalUrl, channelId, eventDate, title, reads, userId, views) VALUES ('https://liferay.com/search?q=Liferay%20DXP', 1, TIMESTAMP(DATETIME_TRUNC(timestamp '${now-1d}', HOUR)), 'Search', 0, '10', 0);
+INSERT INTO PageDaily (canonicalUrl, channelId, eventDate, title, reads, userId, views) VALUES ('https://liferay.com/search?q=Liferay', 1, TIMESTAMP(DATETIME_TRUNC(timestamp '${now-1d}', HOUR)), 'Search', 0, '10', 0);
+INSERT INTO PageDaily (canonicalUrl, channelId, eventDate, title, reads, userId, views) VALUES ('https://liferay.com/search?q=Liferay', 1, TIMESTAMP(DATETIME_TRUNC(timestamp '${now-1d}', HOUR)), 'Search', 0, '11', 0);

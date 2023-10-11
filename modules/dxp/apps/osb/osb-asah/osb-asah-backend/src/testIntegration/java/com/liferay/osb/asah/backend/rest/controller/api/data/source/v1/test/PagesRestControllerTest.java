@@ -9,8 +9,7 @@ import com.liferay.osb.asah.backend.OSBAsahBackendSpringTestContext;
 import com.liferay.osb.asah.backend.rest.controller.api.data.source.v1.PagesRestController;
 import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.model.Interval;
-import com.liferay.osb.asah.test.util.annotation.RepositoryResource;
-import com.liferay.osb.asah.test.util.repository.CrudBQPageRepository;
+import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
 import java.time.LocalDate;
@@ -18,7 +17,6 @@ import java.time.LocalDate;
 import org.json.JSONObject;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @author Shinn Lok
  */
-@Disabled
 public class PagesRestControllerTest
 	implements OSBAsahBackendSpringTestContext,
 			   OSBAsahTestExecutionListenersContext {
 
-	@RepositoryResource(
-		repositoryClass = CrudBQPageRepository.class,
-		resourcePath = "osbasahcerebroinfo/pages.json"
-	)
+	@BQSQLResource(resourcePath = "test_bq_pages_rest_controller_test.sql")
 	@Test
 	public void testGetReadCounts() {
 		LocalDate localDate = LocalDate.now();
@@ -53,20 +47,14 @@ public class PagesRestControllerTest
 		Assertions.assertTrue(histogramMetricJSONObject.has("value"));
 	}
 
-	@RepositoryResource(
-		repositoryClass = CrudBQPageRepository.class,
-		resourcePath = "osbasahcerebroinfo/pages.json"
-	)
+	@BQSQLResource(resourcePath = "test_bq_pages_rest_controller_test.sql")
 	@Test
 	public void testGetReadsCount() {
 		Assertions.assertEquals(
 			"3", _pagesRestController.getReadsCount("https://liferay.com"));
 	}
 
-	@RepositoryResource(
-		repositoryClass = CrudBQPageRepository.class,
-		resourcePath = "osbasahcerebroinfo/pages.json"
-	)
+	@BQSQLResource(resourcePath = "test_bq_pages_rest_controller_test.sql")
 	@Test
 	public void testGetViewCounts() {
 		LocalDate localDate = LocalDate.now();
@@ -85,10 +73,7 @@ public class PagesRestControllerTest
 		Assertions.assertTrue(histogramMetricJSONObject.has("value"));
 	}
 
-	@RepositoryResource(
-		repositoryClass = CrudBQPageRepository.class,
-		resourcePath = "osbasahcerebroinfo/pages.json"
-	)
+	@BQSQLResource(resourcePath = "test_bq_pages_rest_controller_test.sql")
 	@Test
 	public void testGetViewsCount() {
 		Assertions.assertEquals(
