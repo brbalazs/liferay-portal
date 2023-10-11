@@ -305,33 +305,36 @@ public class DXPEntitiesIngestionNanite {
 		}
 	}
 
-	public void run() throws Exception {
-		String dxpBatchEntitiesStoragePath =
-			_dxpBatchEntitiesStoragePath + "/" +
-				ProjectIdThreadLocal.getProjectId();
+	public void run() {
+		try {
+			Files.walkFileTree(
+				Paths.get(
+					_dxpBatchEntitiesStoragePath + "/" +
+						ProjectIdThreadLocal.getProjectId()),
+				new SimpleFileVisitor<Path>() {
 
-		Files.walkFileTree(
-			Paths.get(dxpBatchEntitiesStoragePath),
-			new SimpleFileVisitor<Path>() {
+					@Override
+					public FileVisitResult visitFile(
+							Path path, BasicFileAttributes basicFileAttributes)
+						throws IOException {
 
-				@Override
-				public FileVisitResult visitFile(
-						Path path, BasicFileAttributes basicFileAttributes)
-					throws IOException {
+						File file = path.toFile();
 
-					File file = path.toFile();
+						if (StringUtils.contains(file.getName(), ".zip") &&
+							basicFileAttributes.isRegularFile() &&
+							(basicFileAttributes.size() > 0)) {
 
-					if (StringUtils.contains(file.getName(), ".zip") &&
-						basicFileAttributes.isRegularFile() &&
-						(basicFileAttributes.size() > 0)) {
+							_processFile(file);
+						}
 
-						_processFile(file);
+						return FileVisitResult.CONTINUE;
 					}
 
-					return FileVisitResult.CONTINUE;
-				}
-
-			});
+				});
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+		}
 	}
 
 	private String _generateBQExpandoValueId(

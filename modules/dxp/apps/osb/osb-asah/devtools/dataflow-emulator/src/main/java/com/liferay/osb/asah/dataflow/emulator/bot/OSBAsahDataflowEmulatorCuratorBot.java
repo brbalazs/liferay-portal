@@ -55,12 +55,8 @@ public class OSBAsahDataflowEmulatorCuratorBot {
 
 	@Scheduled(fixedDelay = 30 * DateUtil.SECOND)
 	public void runDXPEntitiesIngestionNanite() {
-		try {
-			_dxpEntitiesIngestionNanite.run();
-		}
-		catch (Exception exception) {
-			_log.error(exception, exception);
-		}
+		ProjectIdThreadLocal.forProjects(
+			_projectDog.getProjects(), _dxpEntitiesIngestionNanite::run);
 	}
 
 	@Scheduled(fixedDelay = 10 * DateUtil.SECOND)
