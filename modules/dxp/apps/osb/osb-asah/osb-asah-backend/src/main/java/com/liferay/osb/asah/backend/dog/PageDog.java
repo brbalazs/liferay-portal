@@ -42,9 +42,16 @@ public class PageDog {
 		return _getLongValue(pageMetric.getIndirectAccessMetric());
 	}
 
+	public long getReadsMetricValue(@Nullable String canonicalUrl) {
+		PageMetric pageMetric = _getPageMetric(
+			canonicalUrl, PageMetricType.READS);
+
+		return _getLongValue(pageMetric.getReadsMetric());
+	}
+
 	public long getReadsMetricValue(
-		@Nullable String canonicalUrl, @Nullable LocalDate fromLocalDate,
-		@Nullable LocalDate toLocalDate) {
+		@Nullable String canonicalUrl, LocalDate fromLocalDate,
+		LocalDate toLocalDate) {
 
 		PageMetric pageMetric = _getPageMetric(
 			canonicalUrl, fromLocalDate, PageMetricType.READS, toLocalDate);

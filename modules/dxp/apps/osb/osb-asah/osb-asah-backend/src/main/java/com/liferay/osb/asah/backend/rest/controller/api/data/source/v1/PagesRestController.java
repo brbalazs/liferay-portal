@@ -178,8 +178,7 @@ public class PagesRestController extends BaseRestController {
 
 	@GetMapping("/read-count")
 	public String getReadsCount(@RequestParam String canonicalURL) {
-		return String.valueOf(
-			_pageDog.getReadsMetricValue(canonicalURL, null, null));
+		return String.valueOf(_pageDog.getReadsMetricValue(canonicalURL));
 	}
 
 	@GetMapping("/search-keywords")
