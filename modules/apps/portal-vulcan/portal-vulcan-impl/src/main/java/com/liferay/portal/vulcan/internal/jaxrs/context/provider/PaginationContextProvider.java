@@ -41,10 +41,8 @@ public class PaginationContextProvider implements ContextProvider<Pagination> {
 
 		int requestPage = GetterUtil.getInteger(
 			httpServletRequest.getParameter("page"), 1);
-
 		int requestPageSize = GetterUtil.getInteger(
 			httpServletRequest.getParameter("pageSize"), 20);
-
 		int pageSizeLimit = _getPageSizeLimit(
 			_portal.getCompanyId(httpServletRequest));
 
