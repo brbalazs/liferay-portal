@@ -61,7 +61,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -77,6 +77,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setUrl("https://www.beryl.com/delivery");
@@ -91,6 +92,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setUrl("https://www.beryl.com/confirmation");
@@ -105,6 +107,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setUrl("https://www.beryl.com/about");
@@ -121,7 +124,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -161,7 +164,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -177,6 +180,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset.setUrl("https://www.beryl.com/delivery");
@@ -191,6 +195,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -23));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset.setUrl("https://www.beryl.com/confirmation");
@@ -205,6 +210,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset.setUrl("https://www.beryl.com/about");
@@ -219,6 +225,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset.setUrl(
@@ -236,7 +243,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -252,6 +259,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -22));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setUrl("https://www.beryl.com/delivery");
@@ -266,6 +274,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setUrl("https://www.beryl.com/confirmation");
@@ -280,6 +289,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setUrl("https://www.beryl.com/about");
@@ -294,6 +304,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -9));
 		recentVisitAsset.setUrl(
@@ -317,6 +328,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("67890");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/delivery");
@@ -329,6 +341,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("12345");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/confirmation");
@@ -341,6 +354,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/about");
@@ -353,6 +367,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("12345");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl(
@@ -360,7 +375,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -372,7 +387,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -395,6 +410,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("67890");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/delivery");
@@ -407,6 +423,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("12345");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/confirmation");
@@ -419,6 +436,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/about");
@@ -431,6 +449,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("12345");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl(
@@ -438,7 +457,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -450,7 +469,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -473,6 +492,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("67890");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/delivery");
@@ -485,6 +505,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("12345");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/confirmation");
@@ -497,6 +518,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/about");
@@ -509,6 +531,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("12345");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl(
@@ -516,7 +539,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -528,7 +551,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -543,6 +566,55 @@ public class BQEventDogTest
 	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
 	@SQLResource(resourcePath = "test_get_recent_assets.sql")
 	@Test
+	public void testGetRecentBlogsWithGroupId() {
+		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
+			RecentVisitAsset.ContentType.BLOG, "12345",
+			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
+			0, 10, new String[0], TimeRange.LAST_30_DAYS);
+
+		Assertions.assertEquals(2, recentAssetPage.getTotalElements());
+		Assertions.assertEquals(1, recentAssetPage.getTotalPages());
+
+		List<RecentVisitAsset> expectedRecentVisitAssets = new ArrayList<>();
+
+		RecentVisitAsset recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("b73ihsy9");
+		recentVisitAsset.setAssetTitle("Blog Title 3");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -3));
+		recentVisitAsset.setUrl("https://www.beryl.com/confirmation");
+		recentVisitAsset.setVisits(4L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("e131fabc");
+		recentVisitAsset.setAssetTitle("Blog Title 1");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -1));
+		recentVisitAsset.setUrl(
+			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
+		recentVisitAsset.setVisits(3L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		Assertions.assertEquals(
+			expectedRecentVisitAssets, recentAssetPage.getContent());
+	}
+
+	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
+	@SQLResource(resourcePath = "test_get_recent_assets.sql")
+	@Test
 	public void testGetRecentBlogsWithPagination() {
 		RecentVisitAsset recentVisitAsset1 = new RecentVisitAsset();
 
@@ -551,6 +623,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("67890");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/delivery");
@@ -563,6 +636,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("12345");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/confirmation");
@@ -575,6 +649,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/about");
@@ -587,6 +662,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.BLOG);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("12345");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl(
@@ -594,7 +670,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -605,7 +681,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -620,7 +696,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -637,7 +713,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG,
+			RecentVisitAsset.ContentType.BLOG, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -698,7 +774,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -714,6 +790,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-2");
@@ -728,6 +805,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-3");
@@ -742,6 +820,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-4");
@@ -758,7 +837,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -798,7 +877,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -814,6 +893,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-2");
@@ -828,6 +908,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -23));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-3");
@@ -842,6 +923,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-4");
@@ -856,6 +938,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-1");
@@ -872,7 +955,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -888,6 +971,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -22));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-2");
@@ -902,6 +986,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-3");
@@ -916,6 +1001,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-4");
@@ -930,6 +1016,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -9));
 		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-1");
@@ -952,6 +1039,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/docs/doc-2");
@@ -964,6 +1052,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("67890");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/docs/doc-3");
@@ -976,6 +1065,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/docs/doc-4");
@@ -988,13 +1078,14 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("12345");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl("https://www.beryl.com/docs/doc-1");
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1006,7 +1097,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1029,6 +1120,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/docs/doc-2");
@@ -1041,6 +1133,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("67890");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/docs/doc-3");
@@ -1053,6 +1146,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/docs/doc-4");
@@ -1065,13 +1159,14 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("12345");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl("https://www.beryl.com/docs/doc-1");
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1083,7 +1178,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1106,6 +1201,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/docs/doc-2");
@@ -1118,6 +1214,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("67890");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/docs/doc-3");
@@ -1130,6 +1227,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/docs/doc-4");
@@ -1142,13 +1240,14 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("12345");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl("https://www.beryl.com/docs/doc-1");
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1160,7 +1259,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1175,6 +1274,54 @@ public class BQEventDogTest
 	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
 	@SQLResource(resourcePath = "test_get_recent_assets.sql")
 	@Test
+	public void testGetRecentDocumentsWithGroupId() {
+		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
+			RecentVisitAsset.ContentType.DOCUMENT, "12345",
+			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
+			0, 10, new String[0], TimeRange.LAST_30_DAYS);
+
+		Assertions.assertEquals(2, recentAssetPage.getTotalElements());
+		Assertions.assertEquals(1, recentAssetPage.getTotalPages());
+
+		List<RecentVisitAsset> expectedRecentVisitAssets = new ArrayList<>();
+
+		RecentVisitAsset recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("a73ihsy9");
+		recentVisitAsset.setAssetTitle("Document Title 2");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -22));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-2");
+		recentVisitAsset.setVisits(3L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("e131fabc");
+		recentVisitAsset.setAssetTitle("Document Title 1");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -9));
+		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-1");
+		recentVisitAsset.setVisits(3L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		Assertions.assertEquals(
+			expectedRecentVisitAssets, recentAssetPage.getContent());
+	}
+
+	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
+	@SQLResource(resourcePath = "test_get_recent_assets.sql")
+	@Test
 	public void testGetRecentDocumentsWithPagination() {
 		RecentVisitAsset recentVisitAsset1 = new RecentVisitAsset();
 
@@ -1183,6 +1330,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/docs/doc-2");
@@ -1195,6 +1343,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("67890");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/docs/doc-3");
@@ -1207,6 +1356,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/docs/doc-4");
@@ -1219,13 +1369,14 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("12345");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl("https://www.beryl.com/docs/doc-1");
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1236,7 +1387,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1251,7 +1402,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1268,7 +1419,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT,
+			RecentVisitAsset.ContentType.DOCUMENT, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -1308,7 +1459,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -1324,6 +1475,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-2");
@@ -1338,6 +1490,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-3");
@@ -1352,6 +1505,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -5));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -5));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-1");
@@ -1368,7 +1522,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -1408,7 +1562,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -1424,6 +1578,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-3");
@@ -1438,6 +1593,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-4");
@@ -1452,6 +1608,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-1");
@@ -1466,6 +1623,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -10));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-2");
@@ -1482,7 +1640,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1498,6 +1656,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-1");
@@ -1512,6 +1671,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-3");
@@ -1526,6 +1686,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-4");
@@ -1540,6 +1701,7 @@ public class BQEventDogTest
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -10));
 		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-2");
@@ -1562,6 +1724,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset1.setUrl("https://www.beryl.com/forms/form-1");
@@ -1574,6 +1737,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset2.setGroupId("67890");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset2.setUrl("https://www.beryl.com/forms/form-3");
@@ -1586,6 +1750,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("12345");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/forms/form-4");
@@ -1598,13 +1763,14 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
+		recentVisitAsset4.setGroupId("67890");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -10));
 		recentVisitAsset4.setUrl("https://www.beryl.com/forms/form-2");
 		recentVisitAsset4.setVisits(2L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1616,7 +1782,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1639,6 +1805,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset1.setUrl("https://www.beryl.com/forms/form-1");
@@ -1651,6 +1818,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset2.setGroupId("67890");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset2.setUrl("https://www.beryl.com/forms/form-3");
@@ -1663,6 +1831,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("12345");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/forms/form-4");
@@ -1675,13 +1844,14 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
+		recentVisitAsset4.setGroupId("67890");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -10));
 		recentVisitAsset4.setUrl("https://www.beryl.com/forms/form-2");
 		recentVisitAsset4.setVisits(2L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1693,7 +1863,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1716,6 +1886,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset1.setUrl("https://www.beryl.com/forms/form-1");
@@ -1728,6 +1899,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset2.setGroupId("67890");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset2.setUrl("https://www.beryl.com/forms/form-3");
@@ -1740,6 +1912,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("12345");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/forms/form-4");
@@ -1752,13 +1925,14 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
+		recentVisitAsset4.setGroupId("67890");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -10));
 		recentVisitAsset4.setUrl("https://www.beryl.com/forms/form-2");
 		recentVisitAsset4.setVisits(2L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1770,7 +1944,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1785,6 +1959,54 @@ public class BQEventDogTest
 	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
 	@SQLResource(resourcePath = "test_get_recent_assets.sql")
 	@Test
+	public void testGetRecentFormsWithGroupId() {
+		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
+			RecentVisitAsset.ContentType.FORM, "12345",
+			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
+			0, 10, new String[0], TimeRange.LAST_30_DAYS);
+
+		Assertions.assertEquals(2, recentAssetPage.getTotalElements());
+		Assertions.assertEquals(1, recentAssetPage.getTotalPages());
+
+		List<RecentVisitAsset> expectedRecentVisitAssets = new ArrayList<>();
+
+		RecentVisitAsset recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("e242gdef");
+		recentVisitAsset.setAssetTitle("Form Title 1");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -1));
+		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-1");
+		recentVisitAsset.setVisits(4L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("c99ytfl7");
+		recentVisitAsset.setAssetTitle("Form Title 4");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -8));
+		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-4");
+		recentVisitAsset.setVisits(3L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		Assertions.assertEquals(
+			expectedRecentVisitAssets, recentAssetPage.getContent());
+	}
+
+	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
+	@SQLResource(resourcePath = "test_get_recent_assets.sql")
+	@Test
 	public void testGetRecentFormsWithPagination() {
 		RecentVisitAsset recentVisitAsset1 = new RecentVisitAsset();
 
@@ -1793,6 +2015,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset1.setUrl("https://www.beryl.com/forms/form-1");
@@ -1805,6 +2028,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset2.setGroupId("67890");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset2.setUrl("https://www.beryl.com/forms/form-3");
@@ -1817,6 +2041,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("12345");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/forms/form-4");
@@ -1829,13 +2054,14 @@ public class BQEventDogTest
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.FORM);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
+		recentVisitAsset4.setGroupId("67890");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -10));
 		recentVisitAsset4.setUrl("https://www.beryl.com/forms/form-2");
 		recentVisitAsset4.setVisits(2L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1846,7 +2072,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1861,7 +2087,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1878,7 +2104,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM,
+			RecentVisitAsset.ContentType.FORM, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -2001,7 +2227,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesLast7Days() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 7, 10, new String[0]);
 
@@ -2019,6 +2245,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitPage.setDisplayLanguageId("en-US");
+		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
@@ -2031,6 +2258,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
+		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitPage.setUrl(
@@ -2048,7 +2276,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesLast24Hours() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 0, 10, new String[0]);
 
@@ -2099,7 +2327,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesLast28Days() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 28, 10, new String[0]);
 
@@ -2113,6 +2341,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -23));
 		recentVisitPage.setDisplayLanguageId("en-US");
+		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
@@ -2125,6 +2354,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
+		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitPage.setUrl(
@@ -2138,6 +2368,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -13));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
+		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -11));
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
@@ -2150,6 +2381,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
 		recentVisitPage.setDisplayLanguageId("en-US");
+		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -16));
 		recentVisitPage.setUrl(
@@ -2167,7 +2399,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesLast30Days() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[0]);
 
@@ -2181,6 +2413,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage.setDisplayLanguageId("en-US");
+		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
@@ -2193,6 +2426,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
+		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitPage.setUrl(
@@ -2206,6 +2440,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
+		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
@@ -2218,6 +2453,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage.setDisplayLanguageId("en-US");
+		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
 		recentVisitPage.setUrl(
@@ -2239,6 +2475,7 @@ public class BQEventDogTest
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
+		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
@@ -2249,6 +2486,7 @@ public class BQEventDogTest
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
+		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitPage2.setUrl(
@@ -2260,6 +2498,7 @@ public class BQEventDogTest
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
+		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
 		recentVisitPage3.setUrl(
@@ -2271,13 +2510,14 @@ public class BQEventDogTest
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
+		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"displayLanguageId", "asc", "url", "asc"});
 
@@ -2288,7 +2528,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10,
 			new String[] {"displayLanguageId", "desc", "url", "asc"});
@@ -2309,6 +2549,7 @@ public class BQEventDogTest
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
+		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
@@ -2319,6 +2560,7 @@ public class BQEventDogTest
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
+		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitPage2.setUrl(
@@ -2330,6 +2572,7 @@ public class BQEventDogTest
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
+		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
 		recentVisitPage3.setUrl(
@@ -2341,13 +2584,14 @@ public class BQEventDogTest
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
+		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"firstVisitDate", "asc"});
 
@@ -2358,7 +2602,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"firstVisitDate", "desc"});
 
@@ -2378,6 +2622,7 @@ public class BQEventDogTest
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
+		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
@@ -2388,6 +2633,7 @@ public class BQEventDogTest
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
+		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitPage2.setUrl(
@@ -2399,6 +2645,7 @@ public class BQEventDogTest
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
+		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
 		recentVisitPage3.setUrl(
@@ -2410,13 +2657,14 @@ public class BQEventDogTest
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
+		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"lastVisitDate", "asc"});
 
@@ -2427,7 +2675,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"lastVisitDate", "desc"});
 
@@ -2447,6 +2695,7 @@ public class BQEventDogTest
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
+		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
@@ -2457,6 +2706,7 @@ public class BQEventDogTest
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
+		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitPage2.setUrl(
@@ -2468,6 +2718,7 @@ public class BQEventDogTest
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
+		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
 		recentVisitPage3.setUrl(
@@ -2479,13 +2730,14 @@ public class BQEventDogTest
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
+		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"visits", "asc", "url", "asc"});
 
@@ -2496,7 +2748,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"visits", "desc", "url", "asc"});
 
@@ -2518,6 +2770,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage.setDisplayLanguageId("en-US");
+		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
@@ -2530,6 +2783,7 @@ public class BQEventDogTest
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage.setDisplayLanguageId("en-US");
+		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
 		recentVisitPage.setUrl(
@@ -2539,7 +2793,48 @@ public class BQEventDogTest
 		expectedRecentVisitPages.add(recentVisitPage);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			"en-US",
+			"en-US", null,
+			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
+			0, 30, 10, new String[0]);
+
+		Assertions.assertEquals(
+			expectedRecentVisitPages, recentPagePage.getContent());
+	}
+
+	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
+	@SQLResource(resourcePath = "test_get_recent_pages.sql")
+	@Test
+	public void testGetRecentPagesWithGroupId() {
+		List<RecentVisitPage> expectedRecentVisitPages = new ArrayList<>();
+
+		RecentVisitPage recentVisitPage = new RecentVisitPage();
+
+		recentVisitPage.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitPage.setDisplayLanguageId("en-US");
+		recentVisitPage.setGroupId("67890");
+		recentVisitPage.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitPage.setUrl("https://www.beryl.com/delivery");
+		recentVisitPage.setVisits(4L);
+
+		expectedRecentVisitPages.add(recentVisitPage);
+
+		recentVisitPage = new RecentVisitPage();
+
+		recentVisitPage.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -19));
+		recentVisitPage.setDisplayLanguageId("pt-BR");
+		recentVisitPage.setGroupId("67890");
+		recentVisitPage.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -17));
+		recentVisitPage.setUrl("https://www.beryl.com/delivery");
+		recentVisitPage.setVisits(2L);
+
+		expectedRecentVisitPages.add(recentVisitPage);
+
+		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
+			null, "67890",
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[0]);
 
@@ -2556,6 +2851,7 @@ public class BQEventDogTest
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
+		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
@@ -2566,6 +2862,7 @@ public class BQEventDogTest
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
+		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitPage2.setUrl(
@@ -2577,6 +2874,7 @@ public class BQEventDogTest
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
+		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
 		recentVisitPage3.setUrl(
@@ -2588,13 +2886,14 @@ public class BQEventDogTest
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
+		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 2, new String[] {"visits", "desc", "url", "asc"});
 
@@ -2603,7 +2902,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			1, 30, 2, new String[] {"visits", "desc", "url", "asc"});
 
@@ -2617,7 +2916,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesWithSuppression() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 30, 10, new String[] {"counts", "desc", "url", "asc"});
 
@@ -2634,7 +2933,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesYesterday() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 1, 10, new String[0]);
 
@@ -2800,7 +3099,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -2817,6 +3116,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-2");
@@ -2832,6 +3132,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-3");
@@ -2847,6 +3148,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-4");
@@ -2863,7 +3165,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -2903,7 +3205,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -2920,6 +3222,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-2");
@@ -2935,6 +3238,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -23));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-3");
@@ -2950,6 +3254,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-4");
@@ -2965,6 +3270,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-1");
@@ -2981,7 +3287,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -2998,6 +3304,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -22));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-2");
@@ -3013,6 +3320,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset.setGroupId("12345");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-3");
@@ -3028,6 +3336,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-4");
@@ -3043,6 +3352,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
+		recentVisitAsset.setGroupId("67890");
 		recentVisitAsset.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -9));
 		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-1");
@@ -3066,6 +3376,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/journals/journal-2");
@@ -3079,6 +3390,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("12345");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/journals/journal-3");
@@ -3092,6 +3404,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/journals/journal-4");
@@ -3105,13 +3418,14 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("67890");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl("https://www.beryl.com/journals/journal-1");
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3123,7 +3437,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -3147,6 +3461,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/journals/journal-2");
@@ -3160,6 +3475,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("12345");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/journals/journal-3");
@@ -3173,6 +3489,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/journals/journal-4");
@@ -3186,13 +3503,14 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("67890");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl("https://www.beryl.com/journals/journal-1");
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3204,7 +3522,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -3228,6 +3546,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/journals/journal-2");
@@ -3241,6 +3560,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("12345");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/journals/journal-3");
@@ -3254,6 +3574,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/journals/journal-4");
@@ -3267,13 +3588,14 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("67890");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl("https://www.beryl.com/journals/journal-1");
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3285,7 +3607,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3300,6 +3622,56 @@ public class BQEventDogTest
 	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
 	@SQLResource(resourcePath = "test_get_recent_assets.sql")
 	@Test
+	public void testGetRecentWebContentWithGroupId() {
+		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
+			RecentVisitAsset.ContentType.WEBCONTENT, "12345",
+			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
+			0, 10, new String[0], TimeRange.LAST_30_DAYS);
+
+		Assertions.assertEquals(2, recentAssetPage.getTotalElements());
+		Assertions.assertEquals(1, recentAssetPage.getTotalPages());
+
+		List<RecentVisitAsset> expectedRecentVisitAssets = new ArrayList<>();
+
+		RecentVisitAsset recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("a73ihsy9");
+		recentVisitAsset.setAssetTitle("WebContent Title 2");
+		recentVisitAsset.setContentType(
+			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -22));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-2");
+		recentVisitAsset.setVisits(3L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("b73ihsy9");
+		recentVisitAsset.setAssetTitle("WebContent Title 3");
+		recentVisitAsset.setContentType(
+			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -27));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-3");
+		recentVisitAsset.setVisits(3L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		Assertions.assertEquals(
+			expectedRecentVisitAssets, recentAssetPage.getContent());
+	}
+
+	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
+	@SQLResource(resourcePath = "test_get_recent_assets.sql")
+	@Test
 	public void testGetRecentWebContentWithPagination() {
 		RecentVisitAsset recentVisitAsset1 = new RecentVisitAsset();
 
@@ -3309,6 +3681,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
+		recentVisitAsset1.setGroupId("12345");
 		recentVisitAsset1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitAsset1.setUrl("https://www.beryl.com/journals/journal-2");
@@ -3322,6 +3695,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
+		recentVisitAsset2.setGroupId("12345");
 		recentVisitAsset2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset2.setUrl("https://www.beryl.com/journals/journal-3");
@@ -3335,6 +3709,7 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
+		recentVisitAsset3.setGroupId("67890");
 		recentVisitAsset3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -8));
 		recentVisitAsset3.setUrl("https://www.beryl.com/journals/journal-4");
@@ -3348,13 +3723,14 @@ public class BQEventDogTest
 			RecentVisitAsset.ContentType.WEBCONTENT);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
+		recentVisitAsset4.setGroupId("67890");
 		recentVisitAsset4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
 		recentVisitAsset4.setUrl("https://www.beryl.com/journals/journal-1");
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3365,7 +3741,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3380,7 +3756,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -3397,7 +3773,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT,
+			RecentVisitAsset.ContentType.WEBCONTENT, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
