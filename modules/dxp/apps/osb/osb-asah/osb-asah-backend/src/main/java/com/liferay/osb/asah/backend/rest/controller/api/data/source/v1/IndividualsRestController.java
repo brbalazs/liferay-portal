@@ -240,13 +240,14 @@ public class IndividualsRestController extends BaseRestController {
 	public PageDTO<RecentVisitPageDTO> getRecentVisitPageDTOPageDTO(
 		@PathVariable String id,
 		@RequestParam(required = false) String displayLanguageId,
+		@RequestParam(required = false) String groupId,
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "7") int rangeKey,
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			displayLanguageId, id, page, rangeKey, size, sorts);
+			displayLanguageId, groupId, id, page, rangeKey, size, sorts);
 
 		return new PageDTO<>(
 			"_embedded", new RecentVisitPageDTO(recentPagePage.getContent()),

@@ -775,13 +775,14 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public List<RecentVisitPage> getRecentPages(
-		@Nullable String displayLanguageId, String individualId,
-		Pageable pageable, TimeRange timeRange, String timeZoneId) {
+		@Nullable String displayLanguageId, @Nullable String groupId,
+		String individualId, Pageable pageable, TimeRange timeRange,
+		String timeZoneId) {
 
 		Field<Date> eventDateField = DSL.field("eventDate", Date.class);
 
 		SelectHavingStep selectHavingStep = _getRecentPagesSelectHavingStep(
-			displayLanguageId, individualId,
+			displayLanguageId, groupId, individualId,
 			_dslContext.select(
 				DSL.min(
 					eventDateField
@@ -824,15 +825,15 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public Long getRecentPagesCount(
-		@Nullable String displayLanguageId, String individualId,
-		TimeRange timeRange, String timeZoneId) {
+		@Nullable String displayLanguageId, @Nullable String groupId,
+		String individualId, TimeRange timeRange, String timeZoneId) {
 
 		return _queryExecutor.queryForLong(
 			_dslContext.with(
 				"RecentPages"
 			).as(
 				_getRecentPagesSelectHavingStep(
-					displayLanguageId, individualId,
+					displayLanguageId, groupId, individualId,
 					_dslContext.select(
 						DSL.field("contentLanguageId"),
 						DSL.field("canonicalUrl")),
@@ -2222,7 +2223,7 @@ public class BQEventRepositoryImpl
 	}
 
 	private SelectHavingStep _getRecentPagesSelectHavingStep(
-		String displayLanguageId, String individualId,
+		String displayLanguageId, String groupId, String individualId,
 		SelectSelectStep selectSelectStep, TimeRange timeRange,
 		String timeZoneId) {
 
@@ -2260,7 +2261,7 @@ public class BQEventRepositoryImpl
 					)))
 		).where(
 			_createConditions(
-				null, displayLanguageId, null, null, individualId,
+				null, displayLanguageId, null, groupId, individualId,
 				Collections.emptySet(), timeRange, timeZoneId)
 		).groupBy(
 			DSL.field("contentLanguageId"), DSL.field("canonicalUrl")

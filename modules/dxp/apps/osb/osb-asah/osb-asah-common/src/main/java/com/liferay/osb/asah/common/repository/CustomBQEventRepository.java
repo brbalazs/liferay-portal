@@ -115,12 +115,13 @@ public interface CustomBQEventRepository {
 		TimeRange timeRange, String timeZoneId);
 
 	public List<RecentVisitPage> getRecentPages(
-		@Nullable String displayLanguageId, String individualId,
-		Pageable pageable, TimeRange timeRange, String timeZoneId);
+		@Nullable String displayLanguageId, @Nullable String groupId,
+		String individualId, Pageable pageable, TimeRange timeRange,
+		String timeZoneId);
 
 	public Long getRecentPagesCount(
-		@Nullable String displayLanguageId, String individualId,
-		TimeRange timeRange, String timeZoneId);
+		@Nullable String displayLanguageId, @Nullable String groupId,
+		String individualId, TimeRange timeRange, String timeZoneId);
 
 	public List<RecentVisitSite> getRecentSites(
 		@Nullable String individualId, Pageable pageable,
