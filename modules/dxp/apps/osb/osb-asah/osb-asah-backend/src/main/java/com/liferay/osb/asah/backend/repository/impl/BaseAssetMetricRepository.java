@@ -122,8 +122,9 @@ public abstract class BaseAssetMetricRepository<T extends AssetMetric>
 
 	@Override
 	public T getAssetMetric(
-		String assetId, @Nullable String assetTitle, @Nullable Long channelId,
-		Set<String> selectedMetrics, TimeRange timeRange) {
+		@Nullable String assetId, @Nullable String assetTitle,
+		@Nullable Long channelId, Set<String> selectedMetrics,
+		TimeRange timeRange) {
 
 		Field<Boolean> previousField = DSL.when(
 			DSL.field(
