@@ -44,40 +44,38 @@ def create_dag(
 	ac_project_id, dag_id, dag_description, dataflow_job_class,
 	dataflow_job_name, downstream_task_ids, task_id):
 
-	with (airflow.DAG(
+	with airflow.DAG(
 		dag_id=dag_id,
 		default_args={
 			'ac_project_id': ac_project_id,
 			'owner': 'Liferay',
 			'dataflow_default_options': {
 				'project': os.environ['GOOGLE_PROJECT_ID'],
-				'stagingLocation': DATAFLOW_BUCKET.concat('/staging/temp'),
+				'stagingLocation': DATAFLOW_BUCKET + '/staging/temp',
 			}
 		},
 		description=dag_description,
 		max_active_runs=1,
+		start_date=datetime.datetime.now(),
 		schedule_interval=None
-	) as dag):
+	) as dag:
 		dataflow_create_java_job_operator = DataflowCreateJavaJobOperator(
 			dag=dag,
-			jar=DATAFLOW_BUCKET.concat('/pipeline/osb-asah-dataflow-java.jar'),
+			jar=DATAFLOW_BUCKET + '/pipeline/osb-asah-dataflow-java.jar',
 			job_class=dataflow_job_class,
 			job_name=dataflow_job_name,
 			location= os.environ['GOOGLE_REGION'],
 			options={
 				"zipFilePath": "{{ params['zipFilePath'] }}",
 				"projectId": ac_project_id,
-				"bigQueryWriterTempLocation": DATAFLOW_BUCKET.concat(
-					'/bigquery/temp'
-				)
+				"bigQueryWriterTempLocation": DATAFLOW_BUCKET + '/bigquery/temp'
 			},
-			start_date=datetime.datetime.now(),
 			task_id=task_id
 		)
 
-		chain(
-			dataflow_create_java_job_operator,
-			create_big_query_jobs(downstream_task_ids))
+		bigquery_jobs = create_big_query_jobs(downstream_task_ids)
+
+		chain(dataflow_create_java_job_operator, *bigquery_jobs)
 
 		return dag
 
@@ -99,16 +97,18 @@ for project in response.json():
 	downstream_task_ids = []
 
 	if project.get('accountsSelected'):
-		downstream_task_ids.append(['account_entry_merge', 'account_group_merge'])
+		downstream_task_ids.extend(
+			['account_entry_merge', 'account_group_merge']
+		)
 
 	if project.get('contactsSelected'):
-		downstream_task_ids.append([
+		downstream_task_ids.extend([
 			'expando_column_merge', 'expando_value_delete',
 			'expando_value_merge', 'group_merge', 'organization_merge',
 			'role_merge', 'team_merge', 'user_group_merge', 'user_merge'
 		])
 
-		downstream_task_ids.append('individual_merge')
+		downstream_task_ids = [downstream_task_ids] + ['individual_merge']
 
 	if len(downstream_task_ids) > 0:
 		dag_id = 'dxp_entity_ingestion_dataflow_trigger_{}'.format(
