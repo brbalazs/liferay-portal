@@ -2392,7 +2392,7 @@ jdbc.default.password=${database.password}</echo>
 				srcFile="${patching.tool.latest.txt}"
 			>
 				<filterchain>
-					<striplinebreaks/>
+					<striplinebreaks />
 					<trim />
 				</filterchain>
 			</loadfile>

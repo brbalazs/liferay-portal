@@ -5119,7 +5119,7 @@
 			</library>
 			<library>
 				<file-name>lib/development/jutf7.jar</file-name>
-				<version/>
+				<version />
 				<project-name>jutf7</project-name>
 				<project-url>http://jutf7.sourceforge.net</project-url>
 				<licenses>
@@ -6187,7 +6187,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/crypt.jar</file-name>
-				<version/>
+				<version />
 				<project-name>Manticore UFC Crypt</project-name>
 				<project-url>http://manticore.2y.net/Java/examples/Crypt.html</project-url>
 				<licenses>
@@ -6297,7 +6297,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/gif89.jar</file-name>
-				<version/>
+				<version />
 				<project-name>Gif89Encoder</project-name>
 				<project-url>http://jmge.net/java/gifenc</project-url>
 				<licenses>
@@ -6790,7 +6790,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/jhlabs-filters.jar</file-name>
-				<version/>
+				<version />
 				<project-name>JH Labs Java Image Filters</project-name>
 				<project-url>http://www.jhlabs.com/ip/filters</project-url>
 				<licenses>
