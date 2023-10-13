@@ -293,6 +293,17 @@ public class CommerceOrderServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceOrder>
+			getUserPendingCommerceOrders(
+				long companyId, long groupId, String keywords, int start,
+				int end, com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderService.getUserPendingCommerceOrders(
+			companyId, groupId, keywords, start, end, sort);
+	}
+
+	@Override
 	public long getUserPendingCommerceOrdersCount(
 			long companyId, long groupId, String keywords)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -310,6 +321,17 @@ public class CommerceOrderServiceWrapper
 
 		return _commerceOrderService.getUserPlacedCommerceOrders(
 			companyId, groupId, keywords, start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.commerce.model.CommerceOrder>
+			getUserPlacedCommerceOrders(
+				long companyId, long groupId, String keywords, int start,
+				int end, com.liferay.portal.kernel.search.Sort sort)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderService.getUserPlacedCommerceOrders(
+			companyId, groupId, keywords, start, end, sort);
 	}
 
 	@Override

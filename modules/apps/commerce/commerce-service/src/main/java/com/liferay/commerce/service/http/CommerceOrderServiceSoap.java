@@ -581,6 +581,28 @@ public class CommerceOrderServiceSoap {
 		}
 	}
 
+	public static com.liferay.commerce.model.CommerceOrderSoap[]
+			getUserPendingCommerceOrders(
+				long companyId, long groupId, String keywords, int start,
+				int end, com.liferay.portal.kernel.search.Sort sort)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.commerce.model.CommerceOrder>
+				returnValue =
+					CommerceOrderServiceUtil.getUserPendingCommerceOrders(
+						companyId, groupId, keywords, start, end, sort);
+
+			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
 	public static long getUserPendingCommerceOrdersCount(
 			long companyId, long groupId, String keywords)
 		throws RemoteException {
@@ -610,6 +632,28 @@ public class CommerceOrderServiceSoap {
 				returnValue =
 					CommerceOrderServiceUtil.getUserPlacedCommerceOrders(
 						companyId, groupId, keywords, start, end);
+
+			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModels(
+				returnValue);
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+
+			throw new RemoteException(exception.getMessage());
+		}
+	}
+
+	public static com.liferay.commerce.model.CommerceOrderSoap[]
+			getUserPlacedCommerceOrders(
+				long companyId, long groupId, String keywords, int start,
+				int end, com.liferay.portal.kernel.search.Sort sort)
+		throws RemoteException {
+
+		try {
+			java.util.List<com.liferay.commerce.model.CommerceOrder>
+				returnValue =
+					CommerceOrderServiceUtil.getUserPlacedCommerceOrders(
+						companyId, groupId, keywords, start, end, sort);
 
 			return com.liferay.commerce.model.CommerceOrderSoap.toSoapModels(
 				returnValue);
