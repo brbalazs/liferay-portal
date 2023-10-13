@@ -220,14 +220,15 @@ public class IndividualsRestController extends BaseRestController {
 	@GetMapping("/{id}/recent-assets")
 	public PageDTO<RecentVisitAssetDTO> getRecentVisitAssetDTOPageDTO(
 		@PathVariable String id, @RequestParam String contentType,
+		@RequestParam(required = false) String groupId,
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "7") int rangeKey,
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.of(contentType), id, page, size, sorts,
-			TimeRange.of(rangeKey));
+			RecentVisitAsset.ContentType.of(contentType), groupId, id, page,
+			size, sorts, TimeRange.of(rangeKey));
 
 		return new PageDTO<>(
 			"_embedded", new RecentVisitAssetDTO(recentAssetPage.getContent()),

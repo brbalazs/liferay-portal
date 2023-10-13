@@ -708,11 +708,12 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public List<RecentVisitAsset> getRecentAssets(
-		String applicationId, String eventId, String individualId,
-		Pageable pageable, TimeRange timeRange, String timeZoneId) {
+		String applicationId, String eventId, @Nullable String groupId,
+		String individualId, Pageable pageable, TimeRange timeRange,
+		String timeZoneId) {
 
 		SelectHavingStep selectHavingStep = _getRecentAssetsSelectHavingStep(
-			applicationId, eventId, individualId,
+			applicationId, eventId, groupId, individualId,
 			_dslContext.select(
 				DSL.field("assetId"), DSL.field("assetTitle"),
 				DSL.val(
@@ -754,15 +755,15 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public Long getRecentAssetsCount(
-		String applicationId, String eventId, String individualId,
-		TimeRange timeRange, String timeZoneId) {
+		String applicationId, String eventId, @Nullable String groupId,
+		String individualId, TimeRange timeRange, String timeZoneId) {
 
 		return _queryExecutor.queryForLong(
 			_dslContext.with(
 				"RecentAssets"
 			).as(
 				_getRecentAssetsSelectHavingStep(
-					applicationId, eventId, individualId,
+					applicationId, eventId, groupId, individualId,
 					_dslContext.select(
 						DSL.field("assetId"), DSL.field("assetTitle"),
 						DSL.field("canonicalUrl")),
@@ -2159,12 +2160,12 @@ public class BQEventRepositoryImpl
 	}
 
 	private SelectHavingStep _getRecentAssetsSelectHavingStep(
-		String applicationId, String eventId, String individualId,
-		SelectSelectStep selectSelectStep, TimeRange timeRange,
-		String timeZoneId) {
+		String applicationId, String eventId, @Nullable String groupId,
+		String individualId, SelectSelectStep selectSelectStep,
+		TimeRange timeRange, String timeZoneId) {
 
 		List<Condition> conditions = _createConditions(
-			applicationId, null, eventId, null, individualId,
+			applicationId, null, eventId, groupId, individualId,
 			Collections.emptySet(), timeRange, timeZoneId);
 
 		conditions.add(
