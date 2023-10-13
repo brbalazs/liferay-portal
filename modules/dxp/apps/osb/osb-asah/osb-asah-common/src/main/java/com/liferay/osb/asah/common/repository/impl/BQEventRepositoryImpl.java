@@ -713,7 +713,12 @@ public class BQEventRepositoryImpl
 		String timeZoneId) {
 
 		SelectHavingStep selectHavingStep = _getRecentAssetsSelectHavingStep(
-			applicationId, eventId, groupId, individualId,
+			applicationId, eventId, groupId,
+			Arrays.asList(
+				DSL.field("applicationId"), DSL.field("assetId"),
+				DSL.field("assetTitle"), DSL.field("canonicalUrl"),
+				DSL.field("groupid")),
+			individualId,
 			_dslContext.select(
 				DSL.field("assetId"), DSL.field("assetTitle"),
 				DSL.val(
@@ -725,6 +730,11 @@ public class BQEventRepositoryImpl
 					DSL.field("eventDate", Date.class)
 				).as(
 					"firstVisitDate"
+				),
+				_dslHelper.jsonExtractScalar(
+					"BQEvent.context", "groupId"
+				).as(
+					"groupid"
 				),
 				DSL.max(
 					DSL.field("eventDate", Date.class)
@@ -763,7 +773,13 @@ public class BQEventRepositoryImpl
 				"RecentAssets"
 			).as(
 				_getRecentAssetsSelectHavingStep(
-					applicationId, eventId, groupId, individualId,
+					applicationId, eventId, groupId,
+					Arrays.asList(
+						DSL.field("applicationId"), DSL.field("assetId"),
+						DSL.field("assetTitle"), DSL.field("canonicalUrl"),
+						_dslHelper.jsonExtractScalar(
+							"BQEvent.context", "groupId")),
+					individualId,
 					_dslContext.select(
 						DSL.field("assetId"), DSL.field("assetTitle"),
 						DSL.field("canonicalUrl")),
@@ -783,7 +799,11 @@ public class BQEventRepositoryImpl
 		Field<Date> eventDateField = DSL.field("eventDate", Date.class);
 
 		SelectHavingStep selectHavingStep = _getRecentPagesSelectHavingStep(
-			displayLanguageId, groupId, individualId,
+			displayLanguageId, groupId,
+			Arrays.asList(
+				DSL.field("contentLanguageId"), DSL.field("canonicalUrl"),
+				DSL.field("groupid")),
+			individualId,
 			_dslContext.select(
 				DSL.min(
 					eventDateField
@@ -794,6 +814,11 @@ public class BQEventRepositoryImpl
 					"contentLanguageId", String.class
 				).as(
 					"displayLanguageId"
+				),
+				_dslHelper.jsonExtractScalar(
+					"BQEvent.context", "groupId"
+				).as(
+					"groupid"
 				),
 				DSL.max(
 					eventDateField
@@ -834,7 +859,13 @@ public class BQEventRepositoryImpl
 				"RecentPages"
 			).as(
 				_getRecentPagesSelectHavingStep(
-					displayLanguageId, groupId, individualId,
+					displayLanguageId, groupId,
+					Arrays.asList(
+						DSL.field("contentLanguageId"),
+						DSL.field("canonicalUrl"),
+						_dslHelper.jsonExtractScalar(
+							"BQEvent.context", "groupId")),
+					individualId,
 					_dslContext.select(
 						DSL.field("contentLanguageId"),
 						DSL.field("canonicalUrl")),
@@ -2161,8 +2192,9 @@ public class BQEventRepositoryImpl
 
 	private SelectHavingStep _getRecentAssetsSelectHavingStep(
 		String applicationId, String eventId, @Nullable String groupId,
-		String individualId, SelectSelectStep selectSelectStep,
-		TimeRange timeRange, String timeZoneId) {
+		List<Field> groupByFields, String individualId,
+		SelectSelectStep selectSelectStep, TimeRange timeRange,
+		String timeZoneId) {
 
 		List<Condition> conditions = _createConditions(
 			applicationId, null, eventId, groupId, individualId,
@@ -2218,15 +2250,14 @@ public class BQEventRepositoryImpl
 		).where(
 			conditions
 		).groupBy(
-			DSL.field("applicationId"), DSL.field("assetId"),
-			DSL.field("assetTitle"), DSL.field("canonicalUrl")
+			groupByFields
 		);
 	}
 
 	private SelectHavingStep _getRecentPagesSelectHavingStep(
-		String displayLanguageId, String groupId, String individualId,
-		SelectSelectStep selectSelectStep, TimeRange timeRange,
-		String timeZoneId) {
+		String displayLanguageId, String groupId, List<Field> groupByFields,
+		String individualId, SelectSelectStep selectSelectStep,
+		TimeRange timeRange, String timeZoneId) {
 
 		return selectSelectStep.from(
 			"BQEvent"
@@ -2265,7 +2296,7 @@ public class BQEventRepositoryImpl
 				null, displayLanguageId, null, groupId, individualId,
 				Collections.emptySet(), timeRange, timeZoneId)
 		).groupBy(
-			DSL.field("contentLanguageId"), DSL.field("canonicalUrl")
+			groupByFields
 		);
 	}
 
