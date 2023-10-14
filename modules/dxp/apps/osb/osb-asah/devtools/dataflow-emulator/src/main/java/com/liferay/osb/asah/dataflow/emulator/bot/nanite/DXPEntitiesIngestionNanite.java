@@ -333,6 +333,8 @@ public class DXPEntitiesIngestionNanite {
 							_processFile(file);
 						}
 
+						file.delete();
+
 						return FileVisitResult.CONTINUE;
 					}
 
