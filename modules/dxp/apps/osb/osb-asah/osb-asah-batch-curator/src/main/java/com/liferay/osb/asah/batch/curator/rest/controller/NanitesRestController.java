@@ -13,6 +13,7 @@ import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import org.json.JSONArray;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author Michael Bowerman
  */
+@ConditionalOnProperty(
+	matchIfMissing = true, value = "osb.asah.enable.scheduling"
+)
 @Profile("!test")
 @RequestMapping("/nanites")
 @RestController

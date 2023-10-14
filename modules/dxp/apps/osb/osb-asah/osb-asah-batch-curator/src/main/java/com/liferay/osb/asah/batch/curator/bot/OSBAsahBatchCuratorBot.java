@@ -30,6 +30,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
@@ -41,6 +42,9 @@ import org.springframework.stereotype.Component;
  * @author Brian Wing Shun Chan
  */
 @Component
+@ConditionalOnProperty(
+	matchIfMissing = true, value = "osb.asah.enable.scheduling"
+)
 @Profile("!test")
 public class OSBAsahBatchCuratorBot {
 
