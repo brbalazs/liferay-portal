@@ -80,12 +80,33 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 						basicFileAttributes.isRegularFile() &&
 						(basicFileAttributes.size() > 0)) {
 
+						String bucketName = StringUtils.replace(
+							_dxpBatchEntitiesBucketTemplate,
+							"{googleProjectId}", _gcloudProjectId);
+
+						String absolutePath = file.getAbsolutePath();
+
+						String[] split = absolutePath.split("/");
+
+						int length = split.length;
+
+						String dataSourceId = split[length - 4];
+						String resourceName = split[length - 3];
+						String uploadType = split[length - 2];
+
+						String folderName = String.format(
+							"%s/%s/%s", dataSourceId, resourceName, uploadType);
+
+						_archiveFile(bucketName, file, folderName);
+
 						try {
-							_archiveFile(file);
+							_triggerDAG(
+								bucketName, folderName, file.getName(),
+								resourceName);
 						}
 						catch (IOException ioException) {
 							_log.error(
-								"Unable to archive file " +
+								"Unable to trigger DAG for file " +
 									file.getAbsolutePath(),
 								ioException);
 						}
@@ -102,35 +123,20 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 		return _log;
 	}
 
-	private void _archiveFile(File file) throws IOException {
-		String absolutePath = file.getAbsolutePath();
-
+	private void _archiveFile(String bucketName, File file, String folderName) {
 		if (_log.isInfoEnabled()) {
-			_log.info("Archiving file " + absolutePath);
+			_log.info("Archiving file " + file.getAbsolutePath());
 		}
 
-		String bucketName = StringUtils.replace(
-			_dxpBatchEntitiesBucketTemplate, "{googleProjectId}",
-			_gcloudProjectId);
-
-		String[] split = absolutePath.split("/");
-
-		int length = split.length;
-
-		String dataSourceId = split[length - 4];
-		String resourceName = split[length - 3];
-		String uploadType = split[length - 2];
-
-		String folderName = String.format(
-			"%s/%s/%s", dataSourceId, resourceName, uploadType);
-
-		String fileName = split[length - 1];
-
-		fileName = fileName.substring(0, fileName.lastIndexOf("."));
-
 		_googleStorageArchiver.archiveSync(
-			bucketName, folderName, file, fileName,
+			bucketName, folderName, file, file.getName(),
 			ProjectIdThreadLocal.getProjectId());
+	}
+
+	private void _triggerDAG(
+			String bucketName, String folderName, String fileName,
+			String resourceName)
+		throws IOException {
 
 		String dagId = String.format(
 			"dxp_%s_ingestion_dataflow_trigger_%s", _entities.get(resourceName),
