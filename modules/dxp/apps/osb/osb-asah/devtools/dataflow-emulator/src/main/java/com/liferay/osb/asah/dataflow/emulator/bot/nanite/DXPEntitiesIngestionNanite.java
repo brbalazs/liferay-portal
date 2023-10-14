@@ -65,6 +65,7 @@ import java.util.stream.Stream;
 import java.util.zip.ZipInputStream;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.logging.Log;
@@ -306,11 +307,16 @@ public class DXPEntitiesIngestionNanite {
 	}
 
 	public void run() {
+		String pathName = _dxpBatchEntitiesStoragePath + "/" +
+			ProjectIdThreadLocal.getProjectId();
+
+		File file = new File(pathName);
+
+		file.mkdirs();
+
 		try {
 			Files.walkFileTree(
-				Paths.get(
-					_dxpBatchEntitiesStoragePath + "/" +
-						ProjectIdThreadLocal.getProjectId()),
+				Paths.get(pathName),
 				new SimpleFileVisitor<Path>() {
 
 					@Override
