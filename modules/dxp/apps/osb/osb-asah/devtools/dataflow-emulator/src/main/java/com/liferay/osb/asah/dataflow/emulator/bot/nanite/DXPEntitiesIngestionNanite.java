@@ -526,7 +526,13 @@ public class DXPEntitiesIngestionNanite {
 				new InputStreamReader(
 					zipInputStream, StandardCharsets.UTF_8))) {
 
-			process(attributes, bufferedReader.readLine());
+			String line = null;
+
+			while ((line = bufferedReader.readLine()) != null) {
+				if (!line.isEmpty()) {
+					process(attributes, line);
+				}
+			}
 		}
 	}
 
