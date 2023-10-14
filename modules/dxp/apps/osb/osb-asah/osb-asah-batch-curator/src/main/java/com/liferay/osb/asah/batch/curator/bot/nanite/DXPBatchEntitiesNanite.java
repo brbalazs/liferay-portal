@@ -5,14 +5,24 @@
 
 package com.liferay.osb.asah.batch.curator.bot.nanite;
 
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.auth.http.HttpCredentialsAdapter;
+import com.google.auth.oauth2.GoogleCredentials;
+
 import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.json.JSONUtil;
 import com.liferay.osb.asah.common.spring.annotation.ConditionalOnGoogleApplicationCredentials;
-import com.liferay.osb.asah.common.spring.http.Http;
 import com.liferay.osb.asah.common.storage.impl.GoogleStorageArchiver;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
 import java.io.File;
+import java.io.IOException;
 
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -32,10 +42,6 @@ import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 /**
@@ -74,7 +80,15 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 						basicFileAttributes.isRegularFile() &&
 						(basicFileAttributes.size() > 0)) {
 
-						_archiveFile(file);
+						try {
+							_archiveFile(file);
+						}
+						catch (IOException ioException) {
+							_log.error(
+								"Unable to archive file " +
+									file.getAbsolutePath(),
+								ioException);
+						}
 					}
 
 					return FileVisitResult.CONTINUE;
@@ -88,7 +102,7 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 		return _log;
 	}
 
-	private void _archiveFile(File file) {
+	private void _archiveFile(File file) throws IOException {
 		String absolutePath = file.getAbsolutePath();
 
 		if (_log.isInfoEnabled()) {
@@ -126,36 +140,46 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 			_log.info("Scheduling DAG " + dagId);
 		}
 
-		HttpHeaders httpHeaders = new HttpHeaders();
+		GoogleCredentials credentials =
+			GoogleCredentials.getApplicationDefault();
 
-		httpHeaders.add(HttpHeaders.ACCEPT, "application/json");
+		credentials = credentials.createScoped(
+			"https://www.googleapis.com/auth/cloud-platform");
 
-		httpHeaders.setBearerAuth(_composerAuthToken);
+		NetHttpTransport netHttpTransport = new NetHttpTransport();
 
-		ResponseEntity<String> responseEntity = _http.exchangeResponseEntity(
-			_composerEndpoint, "/api/v1/dags/" + dagId + "/dagRuns",
-			HttpMethod.POST,
-			JSONUtil.put(
-				"conf",
+		HttpRequestFactory requestFactory =
+			netHttpTransport.createRequestFactory(
+				new HttpCredentialsAdapter(credentials));
+
+		HttpRequest httpRequest = requestFactory.buildPostRequest(
+			new GenericUrl(
+				_composerEndpoint + "/api/v1/dags/" + dagId + "/dagRuns"),
+			ByteArrayContent.fromString(
+				"application/json",
 				JSONUtil.put(
-					"zipFilePath", bucketName + folderName + "/" + fileName)
-			).put(
-				"logical_date", DateUtil.newDateString()
-			),
-			httpHeaders);
+					"conf",
+					JSONUtil.put(
+						"zipFilePath", bucketName + folderName + "/" + fileName)
+				).put(
+					"logical_date", DateUtil.newDateString()
+				).toString()));
 
-		if (responseEntity.getStatusCode() != HttpStatus.OK) {
+		HttpHeaders httpHeaders = httpRequest.getHeaders();
+
+		httpHeaders.setContentType("application/json");
+
+		HttpResponse httpResponse = httpRequest.execute();
+
+		if (httpResponse.getStatusCode() != 200) {
 			_log.error(
 				"Unable to schedule DXP ingestion DAG: " +
-					responseEntity.getStatusCodeValue());
+					httpResponse.getStatusCode());
 		}
 	}
 
 	private static final Log _log = LogFactory.getLog(
 		DXPBatchEntitiesNanite.class);
-
-	@Value("${osb.asah.composer.auth.token}")
-	private String _composerAuthToken;
 
 	@Value("${osb.asah.composer.endpoint}")
 	private String _composerEndpoint;
@@ -175,8 +199,5 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 
 	@Autowired
 	private GoogleStorageArchiver _googleStorageArchiver;
-
-	@Autowired
-	private Http _http;
 
 }
