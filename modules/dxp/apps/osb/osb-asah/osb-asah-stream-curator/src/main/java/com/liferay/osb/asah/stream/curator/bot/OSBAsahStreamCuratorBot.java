@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.concurrent.ScheduledExecutorFactoryBean;
 import org.springframework.scheduling.concurrent.ScheduledExecutorTask;
@@ -26,6 +27,9 @@ import org.springframework.stereotype.Component;
  * @author Brian Wing Shun Chan
  */
 @Component
+@ConditionalOnProperty(
+	matchIfMissing = true, value = "osb.asah.enable.scheduling"
+)
 @Profile("!test")
 public class OSBAsahStreamCuratorBot {
 
