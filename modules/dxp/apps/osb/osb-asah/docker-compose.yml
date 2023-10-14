@@ -16,6 +16,8 @@ services:
         ports:
             - "5013:5005"
             - "8090:8080"
+        volumes:
+            - storage:/storage
     dxpcloudemulator:
         build: ./devtools/dxp-cloud-emulator
         container_name: dxpcloudemulator
@@ -85,6 +87,7 @@ services:
             - "8087:8080"
         volumes:
             - export:/export
+            - storage:/storage
             - temp:/temp
     osbasahpublisher:
         build:
@@ -190,6 +193,8 @@ volumes:
     faro:
         driver: local
     psqldata:
+        driver: local
+    storage:
         driver: local
     temp:
         driver: local
