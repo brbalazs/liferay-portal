@@ -312,7 +312,11 @@ public class DXPEntitiesIngestionNanite {
 
 		File file = new File(pathName);
 
-		file.mkdirs();
+		boolean created = file.mkdirs();
+
+		if (created && _log.isDebugEnabled()) {
+			_log.debug("Directory created: " + pathName);
+		}
 
 		try {
 			Files.walkFileTree(
@@ -333,7 +337,17 @@ public class DXPEntitiesIngestionNanite {
 							_processFile(file);
 						}
 
-						file.delete();
+						boolean deleted = file.delete();
+
+						if (_log.isDebugEnabled()) {
+							if (deleted) {
+								_log.debug("Deleted file: " + file.getName());
+							}
+							else {
+								_log.debug(
+									"Unable to delete file: " + file.getName());
+							}
+						}
 
 						return FileVisitResult.CONTINUE;
 					}
