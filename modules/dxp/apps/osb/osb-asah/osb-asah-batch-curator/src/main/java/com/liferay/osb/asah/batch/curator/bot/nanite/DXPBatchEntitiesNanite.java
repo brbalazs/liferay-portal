@@ -99,17 +99,11 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 
 						_archiveFile(bucketName, file, folderName);
 
-						try {
-							_triggerDAG(
-								bucketName, folderName, file.getName(),
-								resourceName);
-						}
-						catch (IOException ioException) {
-							_log.error(
-								"Unable to trigger DAG for file " +
-									file.getAbsolutePath(),
-								ioException);
-						}
+						_triggerDAG(
+							resourceName,
+							String.format(
+								"gs://%s/%s/%s", bucketName, folderName,
+								file.getName()));
 					}
 
 					return FileVisitResult.CONTINUE;
@@ -133,11 +127,7 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 			ProjectIdThreadLocal.getProjectId());
 	}
 
-	private void _triggerDAG(
-			String bucketName, String folderName, String fileName,
-			String resourceName)
-		throws IOException {
-
+	private void _triggerDAG(String resourceName, String zipFilePath) {
 		String dagId = String.format(
 			"dxp_%s_ingestion_dataflow_trigger_%s", _entities.get(resourceName),
 			ProjectIdThreadLocal.getProjectId());
@@ -146,41 +136,50 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 			_log.info("Scheduling DAG " + dagId);
 		}
 
-		GoogleCredentials credentials =
-			GoogleCredentials.getApplicationDefault();
+		try {
+			GoogleCredentials credentials =
+				GoogleCredentials.getApplicationDefault();
 
-		credentials = credentials.createScoped(
-			"https://www.googleapis.com/auth/cloud-platform");
+			credentials = credentials.createScoped(
+				"https://www.googleapis.com/auth/cloud-platform");
 
-		NetHttpTransport netHttpTransport = new NetHttpTransport();
+			NetHttpTransport netHttpTransport = new NetHttpTransport();
 
-		HttpRequestFactory requestFactory =
-			netHttpTransport.createRequestFactory(
-				new HttpCredentialsAdapter(credentials));
+			HttpRequestFactory requestFactory =
+				netHttpTransport.createRequestFactory(
+					new HttpCredentialsAdapter(credentials));
 
-		HttpRequest httpRequest = requestFactory.buildPostRequest(
-			new GenericUrl(
-				_composerEndpoint + "/api/v1/dags/" + dagId + "/dagRuns"),
-			ByteArrayContent.fromString(
-				"application/json",
-				JSONUtil.put(
-					"conf",
+			HttpRequest httpRequest = requestFactory.buildPostRequest(
+				new GenericUrl(
+					_composerEndpoint + "/api/v1/dags/" + dagId + "/dagRuns"),
+				ByteArrayContent.fromString(
+					"application/json",
 					JSONUtil.put(
-						"zipFilePath", bucketName + folderName + "/" + fileName)
-				).put(
-					"logical_date", DateUtil.newDateString()
-				).toString()));
+						"conf", JSONUtil.put("zipFilePath", zipFilePath)
+					).put(
+						"logical_date", DateUtil.newDateString()
+					).toString()));
 
-		HttpHeaders httpHeaders = httpRequest.getHeaders();
+			HttpHeaders httpHeaders = httpRequest.getHeaders();
 
-		httpHeaders.setContentType("application/json");
+			httpHeaders.setContentType("application/json");
 
-		HttpResponse httpResponse = httpRequest.execute();
+			HttpResponse httpResponse = httpRequest.execute();
 
-		if (httpResponse.getStatusCode() != 200) {
+			if (httpResponse.getStatusCode() != 200) {
+				_log.error(
+					String.format(
+						"Unexpected error after triggering DAG %s and ZIP " +
+							"path %s. Status code: %s",
+						dagId, zipFilePath, httpResponse.getStatusCode()));
+			}
+		}
+		catch (IOException ioException) {
 			_log.error(
-				"Unable to schedule DXP ingestion DAG: " +
-					httpResponse.getStatusCode());
+				String.format(
+					"Unable to trigger DAG %s and ZIP path %s", dagId,
+					zipFilePath),
+				ioException);
 		}
 	}
 
