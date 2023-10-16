@@ -137,8 +137,20 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 	}
 
 	private void _triggerDAG(String resourceName, String zipFilePath) {
+		String entity = _entities.get(resourceName);
+
+		if (entity == null) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Unregistered entity ingestion for resource " +
+						resourceName);
+			}
+
+			return;
+		}
+
 		String dagId = String.format(
-			"dxp_%s_ingestion_dataflow_trigger_%s", _entities.get(resourceName),
+			"dxp_%s_ingestion_dataflow_trigger_%s", entity,
 			ProjectIdThreadLocal.getProjectId());
 
 		if (_log.isInfoEnabled()) {
