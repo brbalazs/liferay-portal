@@ -37,7 +37,11 @@ public class TableRowConverter {
 
 		for (Field field : objectClass.getFields()) {
 			try {
-				tableRow.set(field.getName(), _getFieldValue(field, object));
+				Object fieldValue = _getFieldValue(field, object);
+
+				if (fieldValue != null) {
+					tableRow.set(field.getName(), fieldValue);
+				}
 			}
 			catch (Exception exception) {
 				_logger.error(
