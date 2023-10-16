@@ -310,17 +310,15 @@ public class DXPEntitiesIngestionNanite {
 			_dxpBatchEntitiesStoragePath + "/" +
 				ProjectIdThreadLocal.getProjectId();
 
-		File file = new File(pathName);
+		Path startPath = Paths.get(pathName);
 
-		boolean created = file.mkdirs();
-
-		if (created && _log.isDebugEnabled()) {
-			_log.debug("Directory created: " + pathName);
+		if (!Files.exists(startPath)) {
+			return;
 		}
 
 		try {
 			Files.walkFileTree(
-				Paths.get(pathName),
+				startPath,
 				new SimpleFileVisitor<Path>() {
 
 					@Override
@@ -335,18 +333,6 @@ public class DXPEntitiesIngestionNanite {
 							(basicFileAttributes.size() > 0)) {
 
 							_processFile(file);
-						}
-
-						boolean deleted = file.delete();
-
-						if (_log.isDebugEnabled()) {
-							if (deleted) {
-								_log.debug("Deleted file: " + file.getName());
-							}
-							else {
-								_log.debug(
-									"Unable to delete file: " + file.getName());
-							}
 						}
 
 						return FileVisitResult.CONTINUE;
@@ -543,9 +529,22 @@ public class DXPEntitiesIngestionNanite {
 			String line = null;
 
 			while ((line = bufferedReader.readLine()) != null) {
-				if (!line.isEmpty()) {
-					process(attributes, line);
-				}
+				process(attributes, line);
+			}
+		}
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Successfully precessed file " + absolutePath);
+		}
+
+		boolean deleted = file.delete();
+
+		if (_log.isDebugEnabled()) {
+			if (deleted) {
+				_log.debug("Deleted file: " + file.getName());
+			}
+			else {
+				_log.debug("Unable to delete file: " + file.getName());
 			}
 		}
 	}
