@@ -18,6 +18,7 @@ from liferay.bigquery import BigQueryInsertJobFromTemplateOperator
 import airflow
 import datetime
 import os
+import pendulum
 import requests
 
 DATAFLOW_BUCKET = 'gs://{}-dataflow'.format(os.environ['GOOGLE_PROJECT_ID'])
@@ -56,7 +57,7 @@ def create_dag(
 		},
 		description=dag_description,
 		max_active_runs=1,
-		start_date=datetime.datetime.now(),
+		start_date=pendulum.now() - pendulum.duration(days=2),
 		schedule_interval=None
 	) as dag:
 		dataflow_create_java_job_operator = DataflowCreateJavaJobOperator(
