@@ -87,7 +87,7 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 
 					if (StringUtils.contains(file.getName(), ".zip") &&
 						basicFileAttributes.isRegularFile() &&
-						(basicFileAttributes.size() > 0)) {
+						(basicFileAttributes.size() > _EMPTY_ZIP_FILE_LENGTH)) {
 
 						String bucketName = StringUtils.replace(
 							_dxpBatchEntitiesBucketTemplate,
@@ -204,6 +204,8 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 				ioException);
 		}
 	}
+
+	private static final long _EMPTY_ZIP_FILE_LENGTH = 140;
 
 	private static final Log _log = LogFactory.getLog(
 		DXPBatchEntitiesNanite.class);
