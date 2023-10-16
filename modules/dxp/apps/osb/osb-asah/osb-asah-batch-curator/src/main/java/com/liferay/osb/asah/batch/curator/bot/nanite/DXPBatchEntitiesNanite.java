@@ -69,8 +69,14 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 			_dxpBatchEntitiesStoragePath + "/" +
 				ProjectIdThreadLocal.getProjectId();
 
+		Path startPath = Paths.get(dxpBatchEntitiesStoragePath);
+
+		if (!Files.exists(startPath)) {
+			return;
+		}
+
 		Files.walkFileTree(
-			Paths.get(dxpBatchEntitiesStoragePath),
+			startPath,
 			new SimpleFileVisitor<Path>() {
 
 				@Override
