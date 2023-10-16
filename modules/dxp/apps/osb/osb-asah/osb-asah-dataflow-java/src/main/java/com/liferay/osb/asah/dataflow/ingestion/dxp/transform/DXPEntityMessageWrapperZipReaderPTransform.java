@@ -91,7 +91,7 @@ public class DXPEntityMessageWrapperZipReaderPTransform
 
 			int length = split.length;
 
-			String resourceName = split[length - 4];
+			String resourceName = split[length - 3];
 
 			if ((_resourceNameFilter != null) &&
 				!Objects.equals(_resourceNameFilter, resourceName)) {
@@ -106,10 +106,15 @@ public class DXPEntityMessageWrapperZipReaderPTransform
 				return;
 			}
 
-			String dataSourceId = split[length - 5];
-			String projectId = split[length - 6];
-			String uploadTime = split[length - 2];
-			String uploadType = split[length - 3];
+			String dataSourceId = split[length - 4];
+
+			String fileName = split[length - 1];
+
+			String uploadTime = fileName.substring(
+				0, fileName.lastIndexOf("."));
+
+			String projectId = split[length - 5];
+			String uploadType = split[length - 2];
 
 			Compression compression = readableFile.getCompression();
 
