@@ -111,7 +111,8 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 						_triggerDAG(
 							resourceName,
 							String.format(
-								"gs://%s/%s/%s", bucketName, folderName,
+								"gs://%s/%s/%s/%s", bucketName,
+								ProjectIdThreadLocal.getProjectId(), folderName,
 								file.getName()));
 					}
 
