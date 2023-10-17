@@ -217,7 +217,8 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 	public void deleteSchema(String projectId) {
 		try {
 			boolean success = _bigQuery.delete(
-				DatasetId.of(_bigQueryOptions.getProjectId(), projectId));
+				DatasetId.of(_bigQueryOptions.getProjectId(), projectId),
+				BigQuery.DatasetDeleteOption.deleteContents());
 
 			if (_log.isInfoEnabled()) {
 				if (success) {
