@@ -71,7 +71,12 @@ public class AreaResourceFactoryImpl implements AreaResource.Factory {
 					throw new IllegalArgumentException("User is not set");
 				}
 
-				return _areaResourceProxyProviderFunction.apply(
+				Function<InvocationHandler, AreaResource>
+					areaResourceProxyProviderFunction =
+						ResourceProxyProviderFunctionHolder.
+							_areaResourceProxyProviderFunction;
+
+				return areaResourceProxyProviderFunction.apply(
 					(proxy, method, arguments) -> _invoke(
 						method, arguments, _checkPermissions,
 						_httpServletRequest, _httpServletResponse,
@@ -225,9 +230,6 @@ public class AreaResourceFactoryImpl implements AreaResource.Factory {
 		}
 	}
 
-	private static final Function<InvocationHandler, AreaResource>
-		_areaResourceProxyProviderFunction = _getProxyProviderFunction();
-
 	@Reference
 	private CompanyLocalService _companyLocalService;
 
@@ -262,6 +264,13 @@ public class AreaResourceFactoryImpl implements AreaResource.Factory {
 
 	@Reference
 	private UserLocalService _userLocalService;
+
+	private static class ResourceProxyProviderFunctionHolder {
+
+		private static final Function<InvocationHandler, AreaResource>
+			_areaResourceProxyProviderFunction = _getProxyProviderFunction();
+
+	}
 
 	private class AcceptLanguageImpl implements AcceptLanguage {
 

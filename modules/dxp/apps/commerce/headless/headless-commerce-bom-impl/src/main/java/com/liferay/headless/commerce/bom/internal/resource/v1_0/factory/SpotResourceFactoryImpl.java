@@ -71,7 +71,12 @@ public class SpotResourceFactoryImpl implements SpotResource.Factory {
 					throw new IllegalArgumentException("User is not set");
 				}
 
-				return _spotResourceProxyProviderFunction.apply(
+				Function<InvocationHandler, SpotResource>
+					spotResourceProxyProviderFunction =
+						ResourceProxyProviderFunctionHolder.
+							_spotResourceProxyProviderFunction;
+
+				return spotResourceProxyProviderFunction.apply(
 					(proxy, method, arguments) -> _invoke(
 						method, arguments, _checkPermissions,
 						_httpServletRequest, _httpServletResponse,
@@ -225,9 +230,6 @@ public class SpotResourceFactoryImpl implements SpotResource.Factory {
 		}
 	}
 
-	private static final Function<InvocationHandler, SpotResource>
-		_spotResourceProxyProviderFunction = _getProxyProviderFunction();
-
 	@Reference
 	private CompanyLocalService _companyLocalService;
 
@@ -262,6 +264,13 @@ public class SpotResourceFactoryImpl implements SpotResource.Factory {
 
 	@Reference
 	private UserLocalService _userLocalService;
+
+	private static class ResourceProxyProviderFunctionHolder {
+
+		private static final Function<InvocationHandler, SpotResource>
+			_spotResourceProxyProviderFunction = _getProxyProviderFunction();
+
+	}
 
 	private class AcceptLanguageImpl implements AcceptLanguage {
 
