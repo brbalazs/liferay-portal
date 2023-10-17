@@ -15,6 +15,7 @@ import com.liferay.osb.asah.test.util.configuration.JDBCTestConfiguration;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -61,12 +62,10 @@ public class EventAttributeDefinitionRepositoryTest
 
 		Assertions.assertNotNull(
 			stream.filter(
-				eventDefinitionEventAttributeDefinition ->
+				eventDefinitionEventAttributeDefinition -> Objects.equals(
 					eventDefinitionEventAttributeDefinition.
-						getEventDefinitionId(
-						).equals(
-							eventDefinition.getId()
-						)
+						getEventDefinitionId(),
+					eventDefinition.getId())
 			).map(
 				EventDefinitionEventAttributeDefinition::getEventDefinitionId
 			).findFirst(
