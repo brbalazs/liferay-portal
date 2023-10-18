@@ -532,7 +532,7 @@ public class DXPEntitiesIngestionNanite {
 		}
 
 		if (_log.isInfoEnabled()) {
-			_log.info("Successfully precessed file " + absolutePath);
+			_log.info("Successfully processed file " + absolutePath);
 		}
 
 		boolean deleted = file.delete();
