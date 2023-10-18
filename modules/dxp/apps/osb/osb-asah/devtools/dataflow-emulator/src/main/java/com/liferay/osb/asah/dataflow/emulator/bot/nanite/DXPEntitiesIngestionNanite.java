@@ -306,11 +306,9 @@ public class DXPEntitiesIngestionNanite {
 	}
 
 	public void run() {
-		String pathName =
+		Path startPath = Paths.get(
 			_dxpBatchEntitiesStoragePath + "/" +
-				ProjectIdThreadLocal.getProjectId();
-
-		Path startPath = Paths.get(pathName);
+				ProjectIdThreadLocal.getProjectId());
 
 		if (!Files.exists(startPath)) {
 			return;
