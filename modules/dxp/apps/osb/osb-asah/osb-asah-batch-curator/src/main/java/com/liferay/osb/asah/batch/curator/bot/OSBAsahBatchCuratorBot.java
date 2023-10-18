@@ -96,7 +96,7 @@ public class OSBAsahBatchCuratorBot {
 		_asahTaskManager.runNanitesForAllProjects("DataExportNanite");
 	}
 
-	@Scheduled(fixedDelay = DateUtil.MINUTE * 5)
+	@Scheduled(fixedDelay = DateUtil.HOUR)
 	public void runDXPEntitiesNanite() {
 		_asahTaskManager.runNanitesForAllProjects("DXPEntitiesNanite");
 	}
