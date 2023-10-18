@@ -57,8 +57,8 @@ def create_dag(
 		},
 		description=dag_description,
 		max_active_runs=1,
-		start_date=pendulum.now() - pendulum.duration(days=2),
-		schedule_interval=None
+		schedule_interval=None,
+		start_date=pendulum.now() - pendulum.duration(days=2)
 	) as dag:
 		dataflow_create_java_job_operator = DataflowCreateJavaJobOperator(
 			dag=dag,
