@@ -960,22 +960,6 @@ public class BQMembershipRepositoryImpl
 			);
 		}
 
-		if (referencedTableNames.contains("Event")) {
-			selectJoinStep = selectJoinStep.join(
-				DSL.table(
-					"BQEvent"
-				).as(
-					"Event"
-				)
-			).on(
-				DSL.field(
-					"Event.userId"
-				).eq(
-					DSL.field("Identity.id")
-				)
-			);
-		}
-
 		if (referencedTableNames.contains("Individual")) {
 			if (BooleanUtils.isTrue(includeAnonymousUsers)) {
 				selectJoinStep = selectJoinStep.leftJoin(
