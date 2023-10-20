@@ -33,7 +33,6 @@ import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 
@@ -92,27 +91,6 @@ public class AsahTaskManager {
 			_boundedExecutor.runAsync(
 				new AsahTaskRunnable(
 					asahTask, _asahTaskDog, force,
-					_nanitesMap.get(asahTask.getClassName()), _runLogDog));
-		}
-		else if (Objects.equals(
-					asahTask.getClassName(),
-					"PastUserSessionFinalizerNanite")) {
-
-			if (_pastUserSessionFinalizerBoundedExecutor.countPendingTasks() >
-					0) {
-
-				if (_log.isDebugEnabled()) {
-					_log.debug(
-						"Reached concurrent capacity for processing past " +
-							"user sessions");
-				}
-
-				return;
-			}
-
-			_pastUserSessionFinalizerBoundedExecutor.runAsync(
-				new AsahTaskRunnable(
-					asahTask, _asahTaskDog, false,
 					_nanitesMap.get(asahTask.getClassName()), _runLogDog));
 		}
 		else if (Objects.equals(
@@ -190,10 +168,6 @@ public class AsahTaskManager {
 		}
 	}
 
-	public int getAvailablePastUserSessionFinalizerTasks() {
-		return _pastUserSessionFinalizerBoundedExecutor.countAvailableTasks();
-	}
-
 	public Nanite getNanite(String className) {
 		return _nanitesMap.get(className);
 	}
@@ -205,10 +179,6 @@ public class AsahTaskManager {
 
 			_nanitesMap.put(ClassUtils.getShortName(clazz), nanite);
 		}
-
-		_pastUserSessionFinalizerBoundedExecutor =
-			BoundedExecutor.newBoundedExecutor(
-				_pastUserSessionFinalizeCount, _pastUserSessionFinalizeCount);
 	}
 
 	public void removeAsahTasks() {
@@ -368,11 +338,6 @@ public class AsahTaskManager {
 	private List<Nanite> _nanites;
 
 	private final Map<String, Nanite> _nanitesMap = new HashMap<>();
-
-	@Value("${osb.asah.batch.curator.past.user.session.finalize.count:10}")
-	private int _pastUserSessionFinalizeCount;
-
-	private BoundedExecutor _pastUserSessionFinalizerBoundedExecutor;
 
 	@Autowired
 	private ProjectDog _projectDog;
