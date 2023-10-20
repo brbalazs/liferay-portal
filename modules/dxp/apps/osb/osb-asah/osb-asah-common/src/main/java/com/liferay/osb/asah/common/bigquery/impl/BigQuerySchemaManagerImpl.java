@@ -397,14 +397,21 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 
 		TableDefinition tableDefinition = null;
 
+		String translatedQuery = StringUtils.replaceEach(
+			query,
+			new String[] {
+				"$[AC_PROJECT_ID]", "$[AC_PROJECT_TIME_ZONE_ID_QUERY]"
+			},
+			new String[] {projectId, _getTimeZoneIdQuery(projectId)});
+
 		if (materialized && _environment.acceptsProfiles(Profiles.of("prod"))) {
 			tableDefinition = MaterializedViewDefinition.newBuilder(
-				StringUtils.replace(query, "$[AC_PROJECT_ID]", projectId)
+				translatedQuery
 			).build();
 		}
 		else {
 			tableDefinition = ViewDefinition.newBuilder(
-				StringUtils.replace(query, "$[AC_PROJECT_ID]", projectId)
+				translatedQuery
 			).setUseLegacySql(
 				false
 			).build();
@@ -437,6 +444,22 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 		}
 	}
 
+	private String _getTimeZoneIdQuery(String projectId) {
+		if (!_environment.acceptsProfiles(Profiles.of("prod"))) {
+			return "SELECT 'UTC' AS value";
+		}
+
+		return StringUtils.replaceEach(
+			_TIME_ZONE_ID_QUERY_TEMPLATE,
+			new String[] {
+				"$[AC_PROJECT_ID]", "${googleProjectId}", "${region}"
+			},
+			new String[] {
+				projectId, _bigQueryOptions.getProjectId(),
+				_bigQueryOptions.getLocation()
+			});
+	}
+
 	@PostConstruct
 	private void _init() {
 		_functionsJSONObject = new JSONObject(
@@ -457,6 +480,17 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 			throw new IllegalStateException(exception);
 		}
 	}
+
+	private static final String _TIME_ZONE_ID_QUERY_TEMPLATE =
+		"SELECT (CASE WHEN EXISTS (SELECT * FROM EXTERNAL_QUERY(" +
+			"\"${googleProjectId}.${region}.postgresql\", \"SELECT value " +
+				"FROM $[AC_PROJECT_ID].preference WHERE id = " +
+					"'time-zone-id';\")) THEN (SELECT * FROM " +
+						"EXTERNAL_QUERY(\"${googleProjectId}.${region}." +
+							"postgresql\", \"SELECT value FROM " +
+								"$[AC_PROJECT_ID].preference WHERE id = " +
+									"'time-zone-id';\")) ELSE 'UTC' END) AS " +
+										"value";
 
 	private static final Log _log = LogFactory.getLog(
 		BigQuerySchemaManagerImpl.class);

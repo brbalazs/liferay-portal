@@ -1,15 +1,5 @@
 WITH TimeZone AS (
-	SELECT
-		(
-			CASE
-				WHEN
-					EXISTS (SELECT * FROM EXTERNAL_QUERY("$[AC_EXTERNAL_CONNECTION_NAME]", "SELECT value FROM $[AC_PROJECT_ID].preference WHERE id = 'time-zone-id';"))
-				THEN
-					(SELECT * FROM EXTERNAL_QUERY("$[AC_EXTERNAL_CONNECTION_NAME]", "SELECT value FROM $[AC_PROJECT_ID].preference WHERE id = 'time-zone-id';"))
-				ELSE
-					'UTC'
-			END
-		) AS value
+	$[AC_PROJECT_TIME_ZONE_ID_QUERY]
 ),
 IdentityActivity AS (
 	SELECT
