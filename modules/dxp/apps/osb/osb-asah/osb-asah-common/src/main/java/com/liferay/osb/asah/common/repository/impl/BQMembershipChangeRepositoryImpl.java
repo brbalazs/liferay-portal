@@ -18,9 +18,10 @@ import com.liferay.osb.asah.common.repository.util.ConditionUtil;
 
 import java.math.BigDecimal;
 
+import java.sql.Timestamp;
+
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -261,8 +262,11 @@ public class BQMembershipChangeRepositoryImpl
 
 		List<Condition> conditions = new ArrayList<>();
 
-		Field dateField = _dslHelper.dateTrunc(
-			DatePart.DAY, DSL.field("createDate", OffsetDateTime.class));
+		Field dateField = DSL.timestamp(
+			_dslHelper.dateTrunc(
+				DatePart.DAY,
+				_dslHelper.getDateAtTimeZoneField(
+					"createDate", TimeZoneDogUtil.getTimeZoneId())));
 
 		LocalDateTime localDateTime = DateUtil.newDayLocalDateTime(
 			TimeZoneDogUtil.getZoneId());
@@ -297,7 +301,8 @@ public class BQMembershipChangeRepositoryImpl
 			selectConditionStep = _dslContext.select(
 				DSL.field("identitiesCount", Long.class),
 				DSL.function(
-					"UNIX_MILLIS", Long.class, dateField
+					"UNIX_MILLIS", Long.class,
+					DSL.function("TIMESTAMP", Timestamp.class, dateField)
 				).as(
 					"intervalInitDate"
 				),
