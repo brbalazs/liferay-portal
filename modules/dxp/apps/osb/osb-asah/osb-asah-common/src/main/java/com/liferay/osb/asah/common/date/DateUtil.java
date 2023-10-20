@@ -303,6 +303,10 @@ public class DateUtil {
 		return toUTCString(newEpochDate());
 	}
 
+	public static LocalDateTime newLocalDateTime(ZoneId zoneId) {
+		return LocalDateTime.now(zoneId);
+	}
+
 	public static String newMonthDateString() {
 		Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 

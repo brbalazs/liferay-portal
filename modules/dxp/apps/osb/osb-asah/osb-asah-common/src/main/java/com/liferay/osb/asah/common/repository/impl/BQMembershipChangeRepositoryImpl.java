@@ -411,7 +411,7 @@ public class BQMembershipChangeRepositoryImpl
 				DSL.field("segmentId", Long.class)
 			);
 
-		LocalDateTime endLocalDateTime = DateUtil.newDayLocalDateTime(
+		LocalDateTime endLocalDateTime = DateUtil.newLocalDateTime(
 			ZoneOffset.UTC);
 
 		LocalDateTime startLocalDateTime = endLocalDateTime.minusDays(30);
