@@ -10,8 +10,6 @@ import com.liferay.osb.asah.common.model.MembershipCountSnapshot;
 import com.liferay.osb.asah.common.model.Transformation;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
 
-import java.time.ZoneId;
-
 import java.util.List;
 
 import org.springframework.cache.annotation.CacheEvict;
@@ -55,8 +53,7 @@ public interface CustomBQMembershipChangeRepository {
 
 	@CacheEvict(allEntries = true)
 	@Modifying
-	public void initializeBQMembershipChanges(
-		Long channelId, Long segmentId, ZoneId zoneId);
+	public void initializeBQMembershipChanges(Long channelId, Long segmentId);
 
 	public BQMembershipChange insert(BQMembershipChange bqMembershipChange);
 

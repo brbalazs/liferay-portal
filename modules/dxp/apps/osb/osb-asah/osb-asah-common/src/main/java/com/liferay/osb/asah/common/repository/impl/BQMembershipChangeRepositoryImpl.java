@@ -394,9 +394,7 @@ public class BQMembershipChangeRepositoryImpl
 	}
 
 	@Override
-	public void initializeBQMembershipChanges(
-		Long channelId, Long segmentId, ZoneId zoneId) {
-
+	public void initializeBQMembershipChanges(Long channelId, Long segmentId) {
 		InsertValuesStep5<Record, Long, Object, Long, Long, Long>
 			insertValuesStep5 = _dslContext.insertInto(
 				DSL.table("BQMembershipChange")
@@ -408,7 +406,8 @@ public class BQMembershipChangeRepositoryImpl
 				DSL.field("segmentId", Long.class)
 			);
 
-		LocalDateTime endLocalDateTime = DateUtil.newDayLocalDateTime(zoneId);
+		LocalDateTime endLocalDateTime = DateUtil.newDayLocalDateTime(
+			ZoneOffset.UTC);
 
 		LocalDateTime startLocalDateTime = endLocalDateTime.minusDays(30);
 

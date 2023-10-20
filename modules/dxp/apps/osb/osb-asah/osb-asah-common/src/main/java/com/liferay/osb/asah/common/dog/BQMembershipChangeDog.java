@@ -5,7 +5,6 @@
 
 package com.liferay.osb.asah.common.dog;
 
-import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 import com.liferay.osb.asah.common.dog.util.SortUtil;
 import com.liferay.osb.asah.common.entity.BQMembershipChange;
 import com.liferay.osb.asah.common.entity.Segment;
@@ -104,7 +103,7 @@ public class BQMembershipChangeDog {
 
 	public void initializeBQMembershipChanges(Long channelId, Long segmentId) {
 		_bqMembershipChangeRepository.initializeBQMembershipChanges(
-			channelId, segmentId, _timeZoneDog.getZoneId());
+			channelId, segmentId);
 	}
 
 	public Page<BQMembershipChange> searchBQMembershipChangePage(
@@ -126,8 +125,5 @@ public class BQMembershipChangeDog {
 
 	@Autowired
 	private BQMembershipChangeRepository _bqMembershipChangeRepository;
-
-	@Autowired
-	private TimeZoneDog _timeZoneDog;
 
 }
