@@ -1,4 +1,17 @@
-WITH IdentityActivity AS (
+WITH TimeZone AS (
+	SELECT
+		(
+			CASE
+				WHEN
+					EXISTS (SELECT * FROM EXTERNAL_QUERY("$[AC_EXTERNAL_CONNECTION_NAME]", "SELECT value FROM $[AC_PROJECT_ID].preference WHERE id = 'time-zone-id';"))
+				THEN
+					(SELECT * FROM EXTERNAL_QUERY("$[AC_EXTERNAL_CONNECTION_NAME]", "SELECT value FROM $[AC_PROJECT_ID].preference WHERE id = 'time-zone-id';"))
+				ELSE
+					'UTC'
+			END
+		) AS value
+),
+IdentityActivity AS (
 	SELECT
 		*
 	FROM
@@ -19,7 +32,7 @@ WITH IdentityActivity AS (
 		Event.userId = Identity.id
 	)
 	WHERE
-		Event.eventDate >= TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY)
+		DATE(Event.eventDate, (SELECT value FROM TimeZone)) >= CURRENT_DATE((SELECT value FROM TimeZone))
 	GROUP BY
 		Event.channelId,
 		Event.dataSourceId,
