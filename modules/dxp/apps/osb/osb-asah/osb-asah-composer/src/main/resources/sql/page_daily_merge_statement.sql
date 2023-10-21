@@ -30,7 +30,7 @@ USING
 		FROM
 			`{{ dag.default_args['ac_project_id'] }}.pagehourly`
 		WHERE
-			DATE(eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = '{{ data_interval_start.to_date_string() }}' AND
+			eventDate BETWEEN TIMESTAMP('{{ data_interval_start.to_datetime_string() }}') AND TIMESTAMP('{{ data_interval_end.to_datetime_string() }}') AND
 			sessionId IS NOT NULL
 		GROUP BY
 			browserName, canonicalUrl, channelId, city, country, description,
@@ -38,7 +38,7 @@ USING
 			userId
 	) AS staging
 ON (
-	DATE(replica.eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = '{{ data_interval_start.to_date_string() }}' AND
+	DATE(replica.eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = DATE(TIMESTAMP('{{ data_interval_start.to_datetime_string() }}'), '{{ dag.default_args['ac_project_time_zone_id'] }}') AND
 	COALESCE(staging.browserName, '') = COALESCE(replica.browserName, '') AND
 	staging.canonicalUrl = replica.canonicalUrl AND
 	staging.channelId = replica.channelId AND

@@ -20,14 +20,14 @@ USING
 		FROM
 			`{{ dag.default_args['ac_project_id'] }}.journalhourly`
 		WHERE
-			DATE(eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = '{{ data_interval_start.to_date_string() }}'
+			eventDate BETWEEN TIMESTAMP('{{ data_interval_start.to_datetime_string() }}') AND TIMESTAMP('{{ data_interval_end.to_datetime_string() }}')
 		GROUP BY
 			assetId, assetTitle, browserName, canonicalUrl, channelId, city,
 			country, deviceType, eventDate, pageTitle, platformName, region,
 			userId
 	) AS staging
 ON (
-	DATE(replica.eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = '{{ data_interval_start.to_date_string() }}' AND
+	DATE(replica.eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = DATE(TIMESTAMP('{{ data_interval_start.to_datetime_string() }}'), '{{ dag.default_args['ac_project_time_zone_id'] }}') AND
 	staging.assetId = replica.assetId AND
 	staging.assetTitle = replica.assetTitle AND
 	COALESCE(staging.browserName, '') = COALESCE(replica.browserName, '') AND

@@ -17,12 +17,12 @@ USING
 		FROM
 			`{{ dag.default_args['ac_project_id'] }}.customassethourly`
 		WHERE
-			DATE(eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = '{{ data_interval_start.to_date_string() }}'
+			eventDate BETWEEN TIMESTAMP('{{ data_interval_start.to_datetime_string() }}') AND TIMESTAMP('{{ data_interval_end.to_datetime_string() }}')
 		GROUP BY
 			assetPrimaryKey, channelId, eventDate
 	) AS staging
 ON (
-	DATE(replica.eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = '{{ data_interval_start.to_date_string() }}' AND
+	DATE(replica.eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = DATE(TIMESTAMP('{{ data_interval_start.to_datetime_string() }}'), '{{ dag.default_args['ac_project_time_zone_id'] }}') AND
 	staging.assetPrimaryKey = replica.assetPrimaryKey AND
 	staging.channelId = replica.channelId AND
 	DATE(staging.eventDate) = DATE(replica.eventDate)

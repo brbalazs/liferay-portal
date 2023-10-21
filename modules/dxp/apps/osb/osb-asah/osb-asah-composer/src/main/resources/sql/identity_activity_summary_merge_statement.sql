@@ -17,7 +17,7 @@ USING
 			Event.userId = Identity.id
 		)
 		WHERE
-			DATE(Event.eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = '{{ data_interval_start.to_date_string() }}'
+			Event.eventDate BETWEEN TIMESTAMP('{{ data_interval_start.to_datetime_string() }}') AND TIMESTAMP('{{ data_interval_end.to_datetime_string() }}')
 		GROUP BY
 			Event.channelId,
 			Event.dataSourceId,
