@@ -213,7 +213,7 @@ public class BQMembershipChangeRepositoryTest
 
 		Assertions.assertEquals(31, bqMembershipChanges.size());
 
-		LocalDateTime localDateTime = DateUtil.newDayLocalDateTime(
+		LocalDateTime localDateTime = DateUtil.newLocalDateTime(
 			ZoneId.of("UTC"));
 
 		for (int i = 0; i < bqMembershipChanges.size(); i++) {
@@ -226,9 +226,12 @@ public class BQMembershipChangeRepositoryTest
 
 			LocalDateTime expectedLocalDateTime = localDateTime.minusDays(i);
 
+			LocalDateTime actualLocalDateTime = DateUtil.toLocalDateTime(
+				bqMembershipChange.getCreateDate(), ZoneOffset.UTC);
+
 			Assertions.assertEquals(
-				Date.from(expectedLocalDateTime.toInstant(ZoneOffset.UTC)),
-				bqMembershipChange.getCreateDate());
+				expectedLocalDateTime.toLocalDate(),
+				actualLocalDateTime.toLocalDate());
 		}
 	}
 
