@@ -15,6 +15,8 @@ import com.liferay.osb.asah.common.util.StringUtil;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -1371,7 +1373,13 @@ public class FilterExpressionConditionVisitor
 			LocalDate.now(TimeZoneDogUtil.getZoneId()), LocalTime.MIDNIGHT);
 
 		if (value.equalsIgnoreCase("last24Hours")) {
-			localDateTime = localDateTime.minusHours(24);
+			LocalDateTime currentLocalDateTime = LocalDateTime.now(
+				ZoneOffset.UTC);
+
+			currentLocalDateTime = currentLocalDateTime.truncatedTo(
+				ChronoUnit.HOURS);
+
+			localDateTime = currentLocalDateTime.minusHours(23);
 		}
 		else if (value.equalsIgnoreCase("last28Days")) {
 			localDateTime = localDateTime.minusDays(28);
