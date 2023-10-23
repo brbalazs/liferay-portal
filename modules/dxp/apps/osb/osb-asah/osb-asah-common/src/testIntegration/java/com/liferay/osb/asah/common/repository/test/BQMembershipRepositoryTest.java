@@ -18,6 +18,7 @@ import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContex
 import java.time.ZoneId;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -371,6 +372,23 @@ public class BQMembershipRepositoryTest
 		Assertions.assertEquals(
 			1L, membershipCountSnapshot.getIndividualsCount());
 		Assertions.assertEquals(34L, membershipCountSnapshot.getSegmentId());
+	}
+
+	@BQSQLResource(resourcePath = "test_update_membership.sql")
+	@Test
+	public void testUpdateMembershipEventFilter() {
+		_bqMembershipRepository.updateBQMemberships(
+			1L,
+			"(activities.filterByCount(filter='(activityKey eq " +
+				"''Page#pageViewed#a57a8091bb47fec9165d5059ac0d020baee46475ef" +
+					"05f632ff6b90ff8f720745'' and day gt ''last24Hours'')" +
+						"',operator='ge',value=1))",
+			true, 111L);
+
+		Assertions.assertEquals(
+			Collections.singletonList("identity1"),
+			_bqMembershipRepository.findIdentityIdBySegmentIdAndStatus(
+				111L, "ACTIVE"));
 	}
 
 	@BQSQLResource(
