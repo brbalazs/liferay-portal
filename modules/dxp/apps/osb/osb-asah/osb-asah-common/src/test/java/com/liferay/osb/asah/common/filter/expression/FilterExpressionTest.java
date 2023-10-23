@@ -16,10 +16,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 
 import java.util.Arrays;
@@ -687,8 +686,9 @@ public class FilterExpressionTest {
 
 	@Test
 	public void testFreestyle6() {
-		LocalDateTime localDateTime = LocalDateTime.of(
-			LocalDate.now(TimeZoneDogUtil.getZoneId()), LocalTime.MIDNIGHT);
+		LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
+
+		localDateTime = localDateTime.truncatedTo(ChronoUnit.HOURS);
 
 		_assertEquals(
 			DSL.and(
@@ -705,7 +705,7 @@ public class FilterExpressionTest {
 				DSL.field(
 					"Session.sessionEnd"
 				).gt(
-					localDateTime.minusHours(24)
+					localDateTime.minusHours(23)
 				),
 				DSL.lower(
 					DSL.field("Individual.addresses", String.class)
@@ -718,8 +718,9 @@ public class FilterExpressionTest {
 
 	@Test
 	public void testFreestyle7() {
-		LocalDateTime localDateTime = LocalDateTime.of(
-			LocalDate.now(TimeZoneDogUtil.getZoneId()), LocalTime.MIDNIGHT);
+		LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
+
+		localDateTime = localDateTime.truncatedTo(ChronoUnit.HOURS);
 
 		_assertEquals(
 			DSL.or(
@@ -732,14 +733,14 @@ public class FilterExpressionTest {
 					DSL.field(
 						"Session.sessionEnd"
 					).gt(
-						localDateTime.minusHours(24)
+						localDateTime.minusHours(23)
 					)),
 				DSL.and(
 					DSL.condition("'url1' IN UNNEST(Session.urls)"),
 					DSL.field(
 						"Session.sessionEnd"
 					).gt(
-						localDateTime.minusHours(24)
+						localDateTime.minusHours(23)
 					))),
 			_testFilters.get("testFreestyle7"),
 			new HashSet<>(Arrays.asList("Session")));
@@ -831,8 +832,9 @@ public class FilterExpressionTest {
 
 	@Test
 	public void testFreestyle9() {
-		LocalDateTime localDateTime = LocalDateTime.of(
-			LocalDate.now(TimeZoneDogUtil.getZoneId()), LocalTime.MIDNIGHT);
+		LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
+
+		localDateTime = localDateTime.truncatedTo(ChronoUnit.HOURS);
 
 		_assertEquals(
 			DSL.and(
@@ -849,7 +851,7 @@ public class FilterExpressionTest {
 				DSL.field(
 					"Session.sessionEnd"
 				).gt(
-					localDateTime.minusHours(24)
+					localDateTime.minusHours(23)
 				),
 				DSL.lower(
 					DSL.field("Individual.emailAddress", String.class)
@@ -860,7 +862,7 @@ public class FilterExpressionTest {
 				DSL.field(
 					"Session.sessionEnd"
 				).gt(
-					localDateTime.minusHours(24)
+					localDateTime.minusHours(23)
 				),
 				DSL.field(
 					"Session.sessionEnd"
@@ -875,7 +877,7 @@ public class FilterExpressionTest {
 				DSL.field(
 					"Session.sessionEnd"
 				).gt(
-					localDateTime.minusHours(24)
+					localDateTime.minusHours(23)
 				),
 				DSL.field(
 					"Session.browserName"
@@ -885,7 +887,7 @@ public class FilterExpressionTest {
 				DSL.field(
 					"Session.sessionEnd"
 				).gt(
-					localDateTime.minusHours(24)
+					localDateTime.minusHours(23)
 				),
 				DSL.field(
 					"Individual.id", String.class
@@ -933,8 +935,9 @@ public class FilterExpressionTest {
 
 	@Test
 	public void testFreestyle10() {
-		LocalDateTime localDateTime = LocalDateTime.of(
-			LocalDate.now(TimeZoneDogUtil.getZoneId()), LocalTime.MIDNIGHT);
+		LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
+
+		localDateTime = localDateTime.truncatedTo(ChronoUnit.HOURS);
 
 		_assertEquals(
 			DSL.and(
@@ -953,7 +956,7 @@ public class FilterExpressionTest {
 						DSL.field(
 							"Session.sessionEnd"
 						).gt(
-							localDateTime.minusHours(24)
+							localDateTime.minusHours(23)
 						),
 						DSL.lower(
 							DSL.field("Individual.emailAddress", String.class)
@@ -964,7 +967,7 @@ public class FilterExpressionTest {
 						DSL.field(
 							"Session.sessionEnd"
 						).gt(
-							localDateTime.minusHours(24)
+							localDateTime.minusHours(23)
 						),
 						DSL.field(
 							"Session.sessionEnd"
@@ -979,7 +982,7 @@ public class FilterExpressionTest {
 				DSL.field(
 					"Session.sessionEnd"
 				).gt(
-					localDateTime.minusHours(24)
+					localDateTime.minusHours(23)
 				),
 				DSL.field(
 					"Session.browserName"
@@ -989,7 +992,7 @@ public class FilterExpressionTest {
 				DSL.field(
 					"Session.sessionEnd"
 				).gt(
-					localDateTime.minusHours(24)
+					localDateTime.minusHours(23)
 				),
 				DSL.field(
 					"Individual.id", String.class
@@ -1049,8 +1052,10 @@ public class FilterExpressionTest {
 	@Test
 	public void testFreestyle12() {
 		Field userIdField = DSL.field("Event.userId");
-		LocalDateTime localDateTime = LocalDateTime.of(
-			LocalDate.now(TimeZoneDogUtil.getZoneId()), LocalTime.MIDNIGHT);
+
+		LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
+
+		localDateTime = localDateTime.truncatedTo(ChronoUnit.HOURS);
 
 		Field identityIdField = DSL.field("Identity.id");
 		Field individualIdField = DSL.field("Individual.id");
@@ -1087,7 +1092,7 @@ public class FilterExpressionTest {
 							DSL.field(
 								"Event.eventDate"
 							).gt(
-								localDateTime.minus(1, ChronoUnit.DAYS)
+								localDateTime.minusHours(23)
 							)
 						)
 					).groupBy(
@@ -1141,7 +1146,7 @@ public class FilterExpressionTest {
 							DSL.field(
 								"Event.eventDate"
 							).gt(
-								localDateTime.minus(1, ChronoUnit.DAYS)
+								localDateTime.minusHours(23)
 							)
 						).and(
 							DSL.field(
@@ -1164,8 +1169,10 @@ public class FilterExpressionTest {
 	@Test
 	public void testFreestyle13() {
 		Field userIdField = DSL.field("Event.userId");
-		LocalDateTime localDateTime = LocalDateTime.of(
-			LocalDate.now(TimeZoneDogUtil.getZoneId()), LocalTime.MIDNIGHT);
+
+		LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
+
+		localDateTime = localDateTime.truncatedTo(ChronoUnit.HOURS);
 
 		Field identityIdField = DSL.field("Identity.id");
 		Field individualIdField = DSL.field("Individual.id");
@@ -1203,7 +1210,7 @@ public class FilterExpressionTest {
 								DSL.field(
 									"Event.eventDate"
 								).gt(
-									localDateTime.minus(1, ChronoUnit.DAYS)
+									localDateTime.minusHours(23)
 								)
 							)
 						).groupBy(
@@ -1257,7 +1264,7 @@ public class FilterExpressionTest {
 								DSL.field(
 									"Event.eventDate"
 								).gt(
-									localDateTime.minus(1, ChronoUnit.DAYS)
+									localDateTime.minusHours(23)
 								)
 							).and(
 								DSL.field(
@@ -1304,7 +1311,7 @@ public class FilterExpressionTest {
 								DSL.field(
 									"Event.eventDate"
 								).gt(
-									localDateTime.minus(1, ChronoUnit.DAYS)
+									localDateTime.minusHours(23)
 								)
 							)
 						).groupBy(
@@ -1358,7 +1365,7 @@ public class FilterExpressionTest {
 								DSL.field(
 									"Event.eventDate"
 								).gt(
-									localDateTime.minus(1, ChronoUnit.DAYS)
+									localDateTime.minusHours(23)
 								)
 							).and(
 								DSL.field(
@@ -1381,8 +1388,10 @@ public class FilterExpressionTest {
 	@Test
 	public void testFreestyle14() {
 		Field userIdField = DSL.field("Event.userId");
-		LocalDateTime localDateTime = LocalDateTime.of(
-			LocalDate.now(TimeZoneDogUtil.getZoneId()), LocalTime.MIDNIGHT);
+
+		LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
+
+		localDateTime = localDateTime.truncatedTo(ChronoUnit.HOURS);
 
 		Field identityIdField = DSL.field("Identity.id");
 		Field individualIdField = DSL.field("Individual.id");
@@ -1430,7 +1439,7 @@ public class FilterExpressionTest {
 									DSL.field(
 										"Event.eventDate"
 									).gt(
-										localDateTime.minus(1, ChronoUnit.DAYS)
+										localDateTime.minusHours(23)
 									)
 								)
 							).groupBy(
@@ -1484,7 +1493,7 @@ public class FilterExpressionTest {
 								DSL.field(
 									"Event.eventDate"
 								).gt(
-									localDateTime.minus(1, ChronoUnit.DAYS)
+									localDateTime.minusHours(23)
 								)
 							).and(
 								DSL.field(
@@ -1514,8 +1523,10 @@ public class FilterExpressionTest {
 	@Test
 	public void testFreestyle15() {
 		Field userIdField = DSL.field("Event.userId");
-		LocalDateTime localDateTime = LocalDateTime.of(
-			LocalDate.now(TimeZoneDogUtil.getZoneId()), LocalTime.MIDNIGHT);
+
+		LocalDateTime localDateTime = LocalDateTime.now(ZoneOffset.UTC);
+
+		localDateTime = localDateTime.truncatedTo(ChronoUnit.HOURS);
 
 		Field identityIdField = DSL.field("Identity.id");
 		Field individualIdField = DSL.field("Individual.id");
@@ -1564,8 +1575,7 @@ public class FilterExpressionTest {
 										DSL.field(
 											"Event.eventDate"
 										).gt(
-											localDateTime.minus(
-												1, ChronoUnit.DAYS)
+											localDateTime.minusHours(23)
 										)
 									)
 								).groupBy(
@@ -1619,8 +1629,7 @@ public class FilterExpressionTest {
 										DSL.field(
 											"Event.eventDate"
 										).gt(
-											localDateTime.minus(
-												1, ChronoUnit.DAYS)
+											localDateTime.minusHours(23)
 										)
 									).and(
 										DSL.field(
