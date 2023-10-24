@@ -26,6 +26,7 @@ USING
 			FROM
 				`${PROJECT_ID}.${asah_project_id}.event` AS Event
 			WHERE
+				DATE(Event.eventDate, '${asah_project_time_zone}') >= DATE('2023-09-05') AND
 				DATE(Event.eventDate, '${asah_project_time_zone}') < CURRENT_DATE('${asah_project_time_zone}')
 		),
 		PageViews AS (
