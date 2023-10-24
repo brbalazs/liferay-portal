@@ -33,8 +33,9 @@ USING
 			DATE(eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = '{{ data_interval_start.to_date_string() }}' AND
 			sessionId IS NOT NULL
 		GROUP BY
-			browserName, canonicalUrl, channelId, city, country, deviceType,
-			eventDate, platformName, region, sessionId, title, userId
+			browserName, canonicalUrl, channelId, city, country, description,
+			deviceType, eventDate, platformName, region, sessionId, title,
+			userId
 	) AS staging
 ON (
 	DATE(replica.eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = '{{ data_interval_start.to_date_string() }}' AND
