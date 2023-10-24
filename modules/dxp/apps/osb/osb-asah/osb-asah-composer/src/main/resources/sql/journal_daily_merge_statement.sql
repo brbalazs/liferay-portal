@@ -20,7 +20,7 @@ USING
 		FROM
 			`{{ dag.default_args['ac_project_id'] }}.journalhourly`
 		WHERE
-			eventDate BETWEEN TIMESTAMP('{{ data_interval_start.to_datetime_string() }}') AND TIMESTAMP('{{ data_interval_end.to_datetime_string() }}')
+			DATE(eventDate, '{{ dag.default_args['ac_project_time_zone_id'] }}') = DATE(TIMESTAMP('{{ data_interval_start.to_datetime_string() }}'), '{{ dag.default_args['ac_project_time_zone_id'] }}')
 		GROUP BY
 			assetId, assetTitle, browserName, canonicalUrl, channelId, city,
 			country, deviceType, eventDate, pageTitle, platformName, region,
