@@ -13,6 +13,8 @@ Import-Package:\
 	\
 	!com.werken.*,\
 	\
+	!jakarta.xml.bind.*,\
+	\
 	!net.fortuna.*,\
 	\
 	!net.jcip.*,\
