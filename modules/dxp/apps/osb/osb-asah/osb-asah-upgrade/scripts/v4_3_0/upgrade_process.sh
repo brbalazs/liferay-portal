@@ -12,11 +12,11 @@ fi
 
 function upgrade_page_daily_merge_statement {
 	local asah_project_id=${1}
-	local asah_project_timezone=${2}
+	local asah_project_time_zone=${2}
 
-	sed -e "s/\${asah_project_id}/$asah_project_id/g" -e "s~\${asah_project_time_zone}~$asah_project_timezone~g" -e "s/\${PROJECT_ID}/$PROJECT_ID/g" -e "s/\${REGION_ID}/$REGION_ID/g" upgrade_page_daily_merge_statement.sql > new_upgrade_page_daily_merge_statement.sql
+	sed -e "s/\${asah_project_id}/$asah_project_id/g" -e "s~\${asah_project_time_zone}~$asah_project_time_zone~g" -e "s/\${PROJECT_ID}/$PROJECT_ID/g" -e "s/\${REGION_ID}/$REGION_ID/g" upgrade_page_daily_merge_statement.sql > new_upgrade_page_daily_merge_statement.sql
 
-	echo "Upgrade Page Daily for Project ID: ${PROJECT_ID}, Asah Project ID: ${asah_project_id}, Asah Project Time Zone: ${asah_project_timezone}"
+	echo "Upgrade Page Daily for Project ID: ${PROJECT_ID}, Asah Project ID: ${asah_project_id}, Asah Project Time Zone: ${asah_project_time_zone}"
 
 	bq --project_id ${PROJECT_ID} query --use_legacy_sql=false < new_upgrade_page_daily_merge_statement.sql
 }
