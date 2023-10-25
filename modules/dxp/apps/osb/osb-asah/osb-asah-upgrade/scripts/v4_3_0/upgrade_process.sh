@@ -23,12 +23,12 @@ function upgrade_page_daily_merge_statement {
 
 for i in $(bq ls --datasets=true --max_results=1000 | grep "asah" | grep -v "osbasah" | awk '{$1=$1;print}')
 do :
-	project_time_zone=$(cat project_time_zones | grep "$i" | awk '{print $2}')
+	project_time_zone=$(cat project_time_zones | grep "${i}" | awk '{print $2}')
 
-	if [ -n "$project_time_zone" ]
+	if [ -n "${project_time_zone}" ]
 	then
-		upgrade_page_daily_merge_statement $i $project_time_zone
+		upgrade_page_daily_merge_statement ${i} $project_time_zone
 	else
-		echo "Unable to find time zone for $i. Skipping project.";
+		echo "Unable to find time zone for ${i}. Skipping project.";
 	fi
 done
