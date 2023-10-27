@@ -1,3 +1,15 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		gradlePluginPortal()
+	}
+	dependencies {
+		classpath group: "gradle.plugin.com.github.johnrengelman", name: "shadow", version: "7.1.2"
+	}
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
 ext {
 	maxmindGeoIPVersion = "20180327"
 }
@@ -55,4 +67,8 @@ processResources {
 			String fileName -> fileName.replace("-${maxmindGeoIPVersion}", "")
 		}
 	}
+}
+
+shadowJar {
+	mergeServiceFiles()
 }
