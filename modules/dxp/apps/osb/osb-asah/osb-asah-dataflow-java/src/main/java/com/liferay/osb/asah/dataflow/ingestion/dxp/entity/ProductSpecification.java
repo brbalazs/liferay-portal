@@ -35,7 +35,10 @@ public class ProductSpecification implements Serializable {
 	@Nullable
 	public Long specificationId;
 
+	@Nullable
 	public String specificationKey;
+
+	@Nullable
 	public Map<String, String> value;
 
 }
