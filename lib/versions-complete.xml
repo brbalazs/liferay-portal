@@ -1818,7 +1818,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.remote.rest.extender.jar!jettison.jar</file-name>
-				<version>1.5.3</version>
+				<version>1.5.4</version>
 				<project-name>jettison</project-name>
 				<project-url>https://github.com/jettison-json/jettison</project-url>
 				<licenses>
