@@ -3,7 +3,7 @@ copyLibs {
 }
 
 dependencies {
-	compileOnly group: "org.json", name: "json", version: "20230227"
+	compileOnly group: "org.json", name: "json", version: "20231013"
 	compileOnly group: "org.skyscreamer", name: "jsonassert", version: "1.2.3"
 
 	testImplementation group: "com.google.template", name: "soy", version: "2015-04-10"
