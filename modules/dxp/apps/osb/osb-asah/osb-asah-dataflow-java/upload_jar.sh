@@ -12,7 +12,7 @@ then
 
 	gcloud storage cp build/libs/osb-asah-dataflow-java.jar ${GCS_BUCKET}
 else
-	echo "Unable to find jar file. Skipping."
+	echo "Unable to find JAR file. Skipping."
 
 	exit 1
 fi
