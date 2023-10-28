@@ -8,7 +8,9 @@ GCS_BUCKET=gs://${PROJECT_ID}-dataflow/pipeline/
 
 if [ -f build/libs/osb-asah-dataflow-java-all.jar ]
 then
-	gcloud storage cp build/libs/osb-asah-dataflow-java-all.jar ${GCS_BUCKET}
+	mv build/libs/osb-asah-dataflow-java-all.jar build/libs/osb-asah-dataflow-java.jar
+
+	gcloud storage cp build/libs/osb-asah-dataflow-java.jar ${GCS_BUCKET}
 else
 	echo "Unable to find jar file. Skipping."
 
