@@ -1,7 +1,7 @@
 buildscript {
 	repositories {
-		mavenCentral()
 		gradlePluginPortal()
+		mavenCentral()
 	}
 	dependencies {
 		classpath group: "gradle.plugin.com.github.johnrengelman", name: "shadow", version: "7.1.2"
