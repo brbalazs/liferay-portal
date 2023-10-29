@@ -65,7 +65,7 @@ def create_dag(
 			jar=DATAFLOW_BUCKET + '/pipeline/osb-asah-dataflow-java.jar',
 			job_class=dataflow_job_class,
 			job_name=dataflow_job_name,
-			location= os.environ['GOOGLE_REGION'],
+			location=os.environ['GOOGLE_REGION'],
 			options={
 				"zipFilePath": "{{ params['zipFilePath'] }}",
 				"projectId": ac_project_id,
@@ -91,6 +91,24 @@ response = requests.get(
 
 for project in response.json():
 
+	#
+	# Asset Entity
+	#
+
+	dag_id = 'dxp_asset_entity_ingestion_dataflow_trigger_{}'.format(
+		project.get('id')
+	)
+
+	globals()[dag_id] = create_dag(
+		project.get('id'), dag_id,
+		'DXP Asset Entity Ingestion Dataflow Trigger For {}'.format(
+			project.get('id')
+		),
+		'com.liferay.osb.asah.dataflow.ingestion.dxp.DXPAssetEntityIngestionPipeline',
+		'dxpassetentityingestionpipeline-{}'.format(project.get('id')),
+		['asset_entity_merge'],
+		'dxp_asset_entity_ingestion_dataflow_trigger'
+	)
 	#
 	# DXP Entity
 	#
