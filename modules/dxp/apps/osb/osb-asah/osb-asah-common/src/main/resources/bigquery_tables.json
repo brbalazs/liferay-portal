@@ -156,6 +156,192 @@
 			"type": "DAY"
 		}
 	},
+	"assetentity": {
+		"clusteringFields": [
+			"dataSourceId"
+		],
+		"fields": [
+			{
+				"mode": "REQUIRED",
+				"name": "assetEntryId",
+				"type": "INT64"
+			},
+			{
+				"mode": "REPEATED",
+				"name": "categoryIds",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "channelId",
+				"type": "INT64"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "className",
+				"type": "STRING"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "classPK",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "classTypeId",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "classTypeName",
+				"type": "STRING"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "createDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "dataSourceId",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "expirationDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "groupId",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "modifiedDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "projectId",
+				"type": "STRING"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "publishDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "REPEATED",
+				"name": "tags",
+				"type": "STRING"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "title",
+				"type": "STRING"
+			}
+		]
+	},
+	"assetentity_raw": {
+		"clusteringFields": [
+			"dataSourceId",
+			"uploadType",
+			"uploadDate"
+		],
+		"fields": [
+			{
+				"mode": "REQUIRED",
+				"name": "assetEntryId",
+				"type": "INT64"
+			},
+			{
+				"mode": "REPEATED",
+				"name": "categoryIds",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "channelId",
+				"type": "INT64"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "className",
+				"type": "STRING"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "classPK",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "classTypeId",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "classTypeName",
+				"type": "STRING"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "createDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "dataSourceId",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "expirationDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "groupId",
+				"type": "INT64"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "modifiedDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "REQUIRED",
+				"name": "projectId",
+				"type": "STRING"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "publishDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "REPEATED",
+				"name": "tags",
+				"type": "STRING"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "title",
+				"type": "STRING"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "uploadDate",
+				"type": "TIMESTAMP"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "uploadType",
+				"type": "STRING"
+			}
+		]
+	},
 	"blogdaily": {
 		"clusteringFields": [
 			"channelId",
