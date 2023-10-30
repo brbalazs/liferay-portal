@@ -19,7 +19,9 @@ import org.apache.beam.sdk.schemas.annotations.DefaultSchema;
 @DefaultSchema(JavaFieldSchema.class)
 public class Product extends BaseDXPEntity {
 
-	public long catalogId;
+	@Nullable
+	public Long catalogId;
+
 	public List<Long> categoryIds;
 
 	@Nullable
@@ -37,7 +39,8 @@ public class Product extends BaseDXPEntity {
 	@Nullable
 	public String externalReferenceCode;
 
-	public long id;
+	@Nullable
+	public Long id;
 
 	@Nullable
 	public Map<String, String> metaDescription;
@@ -51,12 +54,14 @@ public class Product extends BaseDXPEntity {
 	@Nullable
 	public String modifiedDate;
 
+	@Nullable
 	public Map<String, String> name;
 
 	@Nullable
 	public List<Long> productChannelIds;
 
-	public long productId;
+	@Nullable
+	public Long productId;
 
 	@Nullable
 	public List<ProductOption> productOptions;
@@ -70,7 +75,8 @@ public class Product extends BaseDXPEntity {
 	@Nullable
 	public List<Sku> skus;
 
-	public long status;
+	@Nullable
+	public Long status;
 
 	@Nullable
 	public Boolean subscriptionEnabled;

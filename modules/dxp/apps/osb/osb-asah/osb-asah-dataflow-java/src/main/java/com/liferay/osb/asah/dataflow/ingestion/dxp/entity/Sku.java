@@ -48,6 +48,7 @@ public class Sku implements Serializable {
 	@Nullable
 	public Boolean purchasable;
 
+	@Nullable
 	public String sku;
 
 }
