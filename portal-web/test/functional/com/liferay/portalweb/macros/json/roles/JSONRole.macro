@@ -1,6 +1,7 @@
 definition {
 
-	macro addOrganizationRole {
+	@summary = "Default summary"
+	macro addOrganizationRole(roleTitle = null, roleKey = null, roleDescription = null) {
 		Variables.assertDefined(parameterList = ${roleTitle});
 
 		var descriptionMap = JSONRoleSetter.setDescriptionMap(description = ${roleDescription});
@@ -15,7 +16,8 @@ definition {
 			type = ${type});
 	}
 
-	macro addRegularRole {
+	@summary = "Default summary"
+	macro addRegularRole(roleTitle = null, roleKey = null, roleDescription = null) {
 		Variables.assertDefined(parameterList = ${roleTitle});
 
 		var descriptionMap = JSONRoleSetter.setDescriptionMap(description = ${roleDescription});
@@ -30,7 +32,8 @@ definition {
 			type = ${type});
 	}
 
-	macro addSiteRole {
+	@summary = "Default summary"
+	macro addSiteRole(roleTitle = null, roleKey = null, roleDescription = null) {
 		Variables.assertDefined(parameterList = ${roleTitle});
 
 		var descriptionMap = JSONRoleSetter.setDescriptionMap(description = ${roleDescription});
@@ -45,7 +48,8 @@ definition {
 			type = ${type});
 	}
 
-	macro assignRoleToUser {
+	@summary = "Default summary"
+	macro assignRoleToUser(roleTitle = null, userEmailAddress = null) {
 		Variables.assertDefined(parameterList = "${roleTitle},${userEmailAddress}");
 
 		var roleId = JSONRoleSetter.setRoleId(name = ${roleTitle});
@@ -56,7 +60,8 @@ definition {
 			userId = ${userId});
 	}
 
-	macro assignSiteRoleToUser {
+	@summary = "Default summary"
+	macro assignSiteRoleToUser(groupName = null, roleTitle = null, userEmailAddress = null) {
 		Variables.assertDefined(parameterList = "${groupName},${roleTitle},${userEmailAddress}");
 
 		var groupId = JSONUserSetter.setGroupId(groupName = ${groupName});

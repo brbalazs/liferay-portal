@@ -1,6 +1,7 @@
 definition {
 
-	macro checkFacet {
+	@summary = "Default summary"
+	macro checkFacet(facetValueName = null) {
 		Check(
 			checkboxName = ${facetValueName},
 			locator1 = "Checkbox#ANY_CHECKBOX");
@@ -10,7 +11,8 @@ definition {
 			locator1 = "Checkbox#ANY_CHECKBOX");
 	}
 
-	macro checkFacetAndViewURL {
+	@summary = "Default summary"
+	macro checkFacetAndViewURL(facetValueName = null, searchPage = null, searchTerm = null, facetValue = null, facetClass = null) {
 		SearchFacetPortlet.checkFacet(facetValueName = ${facetValueName});
 
 		var searchURL = SearchFacetPortlet.generateFacetCheckedURL(
@@ -26,7 +28,8 @@ definition {
 		return ${searchURL};
 	}
 
-	macro clearAllFacetsAndViewURL {
+	@summary = "Default summary"
+	macro clearAllFacetsAndViewURL() {
 		while (IsElementPresent(locator1 = "SearchResults#FACET_PORTLET_CLEAR_GENERIC")) {
 			var facetClearClass = selenium.getText("SearchResults#FACET_PORTLET_CLEAR_PANEL_TITLE");
 
@@ -38,7 +41,8 @@ definition {
 		return ${searchURL};
 	}
 
-	macro clearFacet {
+	@summary = "Default summary"
+	macro clearFacet() {
 		if (isSet(facetClass)) {
 			var facetClass = StringUtil.toLowerCase(${facetClass});
 
@@ -56,7 +60,8 @@ definition {
 		}
 	}
 
-	macro clearFacetAndViewURL {
+	@summary = "Default summary"
+	macro clearFacetAndViewURL(facetClass = null) {
 		if (isSet(facetClass)) {
 			SearchFacetPortlet.clearFacet(facetClass = ${facetClass});
 
@@ -73,7 +78,8 @@ definition {
 		}
 	}
 
-	macro configureCustomFacet {
+	@summary = "Default summary"
+	macro configureCustomFacet(aggregationField = null, customParameterName = null) {
 		Portlet.gotoPortletOptions(
 			portletName = "Custom Facet",
 			portletOption = "Configuration");
@@ -98,7 +104,8 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	macro generateFacetCheckedURL {
+	@summary = "Default summary"
+	macro generateFacetCheckedURL(facetValueName = null, searchPage = null, searchTerm = null, facetClass = null) {
 		if (!(isSet(searchURL))) {
 			var searchURL = SearchPortlets.getSearchTermURL(
 				searchPage = ${searchPage},
@@ -143,7 +150,8 @@ definition {
 		return ${searchURL};
 	}
 
-	macro generateFacetClearedURL {
+	@summary = "Default summary"
+	macro generateFacetClearedURL() {
 		var facetClass = StringUtil.toLowerCase(${facetClass});
 
 		var beforeFacetGroup = RegexUtil.replace(${searchURL}, "^(.*?)((?:&${facetClass}[^&]+)+)(.*)", 1);
@@ -154,7 +162,8 @@ definition {
 		return ${searchURL};
 	}
 
-	macro generateFacetUncheckedURL {
+	@summary = "Default summary"
+	macro generateFacetUncheckedURL(facetValueName = null, facetClass = null) {
 		if (${facetClass} == "type") {
 			var facetValue = SearchFacetPortlet.getFacetTypeValue(facetTypeValueName = ${facetValueName});
 		}
@@ -185,7 +194,8 @@ definition {
 		return ${searchURL};
 	}
 
-	macro getFacetTypeValue {
+	@summary = "Default summary"
+	macro getFacetTypeValue(facetTypeValueName = null) {
 		if (contains(${facetTypeValueName}, "Blogs")) {
 			var facetTypeValue = "com.liferay.blogs.model.BlogsEntry";
 			var facetValueFound = "true";
@@ -213,7 +223,8 @@ definition {
 		return ${facetTypeValue};
 	}
 
-	macro moveAssetTypesToAvailable {
+	@summary = "Default summary"
+	macro moveAssetTypesToAvailable() {
 		Portlet.gotoPortletOptions(
 			portletName = "Type Facet",
 			portletOption = "Configuration");
@@ -237,7 +248,8 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	macro uncheckFacet {
+	@summary = "Default summary"
+	macro uncheckFacet(facetValueName = null) {
 		Uncheck(
 			checkboxName = ${facetValueName},
 			locator1 = "Checkbox#ANY_CHECKBOX");
@@ -247,7 +259,8 @@ definition {
 			locator1 = "Checkbox#ANY_CHECKBOX");
 	}
 
-	macro uncheckFacetAndViewURL {
+	@summary = "Default summary"
+	macro uncheckFacetAndViewURL(facetValueName = null, facetValue = null, facetClass = null) {
 		SearchFacetPortlet.uncheckFacet(facetValueName = ${facetValueName});
 
 		var searchURL = SearchFacetPortlet.generateFacetUncheckedURL(
@@ -261,7 +274,8 @@ definition {
 		return ${searchURL};
 	}
 
-	macro updateFacetConfiguration {
+	@summary = "Default summary"
+	macro updateFacetConfiguration(maxTerms = null, displayFrequencies = null, frequencyThreshold = null, parameterName = null, portletName = null) {
 		Portlet.gotoPortletOptions(
 			portletName = ${portletName},
 			portletOption = "Configuration");

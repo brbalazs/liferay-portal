@@ -1,6 +1,7 @@
 definition {
 
-	macro assertEquals {
+	@summary = "Default summary"
+	macro assertEquals(actual = null, expected = null) {
 		echo(${expected});
 
 		echo(${actual});
@@ -13,7 +14,8 @@ definition {
 		}
 	}
 
-	macro assertNotEquals {
+	@summary = "Default summary"
+	macro assertNotEquals(actual = null, expected = null) {
 		echo(${expected});
 
 		echo(${actual});
@@ -26,7 +28,8 @@ definition {
 		}
 	}
 
-	macro assertPartialEquals {
+	@summary = "Default summary"
+	macro assertPartialEquals(actual = null, expected = null) {
 		echo(${expected});
 
 		echo(${actual});
@@ -39,7 +42,8 @@ definition {
 		}
 	}
 
-	macro fail {
+	@summary = "Default summary"
+	macro fail() {
 		if (!(isSet(message))) {
 			var message = "FAIL";
 		}
@@ -49,7 +53,8 @@ definition {
 		fail(${message});
 	}
 
-	macro hardRefresh {
+	@summary = "Default summary"
+	macro hardRefresh() {
 		var mac = OSDetector.isApple();
 
 		if (${mac} == "true") {
@@ -62,7 +67,8 @@ definition {
 		WaitForPageLoad();
 	}
 
-	macro isGreaterThan {
+	@summary = "Default summary"
+	macro isGreaterThan(actual = null, expected = null) {
 		echo(${expected});
 
 		echo(${actual});
@@ -77,7 +83,8 @@ definition {
 		}
 	}
 
-	macro pass {
+	@summary = "Default summary"
+	macro pass() {
 		if (!(isSet(message))) {
 			var message = "PASS";
 		}
@@ -85,7 +92,8 @@ definition {
 		echo(${message});
 	}
 
-	macro typeIntoField {
+	@summary = "Default summary"
+	macro typeIntoField() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(

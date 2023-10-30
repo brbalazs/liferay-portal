@@ -1,6 +1,7 @@
 definition {
 
-	macro _addGroup {
+	@summary = "Default summary"
+	macro _addGroup(parentGroupId = null, groupDescriptionMap = null, groupNameMap = null) {
 		Variables.assertDefined(parameterList = ${groupNameMap});
 
 		if (!(isSet(portalURL))) {
@@ -26,7 +27,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _assignGroupRoleToUser {
+	@summary = "Default summary"
+	macro _assignGroupRoleToUser(roleId = null, groupId = null, userId = null) {
 		Variables.assertDefined(parameterList = "${groupId},${roleId},${userId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -42,7 +44,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _assignUserToGroup {
+	@summary = "Default summary"
+	macro _assignUserToGroup(groupId = null, userId = null) {
 		Variables.assertDefined(parameterList = "${groupId},${userId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -57,7 +60,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _deleteGroup {
+	@summary = "Default summary"
+	macro _deleteGroup(groupId = null) {
 		Variables.assertDefined(parameterList = ${groupId});
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -71,7 +75,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _getGroupIdByGroupKey {
+	@summary = "Default summary"
+	macro _getGroupIdByGroupKey(site = null, grandParentGroupName = null, parentGroupName = null, groupKey = null) {
 		Variables.assertDefined(parameterList = "${groupKey},${site}");
 
 		var companyId = JSONCompany.getCompanyId();
@@ -98,7 +103,8 @@ definition {
 		return ${groupId};
 	}
 
-	macro _getGroupIdByName {
+	@summary = "Default summary"
+	macro _getGroupIdByName(groupName = null, site = null) {
 		Variables.assertDefined(parameterList = "${groupName},${site}");
 
 		if (!(isSet(portalURL))) {
@@ -125,7 +131,8 @@ definition {
 		return ${groupId};
 	}
 
-	macro _getGroupName {
+	@summary = "Default summary"
+	macro _getGroupName(groupNam = null, groupId = null) {
 		Variables.assertDefined(parameterList = ${groupId});
 
 		var companyId = JSONCompany.getCompanyId();
@@ -141,7 +148,8 @@ definition {
 		return ${groupNam};
 	}
 
-	macro _getParentGroupIdByName {
+	@summary = "Default summary"
+	macro _getParentGroupIdByName(groupName = null, grandParentGroupName = null) {
 		Variables.assertDefined(parameterList = ${groupName});
 
 		var companyId = JSONCompany.getCompanyId();
@@ -166,7 +174,8 @@ definition {
 		return ${groupId};
 	}
 
-	macro _getSiteIdByGroupKey {
+	@summary = "Default summary"
+	macro _getSiteIdByGroupKey(groupName = null) {
 		Variables.assertDefined(parameterList = ${groupName});
 
 		var companyId = JSONCompany.getCompanyId();

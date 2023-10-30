@@ -2,56 +2,56 @@
 @summary = "Mouse over '${locator1}'"
 definition {
 
-	function mouseOver {
+	function mouseOver() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible();
+		selenium.waitForVisible(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseOverClickNavigation {
+	function mouseOverClickNavigation() {
 		WaitForSPARefresh();
 
 		selenium.clickAt("//div[@id='navigationCollapse']", "");
 
-		selenium.waitForElementPresent("//script[contains(@src,'/frontend-js-web/liferay/sign_in_modal.js')]");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		MouseOver.mouseOver();
 
 		selenium.pause(1000);
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseOverInvisible {
+	function mouseOverInvisible() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent();
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseOverNotVisible {
+	function mouseOverNotVisible() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent();
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		selenium.waitForVisible();
+		selenium.waitForVisible(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

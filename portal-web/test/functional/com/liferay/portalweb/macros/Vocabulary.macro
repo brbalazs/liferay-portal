@@ -1,6 +1,7 @@
 definition {
 
-	macro addAssociatedAssetType {
+	@summary = "Default summary"
+	macro addAssociatedAssetType(required = null, assetType = null) {
 		Panel.expandPanel(panel = "Associated Asset Types");
 
 		if (!(isSet(rowNumber))) {
@@ -19,7 +20,8 @@ definition {
 		}
 	}
 
-	macro addCP {
+	@summary = "Default summary"
+	macro addCP(allowMultipleCategories = null, localizationName = null, locale2 = null, vocabularyDescription = null, localization2Name = null, vocabularyName = null, locale = null) {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputName(name = ${vocabularyName});
@@ -51,7 +53,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro addViewableByCP {
+	@summary = "Default summary"
+	macro addViewableByCP(viewableBy = null, vocabularyName = null) {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputName(name = ${vocabularyName});
@@ -71,7 +74,8 @@ definition {
 			value1 = ${vocabularyName});
 	}
 
-	macro addVocabularyWithNullTitle {
+	@summary = "Default summary"
+	macro addVocabularyWithNullTitle() {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputName(name = " ");
@@ -81,7 +85,8 @@ definition {
 		Alert.viewRequiredField();
 	}
 
-	macro addWithAssociatedAssetTypeCP {
+	@summary = "Default summary"
+	macro addWithAssociatedAssetTypeCP(assetSubtype = null, vocabularyName = null, rowNumber = null, required = null, assetType = null) {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputName(name = ${vocabularyName});
@@ -105,7 +110,8 @@ definition {
 			value1 = ${vocabularyName});
 	}
 
-	macro deleteAssociatedAssetTypeViaVocabularyCP {
+	@summary = "Default summary"
+	macro deleteAssociatedAssetTypeViaVocabularyCP(vocabularyName = null) {
 		var key_vocabularyName = ${vocabularyName};
 
 		AssertTextEquals(
@@ -123,7 +129,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro deleteByIconCP {
+	@summary = "Default summary"
+	macro deleteByIconCP(vocabularyName = null) {
 		var key_vocabularyName = ${vocabularyName};
 
 		AssertTextEquals(
@@ -141,7 +148,8 @@ definition {
 		AssertTextNotPresent(value1 = ${vocabularyName});
 	}
 
-	macro deleteByMenuCP {
+	@summary = "Default summary"
+	macro deleteByMenuCP(vocabularyName = null) {
 		AssertTextEquals(
 			key_vocabularyName = ${vocabularyName},
 			locator1 = "Categories#VOCABULARY_ENTRY",
@@ -160,7 +168,8 @@ definition {
 			value1 = ${vocabularyName});
 	}
 
-	macro editCP {
+	@summary = "Default summary"
+	macro editCP(allowMultipleCategories = null, vocabularyNameEdit = null, vocabularyName = null) {
 		AssertTextEquals(
 			key_vocabularyName = ${vocabularyName},
 			locator1 = "Categories#VOCABULARY_ENTRY",
@@ -192,7 +201,8 @@ definition {
 		}
 	}
 
-	macro tearDownCP {
+	@summary = "Default summary"
+	macro tearDownCP() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -209,7 +219,8 @@ definition {
 		}
 	}
 
-	macro viewCP {
+	@summary = "Default summary"
+	macro viewCP(allowMultipleCategories = null, vocabularyName = null) {
 		var key_vocabularyName = ${vocabularyName};
 
 		AssertTextEquals(
@@ -225,7 +236,8 @@ definition {
 		}
 	}
 
-	macro viewSearchResultsCP {
+	@summary = "Default summary"
+	macro viewSearchResultsCP(vocabularyNameList = null, nullResult = null, vocabularyDescriptionList = null) {
 		if (isSet(vocabularyNameList)) {
 			for (var vocabularyName : list ${vocabularyNameList}) {
 				var key_vocabularyName = ${vocabularyName};
@@ -251,7 +263,8 @@ definition {
 		}
 	}
 
-	macro viewVocabularyPermissionsCP {
+	@summary = "Default summary"
+	macro viewVocabularyPermissionsCP(viewableBy = null, vocabularyName = null) {
 		var key_vocabularyName = ${vocabularyName};
 
 		AssertTextEquals(
@@ -277,7 +290,8 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	macro viewWithAssociatedAssetTypeCP {
+	@summary = "Default summary"
+	macro viewWithAssociatedAssetTypeCP(vocabularyName = null, vocabularyAssociatedAssetType = null) {
 		var key_vocabularyName = ${vocabularyName};
 
 		AssertTextEquals(

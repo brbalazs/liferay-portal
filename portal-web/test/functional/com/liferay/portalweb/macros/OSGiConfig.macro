@@ -1,6 +1,7 @@
 definition {
 
-	macro deployOSGiConfigFile {
+	@summary = "Default summary"
+	macro deployOSGiConfigFile(OSGiConfigFileName = null, OSGiConfigFileBaseDir = null) {
 		Variables.assertDefined(parameterList = "${OSGiConfigFileBaseDir},${OSGiConfigFileName}");
 
 		var configs = FileUtil.read("${OSGiConfigFileBaseDir}/${OSGiConfigFileName}");
@@ -9,7 +10,8 @@ definition {
 		FileUtil.write("${liferayHome}/osgi/configs/${OSGiConfigFileName}", ${configs});
 	}
 
-	macro deployOSGiConfigs {
+	@summary = "Default summary"
+	macro deployOSGiConfigs(OSGiConfigs = null, OSGiConfigFileName = null) {
 		Variables.assertDefined(parameterList = "${OSGiConfigs},${OSGiConfigFileName}");
 
 		var configList = "";

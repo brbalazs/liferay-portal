@@ -1,6 +1,7 @@
 definition {
 
-	macro setCategoryId {
+	@summary = "Default summary"
+	macro setCategoryId(vocabularyId = null, groupId = null, categoryName = null) {
 		Variables.assertDefined(parameterList = "${categoryName},${groupId},${vocabularyId}");
 
 		var categoryId = JSONCategoryAPI._getCategoryIdByName(
@@ -11,7 +12,8 @@ definition {
 		return ${categoryId};
 	}
 
-	macro setDescriptionMap {
+	@summary = "Default summary"
+	macro setDescriptionMap(description = null) {
 		if (isSet(descriptionMap)) {
 			var descriptionMap = JSONUtil2._convertLocalizedListToMap(listMap = ${descriptionMap});
 		}
@@ -25,7 +27,8 @@ definition {
 		return ${descriptionMap};
 	}
 
-	macro setGroupId {
+	@summary = "Default summary"
+	macro setGroupId(groupName = null) {
 		Variables.assertDefined(parameterList = ${groupName});
 
 		if (!(isSet(site))) {
@@ -39,7 +42,8 @@ definition {
 		return ${groupId};
 	}
 
-	macro setParentCategoryId {
+	@summary = "Default summary"
+	macro setParentCategoryId(parentCategoryName = null, vocabularyId = null, groupId = null) {
 		if (!(isSet(parentCategoryName))) {
 			var parentCategoryId = 0;
 		}
@@ -55,7 +59,8 @@ definition {
 		return ${parentCategoryId};
 	}
 
-	macro setTitleMap {
+	@summary = "Default summary"
+	macro setTitleMap(title = null) {
 		JSONUtil2._exclusiveOrCheck(
 			A = ${title},
 			B = ${titleMap},
@@ -71,7 +76,8 @@ definition {
 		return ${titleMap};
 	}
 
-	macro setVocabularyId {
+	@summary = "Default summary"
+	macro setVocabularyId(groupId = null, vocabularyName = null) {
 		Variables.assertDefined(parameterList = "${groupId},${vocabularyName}");
 
 		var vocabularyId = JSONCategoryAPI._getVocabularyIdByName(

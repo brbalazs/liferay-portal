@@ -1,6 +1,7 @@
 definition {
 
-	macro viewActivitiesDuration {
+	@summary = "Default summary"
+	macro viewActivitiesDuration(date = null) {
 		var valueNumber = "";
 		var timeUnit = "";
 		var flag = 1;
@@ -26,14 +27,16 @@ definition {
 		}
 	}
 
-	macro viewActivitiesPercentage {
+	@summary = "Default summary"
+	macro viewActivitiesPercentage(valueNumber = null, entryName = null) {
 		AssertElementPresent(
 			key_entry = ${entryName},
 			key_number = ${valueNumber},
 			locator1 = "ACSites#ACTIVITIES_CARD_ATRIBUTE_AND_VALUE");
 	}
 
-	macro viewGeomapAnalyticsLocationNames {
+	@summary = "Default summary"
+	macro viewGeomapAnalyticsLocationNames(locationList = null) {
 		for (var locationName : list ${locationList}) {
 			AssertElementPresent(
 				key_entry = ${locationName},
@@ -41,7 +44,8 @@ definition {
 		}
 	}
 
-	macro viewSiteOverviewDashboardCards {
+	@summary = "Default summary"
+	macro viewSiteOverviewDashboardCards() {
 		WaitForElementPresent(locator1 = "ACSites#ACTIVITIES_CARD");
 
 		AssertElementPresent(locator1 = "ACSites#TOP_PAGES_CARD");
@@ -61,7 +65,8 @@ definition {
 		AssertElementPresent(locator1 = "ACSites#COHORT_ANALYSIS_CARD");
 	}
 
-	macro viewVisitedTopPages {
+	@summary = "Default summary"
+	macro viewVisitedTopPages(current = null) {
 		var key_index = StringUtil.extractFirst(${current}, "-");
 		var value = StringUtil.extractLast(${current}, "-");
 
@@ -70,7 +75,8 @@ definition {
 			value1 = ${value});
 	}
 
-	macro viewVisitorsOnGraph {
+	@summary = "Default summary"
+	macro viewVisitorsOnGraph(visitorsTypeList = null, valueVisitorsList = null) {
 		ACTimeFilter.clickTimeFilterButton();
 
 		ACTimeFilter.setLast24Hours();

@@ -1,6 +1,7 @@
 definition {
 
-	macro addPermission {
+	@summary = "Default summary"
+	macro addPermission(groupName = null, roleTitle = null, name = null, actionId = null) {
 		Variables.assertDefined(parameterList = "${actionId},${name},${roleTitle}");
 
 		var groupId = JSONPermissionSetter.setGroupId(groupName = ${groupName});
@@ -19,7 +20,8 @@ definition {
 			scope = ${scope});
 	}
 
-	macro removePermission {
+	@summary = "Default summary"
+	macro removePermission(groupName = null, roleTitle = null, name = null, actionId = null) {
 		Variables.assertDefined(parameterList = "${actionId},${name},${roleTitle}");
 
 		var groupId = JSONPermissionSetter.setGroupId(groupName = ${groupName});

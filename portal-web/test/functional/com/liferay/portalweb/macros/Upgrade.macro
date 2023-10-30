@@ -1,6 +1,7 @@
 definition {
 
-	macro addDataDefinitionWithDB2 {
+	@summary = "Default summary"
+	macro addDataDefinitionWithDB2() {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
@@ -50,7 +51,8 @@ definition {
 		AssertConsoleTextNotPresent(value1 = "SQLCODE=-727");
 	}
 
-	macro addForm {
+	@summary = "Default summary"
+	macro addForm() {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
@@ -109,7 +111,8 @@ definition {
 			fieldName = "TextField");
 	}
 
-	macro addMessageBoards {
+	@summary = "Default summary"
+	macro addMessageBoards() {
 		Navigator.gotoPage(pageName = "Message Boards");
 
 		MessageboardsThread.addPG(
@@ -117,7 +120,8 @@ definition {
 			threadSubject = "Message Boards Subject 3");
 	}
 
-	macro addOrganization {
+	@summary = "Default summary"
+	macro addOrganization() {
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
@@ -128,7 +132,8 @@ definition {
 			orgType = "Organization");
 	}
 
-	macro addUserAndSuborganization {
+	@summary = "Default summary"
+	macro addUserAndSuborganization() {
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
@@ -301,7 +306,8 @@ definition {
 			orgType = "Organization");
 	}
 
-	macro addWCStructureAndTemplate {
+	@summary = "Default summary"
+	macro addWCStructureAndTemplate() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -362,7 +368,8 @@ definition {
 			webContentTitle = "WC WebContent Title");
 	}
 
-	macro approveWorkflow {
+	@summary = "Default summary"
+	macro approveWorkflow() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -569,7 +576,8 @@ definition {
 		BlogsEntry.viewStatus(entryStatus = "Approved");
 	}
 
-	macro publishStagedSite {
+	@summary = "Default summary"
+	macro publishStagedSite() {
 		Navigator.openSiteURL(siteName = "Staging Site Staging");
 
 		AssertElementNotPresent(locator1 = "Home#PORTLET");
@@ -591,7 +599,8 @@ definition {
 			webContentTitle = "Web Content Title");
 	}
 
-	macro publishWCDraft {
+	@summary = "Default summary"
+	macro publishWCDraft() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -623,7 +632,8 @@ definition {
 			webContentTitle = "Web Content Title");
 	}
 
-	macro publishWorkflowDefinition {
+	@summary = "Default summary"
+	macro publishWorkflowDefinition() {
 		var testRunEnvironment = PropsUtil.get("test.run.environment");
 
 		if (${testRunEnvironment} == "EE") {
@@ -642,7 +652,8 @@ definition {
 		}
 	}
 
-	macro resetTestUserPassword {
+	@summary = "Default summary"
+	macro resetTestUserPassword(administratorEmail = null) {
 		Type(
 			locator1 = "TextInput#EMAIL",
 			value1 = ${administratorEmail});
@@ -670,7 +681,8 @@ definition {
 			userEmailAddress = "test@liferay.com");
 	}
 
-	macro submitNewWorkflow {
+	@summary = "Default summary"
+	macro submitNewWorkflow() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -771,7 +783,8 @@ definition {
 			entryTitle = "New Blog After Upgrade");
 	}
 
-	macro viewAndDeleteFormEntry {
+	@summary = "Default summary"
+	macro viewAndDeleteFormEntry() {
 		Navigator.openURL();
 
 		Navigator.gotoPage(pageName = "Form Page");
@@ -853,7 +866,8 @@ definition {
 		FormsAdmin.viewNoFormEntries();
 	}
 
-	macro viewAndEditUser {
+	@summary = "Default summary"
+	macro viewAndEditUser() {
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
@@ -1131,7 +1145,8 @@ definition {
 		Organization.deleteCP(orgName = "Organization1");
 	}
 
-	macro viewAssetPublisher {
+	@summary = "Default summary"
+	macro viewAssetPublisher(categoryName = null) {
 		Navigator.gotoPage(pageName = "Asset Publisher");
 
 		AssertTextEquals(
@@ -1163,7 +1178,8 @@ definition {
 		}
 	}
 
-	macro viewCalendar {
+	@summary = "Default summary"
+	macro viewCalendar() {
 		Navigator.gotoPage(pageName = "Calendar");
 
 		ProductMenuHelper.closeProductMenu();
@@ -1198,7 +1214,8 @@ definition {
 		CalendarEvent.view(eventTitle = "Post Upgrade Calendar Event");
 	}
 
-	macro viewClassicSearchPortletConfiguration {
+	@summary = "Default summary"
+	macro viewClassicSearchPortletConfiguration() {
 		Navigator.gotoSitePage(
 			pageName = "Site Page",
 			siteName = "Site Name");
@@ -1237,7 +1254,8 @@ definition {
 		AssertElementNotPresent(locator1 = "SearchResults#USER_FACET_ANY_USER");
 	}
 
-	macro viewDocument {
+	@summary = "Default summary"
+	macro viewDocument() {
 		ProductMenu.gotoPortlet(
 			category = "Build",
 			panel = "Site Administration",
@@ -1272,7 +1290,8 @@ definition {
 			metadataLabel = "Creator");
 	}
 
-	macro ViewDroolsAppManager {
+	@summary = "Default summary"
+	macro ViewDroolsAppManager() {
 		ProductMenu.gotoPortlet(
 			category = "Apps",
 			panel = "Control Panel",
@@ -1289,7 +1308,8 @@ definition {
 			searchTerm = "Drools");
 	}
 
-	macro viewInstanceSettings {
+	@summary = "Default summary"
+	macro viewInstanceSettings() {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -1380,13 +1400,15 @@ definition {
 			value1 = "(UTC +03:00) Eastern European Time");
 	}
 
-	macro viewMessageBoards {
+	@summary = "Default summary"
+	macro viewMessageBoards() {
 		Navigator.gotoPage(pageName = "Message Boards");
 
 		MessageboardsThread.viewLockedPG(threadSubject = "Message Boards Subject 2");
 	}
 
-	macro viewNestedPortlets {
+	@summary = "Default summary"
+	macro viewNestedPortlets() {
 		Navigator.gotoPage(pageName = "Nested Portlets");
 
 		AssertTextEquals(
@@ -1403,7 +1425,8 @@ definition {
 			portletName = "Web Content Display");
 	}
 
-	macro viewNotifications {
+	@summary = "Default summary"
+	macro viewNotifications() {
 		Navigator.gotoPage(pageName = "Welcome");
 
 		Notifications.gotoNotifications();
@@ -1454,7 +1477,8 @@ definition {
 			threadSubject = "Message Boards Subject 3");
 	}
 
-	macro viewPolls {
+	@summary = "Default summary"
+	macro viewPolls() {
 		Navigator.gotoPage(pageName = "Polls");
 
 		AssertElementNotPresent(locator1 = "Message#INFO");
@@ -1476,7 +1500,8 @@ definition {
 			pollsQuestionVotePercent = "100%");
 	}
 
-	macro ViewPortletsPermissions {
+	@summary = "Default summary"
+	macro ViewPortletsPermissions() {
 		User.logoutAndLoginPG(
 			userLoginEmailAddress = "userea1@liferay.com",
 			userLoginFullName = "userfn1 userln1");
@@ -1545,7 +1570,8 @@ definition {
 		Portlet.viewNoPermissionPG();
 	}
 
-	macro viewSAMLGeneralConfiguration {
+	@summary = "Default summary"
+	macro viewSAMLGeneralConfiguration(key_samlRoleType = null, samlRoleType = null) {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -1565,7 +1591,8 @@ definition {
 			value1 = "samlidp");
 	}
 
-	macro viewSAMLSPConnectionConfiguration {
+	@summary = "Default summary"
+	macro viewSAMLSPConnectionConfiguration() {
 		SAMLNavigation.gotoServiceProviderConnection();
 
 		Click(locator1 = "CPSAMLAdminServiceProviderConnections#SERVICE_PROVIDER_CONNECTION_DROPDOWN");
@@ -1591,7 +1618,8 @@ definition {
 			value1 = "emailAddress");
 	}
 
-	macro viewSearchPortletsConfiguration {
+	@summary = "Default summary"
+	macro viewSearchPortletsConfiguration() {
 		Navigator.gotoSitePage(
 			pageName = "Site Page",
 			siteName = "Site Name");
@@ -1643,7 +1671,8 @@ definition {
 		AssertElementNotPresent(locator1 = "Search#SEARCH_TYPE_FACET_TERM_COUNT");
 	}
 
-	macro viewStagingNestedPortlets {
+	@summary = "Default summary"
+	macro viewStagingNestedPortlets() {
 		Navigator.gotoStagedSitePage(
 			pageName = "Staging Test Page",
 			siteName = "Staging Site");
@@ -1666,7 +1695,8 @@ definition {
 			portletName = "Blogs");
 	}
 
-	macro viewSystemSettings {
+	@summary = "Default summary"
+	macro viewSystemSettings() {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -1862,7 +1892,8 @@ definition {
 		FormFields.viewCheckboxNotChecked(fieldName = "autogenerateTemplateKey");
 	}
 
-	macro viewUpgrade {
+	@summary = "Default summary"
+	macro viewUpgrade() {
 		Navigator.gotoPage(pageName = "Web Content");
 
 		WebContent.viewPGViaWCD(webContentContent = "Web Content Content");
@@ -2022,7 +2053,8 @@ definition {
 		SignIn.signIn();
 	}
 
-	macro viewWebContentWithAllFields {
+	@summary = "Default summary"
+	macro viewWebContentWithAllFields() {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
@@ -2134,7 +2166,8 @@ definition {
 		AssertVisible(locator1 = "Button#PREVIEW");
 	}
 
-	macro viewWebContentWithPredefinedValueInWebContentField {
+	@summary = "Default summary"
+	macro viewWebContentWithPredefinedValueInWebContentField() {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",

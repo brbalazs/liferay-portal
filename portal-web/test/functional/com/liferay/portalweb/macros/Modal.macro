@@ -1,6 +1,7 @@
 definition {
 
-	macro save {
+	@summary = "Default summary"
+	macro save() {
 		Button.clickSave();
 
 		Alert.viewSuccessMessage();

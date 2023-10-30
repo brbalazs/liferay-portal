@@ -1,6 +1,7 @@
 definition {
 
-	macro configure {
+	@summary = "Default summary"
+	macro configure(samlRoleType = null, samlEntityID = null) {
 		Select(
 			locator1 = "CPSAMLAdmin#SAML_ROLE_SELECT",
 			value1 = ${samlRoleType});
@@ -18,7 +19,8 @@ definition {
 			value1 = "Your request completed successfully.");
 	}
 
-	macro configureCertificateAndPrivateKey {
+	@summary = "Default summary"
+	macro configureCertificateAndPrivateKey(samlKeyPassword = null) {
 		AssertClick(
 			locator1 = "Button#CREATE_CERTIFICATE",
 			value1 = "Create Certificate");
@@ -60,7 +62,8 @@ definition {
 		AssertElementPresent(locator1 = "Button#REPLACE_CERTIFICATE");
 	}
 
-	macro configureIdentityProvider {
+	@summary = "Default summary"
+	macro configureIdentityProvider(idpSessionMaximumAge = null, idpSessionIdleTimeout = null) {
 		if (isSet(idpSessionIdleTimeout)) {
 			Type(
 				locator1 = "CPSAMLAdmin#IDENTITY_PROVIDER_SESSION_IDLE_TIMEOUT",
@@ -78,7 +81,8 @@ definition {
 			value1 = "Save");
 	}
 
-	macro enable {
+	@summary = "Default summary"
+	macro enable(samlEntityID = null) {
 		AssertTextEquals(
 			locator1 = "CPSAMLAdmin#SAML_ENTITY_ID_FIELD",
 			value1 = ${samlEntityID});

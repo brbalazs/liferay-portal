@@ -2,7 +2,8 @@ definition {
 
 	var assetType = "Bookmarks Folder";
 
-	macro addCP {
+	@summary = "Default summary"
+	macro addCP(folderDescription = null, folderName = null) {
 		LexiconEntry.gotoAdd();
 
 		MenuItem.click(menuItem = "Folder");
@@ -18,7 +19,8 @@ definition {
 			folderName = ${folderName});
 	}
 
-	macro addNullCP {
+	@summary = "Default summary"
+	macro addNullCP() {
 		LexiconEntry.gotoAdd();
 
 		MenuItem.click(menuItem = "Folder");
@@ -36,7 +38,8 @@ definition {
 		Alert.viewRequiredField();
 	}
 
-	macro addNullSubfolderCP {
+	@summary = "Default summary"
+	macro addNullSubfolderCP(folderName = null) {
 		var key_assetName = ${folderName};
 		var key_folderName = ${folderName};
 
@@ -65,7 +68,8 @@ definition {
 		Alert.viewRequiredField();
 	}
 
-	macro addPG {
+	@summary = "Default summary"
+	macro addPG(folderDescription = null, folderName = null) {
 		Portlet.clickPortletPlusIconPG(portletName = "Bookmarks");
 
 		MenuItem.click(menuItem = "Folder");
@@ -81,7 +85,8 @@ definition {
 			folderName = ${folderName});
 	}
 
-	macro addSubfolderCP {
+	@summary = "Default summary"
+	macro addSubfolderCP(subfolderName = null, subfolderDescription = null, folderName = null) {
 		var key_assetName = ${folderName};
 
 		AssertClick(
@@ -113,7 +118,8 @@ definition {
 			value1 = ${folderName});
 	}
 
-	macro addSubfolderPG {
+	@summary = "Default summary"
+	macro addSubfolderPG(folderDescription = null, folderName = null) {
 		Portlet.clickPortletPlusIconPG(portletName = "Bookmarks");
 
 		MenuItem.click(menuItem = "Subfolder");
@@ -129,7 +135,8 @@ definition {
 			folderName = ${folderName});
 	}
 
-	macro deletePG {
+	@summary = "Default summary"
+	macro deletePG(folderName = null) {
 		AssertTextEquals(
 			key_assetName = ${folderName},
 			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
@@ -151,7 +158,8 @@ definition {
 		RecycleBin.emptyCP();
 	}
 
-	macro editCP {
+	@summary = "Default summary"
+	macro editCP(folderNameEdit = null, folderName = null, folderDescriptionEdit = null) {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${folderName});
@@ -167,7 +175,8 @@ definition {
 			folderName = ${folderNameEdit});
 	}
 
-	macro editPG {
+	@summary = "Default summary"
+	macro editPG(folderNameEdit = null, folderName = null, folderDescriptionEdit = null) {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${folderName});
@@ -183,7 +192,8 @@ definition {
 			folderName = ${folderNameEdit});
 	}
 
-	macro editSubfolderCP {
+	@summary = "Default summary"
+	macro editSubfolderCP(subfolderName = null, editSubfolderName = null, folderName = null, editSubfolderDescription = null) {
 		AssertClick(
 			key_assetName = ${folderName},
 			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
@@ -208,7 +218,8 @@ definition {
 			folderName = ${editSubfolderName});
 	}
 
-	macro gotoPG {
+	@summary = "Default summary"
+	macro gotoPG(folderName = null) {
 		AssertClick.assertPartialTextClickAt(
 			key_assetName = ${folderName},
 			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
@@ -217,7 +228,8 @@ definition {
 		Breadcrumb.viewActiveEntry(breadcrumbName = ${folderName});
 	}
 
-	macro gotoSubfolderPG {
+	@summary = "Default summary"
+	macro gotoSubfolderPG(subfolderName = null, siteName = null, folderName = null, pageName = null) {
 		Navigator.gotoSitePage(
 			pageName = ${pageName},
 			siteName = ${siteName});
@@ -241,7 +253,8 @@ definition {
 		Breadcrumb.viewActiveEntry(breadcrumbName = ${subfolderName});
 	}
 
-	macro mergeSubfolderToFolderCP {
+	@summary = "Default summary"
+	macro mergeSubfolderToFolderCP(subfolderName = null, bookmarkName = null, folderName = null, bookmarkURL = null) {
 		AssertClick(
 			key_assetName = ${folderName},
 			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
@@ -269,7 +282,8 @@ definition {
 			folderName = ${bookmarkName});
 	}
 
-	macro moveSubfolderToRecycleBinPG {
+	@summary = "Default summary"
+	macro moveSubfolderToRecycleBinPG(subfolderName = null) {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Move to Recycle Bin",
 			rowEntry = ${subfolderName});
@@ -277,7 +291,8 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	macro moveToRecycleBinCP {
+	@summary = "Default summary"
+	macro moveToRecycleBinCP(folderName = null) {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -297,7 +312,8 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	macro subscribePG {
+	@summary = "Default summary"
+	macro subscribePG(folderDescription = null) {
 		AssertTextEquals.assertPartialText(
 			key_assetDescription = ${folderDescription},
 			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_DESCRIPTION",
@@ -312,7 +328,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro tearDownCP {
+	@summary = "Default summary"
+	macro tearDownCP() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -340,7 +357,8 @@ definition {
 		RecycleBin.emptyCP();
 	}
 
-	macro viewFolder {
+	@summary = "Default summary"
+	macro viewFolder(folderDescription = null, folderName = null) {
 		AssertTextEquals(
 			key_assetName = ${folderName},
 			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",

@@ -1,6 +1,7 @@
 definition {
 
-	macro viewContentPG {
+	@summary = "Default summary"
+	macro viewContentPG(droolsContent = null, welcomeMessage = null) {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Drools#DROOLS_CONTENT",
 			value1 = ${welcomeMessage});
@@ -14,7 +15,8 @@ definition {
 		}
 	}
 
-	macro viewDefaultPG {
+	@summary = "Default summary"
+	macro viewDefaultPG(welcomeMessage = null) {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Drools#DROOLS_CONTENT",
 			value1 = ${welcomeMessage});

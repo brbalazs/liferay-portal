@@ -1,12 +1,12 @@
 @default = "sikuliUploadTempFile"
 definition {
 
-	function sikuliUploadTempFile {
+	function sikuliUploadTempFile() {
 		WaitForSPARefresh();
 
-		selenium.sikuliUploadTempFile();
+		selenium.sikuliUploadTempFile(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

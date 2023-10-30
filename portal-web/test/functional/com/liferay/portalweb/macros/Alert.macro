@@ -1,42 +1,49 @@
 definition {
 
-	macro closeMessage {
+	@summary = "Default summary"
+	macro closeMessage(messageType = null) {
 		if ((IsElementPresent(locator1 = "Message#${messageType}")) && (IsVisible(locator1 = "Message#${messageType}")) && (IsVisible(locator1 = "Icon#CLOSE"))) {
 			Click(locator1 = "Icon#CLOSE");
 		}
 	}
 
-	macro closePortalLocalizationWarning {
+	@summary = "Default summary"
+	macro closePortalLocalizationWarning() {
 		Alert.closeMessage(messageType = "PORTAL_LOCALIZATION");
 
 		Pause(locator1 = 2000);
 	}
 
-	macro viewErrorMessage {
+	@summary = "Default summary"
+	macro viewErrorMessage(errorMessage = null) {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Message#ERROR",
 			value1 = ${errorMessage});
 	}
 
-	macro viewExpireContentFailedMessage {
+	@summary = "Default summary"
+	macro viewExpireContentFailedMessage() {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Message#ERROR_1",
 			value1 = "Please enter a valid expiration date.");
 	}
 
-	macro viewInfoMessage {
+	@summary = "Default summary"
+	macro viewInfoMessage(infoMessage = null) {
 		AssertTextEquals(
 			locator1 = "Message#INFO_2",
 			value1 = ${infoMessage});
 	}
 
-	macro viewInfoMessageSpecific {
+	@summary = "Default summary"
+	macro viewInfoMessageSpecific(infoMessage = null) {
 		AssertElementPresent(
 			key_infoMessage = ${infoMessage},
 			locator1 = "Message#INFO_SPECIFIC");
 	}
 
-	macro viewLocalizationMessage {
+	@summary = "Default summary"
+	macro viewLocalizationMessage(defaultLanguageLocalizationMessage = null, translationLanguageLocalizationMessage = null, preferredLanguageLocalizationMessage = null) {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Home#PORTAL_LOCALIZATION_TRANSLATION_LANGUAGE_MESSAGE",
 			value1 = ${translationLanguageLocalizationMessage});
@@ -51,7 +58,8 @@ definition {
 			value1 = ${preferredLanguageLocalizationMessage});
 	}
 
-	macro viewLocalizationMessageInUserSite {
+	@summary = "Default summary"
+	macro viewLocalizationMessageInUserSite(translationLanguageLocalizationMessage = null, preferredLanguageLocalizationMessage = null) {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Home#PORTAL_LOCALIZATION_TRANSLATION_LANGUAGE_MESSAGE",
 			value1 = ${translationLanguageLocalizationMessage});
@@ -61,7 +69,8 @@ definition {
 			value1 = ${preferredLanguageLocalizationMessage});
 	}
 
-	macro viewRequestFailedToComplete {
+	@summary = "Default summary"
+	macro viewRequestFailedToComplete() {
 		AssertElementPresent(locator1 = "Message#ERROR_DISMISSIBLE");
 
 		if (IsElementPresent(locator1 = "Button#CLOSE_MESSAGE")) {
@@ -69,13 +78,15 @@ definition {
 		}
 	}
 
-	macro viewRequiredField {
+	@summary = "Default summary"
+	macro viewRequiredField() {
 		AssertTextEquals.assertPartialText(
 			locator1 = "TextInput#REQUIRED_ALERT",
 			value1 = "This field is required.");
 	}
 
-	macro viewSuccessMessage {
+	@summary = "Default summary"
+	macro viewSuccessMessage() {
 		VerifyElementPresent(locator1 = "Message#SUCCESS_DISMISSIBLE");
 
 		if (IsElementPresent(locator1 = "Button#CLOSE_MESSAGE")) {
@@ -83,7 +94,8 @@ definition {
 		}
 	}
 
-	macro viewSuccessMessageText {
+	@summary = "Default summary"
+	macro viewSuccessMessageText(successMessage = null) {
 		AssertVisible(locator1 = "Message#SUCCESS");
 
 		AssertTextEquals.assertPartialText(
@@ -91,7 +103,8 @@ definition {
 			value1 = ${successMessage});
 	}
 
-	macro viewWarningSpecific {
+	@summary = "Default summary"
+	macro viewWarningSpecific(warningMessage = null) {
 		AssertElementPresent(
 			key_warningMessage = ${warningMessage},
 			locator1 = "Message#WARNING_SPECIFIC");

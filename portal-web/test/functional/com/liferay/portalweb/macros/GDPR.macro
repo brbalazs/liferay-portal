@@ -1,6 +1,7 @@
 definition {
 
-	macro addExportProcessCP {
+	@summary = "Default summary"
+	macro addExportProcessCP(userLastName = null, userFirstName = null, applications = null) {
 		var key_application = ${application};
 
 		LexiconEntry.gotoAdd();
@@ -47,7 +48,8 @@ definition {
 		}
 	}
 
-	macro anonymizeDataViaReviewData {
+	@summary = "Default summary"
+	macro anonymizeDataViaReviewData(application = null) {
 		Click(
 			key_application = ${application},
 			locator1 = "DataErasure#REVIEW_DATA_APPLICATION_ELLIPSIS");
@@ -57,7 +59,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro deactivateUser {
+	@summary = "Default summary"
+	macro deactivateUser(userLastName = null, userFirstName = null) {
 		AssertElementPresent(
 			key_firstName = ${userFirstName},
 			key_lastName = ${userLastName},
@@ -70,7 +73,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro deletePersonalApplicationsData {
+	@summary = "Default summary"
+	macro deletePersonalApplicationsData(rowEntry = null, applications = null) {
 		AssertTextEquals(
 			locator1 = "DataErasure#SHEET_TITLE",
 			value1 = "Application Data Review");
@@ -88,7 +92,8 @@ definition {
 		LexiconEntry.viewNoEntry(rowEntry = ${rowEntry});
 	}
 
-	macro deletePersonalSite {
+	@summary = "Default summary"
+	macro deletePersonalSite(userLastName = null, userFirstName = null) {
 		AssertElementPresent(
 			key_firstName = ${userFirstName},
 			key_lastName = ${userLastName},
@@ -103,7 +108,8 @@ definition {
 		}
 	}
 
-	macro downloadExportedPersonalData {
+	@summary = "Default summary"
+	macro downloadExportedPersonalData(applications = null) {
 		for (var application : list ${applications}) {
 			var key_rowEntry = ${application};
 
@@ -115,7 +121,8 @@ definition {
 		}
 	}
 
-	macro editPersonalApplicationsData {
+	@summary = "Default summary"
+	macro editPersonalApplicationsData(rowEntry = null, applications = null) {
 		AssertTextEquals(
 			locator1 = "DataErasure#SHEET_TITLE",
 			value1 = "Application Data Review");
@@ -127,7 +134,8 @@ definition {
 			rowEntry = ${rowEntry});
 	}
 
-	macro reviewPersonalData {
+	@summary = "Default summary"
+	macro reviewPersonalData(userLastName = null, userFirstName = null, itemsCount = null, applications = null) {
 		AssertElementPresent(
 			key_firstName = ${userFirstName},
 			key_lastName = ${userLastName},
@@ -146,7 +154,8 @@ definition {
 			value1 = ${itemsCount});
 	}
 
-	macro viewEntryRowInApplicationCP {
+	@summary = "Default summary"
+	macro viewEntryRowInApplicationCP(tableEntry = null, tableEntryPartialTextList = null) {
 		for (var tableEntryPartialText : list ${tableEntryPartialTextList}) {
 			AssertTextEquals.assertPartialText(
 				key_tableEntry = ${tableEntry},

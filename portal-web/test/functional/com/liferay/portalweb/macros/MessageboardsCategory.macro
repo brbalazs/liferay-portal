@@ -2,7 +2,8 @@ definition {
 
 	var assetType = "Message Boards Category";
 
-	macro addCP {
+	@summary = "Default summary"
+	macro addCP(categoryName = null) {
 		LexiconEntry.gotoAdd();
 
 		MenuItem.click(menuItem = "Category");
@@ -12,7 +13,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro addPG {
+	@summary = "Default summary"
+	macro addPG(displayStyle = null, categoryName = null, categoryDescriptionEnabled = null, categoryDescription = null) {
 		AssertClick(
 			locator1 = "Button#ADD_CATEGORY",
 			value1 = "Add Category");
@@ -41,7 +43,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro addSubcategoryCP {
+	@summary = "Default summary"
+	macro addSubcategoryCP(categoryName = null, subCategoryDescription = null, subCategoryName = null) {
 		var key_categoryName = ${categoryName};
 		var key_subCategoryName = ${subCategoryName};
 
@@ -60,7 +63,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro addSubcategoryNullPG {
+	@summary = "Default summary"
+	macro addSubcategoryNullPG(subCategoryNullName = null, categoryName = null, subCategoryDescription = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertClick(
@@ -80,7 +84,8 @@ definition {
 		Alert.viewRequiredField();
 	}
 
-	macro addSubcategoryPG {
+	@summary = "Default summary"
+	macro addSubcategoryPG(categoryName = null, subCategoryDescription = null, subCategoryName = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertClick(
@@ -98,7 +103,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro addSubcategoryToSubcategoryPG {
+	@summary = "Default summary"
+	macro addSubcategoryToSubcategoryPG(subCategorySubCategoryName = null, categoryName = null, subCategoryDescription = null, subCategoryName = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertClick(
@@ -122,7 +128,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro deleteCP {
+	@summary = "Default summary"
+	macro deleteCP() {
 		if (IsElementPresent(locator1 = "Checkbox#LEXICON_SELECT_ALL_CONTAINER")) {
 			PortletEntry.selectAll();
 
@@ -132,7 +139,8 @@ definition {
 		}
 	}
 
-	macro deletePG {
+	@summary = "Default summary"
+	macro deletePG(categoryName = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertTextEquals(
@@ -148,7 +156,8 @@ definition {
 		AssertElementNotPresent(locator1 = "MessageBoards#CATEGORY_LIST_CATEGORY");
 	}
 
-	macro editPG {
+	@summary = "Default summary"
+	macro editPG(categoryNameEdit = null, categoryName = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertTextEquals(
@@ -172,7 +181,8 @@ definition {
 			value1 = ${categoryNameEdit});
 	}
 
-	macro gotoCP {
+	@summary = "Default summary"
+	macro gotoCP(categoryName = null) {
 		var key_rowEntry = ${categoryName};
 
 		AssertTextEquals(
@@ -188,7 +198,8 @@ definition {
 			value1 = ${categoryName});
 	}
 
-	macro gotoPG {
+	@summary = "Default summary"
+	macro gotoPG(subCategoryEnabled = null, categoryName = null, categoryDescriptionEnabled = null, categoryDescription = null, subCategoryName = null) {
 		if (${categoryDescriptionEnabled} == "true") {
 			var key_categoryDescription = ${categoryDescription};
 			var key_categoryName = ${categoryName};
@@ -214,7 +225,8 @@ definition {
 		}
 	}
 
-	macro subscribePG {
+	@summary = "Default summary"
+	macro subscribePG(categoryName = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertTextEquals(
@@ -228,7 +240,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro tearDownCP {
+	@summary = "Default summary"
+	macro tearDownCP() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -247,7 +260,8 @@ definition {
 		RecycleBin.emptyCP();
 	}
 
-	macro viewCategoryDefaultPG {
+	@summary = "Default summary"
+	macro viewCategoryDefaultPG(subcategoriesNumber = null, threadsNumber = null, categoryName = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertTextEquals(
@@ -282,7 +296,8 @@ definition {
 		AssertElementNotPresent(locator1 = "MessageBoards#SUBCATEGORY_TABLE_CATEGORY_GENERIC");
 	}
 
-	macro viewCP {
+	@summary = "Default summary"
+	macro viewCP(subcategoriesNumber = null, threadsNumber = null, categoryName = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertElementPresent(locator1 = "MessageBoards#CATEGORY_LIST_CHECKBOX");
@@ -314,13 +329,15 @@ definition {
 			value1 = ${categoryName});
 	}
 
-	macro viewDefaultPG {
+	@summary = "Default summary"
+	macro viewDefaultPG() {
 		AssertElementNotPresent(locator1 = "MessageBoards#CATEGORY_TABLE_PANEL");
 
 		AssertElementNotPresent(locator1 = "MessageBoards#CATEGORY_TABLE_CATEGORY_GENERIC");
 	}
 
-	macro viewMySubscriptionsPG {
+	@summary = "Default summary"
+	macro viewMySubscriptionsPG(parentcategory2 = null, subscribedThread = null, parentcategory1 = null) {
 		AssertClick(
 			locator1 = "MessageBoards#NAVIGATION_MY_SUBSCRIPTIONS",
 			value1 = "My Subscriptions");
@@ -341,7 +358,8 @@ definition {
 			value1 = ${subscribedThread});
 	}
 
-	macro viewNoPG {
+	@summary = "Default summary"
+	macro viewNoPG(categoryName = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertTextNotPresent(value1 = ${categoryName});
@@ -357,7 +375,8 @@ definition {
 		AssertElementNotPresent(locator1 = "MessageBoards#CATEGORY_TABLE_ACTIONS");
 	}
 
-	macro viewPG {
+	@summary = "Default summary"
+	macro viewPG(threadPostCount = null, threadsNumber = null, categoryName = null, categoryDescription = null) {
 		var key_categoryName = ${categoryName};
 		var key_threadsNumber = ${threadsNumber};
 
@@ -396,7 +415,8 @@ definition {
 			value1 = ${categoryName});
 	}
 
-	macro viewSubcategoryFromSubcategoryPG {
+	@summary = "Default summary"
+	macro viewSubcategoryFromSubcategoryPG(categoryName = null, subCategoryDescription = null, subCategoryName = null) {
 		var key_categoryName = ${categoryName};
 		var key_subCategoryDescription = ${subCategoryDescription};
 		var key_subCategoryName = ${subCategoryName};
@@ -420,7 +440,8 @@ definition {
 			value1 = ${subCategoryName});
 	}
 
-	macro viewSubcategoryPG {
+	@summary = "Default summary"
+	macro viewSubcategoryPG(threadsNumber = null, categoryName = null, subCategoryDescription = null, subCategoryName = null) {
 		var key_categoryName = ${categoryName};
 
 		AssertClick(

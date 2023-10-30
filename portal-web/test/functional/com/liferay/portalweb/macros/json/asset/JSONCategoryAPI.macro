@@ -1,6 +1,7 @@
 definition {
 
-	macro _addCategory {
+	@summary = "Default summary"
+	macro _addCategory(vocabularyId = null, groupId = null, parentCategoryId = null, descriptionMap = null, titleMap = null) {
 		Variables.assertDefined(parameterList = "${groupId},${parentCategoryId},${titleMap},${descriptionMap},${vocabularyId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -25,7 +26,8 @@ definition {
 		return ${categoryId};
 	}
 
-	macro _addVocabulary {
+	@summary = "Default summary"
+	macro _addVocabulary(groupId = null, descriptionMap = null, titleMap = null) {
 		Variables.assertDefined(parameterList = "${groupId},${titleMap},${descriptionMap}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -43,7 +45,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _getCategoryIdByName {
+	@summary = "Default summary"
+	macro _getCategoryIdByName(vocabularyId = null, groupId = null, categoryName = null) {
 		Variables.assertDefined(parameterList = "${groupId},${categoryName},${vocabularyId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -72,7 +75,8 @@ definition {
 		return ${categoryId};
 	}
 
-	macro _getVocabularyIdByName {
+	@summary = "Default summary"
+	macro _getVocabularyIdByName(groupId = null, vocabularyName = null) {
 		Variables.assertDefined(parameterList = "${groupId},${vocabularyName}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -96,7 +100,8 @@ definition {
 		return ${vocabularyId};
 	}
 
-	macro _updateCategory {
+	@summary = "Default summary"
+	macro _updateCategory(vocabularyId = null, parentCategoryId = null, descriptionMap = null, titleMap = null, categoryId = null) {
 		Variables.assertDefined(parameterList = "${categoryId},${parentCategoryId},${titleMap},${descriptionMap},${vocabularyId}");
 
 		var portalURL = JSONCompany.getPortalURL();

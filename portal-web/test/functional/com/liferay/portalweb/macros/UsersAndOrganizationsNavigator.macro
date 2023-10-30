@@ -1,6 +1,7 @@
 definition {
 
-	macro gotoOrganizations {
+	@summary = "Default summary"
+	macro gotoOrganizations() {
 		Pause(locator1 = 1000);
 
 		if (IsElementPresent(locator1 = "NavBar#ORGANIZATIONS")) {

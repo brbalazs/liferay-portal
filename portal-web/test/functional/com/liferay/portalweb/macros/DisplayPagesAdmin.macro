@@ -1,6 +1,7 @@
 definition {
 
-	macro add {
+	@summary = "Default summary"
+	macro add(displayPageName = null) {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputName(name = ${displayPageName});
@@ -8,7 +9,8 @@ definition {
 		Button.clickSave();
 	}
 
-	macro markDisplayPageAsDefault {
+	@summary = "Default summary"
+	macro markDisplayPageAsDefault(rowEntry = null) {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Mark As Default",
 			rowEntry = ${rowEntry});
@@ -18,11 +20,13 @@ definition {
 			locator1 = "Card#STICKER");
 	}
 
-	macro openDisplayPagesAdmin {
+	@summary = "Default summary"
+	macro openDisplayPagesAdmin(siteURLKey = null) {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_layout_admin_web_portlet_GroupPagesPortlet&_com_liferay_layout_admin_web_portlet_GroupPagesPortlet_tabs1=display-pages");
 	}
 
-	macro viewPGViaAP {
+	@summary = "Default summary"
+	macro viewPGViaAP(webContentTitle = null, webContentContent = null, contentList = null) {
 		var key_assetContent = ${webContentContent};
 		var key_assetTitle = ${webContentTitle};
 

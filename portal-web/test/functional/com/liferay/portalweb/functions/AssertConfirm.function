@@ -2,42 +2,42 @@
 @summary = "Assert that the text within the confirmation window equals the value '${value1}' and execute the confirmation"
 definition {
 
-	function assertConfirmation {
-		selenium.assertConfirmation();
+	function assertConfirmation() {
+		selenium.assertConfirmation(${value1});
 
-		selenium.assertJavaScriptErrors();
-
-		selenium.assertLiferayErrors();
-
-		WaitForSPARefresh();
-	}
-
-	function assertConfirmationNoError {
-		selenium.assertConfirmation();
-	}
-
-	function assertConfirmationNoWait {
-		selenium.assertConfirmation();
-
-		selenium.assertJavaScriptErrors();
-
-		selenium.assertLiferayErrors();
-	}
-
-	function assertPartialConfirmation {
-		selenium.assertPartialConfirmation();
-
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 
 		WaitForSPARefresh();
 	}
 
-	function waitForConfirmation {
-		selenium.waitForConfirmation();
+	function assertConfirmationNoError() {
+		selenium.assertConfirmation(${value1});
+	}
 
-		selenium.assertJavaScriptErrors();
+	function assertConfirmationNoWait() {
+		selenium.assertConfirmation(${value1});
+
+		selenium.assertJavaScriptErrors(${value1});
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertPartialConfirmation() {
+		selenium.assertPartialConfirmation(${value1});
+
+		selenium.assertJavaScriptErrors(${value1});
+
+		selenium.assertLiferayErrors();
+
+		WaitForSPARefresh();
+	}
+
+	function waitForConfirmation() {
+		selenium.waitForConfirmation(${value1});
+
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 

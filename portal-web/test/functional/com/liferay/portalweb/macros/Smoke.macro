@@ -4,7 +4,7 @@ definition {
 	var userLastName = "Test";
 
 	@summary-ignore = "true"
-	macro runSmoke {
+	macro runSmoke(i = null) {
 		task ("Ensure that the super admin can add a Blank Site") {
 			ProductMenu.gotoPortlet(
 				category = "Sites",
@@ -91,7 +91,8 @@ definition {
 		}
 	}
 
-	macro viewWelcomePage {
+	@summary = "Default summary"
+	macro viewWelcomePage() {
 		AssertTextEquals(
 			locator1 = "HelloWorld#PORTLET_TITLE",
 			value1 = "Hello World");

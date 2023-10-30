@@ -1,6 +1,7 @@
 definition {
 
-	macro configureSelectionMethod {
+	@summary = "Default summary"
+	macro configureSelectionMethod(selectionMethod = null) {
 		Portlet.gotoPortletOptions(
 			portletName = "Blogs Aggregator",
 			portletOption = "Configuration");
@@ -16,7 +17,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro viewBlogsEntryViaBAPortletPG {
+	@summary = "Default summary"
+	macro viewBlogsEntryViaBAPortletPG(viewEntryTitle = null) {
 		for (var entryTitle : list ${viewEntryTitle}) {
 			var key_entryTitle = ${entryTitle};
 
@@ -26,7 +28,8 @@ definition {
 		}
 	}
 
-	macro viewParentOrganizationPG {
+	@summary = "Default summary"
+	macro viewParentOrganizationPG(orgName = null, parentOrgName = null, portletName = null) {
 		Portlet.gotoPortletOptions(
 			portletName = ${portletName},
 			portletOption = "Configuration");

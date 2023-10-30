@@ -1,6 +1,7 @@
 definition {
 
-	macro configureCrossClusterReplication {
+	@summary = "Default summary"
+	macro configureCrossClusterReplication() {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -26,7 +27,8 @@ definition {
 		SystemSettings.saveConfiguration();
 	}
 
-	macro setupCrossClusterReplication {
+	@summary = "Default summary"
+	macro setupCrossClusterReplication() {
 		OSGiConfig.deployOSGiConfigs(
 			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch.cross.cluster.replication.internal.configuration.ElasticsearchConnectionConfiguration-localcluster.config",
 			OSGiConfigs = "clusterName=\"LiferayElasticsearchClusterTwo\",connectionId=\"localcluster\",networkHostAddress=\"http://localhost:9202\",transportAddresses=[\"localhost:9500\"]");

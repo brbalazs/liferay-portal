@@ -1,30 +1,35 @@
 definition {
 
-	macro click {
+	@summary = "Default summary"
+	macro click(menuItem = null) {
 		Click(
 			key_menuItem = ${menuItem},
 			locator1 = "MenuItem#ANY_MENU_ITEM");
 	}
 
-	macro clickNoError {
+	@summary = "Default summary"
+	macro clickNoError(menuItem = null) {
 		ClickNoError(
 			key_menuItem = ${menuItem},
 			locator1 = "MenuItem#ANY_MENU_ITEM");
 	}
 
-	macro viewNotPresent {
+	@summary = "Default summary"
+	macro viewNotPresent(menuItem = null) {
 		AssertElementNotPresent(
 			key_menuItem = ${menuItem},
 			locator1 = "MenuItem#ANY_MENU_ITEM");
 	}
 
-	macro viewPresent {
+	@summary = "Default summary"
+	macro viewPresent(menuItem = null) {
 		AssertElementPresent(
 			key_menuItem = ${menuItem},
 			locator1 = "MenuItem#ANY_MENU_ITEM");
 	}
 
-	macro viewVisible {
+	@summary = "Default summary"
+	macro viewVisible(menuItem = null) {
 		AssertVisible(
 			key_menuItem = ${menuItem},
 			locator1 = "MenuItem#ANY_MENU_ITEM");

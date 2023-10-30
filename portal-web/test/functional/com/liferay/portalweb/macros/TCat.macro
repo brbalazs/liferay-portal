@@ -1,6 +1,7 @@
 definition {
 
-	macro deployLiferayPortalWar {
+	@summary = "Default summary"
+	macro deployLiferayPortalWar() {
 		echo("Deploying liferay-portal.war to TCat...");
 
 		Type(

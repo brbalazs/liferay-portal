@@ -1,6 +1,7 @@
 definition {
 
-	macro addContent {
+	@summary = "Default summary"
+	macro addContent(content = null) {
 		SelectFrame(locator1 = "CKEditor#BODY_FIELD_IFRAME");
 
 		KeyPress(
@@ -10,11 +11,13 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro assertEditorPresent {
+	@summary = "Default summary"
+	macro assertEditorPresent() {
 		AssertElementPresent(locator1 = "CKEditor#BODY_FIELD");
 	}
 
-	macro viewEntryContent {
+	@summary = "Default summary"
+	macro viewEntryContent(content = null) {
 		AssertTextEquals(
 			locator1 = "CKEditor#BODY",
 			value1 = ${content});

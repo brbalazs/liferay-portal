@@ -1,6 +1,7 @@
 definition {
 
-	macro addCP {
+	@summary = "Default summary"
+	macro addCP(campaignEndDate = null, userSegmentSelect = null, campaignPriorityField = null, campaignDescription = null, campaignStartTime = null, campaignEndTime = null, campaignInactive = null, campaignName = null, campaignStartDate = null) {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
 		LexiconEntry.gotoAdd();
@@ -44,13 +45,15 @@ definition {
 		}
 	}
 
-	macro addReportName {
+	@summary = "Default summary"
+	macro addReportName(reportName = null, reportDescription = null) {
 		PortletEntry.inputName(name = ${reportName});
 
 		PortletEntry.inputDescription(description = ${reportDescription});
 	}
 
-	macro addTrackingActionContentCP {
+	@summary = "Default summary"
+	macro addTrackingActionContentCP(menulistContent = null, contentTitle = null, contentMetricName = null) {
 		ContentTargetingCampaign.addTrackingActionsCmd(campaignTrackingAction = "Content");
 
 		AssertElementPresent(locator1 = "EditCampaign#CAMPAIGN_TRACKING_ACTIONS_CONTENT_SELECT_CONTENT_BUTTON");
@@ -76,7 +79,8 @@ definition {
 			value1 = "View");
 	}
 
-	macro addTrackingActionCustomFormCP {
+	@summary = "Default summary"
+	macro addTrackingActionCustomFormCP(formId = null, formAlias = null, formTrackingActionSelect = null) {
 		ContentTargetingCampaign.addTrackingActionsCmd(campaignTrackingAction = "Custom Form");
 
 		Type(
@@ -92,7 +96,8 @@ definition {
 			value1 = ${formTrackingActionSelect});
 	}
 
-	macro addTrackingActionDDLFormCP {
+	@summary = "Default summary"
+	macro addTrackingActionDDLFormCP(formName = null, formAlias = null, formTrackingActionSelect = null) {
 		ContentTargetingCampaign.addTrackingActionsCmd(campaignTrackingAction = "Form");
 
 		Type(
@@ -118,7 +123,8 @@ definition {
 			value1 = ${formTrackingActionSelect});
 	}
 
-	macro addTrackingActionLinkCP {
+	@summary = "Default summary"
+	macro addTrackingActionLinkCP(linkAlias = null, linkId = null) {
 		ContentTargetingCampaign.addTrackingActionsCmd(campaignTrackingAction = "Link");
 
 		Type(
@@ -134,7 +140,8 @@ definition {
 			value1 = "Click");
 	}
 
-	macro addTrackingActionPageCP {
+	@summary = "Default summary"
+	macro addTrackingActionPageCP(pageFriendlyURL = null, pageAlias = null) {
 		ContentTargetingCampaign.addTrackingActionsCmd(campaignTrackingAction = "Page");
 
 		Type(
@@ -146,7 +153,8 @@ definition {
 			value1 = ${pageFriendlyURL});
 	}
 
-	macro addTrackingActionsCmd {
+	@summary = "Default summary"
+	macro addTrackingActionsCmd(campaignTrackingAction = null) {
 		Type(
 			locator1 = "ContentTargeting#FORM_SEARCH_FIELD",
 			value1 = ${campaignTrackingAction});
@@ -159,7 +167,8 @@ definition {
 			value1 = ${campaignTrackingAction});
 	}
 
-	macro addTrackingActionYoutubevideosCP {
+	@summary = "Default summary"
+	macro addTrackingActionYoutubevideosCP(youtubeAlias = null, youtubeTrackingActionSelect = null, youtubeVideoId = null) {
 		ContentTargetingCampaign.addTrackingActionsCmd(campaignTrackingAction = "YouTube Videos");
 
 		Type(
@@ -175,7 +184,8 @@ definition {
 			value1 = ${youtubeTrackingActionSelect});
 	}
 
-	macro deleteAllCP {
+	@summary = "Default summary"
+	macro deleteAllCP() {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
 		PortletEntry.selectAll();
@@ -187,7 +197,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro deleteCampaignCP {
+	@summary = "Default summary"
+	macro deleteCampaignCP() {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
 		LexiconEntry.gotoEllipsisMenuItemNoError(menuItem = "Delete");
@@ -195,7 +206,8 @@ definition {
 		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
 	}
 
-	macro editCampaignCP {
+	@summary = "Default summary"
+	macro editCampaignCP(campaignEndDateEdit = null, userSegmentSelectEdit = null, campaignNameEdit = null, campaignEndTimeEdit = null, campaignDescriptionEdit = null, campaignPriorityFieldEdit = null, campaignStartDateEdit = null, campaignStartTimeEdit = null) {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Edit");
@@ -241,7 +253,8 @@ definition {
 		}
 	}
 
-	macro editCustomReport {
+	@summary = "Default summary"
+	macro editCustomReport(formId = null, trackingActionAddList = null, contentTrackingActionSelect = null, reportName = null, trackingActionDeleteList = null, pageAlias = null, menulistContent = null, contentTitle = null, linkId = null, reportDescription = null, contentAlias = null, pageTrackingActionSelect = null, formAlias = null, formTrackingActionSelect = null) {
 		if (isSet(trackingActionDeleteList)) {
 			for (var trackingActionDelete : list ${trackingActionDeleteList}) {
 				var key_trackingAction = ${trackingActionDelete};
@@ -294,7 +307,8 @@ definition {
 		}
 	}
 
-	macro gotoAddReport {
+	@summary = "Default summary"
+	macro gotoAddReport(campaignName = null) {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
 		LexiconEntry.gotoEntry(rowEntry = ${campaignName});
@@ -304,7 +318,8 @@ definition {
 		LexiconEntry.gotoAdd();
 	}
 
-	macro gotoEditReport {
+	@summary = "Default summary"
+	macro gotoEditReport(reportName = null, campaignName = null) {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
 		LexiconEntry.gotoEntry(rowEntry = ${campaignName});
@@ -318,13 +333,15 @@ definition {
 		MenuItem.click(menuItem = "Edit");
 	}
 
-	macro saveCP {
+	@summary = "Default summary"
+	macro saveCP() {
 		Pause(locator1 = 5000);
 
 		PortletEntry.save();
 	}
 
-	macro updateReport {
+	@summary = "Default summary"
+	macro updateReport(notEnoughInfoTrackingAction = null, campaignName = null, viewReportType = null, notEnoughInfoContentView = null) {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
 		LexiconEntry.gotoEntry(rowEntry = ${campaignName});
@@ -363,7 +380,8 @@ definition {
 		}
 	}
 
-	macro viewCampaignCP {
+	@summary = "Default summary"
+	macro viewCampaignCP(userSegmentSelect = null, campaignPriority = null, campaignStatus = null, campaignDescription = null, campaignName = null) {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
 		var key_rowEntry = ${campaignName};
@@ -395,7 +413,8 @@ definition {
 		}
 	}
 
-	macro viewContentReportCP {
+	@summary = "Default summary"
+	macro viewContentReportCP(reportTitle = null, reportsContentTableList = null) {
 		var key_reportTitle = ${reportTitle};
 
 		if (${reportTitle} == "DM Document Title") {
@@ -414,7 +433,8 @@ definition {
 		}
 	}
 
-	macro viewMetricReport {
+	@summary = "Default summary"
+	macro viewMetricReport(metricName = null, metricReportsTableList = null) {
 		var key_metricName = ${metricName};
 
 		for (var metricReports : list ${metricReportsTableList}) {
@@ -426,7 +446,8 @@ definition {
 		}
 	}
 
-	macro viewNotPresentCP {
+	@summary = "Default summary"
+	macro viewNotPresentCP(campaignName = null) {
 		Navigator.gotoNavItem(navItem = "Campaigns");
 
 		var key_campaignName = ${campaignName};
@@ -434,7 +455,8 @@ definition {
 		AssertElementNotPresent(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
 	}
 
-	macro viewTrackingActionsCP {
+	@summary = "Default summary"
+	macro viewTrackingActionsCP(formId = null, trackngAction = null, pageFriendlyURL = null, youtubeTrackingActionSelect = null, pageAlias = null, viewTrackingActionsList = null, contentTitle = null, youtubeAlias = null, linkAlias = null, linkId = null, youtubeVideoId = null, formName = null, contentMetricName = null, formAlias = null, formTrackingActionSelect = null) {
 		for (var trackingAction : list ${viewTrackingActionsList}) {
 			var key_trackingAction = ${trackingAction};
 

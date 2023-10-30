@@ -1,12 +1,14 @@
 definition {
 
-	macro activateAppCP {
+	@summary = "Default summary"
+	macro activateAppCP(appName = null) {
 		LexiconEntry.openEntryMenu(rowEntry = ${appName});
 
 		MenuItem.clickNoError(menuItem = "Activate");
 	}
 
-	macro deactivateAppCP {
+	@summary = "Default summary"
+	macro deactivateAppCP(appName = null) {
 		LexiconEntry.openEntryMenu(rowEntry = ${appName});
 
 		MenuItem.clickNoError(menuItem = "Deactivate");
@@ -14,7 +16,8 @@ definition {
 		AssertConfirm(value1 = "Are you sure you want to deactivate this?");
 	}
 
-	macro selectAppCP {
+	@summary = "Default summary"
+	macro selectAppCP(appName = null) {
 		var key_appName = ${appName};
 
 		while (IsElementNotPresent(locator1 = "AppManager#APP_NAME")) {
@@ -26,7 +29,8 @@ definition {
 			value1 = ${appName});
 	}
 
-	macro uninstallAppCP {
+	@summary = "Default summary"
+	macro uninstallAppCP(appName = null) {
 		LexiconEntry.openEntryMenu(rowEntry = ${appName});
 
 		MenuItem.clickNoError(menuItem = "Uninstall");
@@ -36,7 +40,8 @@ definition {
 		Pause(locator1 = 15000);
 	}
 
-	macro uploadAppCP {
+	@summary = "Default summary"
+	macro uploadAppCP(warFileName = null, appName = null) {
 		var key_appName = ${appName};
 
 		Click(locator1 = "Portlet#OPTIONS_ICON");
@@ -76,7 +81,8 @@ definition {
 		AssertConsoleTextNotPresent(value1 = "HotDeployException: Error registering portlets for ${appName}");
 	}
 
-	macro viewAppCP {
+	@summary = "Default summary"
+	macro viewAppCP(searchTerm = null, appName = null, appStatus = null) {
 		var key_appName = ${appName};
 
 		if (isSet(searchTerm)) {
@@ -97,7 +103,8 @@ definition {
 		}
 	}
 
-	macro viewNoAppCP {
+	@summary = "Default summary"
+	macro viewNoAppCP(appName = null) {
 		var key_appName = ${appName};
 
 		AssertElementNotPresent(locator1 = "AppManager#APP_NAME");
@@ -109,7 +116,8 @@ definition {
 		}
 	}
 
-	macro viewStatus {
+	@summary = "Default summary"
+	macro viewStatus(appName = null, appStatus = null) {
 		var key_appName = ${appName};
 		var key_appStatus = ${appStatus};
 
@@ -118,7 +126,8 @@ definition {
 			value1 = ${appStatus});
 	}
 
-	macro viewUninstallAppCP {
+	@summary = "Default summary"
+	macro viewUninstallAppCP(appName = null) {
 		Search.searchCP(searchTerm = ${appName});
 
 		AssertElementNotPresent(

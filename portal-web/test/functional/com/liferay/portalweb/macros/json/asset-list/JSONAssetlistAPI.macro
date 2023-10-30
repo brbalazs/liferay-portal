@@ -1,6 +1,7 @@
 definition {
 
-	macro _addAssetListEntry {
+	@summary = "Default summary"
+	macro _addAssetListEntry(groupId = null, title = null, type = null) {
 		Variables.assertDefined(parameterList = "${groupId},${title},${type}");
 
 		var portalURL = JSONCompany.getPortalURL();

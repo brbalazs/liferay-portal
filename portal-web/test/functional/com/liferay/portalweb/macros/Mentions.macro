@@ -1,6 +1,7 @@
 definition {
 
-	macro addMentionViaBlogsEntry {
+	@summary = "Default summary"
+	macro addMentionViaBlogsEntry(mentionsUserScreenName = null, entryTitle = null, entryContent = null) {
 		var key_entryContent = ${entryContent};
 		var key_mentionsUserScreenName = ${mentionsUserScreenName};
 
@@ -18,7 +19,8 @@ definition {
 		PortletEntry.publish();
 	}
 
-	macro addMentionViaComments {
+	@summary = "Default summary"
+	macro addMentionViaComments(entryComment = null, mentionsUserScreenName = null) {
 		var key_entryComment = ${entryComment};
 		var key_mentionsUserScreenName = ${mentionsUserScreenName};
 
@@ -35,7 +37,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro addMentionViaMessageBoardsReply {
+	@summary = "Default summary"
+	macro addMentionViaMessageBoardsReply(threadSubject = null, mentionsUserScreenName = null, threadBody = null) {
 		var key_mentionsUserScreenName = ${mentionsUserScreenName};
 		var key_threadSubject = ${threadSubject};
 
@@ -60,7 +63,8 @@ definition {
 		PortletEntry.publish();
 	}
 
-	macro addMentionViaMessageBoardThread {
+	@summary = "Default summary"
+	macro addMentionViaMessageBoardThread(threadSubject = null, mentionsUserScreenNameList = null) {
 		LexiconEntry.gotoAdd();
 
 		MenuItem.click(menuItem = "Thread");
@@ -95,7 +99,8 @@ definition {
 		PortletEntry.publish();
 	}
 
-	macro addMentionViaMessageBoardThreadEdit {
+	@summary = "Default summary"
+	macro addMentionViaMessageBoardThreadEdit(threadSubject = null, mentionsUserScreenName = null) {
 		Click(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
 
 		MenuItem.click(menuItem = "Edit");
@@ -120,7 +125,8 @@ definition {
 		PortletEntry.publish();
 	}
 
-	macro viewCommentMentionTagLink {
+	@summary = "Default summary"
+	macro viewCommentMentionTagLink(mentionsUserScreenName = null, mentionsUserFullName = null) {
 		var key_mentionsUserFullName = ${mentionsUserFullName};
 		var key_mentionsUserScreenName = ${mentionsUserScreenName};
 		var key_siteName = ${mentionsUserFullName};
@@ -136,7 +142,8 @@ definition {
 			value1 = ${mentionsUserFullName});
 	}
 
-	macro viewMentionTagLink {
+	@summary = "Default summary"
+	macro viewMentionTagLink(mentionsUserScreenName = null, mentionsUserFullName = null) {
 		var key_mentionsUserScreenName = ${mentionsUserScreenName};
 		var key_siteName = ${mentionsUserFullName};
 

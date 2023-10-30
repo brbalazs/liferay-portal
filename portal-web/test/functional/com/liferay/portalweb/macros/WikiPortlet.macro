@@ -1,6 +1,7 @@
 definition {
 
-	macro configureDisplaySettings {
+	@summary = "Default summary"
+	macro configureDisplaySettings(uncheckSetting = null) {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
 		for (var SettingName : list ${uncheckSetting}) {
@@ -12,7 +13,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro configureSharingAllowUsersToAddWikiToAnyWebsite {
+	@summary = "Default summary"
+	macro configureSharingAllowUsersToAddWikiToAnyWebsite(enabled = null) {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		Navigator.gotoNavItem(navItem = "Sharing");
@@ -29,7 +31,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro subscribeToNodeCP {
+	@summary = "Default summary"
+	macro subscribeToNodeCP(wikiNodeName = null) {
 		var key_wikiNodeName = ${wikiNodeName};
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Subscribe");
@@ -41,7 +44,8 @@ definition {
 		MenuItem.viewPresent(menuItem = "Unsubscribe");
 	}
 
-	macro tearDownCP {
+	@summary = "Default summary"
+	macro tearDownCP() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -60,7 +64,8 @@ definition {
 		MenuItem.viewPresent(menuItem = "Subscribe");
 	}
 
-	macro viewConfigurationTabs {
+	@summary = "Default summary"
+	macro viewConfigurationTabs() {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
 		for (var isPresent : list ${isPresent}) {
@@ -72,7 +77,8 @@ definition {
 		}
 	}
 
-	macro viewConfigureSharingAllowUsersToAddWikiToAnyWebsite {
+	@summary = "Default summary"
+	macro viewConfigureSharingAllowUsersToAddWikiToAnyWebsite(enabled = null) {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		Navigator.gotoNavItem(navItem = "Sharing");
@@ -87,7 +93,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro viewDisplaySettings {
+	@summary = "Default summary"
+	macro viewDisplaySettings(uncheckedSetting = null) {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
 		for (var SettingName : list ${uncheckedSetting}) {
@@ -95,7 +102,8 @@ definition {
 		}
 	}
 
-	macro viewNoPermissionCP {
+	@summary = "Default summary"
+	macro viewNoPermissionCP() {
 		SiteAdmin.viewPortletTitle(portletTitle = "Wiki");
 
 		AssertElementNotPresent(locator1 = "Button#ADD_WIKI");

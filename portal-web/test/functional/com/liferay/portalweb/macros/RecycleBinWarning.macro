@@ -1,12 +1,14 @@
 definition {
 
-	macro renameEntry {
+	@summary = "Default summary"
+	macro renameEntry(renamedTrashEntryTitle = null) {
 		Type(
 			locator1 = "TextInput#NEW_NAME",
 			value1 = ${renamedTrashEntryTitle});
 	}
 
-	macro selectRename {
+	@summary = "Default summary"
+	macro selectRename() {
 		Check(locator1 = "Radio#KEEP");
 	}
 

@@ -4,7 +4,8 @@ definition {
 	var userPassword = "test";
 	var userPasswordReminderAnswer = "test";
 
-	macro _signIn {
+	@summary = "Default summary"
+	macro _signIn(userPassword = null, userEmailAddress = null, rememberMe = null) {
 		if (IsElementNotPresent(locator1 = "TextInput#EMAIL_ADDRESS")) {
 			AssertClick(
 				locator1 = "UserBar#USER_SIGN_IN",
@@ -30,7 +31,8 @@ definition {
 		AssertElementNotPresent(locator1 = "Button#SIGN_IN");
 	}
 
-	macro agreeToTermsOfUse {
+	@summary = "Default summary"
+	macro agreeToTermsOfUse() {
 		AssertClick(
 			locator1 = "Button#I_AGREE",
 			value1 = "I Agree");
@@ -38,7 +40,8 @@ definition {
 		AssertElementNotPresent(locator1 = "Button#I_AGREE");
 	}
 
-	macro setPasswordReminder {
+	@summary = "Default summary"
+	macro setPasswordReminder(userPasswordReminderAnswer = null) {
 		Type(
 			locator1 = "TextInput#ANSWER",
 			value1 = ${userPasswordReminderAnswer});
@@ -46,7 +49,8 @@ definition {
 		Button.clickSave();
 	}
 
-	macro signIn {
+	@summary = "Default summary"
+	macro signIn(userPassword = null, userEmailAddress = null, rememberMe = null) {
 		Navigator.openURL();
 
 		SignIn._signIn(
@@ -55,7 +59,8 @@ definition {
 			userPassword = ${userPassword});
 	}
 
-	macro signInPortalInstanceSetUp {
+	@summary = "Default summary"
+	macro signInPortalInstanceSetUp() {
 		var defaultPortalURL = PropsUtil.get("default.portal.url");
 
 		SignIn.signInSpecificURL(url = ${defaultPortalURL});
@@ -116,7 +121,8 @@ definition {
 		Navigator.openURL();
 	}
 
-	macro signInSpecificURL {
+	@summary = "Default summary"
+	macro signInSpecificURL(userPassword = null, userEmailAddress = null, rememberMe = null, url = null) {
 		Navigator.openSpecificURL(url = ${url});
 
 		SignIn._signIn(
@@ -125,7 +131,8 @@ definition {
 			userPassword = ${userPassword});
 	}
 
-	macro signInTestSetup {
+	@summary = "Default summary"
+	macro signInTestSetup() {
 		SignOut.signOut();
 
 		SignIn.signIn();

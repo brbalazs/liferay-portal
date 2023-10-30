@@ -1,6 +1,7 @@
 definition {
 
-	macro addFile {
+	@summary = "Default summary"
+	macro addFile(dmDocumentTitle = null, groupName = null, dmDocumentDescription = null, folderName = null) {
 		var portalURL = JSONCompany.getPortalURL();
 		var repositoryId = JSONGroupAPI._getSiteIdByGroupKey(groupName = ${groupName});
 
@@ -37,7 +38,8 @@ definition {
 		var messageId = JSONCurlUtil.post(${curl});
 	}
 
-	macro addFileWithUploadedFile {
+	@summary = "Default summary"
+	macro addFileWithUploadedFile(sourceFileName = null, dmDocumentDescription = null, mimeType = null, workflowAction = null, dmDocumentTitle = null, groupName = null, assetCategoryIds = null, assetTagNames = null, folderName = null) {
 		Variables.assertDefined(parameterList = "${groupName},${mimeType},${sourceFileName}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -95,7 +97,8 @@ definition {
 		var messageId = JSONCurlUtil.post(${curl});
 	}
 
-	macro addFolder {
+	@summary = "Default summary"
+	macro addFolder(groupName = null, dmFolderDescription = null, dmFolderName = null) {
 		var portalURL = JSONCompany.getPortalURL();
 
 		if (!(isSet(site))) {
@@ -128,7 +131,8 @@ definition {
 		var messageId = JSONCurlUtil.post(${curl});
 	}
 
-	macro deleteFile {
+	@summary = "Default summary"
+	macro deleteFile(dmDocumentTitle = null, groupName = null) {
 		var portalURL = JSONCompany.getPortalURL();
 
 		if (!(isSet(site))) {
@@ -154,7 +158,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro getFileEntryId {
+	@summary = "Default summary"
+	macro getFileEntryId(dmDocumentTitle = null, groupName = null) {
 		if (!(isSet(portalURL))) {
 			var portalURL = JSONCompany.getPortalURL();
 		}
@@ -187,7 +192,8 @@ definition {
 		echo("## * File Entry ID: ${fileEntryId}");
 	}
 
-	macro getFileEntryUUID {
+	@summary = "Default summary"
+	macro getFileEntryUUID(dmDocumentTitle = null, groupName = null) {
 		if (!(isSet(portalURL))) {
 			var portalURL = JSONCompany.getPortalURL();
 		}

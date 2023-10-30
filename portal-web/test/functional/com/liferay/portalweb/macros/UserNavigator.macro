@@ -1,56 +1,66 @@
 definition {
 
-	macro gotoContact {
+	@summary = "Default summary"
+	macro gotoContact() {
 		Navigator.gotoNavUnderline(navUnderline = "Contact");
 	}
 
-	macro gotoDisplaySettings {
+	@summary = "Default summary"
+	macro gotoDisplaySettings() {
 		UserNavigator.gotoPreferences();
 
 		Navigator.gotoNavNested(navNested = "Display Settings");
 	}
 
-	macro gotoGeneral {
+	@summary = "Default summary"
+	macro gotoGeneral() {
 		if (IsElementNotPresent(locator1 = "NavUnderline#ACTIVE_NAV_UNDERLINE_LINK")) {
 			Navigator.gotoNavUnderline(navUnderline = "General");
 		}
 	}
 
-	macro gotoMemberships {
+	@summary = "Default summary"
+	macro gotoMemberships() {
 		UserNavigator.gotoGeneral();
 
 		Navigator.gotoNavNested(navNested = "Memberships");
 	}
 
-	macro gotoOrganizations {
+	@summary = "Default summary"
+	macro gotoOrganizations() {
 		UserNavigator.gotoGeneral();
 
 		Navigator.gotoNavNested(navNested = "Organizations");
 	}
 
-	macro gotoPassword {
+	@summary = "Default summary"
+	macro gotoPassword() {
 		UserNavigator.gotoGeneral();
 
 		Navigator.gotoNavNested(navNested = "Password");
 	}
 
-	macro gotoPreferences {
+	@summary = "Default summary"
+	macro gotoPreferences() {
 		Navigator.gotoNavUnderline(navUnderline = "Preferences");
 	}
 
-	macro gotoProfileAndDashboard {
+	@summary = "Default summary"
+	macro gotoProfileAndDashboard() {
 		UserNavigator.gotoGeneral();
 
 		Navigator.gotoNavNested(navNested = "Profile and Dashboard");
 	}
 
-	macro gotoRoles {
+	@summary = "Default summary"
+	macro gotoRoles() {
 		UserNavigator.gotoGeneral();
 
 		Navigator.gotoNavNested(navNested = "Roles");
 	}
 
-	macro gotoUser {
+	@summary = "Default summary"
+	macro gotoUser(userScreenName = null) {
 		var key_userScreenName = ${userScreenName};
 
 		AssertClick(
