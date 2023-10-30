@@ -49,6 +49,16 @@ public class UpdateMembershipsNanite extends BaseNanite {
 		return _log;
 	}
 
+	private boolean _isProcessableSegment(Segment segment) {
+		if (StringUtils.equalsIgnoreCase("DISABLED", segment.getState()) ||
+			StringUtils.equalsIgnoreCase("INACTIVE", segment.getStatus())) {
+
+			return false;
+		}
+
+		return true;
+	}
+
 	private void _updateDynamicSegmentMemberships() {
 		int page = 0;
 
@@ -65,8 +75,12 @@ public class UpdateMembershipsNanite extends BaseNanite {
 	}
 
 	private void _updateDynamicSegmentMemberships(Segment segment) {
-		if (StringUtils.equalsIgnoreCase("DISABLED", segment.getState()) ||
-			StringUtils.equalsIgnoreCase("INACTIVE", segment.getStatus())) {
+		if (!_isProcessableSegment(segment)) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Skipping disabled or inactive dynamic segment " +
+						segment.getId());
+			}
 
 			return;
 		}
@@ -137,6 +151,16 @@ public class UpdateMembershipsNanite extends BaseNanite {
 	}
 
 	private void _updateStaticSegmentMembershipChanges(Segment segment) {
+		if (!_isProcessableSegment(segment)) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(
+					"Skipping disabled or inactive static segment " +
+						segment.getId());
+			}
+
+			return;
+		}
+
 		Long segmentId = segment.getId();
 
 		try {
