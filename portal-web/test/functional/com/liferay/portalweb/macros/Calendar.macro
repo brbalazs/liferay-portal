@@ -45,7 +45,7 @@ definition {
 			value1 = ${menuListOption});
 
 		if (${menuListOption} == "RSS") {
-			SelectWindow.selectPopUp(locator1 = "null");
+			SelectWindow.selectPopUp(value1 = "null");
 		}
 	}
 
@@ -321,7 +321,7 @@ definition {
 			Calendar._viewEmailHeader(header = ${calendarName});
 		}
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		if (${inviteEmail} == "true") {
 			AssertElementPresent(locator1 = "CalendarEditCalendar#NOTIFICATION_TEMPLATES_INVITE_EMAIL_TAB_ACTIVE");
@@ -438,7 +438,7 @@ definition {
 
 		MenuItem.click(menuItem = "Export");
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		AssertConsoleTextNotPresent(value1 = "ClassNotFoundException");
 	}
@@ -682,7 +682,7 @@ definition {
 	macro viewNoRSS(rssURL = null) {
 		Navigator.openSpecificURL(url = ${rssURL});
 
-		SelectWindow.selectPopUp(locator1 = "null");
+		SelectWindow.selectPopUp(value1 = "null");
 
 		AssertElementNotPresent(locator1 = "RSS#FEED_TITLE");
 	}
@@ -761,7 +761,7 @@ definition {
 			siteCalendarName = ${siteCalendarName},
 			siteName = ${siteName});
 
-		SelectWindow(locator1 = "title=${siteName}");
+		SelectWindow(value1 = "title=${siteName}");
 
 		AssertTextEquals(
 			locator1 = "RSS#FEED_TITLE",
@@ -781,7 +781,7 @@ definition {
 			siteCalendarName = ${siteCalendarName},
 			siteName = ${siteName});
 
-		SelectWindow(locator1 = "title=${siteName}");
+		SelectWindow(value1 = "title=${siteName}");
 
 		AssertTextEquals(
 			locator1 = "RSS#FEED_TITLE",
@@ -840,7 +840,7 @@ definition {
 
 		SelectFrame(value1 = "relative=top");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		var key_weekNumber = ${weekNumber} + 1;
 

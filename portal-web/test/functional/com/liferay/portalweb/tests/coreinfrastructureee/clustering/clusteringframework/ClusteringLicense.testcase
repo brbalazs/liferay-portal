@@ -29,7 +29,7 @@ definition {
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 
-		Pause(locator1 = 360000);
+		Pause(value1 = 360000);
 
 		User.loginPG(
 			nodePort = 9080,
@@ -48,7 +48,7 @@ definition {
 
 		Clustering.shutdownSpecificServer(nodePort = 9080);
 
-		Pause(locator1 = 60000);
+		Pause(value1 = 60000);
 
 		for (var nodeNumber : list "8,10") {
 			User.loginPG(
@@ -88,7 +88,7 @@ definition {
 		for (var nodeNumber : list "12,11,10") {
 			Clustering.waitForNodeShutdown(nodePort = "${nodeNumber}080");
 
-			Pause(locator1 = 60000);
+			Pause(value1 = 60000);
 		}
 
 		for (var nodeNumber : list "8,9") {
@@ -170,7 +170,7 @@ definition {
 
 		// Wait for cluster to notify all nodes that they are no longer overloaded
 
-		Pause(locator1 = 60000);
+		Pause(value1 = 60000);
 
 		Clustering.viewTextPresentOnSpecificNode(
 			expectedText = "Shutting down current node as it is the latest one",
@@ -378,7 +378,7 @@ definition {
 
 		Alert.viewErrorMessage(errorMessage = "will be automatically deactivated");
 
-		Pause(locator1 = 360000);
+		Pause(value1 = 360000);
 
 		for (var nodeNumber : list "8,9") {
 			User.loginPG(
@@ -399,7 +399,7 @@ definition {
 
 		Clustering.shutdownSpecificServer(nodePort = 10080);
 
-		Pause(locator1 = 60000);
+		Pause(value1 = 60000);
 
 		for (var nodeNumber : list "8,9") {
 			User.loginPG(

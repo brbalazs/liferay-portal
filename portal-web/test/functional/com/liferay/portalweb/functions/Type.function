@@ -5,7 +5,7 @@ definition {
 	function clickAtType() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
@@ -23,7 +23,7 @@ definition {
 
 		selenium.pause(1000);
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -31,7 +31,7 @@ definition {
 	function sendKeys() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
@@ -39,7 +39,7 @@ definition {
 
 		selenium.sendKeys(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -47,7 +47,7 @@ definition {
 	function sendKeysAceEditor() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
@@ -55,7 +55,7 @@ definition {
 
 		selenium.sendKeysAceEditor(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -63,13 +63,13 @@ definition {
 	function sendKeysApplicationSearch() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
 		Type.sendKeys();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -77,7 +77,7 @@ definition {
 	function type() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
@@ -85,7 +85,7 @@ definition {
 
 		selenium.type(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -93,7 +93,7 @@ definition {
 	function typeAceEditor() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
@@ -101,7 +101,7 @@ definition {
 
 		selenium.typeAceEditor(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -109,7 +109,7 @@ definition {
 	function typeAceEditorNoError() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
@@ -121,13 +121,13 @@ definition {
 	function typeAceEditorNoMouseOver() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
 		selenium.typeAceEditor(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -135,7 +135,7 @@ definition {
 	function typeClickAt() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
@@ -145,7 +145,7 @@ definition {
 
 		selenium.clickAt(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -153,7 +153,7 @@ definition {
 	function typeEditor() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
@@ -161,7 +161,7 @@ definition {
 
 		selenium.typeEditor(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -169,7 +169,7 @@ definition {
 	function typeEditorWaitForEditor() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "false");
 
 		selenium.pause(1000);
 
@@ -179,7 +179,7 @@ definition {
 
 		selenium.pause(1000);
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -191,7 +191,7 @@ definition {
 
 		selenium.type(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -199,7 +199,7 @@ definition {
 	function typePause() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
@@ -209,7 +209,7 @@ definition {
 
 		selenium.pause(1000);
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -217,13 +217,13 @@ definition {
 	function typeWaitForCKEditorScript() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1}, "false");
 
 		selenium.waitForEditable(${locator1});
 
 		Type.type();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}

@@ -268,7 +268,7 @@ definition {
 			imageSourceURL = "https://dummyimage.com/600x400/000/fff.jpg",
 			navTab = "URL");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		PortletEntry.publish();
 
@@ -618,7 +618,7 @@ definition {
 
 		Button.clickPublish();
 
-		Pause(locator1 = 30000);
+		Pause(value1 = 30000);
 
 		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
 
@@ -652,7 +652,7 @@ definition {
 
 		Button.clickPublish();
 
-		Pause(locator1 = 30000);
+		Pause(value1 = 30000);
 
 		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
 
@@ -720,7 +720,7 @@ definition {
 			navTab = "Upload Image",
 			uploadFileName = "Document_1.jpg");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		BlogsEntry.saveAsDraft();
 
@@ -766,7 +766,7 @@ definition {
 
 		Button.clickPublish();
 
-		Pause(locator1 = 30000);
+		Pause(value1 = 30000);
 
 		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
 

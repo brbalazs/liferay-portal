@@ -758,13 +758,13 @@ definition {
 			dmDocumentFile = "Document_1.mp4",
 			dmDocumentTitle = "Document_1.mp4");
 
-		Pause(locator1 = 180000);
+		Pause(value1 = 180000);
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
 		DMNavigator.gotoDocumentPG(dmDocumentTitle = "Document_1.mp4");
 
-		Pause(locator1 = 30000);
+		Pause(value1 = 30000);
 
 		var videoGenerationTimeCounter = 0;
 		var videoGenerationTimeMaxWaitTime = 6;
@@ -772,7 +772,7 @@ definition {
 		while ((${videoGenerationTimeCounter} != ${videoGenerationTimeMaxWaitTime}) && (IsElementPresent(locator1 = "Message#INFO"))) {
 			var videoGenerationTimeCounter = ${videoGenerationTimeCounter} + 1;
 
-			Pause(locator1 = 30000);
+			Pause(value1 = 30000);
 
 			Navigator.gotoPage(pageName = "Documents and Media Page");
 
@@ -783,7 +783,7 @@ definition {
 
 		Navigator.openSpecificURL(url = ${videoPreviewThumbnailLink});
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertElementNotPresent(
 			key_videoGenerationThumbnailResolution = 640,
@@ -847,7 +847,7 @@ definition {
 			menuItem = "Edit",
 			rowEntry = "DM Document Type Name");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		var documentTypeURL = selenium.getLocation();
 
@@ -1859,13 +1859,13 @@ definition {
 
 		PortletEntry.publish();
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertTextNotPresent(value1 = "Documents and Media is temporarily unavailable.");
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertTextNotPresent(value1 = "Documents and Media is temporarily unavailable.");
 

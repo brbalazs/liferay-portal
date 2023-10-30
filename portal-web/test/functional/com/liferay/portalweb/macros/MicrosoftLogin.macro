@@ -43,7 +43,7 @@ definition {
 
 	@summary = "Default summary"
 	macro confirmSharepointApp(dmRepositoryName = null) {
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		var app_name = "Collaboration Test Application";
 

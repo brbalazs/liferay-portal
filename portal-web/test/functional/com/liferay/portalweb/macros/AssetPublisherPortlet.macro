@@ -1592,7 +1592,7 @@ definition {
 	macro viewSelectedPG(selectedAssetConfiguration = null, assetSubtypeConfiguration = null, selectedAsset = null) {
 		Portlet.clickPortletPlusIconPG(portletName = "Asset Publisher");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertTextEquals(
 			key_menuItem = ${selectedAsset},

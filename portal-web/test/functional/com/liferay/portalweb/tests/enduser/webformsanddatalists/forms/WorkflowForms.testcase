@@ -79,7 +79,7 @@ definition {
 
 		FormPortlet.submitLocalizedSuccessfully(buttonName = "Submit for Publication");
 
-		Pause(locator1 = 120000);
+		Pause(value1 = 120000);
 
 		Navigator.openSpecificURL(url = ${publishFormURL});
 

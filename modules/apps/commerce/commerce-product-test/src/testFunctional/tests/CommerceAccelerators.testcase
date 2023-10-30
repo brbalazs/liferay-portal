@@ -24,7 +24,7 @@ definition {
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 	}
 
 	tearDown {
@@ -381,7 +381,7 @@ definition {
 
 		Button.click(button = "Submit");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",
@@ -542,7 +542,7 @@ definition {
 
 		Button.click(button = "Checkout");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",
@@ -706,7 +706,7 @@ definition {
 			productName = "ABS Sensor",
 			productQuantity = 2);
 
-		Pause(locator1 = 2000);
+		Pause(value1 = 2000);
 
 		Refresh();
 
@@ -714,7 +714,7 @@ definition {
 
 		Button.click(button = "Submit");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",

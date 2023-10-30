@@ -74,7 +74,7 @@ definition {
 			entryTitle = "Announcements Entry Title",
 			entryURL = "http://www.liferay.com");
 
-		Pause(locator1 = 10000);
+		Pause(value1 = 10000);
 
 		AssertClick(
 			locator1 = "Announcements#NAVIGATION_ENTRIES_UNREAD",
@@ -82,7 +82,7 @@ definition {
 
 		AssertTextNotPresent(value1 = "Announcements Entry Title");
 
-		Pause(locator1 = 120000);
+		Pause(value1 = 120000);
 
 		Navigator.gotoPage(pageName = "Announcements Page");
 

@@ -687,7 +687,7 @@ definition {
 
 		Click(locator1 = "WCD#WEB_CONTENT_LINK");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertLocation(value1 = "${portalURL}/web/site-name/page2-name");
 	}

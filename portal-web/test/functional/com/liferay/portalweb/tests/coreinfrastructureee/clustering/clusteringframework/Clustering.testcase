@@ -196,7 +196,7 @@ definition {
 		for (var method : list "invoke-method-module,invoke-method-portal") {
 			AntCommands.runCommand("build-test.xml", "cluster-invoke-method -Dcluster.invoke.method=${method}");
 
-			Pause(locator1 = 10000);
+			Pause(value1 = 10000);
 
 			Clustering.viewTextPresentOnSpecificNode(
 				expectedText = "Result of ${method} is :9080",
@@ -210,7 +210,7 @@ definition {
 		for (var method : list "invoke-method-module-on-master,invoke-method-portal-on-master") {
 			AntCommands.runCommand("build-test.xml", "cluster-invoke-method -Dcluster.invoke.method=${method}");
 
-			Pause(locator1 = 10000);
+			Pause(value1 = 10000);
 
 			Clustering.viewTextPresentOnSpecificNode(
 				expectedText = "Result of ${method} is :8080",
@@ -658,7 +658,7 @@ definition {
 			locator1 = "Home#PAGE_2_GUEST_VIEW",
 			value1 = "New Page Name");
 
-		Pause(locator1 = 180000);
+		Pause(value1 = 180000);
 
 		Navigator.gotoSpecificURLPage(
 			pageName = "Welcome",

@@ -394,7 +394,7 @@ definition {
 
 		Navigator.openURL();
 
-		Pause(locator1 = 120000);
+		Pause(value1 = 120000);
 
 		AssertTextEquals(
 			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",
@@ -428,7 +428,7 @@ definition {
 
 		Navigator.openURL();
 
-		Pause(locator1 = 60000);
+		Pause(value1 = 60000);
 
 		SAML.executeIdPInitiatedSSO(
 			autoLogin = "true",
@@ -440,7 +440,7 @@ definition {
 
 		Navigator.openURL();
 
-		Pause(locator1 = 120000);
+		Pause(value1 = 120000);
 
 		AssertTextEquals(
 			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",
@@ -477,7 +477,7 @@ definition {
 
 		User.viewLoggedInPG(userFirstName = "Test");
 
-		Pause(locator1 = 120000);
+		Pause(value1 = 120000);
 
 		AssertTextEquals(
 			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",
@@ -522,7 +522,7 @@ definition {
 
 		Navigator.openURL();
 
-		Pause(locator1 = 120000);
+		Pause(value1 = 120000);
 
 		AssertTextEquals(
 			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",
@@ -532,7 +532,7 @@ definition {
 
 		User.viewLoggedInPG(userFirstName = "Test");
 
-		Pause(locator1 = 120000);
+		Pause(value1 = 120000);
 
 		AssertTextEquals(
 			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",

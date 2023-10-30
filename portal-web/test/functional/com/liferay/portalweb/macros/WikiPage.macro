@@ -22,7 +22,7 @@ definition {
 				locator1 = "Link#FEED",
 				value1 = "Feed");
 
-			Pause(locator1 = 3000);
+			Pause(value1 = 3000);
 		}
 	}
 
@@ -703,7 +703,7 @@ definition {
 			locator1 = "Link#WIKI_EDIT",
 			value1 = "Edit");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		AlloyEditor.addContent(content = ${wikiPageContentEdit});
 
@@ -1594,14 +1594,14 @@ definition {
 			locator1 = "Link#FEED",
 			value1 = "Feed");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		WikiPage._checkForRSSTitleCP(
 			wikiNodeName = ${wikiNodeName},
 			wikiPageContent = ${wikiPageContent},
 			wikiPageTitle = ${wikiPageTitle});
 
-		SelectWindow(locator1 = "title=${wikiPageTitle}");
+		SelectWindow(value1 = "title=${wikiPageTitle}");
 
 		var key_entryContent = ${wikiPageContent};
 		var key_entryTitle = ${wikiPageTitle};

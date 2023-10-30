@@ -59,7 +59,7 @@ definition {
 
 			Check(locator1 = "Card#SPECIFIC_CHECKBOX");
 
-			Pause(locator1 = 5000);
+			Pause(value1 = 5000);
 
 			SelectFrameTop();
 

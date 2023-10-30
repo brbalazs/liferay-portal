@@ -104,19 +104,19 @@ definition {
 			locator1 = "KaleoDesignerEditWorkflow#SOURCE_KALEO_XML_TAB",
 			value1 = "Source");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		Type.typeAceEditorNoMouseOver(
 			locator1 = "KaleoDesignerEditWorkflow#SOURCE_KALEO_XML_CONTENT",
 			value1 = ${sourceXML});
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertClick(
 			locator1 = "KaleoDesignerEditWorkflow#DIAGRAM_TAB",
 			value1 = "Diagram");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 	}
 
 	@summary = "Default summary"
@@ -200,19 +200,19 @@ definition {
 			locator1 = "KaleoDesignerEditWorkflow#SOURCE_KALEO_XML_TAB",
 			value1 = "Source");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		Type.typeAceEditorNoMouseOver(
 			locator1 = "KaleoDesignerEditWorkflow#SOURCE_KALEO_XML_CONTENT",
 			value1 = ${sourceXML});
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertClick(
 			locator1 = "KaleoDesignerEditWorkflow#DIAGRAM_TAB",
 			value1 = "Diagram");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 	}
 
 	@summary = "Default summary"
@@ -227,7 +227,7 @@ definition {
 
 		AssertConfirm(value1 = "Are you sure you want to delete the selected connector(s)?");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		KaleoDesigner.viewConnectorNotPresent(
 			connectorLabel = ${connectorLabel},
@@ -242,7 +242,7 @@ definition {
 
 		AssertConfirm(value1 = "Are you sure you want to delete the selected node(s)?");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		KaleoDesigner.viewNodeNotPresent(nodeNodeLabel = ${nodeNodeLabel});
 	}
@@ -409,7 +409,7 @@ definition {
 			}
 		}
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertClick(
 			locator1 = "Button#SAVE",
@@ -702,7 +702,7 @@ definition {
 			}
 		}
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertClick(
 			locator1 = "Button#SAVE",
@@ -777,13 +777,13 @@ definition {
 				value1 = ${kdSourceXML});
 		}
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertClick(
 			locator1 = "KaleoDesignerEditWorkflow#DIAGRAM_TAB",
 			value1 = "Diagram");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 	}
 
 	@summary = "Default summary"
@@ -792,7 +792,7 @@ definition {
 			locator1 = "KaleoDesignerEditWorkflow#SOURCE_KALEO_XML_TAB",
 			value1 = "Source");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 	}
 
 	@summary = "Default summary"
@@ -810,7 +810,7 @@ definition {
 			locator1 = "KaleoDesignerEditWorkflow#DIAGRAM_TAB",
 			value1 = "Diagram");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 	}
 
 }

@@ -97,7 +97,7 @@ definition {
 			locator1 = "RSSFeed#FEEDS_TITLE",
 			value1 = ${feedTitle});
 
-		SelectWindow(locator1 = "title=Site Page Name 2 - Site Name - ${siteName}");
+		SelectWindow(value1 = "title=Site Page Name 2 - Site Name - ${siteName}");
 	}
 
 	@summary = "Default summary"
@@ -202,7 +202,7 @@ definition {
 		var key_feedHeading = ${feedHeading};
 
 		if (isSet(updateFeed)) {
-			Pause(locator1 = 60000);
+			Pause(value1 = 60000);
 
 			Navigator._gotoPage(pageName = ${pageName});
 		}

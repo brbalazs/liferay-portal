@@ -678,7 +678,7 @@ definition {
 
 	@summary = "Default summary"
 	macro answerPasswordReminder() {
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#ANSWER")) {
 			Type(
@@ -693,7 +693,7 @@ definition {
 
 	@summary = "Default summary"
 	macro answerPasswordReminderLocalized(localizedSaveButton = null, localizedAnswer = null) {
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		var key_localizedAnswer = ${localizedAnswer};
 
@@ -749,7 +749,7 @@ definition {
 			locator1 = "UsersAndOrganizationsEditUser#ROLES_REGULAR_ROLES_SELECT_LINK",
 			value1 = "Select");
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		SelectFrame(locator1 = "IFrame#SELECT_REGULAR_ROLE");
 
@@ -812,7 +812,7 @@ definition {
 			locator1 = "UsersAndOrganizationsEditUser#USER_GROUPS_SELECT_LINK",
 			value1 = "Select");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		SelectFrame(locator1 = "IFrame#SELECT_USER_GROUP");
 
@@ -1003,7 +1003,7 @@ definition {
 			locator1 = "TextInput#UPLOAD_FILE",
 			value1 = ${imageName});
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		WaitForElementNotPresent(
 			key_text = "Done",
@@ -1422,7 +1422,7 @@ definition {
 	macro editUserDisplaySettingsCP(displaySettingsGreeting = null, userScreenName = null) {
 		var key_userScreenName = ${userScreenName};
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertTextEquals(
 			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
@@ -1783,7 +1783,7 @@ definition {
 
 	@summary = "Default summary"
 	macro impersonateCP(userScreenName = null, siteName = null) {
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		Search.searchCP(searchTerm = ${userScreenName});
 
@@ -1793,7 +1793,7 @@ definition {
 
 		MenuItem.click(menuItem = "Impersonate User");
 
-		SelectWindow(locator1 = "title=Welcome - ${siteName}");
+		SelectWindow(value1 = "title=Welcome - ${siteName}");
 
 		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
@@ -2002,7 +2002,7 @@ definition {
 			locator1 = "Link#FACEBOOK",
 			value1 = "Facebook");
 
-		SelectWindow(locator1 = "title=Log into Facebook | Facebook");
+		SelectWindow(value1 = "title=Log into Facebook | Facebook");
 
 		Type(
 			locator1 = "FacebookLogin#LOGIN_EMAIL_FIELD",
@@ -2020,7 +2020,7 @@ definition {
 			if (IsElementPresent(locator1 = "Button#SUBMIT")) {
 				Click(locator1 = "Button#SUBMIT");
 
-				Pause(locator1 = 30000);
+				Pause(value1 = 30000);
 			}
 
 			SelectWindow.selectWindowNoSPARefresh(locator1 = "title=Terms of Use");
@@ -2268,11 +2268,11 @@ definition {
 
 	@summary = "Default summary"
 	macro searchCP(searchTerm = null) {
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		Search.searchCP(searchTerm = ${searchTerm});
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 	}
 
 	@summary = "Default summary"
@@ -2452,7 +2452,7 @@ definition {
 
 	@summary = "Default summary"
 	macro unlockUserAccount(userScreenName = null) {
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		var key_userScreenName = ${userScreenName};
 
@@ -2581,7 +2581,7 @@ definition {
 	@summary = "Default summary"
 	macro viewCP(userEmailAddressVariation = null, userJobTitle = null, userScreenNameVariation = null, userLastName = null, userScreenName = null, userEmailAddress = null, userFirstName = null, userBirthday = null) {
 		if (${userEmailAddressVariation} == "At") {
-			Pause(locator1 = 1000);
+			Pause(value1 = 1000);
 
 			Search.searchCP(searchTerm = ${userEmailAddress});
 
@@ -2590,7 +2590,7 @@ definition {
 				value1 = "No users were found.");
 		}
 		else if (${userEmailAddressVariation} == "Period") {
-			Pause(locator1 = 1000);
+			Pause(value1 = 1000);
 
 			Search.searchCP(searchTerm = ${userEmailAddress});
 
@@ -2599,7 +2599,7 @@ definition {
 				value1 = "No users were found.");
 		}
 		else if (${userScreenNameVariation} == "Invalid") {
-			Pause(locator1 = 1000);
+			Pause(value1 = 1000);
 
 			Search.searchCP(searchTerm = ${userScreenName});
 
@@ -2610,7 +2610,7 @@ definition {
 		else {
 			var key_userScreenName = ${userScreenName};
 
-			Pause(locator1 = 1000);
+			Pause(value1 = 1000);
 
 			AssertTextEquals(
 				locator1 = "UsersAndOrganizations#USER_TABLE_NAME",

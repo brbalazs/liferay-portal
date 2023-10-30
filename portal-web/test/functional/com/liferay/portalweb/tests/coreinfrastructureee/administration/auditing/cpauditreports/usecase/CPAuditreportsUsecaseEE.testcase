@@ -52,7 +52,7 @@ definition {
 			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
 			value1 = "test");
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		var userId = selenium.getElementValue("UsersAndOrganizationsEditUser#DETAILS_USER_ID_FIELD");
 
@@ -149,7 +149,7 @@ definition {
 
 		Close.closeWindow(locator1 = "title=Welcome - ${siteName}");
 
-		SelectWindow(locator1 = "title=Users and Organizations - Control Panel - ${siteName}");
+		SelectWindow(value1 = "title=Users and Organizations - Control Panel - ${siteName}");
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

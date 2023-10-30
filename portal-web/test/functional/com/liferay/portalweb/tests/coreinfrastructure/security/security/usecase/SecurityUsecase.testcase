@@ -274,7 +274,7 @@ out.println(PortalUtil.escapeRedirect("/"));
 
 		Navigator.openSpecificURL(url = "${portalURL}/html/common/forward_jsp.jsp?FORWARD_URL=http://www.msn.com");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		AssertElementPresent(
 			key_pageName = "Welcome",

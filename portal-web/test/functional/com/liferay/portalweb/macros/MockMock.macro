@@ -10,7 +10,7 @@ definition {
 	@summary = "Default summary"
 	macro _gotoMail(newTab = null) {
 		if (${newTab} == "true") {
-			Open.openInTheNewTab(locator1 = "http://localhost:8282");
+			Open.openInTheNewTab(value1 = "http://localhost:8282");
 		}
 		else {
 			Navigator.openSpecificURL(url = "http://localhost:8282");

@@ -69,7 +69,7 @@ definition {
 	macro addItem(item = null, urlName = null, submenuName = null, privacy = null, url = null, pageNames = null) {
 		LexiconEntry.gotoAddMenuItem(menuItem = ${item});
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		IFrame.selectConfigurationFrame();
 
@@ -107,7 +107,7 @@ definition {
 	macro addTranslation(itemName = null, translation = null, locale = null) {
 		NavigationMenusAdmin.openItemSidebar(itemName = ${itemName});
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		if (IsElementPresent(locator1 = "SiteNavigationMenu#SET_CUSTOM_NAME_CHECKBOX")) {
 			Check.checkToggleSwitch(locator1 = "SiteNavigationMenu#SET_CUSTOM_NAME_CHECKBOX");

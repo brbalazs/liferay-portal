@@ -544,7 +544,7 @@ definition {
 
 		ImageEditor.rotateImage(rotateDirection = "left");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		ImageEditor.applyChangesAndSaveFile();
 

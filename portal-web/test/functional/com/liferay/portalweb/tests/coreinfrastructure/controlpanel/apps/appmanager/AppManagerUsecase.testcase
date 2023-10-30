@@ -54,7 +54,7 @@ definition {
 
 		AppManager.selectAppCP(appName = "Independent Modules");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		AppManager.viewNoAppCP(appName = "Independent Modules");
 	}
@@ -70,7 +70,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "License Manager");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		LicenseManager.viewDefaultCP(tableTexts = "Server Info,Host Name,IP Addresses,Licenses Registered,Owner,Start Date");
 
