@@ -14,6 +14,6 @@ INSERT INTO JournalDaily (assetId, channelId, eventDate, views) VALUES ('e131fab
 
 INSERT INTO PageDaily (canonicalUrl, channelId, eventDate, title, views) VALUES ('https://www.beryl.com/delivery', 1, DATETIME_TRUNC(timestamp '${today-6d}', HOUR), 'Delivery', 1);
 
-INSERT INTO Session (channelId, id) VALUES (1, '366909399944213421');
+INSERT INTO Session (channelId, id, sessionStart) VALUES (1, '366909399944213421', '2021-05-14');
 
 INSERT INTO SessionInterestScore(channelId, interested, keyword, recordedDate, sessionId) VALUES (1, TRUE, 'compelling action-items', DATE(TIMESTAMP  '${today-400d}'), '1');
