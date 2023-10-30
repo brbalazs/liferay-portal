@@ -1,10 +1,12 @@
 definition {
 
-	macro initializeAccelerator {
+	@summary = "Default summary"
+	macro initializeAccelerator(siteName = null) {
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = ${siteName});
 	}
 
-	macro initializeNewSiteViaAccelerator {
+	@summary = "Default summary"
+	macro initializeNewSiteViaAccelerator(siteName = null) {
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",

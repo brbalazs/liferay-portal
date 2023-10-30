@@ -1,6 +1,7 @@
 definition {
 
-	macro addOptionValues {
+	@summary = "Default summary"
+	macro addOptionValues(optionEntryName = null, valuePriority = null) {
 		var optionValuesList = ${optionValuesList};
 
 		CommerceNavigator.gotoOptionValues(optionEntryName = ${optionEntryName});
@@ -20,13 +21,15 @@ definition {
 		Click(locator1 = "CommerceEntry#MODAL_CLOSE");
 	}
 
-	macro moveProductsEntriesToRecycleBin {
+	@summary = "Default summary"
+	macro moveProductsEntriesToRecycleBin() {
 		Click(locator1 = "CommerceNavigation#SELECT_ALL_CHECKBOX");
 
 		Click(locator1 = "Button#RECYCLE_BIN");
 	}
 
-	macro moveProductsToRecycleBinViaCheckbox {
+	@summary = "Default summary"
+	macro moveProductsToRecycleBinViaCheckbox(productName = null) {
 		Click(
 			key_entryName = ${productName},
 			locator1 = "CommerceNavigation#SINGLE_ENTRY_CHECKBOX");
@@ -40,7 +43,8 @@ definition {
 		AssertElementPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER");
 	}
 
-	macro newOptionsEntry {
+	@summary = "Default summary"
+	macro newOptionsEntry(optionFieldType = null, valuePriority = null, optionDescription = null, optionName = null, optionValues = null, optionValuesList = null) {
 		if (IsElementPresent(locator1 = "Button#DELETE")) {
 			Click(locator1 = "CommerceEntry#ADD_BUTTON");
 		}
@@ -68,7 +72,8 @@ definition {
 		}
 	}
 
-	macro newProductsEntry {
+	@summary = "Default summary"
+	macro newProductsEntry(productName = null, productType = null) {
 		CommerceProducts.addEntry(
 			productFullDescription = "${productName} Full Description",
 			productName = ${productName},

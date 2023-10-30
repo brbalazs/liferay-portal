@@ -1,7 +1,7 @@
 @default = "waitForLiferayEvent"
 definition {
 
-	function initializeLiferayEventLog() {
+	function initializeLiferayEventLog(value2, value1, value3) {
 		var javascript = '''
 			if (typeof Liferay != "undefined") {
 				const TRACKED_EVENTS = [

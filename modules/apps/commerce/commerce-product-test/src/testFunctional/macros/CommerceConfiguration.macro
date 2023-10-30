@@ -1,6 +1,7 @@
 definition {
 
-	macro commerceAdminSetUp {
+	@summary = "Default summary"
+	macro commerceAdminSetUp() {
 		ProductMenu.gotoPortlet(
 			category = "Users",
 			panel = "Control Panel",
@@ -34,7 +35,8 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	macro commerceAdminTearDown {
+	@summary = "Default summary"
+	macro commerceAdminTearDown(userScreenName = null) {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -191,7 +193,8 @@ definition {
 		}
 	}
 
-	macro commerceCatalogsTearDown {
+	@summary = "Default summary"
+	macro commerceCatalogsTearDown() {
 		var catalogsList = "";
 		var count = 1;
 
@@ -221,7 +224,8 @@ definition {
 		}
 	}
 
-	macro commerceInitializersTearDown {
+	@summary = "Default summary"
+	macro commerceInitializersTearDown() {
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
@@ -238,7 +242,8 @@ definition {
 		}
 	}
 
-	macro commercePriceListsTearDown {
+	@summary = "Default summary"
+	macro commercePriceListsTearDown() {
 		var priceListsList = "";
 		var count = 1;
 
@@ -268,7 +273,8 @@ definition {
 		}
 	}
 
-	macro commerceStoreFrontSetUp {
+	@summary = "Default summary"
+	macro commerceStoreFrontSetUp() {
 		ProductMenu.gotoPortlet(
 			category = "Commerce",
 			panel = "Site Administration",
@@ -319,7 +325,8 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	macro commerceStoreFrontTearDown {
+	@summary = "Default summary"
+	macro commerceStoreFrontTearDown() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(

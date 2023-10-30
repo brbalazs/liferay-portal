@@ -2,7 +2,7 @@
 @summary = "Open browser to '${locator1}'"
 definition {
 
-	function open() {
+	function open(value1) {
 		WaitForSPARefresh();
 
 		selenium.selectWindow("null");
@@ -18,7 +18,7 @@ definition {
 		WaitForSPARefresh();
 	}
 
-	function openInTheNewTab() {
+	function openInTheNewTab(value2, value1, value3) {
 		WaitForSPARefresh();
 
 		selenium.executeJavaScript(${value1}, ${value2}, ${value3});
@@ -28,7 +28,7 @@ definition {
 		selenium.open(${value1});
 	}
 
-	function openNoError() {
+	function openNoError(value1) {
 		WaitForSPARefresh();
 
 		selenium.selectWindow("null");

@@ -2,7 +2,7 @@
 @summary = "Click on '${locator1}'"
 definition {
 
-	function click() {
+	function click(locator1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");
@@ -16,7 +16,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAt() {
+	function clickAt(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");
@@ -30,7 +30,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAtNotVisible() {
+	function clickAtNotVisible(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "false");
@@ -44,7 +44,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAtSidebarClickAtWaitForScript() {
+	function clickAtSidebarClickAtWaitForScript(locator1) {
 		WaitForSPARefresh();
 
 		selenium.pause(1000);
@@ -62,7 +62,7 @@ definition {
 		selenium.waitForElementPresent(${locator1}, "false");
 	}
 
-	function clickNoMouseOver() {
+	function clickNoMouseOver(locator1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");
@@ -74,7 +74,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function clickNoMouseOverNoWaitForVisible() {
+	function clickNoMouseOverNoWaitForVisible(locator1) {
 		WaitForSPARefresh();
 
 		selenium.click(${locator1});
@@ -84,7 +84,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function clickNoSPARefresh() {
+	function clickNoSPARefresh(locator1) {
 		selenium.waitForVisible(${locator1}, "false");
 
 		selenium.mouseOver(${locator1});
@@ -96,7 +96,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function clickNoWaitForVisible() {
+	function clickNoWaitForVisible(locator1) {
 		WaitForSPARefresh();
 
 		selenium.mouseOver(${locator1});
@@ -108,7 +108,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function clickWaitForInlineCKEditorNoMouseOver() {
+	function clickWaitForInlineCKEditorNoMouseOver(locator1) {
 		WaitForSPARefresh();
 
 		if (selenium.isElementPresent("//div[contains(@class,'cke_editable_inline')]")) {
@@ -120,7 +120,7 @@ definition {
 		selenium.click(${locator1});
 	}
 
-	function javaScriptClick() {
+	function javaScriptClick(locator1) {
 		WaitForSPARefresh();
 
 		selenium.javaScriptClick(${locator1});
@@ -130,7 +130,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseDownMouseUp() {
+	function mouseDownMouseUp(locator1) {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "false");
@@ -164,7 +164,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseOverClick() {
+	function mouseOverClick(locator1) {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "false");
@@ -180,7 +180,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function pauseClickAt() {
+	function pauseClickAt(locator1) {
 		WaitForSPARefresh();
 
 		selenium.pause(1000);
@@ -194,7 +194,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function waitForMenuToggleJSClick() {
+	function waitForMenuToggleJSClick(locator1) {
 		WaitForSPARefresh();
 
 		selenium.selectFrame("relative=top");

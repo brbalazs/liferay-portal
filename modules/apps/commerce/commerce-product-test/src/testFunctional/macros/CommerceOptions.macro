@@ -1,6 +1,7 @@
 definition {
 
-	macro addEntry {
+	@summary = "Default summary"
+	macro addEntry(optionFieldType = null, optionDescription = null, optionName = null) {
 		Pause(value1 = 3000);
 
 		AssertElementPresent(locator1 = "CommerceEntry#NAME_FIELD");
@@ -15,7 +16,8 @@ definition {
 			optionName = ${optionName});
 	}
 
-	macro addOptionValueEntry {
+	@summary = "Default summary"
+	macro addOptionValueEntry(optionValuePriority = null, optionValueName = null) {
 		if (IsElementPresent(locator1 = "Button#DELETE")) {
 			Click(locator1 = "CommerceEntry#ADD_BUTTON");
 		}
@@ -27,13 +29,15 @@ definition {
 		CommerceEntry.saveEntry();
 	}
 
-	macro deleteOptionsEntries {
+	@summary = "Default summary"
+	macro deleteOptionsEntries() {
 		while (IsElementPresent(locator1 = "Button#DELETE")) {
 			CommerceOptions.deleteOptionsEntry();
 		}
 	}
 
-	macro deleteOptionsEntry {
+	@summary = "Default summary"
+	macro deleteOptionsEntry() {
 		ClickNoError.clickNoMouseOver(locator1 = "Button#DELETE");
 
 		AssertConfirm.waitForConfirmation(value1 = "Are you sure you want to delete the selected option?");

@@ -1,7 +1,7 @@
 @default = "sikuliUploadCommonFile"
 definition {
 
-	function sikuliUploadCommonFile() {
+	function sikuliUploadCommonFile(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.sikuliUploadCommonFile(${locator1}, ${value1});

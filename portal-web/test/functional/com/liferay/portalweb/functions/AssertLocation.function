@@ -1,7 +1,7 @@
 @default = "assertLocation"
 definition {
 
-	function assertLocation() {
+	function assertLocation(value1) {
 		WaitForSPARefresh();
 
 		selenium.assertLocation(${value1});
@@ -11,7 +11,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertPartialLocation() {
+	function assertPartialLocation(value1) {
 		WaitForSPARefresh();
 
 		selenium.assertPartialLocation(${value1});

@@ -1,7 +1,7 @@
 @default = "sikuliMouseMove"
 definition {
 
-	function sikuliMouseMove() {
+	function sikuliMouseMove(locator1) {
 		WaitForSPARefresh();
 
 		selenium.sikuliMouseMove(${locator1});
