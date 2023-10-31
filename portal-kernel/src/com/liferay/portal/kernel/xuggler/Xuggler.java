@@ -10,7 +10,12 @@ package com.liferay.portal.kernel.xuggler;
  */
 public interface Xuggler {
 
-	public void installNativeLibraries(String name) throws Exception;
+	public default void installNativeLibraries(String name) throws Exception {
+		installNativeLibraries(name, null);
+	}
+
+	public void installNativeLibraries(String name, String sha1)
+		throws Exception;
 
 	public boolean isEnabled();
 

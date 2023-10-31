@@ -22,6 +22,12 @@ public class XugglerUtil {
 		getXuggler().installNativeLibraries(name);
 	}
 
+	public static void installNativeLibraries(String name, String sha1)
+		throws Exception {
+
+		getXuggler().installNativeLibraries(name, sha1);
+	}
+
 	public static boolean isEnabled() {
 		return getXuggler().isEnabled();
 	}
