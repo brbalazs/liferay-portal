@@ -10,6 +10,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.xuggler.Xuggler;
 import com.liferay.portal.kernel.xuggler.XugglerInstallException;
 import com.liferay.portal.util.JarUtil;
@@ -29,11 +30,20 @@ import java.nio.file.Paths;
 public class XugglerImpl implements Xuggler {
 
 	@Override
-	public void installNativeLibraries(String name) throws Exception {
+	public void installNativeLibraries(String name, String sha1)
+		throws Exception {
+
 		try {
-			JarUtil.downloadAndInstallJar(
-				new URL(PropsValues.XUGGLER_JAR_URL + name),
-				Paths.get(PropsValues.LIFERAY_LIB_PORTAL_DIR, name));
+			if (Validator.isNotNull(sha1)) {
+				JarUtil.downloadAndInstallJar(
+					new URL(PropsValues.XUGGLER_JAR_URL + name),
+					Paths.get(PropsValues.LIFERAY_LIB_PORTAL_DIR, name), sha1);
+			}
+			else {
+				JarUtil.downloadAndInstallJar(
+					new URL(PropsValues.XUGGLER_JAR_URL + name),
+					Paths.get(PropsValues.LIFERAY_LIB_PORTAL_DIR, name));
+			}
 
 			_nativeLibraryCopied = true;
 		}

@@ -3895,6 +3895,8 @@ public interface PropsKeys {
 
 	public static final String XUGGLER_JAR_OPTIONS = "xuggler.jar.options";
 
+	public static final String XUGGLER_JAR_SHA1 = "xuggler.jar.sha1";
+
 	public static final String XUGGLER_JAR_URL = "xuggler.jar.url";
 
 	public static final String YUI_COMPRESSOR_CSS_LINE_BREAK =

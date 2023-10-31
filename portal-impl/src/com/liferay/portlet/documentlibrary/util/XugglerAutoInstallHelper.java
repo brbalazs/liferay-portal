@@ -78,7 +78,8 @@ public class XugglerAutoInstallHelper {
 			Xuggler xuggler = new XugglerImpl();
 
 			try {
-				xuggler.installNativeLibraries(xugglerJarFile);
+				xuggler.installNativeLibraries(
+					xugglerJarFile, _getXugglerJarSha1());
 			}
 			catch (XugglerInstallException.MustBeURLClassLoader xie) {
 				if (_log.isDebugEnabled()) {
@@ -153,6 +154,14 @@ public class XugglerAutoInstallHelper {
 	}
 
 	private static String _getXugglerJarFileName() {
+		return _getXugglerPropertyValue(PropsKeys.XUGGLER_JAR_FILE);
+	}
+
+	private static String _getXugglerJarSha1() {
+		return _getXugglerPropertyValue(PropsKeys.XUGGLER_JAR_SHA1);
+	}
+
+	private static String _getXugglerPropertyValue(String propertyName) {
 		String bitmode = OSDetector.getBitmode();
 
 		if (Validator.isNull(bitmode) ||
@@ -162,18 +171,15 @@ public class XugglerAutoInstallHelper {
 		}
 
 		if (OSDetector.isApple()) {
-			return PropsUtil.get(
-				PropsKeys.XUGGLER_JAR_FILE, new Filter(bitmode + "-mac"));
+			return PropsUtil.get(propertyName, new Filter(bitmode + "-mac"));
 		}
 
 		if (OSDetector.isLinux()) {
-			return PropsUtil.get(
-				PropsKeys.XUGGLER_JAR_FILE, new Filter(bitmode + "-linux"));
+			return PropsUtil.get(propertyName, new Filter(bitmode + "-linux"));
 		}
 
 		if (OSDetector.isWindows()) {
-			return PropsUtil.get(
-				PropsKeys.XUGGLER_JAR_FILE, new Filter(bitmode + "-win"));
+			return PropsUtil.get(propertyName, new Filter(bitmode + "-win"));
 		}
 
 		return null;
