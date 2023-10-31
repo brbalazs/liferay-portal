@@ -12,21 +12,19 @@
 from liferay.commerce.common import BaseBigQueryDataFrameReaderSparkJob, \
 	BaseJSONDataFrameReaderSparkJob, \
 	BaseJSONDataFrameWriterSparkJob
-from liferay.commerce.recommend.feature import CommerceFeatureExtractor, \
-	MAPEvaluator
+from liferay.commerce.recommend.feature import CommerceFeatureExtractor
 from liferay.common.spark import BaseSparkJob
 
 from pyspark import StorageLevel
 from pyspark.ml import Pipeline
 from pyspark.ml.fpm import FPGrowth
-from pyspark.ml.recommendation import ALS
-from pyspark.ml.tuning import CrossValidator, \
-	ParamGridBuilder
 from pyspark.sql import Window, \
 	functions as F
 from pyspark.sql.utils import AnalysisException
 
 import logging
+
+from liferay.ml.job import CollaborativeFilteringSparkJob
 
 class ContextUserInteractionRecommendationJSONDataFrameWriterSparkJob(BaseJSONDataFrameWriterSparkJob):
 
@@ -968,74 +966,31 @@ class ProductInteractionRecommendationSparkJob(BaseSparkJob):
 			'product_interaction_recommendations'
 		)
 
-class UserInteractionCollaborativeFilteringSparkJob(BaseSparkJob):
+class UserInteractionCollaborativeFilteringSparkJob(CollaborativeFilteringSparkJob):
 
 	def __init__(self, spark_application):
-		super(
-			UserInteractionCollaborativeFilteringSparkJob,
-			self
-		).__init__(spark_application)
-
-		self._default_count_approx_timeout = 5000
-
-		self._log = logging.getLogger(self.__class__.__name__)
-
-	def _get_context_recommendations_data_frame(
-		self, recommendations_data_frame
-	):
-		product_interaction_data_frame = self.spark_session.table(
-			'product_interactions'
-		).select('CPDefinitionId', 'assetCategoryIds')
-
-		return recommendations_data_frame.selectExpr(
-			'commerceAccountId',
-			'explode(recommendations) as recommendations',
-		).selectExpr(
-			'commerceAccountId',
-			'recommendations.CPDefinitionId as CPDefinitionId',
-			'recommendations.rating as score'
-		).join(product_interaction_data_frame, on='CPDefinitionId')
-
-	def _get_evaluator(self):
-		return MAPEvaluator(
-			label_column_name='rating',
-			prediction_column_name='prediction',
-			query_column_name='commerceAccountId'
-		)
-
-	def _get_requested_catalog_coverage(self):
-		product_interaction_data_frame = self.spark_session.table(
-			'product_interactions'
-		)
-
-		catalog_coverage = float(
-			self.spark_application_configuration.
-			get('user.interaction.recommendation.catalog.coverage')
-		)
-
-		catalog_count = product_interaction_data_frame.rdd.countApprox(
-			self._default_count_approx_timeout
-		)
-
-		return int(catalog_count * catalog_coverage)
-
-	def _get_training_pipeline(self):
-		configuration = self.spark_application_configuration
-
-		als = ALS(
-			userCol='commerceAccountId',
-			itemCol='CPDefinitionId',
-			ratingCol='rating',
-			coldStartStrategy='drop',
-			implicitPrefs=True,
-			nonnegative=True
-		)
+		configuration = spark_application.configuration
 
 		als_checkpoint_interval = configuration.get(
 			'user.interaction.recommendation.als.checkpoint.interval'
 		)
 
-		als.setCheckpointInterval(als_checkpoint_interval)
+		cross_validator_num_folds = configuration.get(
+			'user.interaction.recommendation.tuning.cross.validator.'
+			'num.folds', 3
+		)
+
+		cross_validator_parallelism = configuration.get(
+			'user.interaction.recommendation.tuning.cross.validator.'
+			'parallelism', 2
+		)
+		product_interaction_recommendation_enable = configuration.get(
+			'product.interaction.recommendation.enable'
+		)
+
+		train_split_ratio = configuration.get(
+			'user.interaction.recommendation.train.split.ratio'
+		)
 
 		tuning_alpha = configuration.get_list(
 			'user.interaction.recommendation.tuning.alpha'
@@ -1050,131 +1005,62 @@ class UserInteractionCollaborativeFilteringSparkJob(BaseSparkJob):
 			'user.interaction.recommendation.tuning.regularization.parameter'
 		)
 
-		param_grid_builder = ParamGridBuilder()
-
-		param_grid_builder.addGrid(als.alpha, tuning_alpha)
-		param_grid_builder.addGrid(als.maxIter, tuning_max_iterations)
-		param_grid_builder.addGrid(als.rank, tuning_rank)
-		param_grid_builder.addGrid(als.regParam, tuning_reg_parameter)
-
-		return CrossValidator(
-			estimator=als,
-			estimatorParamMaps=param_grid_builder.build(),
-			evaluator=self._get_evaluator(),
-			numFolds=int(
-				configuration.get(
-					'user.interaction.recommendation.tuning.cross.validator.'
-					'num.folds', 3
-				)
-			),
-			parallelism=int(
-				configuration.get(
-					'user.interaction.recommendation.tuning.cross.validator.'
-					'parallelism', 2
-				)
-			)
+		super(
+			UserInteractionCollaborativeFilteringSparkJob,
+			self
+		).__init__(
+			spark_application,
+			item_column='CPDefinitionId',
+			user_column='commerceAccountId',
+			als_checkpoint_interval=als_checkpoint_interval,
+			create_item_factors_table=product_interaction_recommendation_enable,
+			cross_validator_num_folds=cross_validator_num_folds,
+			cross_validator_parallelism=cross_validator_parallelism,
+			recommendation_table='context_user_interaction_recommendation',
+			train_split_ratio=train_split_ratio,
+			tuning_alpha=tuning_alpha,
+			tuning_max_iterations=tuning_max_iterations,
+			tuning_rank=tuning_rank,
+			tuning_reg_parameter=tuning_reg_parameter
 		)
 
-	def _log_model_details(self, model):
-		if not self._log.isEnabledFor(logging.INFO):
-			return
+		self._default_count_approx_timeout = 5000
 
-		self._log.info("Best model details:")
-		self._log.info(
-			"Max Iterations: {}".format(model._java_obj.parent().getMaxIter())
-		)
-		self._log.info(
-			"Reg Parameter: {}".format(model._java_obj.parent().getRegParam())
-		)
-		self._log.info("Alpha: {}".format(model._java_obj.parent().getAlpha()))
-		self._log.info("Rank: {}".format(model._java_obj.parent().getRank()))
-		self._log.info(
-			"Non-negative feedback: {}".format(
-				model._java_obj.parent().getNonnegative()
-			)
-		)
+		self._log = logging.getLogger(self.__class__.__name__)
 
-	def _log_model_performance(self, model, test_data_frame, train_data_frame):
-		if not self._log.isEnabledFor(logging.INFO):
-			return
+	def augment_recommendations(self, recommendations_data_frame):
+		product_interaction_data_frame = self.spark_session.table(
+			'product_interactions'
+		).select('CPDefinitionId', 'assetCategoryIds')
 
-		test_map = self._get_evaluator().evaluate(
-			model.transform(test_data_frame)
+		return recommendations_data_frame.selectExpr(
+			'commerceAccountId',
+			'explode(recommendations) as recommendations',
+		).selectExpr(
+			'commerceAccountId',
+			'recommendations.CPDefinitionId as CPDefinitionId',
+			'recommendations.rating as score'
+		).join(product_interaction_data_frame, on='CPDefinitionId')
+
+	def get_user_recommendation_count(self):
+		product_interaction_data_frame = self.spark_session.table(
+			'product_interactions'
 		)
 
-		self._log.info("Model performance on TEST set: {}".format(test_map))
-
-		train_map = self._get_evaluator().evaluate(
-			model.transform(train_data_frame)
+		catalog_coverage = float(
+			self.spark_application_configuration.
+			get('user.interaction.recommendation.catalog.coverage')
 		)
 
-		self._log.info("Model performance on TRAIN set: {}".format(train_map))
+		product_interaction_data_frame = product_interaction_data_frame.select(
+			'CPDefinitionId'
+		).distinct()
 
-	def _split_train_test(self, user_item_data_frame):
-		train_split_ratio = self.spark_application_configuration.get(
-			'user.interaction.recommendation.train.split.ratio'
+		catalog_count = product_interaction_data_frame.rdd.countApprox(
+			self._default_count_approx_timeout
 		)
 
-		train_data_frame, test_data_frame = user_item_data_frame.randomSplit(
-			[train_split_ratio, 1 - train_split_ratio]
-		)
-
-		train_data_frame.cache()
-
-		test_data_frame.cache()
-
-		return train_data_frame, test_data_frame
-
-	def run(self):
-		user_item_rating_data_frame = self.spark_session.table(
-			'user_item_rating_table'
-		)
-
-		train_data_frame, test_data_frame = self._split_train_test(
-			user_item_rating_data_frame
-		)
-
-		training_pipeline = self._get_training_pipeline()
-
-		training_pipeline_model = training_pipeline.fit(train_data_frame)
-
-		best_model = training_pipeline_model.bestModel
-
-		self._log_model_details(best_model)
-
-		self._log_model_performance(
-			best_model, test_data_frame, train_data_frame
-		)
-
-		requested_catalog_coverage = self._get_requested_catalog_coverage()
-
-		self._log.info(
-			"Generating recommendations of {} items per user".
-			format(requested_catalog_coverage)
-		)
-
-		recommendations_data_frame = best_model.recommendForAllUsers(
-			requested_catalog_coverage
-		)
-
-		self._get_context_recommendations_data_frame(
-			recommendations_data_frame
-		).createOrReplaceTempView('context_user_interaction_recommendation')
-
-		self.spark_session.catalog.cacheTable(
-			'context_user_interaction_recommendation'
-		)
-
-		product_interaction_recommendation_enable = self.spark_application_configuration.get(
-			'product.interaction.recommendation.enable'
-		)
-
-		if product_interaction_recommendation_enable:
-			item_factors = best_model.itemFactors
-
-			item_factors.createOrReplaceTempView('item_factors')
-
-			self.spark_session.catalog.cacheTable('item_factors')
+		return int(catalog_count * catalog_coverage)
 
 class UserInteractionDataPreparationSparkJob(BaseSparkJob):
 

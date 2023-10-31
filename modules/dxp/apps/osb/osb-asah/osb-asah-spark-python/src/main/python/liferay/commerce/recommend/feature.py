@@ -9,7 +9,6 @@
 # distribution rights of the Software.
 #
 
-from pyspark.ml.evaluation import Evaluator
 from pyspark.ml.feature import CountVectorizer, \
 	IDF, \
 	OneHotEncoder, \
@@ -17,7 +16,6 @@ from pyspark.ml.feature import CountVectorizer, \
 	StringIndexer, \
 	Tokenizer, \
 	VectorAssembler
-from pyspark.sql import functions as F
 
 import logging
 
@@ -122,47 +120,3 @@ class CommerceFeatureExtractor(object):
 		]
 
 		return {'feature_column': feature_column_name, 'stages': stages}
-
-class MAPEvaluator(Evaluator):
-
-	def __init__(
-		self,
-		label_column_name,
-		prediction_column_name,
-		query_column_name,
-		threshold=0.5
-	):
-		super(MAPEvaluator, self).__init__()
-
-		self._label_column_name = label_column_name
-		self._prediction_column_name = prediction_column_name
-		self._query_column_name = query_column_name
-		self._threshold = threshold
-
-	def _evaluate(self, data_frame):
-		binary_expression = self._get_binary_expression(
-			self._prediction_column_name, self._threshold
-		)
-
-		data_frame = data_frame.withColumn(
-			'binary', binary_expression.cast('double')
-		)
-
-		data_frame = data_frame.withColumn(
-			self._prediction_column_name,
-			F.col(self._prediction_column_name).cast('double')
-		)
-
-		data_frame = data_frame.groupBy(self._query_column_name)
-
-		data_frame = data_frame.agg(
-			F.collect_list(self._label_column_name).alias('gt'),
-			F.collect_list('binary').alias('pred')
-		)
-
-		rdd = data_frame.rdd
-
-		return rdd.map(lambda r: sum(r.pred) / sum(r.gt)).mean()
-
-	def _get_binary_expression(self, column_name, threshold):
-		return F.when(F.col(column_name) > threshold, 1.0).otherwise(0.0)
