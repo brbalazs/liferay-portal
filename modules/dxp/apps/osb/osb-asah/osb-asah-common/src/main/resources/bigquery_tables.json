@@ -162,14 +162,14 @@
 		],
 		"fields": [
 			{
-				"mode": "REQUIRED",
-				"name": "assetEntryId",
+				"mode": "REPEATED",
+				"name": "assetCategoryIds",
 				"type": "INT64"
 			},
 			{
 				"mode": "REPEATED",
-				"name": "categoryIds",
-				"type": "INT64"
+				"name": "assetTagNames",
+				"type": "STRING"
 			},
 			{
 				"mode": "NULLABLE",
@@ -217,6 +217,11 @@
 				"type": "INT64"
 			},
 			{
+				"mode": "REQUIRED",
+				"name": "id",
+				"type": "INT64"
+			},
+			{
 				"mode": "NULLABLE",
 				"name": "modifiedDate",
 				"type": "TIMESTAMP"
@@ -230,11 +235,6 @@
 				"mode": "NULLABLE",
 				"name": "publishDate",
 				"type": "TIMESTAMP"
-			},
-			{
-				"mode": "REPEATED",
-				"name": "tags",
-				"type": "STRING"
 			},
 			{
 				"mode": "NULLABLE",
@@ -251,14 +251,14 @@
 		],
 		"fields": [
 			{
-				"mode": "REQUIRED",
-				"name": "assetEntryId",
+				"mode": "REPEATED",
+				"name": "assetCategoryIds",
 				"type": "INT64"
 			},
 			{
 				"mode": "REPEATED",
-				"name": "categoryIds",
-				"type": "INT64"
+				"name": "assetTagNames",
+				"type": "STRING"
 			},
 			{
 				"mode": "NULLABLE",
@@ -306,6 +306,11 @@
 				"type": "INT64"
 			},
 			{
+				"mode": "REQUIRED",
+				"name": "id",
+				"type": "INT64"
+			},
+			{
 				"mode": "NULLABLE",
 				"name": "modifiedDate",
 				"type": "TIMESTAMP"
@@ -319,11 +324,6 @@
 				"mode": "NULLABLE",
 				"name": "publishDate",
 				"type": "TIMESTAMP"
-			},
-			{
-				"mode": "REPEATED",
-				"name": "tags",
-				"type": "STRING"
 			},
 			{
 				"mode": "NULLABLE",
