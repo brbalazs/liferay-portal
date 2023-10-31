@@ -18,8 +18,11 @@ import org.apache.beam.sdk.schemas.annotations.DefaultSchema;
 @DefaultSchema(JavaFieldSchema.class)
 public class AssetEntity extends BaseDXPEntity {
 
-	public long assetEntryId;
-	public List<Long> categoryIds;
+	public List<Long> assetCategoryIds;
+
+	@Nullable
+	public List<String> assetTagNames;
+
 	public String className;
 	public long classPK;
 
@@ -38,14 +41,13 @@ public class AssetEntity extends BaseDXPEntity {
 	@Nullable
 	public Long groupId;
 
+	public long id;
+
 	@Nullable
 	public String modifiedDate;
 
 	@Nullable
 	public String publishDate;
-
-	@Nullable
-	public List<String> tags;
 
 	@Nullable
 	public String title;
