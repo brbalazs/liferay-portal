@@ -13,7 +13,7 @@ USING
 					*,
 					ROW_NUMBER() OVER (
 						PARTITION BY
-							datasourceId, assetEntryId
+							datasourceId, id
 						ORDER BY
 							uploadDate DESC
 					) AS rowNumber
@@ -57,7 +57,7 @@ USING
 		) AS analyticsDeleteMessage
 		ON
 			assetentity.datasourceId = analyticsDeleteMessage.datasourceId AND
-			assetentity.assetEntryId = analyticsDeleteMessage.classPK AND
+			assetentity.id = analyticsDeleteMessage.classPK AND
 			assetentity.projectId = analyticsDeleteMessage.projectId
 		WHERE
 			assetentity.uploadDate >=
@@ -69,11 +69,12 @@ USING
 		) AS staging
 ON
 	staging.dataSourceId = replica.dataSourceId AND
-	staging.assetEntryId = replica.assetEntryId AND
+	staging.id = replica.id AND
 	staging.projectId = replica.projectId
 WHEN MATCHED AND staging.deleted IS NULL AND staging.modifiedDate > replica.modifiedDate THEN
 	UPDATE SET
-		replica.categoryIds = staging.categoryIds,
+		replica.assetCategoryIds = staging.assetCategoryIds,
+		replica.assetTagNames = staging.assetTagNames,
 		replica.channelId = staging.channelId,
 		replica.classTypeId = staging.classTypeId,
 		replica.classTypeName = staging.classTypeName,
@@ -81,14 +82,13 @@ WHEN MATCHED AND staging.deleted IS NULL AND staging.modifiedDate > replica.modi
 		replica.groupId = staging.groupId,
 		replica.modifiedDate = staging.modifiedDate,
 		replica.publishDate = staging.publishDate,
-		replica.tags = staging.tags,
 		replica.title = staging.title
 WHEN MATCHED AND staging.deleted = true THEN
 	DELETE
 WHEN NOT MATCHED BY TARGET AND staging.deleted IS NULL THEN
 	INSERT (
-		`assetEntryId`,
-		`categoryIds`,
+		`assetCategoryIds`,
+		`assetTagNames`,
 		`channelId`,
 		`className`,
 		`classPK`,
@@ -98,15 +98,15 @@ WHEN NOT MATCHED BY TARGET AND staging.deleted IS NULL THEN
 		`dataSourceId`,
 		`expirationDate`,
 		`groupId`,
+		`id`,
 		`modifiedDate`,
 		`projectId`,
 		`publishDate`,
-		`tags`,
 		`title`
 	)
 	VALUES (
-		staging.assetEntryId,
-		staging.categoryIds,
+		staging.assetCategoryIds,
+		staging.assetTagNames,
 		staging.channelId,
 		staging.className,
 		staging.classPK,
@@ -116,9 +116,9 @@ WHEN NOT MATCHED BY TARGET AND staging.deleted IS NULL THEN
 		staging.dataSourceId,
 		staging.expirationDate,
 		staging.groupId,
+		staging.id,
 		staging.modifiedDate,
 		staging.projectId,
 		staging.publishDate,
-		staging.tags,
 		staging.title
 	)
