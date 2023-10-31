@@ -364,7 +364,7 @@ if (portletTitleBasedNavigation) {
 				TPL_INPUT,
 				{
 					id: i,
-					value: values[i]
+					value: Liferay.Util.escapeHTML(values[i])
 				}
 			);
 		}
