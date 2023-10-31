@@ -54,7 +54,7 @@ public class DXPBatchEntitiesNanite extends BaseNanite {
 	public DXPBatchEntitiesNanite() {
 		_entities.put(
 			"com.liferay.analytics.dxp.entity.rest.dto.v1_0.AssetEntity",
-			"asset");
+			"asset_entity");
 		_entities.put(
 			"com.liferay.analytics.dxp.entity.rest.dto.v1_0.DXPEntity",
 			"entity");
