@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro click(navItem = null) {
+	macro click {
 		var key_navItem = ${navItem};
 
 		if (IsElementNotPresent(locator1 = "NavBar#ACTIVE_NAV_ITEM_LINK")) {
@@ -13,58 +12,47 @@ definition {
 		NavItem.viewActive(navItem = ${navItem});
 	}
 
-	@summary = "Default summary"
-	macro gotoAvailableSites() {
+	macro gotoAvailableSites {
 		NavItem.click(navItem = "Available Sites");
 	}
 
-	@summary = "Default summary"
-	macro gotoDisplayPages() {
+	macro gotoDisplayPages {
 		NavItem.click(navItem = "Display Pages");
 	}
 
-	@summary = "Default summary"
-	macro gotoOrganizations() {
+	macro gotoOrganizations {
 		NavItem.click(navItem = "Organizations");
 	}
 
-	@summary = "Default summary"
-	macro gotoPages() {
+	macro gotoPages {
 		NavItem.click(navItem = "Pages");
 	}
 
-	@summary = "Default summary"
-	macro gotoPageTemplates() {
+	macro gotoPageTemplates {
 		NavItem.click(navItem = "Page Templates");
 	}
 
-	@summary = "Default summary"
-	macro gotoSchemes() {
+	macro gotoSchemes {
 		NavItem.click(navItem = "Schemes");
 	}
 
-	@summary = "Default summary"
-	macro gotoStructures() {
+	macro gotoStructures {
 		NavItem.click(navItem = "Structures");
 	}
 
-	@summary = "Default summary"
-	macro gotoTemplates() {
+	macro gotoTemplates {
 		NavItem.click(navItem = "Templates");
 	}
 
-	@summary = "Default summary"
-	macro gotoUserGroups() {
+	macro gotoUserGroups {
 		NavItem.click(navItem = "User Groups");
 	}
 
-	@summary = "Default summary"
-	macro gotoUsers() {
+	macro gotoUsers {
 		NavItem.click(navItem = "Users");
 	}
 
-	@summary = "Default summary"
-	macro viewActive(navItem = null) {
+	macro viewActive {
 		AssertElementPresent(
 			key_navItem = ${navItem},
 			locator1 = "NavBar#ACTIVE_NAV_ITEM_LINK");

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro viewAsGuestPG() {
+	macro viewAsGuestPG {
 		Navigator.openSpecificURL(url = "http://localhost:8080/o/portal-search-elasticsearch-xpack-monitoring/xpack-monitoring-proxy/app/monitoring");
 
 		AssertTextPresent(
@@ -13,8 +12,7 @@ definition {
 			value1 = "Please sign in to access this application.");
 	}
 
-	@summary = "Default summary"
-	macro viewPG() {
+	macro viewPG {
 		var serverVersion = SearchAdministration.getServerVersion();
 
 		Navigator.gotoPage(pageName = "X-Pack Monitoring Page");

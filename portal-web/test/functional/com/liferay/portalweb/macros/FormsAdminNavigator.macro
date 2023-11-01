@@ -3,8 +3,7 @@ definition {
 	var formName = "Created Form Name";
 	var rowIndexNumber = 1;
 
-	@summary = "Default summary"
-	macro enableLocalNetworkDataProvider() {
+	macro enableLocalNetworkDataProvider {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -27,18 +26,15 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro gotoAddDataProvider() {
+	macro gotoAddDataProvider {
 		LexiconEntry.gotoAdd();
 	}
 
-	@summary = "Default summary"
-	macro gotoAddForm() {
+	macro gotoAddForm {
 		LexiconEntry.gotoAdd();
 	}
 
-	@summary = "Default summary"
-	macro gotoBack() {
+	macro gotoBack {
 		Navigator.gotoBack();
 
 		if (IsElementPresent(locator1 = "Button#LEAVE")) {
@@ -46,8 +42,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro gotoDeleteField(fieldName = null) {
+	macro gotoDeleteField {
 		FormsAdminNavigator.gotoEditField(fieldName = ${fieldName});
 
 		var key_fieldName = ${fieldName};
@@ -61,8 +56,7 @@ definition {
 		AssertElementNotPresent(locator1 = "Form#SIDEBAR_CLOSE");
 	}
 
-	@summary = "Default summary"
-	macro gotoEditField(fieldName = null) {
+	macro gotoEditField {
 		var key_fieldName = ${fieldName};
 
 		Click(locator1 = "Form#FIELD_BODY");
@@ -70,16 +64,14 @@ definition {
 		AssertElementPresent(locator1 = "Form#SIDEBAR_BASIC_TAB");
 	}
 
-	@summary = "Default summary"
-	macro gotoEditFormByName(formName = null) {
+	macro gotoEditFormByName {
 		AssertClick(
 			key_formName = ${formName},
 			locator1 = "FormsAdmin#FORMS_TABLE_NAME",
 			value1 = ${formName});
 	}
 
-	@summary = "Default summary"
-	macro gotoFormBuilder() {
+	macro gotoFormBuilder {
 		var key_assetTitle = "Builder";
 
 		AssertClick(
@@ -87,8 +79,7 @@ definition {
 			value1 = "Builder");
 	}
 
-	@summary = "Default summary"
-	macro gotoPermissions(formName = null) {
+	macro gotoPermissions {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Permissions",
 			rowEntry = ${formName});
@@ -96,20 +87,17 @@ definition {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 	}
 
-	@summary = "Default summary"
-	macro gotoPreviewForm() {
+	macro gotoPreviewForm {
 		AssertClick(
 			locator1 = "Button#PREVIEW",
 			value1 = "Preview Form");
 	}
 
-	@summary = "Default summary"
-	macro gotoPublishCopyURLLink() {
+	macro gotoPublishCopyURLLink {
 		Click(locator1 = "Form#PUBLISH_ICON");
 	}
 
-	@summary = "Default summary"
-	macro gotoPublishedForm() {
+	macro gotoPublishedForm {
 		FormsAdminNavigator.gotoPublishCopyURLLink();
 
 		var publishedFormPublicURL = Form.getPublishedFormPublicURL(publishedFormPublicURL = ${publishedFormPublicURL});
@@ -117,8 +105,7 @@ definition {
 		Navigator.openSpecificURL(url = ${publishedFormPublicURL});
 	}
 
-	@summary = "Default summary"
-	macro gotoRules() {
+	macro gotoRules {
 		var key_assetTitle = "Rules";
 
 		AssertClick(
@@ -126,15 +113,13 @@ definition {
 			value1 = "Rules");
 	}
 
-	@summary = "Default summary"
-	macro gotoSettings() {
+	macro gotoSettings {
 		AssertElementPresent(locator1 = "Form#NAME_FIELD");
 
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Settings");
 	}
 
-	@summary = "Default summary"
-	macro gotoView(rowIndexNumber = null) {
+	macro gotoView {
 		var key_rowIndexNumber = ${rowIndexNumber};
 
 		AssertElementPresent(locator1 = "Icon#ROW_VERTICAL_ELLIPSIS_N");
@@ -142,15 +127,13 @@ definition {
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "View");
 	}
 
-	@summary = "Default summary"
-	macro gotoViewEntries() {
+	macro gotoViewEntries {
 		AssertElementPresent(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "View Entries");
 	}
 
-	@summary = "Default summary"
-	macro openPublishURL() {
+	macro openPublishURL {
 		FormsAdminNavigator.gotoPublishCopyURLLink();
 
 		var publishFormURL = selenium.getElementValue("Form#PUBLISH_FORM_PUBLIC_URL");

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureDisplayContent(toAll = null, belongs = null, doesNotBelong = null, toAny = null, siteScope = null, contentTitle = null, rowNumber = null, contentType = null) {
+	macro configureDisplayContent {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION_DIALOG");
 
 		var rowIndexNumber = selenium.getNumberDecrement(${rowNumber});
@@ -77,8 +76,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro configureOtherwiseContentDisplayRule(otherwiseContentTitle = null, otherwiseContentType = null) {
+	macro configureOtherwiseContentDisplayRule {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		if (isSet(otherwiseContentType)) {
@@ -111,8 +109,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro savePG() {
+	macro savePG {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		ClickNoError(locator1 = "Button#SAVE");
@@ -122,8 +119,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewConfiguredDisplayContent(toAll = null, otherwiseContentTitle = null, otherwiseContentType = null, userSegmentName = null, belongs = null, doesNotBelong = null, toAny = null, contentTitle = null, rowNumber = null, contentType = null, portletName = null) {
+	macro viewConfiguredDisplayContent {
 		Portlet.gotoPortletOptions(
 			portletName = ${portletName},
 			portletOption = "Configuration");
@@ -185,15 +181,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewContentOnly(entryContentText = null) {
+	macro viewContentOnly {
 		AssertTextEquals(
 			locator1 = "UserSegmentContentDisplay#ENTRY_CONTENT",
 			value1 = ${entryContentText});
 	}
 
-	@summary = "Default summary"
-	macro viewEntryPG(previewUserSegmentList = null, viewUserSegmentSelected = null, entryContentText = null) {
+	macro viewEntryPG {
 		ContentTargeting.expandPreview(portletName = "User Segment Content Display");
 
 		if (isSet(viewUserSegmentSelected)) {
@@ -223,8 +217,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewNoContentPG() {
+	macro viewNoContentPG {
 		AssertTextEquals(
 			locator1 = "UserSegmentContentDisplay#ENTRY_CONTENT",
 			value1 = "The selected content no longer exists");

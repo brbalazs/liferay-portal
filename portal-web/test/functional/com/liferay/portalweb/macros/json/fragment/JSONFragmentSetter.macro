@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro setCollectionId(groupId = null, collectionName = null) {
+	macro setCollectionId {
 		Variables.assertDefined(parameterList = "${collectionName},${groupId}");
 
 		var collectionId = JSONFragmentAPI._getCollectionIdByName(
@@ -11,8 +10,7 @@ definition {
 		return ${collectionId};
 	}
 
-	@summary = "Default summary"
-	macro setConfiguration() {
+	macro setConfiguration {
 		if (!(isSet(configuration))) {
 			var configuration = "";
 		}
@@ -20,8 +18,7 @@ definition {
 		return ${configuration};
 	}
 
-	@summary = "Default summary"
-	macro setGroupId(groupName = null, groupKey = null) {
+	macro setGroupId {
 		JSONUtil2._exclusiveOrCheck(
 			A = ${groupName},
 			B = ${groupKey},
@@ -49,8 +46,7 @@ definition {
 		return ${groupId};
 	}
 
-	@summary = "Default summary"
-	macro setHTML() {
+	macro setHTML {
 		if (!(isSet(html))) {
 			var html = "test";
 		}
@@ -58,8 +54,7 @@ definition {
 		return ${html};
 	}
 
-	@summary = "Default summary"
-	macro setStatus() {
+	macro setStatus {
 		if (!(isSet(status))) {
 			var status = 0;
 		}
@@ -67,8 +62,7 @@ definition {
 		return ${status};
 	}
 
-	@summary = "Default summary"
-	macro setType() {
+	macro setType {
 		if (!(isSet(type))) {
 			var type = 0;
 		}

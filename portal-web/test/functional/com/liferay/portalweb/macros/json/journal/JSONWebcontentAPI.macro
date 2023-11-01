@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addFolder(parentFolderId = null, groupId = null, folderName = null) {
+	macro _addFolder {
 		Variables.assertDefined(parameterList = "${groupId},${parentFolderId},${folderName}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -18,8 +17,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _addWebContent(groupId = null, contentXML = null, descriptionMap = null, serviceContext = null, titleMap = null, folderId = null) {
+	macro _addWebContent {
 		Variables.assertDefined(parameterList = "${groupId},${folderId},${titleMap},${descriptionMap},${contentXML},${serviceContext}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -48,8 +46,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _deleteWebContent(groupId = null, articleId = null) {
+	macro _deleteWebContent {
 		Variables.assertDefined(parameterList = "${articleId},${groupId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -65,8 +62,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _getArticleIdByURLTitle(groupName = null, urlTitle = null) {
+	macro _getArticleIdByURLTitle {
 		Variables.assertDefined(parameterList = "${groupName},${urlTitle}");
 
 		var groupId = JSONCategorySetter.setGroupId(groupName = ${groupName});
@@ -88,8 +84,7 @@ definition {
 		return ${articleId};
 	}
 
-	@summary = "Default summary"
-	macro _getFolderIdByFolderName(groupId = null, folderName = null) {
+	macro _getFolderIdByFolderName {
 		Variables.assertDefined(parameterList = "${groupId},${folderName}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -114,8 +109,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro _getResourcePrimKeyByURLTitle(groupName = null, urlTitle = null) {
+	macro _getResourcePrimKeyByURLTitle {
 		Variables.assertDefined(parameterList = "${groupName},${urlTitle}");
 
 		var groupId = JSONCategorySetter.setGroupId(groupName = ${groupName});

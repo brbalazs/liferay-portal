@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro viewPG(entryAuthor = null, postCount = null) {
+	macro viewPG {
 		var key_entryAuthor = ${entryAuthor};
 
 		AssertTextEquals(

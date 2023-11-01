@@ -1,12 +1,12 @@
 @default = "mouseUp"
 definition {
 
-	function mouseUp() {
+	function mouseUp {
 		WaitForSPARefresh();
 
-		selenium.mouseUp(${locator1});
+		selenium.mouseUp();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

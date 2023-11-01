@@ -2,204 +2,204 @@
 @summary = "Click on '${locator1}'"
 definition {
 
-	function click() {
+	function click {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.click(${locator1});
+		selenium.click();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAt() {
+	function clickAt {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.clickAt(${locator1}, ${value1});
+		selenium.clickAt();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAtNotVisible() {
+	function clickAtNotVisible {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.clickAt(${locator1}, ${value1});
+		selenium.clickAt();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAtSidebarClickAtWaitForScript() {
+	function clickAtSidebarClickAtWaitForScript {
 		WaitForSPARefresh();
 
 		selenium.pause(1000);
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent("//*[@data-qa-id='controlMenu']//*[@data-qa-id='add']");
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent("//script[contains(@src,'/liferay/node.js')] | //script[contains(@src,'/js/control_menu.js')]");
 
 		selenium.pause(1000);
 
 		Click.clickAt();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent("//script[contains(@src,'/liferay/dockbar_add_application.js')] | //script[contains( @src,'/js/product_navigation_control_menu_add_content.js')] | //script[contains(@src,'js/product_navigation_control_menu_add_application.js')]");
 	}
 
-	function clickNoMouseOver() {
+	function clickNoMouseOver {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.click(${locator1});
+		selenium.click();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function clickNoMouseOverNoWaitForVisible() {
+	function clickNoMouseOverNoWaitForVisible {
 		WaitForSPARefresh();
 
-		selenium.click(${locator1});
+		selenium.click();
 
-		selenium.assertJavaScriptErrors(${value1});
-
-		selenium.assertLiferayErrors();
-	}
-
-	function clickNoSPARefresh() {
-		selenium.waitForVisible(${locator1}, ${value1});
-
-		selenium.mouseOver(${locator1});
-
-		selenium.click(${locator1});
-
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function clickNoWaitForVisible() {
+	function clickNoSPARefresh {
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		selenium.click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function clickNoWaitForVisible {
 		WaitForSPARefresh();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.click(${locator1});
+		selenium.click();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function clickWaitForInlineCKEditorNoMouseOver() {
+	function clickWaitForInlineCKEditorNoMouseOver {
 		WaitForSPARefresh();
 
 		if (selenium.isElementPresent("//div[contains(@class,'cke_editable_inline')]")) {
-			selenium.waitForElementPresent(${locator1}, ${value1});
+			selenium.waitForElementPresent("//script[contains(@src,'http://localhost:8080/o/frontend-editors-web/ckeditor/plugins/wsc/lang/en.js')]");
 		}
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.click(${locator1});
+		selenium.click();
 	}
 
-	function javaScriptClick() {
+	function javaScriptClick {
 		WaitForSPARefresh();
 
-		selenium.javaScriptClick(${locator1});
+		selenium.javaScriptClick();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseDownMouseUp() {
+	function mouseDownMouseUp {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.mouseDown(${locator1});
+		selenium.mouseDown();
 
-		selenium.mouseUp(${locator1});
+		selenium.mouseUp();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseMoveLeftClick(locator1) {
+	function mouseMoveLeftClick {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1});
 
 		selenium.mouseOver(${locator1});
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1});
 
 		selenium.mouseMoveAt(${locator1}, "-100,0");
 
-		selenium.click(${locator1});
+		selenium.click();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseOverClick() {
+	function mouseOverClick {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.click(${locator1});
+		selenium.click();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function pauseClickAt() {
+	function pauseClickAt {
 		WaitForSPARefresh();
 
 		selenium.pause(1000);
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
 		Click.clickAt();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function waitForMenuToggleJSClick() {
+	function waitForMenuToggleJSClick {
 		WaitForSPARefresh();
 
 		selenium.selectFrame("relative=top");
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent("//script[contains(@src,'/o/frontend-js-web/liferay/menu_toggle.js')]");
 
 		if (selenium.isElementPresent("//iframe")) {
 			selenium.selectFrame("//iframe");
@@ -209,7 +209,7 @@ definition {
 
 		Click();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

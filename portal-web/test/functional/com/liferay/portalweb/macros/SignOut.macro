@@ -1,14 +1,12 @@
 definition {
 
-	@summary = "Default summary"
-	macro signOut() {
+	macro signOut {
 		Navigator.openURL();
 
 		UserBar.signOut();
 	}
 
-	@summary = "Default summary"
-	macro signOutOfSpecificURL(url = null) {
+	macro signOutOfSpecificURL {
 		Navigator.openSpecificURL(url = ${url});
 
 		UserBar.signOut();

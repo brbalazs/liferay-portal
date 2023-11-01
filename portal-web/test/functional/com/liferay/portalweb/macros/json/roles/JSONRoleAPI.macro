@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addRole(name = null, descriptionMap = null, type = null, titleMap = null) {
+	macro _addRole {
 		Variables.assertDefined(parameterList = "${name},${titleMap},${descriptionMap},${type}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -21,8 +20,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _assignRoleToUser(roleId = null, userId = null) {
+	macro _assignRoleToUser {
 		Variables.assertDefined(parameterList = "${roleId},${userId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -37,8 +35,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _assignSiteRoleToUser(roleId = null, groupId = null, userId = null) {
+	macro _assignSiteRoleToUser {
 		Variables.assertDefined(parameterList = "${groupId},${roleId},${userId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -54,8 +51,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _getRoleIdByName(name = null) {
+	macro _getRoleIdByName {
 		Variables.assertDefined(parameterList = ${name});
 
 		var companyId = JSONCompany.getCompanyId();

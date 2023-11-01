@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureDisplayCountPG() {
+	macro configureDisplayCountPG {
 		Portlet.gotoPortletOptions(
 			portletName = "Announcements",
 			portletOption = "Configuration");
@@ -17,8 +16,7 @@ definition {
 		SelectFrameTop();
 	}
 
-	@summary = "Default summary"
-	macro configurePaginationCP(itemsPerPage = null) {
+	macro configurePaginationCP {
 		Click(locator1 = "Dropdown#ENTRIES");
 
 		MenuItem.click(menuItem = ${itemsPerPage});

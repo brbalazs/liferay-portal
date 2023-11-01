@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro setFilterAndOrder(orderBy = null, filterBy = null) {
+	macro setFilterAndOrder {
 		if (isSet(filterBy)) {
 			var menuItem = ${filterBy};
 		}
@@ -14,8 +13,7 @@ definition {
 		MenuItem.click(menuItem = ${menuItem});
 	}
 
-	@summary = "Default summary"
-	macro toggleViewOrder(order = null) {
+	macro toggleViewOrder {
 		if (IsElementNotPresent(key_order = ${order}, locator1 = "ManagementBar#ORDER_ICON_SPECIFIC")) {
 			Click(locator1 = "ManagementBar#ORDER_ICON_GENERIC");
 

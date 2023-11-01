@@ -2,8 +2,7 @@ definition {
 
 	// There is no need for a SocialActivity#tearDownCP, as the User Statistics will not be reset and Jenkins does not run teardowns.
 
-	@summary = "Default summary"
-	macro configureActionCP(userAction = null, participationIncrement = null, participationLimitPeriod = null, participationLimitValue = null, contributionLimitPeriod = null, contributionIncrement = null, contributionLimitValue = null) {
+	macro configureActionCP {
 		var key_userAction = ${userAction};
 
 		if (isSet(participationIncrement)) {
@@ -51,15 +50,13 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro enableBlogsCP() {
+	macro enableBlogsCP {
 		Check(locator1 = "Checkbox#BLOGS_ENTRY");
 
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro removeActionCP(userAction = null) {
+	macro removeActionCP {
 		var key_userAction = ${userAction};
 
 		Click(locator1 = "SocialActivity#CLOSE_ICON");
@@ -71,8 +68,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro updateGroupStatisticsConfiguration(chartWidth = null, displayActivityCounterName = null, dataRange = null, chartType = null) {
+	macro updateGroupStatisticsConfiguration {
 		Portlet.gotoPortletOptions(
 			portletName = "Group Statistics",
 			portletOption = "Configuration");
@@ -105,8 +101,7 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewPGViaGroupStatistics(siteStatistics = null, currentValue = null) {
+	macro viewPGViaGroupStatistics {
 		var key_siteStatistics = ${siteStatistics};
 
 		AssertTextEquals.assertPartialText(
@@ -122,8 +117,7 @@ definition {
 		AssertElementPresent(locator1 = "GroupStatistics#GROUP_STATISTICS_BODY_CHART");
 	}
 
-	@summary = "Default summary"
-	macro viewPGViaUserStatistics(contributionScore = null, participationScore = null, userRank = null, userName = null) {
+	macro viewPGViaUserStatistics {
 		var key_userName = ${userName};
 
 		AssertTextEquals(

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoSiteTemplatesPage(siteName = null, pageName = null, siteTemplateName = null) {
+	macro gotoSiteTemplatesPage {
 		var key_siteTemplateName = ${siteTemplateName};
 
 		AssertClick.assertPartialTextClickAt(
@@ -13,8 +12,7 @@ definition {
 		Navigator._gotoPage(pageName = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro openSiteTemplatesAdmin(baseURL = null) {
+	macro openSiteTemplatesAdmin {
 		Navigator.openWithAppendToBaseURL(
 			baseURL = ${baseURL},
 			urlAppend = "group/control_panel/manage/-/site_templates/templates");

@@ -1,28 +1,28 @@
 @default = "dragAndDropToObject"
 definition {
 
-	function dragAndDrop() {
+	function dragAndDrop {
 		WaitForSPARefresh();
 
-		selenium.dragAndDrop(${locator1}, ${value1});
+		selenium.dragAndDrop();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function dragAndDropPortletToObject(locator2, locator1, value1) {
+	function dragAndDropPortletToObject {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1});
 
 		selenium.mouseOver(${locator1});
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1});
 
 		selenium.waitForTextCaseInsensitive(${locator1}, ${value1});
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator2});
 
 		selenium.mouseOver(${locator2});
 
@@ -36,25 +36,25 @@ definition {
 
 		selenium.mouseMove(${locator2});
 
-		selenium.mouseRelease();
+		selenium.mouseRelease(${locator2});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function dragAndDropPortletToPortlet(locator2, locator1, value1) {
+	function dragAndDropPortletToPortlet {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1});
 
 		selenium.mouseOver(${locator1});
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1});
 
 		selenium.waitForTextCaseInsensitive(${locator1}, ${value1});
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator2});
 
 		ScrollWebElementIntoView.scrollWebElementIntoView(locator1 = ${locator2});
 
@@ -68,39 +68,39 @@ definition {
 
 		selenium.mouseRelease();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function dragAndDropToObject(locator2, locator1, value1) {
+	function dragAndDropToObject {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1});
 
 		selenium.mouseOver(${locator1});
 
 		selenium.waitForPartialTextCaseInsensitive(${locator1}, ${value1});
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator2});
 
 		selenium.mouseOver(${locator2});
 
 		selenium.dragAndDropToObject(${locator1}, ${locator2});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function dragAndDropWithMouseMove(locator2, locator1) {
+	function dragAndDropWithMouseMove {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1});
 
 		selenium.mouseOver(${locator1});
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1});
 
 		selenium.mouseDown(${locator1});
 
@@ -110,22 +110,22 @@ definition {
 
 		selenium.mouseRelease();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function dragAtAndDrop(locator2, locator1, value1) {
+	function dragAtAndDrop {
 		WaitForSPARefresh();
 
 		selenium.dragAtAndDrop(${locator1}, ${locator2}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function javaScriptDragAndDropToObject(locator2, locator1) {
+	function javaScriptDragAndDropToObject {
 		WaitForSPARefresh();
 
 		var javaScript = '''
@@ -159,7 +159,7 @@ Simulate.dragAndDrop(arguments[0], arguments[1]);
 
 		selenium.executeJavaScript(${javaScript}, ${locator1}, ${locator2});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

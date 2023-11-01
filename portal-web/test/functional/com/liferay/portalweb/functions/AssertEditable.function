@@ -1,16 +1,16 @@
 @default = "assertEditable"
 definition {
 
-	function assertEditable() {
+	function assertEditable {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.assertEditable(${locator1});
+		selenium.assertEditable();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

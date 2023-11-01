@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureAnonymousPostingCP(anonymousPostingEnabled = null) {
+	macro configureAnonymousPostingCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -27,8 +26,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro configureGeneralCP(threadAsQuestionByDefaultEnabled = null) {
+	macro configureGeneralCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -51,8 +49,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro configureMessageAddedEmailCP(messageAddedEmailEnabled = null) {
+	macro configureMessageAddedEmailCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -80,8 +77,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro configureMessageEmailFromCP(emailFromName = null, emailFromAddress = null) {
+	macro configureMessageEmailFromCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -114,8 +110,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro configureMessageUpdatedEmailCP(messageUpdatedEmailEnabled = null) {
+	macro configureMessageUpdatedEmailCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -143,8 +138,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro configureScopePG(scopeName = null, portletName = null) {
+	macro configureScopePG {
 		Portlet.gotoPortletOptions(
 			portletName = ${portletName},
 			portletOption = "Configuration");
@@ -162,8 +156,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro gotoInlinePermissionsPG() {
+	macro gotoInlinePermissionsPG {
 		Click(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
 
 		MenuItem.click(menuItem = "Permissions");
@@ -171,15 +164,13 @@ definition {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 	}
 
-	@summary = "Default summary"
-	macro gotoRecentPostsPG() {
+	macro gotoRecentPostsPG {
 		AssertClick(
 			locator1 = "MessageBoards#NAVIGATION_RECENT_POSTS",
 			value1 = "Recent Posts");
 	}
 
-	@summary = "Default summary"
-	macro subscribePG() {
+	macro subscribePG {
 		Click(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
 
 		MenuItem.click(menuItem = "Subscribe");
@@ -187,8 +178,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro tearDownConfigurationEmailCP() {
+	macro tearDownConfigurationEmailCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -219,8 +209,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro tearDownConfigurationGeneralCP() {
+	macro tearDownConfigurationGeneralCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -239,8 +228,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro viewAnonymousPostingConfigurationCP(anonymousPostingEnabled = null) {
+	macro viewAnonymousPostingConfigurationCP {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		if (${anonymousPostingEnabled} == "true") {
@@ -251,8 +239,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewBannedUserCP(userScreenName = null) {
+	macro viewBannedUserCP {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
@@ -289,8 +276,7 @@ definition {
 			value1 = ${userScreenName});
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultEmailFromCP() {
+	macro viewDefaultEmailFromCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -317,8 +303,7 @@ definition {
 			value1 = "test@liferay.com");
 	}
 
-	@summary = "Default summary"
-	macro viewNoPermissionCP() {
+	macro viewNoPermissionCP {
 		var key_portletTitle = "Message Boards";
 
 		AssertTextEquals(
@@ -332,15 +317,13 @@ definition {
 			value1 = "There are no threads or categories.");
 	}
 
-	@summary = "Default summary"
-	macro viewNoSearchResultSubjectPG(threadSubject = null) {
+	macro viewNoSearchResultSubjectPG {
 		var key_threadSubject = ${threadSubject};
 
 		AssertElementNotPresent(locator1 = "MessageBoardsSearch#SEARCH_RESULTS_ENTRY_TITLE");
 	}
 
-	@summary = "Default summary"
-	macro viewSearchResultPG(threadSubject = null) {
+	macro viewSearchResultPG {
 		var key_threadSubject = ${threadSubject};
 
 		AssertTextEquals(

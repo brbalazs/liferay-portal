@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro closeProductMenu() {
+	macro closeProductMenu {
 		if (IsElementPresent(locator1 = "ProductMenu#PRODUCT_MENU_OPENED")) {
 			Click(locator1 = "ProductMenu#TOGGLE");
 		}
@@ -9,8 +8,7 @@ definition {
 		AssertElementPresent(locator1 = "ProductMenu#PRODUCT_MENU_CLOSED");
 	}
 
-	@summary = "Default summary"
-	macro expandCategory(category = null) {
+	macro expandCategory {
 		var key_category = ${category};
 
 		if (IsElementPresent(locator1 = "ProductMenu#CATEGORY_COLLAPSED")) {
@@ -20,8 +18,7 @@ definition {
 		AssertElementPresent(locator1 = "ProductMenu#CATEGORY_EXPANDED");
 	}
 
-	@summary = "Default summary"
-	macro expandPanel(panel = null) {
+	macro expandPanel {
 		ProductMenuHelper.openProductMenu();
 
 		var key_panel = StringUtil.toLowerCase(${panel});
@@ -39,16 +36,14 @@ definition {
 			locator1 = "ProductMenu#PANEL_EXPANDED");
 	}
 
-	@summary = "Default summary"
-	macro gotoPortlet(portlet = null) {
+	macro gotoPortlet {
 		AssertClick.assertPartialTextClickAt(
 			key_portlet = ${portlet},
 			locator1 = "ProductMenu#PORTLET",
 			value1 = ${portlet});
 	}
 
-	@summary = "Default summary"
-	macro openProductMenu() {
+	macro openProductMenu {
 		if ((IsElementNotPresent(locator1 = "ProductMenu#PRODUCT_MENU_OPENED")) && (IsElementPresent(locator1 = "ProductMenu#PRODUCT_MENU_CLOSED"))) {
 			Click(locator1 = "ProductMenu#TOGGLE");
 		}
@@ -60,8 +55,7 @@ definition {
 		AssertVisible(locator1 = "ProductMenu#PRODUCT_MENU_BODY");
 	}
 
-	@summary = "Default summary"
-	macro openSitesPopup() {
+	macro openSitesPopup {
 		if (IsElementNotPresent(locator1 = "Portlet#H3_MODAL_TITLE")) {
 			Click(locator1 = "ProductMenu#SITES_COMPASS");
 
@@ -69,8 +63,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro selectScope(scope = null) {
+	macro selectScope {
 		Click(locator1 = "SiteNavigationMenu#SCOPE_COG");
 
 		Click(
@@ -78,8 +71,7 @@ definition {
 			locator1 = "ProductMenu#SCOPE");
 	}
 
-	@summary = "Default summary"
-	macro viewNoSite(site = null) {
+	macro viewNoSite {
 		var key_site = ${site};
 
 		AssertElementNotPresent(locator1 = "ProductMenu#SITE");

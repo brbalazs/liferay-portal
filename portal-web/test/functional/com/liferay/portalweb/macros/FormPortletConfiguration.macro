@@ -2,8 +2,7 @@ definition {
 
 	var formName = "Created Form Name";
 
-	@summary = "Default summary"
-	macro configureScopePG(scopeSelection = null, portletName = null) {
+	macro configureScopePG {
 		Portlet.gotoPortletOptions(
 			portletName = ${portletName},
 			portletOption = "Configuration");
@@ -19,8 +18,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro selectForm(formName = null) {
+	macro selectForm {
 		Navigator.gotoNavItem(navItem = "Setup");
 
 		AssertClick(

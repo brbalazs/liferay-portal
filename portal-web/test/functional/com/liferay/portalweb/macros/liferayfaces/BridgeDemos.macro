@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addComment(comments = null) {
+	macro addComment {
 		Click(locator1 = "BridgeDemos#SHOW_HIDE_COMMENTS_LINK");
 
 		Type(
@@ -12,8 +11,7 @@ definition {
 		Click(locator1 = "BridgeDemos#SUBMIT_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro autoPopulateCityState(city = null, postalCode = null, applicantName = null, state = null) {
+	macro autoPopulateCityState {
 		Type(
 			key_text = "Zip/Postal",
 			locator1 = "TextInput#ANY",
@@ -39,8 +37,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro bookFlight(firstName = null, lastName = null, emailAddress = null, cvv = null, phoneNumber = null, province = null, city = null, addressLine1 = null, expirationMonth = null, title = null, accountNumber = null, paymentType = null) {
+	macro bookFlight {
 		Select(
 			key_item = "title",
 			locator1 = "BridgeDemos#FLIGHT_SELECT",
@@ -118,8 +115,7 @@ definition {
 			value1 = "Thank you John for your purchase.");
 	}
 
-	@summary = "Default summary"
-	macro editDateFormat(dateFormat = null, displayDate = null) {
+	macro editDateFormat {
 		BridgeDemos.gotoEdit();
 
 		Type(
@@ -133,8 +129,7 @@ definition {
 			displayDate = ${displayDate});
 	}
 
-	@summary = "Default summary"
-	macro editStartDate(dateFormat = null, displayDate = null) {
+	macro editStartDate {
 		Click(locator1 = "BridgeDemos#CUSTOMER_EDIT_BUTTON");
 
 		Type(
@@ -148,8 +143,7 @@ definition {
 			displayDate = ${displayDate});
 	}
 
-	@summary = "Default summary"
-	macro exportFile() {
+	macro exportFile {
 		for (var lastName : list ${lastName}) {
 			AssertElementPresent(
 				key_lastName = ${lastName},
@@ -163,8 +157,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro findFlight(date = null, bookAdditionalTravel = null, arrival = null, bookingType = null, departure = null) {
+	macro findFlight {
 		Click(
 			key_buttonName = "Enter Booking Flow",
 			locator1 = "BridgeDemos#JSF_FLOWS_BUTTON");
@@ -217,13 +210,11 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro gotoEdit() {
+	macro gotoEdit {
 		Click(locator1 = "BridgeDemos#EDIT_LINK");
 	}
 
-	@summary = "Default summary"
-	macro submit(firstName = null, lastName = null, emailAddress = null, phoneNumber = null, comments = null, city = null, postalCode = null, applicantName = null, state = null, confirmation = null) {
+	macro submit {
 		Type(
 			key_text = "First Name",
 			locator1 = "TextInput#ANY",
@@ -274,8 +265,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro submitSurvey(question2 = null, question1 = null) {
+	macro submitSurvey {
 		Click(
 			key_buttonName = "Call Survey Flow",
 			locator1 = "BridgeDemos#JSF_FLOWS_BUTTON");
@@ -303,8 +293,7 @@ definition {
 			locator1 = "BridgeDemos#JSF_FLOWS_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro uploadFile(fileName = null, applicantName = null) {
+	macro uploadFile {
 		if (${applicantName} == "JSF JSP") {
 			Click(locator1 = "BridgeDemos#ADD_ATTACHMENT");
 		}
@@ -325,8 +314,7 @@ definition {
 			value1 = ${fileName});
 	}
 
-	@summary = "Default summary"
-	macro validateField(fieldNameText = null, fieldName = null, errorMessage = null, applicantName = null, fieldValue = null, urlAppend = null) {
+	macro validateField {
 		Navigator.openWithAppendToBaseURL(urlAppend = ${urlAppend});
 
 		if (${applicantName} == "JSF JSP") {
@@ -380,8 +368,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewApplication(applicantName = null) {
+	macro viewApplication {
 		for (var key_text : list "First Name,Last Name,Email Address,Phone Number,Birthday,City,Zip/Postal") {
 			AssertElementPresent(
 				key_text = ${key_text},
@@ -403,8 +390,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewComment(comments = null) {
+	macro viewComment {
 		if (IsElementNotPresent(key_tab = "comments", locator1 = "TextArea#ANY")) {
 			Click(locator1 = "BridgeDemos#SHOW_HIDE_COMMENTS_LINK");
 		}
@@ -415,11 +401,11 @@ definition {
 			value1 = ${comments});
 	}
 
-	@summary = "Default summary"
-	macro viewDateFormat(dateFormat = null) {
+	macro viewDateFormat {
 		var displayDate = DateUtil.getFormattedCurrentDate(${dateFormat});
 
 		// Ignored assetion because of the time zone issue: LRQA-61393
+
 		//AssertTextEquals(
 		//	key_text = "Birthday",
 		//	locator1 = "TextInput#ANY",
@@ -427,8 +413,7 @@ definition {
 
 	}
 
-	@summary = "Default summary"
-	macro viewFieldErrorMessage(fieldName = null, errorMessage = null, applicantName = null) {
+	macro viewFieldErrorMessage {
 		if (${applicantName} == "Butter Faces") {
 			AssertTextEquals.assertPartialText(
 				key_fieldName = ${fieldName},
@@ -449,8 +434,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewLibraries() {
+	macro viewLibraries {
 		for (var libraryName : list ${libraryName}) {
 			AssertElementPresent(
 				key_libraryName = ${libraryName},
@@ -458,8 +442,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewNames(firstName = null, lastName = null, firstNameEdit = null, customerId = null, lastNameEdit = null) {
+	macro viewNames {
 		Click(
 			key_customerId = ${customerId},
 			locator1 = "BridgeDemos#CUSTOMER_EDIT_BUTTON");
@@ -527,13 +510,13 @@ definition {
 		Click(locator1 = "BridgeDemos#SUBMIT_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro viewStartDate(customerId = null, startDateEdit = null, startDate = null) {
+	macro viewStartDate {
 		Click(
 			key_customerId = ${customerId},
 			locator1 = "BridgeDemos#CUSTOMER_EDIT_BUTTON");
 
 		// Ignored assetion because of the time zone issue: LRQA-61393
+
 		//AssertTextEquals(
 		//	key_item = "Start Date",
 		//	locator1 = "BridgeDemos#BOOKINGS_INPUT_FIELD",

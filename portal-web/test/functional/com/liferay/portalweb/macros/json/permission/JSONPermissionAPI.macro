@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addResourcePermission(primKey = null, roleId = null, groupId = null, scope = null, name = null, actionId = null) {
+	macro _addResourcePermission {
 		Variables.assertDefined(parameterList = "${groupId},${name},${scope},${primKey},${roleId},${actionId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -22,8 +21,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _removeResourcePermission(primKey = null, roleId = null, groupId = null, scope = null, name = null, actionId = null) {
+	macro _removeResourcePermission {
 		Variables.assertDefined(parameterList = "${groupId},${name},${scope},${primKey},${roleId},${actionId}");
 
 		var portalURL = JSONCompany.getPortalURL();

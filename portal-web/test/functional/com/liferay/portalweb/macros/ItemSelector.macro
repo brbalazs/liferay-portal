@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addFromURL(navTab = null, type = null, imageSourceURL = null) {
+	macro addFromURL {
 		var key_imageSourceURL = ${imageSourceURL};
 		var key_navTab = ${navTab};
 
@@ -47,8 +46,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro gotoItemSelectorViaAlloyEditor() {
+	macro gotoItemSelectorViaAlloyEditor {
 		AlloyEditor.clickContentField();
 
 		Click(locator1 = "AlloyEditor#CONTENT_ADD_BUTTON");
@@ -56,13 +54,11 @@ definition {
 		Click(locator1 = "AlloyEditor#CONTENT_ADD_MENUBAR_IMAGE");
 	}
 
-	@summary = "Default summary"
-	macro gotoItemSelectorViaSelectButton() {
+	macro gotoItemSelectorViaSelectButton {
 		Click(locator1 = "Button#SELECT");
 	}
 
-	@summary = "Default summary"
-	macro searchBlogImages(imageFileName = null) {
+	macro searchBlogImages {
 		var key_imageFileName = ${imageFileName};
 
 		SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
@@ -98,8 +94,7 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro searchDMImages(imageFileName = null) {
+	macro searchDMImages {
 		var key_imageFileName = ${imageFileName};
 		var key_uploadFileName = ${imageFileName};
 
@@ -136,8 +131,7 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro selectBlogImage(navTab = null, imageFileName = null) {
+	macro selectBlogImage {
 		var key_imageFileName = ${imageFileName};
 		var key_navTab = ${navTab};
 		var key_uploadFileName = ${imageFileName};
@@ -161,8 +155,7 @@ definition {
 			value1 = "Add");
 	}
 
-	@summary = "Default summary"
-	macro selectDMImage(navTab = null, dmSubFolderName = null, imageFileName = null, dmFolderName = null) {
+	macro selectDMImage {
 		var key_navTab = ${navTab};
 		var key_uploadFileName = ${imageFileName};
 
@@ -201,8 +194,7 @@ definition {
 		Click(locator1 = "Button#ADD");
 	}
 
-	@summary = "Default summary"
-	macro uploadFile(navTab = null, uploadFileName = null) {
+	macro uploadFile {
 		var key_navTab = ${navTab};
 		var key_uploadFileName = ${uploadFileName};
 
@@ -231,8 +223,7 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewBlogImageDetails(imageFormat = null, uploadFileName = null, imageFileName = null, lastModifiedBy = null, imageSize = null, imageStatus = null, versionNumber = null) {
+	macro viewBlogImageDetails {
 		var key_imageFileName = ${imageFileName};
 		var key_uploadFileName = ${uploadFileName};
 
@@ -291,8 +282,7 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewWikiAttachment(imageFileName = null) {
+	macro viewWikiAttachment {
 		var key_imageFileName = ${imageFileName};
 
 		AlloyEditor.clickContentField();

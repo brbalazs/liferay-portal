@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureUserProfile(twitterProfileName = null) {
+	macro configureUserProfile {
 		AssertClick(
 			locator1 = "Link#CONFIGURE_TWITTER",
 			value1 = "Please configure your Twitter screen name.");
@@ -23,8 +22,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro viewConfiguredScreenName(twitterProfileName = null) {
+	macro viewConfiguredScreenName {
 		var key_portletName = "Twitter";
 
 		AssertTextEquals(
@@ -32,8 +30,7 @@ definition {
 			value1 = "Your Twitter screen name is ${twitterProfileName}. Your tweets will appear as activities.");
 	}
 
-	@summary = "Default summary"
-	macro viewFeedEntry(entryContent = null) {
+	macro viewFeedEntry {
 		AssertTextEquals(
 			locator1 = "Activities#ENTRY_CONTENT",
 			value1 = ${entryContent});

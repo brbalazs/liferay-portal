@@ -1,23 +1,23 @@
 @default = "isTextNotEqual"
 definition {
 
-	function isNotText() {
+	function isNotText {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.isNotText(${locator1}, ${value1});
+		selenium.isNotText();
 	}
 
-	function isNotValue() {
+	function isNotValue {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.isNotValue(${locator1}, ${value1});
+		selenium.isNotValue();
 	}
 
-	function isTextNotEqual(locator1) {
+	function isTextNotEqual {
 		WaitForSPARefresh();
 
 		if (contains(${locator1}, "/input")) {

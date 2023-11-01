@@ -4,8 +4,7 @@ definition {
 	var ddlDataDefinitionName = "Data Definition Name";
 	var ddlListName = "List Name";
 
-	@summary = "Default summary"
-	macro addCP(ddlListName = null, workflowDefinition = null, ddlListDescription = null) {
+	macro addCP {
 		LexiconEntry.gotoAdd();
 
 		Type.clickAtType(
@@ -29,8 +28,7 @@ definition {
 			value1 = "Select");
 	}
 
-	@summary = "Default summary"
-	macro addViaDDLDisplayPG(ddlListName = null, workflowDefinition = null, ddlListDescription = null) {
+	macro addViaDDLDisplayPG {
 		Click(
 			locator1 = "DDL#PORTLET_ACTIONS_ADD_LIST",
 			value1 = "Add List");
@@ -60,8 +58,7 @@ definition {
 		SelectFrameTop();
 	}
 
-	@summary = "Default summary"
-	macro assertCannotDeleteRecordViaDDLDisplayPG() {
+	macro assertCannotDeleteRecordViaDDLDisplayPG {
 		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
 
 		MenuItem.viewNotPresent(menuItem = "Delete");
@@ -69,8 +66,7 @@ definition {
 		MenuItem.viewPresent(menuItem = "View");
 	}
 
-	@summary = "Default summary"
-	macro deleteCP(ddlListName = null) {
+	macro deleteCP {
 		LexiconEntry.viewEntryName(rowEntry = ${ddlListName});
 
 		LexiconEntry.gotoEllipsisMenuItemNoError(menuItem = "Delete");
@@ -82,8 +78,7 @@ definition {
 		LexiconEntry.viewNoEntry(rowEntry = ${ddlListName});
 	}
 
-	@summary = "Default summary"
-	macro editCP(ddlListName = null, ddlListDescriptionEdit = null, ddlListNameEdit = null) {
+	macro editCP {
 		LexiconEntry.viewEntryName(rowEntry = ${ddlListName});
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Edit");
@@ -103,15 +98,13 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro editPermissions(ddlListName = null) {
+	macro editPermissions {
 		Search.searchCP(searchTerm = ${ddlListName});
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Permissions");
 	}
 
-	@summary = "Default summary"
-	macro editUserViewPermissionCP(ddlListName = null, addOrRemoveViewPermission = null, roleList = null) {
+	macro editUserViewPermissionCP {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
@@ -128,8 +121,7 @@ definition {
 			roleList = ${roleList});
 	}
 
-	@summary = "Default summary"
-	macro editViaDDLDisplayPG(ddlListDescriptionEdit = null, ddlListNameEdit = null) {
+	macro editViaDDLDisplayPG {
 		Click(
 			locator1 = "DDL#PORTLET_ACTIONS_EDIT_LIST",
 			value1 = "Edit List");
@@ -147,15 +139,13 @@ definition {
 			value1 = "Save");
 	}
 
-	@summary = "Default summary"
-	macro saveViaDDLDisplayPG() {
+	macro saveViaDDLDisplayPG {
 		DDLDataDefinition.save();
 
 		Pause(locator1 = 5000);
 	}
 
-	@summary = "Default summary"
-	macro selectViaDDLDisplayPG(ddlListName = null) {
+	macro selectViaDDLDisplayPG {
 		Click(
 			locator1 = "DDL#PORTLET_ACTIONS_SELECT_LIST",
 			value1 = "Select List");
@@ -181,8 +171,7 @@ definition {
 		SelectFrameTop();
 	}
 
-	@summary = "Default summary"
-	macro tearDownCP() {
+	macro tearDownCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -199,8 +188,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewCP(ddlListName = null, ddlListDescription = null) {
+	macro viewCP {
 		LexiconEntry.viewEntryName(rowEntry = ${ddlListName});
 
 		if (isSet(ddlListDescription)) {
@@ -216,15 +204,13 @@ definition {
 		SiteAdmin.viewPortletTitle(portletTitle = ${ddlListName});
 	}
 
-	@summary = "Default summary"
-	macro viewDeleteRecordOptionViaDDLDisplayPG() {
+	macro viewDeleteRecordOptionViaDDLDisplayPG {
 		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
 
 		MenuItem.viewPresent(menuItem = "Delete");
 	}
 
-	@summary = "Default summary"
-	macro viewViaDDLDisplayPG(ddlListName = null) {
+	macro viewViaDDLDisplayPG {
 		AssertTextEquals(
 			locator1 = "Portlet#H2_HEADER",
 			value1 = ${ddlListName});

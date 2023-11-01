@@ -1,15 +1,13 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoPortlet(portlet = null, category = null) {
+	macro gotoPortlet {
 		Click(
 			key_category = ${category},
 			key_portlet = ${portlet},
 			locator1 = "ApplicationsMenu#PORTLET");
 	}
 
-	@summary = "Default summary"
-	macro openApplicationsMenu() {
+	macro openApplicationsMenu {
 		if (IsElementNotPresent(locator1 = "ApplicationsMenu#APPLICATIONS_MENU")) {
 			Click(locator1 = "ApplicationsMenu#TOGGLE");
 		}

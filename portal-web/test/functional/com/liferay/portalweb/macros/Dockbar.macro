@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro viewAddTabsWithNoAddPagePermission() {
+	macro viewAddTabsWithNoAddPagePermission {
 		Click(locator1 = "ControlMenu#ADD");
 
 		AssertTextEquals(

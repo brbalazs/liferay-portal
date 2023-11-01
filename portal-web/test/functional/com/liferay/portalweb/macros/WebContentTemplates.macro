@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addCP(templateSmallImageURL = null, templateScript = null, fieldName = null, templateName = null, structureName = null, templateDescription = null, templateLanguage = null, validateStructureFields = null, templateFile = null, templateFieldNames = null) {
+	macro addCP {
 		LexiconEntry.gotoAdd();
 
 		WebContentTemplates.inputTemplateAddScreenFields(
@@ -19,8 +18,7 @@ definition {
 		DDLDataDefinition.save();
 	}
 
-	@summary = "Default summary"
-	macro addFields(templateFieldNames = null) {
+	macro addFields {
 		if (isSet(templateFieldNames)) {
 			for (var fieldName : list ${templateFieldNames}) {
 				var key_fieldName = ${fieldName};
@@ -32,8 +30,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro addNullCP() {
+	macro addNullCP {
 		Navigator.gotoNavItem(navItem = "Templates");
 
 		LexiconEntry.gotoAdd();
@@ -47,8 +44,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro addRoleViewPermissions(templateName = null, roles = null) {
+	macro addRoleViewPermissions {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Permissions",
 			rowEntry = ${templateName});
@@ -62,8 +58,7 @@ definition {
 		SelectFrameTop();
 	}
 
-	@summary = "Default summary"
-	macro deleteCP(templateName = null, webContentHasReference = null) {
+	macro deleteCP {
 		Navigator.gotoNavItem(navItem = "Templates");
 
 		var key_ddlTemplateName = ${templateName};
@@ -86,8 +81,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro inputDescription(templateDescription = null) {
+	macro inputDescription {
 		if (isSet(templateDescription)) {
 			Panel.expandPanel(panel = "Details");
 
@@ -95,8 +89,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro inputScript(templateScript = null) {
+	macro inputScript {
 		if (isSet(templateScript)) {
 			Type.typeAceEditor(
 				locator1 = "DDMEditTemplate#SCRIPT_CONTENT_FIELD_TEXT_AREA",
@@ -104,8 +97,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro inputSmallImage(templateSmallImageURL = null) {
+	macro inputSmallImage {
 		Panel.expandPanel(panel = "Details");
 
 		if (isSet(templateSmallImageURL)) {
@@ -126,8 +118,7 @@ definition {
 			value1 = ${templateSmallImageURL});
 	}
 
-	@summary = "Default summary"
-	macro inputStructure(structureName = null) {
+	macro inputStructure {
 		if (isSet(structureName)) {
 			Panel.expandPanel(panel = "Details");
 
@@ -153,8 +144,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro inputTemplateAddScreenFields(templateSmallImageURL = null, templateScript = null, fieldName = null, templateName = null, structureName = null, templateDescription = null, templateLanguage = null, templateFile = null, templateFieldNames = null) {
+	macro inputTemplateAddScreenFields {
 		PortletEntry.inputName(name = ${templateName});
 
 		WebContentTemplates.inputStructure(structureName = ${structureName});
@@ -187,8 +177,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro inputTemplateFile(templateFile = null) {
+	macro inputTemplateFile {
 		if (isSet(templateFile)) {
 			UploadCommonFile(
 				locator1 = "DDMEditTemplate#SCRIPT_FILE_FIELD",
@@ -196,8 +185,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro inputTemplateLanguage(templateLanguage = null) {
+	macro inputTemplateLanguage {
 		Panel.expandPanel(panel = "Details");
 
 		if (${templateLanguage} == "vm") {
@@ -233,8 +221,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro localizeTemplateName(locale2 = null, templateName = null, localization2Name = null, locale = null, localization1Name = null) {
+	macro localizeTemplateName {
 		var key_ddlTemplateName = ${templateName};
 
 		Navigator.openURL();
@@ -275,8 +262,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro tearDownCP() {
+	macro tearDownCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -313,8 +299,7 @@ definition {
 		Portlet.viewEmptyMessage(message = "There are no results.");
 	}
 
-	@summary = "Default summary"
-	macro viewCP(templateScript = null, templateName = null, structureName = null, templateDescription = null, templateLanguage = null, userEditPermission = null) {
+	macro viewCP {
 		Navigator.gotoNavItem(navItem = "Templates");
 
 		var key_ddlTemplateName = ${templateName};
@@ -392,8 +377,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewTableEntryCP(templateName = null, templateDescription = null, templateSmallImage = null) {
+	macro viewTableEntryCP {
 		var key_ddlTemplateName = ${templateName};
 
 		AssertTextEquals(

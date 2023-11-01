@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _convertToXML(content = null) {
+	macro _convertToXML {
 		Variables.assertDefined(parameterList = ${content});
 
 		var contentXML = '''<p>${content}</p> ''';

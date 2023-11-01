@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro selectJsonFile(tabName = null, fileName = null) {
+	macro selectJsonFile {
 		Navigator.gotoNavTab(navTab = ${tabName});
 
 		UploadCommonFile(

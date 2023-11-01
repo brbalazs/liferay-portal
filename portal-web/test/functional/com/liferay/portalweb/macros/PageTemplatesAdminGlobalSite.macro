@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addCP(pageTemplateActive = null, pageTemplateName = null) {
+	macro addCP {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputName(name = ${pageTemplateName});
@@ -22,8 +21,7 @@ definition {
 			value1 = ${pageTemplateActive});
 	}
 
-	@summary = "Default summary"
-	macro deactivateAndActivate(pageTemplateName = null) {
+	macro deactivateAndActivate {
 		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		LexiconEntry.gotoEntryMenuItem(
@@ -37,8 +35,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro deleteCP(pageTemplateName = null) {
+	macro deleteCP {
 		var key_pageTemplateName = ${pageTemplateName};
 
 		LexiconEntry.openEntryMenu(rowEntry = ${pageTemplateName});
@@ -50,8 +47,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro editCP(pageTemplateActive = null, pageTemplateName = null) {
+	macro editCP {
 		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		LexiconEntry.gotoEntryMenuItem(
@@ -79,8 +75,7 @@ definition {
 			value1 = ${pageTemplateActive});
 	}
 
-	@summary = "Default summary"
-	macro editDescription(pageTemplateName = null, pageTemplateDescription = null) {
+	macro editDescription {
 		PageTemplatesAdminGlobalSite.viewDescription(
 			pageTemplateDescription = ${pageTemplateDescription},
 			pageTemplateName = ${pageTemplateName});
@@ -90,8 +85,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro gotoPageTemplateViaEdit(pageTemplateName = null) {
+	macro gotoPageTemplateViaEdit {
 		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		AssertClick.assertPartialTextClickAt(
@@ -100,8 +94,7 @@ definition {
 			value1 = ${pageTemplateName});
 	}
 
-	@summary = "Default summary"
-	macro tearDownCP() {
+	macro tearDownCP {
 		SitePages.openPagesAdmin(siteURLKey = "global");
 
 		ProductMenu.gotoPortlet(
@@ -122,16 +115,14 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewCP(pageTemplateName = null) {
+	macro viewCP {
 		AssertTextEquals.assertPartialText(
 			key_pageTemplateName = ${pageTemplateName},
 			locator1 = "PageTemplates#PAGE_TEMPLATE_TABLE_NAME",
 			value1 = ${pageTemplateName});
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultCP() {
+	macro viewDefaultCP {
 		for (var pageTemplateName : list "Search,Blog,Wiki") {
 			LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
@@ -143,8 +134,7 @@ definition {
 		AssertElementNotPresent(locator1 = "PageTemplates#PAGE_TEMPLATE_TABLE_NAME_4");
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultLocalizedCP(pageTemplateNameList = null, portletTitle = null) {
+	macro viewDefaultLocalizedCP {
 		for (var pageTemplateNameTranslation : list ${pageTemplateNameList}) {
 			var key_pageTemplateName = ${pageTemplateNameTranslation};
 
@@ -156,8 +146,7 @@ definition {
 		SiteAdmin.viewPortletTitle(portletTitle = ${portletTitle});
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultPortletPG(portletTitleList = null, pageTemplateName = null) {
+	macro viewDefaultPortletPG {
 		if (${pageTemplateName} == "Blog") {
 			AssertElementPresent(locator1 = "Home#PORTLET_1");
 
@@ -175,8 +164,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewDescription(pageTemplateName = null, pageTemplateDescription = null) {
+	macro viewDescription {
 		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		LexiconEntry.gotoEntryMenuItem(
@@ -188,8 +176,7 @@ definition {
 			value1 = ${pageTemplateDescription});
 	}
 
-	@summary = "Default summary"
-	macro viewPG(siteName = null, pageTemplateName = null) {
+	macro viewPG {
 		var key_pageTemplateName = ${pageTemplateName};
 
 		AssertClick.assertPartialTextClickAt(
@@ -203,8 +190,7 @@ definition {
 			value1 = ${pageTemplateName});
 	}
 
-	@summary = "Default summary"
-	macro viewStatus(pageTemplateName = null, pageTemplateStatus = null) {
+	macro viewStatus {
 		LexiconEntry.viewEntryName(rowEntry = ${pageTemplateName});
 
 		AssertTextEquals(

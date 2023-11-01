@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro add(metadataSetName = null, dmDocumentTypeName = null, dmDocumentTypeDescription = null, dmDocumentTypeFieldNames = null) {
+	macro add {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputName(name = ${dmDocumentTypeName});
@@ -26,8 +25,7 @@ definition {
 		DDLDataDefinition.save();
 	}
 
-	@summary = "Default summary"
-	macro deletePG(dmDocumentTypeName = null) {
+	macro deletePG {
 		DMDocumentType.selectDocumentTypeFrame();
 
 		var key_dmDocumentTypeName = ${dmDocumentTypeName};
@@ -45,8 +43,7 @@ definition {
 			value1 = ${dmDocumentTypeName});
 	}
 
-	@summary = "Default summary"
-	macro edit(metadataSetName = null, dmDocumentTypeFieldRequiredEdit = null, dmDocumentTypeName = null, dmDocumentTypeFieldNames = null, dmDocumentTypeDescriptionEdit = null, dmDocumentTypeNameEdit = null, removeMetadataSet = null) {
+	macro edit {
 		DMDocumentType.selectDocumentTypeFrame();
 
 		var key_dmDocumentTypeName = ${dmDocumentTypeName};
@@ -112,15 +109,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro selectDocumentTypeFrame() {
+	macro selectDocumentTypeFrame {
 		if (IsElementPresent(locator1 = "IFrame#DOCUMENT_TYPES")) {
 			SelectFrame(locator1 = "IFrame#DOCUMENT_TYPES");
 		}
 	}
 
-	@summary = "Default summary"
-	macro selectPGMetadataSet(metadataSetName = null) {
+	macro selectPGMetadataSet {
 		AssertClick(
 			locator1 = "DocumentsAndMediaEditDocumentType#SELECT_BUTTON",
 			value1 = "Select");
@@ -136,8 +131,7 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro tearDownCP() {
+	macro tearDownCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -162,8 +156,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewCP(dmDocumentTypeScope = null, dmDocumentTypeName = null) {
+	macro viewCP {
 		var key_dmDocumentTypeName = ${dmDocumentTypeName};
 
 		if (isSet(dmDocumentTypeScope)) {
@@ -179,8 +172,7 @@ definition {
 			value1 = ${dmDocumentTypeName});
 	}
 
-	@summary = "Default summary"
-	macro viewMenulistOption(dmDocumentTypeName = null) {
+	macro viewMenulistOption {
 		var key_dmDocumentTypeName = ${dmDocumentTypeName};
 
 		LexiconEntry.gotoAdd();
@@ -191,8 +183,7 @@ definition {
 			value1 = ${dmDocumentTypeName});
 	}
 
-	@summary = "Default summary"
-	macro viewNoAvailableActionsViaDocumentTypesPG() {
+	macro viewNoAvailableActionsViaDocumentTypesPG {
 		DMNavigator.gotoDocumentType();
 
 		AssertElementNotPresent(locator1 = "DocumentsAndMediaDocumentTypes#DOCUMENT_TYPES_TABLE_ACTIONS_1");

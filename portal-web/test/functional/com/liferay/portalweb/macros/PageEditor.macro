@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addFragment(fragmentName = null, collectionName = null) {
+	macro addFragment {
 		PageEditor.gotoTab(tabName = "Available");
 
 		PageEditor.expandFragmentCollection(collectionName = ${collectionName});
@@ -16,15 +15,13 @@ definition {
 			locator1 = "Fragment#FRAGMENT_HEADER");
 	}
 
-	@summary = "Default summary"
-	macro clickConfigurableField(fragmentName = null) {
+	macro clickConfigurableField {
 		Click(
 			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#CONFIGURABLE_FIELD");
 	}
 
-	@summary = "Default summary"
-	macro editFragmentImage(fileName = null, fragmentName = null, id = null) {
+	macro editFragmentImage {
 		MouseOver.mouseOverNotVisible(
 			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_HEADER");
@@ -47,8 +44,7 @@ definition {
 		Click(locator1 = "Button#ADD");
 	}
 
-	@summary = "Default summary"
-	macro editFragmentText(fragmentName = null, id = null, text = null) {
+	macro editFragmentText {
 		MouseOver.mouseOverNotVisible(
 			key_fragmentName = ${fragmentName},
 			key_id = ${id},
@@ -82,8 +78,7 @@ definition {
 			value1 = "\BACK_SPACE");
 	}
 
-	@summary = "Default summary"
-	macro expandFragmentCollection(collectionName = null) {
+	macro expandFragmentCollection {
 		if (IsElementPresent(key_collectionName = ${collectionName}, locator1 = "PageEditor#FRAGMENT_SIDEBAR_COLLECTION_PANEL_COLLAPSED")) {
 			AssertClick(
 				key_collectionName = ${collectionName},
@@ -96,16 +91,14 @@ definition {
 			locator1 = "PageEditor#FRAGMENT_SIDEBAR_COLLECTION_PANEL_EXPANDED");
 	}
 
-	@summary = "Default summary"
-	macro gotoTab(tabName = null) {
+	macro gotoTab {
 		AssertClick(
 			key_tabName = ${tabName},
 			locator1 = "PageEditor#FRAGMENT_SIDEBAR_TAB",
 			value1 = ${tabName});
 	}
 
-	@summary = "Default summary"
-	macro moveFragment(fragmentName = null, direction = null) {
+	macro moveFragment {
 		MouseOver(
 			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_BODY");
@@ -122,8 +115,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro removeFragment(fragmentName = null) {
+	macro removeFragment {
 		MouseOver.mouseOverNotVisible(
 			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_HEADER");
@@ -137,34 +129,29 @@ definition {
 			locator1 = "Fragment#FRAGMENT_HEADER");
 	}
 
-	@summary = "Default summary"
-	macro viewAutoSaveMessage() {
+	macro viewAutoSaveMessage {
 		AssertTextEquals.assertPartialText(
 			locator1 = "PageEditor#AUTOSAVE_MESSAGE",
 			value1 = "Changes saved at");
 	}
 
-	@summary = "Default summary"
-	macro viewCollectionNotPresent(collectionName = null) {
+	macro viewCollectionNotPresent {
 		AssertElementNotPresent(
 			key_collectionName = ${collectionName},
 			locator1 = "PageEditor#FRAGMENT_SIDEBAR_COLLECTION_PANEL");
 	}
 
-	@summary = "Default summary"
-	macro viewEditorEmpty() {
+	macro viewEditorEmpty {
 		AssertElementPresent(locator1 = "PageEditor#EMPTY_MESSAGE");
 	}
 
-	@summary = "Default summary"
-	macro viewFragment(fragmentName = null) {
+	macro viewFragment {
 		AssertElementPresent(
 			key_fragmentName = ${fragmentName},
 			locator1 = "Fragment#FRAGMENT_HEADER");
 	}
 
-	@summary = "Default summary"
-	macro viewFragmentEditableText(fragmentName = null, editableText = null, id = null) {
+	macro viewFragmentEditableText {
 		AssertTextEquals(
 			key_fragmentName = ${fragmentName},
 			key_id = ${id},
@@ -172,8 +159,7 @@ definition {
 			value1 = ${editableText});
 	}
 
-	@summary = "Default summary"
-	macro viewFragmentOrder(fragmentName = null, position = null) {
+	macro viewFragmentOrder {
 		AssertElementPresent(
 			key_fragmentName = ${fragmentName},
 			key_position = ${position},

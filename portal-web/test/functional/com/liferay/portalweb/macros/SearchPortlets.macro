@@ -4,8 +4,7 @@ definition {
 		For searches that do not use the search portlet (e.g. searches within the product menu), use the macros within Search.macro instead.'Embedded' refers to the search bar in the page header whereas 'Widget' refers to the search bar within the page.
 	 */
 
-	@summary = "Default summary"
-	macro addWidgets(searchPortletList = null) {
+	macro addWidgets {
 		if (IsNotVisible(locator1 = "ControlMenuAddPanel#CLOSE_ADD_PANEL")) {
 			Click.clickAt(locator1 = "ControlMenu#ADD");
 		}
@@ -41,8 +40,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro configureDestination() {
+	macro configureDestination {
 		SearchPortlets.gotoEmbeddedOptions(portletOption = "Configuration");
 
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
@@ -64,8 +62,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro configureEmbeddedScope(searchScope = null) {
+	macro configureEmbeddedScope {
 		SearchPortlets.gotoEmbeddedOptions(portletOption = "Configuration");
 
 		if ((${searchScope} == "Everything") || (${searchScope} == "Let the User Choose") || (${searchScope} == "This Site")) {
@@ -84,8 +81,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro configureSearchOptions(allowEmptySearches = null, basicFacetSelection = null) {
+	macro configureSearchOptions {
 		Portlet.gotoPortletOptions(
 			portletName = "Search Options",
 			portletOption = "Configuration");
@@ -109,8 +105,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro configureWidgetParameterNames(scopeParameterName = null, keywordsParameterName = null) {
+	macro configureWidgetParameterNames {
 		SearchPortlets.gotoWidgetOptions(portletOption = "Configuration");
 
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
@@ -132,8 +127,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro configureWidgetScope(searchScope = null) {
+	macro configureWidgetScope {
 		SearchPortlets.gotoWidgetOptions(portletOption = "Configuration");
 
 		if ((${searchScope} == "Everything") || (${searchScope} == "Let the User Choose") || (${searchScope} == "This Site")) {
@@ -152,8 +146,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro getSearchTermURL(searchTerm = null) {
+	macro getSearchTermURL {
 		if (contains(${searchPage}, " ")) {
 			var searchPage = StringUtil.replace(${searchPage}, " ", "-");
 		}
@@ -168,8 +161,7 @@ definition {
 		return ${searchURL};
 	}
 
-	@summary = "Default summary"
-	macro gotoEmbeddedOptions(portletOption = null) {
+	macro gotoEmbeddedOptions {
 		MouseOver.mouseOverNotVisible(locator1 = "Search#EMBEDDED_SEARCH_BAR_ELLIPSIS_ICON");
 
 		Click(locator1 = "Search#EMBEDDED_SEARCH_BAR_ELLIPSIS_ICON");
@@ -181,8 +173,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro gotoResultDetails(searchAssetTitle = null) {
+	macro gotoResultDetails {
 		var key_searchAssetTitle = ${searchAssetTitle};
 
 		AssertClick(
@@ -190,8 +181,7 @@ definition {
 			value1 = ${searchAssetTitle});
 	}
 
-	@summary = "Default summary"
-	macro gotoWidgetOptions(portletOption = null) {
+	macro gotoWidgetOptions {
 		MouseOver.mouseOverNotVisible(locator1 = "Search#SEARCH_BAR_WIDGET_ELLIPSIS_ICON");
 
 		Click(locator1 = "Search#SEARCH_BAR_WIDGET_ELLIPSIS_ICON");
@@ -203,8 +193,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro searchEmbedded(searchTerm = null) {
+	macro searchEmbedded {
 		AssertElementPresent(locator1 = "Search#EMBEDDED_SEARCH_BAR");
 
 		Type(
@@ -216,8 +205,7 @@ definition {
 			value1 = "\RETURN");
 	}
 
-	@summary = "Default summary"
-	macro searchWidget(searchTerm = null) {
+	macro searchWidget {
 		Type(
 			locator1 = "Search#SEARCH_BAR_WIDGET",
 			value1 = ${searchTerm});
@@ -227,8 +215,7 @@ definition {
 			value1 = "\RETURN");
 	}
 
-	@summary = "Default summary"
-	macro selectEmbeddedScopeInput(searchScope = null) {
+	macro selectEmbeddedScopeInput {
 		if ((${searchScope} == "Everything") || (${searchScope} == "This Site")) {
 			Select(
 				locator1 = "Search#EMBEDDED_SEARCH_BAR_SCOPE_SELECT",
@@ -239,8 +226,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro selectWidgetScopeInput(searchScope = null) {
+	macro selectWidgetScopeInput {
 		if ((${searchScope} == "Everything") || (${searchScope} == "This Site")) {
 			Select(
 				locator1 = "Search#SEARCH_BAR_WIDGET_SCOPE_SELECT",
@@ -251,27 +237,23 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewResultDetails(searchAssetTitle = null) {
+	macro viewResultDetails {
 		AssertTextEquals(
 			locator1 = "SearchResults#ASSET_DETAILS_TITLE",
 			value1 = ${searchAssetTitle});
 	}
 
-	@summary = "Default summary"
-	macro viewSearchHidden() {
+	macro viewSearchHidden {
 		AssertElementNotPresent(locator1 = "Search#EMBEDDED_SEARCH_BAR");
 	}
 
-	@summary = "Default summary"
-	macro viewSearchResultWithNoPermissions(searchTerm = null) {
+	macro viewSearchResultWithNoPermissions {
 		AssertTextEquals(
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "No results were found that matched the keywords: ${searchTerm}.");
 	}
 
-	@summary = "Default summary"
-	macro viewUserResultDetails(userName = null, pageName = null) {
+	macro viewUserResultDetails {
 		AssertTextEquals(
 			locator1 = "Home#USER_NAME_HEADER",
 			value1 = ${userName});

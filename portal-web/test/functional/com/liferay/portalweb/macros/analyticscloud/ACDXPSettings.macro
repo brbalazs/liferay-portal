@@ -1,12 +1,10 @@
 definition {
 
-	@summary = "Default summary"
-	macro assertSuccessfulConnection() {
+	macro assertSuccessfulConnection {
 		AssertElementPresent(locator1 = "ACDXPSettings#ANALYTICS_CLOUD_CONNECTED_CONFIRMATION_MESSAGE");
 	}
 
-	@summary = "Default summary"
-	macro assignSiteToExistingProperty(assignedPropertyName = null) {
+	macro assignSiteToExistingProperty {
 		Search.searchCP(searchTerm = ${assignedPropertyName});
 
 		LexiconTable.clickTableEntryColumnLink(
@@ -26,8 +24,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro connectAnalyticsCloud(staticACToken = null, acToken = null, staticExistingSourceToken = null) {
+	macro connectAnalyticsCloud {
 		Click(locator1 = "ACDXPSettings#TOKEN_INPUT_FIELD");
 
 		if (isSet(acToken)) {
@@ -49,8 +46,7 @@ definition {
 		Click(locator1 = "ACDXPSettings#CONNECT_DISCONNECT_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro connectDXPtoAnalyticsCloud(orgName = null, acToken = null, userGroup = null) {
+	macro connectDXPtoAnalyticsCloud {
 		ACDXPSettings.goToInstanceSettingsAC();
 
 		if (isSet(acToken)) {
@@ -95,8 +91,7 @@ definition {
 		return ${assignedPropertyName};
 	}
 
-	@summary = "Default summary"
-	macro createCombinedProperties() {
+	macro createCombinedProperties {
 		var siteName = ${siteName};
 
 		LexiconEntry.gotoAdd();
@@ -112,8 +107,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro createMultipleProperties(siteNameList = null) {
+	macro createMultipleProperties {
 		LexiconEntry.gotoAdd();
 
 		Click(locator1 = "ACDXPSettings#MULTIPLE_PROPERTY_OPTION");
@@ -129,8 +123,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro disconnectDXPFromAnalyticsCloud() {
+	macro disconnectDXPFromAnalyticsCloud {
 		ACDXPSettings.goToInstanceSettingsAC();
 
 		if (IsElementPresent(locator1 = "ACDXPSettings#AC_GENERIC_CANCEL_BUTTON")) {
@@ -140,8 +133,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro getAssignedPropertyName(siteName = null) {
+	macro getAssignedPropertyName {
 		if (IsElementNotPresent(locator1 = "//*[@data-qa-id='headerTitle'][normalize-space(text())='Analytics Cloud']")) {
 			ACDXPSettings.goToInstanceSettingsAC();
 		}
@@ -161,30 +153,25 @@ definition {
 		return ${assignedPropertyName};
 	}
 
-	@summary = "Default summary"
-	macro goToInstanceSettingsAC() {
+	macro goToInstanceSettingsAC {
 		PortalSettings.openAnalyticsCloudAdmin();
 
 		Click(locator1 = "ACDXPSettings#ANALYTICS_CLOUD_DXP_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro navToAnalyticsCloudConnectionMenu() {
+	macro navToAnalyticsCloudConnectionMenu {
 		Click(locator1 = "ACDXPSettings#AC_CONNECTION_NAV_SIDEBAR");
 	}
 
-	@summary = "Default summary"
-	macro navToSyncedContactDataMenu() {
+	macro navToSyncedContactDataMenu {
 		Click(locator1 = "ACDXPSettings#SYNCED_CONTACT_DATA_NAV_SIDEBAR");
 	}
 
-	@summary = "Default summary"
-	macro navToSyncedSitesMenu() {
+	macro navToSyncedSitesMenu {
 		Click(locator1 = "ACDXPSettings#SYNCED_SITES_NAV_SIDEBAR");
 	}
 
-	@summary = "Default summary"
-	macro searchACItem(searchItem = null) {
+	macro searchACItem {
 		Click(locator1 = "ACDXPSettings#SYNCED_SITES_SEARCH_FIELD");
 
 		Type(
@@ -196,8 +183,7 @@ definition {
 			value1 = "\ENTER");
 	}
 
-	@summary = "Default summary"
-	macro selectAvailableProperties(availablePropertyName = null) {
+	macro selectAvailableProperties {
 		var key_availablePropertyName = ${availablePropertyName};
 
 		Click(locator1 = "ACDXPSettings#AVAILABLE_PROPERTY_NAME");
@@ -205,8 +191,7 @@ definition {
 		Click(locator1 = "ACDXPSettings#AC_GENERIC_CHECKBOX");
 	}
 
-	@summary = "Default summary"
-	macro syncByOrganizations(orgName = null, index = null) {
+	macro syncByOrganizations {
 		Click(locator1 = "ACDXPSettings#SYNC_CONTACTS_OPTION");
 
 		Click(locator1 = "ACDXPSettings#SYNC_BY_ORGANIZATIONS_BUTTON");
@@ -229,8 +214,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro syncContactData() {
+	macro syncContactData {
 		Click(locator1 = "ACDXPSettings#SYNC_CONTACTS_OPTION");
 
 		//Check.checkToggleSwitch(locator1 = "ACDXPSettings#SYNC_ALL_CONTACTS_TOGGLE");
@@ -242,8 +226,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro syncContactSingleUserGroupData(userGroup = null) {
+	macro syncContactSingleUserGroupData {
 		Click(locator1 = "ACDXPSettings#SYNC_CONTACTS_OPTION");
 
 		Click(
@@ -263,8 +246,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro syncNewContactData() {
+	macro syncNewContactData {
 		ACDXPSettings.goToInstanceSettingsAC();
 
 		ACDXPSettings.navToSyncedContactDataMenu();
@@ -272,8 +254,7 @@ definition {
 		ACDXPSettings.syncContactData();
 	}
 
-	@summary = "Default summary"
-	macro syncNewUserData(fieldNameList = null) {
+	macro syncNewUserData {
 		ACDXPSettings.goToInstanceSettingsAC();
 
 		ACDXPSettings.navToSyncedContactDataMenu();

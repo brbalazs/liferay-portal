@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _writeAdjustedBoldItalicText() {
+	macro _writeAdjustedBoldItalicText {
 		Click(locator1 = "PortalShowcase#WRITEABLE_FIELD");
 
 		Type.sendKeys(
@@ -47,8 +46,7 @@ definition {
 		PortalShowcase.submit();
 	}
 
-	@summary = "Default summary"
-	macro _writeAdjustedBoldText() {
+	macro _writeAdjustedBoldText {
 		Click(locator1 = "PortalShowcase#WRITEABLE_FIELD");
 
 		Type.sendKeys(
@@ -78,8 +76,7 @@ definition {
 		PortalShowcase.submit();
 	}
 
-	@summary = "Default summary"
-	macro _writeText(text = null) {
+	macro _writeText {
 		Click(locator1 = "PortalShowcase#WRITEABLE_FIELD");
 
 		Type(
@@ -89,8 +86,7 @@ definition {
 		PortalShowcase.submit();
 	}
 
-	@summary = "Default summary"
-	macro checkText() {
+	macro checkText {
 		var boldOpen = ${boldOpen};
 		var boldClose = ${boldClose};
 		var italicOpen = ${italicOpen};
@@ -152,8 +148,7 @@ definition {
 		AssertElementNotPresent(locator1 = "PortalShowcase#REQUIRED_ERROR_MESSAGE");
 	}
 
-	@summary = "Default summary"
-	macro submit() {
+	macro submit {
 		if (IsElementPresent(locator1 = "PortalShowcase#SUBMIT_BUTTON")) {
 			Click(locator1 = "PortalShowcase#SUBMIT_BUTTON");
 		}
@@ -162,8 +157,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro submitImmediate(textResult = null, immediate = null, messageImmediate2 = null, messageImmediate1 = null, text = null) {
+	macro submitImmediate {
 		if (${immediate} == "true") {
 			Click(locator1 = "PortalShowcase#WRITEABLE_FIELD");
 

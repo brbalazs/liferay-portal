@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoPanel(panel = null) {
+	macro gotoPanel {
 		var key_panel = ${panel};
 
 		Click(locator1 = "ApplicationsMenu#PANEL");
@@ -11,8 +10,7 @@ definition {
 		WaitForLiferayEvent.initializeLiferayEventLog();
 	}
 
-	@summary = "Default summary"
-	macro gotoPortlet(portlet = null, panel = null, category = null) {
+	macro gotoPortlet {
 		ApplicationsMenuHelper.openApplicationsMenu();
 
 		ApplicationsMenu.gotoPanel(panel = ${panel});
@@ -22,8 +20,7 @@ definition {
 			portlet = ${portlet});
 	}
 
-	@summary = "Default summary"
-	macro gotoSite(site = null) {
+	macro gotoSite {
 		ApplicationsMenuHelper.openApplicationsMenu();
 
 		Click(

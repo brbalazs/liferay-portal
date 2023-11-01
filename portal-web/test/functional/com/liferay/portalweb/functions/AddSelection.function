@@ -1,16 +1,16 @@
 @default = "addSelection"
 definition {
 
-	function addSelection() {
+	function addSelection {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.addSelection(${locator1}, ${value1});
+		selenium.addSelection();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

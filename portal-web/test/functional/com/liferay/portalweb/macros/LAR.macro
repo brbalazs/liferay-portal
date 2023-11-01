@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _configureExportSiteOptions(contentDateRange = null, checkContentNameList = null, uncheckContentNameList = null, checkPageName = null, uncheckLogo = null, larFileName = null, uncheckSiteTemplateSettings = null, contentName = null, uncheckSubSubContent = null, uncheckSubContent = null, exportPermissions = null, uncheckSitePagesSettings = null, contentDeletion = null, mainContent = null, subContent = null) {
+	macro _configureExportSiteOptions {
 		if (isSet(larFileName)) {
 			Type(
 				locator1 = "SitePagesExport#EXPORT_PROCESS_NAME",
@@ -58,8 +57,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro _export(exportPermissions = null, exportIndividualDeletions = null, larFileName = null) {
+	macro _export {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION_DIALOG");
 
 		if (isSet(portletName)) {
@@ -101,8 +99,7 @@ definition {
 		AssertTextNotPresent(value1 = "The requested resource could not be found");
 	}
 
-	@summary = "Default summary"
-	macro _exportSite(larFileName = null) {
+	macro _exportSite {
 		if (isSet(larFileName)) {
 			Type(
 				locator1 = "SitePagesExport#EXPORT_PROCESS_NAME",
@@ -112,8 +109,7 @@ definition {
 		LAR.exportSuccess();
 	}
 
-	@summary = "Default summary"
-	macro _gotoExportImport(portletName = null) {
+	macro _gotoExportImport {
 		Portlet.gotoPortletOptions(
 			portletName = ${portletName},
 			portletOption = "Export / Import");
@@ -121,8 +117,7 @@ definition {
 		Pause(locator1 = 3000);
 	}
 
-	@summary = "Default summary"
-	macro _gotoExportSite(siteScopeName = null) {
+	macro _gotoExportSite {
 		if (isSet(siteScopeName)) {
 			Navigator.openSiteURL(siteName = ${siteScopeName});
 		}
@@ -133,8 +128,7 @@ definition {
 			portlet = "Export");
 	}
 
-	@summary = "Default summary"
-	macro _gotoImportSite(baseURL = null, siteName = null) {
+	macro _gotoImportSite {
 		if (isSet(siteName)) {
 			SitePages.openPagesAdmin(
 				baseURL = ${baseURL},
@@ -147,8 +141,7 @@ definition {
 			portlet = "Import");
 	}
 
-	@summary = "Default summary"
-	macro _importSite(checkContentNameList = null, contentDeletion = null, mirrorWithOverwriting = null, importPermissions = null, privateLayout = null) {
+	macro _importSite {
 		Pause(locator1 = 12000);
 
 		Click(locator1 = "Button#CONTINUE");
@@ -188,8 +181,7 @@ definition {
 			value1 = "Successful");
 	}
 
-	@summary = "Default summary"
-	macro _mirrorWithOverwriting() {
+	macro _mirrorWithOverwriting {
 		ScrollWebElementIntoView(
 			key_panel = "Update Data",
 			locator1 = "Panel#PANEL");
@@ -199,8 +191,7 @@ definition {
 		Click(locator1 = "ExportImport#UPDATE_DATA_MIRROR_WITH_OVERWRITING_RADIO");
 	}
 
-	@summary = "Default summary"
-	macro _selectImportFile(cannotImport = null, mirrorWithOverwriting = null, uploadFrom = null, importDeletions = null, importPermissions = null, larFileName = null) {
+	macro _selectImportFile {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION_DIALOG");
 
 		NavItem.click(navItem = "Import");
@@ -293,8 +284,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro _selectImportFileSite(importValidationMissingItem = null, uploadFrom = null, larFileName = null) {
+	macro _selectImportFileSite {
 		LexiconEntry.gotoAdd();
 
 		Pause(locator1 = 5000);
@@ -353,8 +343,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro addExportTemplateCP(exportTemplateName = null, exportTemplateDescription = null) {
+	macro addExportTemplateCP {
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Export Templates");
 
 		LexiconEntry.gotoAdd();
@@ -364,8 +353,7 @@ definition {
 		PortletEntry.inputDescription(description = ${exportTemplateDescription});
 	}
 
-	@summary = "Default summary"
-	macro configureExportOptions(checkContentNameList = null, uncheckContentNameList = null, checkPageName = null, uncheckLogo = null, deleteMissingPages = null, larFileName = null, lastDateRange = null, contentName = null, uncheckSubSubContent = null, uncheckSubContent = null, exportPermissions = null, contentDeletion = null, mainContent = null, subContent = null) {
+	macro configureExportOptions {
 		LAR._configureExportSiteOptions(
 			checkContentNameList = ${checkContentNameList},
 			checkPageName = ${checkPageName},
@@ -383,8 +371,7 @@ definition {
 			uncheckSubSubContent = ${uncheckSubSubContent});
 	}
 
-	@summary = "Default summary"
-	macro configureExportSiteCP(checkContentNameList = null, uncheckContentNameList = null, checkPageName = null, uncheckLogo = null, deleteMissingPages = null, larFileName = null, lastDateRange = null, contentName = null, uncheckSiteTemplateSettings = null, uncheckSubSubContent = null, uncheckSubContent = null, exportPermissions = null, uncheckSitesPageSettings = null, contentDeletion = null, mainContent = null, subContent = null) {
+	macro configureExportSiteCP {
 		LAR._gotoExportSite();
 
 		LexiconEntry.gotoAdd();
@@ -408,15 +395,13 @@ definition {
 			uncheckSubSubContent = ${uncheckSubSubContent});
 	}
 
-	@summary = "Default summary"
-	macro downloadLar() {
+	macro downloadLar {
 		Click(locator1 = "SitePagesExport#CURRENT_AND_PREVIOUS_DOWNLOAD");
 
 		DownloadTempFile();
 	}
 
-	@summary = "Default summary"
-	macro editExportTemplateCP(exportTemplateDescriptionEdit = null, exportTemplateName = null, exportTemplateNameEdit = null) {
+	macro editExportTemplateCP {
 		var key_exportTemplateName = ${exportTemplateName};
 
 		AssertClick(
@@ -428,8 +413,7 @@ definition {
 		PortletEntry.inputDescription(description = ${exportTemplateDescriptionEdit});
 	}
 
-	@summary = "Default summary"
-	macro exportDDL(exportPermissions = null, larFileName = null) {
+	macro exportDDL {
 		LAR._gotoExportImport();
 
 		LAR._export(
@@ -437,8 +421,7 @@ definition {
 			larFileName = ${larFileName});
 	}
 
-	@summary = "Default summary"
-	macro exportExportTemplateCP(exportTemplateName = null, larFileName = null) {
+	macro exportExportTemplateCP {
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Export");
 
 		if (isSet(larFileName)) {
@@ -463,8 +446,7 @@ definition {
 		AssertElementPresent(locator1 = "SitePagesExport#CURRENT_AND_PREVIOUS_DOWNLOAD");
 	}
 
-	@summary = "Default summary"
-	macro exportPortlet(exportPermissions = null, exportIndividualDeletions = null, larFileName = null, portletName = null) {
+	macro exportPortlet {
 		LAR._gotoExportImport();
 
 		AssertElementPresent(locator1 = "IFrame#DIALOG");
@@ -478,8 +460,7 @@ definition {
 		Click(locator1 = "Icon#CLOSE");
 	}
 
-	@summary = "Default summary"
-	macro exportSiteCP(siteScopeName = null, privateLayout = null, larFileName = null) {
+	macro exportSiteCP {
 		LAR._gotoExportSite(siteScopeName = ${siteScopeName});
 
 		Click(locator1 = "SitePagesExport#CUSTOM_EXPORT_BUTTON");
@@ -491,8 +472,7 @@ definition {
 		LAR._exportSite(larFileName = ${larFileName});
 	}
 
-	@summary = "Default summary"
-	macro exportSuccess() {
+	macro exportSuccess {
 		AssertClick(
 			locator1 = "SitePagesExport#EXPORT_BUTTON",
 			value1 = "Export");
@@ -502,8 +482,7 @@ definition {
 			value1 = "Successful");
 	}
 
-	@summary = "Default summary"
-	macro exportUserGroups(exportPermissions = null, larFileName = null) {
+	macro exportUserGroups {
 		LAR._gotoExportImport();
 
 		LAR._export(
@@ -511,8 +490,7 @@ definition {
 			larFileName = ${larFileName});
 	}
 
-	@summary = "Default summary"
-	macro filterCompletedProcesses() {
+	macro filterCompletedProcesses {
 		Pause(locator1 = 3000);
 
 		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
@@ -520,8 +498,7 @@ definition {
 		MenuItem.click(menuItem = "Completed");
 	}
 
-	@summary = "Default summary"
-	macro getLarFileName() {
+	macro getLarFileName {
 		var valueName = selenium.getAttribute("//ul/li/div/h5//a@href");
 
 		echo("value name ${valueName}");
@@ -535,13 +512,11 @@ definition {
 		return ${larFileName};
 	}
 
-	@summary = "Default summary"
-	macro gotoExport(siteScopeName = null) {
+	macro gotoExport {
 		LAR._gotoExportSite(siteScopeName = ${siteScopeName});
 	}
 
-	@summary = "Default summary"
-	macro importPortlet(cannotImport = null, mirrorWithOverwriting = null, uploadFrom = null, importDeletions = null, failureExpected = null, importPermissions = null, larFileName = null, portletName = null) {
+	macro importPortlet {
 		LAR._gotoExportImport();
 
 		LAR._selectImportFile(
@@ -557,8 +532,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro importSiteCP(baseURL = null, importValidationMissingItem = null, checkContentNameList = null, contentDeletion = null, uploadFrom = null, importCampaignValidationError = null, siteName = null, importPermissions = null, larFileName = null, privateLayout = null, contentName = null) {
+	macro importSiteCP {
 		LAR._gotoImportSite(
 			baseURL = ${baseURL},
 			siteName = ${siteName});
@@ -580,25 +554,21 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro moveToTheRecycleBinExportTemplate() {
+	macro moveToTheRecycleBinExportTemplate {
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Move to Recycle Bin");
 
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	@summary = "Default summary"
-	macro openExportAdmin(siteURLKey = null) {
+	macro openExportAdmin {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_exportimport_web_portlet_ExportPortlet");
 	}
 
-	@summary = "Default summary"
-	macro openImportAdmin(siteURLKey = null) {
+	macro openImportAdmin {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_exportimport_web_portlet_ImportPortlet");
 	}
 
-	@summary = "Default summary"
-	macro relaunchCurrentAndPreviousProcess(larFileName = null) {
+	macro relaunchCurrentAndPreviousProcess {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Relaunch",
 			rowEntry = ${larFileName});
@@ -608,8 +578,7 @@ definition {
 			value1 = "Successful");
 	}
 
-	@summary = "Default summary"
-	macro saveExportTemplateCP(exportTemplateName = null, exportTemplateDescription = null) {
+	macro saveExportTemplateCP {
 		Button.clickSave();
 
 		var key_exportTemplateName = ${exportTemplateName};
@@ -623,8 +592,7 @@ definition {
 			value1 = ${exportTemplateDescription});
 	}
 
-	@summary = "Default summary"
-	macro searchTemplate(exportTemplateName = null, exportTemplateDescription = null) {
+	macro searchTemplate {
 		Search.searchCP(searchTerm = ${exportTemplateName});
 
 		var key_exportTemplateName = ${exportTemplateName};
@@ -638,8 +606,7 @@ definition {
 			value1 = ${exportTemplateDescription});
 	}
 
-	@summary = "Default summary"
-	macro setupContentTargeting(userSegmentDetailTitle = null, userSegmentSelect = null, doesNotBelong = null, toAny = null, siteScope = null, i = null, rowIndexNumber = null, stagingSetup = null, campaignInactive = null) {
+	macro setupContentTargeting {
 		if (${stagingSetup} == "true") {
 			Navigator.openSiteURL(siteName = "Site Name");
 
@@ -790,8 +757,7 @@ definition {
 		AssetPublisherPortlet.enableUserSegementFilter();
 	}
 
-	@summary = "Default summary"
-	macro viewExportTemplateCP(exportTemplateName = null, exportTemplateDescription = null) {
+	macro viewExportTemplateCP {
 		var key_exportTemplateName = ${exportTemplateName};
 
 		AssertTextEquals(

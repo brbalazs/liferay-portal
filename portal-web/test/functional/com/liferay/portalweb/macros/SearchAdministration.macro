@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro assertEngineVendorAndVersions(serverVersion = null, engineVendor = null, clientVersion = null) {
+	macro assertEngineVendorAndVersions {
 		WaitForSPARefresh();
 
 		var alertInfo = selenium.getText("//div[contains(@class,'alert alert-info')]");
@@ -23,8 +22,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro executeSearchActions(actionsDescription = null) {
+	macro executeSearchActions {
 		AssertTextEquals(
 			locator1 = "Portlet#HEADER",
 			value1 = "Search");
@@ -100,8 +98,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro getServerVersion() {
+	macro getServerVersion {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -116,8 +113,7 @@ definition {
 		return ${serverVersion};
 	}
 
-	@summary = "Default summary"
-	macro viewActiveConnectionsError() {
+	macro viewActiveConnectionsError {
 		if (IsTextEqual.isPartialText(locator1 = "Message#ERROR", value1 = "are available")) {
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR",

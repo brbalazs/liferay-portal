@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro searchPG(dnsDomain = null, networkDomain = null) {
+	macro searchPG {
 		Type(
 			locator1 = "NetworkUtilities#DNS_LOOKUP_FIELD",
 			value1 = ${dnsDomain});

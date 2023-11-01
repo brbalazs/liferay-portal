@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addPG(dmDocumentTitle = null, commentBody = null) {
+	macro addPG {
 		AssertClick(
 			key_dmDocumentTitle = ${dmDocumentTitle},
 			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",
@@ -22,8 +21,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro viewPG(dmDocumentTitle = null, commentBody = null) {
+	macro viewPG {
 		AssertClick(
 			key_dmDocumentTitle = ${dmDocumentTitle},
 			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",

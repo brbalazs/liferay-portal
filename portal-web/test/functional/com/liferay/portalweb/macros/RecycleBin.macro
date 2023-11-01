@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro deleteCP(assetName = null, assetType = null) {
+	macro deleteCP {
 		var key_assetName = ${assetName};
 
 		AssertTextEquals(
@@ -27,8 +26,7 @@ definition {
 		AssertTextNotPresent(value1 = ${assetName});
 	}
 
-	@summary = "Default summary"
-	macro disableRecycleBinViaSiteSettings() {
+	macro disableRecycleBinViaSiteSettings {
 		Navigator.gotoNavTab(navTab = "Advanced");
 
 		Panel.expandPanel(panel = "Recycle Bin");
@@ -42,8 +40,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro emptyCP() {
+	macro emptyCP {
 		Click(locator1 = "Icon#HEADER_VERTICAL_ELLIPSIS");
 
 		if (IsElementPresent(locator1 = "RecycleBin#EMPTY_RECYCLE_BIN")) {
@@ -59,8 +56,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro gotoEntryViaSuccessMessage(assetName = null) {
+	macro gotoEntryViaSuccessMessage {
 		var key_assetName = ${assetName};
 
 		AssertClick(
@@ -70,13 +66,11 @@ definition {
 		SiteAdmin.viewPortletTitle(portletTitle = "Recycle Bin");
 	}
 
-	@summary = "Default summary"
-	macro openRecycleBinAdmin(siteURLKey = null) {
+	macro openRecycleBinAdmin {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage/-/recycle_bin/entries");
 	}
 
-	@summary = "Default summary"
-	macro restoreContentFromFolderCP(assetType2 = null, assetName = null, documentName = null, assetType = null, assetRestoreLocation = null) {
+	macro restoreContentFromFolderCP {
 		var key_assetName = ${assetName};
 
 		AssertTextEquals(
@@ -117,8 +111,7 @@ definition {
 			value1 = "The ${assetType2} ${documentName} was restored to ${assetRestoreLocation}.");
 	}
 
-	@summary = "Default summary"
-	macro restoreCP(assetName = null, multipleAssets = null, assetType = null, assetRestoreLocation = null) {
+	macro restoreCP {
 		var key_assetName = ${assetName};
 
 		AssertTextEquals(
@@ -158,8 +151,7 @@ definition {
 		AssertElementNotPresent(locator1 = "RecycleBin#RECYCLE_BIN_TABLE_NAME");
 	}
 
-	@summary = "Default summary"
-	macro restoreOverwriteCP(assetName = null) {
+	macro restoreOverwriteCP {
 		LexiconEntry.openEntryMenu(rowEntry = ${assetName});
 
 		MenuItem.click(menuItem = "Restore");
@@ -171,15 +163,13 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro undoMoveToRecycleBin() {
+	macro undoMoveToRecycleBin {
 		AssertClick(
 			locator1 = "Button#UNDO",
 			value1 = "Undo");
 	}
 
-	@summary = "Default summary"
-	macro viewCP(deleteUser = null, assetName = null, customMaxAge = null, assetType = null) {
+	macro viewCP {
 		var key_assetName = ${assetName};
 
 		if (IsElementPresent(locator1 = "RecycleBin#EMPTY_RECYCLE_BIN")) {
@@ -215,8 +205,7 @@ definition {
 		AssertElementPresent(locator1 = "RecycleBin#RECYCLE_BIN_TABLE_ACTIONS");
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultCP(assetName = null) {
+	macro viewDefaultCP {
 		AssertTextEquals(
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "The Recycle Bin is empty.");
@@ -224,8 +213,7 @@ definition {
 		AssertTextNotPresent(value1 = ${assetName});
 	}
 
-	@summary = "Default summary"
-	macro viewDuplicateNames(assetName = null) {
+	macro viewDuplicateNames {
 		var key_assetName = ${assetName};
 		var key_rowNumber = 1;
 
@@ -240,8 +228,7 @@ definition {
 			value1 = ${assetName});
 	}
 
-	@summary = "Default summary"
-	macro viewEntry(assetName = null) {
+	macro viewEntry {
 		var key_assetName = ${assetName};
 
 		AssertTextEquals(
@@ -255,8 +242,7 @@ definition {
 		MenuItem.viewPresent(menuItem = "Delete");
 	}
 
-	@summary = "Default summary"
-	macro viewRecycleBinMaxAge(maxAgeField = null) {
+	macro viewRecycleBinMaxAge {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Message#TOOLTIP",
 			value1 = "Entries that have been in the Recycle Bin for more than ${maxAgeField} are automatically deleted.");

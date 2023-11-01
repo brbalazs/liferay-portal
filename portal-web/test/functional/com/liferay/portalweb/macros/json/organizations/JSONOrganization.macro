@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addOrganization(organizationName = null, organizationSite = null) {
+	macro addOrganization {
 		Variables.assertDefined(parameterList = ${organizationName});
 
 		JSONOrganizationAPI._addOrganization(
@@ -9,8 +8,7 @@ definition {
 			organizationSite = ${organizationSite});
 	}
 
-	@summary = "Default summary"
-	macro assignUserToOrganization(organizationName = null, userEmailAddress = null) {
+	macro assignUserToOrganization {
 		Variables.assertDefined(parameterList = "${organizationName},${userEmailAddress}");
 
 		var organizationId = JSONOrganization.getOrganizationIdByName(organizationName = ${organizationName});
@@ -21,8 +19,7 @@ definition {
 			userId = ${userId});
 	}
 
-	@summary = "Default summary"
-	macro deleteOrganizationByName(organizationName = null) {
+	macro deleteOrganizationByName {
 		Variables.assertDefined(parameterList = ${organizationName});
 
 		var organizationId = JSONOrganization.getOrganizationIdByName(organizationName = ${organizationName});
@@ -30,8 +27,7 @@ definition {
 		JSONOrganizationAPI._deleteOrganization(organizationId = ${organizationId});
 	}
 
-	@summary = "Default summary"
-	macro getOrganizationIdByName(organizationName = null) {
+	macro getOrganizationIdByName {
 		Variables.assertDefined(parameterList = ${organizationName});
 
 		var companyId = JSONCompany.getCompanyId();
@@ -51,8 +47,7 @@ definition {
 		return ${organizationId};
 	}
 
-	@summary = "Default summary"
-	macro getOrganizationName(organizationId = null) {
+	macro getOrganizationName {
 		Variables.assertDefined(parameterList = ${organizationId});
 
 		var portalURL = JSONCompany.getPortalURL();

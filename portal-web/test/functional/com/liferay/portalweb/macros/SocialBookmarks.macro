@@ -1,14 +1,12 @@
 definition {
 
-	@summary = "Default summary"
-	macro clickBookmarkIcon(socialBookmark = null) {
+	macro clickBookmarkIcon {
 		Click(
 			key_socialBookmark = StringUtil.toLowerCase(${socialBookmark}),
 			locator1 = "SocialBookmarks#SOCIAL_BOOKMARK_ICON");
 	}
 
-	@summary = "Default summary"
-	macro viewBookmarkIcons(socialBookmarks = null) {
+	macro viewBookmarkIcons {
 		for (var socialBookmark : list ${socialBookmarks}) {
 			AssertElementPresent(
 				key_socialBookmark = StringUtil.toLowerCase(${socialBookmark}),
@@ -16,8 +14,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewBookmarkMenuItems(socialBookmarks = null) {
+	macro viewBookmarkMenuItems {
 		Click(locator1 = "Icon#SHARE");
 
 		for (var socialBookmark : list ${socialBookmarks}) {
@@ -27,8 +24,7 @@ definition {
 		Click(locator1 = "Icon#SHARE");
 	}
 
-	@summary = "Default summary"
-	macro viewBookmarksNotPresent(socialBookmarks = null) {
+	macro viewBookmarksNotPresent {
 		Click(locator1 = "Icon#SHARE");
 
 		for (var socialBookmark : list ${socialBookmarks}) {
@@ -38,15 +34,13 @@ definition {
 		Click(locator1 = "Icon#SHARE");
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultSharableBookmarks() {
+	macro viewDefaultSharableBookmarks {
 		SocialBookmarks.viewBookmarkIcons(socialBookmarks = "Facebook,LinkedIn,Twitter");
 
 		SocialBookmarks.viewBookmarkMenuItems(socialBookmarks = "AddThis,Delicious,Digg,Evernote,Reddit,Slashdot");
 	}
 
-	@summary = "Default summary"
-	macro viewShareIconNotPresent() {
+	macro viewShareIconNotPresent {
 		AssertElementNotPresent(locator1 = "Icon#SHARE");
 	}
 

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addCP(orgName = null, suborgName = null) {
+	macro addCP {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Add Organization",
 			rowEntry = ${orgName});
@@ -17,13 +16,11 @@ definition {
 			value1 = ${suborgName});
 	}
 
-	@summary = "Default summary"
-	macro tearDownCP() {
+	macro tearDownCP {
 		Organization.tearDownCP(orgName = "Suborganization*");
 	}
 
-	@summary = "Default summary"
-	macro viewCP(orgType = null, orgName = null, suborgType = null, suborgName = null) {
+	macro viewCP {
 		Organization.viewSubOrganizationCP(
 			orgName = ${orgName},
 			orgType = ${orgType},

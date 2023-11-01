@@ -2,228 +2,228 @@
 @summary = "Type to '${locator1}' the value '${value1}'"
 definition {
 
-	function clickAtType() {
+	function clickAtType {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.clickAt(${locator1}, ${value1});
-
-		selenium.pause(1000);
-
-		selenium.type(${locator1}, ${value1});
+		selenium.clickAt();
 
 		selenium.pause(1000);
 
-		selenium.clickAt(${locator1}, ${value1});
+		selenium.type();
 
 		selenium.pause(1000);
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.clickAt();
+
+		selenium.pause(1000);
+
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function sendKeys() {
+	function sendKeys {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.sendKeys(${locator1}, ${value1});
+		selenium.sendKeys();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function sendKeysAceEditor() {
+	function sendKeysAceEditor {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.sendKeysAceEditor(${locator1}, ${value1});
+		selenium.sendKeysAceEditor();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function sendKeysApplicationSearch() {
+	function sendKeysApplicationSearch {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent("//script[contains(@src,'/autocomplete-filters/autocomplete-filters')]");
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
 		Type.sendKeys();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function type() {
+	function type {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.type(${locator1}, ${value1});
+		selenium.type();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function typeAceEditor() {
+	function typeAceEditor {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.typeAceEditor(${locator1}, ${value1});
+		selenium.typeAceEditor();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function typeAceEditorNoError() {
+	function typeAceEditorNoError {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.typeAceEditor(${locator1}, ${value1});
+		selenium.typeAceEditor();
 	}
 
-	function typeAceEditorNoMouseOver() {
+	function typeAceEditorNoMouseOver {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.typeAceEditor(${locator1}, ${value1});
+		selenium.typeAceEditor();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function typeClickAt() {
+	function typeClickAt {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.type(${locator1}, ${value1});
+		selenium.type();
 
-		selenium.clickAt(${locator1}, ${value1});
+		selenium.clickAt();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function typeEditor() {
+	function typeEditor {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.typeEditor(${locator1}, ${value1});
+		selenium.typeEditor();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function typeEditorWaitForEditor() {
+	function typeEditorWaitForEditor {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible("//a[contains(@class,'cke_button__source') and contains(@class,'cke_button_off')]");
 
 		selenium.pause(1000);
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
 		Type.typeEditor();
 
 		selenium.pause(1000);
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function typeNotVisibleNoMouseOver() {
+	function typeNotVisibleNoMouseOver {
 		WaitForSPARefresh();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.type(${locator1}, ${value1});
+		selenium.type();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function typePause() {
+	function typePause {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.type(${locator1}, ${value1});
+		selenium.type();
 
 		selenium.pause(1000);
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function typeWaitForCKEditorScript() {
+	function typeWaitForCKEditorScript {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent("//script[contains(@src,'ckeditor/config.js') or contains(@id,'ckEditorScript')]");
 
-		selenium.waitForEditable(${locator1});
+		selenium.waitForEditable();
 
 		Type.type();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

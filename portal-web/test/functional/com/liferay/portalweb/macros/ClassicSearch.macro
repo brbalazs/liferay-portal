@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureScope(searchScope = null) {
+	macro configureScope {
 		ClassicSearch.gotoOptions(portletOption = "Configuration");
 
 		if ((${searchScope} == "Everything") || (${searchScope} == "Let the User Choose") || (${searchScope} == "This Site")) {
@@ -20,8 +19,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro gotoModifiedRangeFacetPG(searchModifiedRange = null) {
+	macro gotoModifiedRangeFacetPG {
 		var key_searchModifiedRange = ${searchModifiedRange};
 
 		AssertClick.assertPartialTextClickAt(
@@ -29,8 +27,7 @@ definition {
 			value1 = ${searchModifiedRange});
 	}
 
-	@summary = "Default summary"
-	macro gotoOptions(portletOption = null) {
+	macro gotoOptions {
 		MouseOver.mouseOverNotVisible(locator1 = "Search#EMBEDDED_SEARCH_BAR_ELLIPSIS_ICON");
 
 		Click(locator1 = "Search#EMBEDDED_SEARCH_BAR_ELLIPSIS_ICON");
@@ -40,8 +37,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro gotoSearchResultPG(searchAssetTitle = null) {
+	macro gotoSearchResultPG {
 		var key_searchAssetTitle = ${searchAssetTitle};
 
 		AssertClick(
@@ -49,8 +45,7 @@ definition {
 			value1 = ${searchAssetTitle});
 	}
 
-	@summary = "Default summary"
-	macro removeUserFacetDisplayPG() {
+	macro removeUserFacetDisplayPG {
 		MouseOver.mouseOverNotVisible(locator1 = "Search#SEARCH_PORTLET_OPTIONS_WRENCH");
 
 		Click(locator1 = "Search#SEARCH_PORTLET_OPTIONS_WRENCH");
@@ -66,8 +61,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro search(searchTerm = null) {
+	macro search {
 		AssertElementPresent(locator1 = "Search#CLASSIC_SEARCH_BAR");
 
 		Type(
@@ -79,8 +73,7 @@ definition {
 			value1 = "\RETURN");
 	}
 
-	@summary = "Default summary"
-	macro selectScopeInput(searchScope = null) {
+	macro selectScopeInput {
 		if ((${searchScope} == "Everything") || (${searchScope} == "This Site")) {
 			Select(
 				locator1 = "Search#EMBEDDED_SEARCH_BAR_SCOPE_SELECT",
@@ -91,13 +84,11 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro unscopeAssetFacetPG() {
+	macro unscopeAssetFacetPG {
 		Click(locator1 = "SearchResults#ASSET_TYPE_FACET_ANY_ASSET");
 	}
 
-	@summary = "Default summary"
-	macro viewAssetTypeFacetPG(searchAssetType = null, searchAssetTitle = null, facetFrequency = null, searchAssetSummary = null) {
+	macro viewAssetTypeFacetPG {
 		var key_searchAssetType = ${searchAssetType};
 
 		AssertTextEquals(
@@ -118,15 +109,13 @@ definition {
 			searchAssetType = ${searchAssetType});
 	}
 
-	@summary = "Default summary"
-	macro viewSearchAssetDetailPage(searchAssetTitle = null) {
+	macro viewSearchAssetDetailPage {
 		AssertTextEquals(
 			locator1 = "SearchResults#CLASSIC_ASSET_DETAILS_TITLE",
 			value1 = ${searchAssetTitle});
 	}
 
-	@summary = "Default summary"
-	macro viewSearchNoPG(searchTerm = null, searchNoResults = null, searchAssetTitle = null) {
+	macro viewSearchNoPG {
 		var key_searchAssetTitle = ${searchAssetTitle};
 
 		AssertElementNotPresent(locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE");
@@ -144,8 +133,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewSearchResultPG(searchAssetType = null, searchAssetTitle = null, searchAssetSummary = null) {
+	macro viewSearchResultPG {
 		var key_searchAssetTitle = ${searchAssetTitle};
 		var key_searchAssetType = ${searchAssetType};
 
@@ -164,8 +152,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewUserFacetPG(searchAssetType = null, searchAssetTitle = null, facetFrequency = null, searchAssetSummary = null) {
+	macro viewUserFacetPG {
 		var key_facetFrequency = ${facetFrequency};
 
 		AssertTextEquals(

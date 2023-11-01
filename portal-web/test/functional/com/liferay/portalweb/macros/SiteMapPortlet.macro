@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro viewCustomADTMultiColumnPG(listChildPageName = null, listPageName = null) {
+	macro viewCustomADTMultiColumnPG {
 		for (var pageName : list ${listPageName}) {
 			var key_pageName = ${pageName};
 
@@ -21,8 +20,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultPG(listChildPageName = null, listPageName = null) {
+	macro viewDefaultPG {
 		for (var pageName : list ${listPageName}) {
 			var key_pageName = ${pageName};
 

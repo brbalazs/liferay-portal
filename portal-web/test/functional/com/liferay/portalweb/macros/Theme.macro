@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureLookAndFeelShowHeaderSearch(showHeaderSearch = null) {
+	macro configureLookAndFeelShowHeaderSearch {
 		if (${showHeaderSearch} == "true") {
 			Check.checkToggleSwitch(
 				key_toggleSwitchLabel = "Show Header Search",
@@ -14,8 +13,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro configureLookAndFeelShowMaxMinAppLinks(showMaxMinAppLinks = null) {
+	macro configureLookAndFeelShowMaxMinAppLinks {
 		if (${showMaxMinAppLinks} == "true") {
 			Check.checkToggleSwitch(
 				key_toggleSwitchLabel = "Show Maximize/Minimize Application Links",
@@ -28,29 +26,25 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro configureLookAndFeelSpecificLook() {
+	macro configureLookAndFeelSpecificLook {
 		Click(locator1 = "Radio#SPECIFIC_LOOK");
 	}
 
-	@summary = "Default summary"
-	macro viewMaxPortletOption() {
+	macro viewMaxPortletOption {
 		AssertTextEquals(
 			key_menuItem = "Maximize",
 			locator1 = "MenuItem#ANY_MENU_ITEM",
 			value1 = "Maximize");
 	}
 
-	@summary = "Default summary"
-	macro viewMinPortlet() {
+	macro viewMinPortlet {
 		AssertClick(
 			key_menuItem = "Minimize",
 			locator1 = "MenuItem#ANY_MENU_ITEM",
 			value1 = "Minimize");
 	}
 
-	@summary = "Default summary"
-	macro viewRestorePortlet() {
+	macro viewRestorePortlet {
 		Click(
 			key_menuItem = "Restore",
 			locator1 = "MenuItem#ANY_MENU_ITEM",

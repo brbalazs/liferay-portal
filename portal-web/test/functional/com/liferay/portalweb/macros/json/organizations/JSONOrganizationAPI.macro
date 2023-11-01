@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addOrganization(organizationName = null) {
+	macro _addOrganization {
 		Variables.assertDefined(parameterList = ${organizationName});
 
 		var organizationNameEncoded = URLUtil.encodeUTF8(${organizationName});
@@ -28,8 +27,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _assignUserToOrganization(organizationId = null, userId = null) {
+	macro _assignUserToOrganization {
 		Variables.assertDefined(parameterList = "${organizationId},${userId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -44,8 +42,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _deleteOrganization(organizationId = null) {
+	macro _deleteOrganization {
 		Variables.assertDefined(parameterList = ${organizationId});
 
 		var portalURL = JSONCompany.getPortalURL();

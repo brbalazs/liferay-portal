@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addMultipleSearchQuerySuccessfully(query_list = null) {
+	macro addMultipleSearchQuerySuccessfully {
 		var key_queryList = ${query_list};
 		var flag = 0;
 		var aux = "";
@@ -37,8 +36,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro addSearchQuerySuccessfully(query = null) {
+	macro addSearchQuerySuccessfully {
 		Click(locator1 = "Button#PLUS");
 
 		Type(
@@ -50,8 +48,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro assertIndividualAttributesSource(attributeList = null, dataSourceName = null) {
+	macro assertIndividualAttributesSource {
 		var key_dataSourceName = ${dataSourceName};
 
 		for (var attributeName : list ${attributeList}) {
@@ -71,8 +68,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deleteAllSearchQuery() {
+	macro deleteAllSearchQuery {
 		ACUtils.launchAC();
 
 		ACNavigation.goToSettings();
@@ -90,8 +86,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro deleteSearchQuerySuccessfully(query = null) {
+	macro deleteSearchQuerySuccessfully {
 		Click(
 			key_query = ${query},
 			locator1 = "ACDefinitions#SEARCH_QUERY_DELETE_BUTTON");
@@ -101,8 +96,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro editSearchQuerySuccessfully(query = null) {
+	macro editSearchQuerySuccessfully {
 		Type(
 			locator1 = "ACDefinitions#SEARCH_QUERY_INPUT",
 			value1 = ${query});
@@ -112,15 +106,13 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro goToDefinitionType(definitionType = null) {
+	macro goToDefinitionType {
 		var key_definitionType = ${definitionType};
 
 		Click(locator1 = "ACDefinitions#DEFINITION_TYPE");
 	}
 
-	@summary = "Default summary"
-	macro hideAllEvents() {
+	macro hideAllEvents {
 		var key_actionButton = "Hide";
 
 		KeyPress(
@@ -136,29 +128,25 @@ definition {
 			value1 = "\SPACE");
 	}
 
-	@summary = "Default summary"
-	macro noViewAddSearchQueryButton(query = null) {
+	macro noViewAddSearchQueryButton {
 		AssertElementNotPresent(
 			key_query = ${query},
 			locator1 = "ACDefinitions#SEARCH_QUERY_ADD_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro noViewSearchQuery(query = null) {
+	macro noViewSearchQuery {
 		AssertElementNotPresent(
 			key_query = ${query},
 			locator1 = "ACDefinitions#PRESENT_SEARCH_QUERY_INPUT");
 	}
 
-	@summary = "Default summary"
-	macro openIndividualAttributeDetails(attributeName = null) {
+	macro openIndividualAttributeDetails {
 		var key_attributeName = ${attributeName};
 
 		Click(locator1 = "ACDefinitions#ATTRIBUTE_NAME");
 	}
 
-	@summary = "Default summary"
-	macro unhideAllEvents() {
+	macro unhideAllEvents {
 		var key_actionButton = "Show";
 
 		KeyPress(
@@ -172,8 +160,7 @@ definition {
 			value1 = "\SPACE");
 	}
 
-	@summary = "Default summary"
-	macro unhideEvent(customEventName = null) {
+	macro unhideEvent {
 		var key_actionButton = "Show";
 		var key_nameList = ${customEventName};
 
@@ -188,8 +175,7 @@ definition {
 		Click(locator1 = "ACDefinitions#HIDE_UNHIDE_EVENT_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro viewHiddenEvents(customEventNameList = null) {
+	macro viewHiddenEvents {
 		for (var customEventName : list ${customEventNameList}) {
 			var key_actionButton = "Show";
 			var key_nameList = ${customEventName};
@@ -202,15 +188,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewSearchQuery(query = null) {
+	macro viewSearchQuery {
 		AssertElementPresent(
 			key_query = ${query},
 			locator1 = "ACDefinitions#PRESENT_SEARCH_QUERY_INPUT");
 	}
 
-	@summary = "Default summary"
-	macro viewUnhideEvent(customEventNameList = null) {
+	macro viewUnhideEvent {
 		for (var customEventName : list ${customEventNameList}) {
 			var key_actionButton = "Hide";
 			var key_nameList = ${customEventName};

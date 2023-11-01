@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro waitForLoadingComplete() {
+	macro waitForLoadingComplete {
 		WaitForElementNotPresent(locator1 = "ACLoading#LOADING_ICON");
 	}
 

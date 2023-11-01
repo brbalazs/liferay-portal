@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureCampaignRule(contentTitle = null, rowNumber = null, campaignName = null, contentType = null) {
+	macro configureCampaignRule {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		var rowIndexNumber = selenium.getNumberDecrement(${rowNumber});
@@ -33,8 +32,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro configureOtherwiseRule(contentTitle = null, contentType = null) {
+	macro configureOtherwiseRule {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		ClickNoError(locator1 = "ContentTargeting#OTHERWISE_PANEL");
@@ -58,8 +56,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro savePG() {
+	macro savePG {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		ClickNoError(locator1 = "Button#SAVE");
@@ -71,15 +68,13 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewContentNoLongerExistsAfterDeletion() {
+	macro viewContentNoLongerExistsAfterDeletion {
 		AssertTextEquals(
 			locator1 = "CampaignContentDisplay#ENTRY_CONTENT",
 			value1 = "The selected content no longer exists");
 	}
 
-	@summary = "Default summary"
-	macro viewPG(viewCampaignSelected = null, previewCampaignList = null, entryContentText = null) {
+	macro viewPG {
 		ContentTargeting.expandPreview(portletName = "Campaign Content Display");
 
 		if (isSet(viewCampaignSelected)) {

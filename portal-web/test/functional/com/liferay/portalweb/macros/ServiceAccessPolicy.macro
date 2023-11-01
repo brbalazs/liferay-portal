@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro editServiceAccessPolicy(policyName = null, allowedServiceSignature = null) {
+	macro editServiceAccessPolicy {
 		ServiceAccessPolicy.gotoServiceAccessPolicy(policyName = ${policyName});
 
 		if (isSet(allowedServiceSignature)) {
@@ -19,8 +18,7 @@ definition {
 			value1 = "Save");
 	}
 
-	@summary = "Default summary"
-	macro gotoServiceAccessPolicy(policyName = null) {
+	macro gotoServiceAccessPolicy {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${policyName});

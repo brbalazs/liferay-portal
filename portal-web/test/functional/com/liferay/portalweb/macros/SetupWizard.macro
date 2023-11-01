@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureAdministratorUserPG(administratorEmail = null, administratorFirstName = null, administratorLastName = null) {
+	macro configureAdministratorUserPG {
 		Type(
 			locator1 = "TextInput#FIRST_NAME",
 			value1 = ${administratorFirstName});
@@ -15,8 +14,7 @@ definition {
 			value1 = ${administratorEmail});
 	}
 
-	@summary = "Default summary"
-	macro configureDatabasePG(databaseType = null, databaseName = null, databasePassword = null, jdbcDriverClassName = null, databaseUserName = null) {
+	macro configureDatabasePG {
 		if (IsElementNotPresent(locator1 = "SetupWizard#DATABASE_CHANGE_USE_CONFIGURED_DATABASE_LINK")) {
 			AssertClick(
 				locator1 = "SetupWizard#DATABASE_CHANGE_LINK",
@@ -50,8 +48,7 @@ definition {
 			value1 = ${databasePassword});
 	}
 
-	@summary = "Default summary"
-	macro configureDefaultPG(resetPassword = null, base_branch = null, virtualHostsURL = null, setupWizardEnabled = null, syntaxCheckingEnabled = null) {
+	macro configureDefaultPG {
 		SetupWizard.viewDefaultPortalNamePG();
 
 		SetupWizard.viewDefaultAdministratorUserPG();
@@ -93,8 +90,7 @@ definition {
 		User.viewLoggedInPG(userFirstName = "Test");
 	}
 
-	@summary = "Default summary"
-	macro configurePG(resetPassword = null, base_branch = null, databaseName = null, addSampleData = null, virtualHostsURL = null, syntaxCheckingEnabled = null, administratorFirstName = null, administratorLastName = null, jdbcDriverClassName = null, databaseUserName = null, databaseType = null, portalName = null, administratorEmail = null, jdbcURL = null, setupWizardEnabled = null, databasePassword = null) {
+	macro configurePG {
 		if (isSet(portalName)) {
 			SetupWizard.configurePortalNamePG(portalName = ${portalName});
 		}
@@ -150,15 +146,13 @@ definition {
 		User.viewLoggedInPG(userFirstName = ${administratorFirstName});
 	}
 
-	@summary = "Default summary"
-	macro configurePortalNamePG(portalName = null) {
+	macro configurePortalNamePG {
 		Type(
 			locator1 = "TextInput#PORTAL_NAME",
 			value1 = ${portalName});
 	}
 
-	@summary = "Default summary"
-	macro configureSampleDataPG(addSampleData = null) {
+	macro configureSampleDataPG {
 		if (IsElementNotPresent(locator1 = "SetupWizard#DATABASE_CHANGE_USE_CONFIGURED_DATABASE_LINK")) {
 			AssertClick(
 				locator1 = "SetupWizard#DATABASE_CHANGE_LINK",
@@ -174,15 +168,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro finishConfigurationPG() {
+	macro finishConfigurationPG {
 		AssertClick(
 			locator1 = "Button#FINISH_CONFIGURATION",
 			value1 = "Finish Configuration");
 	}
 
-	@summary = "Default summary"
-	macro viewConfigurationSavedPG() {
+	macro viewConfigurationSavedPG {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 
 		AssertTextEquals.assertPartialText(
@@ -198,8 +190,7 @@ definition {
 			value1 = "Changes will take effect once the portal is restarted. Please restart the portal now.");
 	}
 
-	@summary = "Default summary"
-	macro viewConfiguredDatabaseInConsole(databaseType = null) {
+	macro viewConfiguredDatabaseInConsole {
 		if (${databaseType} == "DB2") {
 			AssertConsoleTextPresent(value1 = "Using dialect com.liferay.portal.dao.orm.hibernate.DB2Dialect for DB2");
 		}
@@ -223,8 +214,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultAdministratorUserPG() {
+	macro viewDefaultAdministratorUserPG {
 		AssertSelectedLabel(
 			locator1 = "Select#DEFAULT_LANGUAGE",
 			value1 = "English (United States)");
@@ -242,8 +232,7 @@ definition {
 			value1 = "");
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultDatabasePG() {
+	macro viewDefaultDatabasePG {
 		if (IsElementPresent(locator1 = "SetupWizard#DATABASE_DEFAULT_LABEL")) {
 			AssertTextEquals.assertText(
 				locator1 = "SetupWizard#DATABASE_DEFAULT_LABEL",
@@ -288,8 +277,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultPortalNamePG() {
+	macro viewDefaultPortalNamePG {
 		var testRunEnvironment = PropsUtil.get("test.run.environment");
 
 		if (${testRunEnvironment} == "EE") {
@@ -304,8 +292,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewPopulatedSampleData() {
+	macro viewPopulatedSampleData {
 		var testRunEnvironment = PropsUtil.get("test.run.environment");
 
 		AssertConsoleTextPresent(value1 = "Finished adding data");
@@ -410,8 +397,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewSampleDataEnabledInPropertiesFile() {
+	macro viewSampleDataEnabledInPropertiesFile {
 		var liferayHome = PropsUtil.get("liferay.home.dir.name");
 
 		var fileContent = FileUtil.read("${liferayHome}/portal-setup-wizard.properties");

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addCustomAssetReport(reportName = null, metric = null, assetName = null) {
+	macro addCustomAssetReport {
 		ACNavigation.openItem(itemName = ${assetName});
 
 		Button.click(button = "Add Report");
@@ -23,23 +22,20 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro goToTechnologyTabInactive(tabName = null, cardTitle = null) {
+	macro goToTechnologyTabInactive {
 		Click(
 			key_cardTitle = ${cardTitle},
 			key_tabName = ${tabName},
 			locator1 = "ACAssets#TECHNOLOGY_TAB_INACTIVE");
 	}
 
-	@summary = "Default summary"
-	macro removeCustomAssetReport(reportName = null) {
+	macro removeCustomAssetReport {
 		Click(
 			key_cardTitle = ${reportName},
 			locator1 = "ACCards#TRASH_ICON");
 	}
 
-	@summary = "Default summary"
-	macro viewAssetAppearsOnMetric(canonicalURLSuffix = null, pageNmae = null, canonicalURL = null, cardTitle = null) {
+	macro viewAssetAppearsOnMetric {
 		var key_cardTitle = ${cardTitle};
 
 		ScrollWebElementIntoView(locator1 = "ACCards#CARD_TITLE");
@@ -61,8 +57,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewAssetsInfo(index = null, assetName = null, value = null) {
+	macro viewAssetsInfo {
 		AssertTextEquals(
 			index = ${index},
 			key_assetName = ${assetName},
@@ -70,8 +65,7 @@ definition {
 			value1 = ${value});
 	}
 
-	@summary = "Default summary"
-	macro viewTechnologyBrowsersMetric(percentageMetricValue = null, browserMetricValue = null, cssValue = null, cardTitle = null) {
+	macro viewTechnologyBrowsersMetric {
 		var key_cardTitle = ${cardTitle};
 
 		AssertTextEquals(
@@ -88,8 +82,7 @@ definition {
 			value1 = ${cssValue});
 	}
 
-	@summary = "Default summary"
-	macro viewTechnologyDeviceViewsAndPercentage(actionValue = null, percentageValue = null, cardTitle = null, deviceName = null) {
+	macro viewTechnologyDeviceViewsAndPercentage {
 		var key_cardTitle = ${cardTitle};
 
 		ScrollWebElementIntoView(locator1 = "ACAssets#TECHNOLOGY_BAR_CHART");
@@ -111,16 +104,14 @@ definition {
 			value1 = ${percentageValue});
 	}
 
-	@summary = "Default summary"
-	macro viewViewsByTechnologyTabActive(tabName = null, cardTitle = null) {
+	macro viewViewsByTechnologyTabActive {
 		AssertVisible(
 			key_cardTitle = ${cardTitle},
 			key_tabName = ${tabName},
 			locator1 = "ACAssets#TECHNOLOGY_TAB_ACTIVE");
 	}
 
-	@summary = "Default summary"
-	macro viewVisitorsBehaviorMetric(metricValue = null, metricTitle = null) {
+	macro viewVisitorsBehaviorMetric {
 		var key_metricTitle = ${metricTitle};
 		var key_metricValue = ${metricValue};
 

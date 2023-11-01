@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoAddEntry() {
+	macro gotoAddEntry {
 		if (IsElementPresent(locator1 = "Blogs#ADD_BLOGS_ENTRY")) {
 			Click(locator1 = "Blogs#ADD_BLOGS_ENTRY");
 		}
@@ -16,15 +15,13 @@ definition {
 		AssertVisible(locator1 = "BlogsEntry#ENTRY_COVER_IMAGE_SELECT_FILE");
 	}
 
-	@summary = "Default summary"
-	macro gotoBlogsEntriesPermissionsCP() {
+	macro gotoBlogsEntriesPermissionsCP {
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Entries Permissions");
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 	}
 
-	@summary = "Default summary"
-	macro gotoBlogsEntryPermissionsCP(entryTitle = null) {
+	macro gotoBlogsEntryPermissionsCP {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Permissions",
 			rowEntry = ${entryTitle});
@@ -32,8 +29,7 @@ definition {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 	}
 
-	@summary = "Default summary"
-	macro gotoBlogsEntryPermissionsPG() {
+	macro gotoBlogsEntryPermissionsPG {
 		Portlet.mouseOverPortletTitle(portletTitleName = "Blogs");
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Permissions");
@@ -41,25 +37,21 @@ definition {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 	}
 
-	@summary = "Default summary"
-	macro gotoBrowseImage() {
+	macro gotoBrowseImage {
 		Click(locator1 = "Button#BROWSE_IMAGE");
 	}
 
-	@summary = "Default summary"
-	macro gotoConfigurationScopePG() {
+	macro gotoConfigurationScopePG {
 		Navigator.gotoNavItem(navItem = "Scope");
 	}
 
-	@summary = "Default summary"
-	macro gotoConfigurationSetupPG() {
+	macro gotoConfigurationSetupPG {
 		Portlet.gotoPortletOptions(portletOption = "Configuration");
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
 	}
 
-	@summary = "Default summary"
-	macro gotoEditCP(entryTitle = null) {
+	macro gotoEditCP {
 		LexiconEntry.changeDisplayStyle(displayStyle = "list");
 
 		var key_entryTitle = ${entryTitle};
@@ -79,8 +71,7 @@ definition {
 			locator1 = "AlloyEditor#EDITOR");
 	}
 
-	@summary = "Default summary"
-	macro gotoEditPG(entryTitle = null) {
+	macro gotoEditPG {
 		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
@@ -99,8 +90,7 @@ definition {
 		AssertVisible(locator1 = "BlogsEntry#ENTRY_COVER_IMAGE_SELECT_FILE");
 	}
 
-	@summary = "Default summary"
-	macro gotoEntryCP(entryStatus = null, entryTitle = null) {
+	macro gotoEntryCP {
 		LexiconEntry.changeDisplayStyle(displayStyle = "list");
 
 		var key_entryTitle = ${entryTitle};
@@ -116,8 +106,7 @@ definition {
 			value1 = ${entryTitle});
 	}
 
-	@summary = "Default summary"
-	macro gotoEntryPG(entryTitle = null, entryContent = null) {
+	macro gotoEntryPG {
 		var key_entryContent = ${entryContent};
 		var key_entryTitle = ${entryTitle};
 
@@ -134,8 +123,7 @@ definition {
 			value1 = ${entryTitle});
 	}
 
-	@summary = "Default summary"
-	macro gotoEntryWithAbstractPG(entryAbstractDescription = null, entryTitle = null) {
+	macro gotoEntryWithAbstractPG {
 		var key_entryAbstractDescription = ${entryAbstractDescription};
 		var key_entryTitle = ${entryTitle};
 
@@ -152,8 +140,7 @@ definition {
 			value1 = ${entryTitle});
 	}
 
-	@summary = "Default summary"
-	macro gotoPG(blogEntryURL = null, entryTitle = null) {
+	macro gotoPG {
 		var key_entryTitle = ${entryTitle};
 
 		if (isSet(blogEntryURL)) {
@@ -170,15 +157,13 @@ definition {
 			value1 = ${entryTitle});
 	}
 
-	@summary = "Default summary"
-	macro gotoSelectFile() {
+	macro gotoSelectFile {
 		AssertClick(
 			locator1 = "BlogsEntry#ENTRY_COVER_IMAGE_SELECT_FILE",
 			value1 = "Select File");
 	}
 
-	@summary = "Default summary"
-	macro moveToRecycleBinCP(entryTitle = null) {
+	macro moveToRecycleBinCP {
 		LexiconEntry.changeDisplayStyle(displayStyle = "list");
 
 		var key_entryTitle = ${entryTitle};
@@ -194,8 +179,7 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	@summary = "Default summary"
-	macro openBlogsAdmin(siteURLKey = null) {
+	macro openBlogsAdmin {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_blogs_web_portlet_BlogsAdminPortlet");
 	}
 

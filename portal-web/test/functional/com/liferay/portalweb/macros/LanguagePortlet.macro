@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureViewCurrentLanguages(currentLanguages = null) {
+	macro configureViewCurrentLanguages {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		Panel.expandPanel(panel = "Languages");
@@ -15,8 +14,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro moveLanguagesToAvailable() {
+	macro moveLanguagesToAvailable {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		Panel.expandPanel(panel = "Languages");
@@ -28,8 +26,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro moveLanguagesToCurrent(currentLanguages = null) {
+	macro moveLanguagesToCurrent {
 		for (var currentLanguage : list ${currentLanguages}) {
 			var key_currentLanguage = ${currentLanguage};
 
@@ -49,8 +46,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro selectLanguagePG(locale = null, textIcon = null) {
+	macro selectLanguagePG {
 		var portletName = ${portletName};
 
 		if (!(isSet(portletName))) {
@@ -66,15 +62,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro tearDownLanguagePG() {
+	macro tearDownLanguagePG {
 		LanguagePortlet.selectLanguagePG(
 			locale = "en_US",
 			textIcon = "English-United States");
 	}
 
-	@summary = "Default summary"
-	macro toggleDisplayTemplate(displayStyle = null) {
+	macro toggleDisplayTemplate {
 		SelectFrame(locator1 = "IFrame#CONFIGURATION");
 
 		Panel.expandPanel(panel = "Languages");
@@ -88,8 +82,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewDisplayTemplateLongText(language = null) {
+	macro viewDisplayTemplateLongText {
 		var key_language = ${language};
 
 		AssertTextEquals.assertPartialText(
@@ -97,15 +90,13 @@ definition {
 			value1 = ${language});
 	}
 
-	@summary = "Default summary"
-	macro viewDisplayTemplateSelectBox(language = null) {
+	macro viewDisplayTemplateSelectBox {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Language#LANGUAGE_MENU_SELECT",
 			value1 = ${language});
 	}
 
-	@summary = "Default summary"
-	macro viewDisplayTemplateShortText(languageKey = null) {
+	macro viewDisplayTemplateShortText {
 		var key_languageKey = ${languageKey};
 
 		AssertTextEquals.assertPartialText(
@@ -113,15 +104,13 @@ definition {
 			value1 = ${languageKey});
 	}
 
-	@summary = "Default summary"
-	macro viewLanguageCurrent(locale = null) {
+	macro viewLanguageCurrent {
 		AssertElementPresent(
 			key_locale = ${locale},
 			locator1 = "Language#DROPDOWN_CURRENT_LANGUAGE");
 	}
 
-	@summary = "Default summary"
-	macro viewLanguagesAbsent(missingLocales = null) {
+	macro viewLanguagesAbsent {
 		Click(
 			key_portletName = "LanguagePortlet",
 			locator1 = "Language#DROPDOWN");
@@ -135,8 +124,7 @@ definition {
 			locator1 = "Language#DROPDOWN");
 	}
 
-	@summary = "Default summary"
-	macro viewLanguagesPresent(currentLocales = null) {
+	macro viewLanguagesPresent {
 		Click(
 			key_portletName = "LanguagePortlet",
 			locator1 = "Language#DROPDOWN");

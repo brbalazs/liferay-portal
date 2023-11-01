@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _gotoPage(pageName = null) {
+	macro _gotoPage {
 		var key_pageName = ${pageName};
 		var count = 0;
 
@@ -16,8 +15,7 @@ definition {
 		AssertVisible(locator1 = "Home#PAGE_ACTIVE");
 	}
 
-	@summary = "Default summary"
-	macro _isLocalizedURL(locale = null) {
+	macro _isLocalizedURL {
 		var currentURL = Navigator.getCurrentURL();
 		var portalURL = PropsUtil.get("portal.url");
 		var isLocalizedURL = "false";
@@ -29,20 +27,17 @@ definition {
 		return ${isLocalizedURL};
 	}
 
-	@summary = "Default summary"
-	macro closeSpecificWindow(closeWindowTitle = null, selectWindowTitle = null) {
+	macro closeSpecificWindow {
 		Navigator.selectSpecificWindow(windowTitle = ${closeWindowTitle});
 
 		Close.closeAndSelectWindow(locator1 = "title=${selectWindowTitle}");
 	}
 
-	@summary = "Default summary"
-	macro closeWindow() {
+	macro closeWindow {
 		Close.closeWindow();
 	}
 
-	@summary = "Default summary"
-	macro ensureLocaleURL(locale = null) {
+	macro ensureLocaleURL {
 		var isLocalizedURL = Navigator._isLocalizedURL(locale = ${locale});
 
 		if (${isLocalizedURL} == "false") {
@@ -53,20 +48,17 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro getCurrentURL() {
+	macro getCurrentURL {
 		var currentURL = selenium.getLocation();
 
 		return ${currentURL};
 	}
 
-	@summary = "Default summary"
-	macro gotoBack() {
+	macro gotoBack {
 		Click(locator1 = "Icon#BACK");
 	}
 
-	@summary = "Default summary"
-	macro gotoEditPageViaControlMenu(pageName = null) {
+	macro gotoEditPageViaControlMenu {
 		Click(locator1 = "ControlMenu#EDIT_COG");
 
 		AssertTextEquals(
@@ -74,15 +66,13 @@ definition {
 			value1 = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro gotoLoginPage() {
+	macro gotoLoginPage {
 		AssertClick(
 			locator1 = "UserBar#USER_SIGN_IN",
 			value1 = "Sign In");
 	}
 
-	@summary = "Default summary"
-	macro gotoNavItem(navItem = null) {
+	macro gotoNavItem {
 		var key_navItem = ${navItem};
 
 		AssertClick(
@@ -92,8 +82,7 @@ definition {
 		AssertElementPresent(locator1 = "NavBar#ACTIVE_NAV_ITEM_LINK");
 	}
 
-	@summary = "Default summary"
-	macro gotoNavNested(navNested = null) {
+	macro gotoNavNested {
 		var key_navNested = ${navNested};
 
 		AssertClick.assertPartialTextClickAt(
@@ -103,8 +92,7 @@ definition {
 		AssertElementPresent(locator1 = "NavNested#ACTIVE_NAV_NESTED_LINK");
 	}
 
-	@summary = "Default summary"
-	macro gotoNavTab(navTab = null) {
+	macro gotoNavTab {
 		var key_tab = ${navTab};
 
 		AssertClick.assertPartialTextClickAt(
@@ -114,8 +102,7 @@ definition {
 		AssertElementPresent(locator1 = "NavTab#ACTIVE_TAB_LINK");
 	}
 
-	@summary = "Default summary"
-	macro gotoNavUnderline(navUnderline = null) {
+	macro gotoNavUnderline {
 		var key_navUnderline = ${navUnderline};
 
 		AssertClick(
@@ -125,8 +112,7 @@ definition {
 		AssertElementPresent(locator1 = "NavUnderline#ACTIVE_NAV_UNDERLINE_LINK");
 	}
 
-	@summary = "Default summary"
-	macro gotoPage(baseURL = null, pageName = null) {
+	macro gotoPage {
 		Navigator.openURL(baseURL = ${baseURL});
 
 		Pause(locator1 = 3000);
@@ -134,8 +120,7 @@ definition {
 		Navigator._gotoPage(pageName = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro gotoPrivateSitePage(baseURL = null, siteName = null, pageName = null) {
+	macro gotoPrivateSitePage {
 		Navigator.openPrivateSiteURL(
 			baseURL = ${baseURL},
 			siteName = ${siteName});
@@ -143,8 +128,7 @@ definition {
 		Navigator._gotoPage(pageName = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro gotoPrivateStagedSitePage(baseURL = null, siteName = null, pageName = null) {
+	macro gotoPrivateStagedSitePage {
 		Navigator.openPrivateStagedSiteURL(
 			baseURL = ${baseURL},
 			siteNameURL = ${siteName});
@@ -152,15 +136,13 @@ definition {
 		Navigator._gotoPage(pageName = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro gotoSEOPanel() {
+	macro gotoSEOPanel {
 		Navigator.gotoNavTab(navTab = "SEO");
 
 		Panel.expandPanel(panel = "SEO");
 	}
 
-	@summary = "Default summary"
-	macro gotoSitePage(baseURL = null, siteName = null, pageName = null) {
+	macro gotoSitePage {
 		Navigator.openSiteURL(
 			baseURL = ${baseURL},
 			siteName = ${siteName});
@@ -168,15 +150,13 @@ definition {
 		Navigator._gotoPage(pageName = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro gotoSpecificURLPage(pageName = null, url = null) {
+	macro gotoSpecificURLPage {
 		Navigator.openSpecificURL(url = ${url});
 
 		Navigator._gotoPage(pageName = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro gotoStagedSitePage(baseURL = null, siteName = null, pageName = null) {
+	macro gotoStagedSitePage {
 		Navigator.openStagingSiteURL(
 			baseURL = ${baseURL},
 			siteName = ${siteName});
@@ -184,20 +164,17 @@ definition {
 		Navigator._gotoPage(pageName = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro gotoStagedView() {
+	macro gotoStagedView {
 		ProductMenuHelper.openProductMenu();
 
 		Click(locator1 = "Link#STAGING");
 	}
 
-	@summary = "Default summary"
-	macro openNodePort(nodePort = null) {
+	macro openNodePort {
 		Open(locator1 = "http://localhost:${nodePort}");
 	}
 
-	@summary = "Default summary"
-	macro openPrivateSitePageURL(siteName = null, pageName = null) {
+	macro openPrivateSitePageURL {
 		var siteNameURL = StringUtil.replace(${siteName}, " ", "-");
 
 		var siteNameURL = StringUtil.lowerCase(${siteNameURL});
@@ -213,8 +190,7 @@ definition {
 		Open(locator1 = "${baseURL}/group/${siteNameURL}/${pageNameURL}");
 	}
 
-	@summary = "Default summary"
-	macro openPrivateSiteURL(siteName = null) {
+	macro openPrivateSiteURL {
 		var siteNameURL = StringUtil.replace(${siteName}, " ", "-");
 
 		var siteNameURL = StringUtil.lowerCase(${siteNameURL});
@@ -227,8 +203,7 @@ definition {
 		Open(locator1 = "${baseURL}/group/${siteNameURL}");
 	}
 
-	@summary = "Default summary"
-	macro openPrivateStagedSiteURL() {
+	macro openPrivateStagedSiteURL {
 		var siteNameURL = StringUtil.replace(${siteNameURL}, " ", "-");
 
 		var siteNameURL = StringUtil.lowerCase(${siteNameURL});
@@ -241,8 +216,7 @@ definition {
 		Open(locator1 = "${baseURL}/group/${siteNameURL}-staging");
 	}
 
-	@summary = "Default summary"
-	macro openPrivateURL() {
+	macro openPrivateURL {
 		var baseURL = ${baseURL};
 
 		if (!(isSet(baseURL))) {
@@ -252,8 +226,7 @@ definition {
 		Open(locator1 = "${baseURL}/group/guest");
 	}
 
-	@summary = "Default summary"
-	macro openSiteURL(siteName = null) {
+	macro openSiteURL {
 		var siteNameURL = StringUtil.replace(${siteName}, " ", "-");
 
 		var siteNameURL = StringUtil.lowerCase(${siteNameURL});
@@ -266,13 +239,11 @@ definition {
 		Open(locator1 = "${baseURL}/web/${siteNameURL}");
 	}
 
-	@summary = "Default summary"
-	macro openSpecificURL(url = null) {
+	macro openSpecificURL {
 		Open(locator1 = ${url});
 	}
 
-	@summary = "Default summary"
-	macro openStagingSiteURL(siteName = null) {
+	macro openStagingSiteURL {
 		var siteNameURL = StringUtil.replace(${siteName}, " ", "-");
 
 		var siteNameURL = StringUtil.lowerCase(${siteNameURL});
@@ -285,8 +256,7 @@ definition {
 		Open(locator1 = "${baseURL}/web/${siteNameURL}-staging");
 	}
 
-	@summary = "Default summary"
-	macro openURL() {
+	macro openURL {
 		WaitForSPARefresh();
 
 		var baseURL = ${baseURL};
@@ -298,8 +268,7 @@ definition {
 		Open(locator1 = "${baseURL}/web/guest/home");
 	}
 
-	@summary = "Default summary"
-	macro openWithAppendToBaseURL(urlAppend = null) {
+	macro openWithAppendToBaseURL {
 		var baseURL = ${baseURL};
 
 		if (!(isSet(baseURL))) {
@@ -309,8 +278,7 @@ definition {
 		Open(locator1 = "${baseURL}/${urlAppend}");
 	}
 
-	@summary = "Default summary"
-	macro selectSpecificWindow(windowTitle = null) {
+	macro selectSpecificWindow {
 		SelectWindow(locator1 = "title=${windowTitle}");
 	}
 

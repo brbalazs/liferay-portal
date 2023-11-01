@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addPage() {
+	macro addPage {
 		if (!(isSet(siteName))) {
 			var siteName = "Site Name";
 		}
@@ -15,8 +14,7 @@ definition {
 			layoutName = ${layoutName});
 	}
 
-	@summary = "Default summary"
-	macro addSiteAndPage() {
+	macro addSiteAndPage {
 		if (!(isSet(siteName))) {
 			var siteName = "Site Name";
 		}
@@ -32,8 +30,7 @@ definition {
 			siteName = ${siteName});
 	}
 
-	@summary = "Default summary"
-	macro addWidgetToPage(widgetName = null) {
+	macro addWidgetToPage {
 		if (!(isSet(layoutName))) {
 			var layoutName = "AC Page";
 		}
@@ -48,8 +45,7 @@ definition {
 			siteName = "Site Name");
 	}
 
-	@summary = "Default summary"
-	macro assertActiveIndividualChart(visitorLegend = null, startMonth = null, startDay = null, endDay = null, startYear = null, endMonth = null, endYear = null, timeFilter = null) {
+	macro assertActiveIndividualChart {
 		var key_timeFilter = ${timeFilter};
 
 		if (isSet(visitorLegend)) {
@@ -164,8 +160,7 @@ definition {
 		AssertElementPresent(locator1 = "ACIndividualsDashboard#ACTIVE_INDIVIDUAL_CHART");
 	}
 
-	@summary = "Default summary"
-	macro assertAudienceCard(index = null, percentageList = null) {
+	macro assertAudienceCard {
 		var key_index = ${index};
 
 		for (var percentage : list ${percentageList}) {
@@ -181,15 +176,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertDataSourceName(dataSourceName = null) {
+	macro assertDataSourceName {
 		var itemName = ${dataSourceName};
 
 		ACUtils.assertItemsName(itemList = ${itemName});
 	}
 
-	@summary = "Default summary"
-	macro assertDatePattern(date = null, format = null) {
+	macro assertDatePattern {
 		if (${format} == "MMM d") {
 			var pattern = "[A-Z][a-z][a-z]\s\d+";
 		}
@@ -220,8 +213,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertDropdownItem(menuItem = null) {
+	macro assertDropdownItem {
 		var key_dropdownItem = ${menuItem};
 
 		AssertTextEquals(
@@ -229,8 +221,7 @@ definition {
 			value1 = ${menuItem});
 	}
 
-	@summary = "Default summary"
-	macro assertEventNotPresent(eventId = null, applicationId = null) {
+	macro assertEventNotPresent {
 		var postDataText = ProxyUtil.getHarRecording("$..request..postData..text");
 
 		var actual = JSONUtil.getWithJSONPath("[${postDataText}]", "$..[?(@['applicationId'] == '${applicationId}' && @['eventId'] == '${eventId}')]['eventId']");
@@ -240,8 +231,7 @@ definition {
 			expected = "");
 	}
 
-	@summary = "Default summary"
-	macro assertEventPresent(eventId = null, applicationId = null) {
+	macro assertEventPresent {
 		var postDataText = ProxyUtil.getHarRecording("$..request..postData..text");
 
 		var actual = JSONUtil.getWithJSONPath("[${postDataText}]", "$..[?(@['applicationId'] == '${applicationId}' && @['eventId'] == '${eventId}')]['eventId']");
@@ -251,8 +241,7 @@ definition {
 			expected = ${eventId});
 	}
 
-	@summary = "Default summary"
-	macro assertEventPropertyValue(eventId = null, property = null, applicationId = null, value = null) {
+	macro assertEventPropertyValue {
 		var postDataText = ProxyUtil.getHarRecording("$..request..postData..text");
 
 		var actual = JSONUtil.getWithJSONPath("[${postDataText}]", "$..[?(@['applicationId'] == '${applicationId}' && @['eventId'] == '${eventId}')]..${property}");
@@ -262,8 +251,7 @@ definition {
 			expected = ${value});
 	}
 
-	@summary = "Default summary"
-	macro assertIdentityRequestPropertiesValue(expectedDataSourceId = null) {
+	macro assertIdentityRequestPropertiesValue {
 		var actualDataSourceId = ACUtils.getPageRefRequestPropertyValue(
 			pageRef = "identity",
 			property = "dataSourceId");
@@ -297,8 +285,7 @@ definition {
 			expected = "");
 	}
 
-	@summary = "Default summary"
-	macro assertItemsName(itemList = null) {
+	macro assertItemsName {
 		for (var key_itemName : list ${itemList}) {
 			AssertElementPresent(
 				itemName = ${key_itemName},
@@ -306,8 +293,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertItemsNameNotPresent(itemList = null) {
+	macro assertItemsNameNotPresent {
 		for (var itemName : list ${itemList}) {
 			AssertElementNotPresent(
 				itemName = ${itemName},
@@ -315,8 +301,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertPageTitle(pageTitle = null) {
+	macro assertPageTitle {
 		var key_pageTitle = ${pageTitle};
 
 		AssertTextEquals(
@@ -324,8 +309,7 @@ definition {
 			value1 = ${pageTitle});
 	}
 
-	@summary = "Default summary"
-	macro assertPageTitleNotPresent(pageTitle = null) {
+	macro assertPageTitleNotPresent {
 		var key_pageTitle = ${pageTitle};
 
 		AssertElementNotPresent(
@@ -333,8 +317,7 @@ definition {
 			value1 = ${pageTitle});
 	}
 
-	@summary = "Default summary"
-	macro assertRequestCommonPropertiesValue(expectedDataSourceId = null, expectedChannelId = null) {
+	macro assertRequestCommonPropertiesValue {
 		var actualChannelId = ACUtils.getRequestCommonPropertyValue(property = "channelId");
 
 		TestUtils.assertEquals(
@@ -360,8 +343,7 @@ definition {
 			expected = "");
 	}
 
-	@summary = "Default summary"
-	macro assertTimePattern(format = null, time = null) {
+	macro assertTimePattern {
 		if (${format} == "h tt") {
 			var pattern = "\d+\s[A-Z][A-Z]";
 		}
@@ -376,15 +358,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertXAxisTimedGraph(parentName = null) {
+	macro assertXAxisTimedGraph {
 		var key_parentName = ${parentName};
 
 		AssertElementPresent(locator1 = "ACUtils#SVG_TIMED_GRAPH");
 	}
 
-	@summary = "Default summary"
-	macro changePagination(itemsPerPage = null) {
+	macro changePagination {
 		Click(locator1 = "ACUtils#PAGINATION_ITEMS_PER_PAGE_SELECT");
 
 		MenuItem.click(menuItem = ${itemsPerPage});
@@ -392,15 +372,13 @@ definition {
 		ACUtils.viewPaginationItemsPerPage(itemsPerPage = ${itemsPerPage});
 	}
 
-	@summary = "Default summary"
-	macro checkAnyPage(pageNumber = null) {
+	macro checkAnyPage {
 		var key_pageNumber = ${pageNumber};
 
 		Click(locator1 = "ACUtils#ANY_PAGE");
 	}
 
-	@summary = "Default summary"
-	macro checkPreviousNextButton() {
+	macro checkPreviousNextButton {
 		if (isSet(previousButton)) {
 			Click(locator1 = "ACUtils#PREVIOUS_PAGES");
 		}
@@ -410,8 +388,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro clearLocalStorage() {
+	macro clearLocalStorage {
 		var javaScript = '''
 		localStorage.clear();
 		''';
@@ -419,13 +396,11 @@ definition {
 		var localStorageItem = selenium.getEval(${javaScript});
 	}
 
-	@summary = "Default summary"
-	macro clearSearchBar() {
+	macro clearSearchBar {
 		Click(locator1 = "ACUtils#CLEAR_SEARCH_BAR_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro clickAnyButton(button = null) {
+	macro clickAnyButton {
 		var buttonName = ${button};
 
 		Click(
@@ -433,13 +408,11 @@ definition {
 			locator1 = "ACUtils#GENERIC_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro clickKebab() {
+	macro clickKebab {
 		Click(locator1 = "ACSegments#SEGMENT_ELLIPSIS");
 	}
 
-	@summary = "Default summary"
-	macro closeAllSessions() {
+	macro closeAllSessions {
 		var analyticsCloudAsahCuratorBatchURL = PropsUtil.get("analytics.cloud.asah.curator.batch.url");
 
 		var cleanCurl = '''
@@ -451,8 +424,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${cleanCurl});
 	}
 
-	@summary = "Default summary"
-	macro closeAllSessionsAndWait() {
+	macro closeAllSessionsAndWait {
 		ACUtils.closeAllSessions();
 
 		// It needs a 30 second pause which is the time required for the command to be executed. For more information about pause see LRAC-9518
@@ -460,13 +432,11 @@ definition {
 		Pause(locator1 = 30000);
 	}
 
-	@summary = "Default summary"
-	macro closeModal() {
+	macro closeModal {
 		Click(locator1 = "ACUtils#MODAL_CLOSE_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro createBlogsAndAddToPage() {
+	macro createBlogsAndAddToPage {
 		if (!(isSet(layoutName))) {
 			var layoutName = "AC Page";
 		}
@@ -491,8 +461,7 @@ definition {
 			groupName = "Site Name");
 	}
 
-	@summary = "Default summary"
-	macro createDMAndAddToPage() {
+	macro createDMAndAddToPage {
 		if (!(isSet(layoutName))) {
 			var layoutName = "AC Page";
 		}
@@ -522,8 +491,7 @@ definition {
 			sourceFileName = ${dmDocumentFile});
 	}
 
-	@summary = "Default summary"
-	macro createFormAndAddToPage() {
+	macro createFormAndAddToPage {
 		if (!(isSet(formAcTitle))) {
 			var formAcTitle = "Created Form Name";
 		}
@@ -559,8 +527,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro createWCAndAddToPage() {
+	macro createWCAndAddToPage {
 		if (!(isSet(layoutName))) {
 			var layoutName = "AC Page";
 		}
@@ -609,8 +576,7 @@ definition {
 			siteName = "Site Name");
 	}
 
-	@summary = "Default summary"
-	macro deleteItemFromList(itemName = null) {
+	macro deleteItemFromList {
 		var key_actionButton = "Delete";
 		var key_nameList = ${itemName};
 
@@ -627,22 +593,19 @@ definition {
 		ACUtils.clearSearchBar();
 	}
 
-	@summary = "Default summary"
-	macro dismissOnboardingModal() {
+	macro dismissOnboardingModal {
 		if (IsElementPresent(locator1 = "ACSettings#MODAL_SCREEN")) {
 			Click(locator1 = "ACSettings#CLOSE_ONBOARDING_MODAL");
 		}
 	}
 
-	@summary = "Default summary"
-	macro executeJSInBrowserConsole(javaScriptCode = null) {
+	macro executeJSInBrowserConsole {
 		var javaScript = ${javaScriptCode};
 
 		var javaScriptItem = selenium.getEval(${javaScript});
 	}
 
-	@summary = "Default summary"
-	macro getEventPropertyValue(eventId = null, property = null, applicationId = null) {
+	macro getEventPropertyValue {
 		var postDataText = ProxyUtil.getHarRecording("$..request..postData..text");
 
 		var value = JSONUtil.getWithJSONPath("[${postDataText}]", "$..[?(@['applicationId'] == '${applicationId}' && @['eventId'] == '${eventId}')]..${property}");
@@ -650,8 +613,7 @@ definition {
 		return ${value};
 	}
 
-	@summary = "Default summary"
-	macro getIPCountry() {
+	macro getIPCountry {
 		var curl = '''https://ipinfo.io''';
 
 		var code = JSONCurlUtil.get(${curl}, "$.country");
@@ -683,8 +645,7 @@ definition {
 		return ${country};
 	}
 
-	@summary = "Default summary"
-	macro getLocalStorageItem(keyName = null) {
+	macro getLocalStorageItem {
 		var javaScript = '''
 		var localStorageItem = localStorage.getItem('${keyName}');
 
@@ -698,8 +659,7 @@ definition {
 		return ${localStorageItem};
 	}
 
-	@summary = "Default summary"
-	macro getPageRefRequestPropertyValue(property = null, pageRef = null) {
+	macro getPageRefRequestPropertyValue {
 		var postDataText = ProxyUtil.getHarRecording("$..[?(@['pageref'] == '${pageRef}')].request[?(@.method == 'POST' && @.url contains '/${pageRef}')]..text");
 
 		var value = JSONUtil.getWithJSONPath("[${postDataText}]", "$..${property}");
@@ -707,8 +667,7 @@ definition {
 		return ${value};
 	}
 
-	@summary = "Default summary"
-	macro getRequestCommonPropertyValue(property = null) {
+	macro getRequestCommonPropertyValue {
 		var postDataText = ProxyUtil.getHarRecording("$..request..postData..text");
 
 		var value = JSONUtil.getWithJSONPath("[${postDataText}]", "$.[-1:]..${property}");
@@ -716,8 +675,7 @@ definition {
 		return ${value};
 	}
 
-	@summary = "Default summary"
-	macro launchAC(password = null, emailList = null, workspaceName = null) {
+	macro launchAC {
 		var analyticsCloudURL = PropsUtil.get("analytics.cloud.url");
 
 		Open(locator1 = ${analyticsCloudURL});
@@ -754,8 +712,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro launchDXP() {
+	macro launchDXP {
 		Navigator.openURL();
 
 		if (!(isSet(userEmailAddress))) {
@@ -767,16 +724,14 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro logInPause() {
+	macro logInPause {
 
 		// Pause is necessary because poshi logs in from one user to another quickly. For more information about pause see LRAC-9514
 
 		Pause(locator1 = 5000);
 	}
 
-	@summary = "Default summary"
-	macro navigateToSitePage(actionType = null, submitText = null, documentTitleList = null, siteName = null, pageName = null, commentText = null) {
+	macro navigateToSitePage {
 		for (var documentTitle : list ${documentTitleList}) {
 			Navigator.gotoSitePage(
 				pageName = ${pageName},
@@ -822,8 +777,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro navigateToSitePageWithUser(actionType = null, submitText = null, emailList = null, documentTitleList = null, siteName = null, pageName = null) {
+	macro navigateToSitePageWithUser {
 		for (var email : list ${emailList}) {
 			User.logoutAndLoginPG(userLoginEmailAddress = ${email});
 
@@ -840,15 +794,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro orderAnyTable(columnName = null) {
+	macro orderAnyTable {
 		var key_columnName = ${columnName};
 
 		Click(locator1 = "ACUtils#GENERIC_ORDER_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro orderArrow() {
+	macro orderArrow {
 		var type = ${type};
 
 		if (${type} == "descending") {
@@ -864,8 +816,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro orderTableTitleArrow() {
+	macro orderTableTitleArrow {
 		var type = ${type};
 
 		if (${type} == "down") {
@@ -881,15 +832,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro saveButton() {
+	macro saveButton {
 		Click(locator1 = "Button#SAVE");
 
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro searchBar(searchItem = null, cardTitle = null) {
+	macro searchBar {
 		if (isSet(cardTitle)) {
 			Type(
 				key_cardTitle = ${cardTitle},
@@ -912,8 +861,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro setItemName(itemName = null) {
+	macro setItemName {
 		WaitForPageLoad();
 
 		if ((IsElementNotPresent(locator1 = "ACSegments#SEGMENT_LABEL")) || (IsTextNotEqual(locator1 = "ACSegments#SEGMENT_LABEL", value1 = "STATIC SEGMENT"))) {
@@ -925,8 +873,7 @@ definition {
 			value1 = ${itemName});
 	}
 
-	@summary = "Default summary"
-	macro tearDownAC() {
+	macro tearDownAC {
 		ACUtils.launchAC();
 
 		ACSettings.deleteAllProperties();
@@ -934,29 +881,25 @@ definition {
 		ACSettings.deleteAllDataSource();
 	}
 
-	@summary = "Default summary"
-	macro tearDownDXP() {
+	macro tearDownDXP {
 		ACUtils.launchDXP();
 
 		ACDXPSettings.disconnectDXPFromAnalyticsCloud();
 	}
 
-	@summary = "Default summary"
-	macro viewActivePage(pageNumber = null) {
+	macro viewActivePage {
 		AssertTextEquals(
 			locator1 = "ACUtils#ACTIVE_PAGE",
 			value1 = ${pageNumber});
 	}
 
-	@summary = "Default summary"
-	macro viewAlertInfo(infoMessage = null) {
+	macro viewAlertInfo {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Message#ALERT_DISMISSIBLE",
 			value1 = ${infoMessage});
 	}
 
-	@summary = "Default summary"
-	macro viewGenericText(textValueList = null) {
+	macro viewGenericText {
 		for (var textValue : list ${textValueList}) {
 			var key_textValue = ${textValue};
 
@@ -972,8 +915,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewNameList(nameList = null) {
+	macro viewNameList {
 		for (var name : list ${nameList}) {
 			var key_nameList = ${name};
 
@@ -991,8 +933,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewNameListInOrder(name = null) {
+	macro viewNameListInOrder {
 		var key_userName = ${name};
 		var index = ${index};
 
@@ -1007,8 +948,7 @@ definition {
 			value1 = ${name});
 	}
 
-	@summary = "Default summary"
-	macro viewNameListIsNotPresent(nameList = null) {
+	macro viewNameListIsNotPresent {
 		for (var name : list ${nameList}) {
 			var key_nameList = ${name};
 
@@ -1024,8 +964,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewNoResultsMessage(noResultMessage = null) {
+	macro viewNoResultsMessage {
 		var key_noResultMessage = ${noResultMessage};
 
 		WaitForPageLoad();
@@ -1039,22 +978,19 @@ definition {
 			value1 = ${noResultMessage});
 	}
 
-	@summary = "Default summary"
-	macro viewNoResultsMessageNotPresent(noResultMessage = null) {
+	macro viewNoResultsMessageNotPresent {
 		AssertElementNotPresent(
 			key_noResultMessage = ${noResultMessage},
 			locator1 = "ACAssets#NO_RESULTS_CONTENT_MESSAGE");
 	}
 
-	@summary = "Default summary"
-	macro viewPaginationItemsPerPage(itemsPerPage = null) {
+	macro viewPaginationItemsPerPage {
 		AssertTextEquals(
 			locator1 = "ACUtils#PAGINATION_ITEMS_PER_PAGE_SELECT",
 			value1 = "${itemsPerPage} Items");
 	}
 
-	@summary = "Default summary"
-	macro viewPartialNameList(nameList = null) {
+	macro viewPartialNameList {
 		for (var name : list ${nameList}) {
 			var key_nameList = ${name};
 
@@ -1072,15 +1008,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewResultsMessage(results = null) {
+	macro viewResultsMessage {
 		AssertTextEquals(
 			locator1 = "ACUtils#RESULT_MESSAGE",
 			value1 = ${results});
 	}
 
-	@summary = "Default summary"
-	macro viewResultsPages(pageNumber = null) {
+	macro viewResultsPages {
 		var key_pageNumber = ${pageNumber};
 
 		AssertTextEquals(
@@ -1088,15 +1022,13 @@ definition {
 			value1 = ${key_pageNumber});
 	}
 
-	@summary = "Default summary"
-	macro viewSearchResultsInfo(searchTerm = null, count = null) {
+	macro viewSearchResultsInfo {
 		AssertTextEquals(
 			locator1 = "ACIndividualsDashboard#KNOWN_INDIVIDUAL_ATTRIBUTE_SEARCH_INFO",
 			value1 = "${count} Results for ${searchTerm}");
 	}
 
-	@summary = "Default summary"
-	macro viewTableInformation(nameList = null, numberValueList = null) {
+	macro viewTableInformation {
 		var list1 = ListUtil.newListFromString(${nameList});
 		var list2 = ListUtil.newListFromString(${numberValueList});
 		var size = ListUtil.size(${list1});
@@ -1120,13 +1052,11 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro waitForLoading() {
+	macro waitForLoading {
 		WaitForElementNotPresent(locator1 = "ACUtils#LOADING_ANIMATION");
 	}
 
-	@summary = "Default summary"
-	macro waitForSendingRequest(time = null) {
+	macro waitForSendingRequest {
 		if (isSet(time)) {
 
 			// Pausing for harRecording test for reuse purpose, see LRAC-10600

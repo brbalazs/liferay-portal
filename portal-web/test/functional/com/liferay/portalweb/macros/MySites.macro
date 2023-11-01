@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoPagesPG(siteName = null, menuItem = null, pageName = null) {
+	macro gotoPagesPG {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = ${menuItem},
 			rowEntry = ${siteName});
@@ -13,8 +12,7 @@ definition {
 		Close.closeWindow(locator1 = "null");
 	}
 
-	@summary = "Default summary"
-	macro viewMembershipRequested(siteName = null) {
+	macro viewMembershipRequested {
 		LexiconEntry.openEntryMenu(rowEntry = ${siteName});
 
 		MenuItem.viewPresent(menuItem = "Membership Requested");
@@ -22,8 +20,7 @@ definition {
 		MenuItem.viewVisible(menuItem = "Membership Requested");
 	}
 
-	@summary = "Default summary"
-	macro viewNoOptions(navItem = null, siteName = null) {
+	macro viewNoOptions {
 		Navigator.gotoNavItem(navItem = ${navItem});
 
 		AssertElementNotPresent(
@@ -31,8 +28,7 @@ definition {
 			locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
 	}
 
-	@summary = "Default summary"
-	macro viewTags(tagName = null) {
+	macro viewTags {
 		AssertTextEquals(
 			key_tagName = ${tagName},
 			locator1 = "Tags#VIEW_TAGS_VIA_MY_SITES",

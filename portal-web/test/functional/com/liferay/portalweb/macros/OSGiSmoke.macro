@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro Smoke(appName = null, portletName = null) {
+	macro Smoke {
 		ProductMenu.gotoPortlet(
 			category = "Apps",
 			panel = "Control Panel",

@@ -1,12 +1,12 @@
 @default = "isChecked"
 definition {
 
-	function isChecked() {
+	function isChecked {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.isChecked(${locator1});
+		selenium.isChecked();
 	}
 
 }

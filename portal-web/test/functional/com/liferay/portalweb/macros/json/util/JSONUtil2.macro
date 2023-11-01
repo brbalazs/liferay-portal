@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addJSONArray(key = null) {
+	macro _addJSONArray {
 		if (!(isSet(JSON)) || !(isSet(key))) {
 			fail("Error, 'JSON' and 'key' must all be set");
 		}
@@ -27,8 +26,7 @@ definition {
 		return ${JSON};
 	}
 
-	@summary = "Default summary"
-	macro _addJSONArrayValues(values = null, key = null) {
+	macro _addJSONArrayValues {
 		if (!(isSet(JSON)) || !(isSet(key)) || !(isSet(values))) {
 			fail("Error, 'JSON', 'key', and 'values' must all be set");
 		}
@@ -62,8 +60,7 @@ definition {
 		return ${JSON};
 	}
 
-	@summary = "Default summary"
-	macro _addJSONObject(value = null, key = null) {
+	macro _addJSONObject {
 		if (!(isSet(JSON)) || !(isSet(key)) || !(isSet(value))) {
 			fail("Error, 'JSON', 'key', and 'value' must all be set");
 		}
@@ -86,8 +83,7 @@ definition {
 		return ${JSON};
 	}
 
-	@summary = "Default summary"
-	macro _convertLocalizedListToMap(listMap = null) {
+	macro _convertLocalizedListToMap {
 
 		// Create list using '${listMap'
 
@@ -109,15 +105,13 @@ definition {
 		return ${localizedMap};
 	}
 
-	@summary = "Default summary"
-	macro _exclusiveOrCheck(failMessage = null) {
+	macro _exclusiveOrCheck {
 		if ((isSet(A) && isSet(B)) || (!(isSet(B)) && !(isSet(A)))) {
 			fail(${failMessage});
 		}
 	}
 
-	@summary = "Default summary"
-	macro _isJSONArrayPresent(JSON = null, key = null) {
+	macro _isJSONArrayPresent {
 		var temp = RegexUtil.replace(${JSON}, "\\"(${key})\\"\s*:\s*\[.*?\]", 1);
 
 		if (${temp} == ${key}) {
@@ -128,8 +122,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro _isJSONObjectPresent(JSON = null, key = null) {
+	macro _isJSONObjectPresent {
 		var temp = RegexUtil.replace(${JSON}, "\\"(${key})\\"\s*:\s*", 1);
 
 		if (${temp} == ${key}) {

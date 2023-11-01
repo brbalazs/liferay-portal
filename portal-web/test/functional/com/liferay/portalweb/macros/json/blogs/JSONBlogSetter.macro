@@ -1,14 +1,12 @@
 definition {
 
-	@summary = "Default summary"
-	macro setContentXML(content = null) {
+	macro setContentXML {
 		var contentXML = JSONBlogUtil._convertToXML(content = ${content});
 
 		return ${contentXML};
 	}
 
-	@summary = "Default summary"
-	macro setServiceContext(groupName = null, site = null, assetCategoryIds = null, assetTagNames = null, workflowAction = null) {
+	macro setServiceContext {
 		if (!(isSet(serviceContext))) {
 			var serviceContext = JSONServiceContextUtil.setServiceContext(
 				addGroupPermissions = "true",

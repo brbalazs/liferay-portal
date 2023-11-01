@@ -1,24 +1,24 @@
 @default = "assertVisible"
 definition {
 
-	function assertVisible() {
+	function assertVisible {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.assertVisible(${locator1});
+		selenium.assertVisible();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function assertVisibleNoSPAWait() {
-		selenium.waitForVisible(${locator1}, ${value1});
+	function assertVisibleNoSPAWait {
+		selenium.waitForVisible();
 
-		selenium.assertVisible(${locator1});
+		selenium.assertVisible();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

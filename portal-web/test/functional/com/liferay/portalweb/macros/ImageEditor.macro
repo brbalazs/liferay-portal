@@ -1,21 +1,18 @@
 definition {
 
-	@summary = "Default summary"
-	macro _applyChanges() {
+	macro _applyChanges {
 		AssertClick(
 			locator1 = "Button#APPLY_EFFECTS",
 			value1 = "Apply");
 	}
 
-	@summary = "Default summary"
-	macro _saveFile() {
+	macro _saveFile {
 		AssertClick(
 			locator1 = "Button#SAVE",
 			value1 = "Save");
 	}
 
-	@summary = "Default summary"
-	macro applyChangesAndSaveFile() {
+	macro applyChangesAndSaveFile {
 		ImageEditor._applyChanges();
 
 		Pause(locator1 = 3000);
@@ -23,8 +20,7 @@ definition {
 		ImageEditor._saveFile();
 	}
 
-	@summary = "Default summary"
-	macro gotoImageEditorViaDM(dmDocumentTitle = null) {
+	macro gotoImageEditorViaDM {
 		var key_dmDocumentTitle = ${dmDocumentTitle};
 
 		Click(locator1 = "DocumentsAndMedia#ICON_DOCUMENT_VERTICAL_ELLIPSIS");
@@ -34,8 +30,7 @@ definition {
 		SelectFrame(locator1 = "ImageEditor#IMAGE_EDITOR_IFRAME");
 	}
 
-	@summary = "Default summary"
-	macro gotoImageEditorViaItemSelector(navTab = null, imageFileName = null) {
+	macro gotoImageEditorViaItemSelector {
 		ItemSelector.gotoItemSelectorViaAlloyEditor();
 
 		SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
@@ -59,15 +54,13 @@ definition {
 		SelectFrame(locator1 = "ImageEditor#IMAGE_EDITOR_IFRAME");
 	}
 
-	@summary = "Default summary"
-	macro gotoRotateImage() {
+	macro gotoRotateImage {
 		Click(locator1 = "Button#TRANSFORM");
 
 		MenuItem.click(menuItem = "Rotate");
 	}
 
-	@summary = "Default summary"
-	macro rotateImage(rotateDirection = null) {
+	macro rotateImage {
 		ImageEditor.gotoRotateImage();
 
 		if (${rotateDirection} == "left") {
@@ -78,8 +71,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewBaseControls() {
+	macro viewBaseControls {
 		AssertVisible(locator1 = "Button#TRANSFORM");
 
 		AssertVisible(locator1 = "Button#FILTER_EFFECT");

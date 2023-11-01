@@ -1,21 +1,18 @@
 definition {
 
-	@summary = "Default summary"
-	macro addContent(content = null) {
+	macro addContent {
 		AlloyEditor.typeEditor(
 			content = ${content},
 			editor = "content");
 	}
 
-	@summary = "Default summary"
-	macro addDescription(description = null) {
+	macro addDescription {
 		AlloyEditor.typeEditor(
 			content = ${description},
 			editor = "description");
 	}
 
-	@summary = "Default summary"
-	macro addEntryExternalURL(entryExternalURL = null) {
+	macro addEntryExternalURL {
 		SelectFieldText(
 			key_editor = "content",
 			locator1 = "AlloyEditor#EDITOR");
@@ -29,8 +26,7 @@ definition {
 		Click(locator1 = "AlloyEditor#TEXT_FORMATTING_LINK_INPUT_CONFIRM");
 	}
 
-	@summary = "Default summary"
-	macro addSourceContent(content = null) {
+	macro addSourceContent {
 		AlloyEditor.clickContentField();
 
 		Click(locator1 = "Button#EDITOR_SWITCH");
@@ -40,29 +36,25 @@ definition {
 			value1 = ${content});
 	}
 
-	@summary = "Default summary"
-	macro addTitle(title = null) {
+	macro addTitle {
 		AlloyEditor.typeEditor(
 			content = ${title},
 			editor = "title");
 	}
 
-	@summary = "Default summary"
-	macro addTitleAndContent(title = null, content = null) {
+	macro addTitleAndContent {
 		AlloyEditor.addTitle(title = ${title});
 
 		AlloyEditor.addContent(content = ${content});
 	}
 
-	@summary = "Default summary"
-	macro clickContentField() {
+	macro clickContentField {
 		Click(
 			key_editor = "content",
 			locator1 = "AlloyEditor#EDITOR");
 	}
 
-	@summary = "Default summary"
-	macro toggleStylingInAlloyEditor() {
+	macro toggleStylingInAlloyEditor {
 		SelectFieldText(
 			key_editor = "content",
 			locator1 = "AlloyEditor#EDITOR");
@@ -80,16 +72,14 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro typeEditor(editor = null, content = null) {
+	macro typeEditor {
 		Type.typeEditor(
 			key_editor = ${editor},
 			locator1 = "AlloyEditor#EDITOR",
 			value1 = ${content});
 	}
 
-	@summary = "Default summary"
-	macro viewNoStylingInAlloyEditor(underlineContent = null, boldContent = null, italicContent = null) {
+	macro viewNoStylingInAlloyEditor {
 		AlloyEditor.clickContentField();
 
 		if (isSet(boldContent)) {
@@ -111,8 +101,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewStylingInAlloyEditor(underlineContent = null, boldContent = null, italicContent = null) {
+	macro viewStylingInAlloyEditor {
 		AlloyEditor.clickContentField();
 
 		if (isSet(boldContent)) {

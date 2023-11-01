@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _gotoAddCollection() {
+	macro _gotoAddCollection {
 		if (IsElementPresent(locator1 = "NavNested#NAV_NESTED_PLUS")) {
 			Click(locator1 = "NavNested#NAV_NESTED_PLUS");
 		}
@@ -10,8 +9,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro add(pageTemplateType = null, siteTemplate = null, pageTemplateName = null) {
+	macro add {
 		if (isSet(pageTemplateType)) {
 			var menuItem = ${pageTemplateType};
 		}
@@ -31,8 +29,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro addCollection(collectionDescription = null, collectionName = null) {
+	macro addCollection {
 		PageTemplatesAdmin._gotoAddCollection();
 
 		Collection.editCollection(
@@ -42,8 +39,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro configureWidgetPageTemplateLayout(columnName = null) {
+	macro configureWidgetPageTemplateLayout {
 		Click.pauseClickAt(locator1 = "ControlMenu#EDIT_COG");
 
 		Click(
@@ -53,13 +49,11 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro openPageTemplatesAdmin(siteURLKey = null) {
+	macro openPageTemplatesAdmin {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_layout_admin_web_portlet_GroupPagesPortlet&_com_liferay_layout_admin_web_portlet_GroupPagesPortlet_tabs1=page-templates");
 	}
 
-	@summary = "Default summary"
-	macro rename(rowEntry = null, pageTemplateName = null) {
+	macro rename {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Rename",
 			rowEntry = ${rowEntry});

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _selectUser(inviteUserFullName = null) {
+	macro _selectUser {
 		var key_inviteUserFullName = ${inviteUserFullName};
 
 		AssertClick(
@@ -9,8 +8,7 @@ definition {
 			value1 = ${inviteUserFullName});
 	}
 
-	@summary = "Default summary"
-	macro inviteMembers(inviteUserFullName = null) {
+	macro inviteMembers {
 		AssertClick(
 			locator1 = "Button#INVITE_MEMBERS",
 			value1 = "Invite members.");

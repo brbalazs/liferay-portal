@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureSearchResults(disableHighlighting = null, index = null) {
+	macro configureSearchResults {
 		if (isSet(index)) {
 			SearchResultPortlet.gotoWidgetOptionsSpecific(
 				index = ${index},
@@ -26,8 +25,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro gotoWidgetOptionsSpecific(index = null, portletOption = null) {
+	macro gotoWidgetOptionsSpecific {
 		MouseOver.mouseOverNotVisible(
 			key_index = ${index},
 			locator1 = "SearchResults#RESULTS_PORTLET_WIDGET_ELLIPSIS_ICON_SPECIFIC");
@@ -43,8 +41,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro paginateAndViewSearchResults() {
+	macro paginateAndViewSearchResults {
 		var key_searchAssetTitle = ${searchAssetTitle};
 		var key_searchAssetType = ${searchAssetType};
 		var searchAssetTitle = ${searchAssetTitle};
@@ -61,8 +58,7 @@ definition {
 			searchTerm = ${searchTerm});
 	}
 
-	@summary = "Default summary"
-	macro viewMultipleSearchResults(resultsList = null, searchTerm = null) {
+	macro viewMultipleSearchResults {
 		if (!(contains(${resultsList}, "/"))) {
 			fail("You must pass in a list with title and type separated by '/'.");
 		}
@@ -78,8 +74,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewMultipleSearchResultsNotPresent(noResultsList = null) {
+	macro viewMultipleSearchResultsNotPresent {
 		if (!(contains(${noResultsList}, "/"))) {
 			fail("You must pass in a list with title and type separated by '/'.");
 		}
@@ -94,23 +89,20 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewNoSearchResults(searchTerm = null) {
+	macro viewNoSearchResults {
 		AssertTextEquals(
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "No results were found that matched the keywords: ${searchTerm}.");
 	}
 
-	@summary = "Default summary"
-	macro viewSearchResultNotPresent(searchAssetType = null, searchAssetTitle = null) {
+	macro viewSearchResultNotPresent {
 		AssertElementNotPresent(
 			key_searchAssetTitle = ${searchAssetTitle},
 			key_searchAssetType = ${searchAssetType},
 			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TYPE_SPECIFIC");
 	}
 
-	@summary = "Default summary"
-	macro viewSearchResults(searchAssetType = null, searchTerm = null, entryDate = null, searchAssetTitle = null, searchAssetSummary = null) {
+	macro viewSearchResults {
 		var key_searchAssetTitle = ${searchAssetTitle};
 		var key_searchAssetType = ${searchAssetType};
 

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro getCompanyId() {
+	macro getCompanyId {
 		var portalInstanceName = JSONCompany.getPortalInstanceName();
 
 		if (!(isSet(portalURL))) {
@@ -18,8 +17,7 @@ definition {
 		return ${companyId};
 	}
 
-	@summary = "Default summary"
-	macro getPortalInstanceName() {
+	macro getPortalInstanceName {
 		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 		var testNameSkipPortalInstance = PropsUtil.get("test.name.skip.portal.instance");
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
@@ -47,8 +45,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro getPortalURL() {
+	macro getPortalURL {
 		var portalURL = PropsUtil.get("portal.url");
 
 		return ${portalURL};

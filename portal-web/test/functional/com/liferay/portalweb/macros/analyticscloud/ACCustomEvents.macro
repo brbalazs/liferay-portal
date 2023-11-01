@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addWCWithCustomEventToPage(layoutName = null) {
+	macro addWCWithCustomEventToPage {
 		if (!(isSet(webContentTitle))) {
 			var webContentTitle = "Custom Event AC Title";
 		}
@@ -17,8 +16,7 @@ definition {
 			siteName = "Site Name");
 	}
 
-	@summary = "Default summary"
-	macro blockAllCustomEvents() {
+	macro blockAllCustomEvents {
 		var key_actionButton = "Block";
 
 		KeyPress(
@@ -30,8 +28,7 @@ definition {
 		ACUtils.clickAnyButton(button = ${key_actionButton});
 	}
 
-	@summary = "Default summary"
-	macro blockCustomEvent(customEventName = null) {
+	macro blockCustomEvent {
 		var key_actionButton = "Block";
 		var key_nameList = ${customEventName};
 
@@ -48,8 +45,7 @@ definition {
 		ACUtils.clickAnyButton(button = ${key_actionButton});
 	}
 
-	@summary = "Default summary"
-	macro changeAttributeDataType(newDataType = null) {
+	macro changeAttributeDataType {
 		Select(
 			locator1 = "CustomFields#CUSTOM_INPUT_FIELD_DATA_TYPE",
 			value1 = ${newDataType});
@@ -57,8 +53,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro changeCustomEventDisplayNameOrDescription(newDisplayName = null, newDescription = null) {
+	macro changeCustomEventDisplayNameOrDescription {
 		if (isSet(newDisplayName)) {
 			Type(
 				locator1 = "TextInput#TEXT",
@@ -78,8 +73,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro copySampleJavascript(newAttributeList = null, attributesList = null, oldCustomEventName = null, newCustomEventName = null, newValueList = null, oldValueList = null, oldAttributeList = null) {
+	macro copySampleJavascript {
 		if (!(isSet(disableAttributesList))) {
 
 			// If the list is not set, you must always disable global attributes
@@ -153,8 +147,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro createCustomEvent(customEventName = null, timeToSendCustomEvent = null) {
+	macro createCustomEvent {
 		if (!(isSet(attributesName))) {
 			var attributesName = "category,price,temp,birthdate,like,duration";
 		}
@@ -186,13 +179,11 @@ definition {
 		Click(locator1 = "ACCustomEvents#INPUT_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro createNCustomEvents() {
+	macro createNCustomEvents {
 		Click(locator1 = "ACCustomEvents#SEND_CUSTOM_EVENTS");
 	}
 
-	@summary = "Default summary"
-	macro createWCWithCustomEventAndAddToPage(customEventsNumber = null) {
+	macro createWCWithCustomEventAndAddToPage {
 		if (!(isSet(webContentTitle))) {
 			var webContentTitle = "Custom Event AC Title";
 		}
@@ -220,15 +211,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro disableAttributes(disableAttributesList = null) {
+	macro disableAttributes {
 		for (var key_tableMember : list ${disableAttributesList}) {
 			Click(locator1 = "ACSegments#TABLE_CHECKBOX");
 		}
 	}
 
-	@summary = "Default summary"
-	macro generateCustomEventName() {
+	macro generateCustomEventName {
 		var displayDateHour = DateUtil.getFormattedCurrentDate("hh:mm:ss");
 		var displayDateDay = DateUtil.getCurrentDate();
 		var displayDateMonth = DateUtil.getCurrentMonth();
@@ -239,16 +228,14 @@ definition {
 		return ${customEventName};
 	}
 
-	@summary = "Default summary"
-	macro getSampleRawData(attributeName = null) {
+	macro getSampleRawData {
 		var key_attributeName = ${attributeName};
 		var sampleRawDataValue = selenium.getText("ACCustomEvents#SAMPLE_RAW_DATA_LIST");
 
 		return ${sampleRawDataValue};
 	}
 
-	@summary = "Default summary"
-	macro hideAllCustomEvents() {
+	macro hideAllCustomEvents {
 		var key_actionButton = "Block";
 
 		KeyPress(
@@ -260,8 +247,7 @@ definition {
 		ACUtils.clickAnyButton(button = ${key_actionButton});
 	}
 
-	@summary = "Default summary"
-	macro hideCustomEvent(customEventName = null) {
+	macro hideCustomEvent {
 		var key_actionButton = "Hide";
 		var key_nameList = ${customEventName};
 
@@ -278,13 +264,11 @@ definition {
 		ACUtils.clickAnyButton(button = ${key_actionButton});
 	}
 
-	@summary = "Default summary"
-	macro openBlockCustomEventList() {
+	macro openBlockCustomEventList {
 		Click(locator1 = "ACCustomEvents#BLOCK_CUSTOM_EVENT_LIST");
 	}
 
-	@summary = "Default summary"
-	macro unblockAllCustomEvents() {
+	macro unblockAllCustomEvents {
 		var key_actionButton = "Unblock";
 
 		KeyPress(
@@ -294,8 +278,7 @@ definition {
 		ACUtils.clickAnyButton(button = "Unblock Events");
 	}
 
-	@summary = "Default summary"
-	macro unblockCustomEvent(customEventName = null) {
+	macro unblockCustomEvent {
 		var key_actionButton = "Unblock";
 		var key_nameList = ${customEventName};
 
@@ -310,8 +293,7 @@ definition {
 		Click(locator1 = "ACCustomEvents#BLOCK_UNBLOCK_EVENT_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro viewAlertLimitReached() {
+	macro viewAlertLimitReached {
 		while ((IsElementNotPresent(locator1 = "ACCustomEvents#ALERT_LIMIT_REACHED")) && (maxIterations = "50")) {
 			TestUtils.hardRefresh();
 		}
@@ -319,8 +301,7 @@ definition {
 		AssertElementPresent(locator1 = "ACCustomEvents#ALERT_LIMIT_REACHED");
 	}
 
-	@summary = "Default summary"
-	macro viewDataAttribute(attributeValueList = null) {
+	macro viewDataAttribute {
 		for (var attributeValue : list ${attributeValueList}) {
 			AssertElementPresent(
 				itemName = ${attributeValue},
@@ -328,8 +309,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewDataAttributeInOrder(attributeValue = null) {
+	macro viewDataAttributeInOrder {
 		var index = ${index};
 
 		AssertTextEquals(
@@ -337,8 +317,7 @@ definition {
 			value1 = ${attributeValue});
 	}
 
-	@summary = "Default summary"
-	macro viewDataType() {
+	macro viewDataType {
 		var typeValue = StringUtil.upperCase(${typeValue});
 
 		AssertTextEquals(
@@ -346,8 +325,7 @@ definition {
 			value1 = ${typeValue});
 	}
 
-	@summary = "Default summary"
-	macro viewDataTypeList(attributeName = null) {
+	macro viewDataTypeList {
 		var key_attributeName = ${attributeName};
 		var typeValue = StringUtil.upperCase(${typeValue});
 
@@ -356,15 +334,13 @@ definition {
 			value1 = ${typeValue});
 	}
 
-	@summary = "Default summary"
-	macro viewDisplayNameOrDescriptionList(nameValue = null) {
+	macro viewDisplayNameOrDescriptionList {
 		var key_nameValue = ${nameValue};
 
 		AssertElementPresent(locator1 = "ACCustomEvents#DISPLAY_NAME_OR_DESCRIPTION_LIST");
 	}
 
-	@summary = "Default summary"
-	macro viewInvalidCustomEventEdition(invalidMessage = null) {
+	macro viewInvalidCustomEventEdition {
 		AssertTextEquals(
 			locator1 = "ACCustomEvents#INVALID_MESSAGE",
 			value1 = ${invalidMessage});

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addApplication(clientProfile = null, websiteURL = null, callbackURI = null, checkboxUncheckList = null, description = null, privacyPolicyURL = null, applicationName = null) {
+	macro addApplication {
 		LexiconEntry.gotoAdd();
 
 		OAuth2.inputApplicationValues(
@@ -18,8 +17,7 @@ definition {
 			value1 = ${applicationName});
 	}
 
-	@summary = "Default summary"
-	macro addPrefixHandlerInSystemSettings(excludedScopesName = null, symbolicName = null, separator = null, serviceProperties = null, osgiJaxrsName = null) {
+	macro addPrefixHandlerInSystemSettings {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -55,8 +53,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro deleteApplication(applicationName = null) {
+	macro deleteApplication {
 		LexiconEntry.gotoEntryMenuItemNoError(
 			menuItem = "Delete",
 			rowEntry = ${applicationName});
@@ -68,8 +65,7 @@ definition {
 			locator1 = "OAuth2#ADMIN_TABLE_APP_NAME");
 	}
 
-	@summary = "Default summary"
-	macro editApplication(newApplicationName = null, clientId = null, clientProfile = null, checkboxUncheckList = null, description = null, privacyPolicyURL = null, websiteURL = null, callbackURI = null, checkboxCheckList = null, clientSecret = null, generateNewSecret = null, applicationName = null) {
+	macro editApplication {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${applicationName});
@@ -96,8 +92,7 @@ definition {
 		return ${newGeneratedClientSecret};
 	}
 
-	@summary = "Default summary"
-	macro editScopes(uncheckGlobalScope = null, checkGlobalScope = null, resourcePanels = null, resourceUncheckList = null, uncheckAllResourceScopes = null, resourceCheckList = null, applicationName = null) {
+	macro editScopes {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${applicationName});
@@ -170,8 +165,7 @@ definition {
 		Navigator.gotoBack();
 	}
 
-	@summary = "Default summary"
-	macro expandGlobalPanel(globalPanel = null) {
+	macro expandGlobalPanel {
 		var key_panel = ${globalPanel};
 
 		if ((IsElementPresent(locator1 = "OAuth2#ADMIN_GLOBAL_PANEL_COLLAPSED")) && (IsVisible(locator1 = "OAuth2#ADMIN_GLOBAL_PANEL_COLLAPSED"))) {
@@ -181,8 +175,7 @@ definition {
 		AssertElementPresent(locator1 = "OAuth2#ADMIN_GLOBAL_PANEL_EXPANDED");
 	}
 
-	@summary = "Default summary"
-	macro expandResourcePanel(resourcePanel = null) {
+	macro expandResourcePanel {
 		var key_panel = ${resourcePanel};
 
 		if ((IsElementPresent(locator1 = "OAuth2#ADMIN_RESOURCE_PANEL_COLLAPSED")) && (IsVisible(locator1 = "OAuth2#ADMIN_RESOURCE_PANEL_COLLAPSED"))) {
@@ -192,8 +185,7 @@ definition {
 		AssertElementPresent(locator1 = "OAuth2#ADMIN_RESOURCE_PANEL_EXPANDED");
 	}
 
-	@summary = "Default summary"
-	macro getAuthorizationCode() {
+	macro getAuthorizationCode {
 		var generatedClientId = selenium.getElementValue("OAuth2#ADMIN_INPUT_FORM_CLIENT_ID");
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -216,8 +208,7 @@ definition {
 		return ${authorizationCode};
 	}
 
-	@summary = "Default summary"
-	macro inputApplicationValues(clientId = null, clientProfile = null, description = null, checkboxUncheckList = null, privacyPolicyURL = null, websiteURL = null, callbackURI = null, checkboxCheckList = null, clientSecret = null, generateNewSecret = null, applicationName = null) {
+	macro inputApplicationValues {
 		if (isSet(clientId)) {
 			Click(locator1 = "OAuth2#ADMIN_INPUT_FORM_CLIENT_ID_EDIT_BUTTON");
 
@@ -313,8 +304,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro revokeGrantedAuthViaAdmin(userName = null, applicationName = null) {
+	macro revokeGrantedAuthViaAdmin {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${applicationName});
@@ -344,8 +334,7 @@ definition {
 		Navigator.gotoBack();
 	}
 
-	@summary = "Default summary"
-	macro revokeGrantedAuthViaUser(applicationName = null) {
+	macro revokeGrantedAuthViaUser {
 		ProductMenu.gotoPortlet(
 			category = "My Account",
 			panel = "User",
@@ -364,8 +353,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro viewApplication(clientId = null, websiteURL = null, clientProfile = null, callbackURI = null, checkboxCheckList = null, description = null, clientSecret = null, privacyPolicyURL = null, applicationName = null) {
+	macro viewApplication {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${applicationName});
@@ -433,8 +421,7 @@ definition {
 		Navigator.gotoBack();
 	}
 
-	@summary = "Default summary"
-	macro viewApplicationInTable(clientId = null, description = null, applicationName = null) {
+	macro viewApplicationInTable {
 		AssertElementPresent(
 			key_tableName = ${applicationName},
 			locator1 = "OAuth2#ADMIN_TABLE_APP_NAME");
@@ -450,8 +437,7 @@ definition {
 			value1 = ${clientId});
 	}
 
-	@summary = "Default summary"
-	macro viewGrantedAuthViaAdmin(noAuthorizations = null, userName = null, applicationName = null) {
+	macro viewGrantedAuthViaAdmin {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${applicationName});
@@ -479,8 +465,7 @@ definition {
 		Navigator.gotoBack();
 	}
 
-	@summary = "Default summary"
-	macro viewGrantedAuthViaUser(noAuthorizations = null, applicationName = null) {
+	macro viewGrantedAuthViaUser {
 		ProductMenu.gotoPortlet(
 			category = "My Account",
 			panel = "User",
@@ -506,8 +491,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewScopeAliases(resourcePanels = null, scopeAliasList = null, applicationName = null) {
+	macro viewScopeAliases {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${applicationName});
@@ -525,8 +509,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewScopeMappings(resourcePanels = null, scopeTranslation = null, applicationName = null, globalScopeLinkValue = null) {
+	macro viewScopeMappings {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${applicationName});
@@ -563,8 +546,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewScopes(resourceCheckedList = null, resourceUncheckedList = null, resourcePanels = null, checkedGlobalScope = null, uncheckedGlobalScope = null, allResourceScopesUnchecked = null, applicationName = null) {
+	macro viewScopes {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${applicationName});

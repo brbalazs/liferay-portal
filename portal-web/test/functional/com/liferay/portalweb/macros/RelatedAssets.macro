@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _selectAssetType(assetType = null) {
+	macro _selectAssetType {
 		var key_assetType = ${assetType};
 
 		AssertClick(
@@ -15,8 +14,7 @@ definition {
 		MenuItem.click(menuItem = ${assetType});
 	}
 
-	@summary = "Default summary"
-	macro gotoBookmarksSelectionPG(assetType = null) {
+	macro gotoBookmarksSelectionPG {
 		Portlet.clickPortletPlusIconPG(portletName = "Bookmarks");
 
 		MenuItem.click(menuItem = "Bookmark");
@@ -34,13 +32,11 @@ definition {
 			value1 = ${assetType});
 	}
 
-	@summary = "Default summary"
-	macro gotoConfigureRelatedAssets() {
+	macro gotoConfigureRelatedAssets {
 		Panel.expandPanel(panel = "Related Assets");
 	}
 
-	@summary = "Default summary"
-	macro removeAsset() {
+	macro removeAsset {
 		Panel.expandPanel(panel = "Related Assets");
 
 		for (var removeAssetTitle : list ${removeAssetTitle}) {
@@ -52,8 +48,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro selectAsset(assetTitle = null, assetType = null) {
+	macro selectAsset {
 		RelatedAssets._selectAssetType(assetType = ${assetType});
 
 		SelectFrame(value1 = "relative=top");
@@ -69,8 +64,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultPG() {
+	macro viewDefaultPG {
 		var key_portletName = "Related Assets";
 
 		AssertTextEquals(
@@ -82,8 +76,7 @@ definition {
 			value1 = "There are no related assets available. This application will show all assets related to the main asset of the current page.");
 	}
 
-	@summary = "Default summary"
-	macro viewNoPG(assetTitleList = null) {
+	macro viewNoPG {
 		for (var assetTitle : list ${assetTitleList}) {
 			var key_assetTitle = ${assetTitle};
 
@@ -91,8 +84,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewPG(assetTitle = null) {
+	macro viewPG {
 		if (IsElementPresent(locator1 = "Relatedassets#ASSET_TITLE_IMAGE_1")) {
 			AssertVisible(locator1 = "Relatedassets#ASSET_TITLE_IMAGE_1");
 		}

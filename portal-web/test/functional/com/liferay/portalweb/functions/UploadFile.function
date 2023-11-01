@@ -1,14 +1,14 @@
 @default = "uploadFile"
 definition {
 
-	function uploadFile() {
+	function uploadFile {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.uploadFile(${locator1}, ${value1});
+		selenium.uploadFile();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

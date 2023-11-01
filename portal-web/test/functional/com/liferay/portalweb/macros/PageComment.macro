@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addWithWorkflowPG(commentAuthor = null, commentBody = null) {
+	macro addWithWorkflowPG {
 		PageComment.reply(commentBody = ${commentBody});
 
 		var key_commentBody = ${commentBody};
@@ -24,15 +23,13 @@ definition {
 			value1 = ${commentAuthor});
 	}
 
-	@summary = "Default summary"
-	macro editCommentField(commentBody = null) {
+	macro editCommentField {
 		Type.typeEditor(
 			locator1 = "Comments#COMMENT_FIELD",
 			value1 = ${commentBody});
 	}
 
-	@summary = "Default summary"
-	macro reply(commentBody = null) {
+	macro reply {
 		PageComment.editCommentField(commentBody = ${commentBody});
 
 		AssertClick(
@@ -40,8 +37,7 @@ definition {
 			value1 = "Reply");
 	}
 
-	@summary = "Default summary"
-	macro tearDownPG(pageName = null) {
+	macro tearDownPG {
 		Navigator.gotoPage(pageName = ${pageName});
 
 		while (IsElementPresent(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS")) {
@@ -57,8 +53,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewAsWorkflowAsset(commentBody = null) {
+	macro viewAsWorkflowAsset {
 		SiteAdmin.viewPortletTitle(portletTitle = ${commentBody});
 
 		var key_commentBody = ${commentBody};
@@ -68,8 +63,7 @@ definition {
 			value1 = ${commentBody});
 	}
 
-	@summary = "Default summary"
-	macro viewPG(commentAuthor = null, commentBody = null) {
+	macro viewPG {
 		var key_commentBody = ${commentBody};
 
 		AssertElementNotPresent(locator1 = "Comments#WORKFLOW_STATUS");
@@ -86,8 +80,7 @@ definition {
 			value1 = ${commentAuthor});
 	}
 
-	@summary = "Default summary"
-	macro viewWithWorkflowPG(commentAuthor = null, commentBody = null, commentStatus = null) {
+	macro viewWithWorkflowPG {
 		var key_commentBody = ${commentBody};
 
 		AssertTextEquals(

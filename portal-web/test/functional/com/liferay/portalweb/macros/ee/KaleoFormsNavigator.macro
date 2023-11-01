@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoManageFieldSets() {
+	macro gotoManageFieldSets {
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Manage Field Sets");
 
 		AssertTextEquals(
@@ -9,8 +8,7 @@ definition {
 			value1 = "Field Sets");
 	}
 
-	@summary = "Default summary"
-	macro gotoManageForms(kfFieldSetName = null) {
+	macro gotoManageForms {
 		KaleoFormsNavigator.gotoManageFieldSets();
 
 		Search.searchCP(searchTerm = ${kfFieldSetName});

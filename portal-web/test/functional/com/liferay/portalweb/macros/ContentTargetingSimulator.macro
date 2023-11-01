@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureUserSegmentSimulator(configureUserSegmentMatched = null, configureUserSegmentNotMatched = null) {
+	macro configureUserSegmentSimulator {
 		if (isSet(configureUserSegmentMatched)) {
 			for (var userSegmentMatched : list ${configureUserSegmentMatched}) {
 				var key_userSegmentNotMatched = ${userSegmentMatched};
@@ -27,8 +26,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewUserSegmentsViaSimulator(userSegments = null) {
+	macro viewUserSegmentsViaSimulator {
 		SelectFrame.selectFrameTop();
 
 		for (var userSegment : list ${userSegments}) {

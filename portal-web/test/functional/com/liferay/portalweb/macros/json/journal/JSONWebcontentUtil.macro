@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _convertToXML(content = null) {
+	macro _convertToXML {
 		Variables.assertDefined(parameterList = ${content});
 
 		if (isSet(source)) {
@@ -14,8 +13,7 @@ definition {
 		return ${contentXML};
 	}
 
-	@summary = "Default summary"
-	macro _localizedConvertToXML(contentMap = null) {
+	macro _localizedConvertToXML {
 		Variables.assertDefined(parameterList = ${contentMap});
 
 		// Get list of localizations used

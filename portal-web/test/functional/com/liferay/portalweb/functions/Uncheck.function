@@ -1,69 +1,69 @@
 @default = "clickAt"
 definition {
 
-	function clickAt() {
+	function clickAt {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		if (selenium.isChecked(${locator1})) {
-			selenium.clickAt(${locator1}, ${value1});
+		if (selenium.isChecked()) {
+			selenium.clickAt();
 		}
 
 		AssertNotChecked.assertNotChecked();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function uncheckHiddenToggleSwitch(locator1) {
+	function uncheckHiddenToggleSwitch {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
 		if (selenium.isChecked("xpath=(${locator1})/../../input")) {
-			selenium.clickAt(${locator1}, ${value1});
+			selenium.clickAt();
 		}
 
 		AssertNotChecked.assertNotCheckedHiddenToggleSwitch();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function uncheckToggleSwitch() {
+	function uncheckToggleSwitch {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		if (selenium.isChecked(${locator1})) {
-			selenium.clickAt(${locator1}, ${value1});
+		if (selenium.isChecked()) {
+			selenium.clickAt();
 		}
 
 		AssertNotChecked.assertNotCheckedNotVisible();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function uncheckToggleSwitchNoErrorNoAssert() {
+	function uncheckToggleSwitchNoErrorNoAssert {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		if (selenium.isChecked(${locator1})) {
-			selenium.clickAt(${locator1}, ${value1});
+		if (selenium.isChecked()) {
+			selenium.clickAt();
 		}
 	}
 

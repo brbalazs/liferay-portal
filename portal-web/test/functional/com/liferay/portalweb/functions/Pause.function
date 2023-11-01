@@ -2,15 +2,15 @@
 definition {
 
 	@summary-ignore = "true"
-	function pause() {
+	function pause {
 		WaitForSPARefresh();
 
-		selenium.pause(${value1});
+		selenium.pause();
 	}
 
 	@summary-ignore = "true"
-	function pauseNoSPARefresh() {
-		selenium.pause(${value1});
+	function pauseNoSPARefresh {
+		selenium.pause();
 	}
 
 }

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro blacklistModuleAndComponentConfiguration(symbolicName = null, label = null) {
+	macro blacklistModuleAndComponentConfiguration {
 		Type(
 			key_label = ${label},
 			locator1 = "TextArea#ANY_LABELED",
@@ -10,8 +9,7 @@ definition {
 		SystemSettings.saveConfiguration();
 	}
 
-	@summary = "Default summary"
-	macro viewProductMenuBlacklistedModule(portlet = null, consoleText = null, panel = null, category = null) {
+	macro viewProductMenuBlacklistedModule {
 		ProductMenuHelper.expandPanel(panel = ${panel});
 
 		ProductMenuHelper.expandCategory(category = ${category});

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro getClientVersion() {
+	macro getClientVersion {
 		var serverVersion = Elasticsearch.getServerVersion();
 
 		var majorVersion = StringUtil.extractFirst(${serverVersion}, ".");
@@ -16,8 +15,7 @@ definition {
 		return ${clientVersion};
 	}
 
-	@summary = "Default summary"
-	macro getServerVersion() {
+	macro getServerVersion {
 		if (!(isSet(port))) {
 			var port = 9200;
 		}
@@ -33,8 +31,7 @@ definition {
 		return ${serverVersion};
 	}
 
-	@summary = "Default summary"
-	macro viewClusterStatus(clusterStatus = null) {
+	macro viewClusterStatus {
 		var portalHostname = PropsUtil.get("portal.hostname");
 
 		var curl = "http://${portalHostname}:9200";
@@ -47,8 +44,7 @@ definition {
 	}
 
 	@description = "Elasticsearch provides a Cluster Health API (http://localhost:9200/_cluster/health?pretty=true) to easily view the current status of the cluster."
-	@summary = "Default summary"
-	macro viewClusterStatusViaClusterHealthAPI(numberOfNodes = null) {
+	macro viewClusterStatusViaClusterHealthAPI {
 		var portalHostname = PropsUtil.get("portal.hostname");
 
 		var curl = "http://${portalHostname}:9200/_cluster/health?level=indices";

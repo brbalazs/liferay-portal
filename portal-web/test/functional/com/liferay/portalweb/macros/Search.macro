@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro openSearchPage() {
+	macro openSearchPage {
 		if (!(isSet(siteURLKey))) {
 			var siteURLKey = "guest";
 		}
@@ -9,8 +8,7 @@ definition {
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/${siteURLKey}/search");
 	}
 
-	@summary = "Default summary"
-	macro searchCP(searchTerm = null) {
+	macro searchCP {
 		AssertElementPresent(locator1 = "TextInput#SEARCH");
 
 		AssertElementPresent(locator1 = "Icon#BASIC_SEARCH");
@@ -24,8 +22,7 @@ definition {
 			value1 = "\RETURN");
 	}
 
-	@summary = "Default summary"
-	macro searchPG(searchTerm = null, portletName = null) {
+	macro searchPG {
 		var key_portletName = ${portletName};
 
 		AssertElementPresent(locator1 = "Portlet#SEARCH_FIELD");
@@ -39,15 +36,13 @@ definition {
 			value1 = "\RETURN");
 	}
 
-	@summary = "Default summary"
-	macro viewNoResultAssetTitle(searchAssetTitle = null) {
+	macro viewNoResultAssetTitle {
 		AssertElementNotPresent(
 			key_searchAssetTitle = ${searchAssetTitle},
 			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE");
 	}
 
-	@summary = "Default summary"
-	macro viewResultAssetTitle(searchAssetTitle = null) {
+	macro viewResultAssetTitle {
 		var key_searchAssetTitle = ${searchAssetTitle};
 
 		AssertTextEquals(

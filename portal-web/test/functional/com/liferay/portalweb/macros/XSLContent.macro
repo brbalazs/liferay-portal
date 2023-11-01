@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureConfigurationAdminXSL() {
+	macro configureConfigurationAdminXSL {
 		Type(
 			locator1 = "TextArea#URL",
 			value1 = "@portlet_context_url@,@portal_url@");
@@ -11,8 +10,7 @@ definition {
 		SystemSettings.saveConfiguration();
 	}
 
-	@summary = "Default summary"
-	macro gotoDocumentURL(dmDocumentTitle = null) {
+	macro gotoDocumentURL {
 		var key_dmDocumentTitle = ${dmDocumentTitle};
 
 		AssertClick(
@@ -30,8 +28,7 @@ definition {
 		Pause(locator1 = 5000);
 	}
 
-	@summary = "Default summary"
-	macro viewConfigurationXSLContent() {
+	macro viewConfigurationXSLContent {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
 		AssertTextEquals(
@@ -45,20 +42,17 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewConsoleError(consoleTextError = null) {
+	macro viewConsoleError {
 		AssertConsoleTextPresent(value1 = ${consoleTextError});
 	}
 
-	@summary = "Default summary"
-	macro viewErrorMessage() {
+	macro viewErrorMessage {
 		AssertTextEquals(
 			locator1 = "Message#ERROR",
 			value1 = "An error occurred while processing your XML and XSL.");
 	}
 
-	@summary = "Default summary"
-	macro viewXSLPortletHymnDisplay(tableCountryEntry = null, tableYearEntry = null, tableTitleEntry = null, tableArtistEntry = null) {
+	macro viewXSLPortletHymnDisplay {
 		AssertTextEquals(
 			locator1 = "XSLContentPortlet#TITLE",
 			value1 = "My Hymn Collection");

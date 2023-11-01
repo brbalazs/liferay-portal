@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addCSVDataSource(sourceFileName = null, fieldName = null, fieldType = null, fieldNameList = null, dataSourceName = null) {
+	macro addCSVDataSource {
 		var n = 1;
 
 		if (!(isSet(index))) {
@@ -100,8 +99,7 @@ definition {
 			locator1 = "Header#H3_TITLE");
 	}
 
-	@summary = "Default summary"
-	macro addKeywords(keyword = null) {
+	macro addKeywords {
 		Click(locator1 = "ACSettings#KEYWORD_BUTTON");
 
 		Type(
@@ -111,8 +109,7 @@ definition {
 		Click(locator1 = "ACSettings#KEYWORD_SEND_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro addMultiplesOptions(optionsList = null) {
+	macro addMultiplesOptions {
 		Click(locator1 = "ACSettings#KEYWORD_BUTTON");
 
 		for (var option : list ${optionsList}) {
@@ -128,8 +125,7 @@ definition {
 		Click(locator1 = "ACSettings#KEYWORD_SEND_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro addSalesforceAndCancel(consumerSecret = null, salesforceName = null, consumerKey = null) {
+	macro addSalesforceAndCancel {
 		var key_salesforceName = ${salesforceName};
 		var key_consumerKey = ${consumerKey};
 		var key_consumerSecret = ${consumerSecret};
@@ -160,8 +156,7 @@ definition {
 		Button.click(button = "Leave Page");
 	}
 
-	@summary = "Default summary"
-	macro addUser(userInvite = null) {
+	macro addUser {
 		Click(locator1 = "ACSettings#INVITE_USERS_BUTTON");
 
 		for (var keyword : list ${userInvite}) {
@@ -177,8 +172,7 @@ definition {
 		Click(locator1 = "ACSettings#KEYWORD_SEND_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro assertAddonsDetails(addOnItem = null, annualPrice = null, limit = null, time = null) {
+	macro assertAddonsDetails {
 		if (isSet(limit)) {
 			AssertVisible(
 				key_addOnItem = ${addOnItem},
@@ -201,8 +195,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertCanChooseDataSourceOptions() {
+	macro assertCanChooseDataSourceOptions {
 
 		// Accounts and Salesforce tests are no longer possible to run after this one from LRAC-11571
 
@@ -231,36 +224,31 @@ definition {
 			locator1 = "Header#H3_TITLE");
 	}
 
-	@summary = "Default summary"
-	macro assertCurrentPlanLimitAndAddOn(metricName = null, currentPlanLimitAndAddOn = null) {
+	macro assertCurrentPlanLimitAndAddOn {
 		AssertTextEquals(
 			key_metricName = ${metricName},
 			locator1 = "ACUsage#USAGE_CURRENT_PLAN_LIMIT_AND_ADD_ON",
 			value1 = ${currentPlanLimitAndAddOn});
 	}
 
-	@summary = "Default summary"
-	macro assertDataSourceStatus(section = null, status = null) {
+	macro assertDataSourceStatus {
 		var key_dataSourceStatus = ${status};
 		var key_sectionStatus = ${section};
 
 		AssertElementPresent(locator1 = "ACSettings#DATA_SOURCE_STATUS");
 	}
 
-	@summary = "Default summary"
-	macro assertIndividualsUsage(individualUsageValue = null) {
+	macro assertIndividualsUsage {
 		AssertTextEquals(
 			locator1 = "ACSettings#INDIVIDUALS_USAGE_METRIC",
 			value1 = ${individualUsageValue});
 	}
 
-	@summary = "Default summary"
-	macro assertInviteUsersButton() {
+	macro assertInviteUsersButton {
 		AssertElementPresent(locator1 = "ACSettings#INVITE_USERS_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro assertKeywordNotPresent(keyword = null) {
+	macro assertKeywordNotPresent {
 		for (var word : list ${keyword}) {
 			var key_keywordName = ${word};
 
@@ -270,8 +258,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertKeywords(keyword = null) {
+	macro assertKeywords {
 		for (var word : list ${keyword}) {
 			var key_keywordName = ${word};
 
@@ -281,8 +268,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertOverviewUsage(current = null, metricName = null, usageSince = null, limit = null) {
+	macro assertOverviewUsage {
 		if (isSet(current)) {
 			AssertTextEquals(
 				key_metricName = ${metricName},
@@ -305,15 +291,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertPageViewsUsage(pageViewsUsageValue = null) {
+	macro assertPageViewsUsage {
 		AssertTextEquals(
 			locator1 = "ACSettings#PAGE_VIEWS_USAGE_METRIC",
 			value1 = ${pageViewsUsageValue});
 	}
 
-	@summary = "Default summary"
-	macro assertPlanDetails(individualsLimit = null, individualsAddOnsPrice = null, pageViewsAddOnsLimit = null, pageViewsLimit = null, individualsAddOnsLimit = null, planName = null, usersLimit = null, pageViewsAddOnsPrice = null) {
+	macro assertPlanDetails {
 		AssertElementPresent(
 			key_planName = ${planName},
 			locator1 = "ACUsage#PLAN_NAME");
@@ -359,8 +343,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertRequestLog(jobType = null) {
+	macro assertRequestLog {
 		if (${jobType} == "Delete") {
 			AssertElementPresent(locator1 = "ACDataControlAndPrivacy#REQUEST_LOG_TABLE");
 
@@ -371,39 +354,33 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertUserList(userName = null) {
+	macro assertUserList {
 		AssertTextEquals(
 			locator1 = "ACSettings#USER_LIST",
 			value1 = ${userName});
 	}
 
-	@summary = "Default summary"
-	macro assertUserListEmail(userEmail = null) {
+	macro assertUserListEmail {
 		AssertTextEquals(
 			locator1 = "ACSettings#USER_LIST_EMAIL",
 			value1 = ${userEmail});
 	}
 
-	@summary = "Default summary"
-	macro assertUserManagementDescription() {
+	macro assertUserManagementDescription {
 		AssertElementPresent(locator1 = "ACSettings#USER_MANAGEMENT_DESCRIPTION");
 	}
 
-	@summary = "Default summary"
-	macro assertUserManagementHeader() {
+	macro assertUserManagementHeader {
 		AssertElementPresent(locator1 = "ACSettings#HEADER_USER_MANAGEMENT");
 	}
 
-	@summary = "Default summary"
-	macro assertUserNotPresent(userEmail = null) {
+	macro assertUserNotPresent {
 		AssertTextNotEquals(
 			locator1 = "ACSettings#USER_LIST_EMAIL",
 			value1 = ${userEmail});
 	}
 
-	@summary = "Default summary"
-	macro assertUserPermission(permissionType = null) {
+	macro assertUserPermission {
 		for (var userEmail : list ${userEmail}) {
 			AssertElementPresent(
 				key_permissionType = ${permissionType},
@@ -412,13 +389,11 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro assertUsersListByEmail() {
+	macro assertUsersListByEmail {
 		AssertElementPresent(locator1 = "ACSettings#USER_LIST_BY_EMAIL");
 	}
 
-	@summary = "Default summary"
-	macro changeMultipleUsersPermissions(permissionType = null, userEmail = null) {
+	macro changeMultipleUsersPermissions {
 		ACSettings.clickUsersByEmail(userEmail = ${userEmail});
 
 		Click(
@@ -438,8 +413,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro changeRetentionPeriodTo7Months() {
+	macro changeRetentionPeriodTo7Months {
 		Click(locator1 = "OpenIDConnectLogin#OPENID_CONNECT_DROPDOWN_MENU");
 
 		KeyPress(
@@ -453,8 +427,7 @@ definition {
 		Click(locator1 = "ACSettings#DELETE_CONFIRMATION_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro changeUserRole(permissionType = null, userEmail = null, newRole = null) {
+	macro changeUserRole {
 		Click(
 			key_userEmail = ${userEmail},
 			locator1 = "ACSettings#EDIT_BUTTON_BY_EMAIL");
@@ -472,13 +445,11 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro clickGenericAddOrConfirmationButton() {
+	macro clickGenericAddOrConfirmationButton {
 		Click(locator1 = "ACDXPSettings#AC_GENERIC_ADD_OR_CONFIRMATION_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro clickUsersByEmail() {
+	macro clickUsersByEmail {
 		for (var userEmail : list ${userEmail}) {
 			Click(
 				key_userEmail = ${userEmail},
@@ -486,16 +457,14 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro collapsePlan(planName = null) {
+	macro collapsePlan {
 		Click(
 			key_planName = ${planName},
 			key_type = "angle-up",
 			locator1 = "ACUsage#USAGE_PLAN_ICON");
 	}
 
-	@summary = "Default summary"
-	macro createRequestLogByEmail(fieldType = null, email = null) {
+	macro createRequestLogByEmail {
 		var key_fieldType = ${fieldType};
 
 		ACSettings.goToDataControlAndPrivacy();
@@ -519,8 +488,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro deleteAllDataSource() {
+	macro deleteAllDataSource {
 		if (IsElementNotPresent(locator1 = "ACSettings#EXIT_SETTINGS_BUTTON")) {
 			ACNavigation.goToSettings();
 		}
@@ -534,8 +502,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deleteAllKeywords() {
+	macro deleteAllKeywords {
 		KeyPress(
 			locator1 = "ACSettings#SELECT_ALL_CHECKBOX",
 			value1 = "\SPACE");
@@ -545,8 +512,7 @@ definition {
 		Click(locator1 = "ACSettings#CONTINUE_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro deleteAllPendingUsers() {
+	macro deleteAllPendingUsers {
 		ACSettings.goToUserManagement();
 
 		while (IsElementPresent(locator1 = "ACSettings#VIEW_STATUS_PENDING")) {
@@ -558,8 +524,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deleteAllProperties() {
+	macro deleteAllProperties {
 		if (IsElementNotPresent(locator1 = "ACSettings#EXIT_SETTINGS_BUTTON")) {
 			ACNavigation.goToSettings();
 		}
@@ -585,8 +550,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deleteDataSource() {
+	macro deleteDataSource {
 		if (IsElementNotPresent(locator1 = "ACSettings#EXIT_SETTINGS_BUTTON")) {
 			ACNavigation.goToSettings();
 		}
@@ -654,8 +618,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deleteKeywordCheckbox(keyword = null) {
+	macro deleteKeywordCheckbox {
 		var key_keywordName = ${keyword};
 
 		if (IsVisible(locator1 = "ACSettings#KEYWORD_NAME")) {
@@ -669,8 +632,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deleteKeywordIcon(keyword = null) {
+	macro deleteKeywordIcon {
 		var key_keywordName = ${keyword};
 
 		if (IsVisible(locator1 = "ACSettings#KEYWORD_NAME")) {
@@ -680,8 +642,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deleteProperty(propertyName = null) {
+	macro deleteProperty {
 		ACUtils.searchBar(searchItem = ${propertyName});
 
 		ACNavigation.openItem(itemName = ${propertyName});
@@ -713,8 +674,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro deletePropertyByCheckbox(propertyName = null) {
+	macro deletePropertyByCheckbox {
 		Click.clickAtNotVisible(
 			key_propertyName = ${propertyName},
 			locator1 = "ACSettings#PROPERTY_CHECKBOX");
@@ -746,8 +706,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro deleteUser(userDelete = null) {
+	macro deleteUser {
 		if (IsVisible(locator1 = "ACSettings#USER_LIST_EMAIL", value1 = ${userDelete})) {
 			Click(locator1 = "ACSettings#DELETE_USER");
 
@@ -755,15 +714,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro disconnectDataSource() {
+	macro disconnectDataSource {
 		Click(locator1 = "ACSettings#DISCONNECT_DATA_SOURCE_BUTTON");
 
 		Click(locator1 = "ACSettings#DISCONNECT_CONFIRMATION_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro getCurrentNumber(metricName = null) {
+	macro getCurrentNumber {
 		WaitForVisible(
 			key_metricName = ${metricName},
 			locator1 = "ACUsage#USAGE_CURRENT_NUMBER");
@@ -773,8 +730,7 @@ definition {
 		return ${current};
 	}
 
-	@summary = "Default summary"
-	macro getDXPInstanceId(dataSourceName = null) {
+	macro getDXPInstanceId {
 		ACSettings.goToDataSources();
 
 		ACUtils.searchBar(searchItem = ${dataSourceName});
@@ -791,8 +747,7 @@ definition {
 		return ${dxpInstanceId};
 	}
 
-	@summary = "Default summary"
-	macro getPropertyId(propertyName = null) {
+	macro getPropertyId {
 		ACSettings.goToProperties();
 
 		ACUtils.searchBar(searchItem = ${propertyName});
@@ -810,8 +765,7 @@ definition {
 		return ${propertyId};
 	}
 
-	@summary = "Default summary"
-	macro getUsagePercentage(metricName = null) {
+	macro getUsagePercentage {
 		var usageSince = selenium.getText("//div[contains(@class,'overview-usage')][.//h3[contains(@class,'metric-name')][normalize-space(text())='${metricName}']]//span[contains(@class,'usage-since')]");
 
 		var percentage = StringUtil.extractFirst(${usageSince}, "since");
@@ -821,105 +775,86 @@ definition {
 		return ${percentage};
 	}
 
-	@summary = "Default summary"
-	macro goToAccounts() {
+	macro goToAccounts {
 		ACSettings.goToDefinitionsOptions(definitionsOptions = "accounts");
 	}
 
-	@summary = "Default summary"
-	macro goToApis() {
+	macro goToApis {
 		ACSettings.goToSettingsNavigation(settingsNavigation = "apis");
 	}
 
-	@summary = "Default summary"
-	macro goToBehaviors() {
+	macro goToBehaviors {
 		ACSettings.goToDefinitionsOptions(definitionsOptions = "behaviors");
 	}
 
-	@summary = "Default summary"
-	macro goToDataControlAndPrivacy() {
+	macro goToDataControlAndPrivacy {
 		ACSettings.goToSettingsNavigation(settingsNavigation = "data-privacy");
 	}
 
-	@summary = "Default summary"
-	macro goToDataSources() {
+	macro goToDataSources {
 		ACSettings.goToSettingsNavigation(settingsNavigation = "data-source");
 	}
 
-	@summary = "Default summary"
-	macro goToDefinitions() {
+	macro goToDefinitions {
 		ACSettings.goToSettingsNavigation(settingsNavigation = "definitions");
 	}
 
-	@summary = "Default summary"
-	macro goToDefinitionsOptions(definitionsOptions = null) {
+	macro goToDefinitionsOptions {
 		var key_definitionsOptions = ${definitionsOptions};
 
 		Click(locator1 = "ACSettings#DEFINITIONS_OPTIONS");
 	}
 
-	@summary = "Default summary"
-	macro goToEventAttributes() {
+	macro goToEventAttributes {
 		ACSettings.goToDefinitionsOptions(definitionsOptions = "event-attributes");
 	}
 
-	@summary = "Default summary"
-	macro goToEvents() {
+	macro goToEvents {
 		ACSettings.goToDefinitionsOptions(definitionsOptions = "events");
 	}
 
-	@summary = "Default summary"
-	macro goToIndividuals() {
+	macro goToIndividuals {
 		ACSettings.goToDefinitionsOptions(definitionsOptions = "individual");
 	}
 
-	@summary = "Default summary"
-	macro goToInterests() {
+	macro goToInterests {
 		ACSettings.goToDefinitionsOptions(definitionsOptions = "interest");
 	}
 
-	@summary = "Default summary"
-	macro goToProperties() {
+	macro goToProperties {
 		ACSettings.goToSettingsNavigation(settingsNavigation = "properties");
 	}
 
-	@summary = "Default summary"
-	macro goToSearch() {
+	macro goToSearch {
 		ACSettings.goToDefinitionsOptions(definitionsOptions = "search");
 	}
 
-	@summary = "Default summary"
-	macro goToSettingsNavigation(settingsNavigation = null) {
+	macro goToSettingsNavigation {
 		var key_settingsNavigation = ${settingsNavigation};
 
 		Click(locator1 = "ACSettings#SETTINGS_NAVIGATION");
 	}
 
-	@summary = "Default summary"
-	macro goToUsage() {
+	macro goToUsage {
 		ACSettings.goToSettingsNavigation(settingsNavigation = "usage");
 	}
 
-	@summary = "Default summary"
-	macro goToUserManagement() {
+	macro goToUserManagement {
 		ACSettings.goToSettingsNavigation(settingsNavigation = "users");
 	}
 
-	@summary = "Default summary"
-	macro goToWorkspace() {
+	macro goToWorkspace {
 		ACSettings.goToSettingsNavigation(settingsNavigation = "settings/workspace");
 	}
 
-	@summary = "Default summary"
-	macro navigateToRequestOrSuppressedOptions(optionValue = null, optionName = null) {
+	macro navigateToRequestOrSuppressedOptions {
 		var key_optionName = ${optionName};
 		var key_optionValue = ${optionValue};
 
 		Click(locator1 = "ACDataControlAndPrivacy#REQUEST_SUPPRESSED_OPTIONS");
 	}
 
-	@summary = "Default summary"
-	macro takeTokenFromAnalyticsCloud() {
+	macro takeTokenFromAnalyticsCloud {
 		ACSettings.goToDataSources();
 
 		Click(locator1 = "ACDXPSettings#AC_GENERIC_ADD_OR_CONFIRMATION_BUTTON");
@@ -933,8 +868,7 @@ definition {
 		return ${staticACToken};
 	}
 
-	@summary = "Default summary"
-	macro takeTokenFromExistingDataSource(dataSourceName = null) {
+	macro takeTokenFromExistingDataSource {
 		ACSettings.goToDataSources();
 
 		ACUtils.searchBar(searchItem = ${dataSourceName});
@@ -950,32 +884,27 @@ definition {
 		return ${staticExistingSourceToken};
 	}
 
-	@summary = "Default summary"
-	macro verifyCannotAddUser() {
+	macro verifyCannotAddUser {
 		AssertElementNotPresent(locator1 = "ACSettings#INVITE_USERS_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro viewCurrentPlan(planName = null) {
+	macro viewCurrentPlan {
 		AssertVisible(
 			key_planName = ${planName},
 			locator1 = "ACUsage#CURRENT_PLAN");
 	}
 
-	@summary = "Default summary"
-	macro viewDeleteNotAvailable() {
+	macro viewDeleteNotAvailable {
 		AssertElementNotPresent(locator1 = "ACSettings#DELETE_USER");
 	}
 
-	@summary = "Default summary"
-	macro viewEditnotAvailable() {
+	macro viewEditnotAvailable {
 		AssertElementNotPresent(
 			key_text = "Edit",
 			locator1 = "Button#ANY");
 	}
 
-	@summary = "Default summary"
-	macro viewFilterButton(filter = null, nofilter = null) {
+	macro viewFilterButton {
 		if (isSet(nofilter)) {
 			AssertElementNotPresent(
 				key_text = ${nofilter},
@@ -987,20 +916,17 @@ definition {
 			locator1 = "ACSettings#PROPERTIES_DROPDOWN_BUTTON");
 	}
 
-	@summary = "Default summary"
-	macro viewPropertyEntryName(propertyName = null) {
+	macro viewPropertyEntryName {
 		AssertElementPresent(
 			entryName = ${propertyName},
 			locator1 = "ACSettings#PROPERTIES_LIST_NAME");
 	}
 
-	@summary = "Default summary"
-	macro viewPropertyInfo() {
+	macro viewPropertyInfo {
 		AssertElementPresent(locator1 = "ACSettings#PROPERTIES_HEADER_DESCRIPTION");
 	}
 
-	@summary = "Default summary"
-	macro viewUserNotSelectable(email = null) {
+	macro viewUserNotSelectable {
 		AssertElementPresent(
 			locator1 = "ACSettings#USER_UNSELECTABLE",
 			userEmail = ${email});

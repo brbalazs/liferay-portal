@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addDepot(depotName = null, depotDescription = null) {
+	macro addDepot {
 		var portalURL = JSONCompany.getPortalURL();
 
 		var curl = '''

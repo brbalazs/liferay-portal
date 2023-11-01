@@ -4,8 +4,7 @@ definition {
 	var ddlDataDefinitionName = "Data Definition Name";
 	var ddlListName = "List Name";
 
-	@summary = "Default summary"
-	macro addCP(ddlDataDefinitionName = null, ddlListName = null) {
+	macro addCP {
 		var key_ddlListName = ${ddlListName};
 
 		DDLNavigator.gotoListRecords(ddlListName = ${ddlListName});
@@ -13,8 +12,7 @@ definition {
 		DDLNavigator.gotoAddListRecord(ddlDataDefinitionName = ${ddlDataDefinitionName});
 	}
 
-	@summary = "Default summary"
-	macro addPGViaAP(ddlRecordFieldData = null, fieldName = null, ddlListName = null) {
+	macro addPGViaAP {
 		AssetPublisherPortlet.addAsset(assetType = ${ddlListName});
 
 		DDLRecord.populateFieldText(
@@ -26,22 +24,19 @@ definition {
 			value1 = "Publish");
 	}
 
-	@summary = "Default summary"
-	macro addRepeatableField(fieldName = null) {
+	macro addRepeatableField {
 		var key_fieldName = ${fieldName};
 
 		Click(locator1 = "DDLEditRecord#FIELD_ADD");
 	}
 
-	@summary = "Default summary"
-	macro addViaDDLDisplayPG(ddlDataDefinitionName = null) {
+	macro addViaDDLDisplayPG {
 		var key_ddlDataDefinitionName = ${ddlDataDefinitionName};
 
 		Click(locator1 = "DDL#TOOLBAR_ADD");
 	}
 
-	@summary = "Default summary"
-	macro clearFieldDocumentsAndMedia(fieldName = null) {
+	macro clearFieldDocumentsAndMedia {
 		var key_fieldName = ${fieldName};
 
 		AssertClick(
@@ -49,8 +44,7 @@ definition {
 			value1 = "Clear");
 	}
 
-	@summary = "Default summary"
-	macro deleteCP(ddlRecordFieldData = null, ddlListName = null) {
+	macro deleteCP {
 		var key_ddlListName = ${ddlListName};
 
 		AssertTextEquals(
@@ -78,16 +72,14 @@ definition {
 			value1 = "no");
 	}
 
-	@summary = "Default summary"
-	macro deleteRepeatableField(fieldName = null, fieldNumber = null) {
+	macro deleteRepeatableField {
 		var key_fieldName = ${fieldName};
 		var key_fieldNumber = ${fieldNumber};
 
 		Click(locator1 = "DDLEditRecord#FIELD_DELETE");
 	}
 
-	@summary = "Default summary"
-	macro deleteViaDDLDisplayPG() {
+	macro deleteViaDDLDisplayPG {
 		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
 
 		MenuItem.clickNoError(menuItem = "Delete");
@@ -101,8 +93,7 @@ definition {
 			value1 = "There are no records.");
 	}
 
-	@summary = "Default summary"
-	macro editCP(ddlRecordFieldData = null, ddlListName = null) {
+	macro editCP {
 		var key_ddlListName = ${ddlListName};
 
 		AssertTextEquals(
@@ -122,15 +113,13 @@ definition {
 		MenuItem.click(menuItem = "Edit");
 	}
 
-	@summary = "Default summary"
-	macro editPG() {
+	macro editPG {
 		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
 
 		MenuItem.click(menuItem = "Edit");
 	}
 
-	@summary = "Default summary"
-	macro editViaRecordViewCP(ddlListName = null) {
+	macro editViaRecordViewCP {
 		var key_ddlListName = ${ddlListName};
 
 		AssertTextEquals(
@@ -152,8 +141,7 @@ definition {
 			value1 = "Edit");
 	}
 
-	@summary = "Default summary"
-	macro editViaRecordViewPG() {
+	macro editViaRecordViewPG {
 		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
 
 		MenuItem.click(menuItem = "View");
@@ -163,8 +151,7 @@ definition {
 			value1 = "Edit");
 	}
 
-	@summary = "Default summary"
-	macro expandInfo() {
+	macro expandInfo {
 		AssertElementNotPresent(locator1 = "DDLRecord#INFO_SIDEBAR_EXPANDED");
 
 		Click(locator1 = "Icon#INFO");
@@ -172,15 +159,13 @@ definition {
 		AssertElementPresent(locator1 = "DDLRecord#INFO_SIDEBAR_EXPANDED");
 	}
 
-	@summary = "Default summary"
-	macro gotoLinkToPageChildPages(parentPage = null) {
+	macro gotoLinkToPageChildPages {
 		var key_pageName = ${parentPage};
 
 		Click(locator1 = "DDLEditRecord#LINK_TO_PAGE_PAGE_CARET");
 	}
 
-	@summary = "Default summary"
-	macro gotoLinkToPageNavItem(pagePrivacy = null) {
+	macro gotoLinkToPageNavItem {
 		var key_navItem = "${pagePrivacy} Pages";
 
 		AssertClick(
@@ -188,8 +173,7 @@ definition {
 			value1 = "${pagePrivacy} Pages");
 	}
 
-	@summary = "Default summary"
-	macro gotoLinkToPageSelect(fieldName = null) {
+	macro gotoLinkToPageSelect {
 		var key_fieldName = ${fieldName};
 
 		AssertClick(
@@ -197,15 +181,13 @@ definition {
 			value1 = "Select");
 	}
 
-	@summary = "Default summary"
-	macro gotoRecordPreview() {
+	macro gotoRecordPreview {
 		AssertClick(
 			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_PREVIEW_1",
 			value1 = "(Preview)");
 	}
 
-	@summary = "Default summary"
-	macro populateFieldBoolean(ddlRecordFieldData = null, fieldName = null, fieldShowLabel = null, fieldFieldLabel = null) {
+	macro populateFieldBoolean {
 		DDLRecord.viewFieldLabel(
 			fieldFieldLabel = ${fieldFieldLabel},
 			fieldName = ${fieldName},
@@ -234,8 +216,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro populateFieldDate(ddlRecordFieldData = null, fieldName = null) {
+	macro populateFieldDate {
 		var key_fieldName = ${fieldName};
 
 		Type(
@@ -243,8 +224,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldDecimal(ddlRecordFieldData = null, fieldName = null) {
+	macro populateFieldDecimal {
 		var key_fieldName = ${fieldName};
 
 		Type(
@@ -252,8 +232,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldDocumentsAndMediaChooseFromDocumentLibrary(parentFieldName = null, fieldName = null, document = null, userRole = null) {
+	macro populateFieldDocumentsAndMediaChooseFromDocumentLibrary {
 		var key_fieldName = ${fieldName};
 
 		if (isSet(parentFieldName)) {
@@ -291,8 +270,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro populateFieldGeolocation(fieldName = null) {
+	macro populateFieldGeolocation {
 		var key_fieldName = ${fieldName};
 
 		AssertClick(
@@ -304,8 +282,7 @@ definition {
 		AssertElementPresent(locator1 = "DDLEditRecord#GEOLOCATION_GOOGLE_MAP");
 	}
 
-	@summary = "Default summary"
-	macro populateFieldHTML(ddlRecordFieldData = null, fieldName = null) {
+	macro populateFieldHTML {
 		var key_fieldName = ${fieldName};
 
 		Type.typeEditor(
@@ -313,8 +290,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldInteger(ddlRecordFieldData = null, fieldName = null) {
+	macro populateFieldInteger {
 		var key_fieldName = ${fieldName};
 
 		Type(
@@ -322,8 +298,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldLinkToPage(ddlRecordFieldData = null, parentPage = null, pagePrivacy = null, fieldName = null) {
+	macro populateFieldLinkToPage {
 		DDLRecord.gotoLinkToPageSelect(fieldName = ${fieldName});
 
 		DDLRecord.gotoLinkToPageNavItem(pagePrivacy = ${pagePrivacy});
@@ -343,8 +318,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldNumber(ddlRecordFieldData = null, fieldName = null) {
+	macro populateFieldNumber {
 		var key_fieldName = ${fieldName};
 
 		Type(
@@ -352,8 +326,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldRadio(ddlRecordFieldData = null, fieldName = null) {
+	macro populateFieldRadio {
 		var key_ddlRecordFieldData = ${ddlRecordFieldData};
 		var key_fieldName = ${fieldName};
 
@@ -364,8 +337,7 @@ definition {
 		Click(locator1 = "DDLEditRecord#RADIO_OPTION_RADIO");
 	}
 
-	@summary = "Default summary"
-	macro populateFieldSelect(ddlRecordFieldData = null, fieldName = null) {
+	macro populateFieldSelect {
 		var key_fieldName = ${fieldName};
 
 		Select(
@@ -373,8 +345,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldSelectViaSpreadsheetView(ddlRecordFieldData = null, fieldName = null, ddlRecordRow = null) {
+	macro populateFieldSelectViaSpreadsheetView {
 		var key_ddlRecordRow = ${ddlRecordRow};
 		var key_fieldName = ${fieldName};
 
@@ -393,8 +364,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldText(ddlRecordFieldData = null, fieldName = null) {
+	macro populateFieldText {
 		var key_fieldName = ${fieldName};
 
 		Type(
@@ -414,8 +384,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro populateFieldTextBox(ddlRecordFieldData = null, fieldName = null) {
+	macro populateFieldTextBox {
 		var key_fieldName = ${fieldName};
 
 		Type(
@@ -423,16 +392,14 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldTextViaSpreadsheetView(ddlRecordFieldData = null, fieldName = null, ddlRecordRow = null) {
+	macro populateFieldTextViaSpreadsheetView {
 		DDLRecord.populateFieldTextViaSpreadsheetViewCmd(
 			ddlRecordFieldData = ${ddlRecordFieldData},
 			ddlRecordRow = ${ddlRecordRow},
 			fieldName = ${fieldName});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldTextViaSpreadsheetViewCmd(ddlRecordFieldData = null, fieldName = null, ddlRecordRow = null) {
+	macro populateFieldTextViaSpreadsheetViewCmd {
 		var key_ddlRecordRow = ${ddlRecordRow};
 		var key_fieldName = ${fieldName};
 
@@ -451,8 +418,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro populateFieldWebContentChooseFromWebContentLibrary(fieldName = null, webContentTitle = null) {
+	macro populateFieldWebContentChooseFromWebContentLibrary {
 		var key_fieldName = ${fieldName};
 		var key_webContentTitle = ${webContentTitle};
 
@@ -469,8 +435,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro populateTranslationFieldText(ddlRecordFieldData = null, fieldName = null) {
+	macro populateTranslationFieldText {
 		var key_fieldName = ${fieldName};
 
 		Type(
@@ -490,8 +455,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro saveAsDraftCP() {
+	macro saveAsDraftCP {
 		AssertClick(
 			locator1 = "Button#SAVE_AS_DRAFT",
 			value1 = "Save as Draft");
@@ -499,8 +463,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro selectLinkToPageRadio(ddlRecordFieldData = null, parentPage = null) {
+	macro selectLinkToPageRadio {
 		if (isSet(parentPage)) {
 			DDLRecord.gotoLinkToPageChildPages(parentPage = ${parentPage});
 		}
@@ -512,15 +475,13 @@ definition {
 		Click(locator1 = "DDLEditRecord#LINK_TO_PAGE_PAGE_RADIO");
 	}
 
-	@summary = "Default summary"
-	macro submitForPublication() {
+	macro submitForPublication {
 		Button.clickSubmitForPublication();
 
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro viewEditPreview(fieldName = null, ddlRecordFieldDataEdit = null, fieldFieldLabel = null) {
+	macro viewEditPreview {
 		var key_fieldName = ${fieldName};
 
 		DDLRecord.viewFieldLabel(
@@ -536,8 +497,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewFieldCP(ddlRecordFieldData = null, field = null, ddlRecordNestedFieldData = null, fieldFieldLabel = null, nestedFieldFieldLabel = null, ddlRecordFieldData_1 = null) {
+	macro viewFieldCP {
 		var key_ddlRecordFieldData = ${ddlRecordFieldData};
 		var key_ddlRecordFieldData_1 = ${ddlRecordFieldData_1};
 		var key_fieldFieldLabel = ${fieldFieldLabel};
@@ -597,8 +557,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewFieldFormTemplateSpecific(field = null, fieldText = null) {
+	macro viewFieldFormTemplateSpecific {
 		if (${field} == "Paragraph") {
 			var key_fieldText = ${fieldText};
 
@@ -612,8 +571,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewFieldLabel(fieldName = null, fieldShowLabel = null, fieldFieldLabel = null) {
+	macro viewFieldLabel {
 		var key_fieldName = ${fieldName};
 
 		if (${fieldShowLabel} == "No") {
@@ -626,8 +584,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewFieldPredefinedValue(fieldName = null, fieldShowLabel = null, field = null, fieldFieldLabel = null, fieldPredefinedValue = null) {
+	macro viewFieldPredefinedValue {
 		var key_fieldName = ${fieldName};
 
 		if (${fieldShowLabel} != "No") {
@@ -715,8 +672,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewFieldRepeatedNotPresent(ddlRecordFieldData = null, fieldName = null) {
+	macro viewFieldRepeatedNotPresent {
 		AssertTextEquals(
 			locator1 = "xpath=(//div[@data-fieldname='${fieldName}'][1]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)",
 			value1 = ${ddlRecordFieldData});
@@ -726,8 +682,7 @@ definition {
 		AssertElementNotPresent(locator1 = "xpath=(//div[@data-fieldname='${fieldName}'][3]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)");
 	}
 
-	@summary = "Default summary"
-	macro viewFirstFieldCP(field = null, fieldShowLabel = null, workflowStatus = null, fieldFieldLabel = null, ddlRecordFieldData_1 = null) {
+	macro viewFirstFieldCP {
 		AssertTextEquals(
 			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_NAME",
 			value1 = ${fieldFieldLabel});
@@ -803,8 +758,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewFirstRecordSearchResult(ddlRecordFieldData = null, ddlListName = null, field = null) {
+	macro viewFirstRecordSearchResult {
 		AssertTextEquals(
 			locator1 = "Portlet#H4_COMPONENT_TITLE",
 			value1 = "New Data Definition Name for List: ${ddlListName}");
@@ -814,8 +768,7 @@ definition {
 			value1 = "${field} ${ddlRecordFieldData}");
 	}
 
-	@summary = "Default summary"
-	macro viewGeolocationRecord(fieldFieldLabel = null) {
+	macro viewGeolocationRecord {
 		AssertTextEquals(
 			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_NAME",
 			value1 = ${fieldFieldLabel});
@@ -829,13 +782,11 @@ definition {
 			value1 = "Longitude:");
 	}
 
-	@summary = "Default summary"
-	macro viewInvalidHTMLfield() {
+	macro viewInvalidHTMLfield {
 		AssertElementPresent(locator1 = "DDL#RECORD_TABLE_PREVIEW_INVALID_IMG");
 	}
 
-	@summary = "Default summary"
-	macro viewLinkToPageBreadcrumbCount() {
+	macro viewLinkToPageBreadcrumbCount {
 		var key_number = ${count};
 
 		AssertElementPresent(locator1 = "DDLEditRecord#LINK_TO_PAGE_BREADCRUMB");
@@ -847,8 +798,7 @@ definition {
 		AssertElementNotPresent(locator1 = "DDLEditRecord#LINK_TO_PAGE_BREADCRUMB");
 	}
 
-	@summary = "Default summary"
-	macro viewLinkToPageLink(ddlRecordFieldData = null) {
+	macro viewLinkToPageLink {
 		var key_pageName = ${ddlRecordFieldData};
 
 		AssertClick(
@@ -860,8 +810,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro viewNestedFields(nestedChildFieldFieldName = null, nestedParentFieldFieldName = null) {
+	macro viewNestedFields {
 		var key_nestedChildFieldFieldName = ${nestedChildFieldFieldName};
 		var key_nestedParentFieldFieldName = ${nestedParentFieldFieldName};
 
@@ -870,8 +819,7 @@ definition {
 		AssertElementPresent(locator1 = "DDLRecord#NESTED_PARENT_FIELD");
 	}
 
-	@summary = "Default summary"
-	macro viewNestedFieldsRepeating(nestedChildFieldFieldName = null, nestedParentFieldFieldName = null) {
+	macro viewNestedFieldsRepeating {
 		var key_nestedChildFieldFieldName = ${nestedChildFieldFieldName};
 		var key_nestedParentFieldFieldName = ${nestedParentFieldFieldName};
 
@@ -884,15 +832,13 @@ definition {
 		AssertElementPresent(locator1 = "DDLRecord#NESTED_PARENT_REPEATING_FIELD");
 	}
 
-	@summary = "Default summary"
-	macro viewNoRecords() {
+	macro viewNoRecords {
 		AssertTextEquals(
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "There are no records.");
 	}
 
-	@summary = "Default summary"
-	macro viewPGViaAP(ddlRecordFieldData = null, ddlListName = null) {
+	macro viewPGViaAP {
 		var key_assetContent = ${ddlRecordFieldData};
 		var key_assetTitle = ${ddlListName};
 
@@ -905,8 +851,7 @@ definition {
 			value1 = ${ddlRecordFieldData});
 	}
 
-	@summary = "Default summary"
-	macro viewPopulatedField(ddlRecordFieldData = null, fieldFieldLabel = null) {
+	macro viewPopulatedField {
 		var key_ddlRecordFieldData = ${ddlRecordFieldData};
 
 		AssertTextEquals.assertPartialText(
@@ -914,8 +859,7 @@ definition {
 			value1 = "${fieldFieldLabel} ${ddlRecordFieldData}");
 	}
 
-	@summary = "Default summary"
-	macro viewSecondFieldCP(ddlRecordFieldData = null, fieldFieldLabel = null) {
+	macro viewSecondFieldCP {
 		var key_ddlRecordFieldData = ${ddlRecordFieldData};
 		var key_fieldFieldLabel = ${fieldFieldLabel};
 
@@ -939,8 +883,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewSecondRecordSearchResult(ddlRecordFieldData = null, ddlListName = null, field = null) {
+	macro viewSecondRecordSearchResult {
 		AssertTextEquals(
 			locator1 = "Portlet#H4_COMPONENT_TITLE",
 			value1 = "New Data Definition Name for List: ${ddlListName}");
@@ -950,8 +893,7 @@ definition {
 			value1 = "${field} ${ddlRecordFieldData}");
 	}
 
-	@summary = "Default summary"
-	macro viewSecondRecordViaDDLDisplayTemplate(ddlRecordFieldData = null, ddlListName = null, fieldFieldLabel = null) {
+	macro viewSecondRecordViaDDLDisplayTemplate {
 		AssertTextEquals(
 			locator1 = "Portlet#H2_HEADER",
 			value1 = ${ddlListName});
@@ -971,8 +913,7 @@ definition {
 			value1 = "${fieldFieldLabel} ${ddlRecordFieldData}");
 	}
 
-	@summary = "Default summary"
-	macro viewSelectedLinkToPage(ddlRecordFieldData = null, fieldName = null) {
+	macro viewSelectedLinkToPage {
 		DDLRecord.gotoLinkToPageSelect(fieldName = ${fieldName});
 
 		var key_pageName = ${ddlRecordFieldData};
@@ -984,8 +925,7 @@ definition {
 			value1 = "Cancel");
 	}
 
-	@summary = "Default summary"
-	macro viewStatusViaDDLDisplayTable(workflowStatus = null, fieldFieldLabel = null) {
+	macro viewStatusViaDDLDisplayTable {
 		var key_fieldFieldLabel = ${fieldFieldLabel};
 		var key_workflowStatus = ${workflowStatus};
 
@@ -994,8 +934,7 @@ definition {
 			value1 = ${workflowStatus});
 	}
 
-	@summary = "Default summary"
-	macro viewTextFieldRepeated(ddlRecordFieldData2 = null, ddlRecordFieldData1 = null, ddlRecordFieldData3 = null) {
+	macro viewTextFieldRepeated {
 		AssertTextEquals(
 			locator1 = "xpath=(//div[@data-fieldname='Text'][1]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)",
 			value1 = ${ddlRecordFieldData1});
@@ -1014,15 +953,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewTranslationNotAvailable(localizedLanguage = null) {
+	macro viewTranslationNotAvailable {
 		AssertElementNotPresent(
 			key_localizedLanguage = ${localizedLanguage},
 			locator1 = "Translation#AVAILABLE_TRANSLATION");
 	}
 
-	@summary = "Default summary"
-	macro viewViaAnchorLink(ddlRecordFieldData = null, fieldFieldLabel = null) {
+	macro viewViaAnchorLink {
 		var key_ddlRecordFieldData = ${ddlRecordFieldData};
 
 		AssertClick(
@@ -1034,8 +971,7 @@ definition {
 			value1 = "${fieldFieldLabel} ${ddlRecordFieldData}");
 	}
 
-	@summary = "Default summary"
-	macro viewViaDDLDisplayPG(ddlListName = null, field = null, ddlRecordNestedFieldData = null, fieldFieldLabel = null, nestedFieldFieldLabel = null, userRole = null, ddlRecordFieldData_1 = null, ddlRecordFieldDataTableDisplay = null) {
+	macro viewViaDDLDisplayPG {
 		AssertTextEquals(
 			locator1 = "Portlet#H2_HEADER",
 			value1 = ${ddlListName});
@@ -1123,8 +1059,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewViaDDLDisplayTable(ddlRecordFieldData = null, fieldFieldLabel = null) {
+	macro viewViaDDLDisplayTable {
 		var key_ddlRecordFieldData = ${ddlRecordFieldData};
 		var key_fieldFieldLabel = ${fieldFieldLabel};
 

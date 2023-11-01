@@ -1,14 +1,14 @@
 @default = "sikuliClick"
 definition {
 
-	function sikuliClick() {
+	function sikuliClick {
 		WaitForSPARefresh();
 
-		selenium.sikuliClick(${locator1});
+		selenium.sikuliClick();
 
 		selenium.pause(2000);
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

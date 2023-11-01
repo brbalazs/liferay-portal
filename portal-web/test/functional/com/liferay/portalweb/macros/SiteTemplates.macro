@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addChildPageViaSiteTemplateCP(siteChildPageName = null, pageName = null, siteTemplateName = null) {
+	macro addChildPageViaSiteTemplateCP {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Manage",
 			rowEntry = ${siteTemplateName});
@@ -16,8 +15,7 @@ definition {
 			parentPageName = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro addCP(siteTemplateActive = null, disableChanges = null, siteTemplateName = null) {
+	macro addCP {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputName(name = ${siteTemplateName});
@@ -38,8 +36,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro addSitePageViaSiteTemplateCP(pageTemplateName = null, pageName = null, siteTemplateName = null, hideFromNavMenu = null) {
+	macro addSitePageViaSiteTemplateCP {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Manage",
 			rowEntry = ${siteTemplateName});
@@ -85,8 +82,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deleteCP(associatedToSite = null, siteTemplateName = null) {
+	macro deleteCP {
 		var key_siteTemplateName = ${siteTemplateName};
 
 		LexiconEntry.openEntryMenu(rowEntry = ${siteTemplateName});
@@ -111,8 +107,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deletePage(pageName = null, siteTemplateName = null) {
+	macro deletePage {
 		var key_siteTemplateName = ${siteTemplateName};
 
 		AssertTextEquals.assertPartialText(
@@ -130,8 +125,7 @@ definition {
 		SitePages.deletePage(pageName = ${pageName});
 	}
 
-	@summary = "Default summary"
-	macro deleteViaDeleteIconCP(siteTemplateName = null) {
+	macro deleteViaDeleteIconCP {
 		Click(
 			key_siteTemplateName = ${siteTemplateName},
 			locator1 = "Checkbox#SITE_TEMPLATE");
@@ -143,8 +137,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro editCP(siteTemplateDescription = null, siteTemplateName = null) {
+	macro editCP {
 		SiteTemplates.gotoSettingsCP(siteTemplateName = ${siteTemplateName});
 
 		PortletEntry.inputName(name = "${siteTemplateName} Edit");
@@ -159,8 +152,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro editTemplateStatusCP(siteTemplateActiveEdit = null, siteTemplateName = null) {
+	macro editTemplateStatusCP {
 		SiteTemplates.gotoSettingsCP(siteTemplateName = ${siteTemplateName});
 
 		if (${siteTemplateActiveEdit} == "No") {
@@ -173,8 +165,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro getSiteTemplateID(siteTemplateName = null) {
+	macro getSiteTemplateID {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Manage",
 			rowEntry = ${siteTemplateName});
@@ -192,8 +183,7 @@ definition {
 		return ${siteTemplateID};
 	}
 
-	@summary = "Default summary"
-	macro gotoSettingsCP(siteTemplateName = null) {
+	macro gotoSettingsCP {
 		var key_siteTemplateName = ${siteTemplateName};
 
 		AssertTextEquals.assertPartialText(
@@ -219,8 +209,7 @@ definition {
 		SiteAdmin.viewPortletTitle(portletTitle = "Site Template Settings");
 	}
 
-	@summary = "Default summary"
-	macro gotoViewPages(siteName = null, siteTemplateName = null) {
+	macro gotoViewPages {
 		var key_siteTemplateName = ${siteTemplateName};
 
 		AssertClick.assertPartialTextClickAt(
@@ -230,8 +219,7 @@ definition {
 		SelectWindow(locator1 = "Home - ${siteTemplateName} - ${siteName}");
 	}
 
-	@summary = "Default summary"
-	macro resetPageChanges(columnNumberTo = null, portletName = null) {
+	macro resetPageChanges {
 		Click(locator1 = "ControlMenu#INFO");
 
 		AssertTextEquals.assertPartialText(
@@ -255,8 +243,7 @@ definition {
 		AssertElementNotPresent(locator1 = "ControlMenu#INFO");
 	}
 
-	@summary = "Default summary"
-	macro tearDownCP() {
+	macro tearDownCP {
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
@@ -275,8 +262,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewCP(siteTemplateDescription = null, siteTemplateName = null) {
+	macro viewCP {
 		AssertTextEquals.assertPartialText(
 			key_siteTemplateName = ${siteTemplateName},
 			locator1 = "SiteTemplates#SITE_TEMPLATE_TABLE_NAME",
@@ -290,8 +276,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultCP(siteTemplateNameList = null) {
+	macro viewDefaultCP {
 		for (var siteTemplateName : list ${siteTemplateNameList}) {
 			var key_siteTemplateName = ${siteTemplateName};
 
@@ -303,8 +288,7 @@ definition {
 		AssertElementNotPresent(locator1 = "SiteTemplates#SITE_TEMPLATE_TABLE_NAME_3");
 	}
 
-	@summary = "Default summary"
-	macro viewDefaultDataLocalizedCP(siteTemplateNameList = null, siteTemplateDescriptionList = null) {
+	macro viewDefaultDataLocalizedCP {
 		for (var siteTemplateNameTranslation : list ${siteTemplateNameList}) {
 			var key_siteTemplateName = ${siteTemplateNameTranslation};
 
@@ -322,8 +306,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewNoInfoMessage() {
+	macro viewNoInfoMessage {
 		AssertElementNotPresent(locator1 = "ControlMenu#INFO");
 
 		AssertTextNotPresent(
@@ -331,8 +314,7 @@ definition {
 			value1 = "This page has been changed since the last update from the site template.");
 	}
 
-	@summary = "Default summary"
-	macro viewNoSiteOrWorkflowLinksCP(portletCategoryName = null) {
+	macro viewNoSiteOrWorkflowLinksCP {
 		LexiconEntry.viewEntryNamePartial(rowEntry = "Site Template Name");
 
 		LexiconEntry.gotoEntryMenuItem(
@@ -356,8 +338,7 @@ definition {
 		AssertElementNotPresent(locator1 = "Home#SITE_ADMINISTRATION_CATEGORY_COLLAPSED");
 	}
 
-	@summary = "Default summary"
-	macro viewNoTemplatesDisplay(siteTemplateName = null) {
+	macro viewNoTemplatesDisplay {
 		LexiconEntry.gotoAdd();
 
 		var key_siteTemplateName = ${siteTemplateName};
@@ -365,8 +346,7 @@ definition {
 		MenuItem.viewNotPresent(menuItem = ${siteTemplateName});
 	}
 
-	@summary = "Default summary"
-	macro viewResetPageChanges(columnNumberFrom = null, portletName = null) {
+	macro viewResetPageChanges {
 		AssertTextNotPresent(
 			locator1 = "Message#CUSTOMIZED_PAGE_INFO",
 			value1 = "This page has been changed since the last update from the site template.");
@@ -382,8 +362,7 @@ definition {
 			value1 = ${portletName});
 	}
 
-	@summary = "Default summary"
-	macro viewTemplateStatusCP(siteTemplateActiveEdit = null, siteTemplateName = null) {
+	macro viewTemplateStatusCP {
 		var key_siteTemplateName = ${siteTemplateName};
 
 		AssertTextEquals.assertPartialText(

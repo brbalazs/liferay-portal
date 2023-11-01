@@ -2,14 +2,14 @@
 @summary = "Verify that '${locator1}' is available"
 definition {
 
-	function verifyElementPresent(locator1) {
+	function verifyElementPresent {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "false");
 
-		selenium.verifyElementPresent(${locator1});
+		selenium.verifyElementPresent();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

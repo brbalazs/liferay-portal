@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addFragmentCollection(groupId = null, name = null) {
+	macro _addFragmentCollection {
 		Variables.assertDefined(parameterList = "${groupId},${name}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -17,8 +16,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _addSection(configuration = null, groupId = null, name = null, html = null, type = null, collectionId = null, status = null) {
+	macro _addSection {
 		Variables.assertDefined(parameterList = "${groupId},${collectionId},${name},${html},${configuration},${type},${status}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -42,8 +40,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _getCollectionIdByName(groupId = null, collectionName = null) {
+	macro _getCollectionIdByName {
 		Variables.assertDefined(parameterList = "${groupId},${collectionName}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -71,8 +68,7 @@ definition {
 		return ${collectionId};
 	}
 
-	@summary = "Default summary"
-	macro _getCollectionName(groupId = null, collectionName = null) {
+	macro _getCollectionName {
 		var portalURL = JSONCompany.getPortalURL();
 
 		var curl = '''
@@ -90,8 +86,7 @@ definition {
 		return ${collectionNameResult};
 	}
 
-	@summary = "Default summary"
-	macro _getFragmentName(fragmentName = null, groupId = null, fragmentCollectionId = null) {
+	macro _getFragmentName {
 		var portalURL = JSONCompany.getPortalURL();
 
 		var curl = '''

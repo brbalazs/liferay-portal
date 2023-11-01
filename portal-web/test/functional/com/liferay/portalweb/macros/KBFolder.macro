@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addCP(kbFolderName = null, kbFolderDescription = null, customField = null) {
+	macro addCP {
 		LexiconEntry.gotoAddMenuItem(menuItem = "Folder");
 
 		PortletEntry.inputName(name = ${kbFolderName});
@@ -30,8 +29,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deleteCP(kbFolderName = null) {
+	macro deleteCP {
 		LexiconEntry.gotoEntryMenuItemNoError(
 			menuItem = "Delete",
 			rowEntry = ${kbFolderName});
@@ -41,8 +39,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro editCP(kbFolderName = null, kbFolderEditedName = null, kbFolderDescription = null) {
+	macro editCP {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${kbFolderName});
@@ -54,8 +51,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro gotoCP(kbFolderName = null) {
+	macro gotoCP {
 		var key_kbFolderName = ${kbFolderName};
 
 		AssertClick(
@@ -67,8 +63,7 @@ definition {
 			value1 = ${kbFolderName});
 	}
 
-	@summary = "Default summary"
-	macro gotoViaKBDisplayPG(kbFolderName = null) {
+	macro gotoViaKBDisplayPG {
 		var key_kbFolderName = ${kbFolderName};
 
 		Select(
@@ -80,8 +75,7 @@ definition {
 			locator1 = "KnowledgeBase#FOLDER_SELECT_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro selectParentCP(kbFolderName = null) {
+	macro selectParentCP {
 		var key_kbArticleTitle = ${kbFolderName};
 
 		SelectFrame(locator1 = "KnowledgeBaseSelectParent#IFRAME");
@@ -110,8 +104,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro tearDownCP() {
+	macro tearDownCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -130,8 +123,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewFolderNameCP(kbFolderName = null) {
+	macro viewFolderNameCP {
 		var key_kbFolderName = ${kbFolderName};
 
 		AssertTextEquals(

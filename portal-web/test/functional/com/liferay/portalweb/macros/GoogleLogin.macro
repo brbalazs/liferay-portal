@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro acceptConditions() {
+	macro acceptConditions {
 		if (IsElementPresent.pauseIsElementPresent(locator1 = "GoogleLogin#ALLOW", value1 = "Allow")) {
 			Click(locator1 = "GoogleLogin#ALLOW");
 		}
@@ -23,8 +22,7 @@ definition {
 		SelectWindow.selectWindowTopNoSPARefresh();
 	}
 
-	@summary = "Default summary"
-	macro accountSignIn(userPassword = null, userEmailAddress = null) {
+	macro accountSignIn {
 		Navigator.openURL();
 
 		AssertClick(

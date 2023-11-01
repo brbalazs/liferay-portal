@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addCP(maxUserNumber = null, maxUsers = null, portalInstanceActive = null, webId = null, mailDomain = null, virtualHost = null) {
+	macro addCP {
 		LexiconEntry.gotoAdd();
 
 		Type(
@@ -29,8 +28,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro deactivatePortalInstance(virtualHost = null) {
+	macro deactivatePortalInstance {
 		var key_virtualHost = ${virtualHost};
 
 		LexiconEntry.openEntryMenu(rowEntry = ${virtualHost});
@@ -46,8 +44,7 @@ definition {
 			value1 = "No");
 	}
 
-	@summary = "Default summary"
-	macro deleteCP(virtualHost = null) {
+	macro deleteCP {
 		var key_virtualHost = ${virtualHost};
 
 		AssertTextEquals(
@@ -67,8 +64,7 @@ definition {
 			value1 = ${virtualHost});
 	}
 
-	@summary = "Default summary"
-	macro editCP(mailDomain = null, virtualHost = null) {
+	macro editCP {
 		var key_virtualHost = ${virtualHost};
 
 		AssertTextEquals(
@@ -88,13 +84,11 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro openVirtualInstancesAdmin() {
+	macro openVirtualInstancesAdmin {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_portal_instances_web_portlet_PortalInstancesPortlet");
 	}
 
-	@summary = "Default summary"
-	macro tearDownCP() {
+	macro tearDownCP {
 		var defaultPortalURL = PropsUtil.get("default.portal.url");
 
 		SignOut.signOutOfSpecificURL(url = ${defaultPortalURL});
@@ -119,8 +113,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewCP(virtualHost = null) {
+	macro viewCP {
 		var key_virtualHost = ${virtualHost};
 
 		AssertTextEquals(

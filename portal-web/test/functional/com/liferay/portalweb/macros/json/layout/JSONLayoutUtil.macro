@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addWidgetToTypeSettings(widgetName = null) {
+	macro _addWidgetToTypeSettings {
 
 		// Get column # we want to set to (can only be 1-3), default is 1
 
@@ -25,8 +24,7 @@ definition {
 		return ${typeSettings};
 	}
 
-	@summary = "Default summary"
-	macro _generateWidget(widgetName = null) {
+	macro _generateWidget {
 		Variables.assertDefined(parameterList = ${widgetName});
 
 		if (${widgetName} == "Activities") {
@@ -193,8 +191,7 @@ definition {
 		return ${widget};
 	}
 
-	@summary = "Default summary"
-	macro _getLayoutTemplateId(layoutTemplate = null) {
+	macro _getLayoutTemplateId {
 		if (!(isSet(layoutTemplate))) {
 			fail("layoutTemplate not set.");
 		}
@@ -251,8 +248,7 @@ definition {
 		return ${layoutTemplateId};
 	}
 
-	@summary = "Default summary"
-	macro _updateLayoutTemplateId(layoutTemplate = null) {
+	macro _updateLayoutTemplateId {
 		if (!(isSet(layoutTemplate))) {
 			fail("layoutTemplate not set.");
 		}

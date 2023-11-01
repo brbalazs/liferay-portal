@@ -1,24 +1,20 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoAssignees(roleTitle = null) {
+	macro gotoAssignees {
 		LexiconEntry.gotoEntry(rowEntry = ${roleTitle});
 
 		Navigator.gotoNavItem(navItem = "Assignees");
 	}
 
-	@summary = "Default summary"
-	macro gotoAssigneeType(assigneeType = null) {
+	macro gotoAssigneeType {
 		Navigator.gotoNavItem(navItem = ${assigneeType});
 	}
 
-	@summary = "Default summary"
-	macro gotoRoleType(roleType = null) {
+	macro gotoRoleType {
 		Navigator.gotoNavItem(navItem = "${roleType} Roles");
 	}
 
-	@summary = "Default summary"
-	macro gotoViewNotHaveRolePermissions(roleTitle = null, roleType = null) {
+	macro gotoViewNotHaveRolePermissions {
 		if (contains("Asset Library,Organization,Site", ${roleType})) {
 			Navigator.gotoNavItem(navItem = "${roleType} Roles");
 		}

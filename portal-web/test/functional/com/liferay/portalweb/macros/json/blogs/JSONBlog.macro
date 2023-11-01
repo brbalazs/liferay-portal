@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addEntry(workflowAction = null, groupName = null, site = null, assetCategoryIds = null, assetTagNames = null, entryTitle = null, entryContent = null) {
+	macro addEntry {
 		Variables.assertDefined(parameterList = "${entryContent},${entryTitle}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -67,8 +66,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro getBlogEntryId(groupName = null, friendlyURL = null, entryTitle = null) {
+	macro getBlogEntryId {
 		if (!(isSet(site))) {
 			var site = "true";
 		}

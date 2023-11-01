@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro enableAnalytics(analyticsList = null) {
+	macro enableAnalytics {
 		Panel.expandPanel(panel = "Audience Targeting Analytics");
 
 		for (var analytic : list ${analyticsList}) {
@@ -11,8 +10,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro enableAnalyticsViaSiteSettings(analyticsList = null) {
+	macro enableAnalyticsViaSiteSettings {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -25,8 +23,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro expandPreview(portletName = null) {
+	macro expandPreview {
 		var key_portletName = ${portletName};
 
 		if (IsElementNotPresent(locator1 = "ContentTargeting#PREVIEW_BUTTON_EXPANDED")) {
@@ -40,8 +37,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro expandPreviewOnStagingLiveMode(portletName = null) {
+	macro expandPreviewOnStagingLiveMode {
 		var key_portletName = ${portletName};
 
 		if (IsElementNotPresent(locator1 = "ContentTargeting#PREVIEW_BUTTON_EXPANDED")) {
@@ -53,8 +49,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewEntryOnStagingLiveMode(previewContentList = null, viewSelectedContent = null, portletName = null, entryContentText = null) {
+	macro viewEntryOnStagingLiveMode {
 		var key_portletName = ${portletName};
 
 		AssertTextEquals(

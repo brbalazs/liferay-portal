@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addDynamicAssetListEntry(groupName = null, title = null) {
+	macro addDynamicAssetListEntry {
 		Variables.assertDefined(parameterList = "${groupName},${title}");
 
 		var groupId = JSONAssetlistSetter.setGroupId(groupName = ${groupName});
@@ -13,8 +12,7 @@ definition {
 			type = ${type});
 	}
 
-	@summary = "Default summary"
-	macro addManualAssetListEntry(groupName = null, title = null) {
+	macro addManualAssetListEntry {
 		Variables.assertDefined(parameterList = "${groupName},${title}");
 
 		var groupId = JSONAssetlistSetter.setGroupId(groupName = ${groupName});

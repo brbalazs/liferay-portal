@@ -1,12 +1,12 @@
 @default = "assertConsoleTextNotPresent"
 definition {
 
-	function assertConsoleTextNotPresent() {
+	function assertConsoleTextNotPresent {
 		WaitForSPARefresh();
 
-		selenium.assertConsoleTextNotPresent(${value1});
+		selenium.assertConsoleTextNotPresent();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

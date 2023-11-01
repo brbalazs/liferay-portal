@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _gotoAddCollection() {
+	macro _gotoAddCollection {
 		if (IsElementPresent(locator1 = "NavNested#NAV_NESTED_PLUS")) {
 			Click(locator1 = "NavNested#NAV_NESTED_PLUS");
 		}
@@ -12,8 +11,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro addCollection(collectionDescription = null, collectionName = null) {
+	macro addCollection {
 		FragmentsAdmin._gotoAddCollection();
 
 		Collection.editCollection(
@@ -23,8 +21,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro addFragment(fragmentName = null) {
+	macro addFragment {
 		LexiconEntry.gotoAdd();
 
 		AssertTextEquals(
@@ -36,15 +33,13 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro exportCollection(collectionName = null) {
+	macro exportCollection {
 		Navigator.gotoNavNested(navNested = ${collectionName});
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Export");
 	}
 
-	@summary = "Default summary"
-	macro gotoImportCollection() {
+	macro gotoImportCollection {
 		if (IsElementPresent(locator1 = "NavNested#NAV_NESTED_ELLIPSIS")) {
 			Click(locator1 = "NavNested#NAV_NESTED_ELLIPSIS");
 		}
@@ -57,8 +52,7 @@ definition {
 		IFrame.selectConfigurationFrame();
 	}
 
-	@summary = "Default summary"
-	macro importCollectionFromDependenciesFolder(collectionZipFile = null) {
+	macro importCollectionFromDependenciesFolder {
 		FragmentsAdmin.gotoImportCollection();
 
 		UploadCommonFile(
@@ -72,8 +66,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro importCollectionFromTempFolder() {
+	macro importCollectionFromTempFolder {
 		FragmentsAdmin.gotoImportCollection();
 
 		var collectionsZipFileName = TestCase.getDownloadedTempFileName(fileNamePattern = "collections-*.zip");
@@ -89,8 +82,7 @@ definition {
 		IFrame.closeFrame();
 	}
 
-	@summary = "Default summary"
-	macro openFragmentsAdmin(siteURLKey = null) {
+	macro openFragmentsAdmin {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage/-/fragments");
 	}
 

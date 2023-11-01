@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro createNewUserAccount(userLastName = null, userScreenName = null, newPassword = null, userEmailAddress = null, userFirstName = null) {
+	macro createNewUserAccount {
 		User.createAccount(
 			newPassword = ${newPassword},
 			userEmailAddress = ${userEmailAddress},
@@ -12,8 +11,7 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	@summary = "Default summary"
-	macro gotoViaNotification(user = null, assetType = null) {
+	macro gotoViaNotification {
 		Notifications.gotoNotifications();
 
 		if (isSet(user)) {
@@ -28,8 +26,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro previewViewContent(fieldLabel = null, fieldValue = null) {
+	macro previewViewContent {
 		var key_fieldLabel = ${fieldLabel};
 		var key_fieldValue = ${fieldValue};
 
@@ -38,15 +35,13 @@ definition {
 			value1 = "${fieldLabel} ${fieldValue}");
 	}
 
-	@summary = "Default summary"
-	macro previewViewContentFieldNotPresent(fieldLabel = null) {
+	macro previewViewContentFieldNotPresent {
 		var key_fieldLabel = ${fieldLabel};
 
 		AssertElementNotPresent(locator1 = "AssetWorkflow#CONTENT_FIELD_PREVIEW_VIEW");
 	}
 
-	@summary = "Default summary"
-	macro viewDetails(workflowStatus = null, userName = null) {
+	macro viewDetails {
 		Click(locator1 = "Icon#INFO");
 
 		AssertTextEquals(
@@ -62,8 +57,7 @@ definition {
 			value1 = ${userName});
 	}
 
-	@summary = "Default summary"
-	macro viewFormEntryTable(workflowStatus = null, fieldLabel = null, fieldValue = null) {
+	macro viewFormEntryTable {
 		FormsAdmin.viewFormTableEntry(
 			fieldLabel = ${fieldLabel},
 			fieldValue = ${fieldValue});
@@ -77,22 +71,19 @@ definition {
 			value1 = ${workflowStatus});
 	}
 
-	@summary = "Default summary"
-	macro viewFormTemplateLabel(workflowFormsTemplateLabel = null) {
+	macro viewFormTemplateLabel {
 		AssertTextEquals.assertPartialText(
 			locator1 = "MyWorkflowTasksTask#PREVIEW_CONTENT",
 			value1 = ${workflowFormsTemplateLabel});
 	}
 
-	@summary = "Default summary"
-	macro viewNotification(contentBody = null) {
+	macro viewNotification {
 		AssertTextEquals(
 			locator1 = "Notifications#NOTIFICATIONS_WORKFLOW_TITLE",
 			value1 = ${contentBody});
 	}
 
-	@summary = "Default summary"
-	macro viewUserDetails(userEmailAddress = null) {
+	macro viewUserDetails {
 		AssertTextEquals.assertPartialText(
 			locator1 = "WorkflowSubmissionsTask#PREVIEW_USER",
 			value1 = ${userEmailAddress});

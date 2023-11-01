@@ -1,21 +1,18 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoAddPageViaPG() {
+	macro gotoAddPageViaPG {
 		Portlet.clickPortletPlusIconPG(portletName = "Wiki");
 
 		MenuItem.click(menuItem = "Add Page");
 	}
 
-	@summary = "Default summary"
-	macro gotoAllPagesCP() {
+	macro gotoAllPagesCP {
 		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
 
 		MenuItem.click(menuItem = "All Pages");
 	}
 
-	@summary = "Default summary"
-	macro gotoAllPagesPG() {
+	macro gotoAllPagesPG {
 		AssertClick(
 			locator1 = "WikiTable#NAVIGATION_ALL_PAGES",
 			value1 = "All Pages");
@@ -31,29 +28,25 @@ definition {
 			value1 = "All Pages");
 	}
 
-	@summary = "Default summary"
-	macro gotoAllPagesPGViaWD() {
+	macro gotoAllPagesPGViaWD {
 		AssertClick(
 			locator1 = "WikiTable#NAVIGATION_ALL_PAGES",
 			value1 = "All Pages");
 	}
 
-	@summary = "Default summary"
-	macro gotoBodyLinkPG(wikiPageContent = null) {
+	macro gotoBodyLinkPG {
 		AssertClick(
 			locator1 = "WikiEntry#BODY_LINK",
 			value1 = ${wikiPageContent});
 	}
 
-	@summary = "Default summary"
-	macro gotoChangeParent() {
+	macro gotoChangeParent {
 		AssertClick(
 			locator1 = "Wiki#PAGE_TABS_CHANGE_PARENT",
 			value1 = "Change Parent");
 	}
 
-	@summary = "Default summary"
-	macro gotoChildPagePG(wikiChildPageTitle = null) {
+	macro gotoChildPagePG {
 		var key_wikiChildPageTitle = ${wikiChildPageTitle};
 
 		AssertTextEquals.assertPartialText(
@@ -65,8 +58,7 @@ definition {
 			value1 = ${wikiChildPageTitle});
 	}
 
-	@summary = "Default summary"
-	macro gotoCP(isOrphanPage = null, wikiPageTitle = null) {
+	macro gotoCP {
 		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
 
 		if (${isOrphanPage} == "true") {
@@ -89,15 +81,13 @@ definition {
 			value1 = ${wikiPageTitle});
 	}
 
-	@summary = "Default summary"
-	macro gotoDraftPagesPG() {
+	macro gotoDraftPagesPG {
 		AssertClick(
 			locator1 = "WikiTable#NAVIGATION_DRAFT_PAGES",
 			value1 = "Draft Pages");
 	}
 
-	@summary = "Default summary"
-	macro gotoEntryCopyViaPGTable(wikiPageTitle = null) {
+	macro gotoEntryCopyViaPGTable {
 		var key_wikiPageTitle = ${wikiPageTitle};
 
 		Click(locator1 = "WikiTable#ALL_PAGES_VERTICAL_ELLIPSIS");
@@ -105,8 +95,7 @@ definition {
 		MenuItem.click(menuItem = "Copy");
 	}
 
-	@summary = "Default summary"
-	macro gotoEntryEditViaPGTable(wikiPageTitle = null) {
+	macro gotoEntryEditViaPGTable {
 		var key_wikiPageTitle = ${wikiPageTitle};
 
 		Click(locator1 = "WikiTable#ALL_PAGES_VERTICAL_ELLIPSIS");
@@ -114,8 +103,7 @@ definition {
 		MenuItem.click(menuItem = "Edit");
 	}
 
-	@summary = "Default summary"
-	macro gotoEntryMoveViaTable(wikiPageTitle = null) {
+	macro gotoEntryMoveViaTable {
 		LexiconEntry.changeDisplayStyle(displayStyle = "table");
 
 		var key_wikiPageTitle = ${wikiPageTitle};
@@ -125,8 +113,7 @@ definition {
 		MenuItem.click(menuItem = "Move");
 	}
 
-	@summary = "Default summary"
-	macro gotoEntryViaPGTable(wikiPageTitle = null) {
+	macro gotoEntryViaPGTable {
 		var key_wikiPageTitle = ${wikiPageTitle};
 
 		AssertClick(
@@ -134,8 +121,7 @@ definition {
 			value1 = ${wikiPageTitle});
 	}
 
-	@summary = "Default summary"
-	macro gotoFrontPageCP() {
+	macro gotoFrontPageCP {
 		LexiconEntry.changeDisplayStyle(displayStyle = "list");
 
 		var key_wikiPageTitle = "FrontPage";
@@ -149,15 +135,13 @@ definition {
 			value1 = "FrontPage");
 	}
 
-	@summary = "Default summary"
-	macro gotoFrontPagePG() {
+	macro gotoFrontPagePG {
 		AssertClick(
 			locator1 = "WikiTable#NAVIGATION_FRONTPAGE",
 			value1 = "FrontPage");
 	}
 
-	@summary = "Default summary"
-	macro gotoNode(wikiNodeName = null) {
+	macro gotoNode {
 		var key_wikiNodeName = ${wikiNodeName};
 
 		LexiconEntry.changeDisplayStyle(displayStyle = "table");
@@ -173,8 +157,7 @@ definition {
 		AssertElementPresent(locator1 = "Dropdown#FILTER_AND_ORDER");
 	}
 
-	@summary = "Default summary"
-	macro gotoPG(isOrphanPage = null, wikiPageTitle = null) {
+	macro gotoPG {
 		if (${isOrphanPage} == "true") {
 			AssertClick(
 				locator1 = "WikiTable#NAVIGATION_ORPHAN_PAGES",
@@ -191,8 +174,7 @@ definition {
 			value1 = ${wikiPageTitle});
 	}
 
-	@summary = "Default summary"
-	macro gotoPGViaWD(wikiPageTitle = null) {
+	macro gotoPGViaWD {
 		AssertClick(
 			locator1 = "WikiTable#NAVIGATION_ALL_PAGES",
 			value1 = "All Pages");
@@ -204,8 +186,7 @@ definition {
 			value1 = ${wikiPageTitle});
 	}
 
-	@summary = "Default summary"
-	macro openWikiAdmin(siteURLKey = null) {
+	macro openWikiAdmin {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_wiki_web_portlet_WikiAdminPortlet");
 	}
 

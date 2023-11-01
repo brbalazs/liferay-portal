@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addPage(pageTemplateName = null, pageName = null) {
+	macro addPage {
 		LexiconEntry.gotoAddMenuItem(menuItem = "Public Page");
 
 		if (!(isSet(collectionName))) {
@@ -28,8 +27,7 @@ definition {
 		SelectFrame.selectFrameTop();
 	}
 
-	@summary = "Default summary"
-	macro gotoEdit() {
+	macro gotoEdit {
 		Click(locator1 = "Icon#EDIT_PENCIL");
 	}
 

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _editFieldLabel(field = null, fieldFieldLabel = null) {
+	macro _editFieldLabel {
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${field});
 
 		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL");
@@ -15,8 +14,7 @@ definition {
 			value1 = "Save");
 	}
 
-	@summary = "Default summary"
-	macro addField(fieldName = null, field = null, fieldFieldLabel = null) {
+	macro addField {
 		AssertClick.pauseAssertTextClickAt(
 			locator1 = "DDMEditStructure#FIELDS_LINK",
 			value1 = "Fields");
@@ -53,8 +51,7 @@ definition {
 			value1 = "Fields");
 	}
 
-	@summary = "Default summary"
-	macro addFieldFormTemplateSpecific(field = null, fieldFieldLabel = null) {
+	macro addFieldFormTemplateSpecific {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		AssertClick.pauseAssertTextClickAt(
@@ -101,8 +98,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro addFieldNested(fieldName = null, field = null, fieldFieldLabel = null) {
+	macro addFieldNested {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		AssertClick.pauseAssertTextClickAt(
@@ -145,8 +141,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro addFieldViaJSON() {
+	macro addFieldViaJSON {
 		Click(
 			locator1 = "NavTab#SOURCE",
 			value1 = "Source");
@@ -158,8 +153,7 @@ definition {
 			value1 = "${sourceJSON} ");
 	}
 
-	@summary = "Default summary"
-	macro addFieldWithoutRename(field = null, fieldFieldLabel = null) {
+	macro addFieldWithoutRename {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		AssertClick.pauseAssertTextClickAt(
@@ -184,15 +178,13 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro assertFieldNameErrorMessage() {
+	macro assertFieldNameErrorMessage {
 		AssertTextEquals(
 			locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD_ALERT",
 			value1 = "Please enter a unique field name.");
 	}
 
-	@summary = "Default summary"
-	macro deleteField(fieldFieldLabel = null) {
+	macro deleteField {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		var key_fieldFieldLabel = ${fieldFieldLabel};
@@ -218,8 +210,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro editField(fieldNameEdit = null, fieldFieldLabel = null, fieldFieldLabelEdit = null) {
+	macro editField {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
@@ -263,8 +254,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro editFieldIndexable(fieldFieldLabel = null) {
+	macro editFieldIndexable {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
@@ -284,8 +274,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro editFieldLabel(fieldName = null, field = null, fieldFieldLabel = null) {
+	macro editFieldLabel {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping._editFieldLabel(
@@ -300,8 +289,7 @@ definition {
 			fieldName = ${fieldName});
 	}
 
-	@summary = "Default summary"
-	macro editFieldLocalizable(fieldFieldLabel = null) {
+	macro editFieldLocalizable {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
@@ -321,8 +309,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro editFieldNameCmd(fieldFieldLabel = null) {
+	macro editFieldNameCmd {
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
 
 		if (!(isSet(fieldName))) {
@@ -340,8 +327,7 @@ definition {
 			value1 = "Save");
 	}
 
-	@summary = "Default summary"
-	macro editFieldNameInvalidCharacter(fieldName = null, field = null, fieldFieldLabel = null) {
+	macro editFieldNameInvalidCharacter {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		var key_fieldFieldLabel = ${field};
@@ -357,8 +343,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro editFieldNameNested(fieldName = null) {
+	macro editFieldNameNested {
 		DynamicDataMapping.editFieldSettingsNested();
 
 		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_NAME");
@@ -372,8 +357,7 @@ definition {
 			value1 = "Save");
 	}
 
-	@summary = "Default summary"
-	macro editFieldNestedWithDuplicateName(fieldName = null, fieldNameEdit = null) {
+	macro editFieldNestedWithDuplicateName {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldNameNested(fieldName = ${fieldName});
@@ -385,8 +369,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro editFieldOptions(fieldName = null, field = null, fieldOptionsNames = null, fieldFieldLabel = null, fieldOptionsValues = null, fieldEditable = null) {
+	macro editFieldOptions {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
@@ -436,8 +419,7 @@ definition {
 			value1 = "Fields");
 	}
 
-	@summary = "Default summary"
-	macro editFieldPredefinedValue(fieldPredefinedValueMonth = null, groupName = null, fieldName = null, field = null, fieldPredefinedValueYear = null, fieldFieldLabel = null, fieldPredefinedValueDay = null, fieldPredefinedValue = null) {
+	macro editFieldPredefinedValue {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
@@ -534,8 +516,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro editFieldRepeatable(fieldFieldLabel = null) {
+	macro editFieldRepeatable {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
@@ -555,8 +536,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro editFieldRequired(fieldFieldLabel = null) {
+	macro editFieldRequired {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
@@ -564,8 +544,7 @@ definition {
 		DynamicDataMapping.makeFieldRequired();
 	}
 
-	@summary = "Default summary"
-	macro editFieldSettings(fieldFieldLabel = null) {
+	macro editFieldSettings {
 		var key_fieldFieldLabel = ${fieldFieldLabel};
 
 		DoubleClick(locator1 = "DDMEditStructure#FORM_FIELD");
@@ -575,8 +554,7 @@ definition {
 			value1 = "Settings");
 	}
 
-	@summary = "Default summary"
-	macro editFieldSettingsNested() {
+	macro editFieldSettingsNested {
 		DoubleClick(locator1 = "DDMEditStructure#FORM_FIELD_NESTED");
 
 		AssertClick(
@@ -584,8 +562,7 @@ definition {
 			value1 = "Settings");
 	}
 
-	@summary = "Default summary"
-	macro editFieldShowLabel(fieldShowLabel = null, fieldFieldLabel = null) {
+	macro editFieldShowLabel {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
@@ -617,8 +594,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro editFieldTip(fieldTip = null, fieldFieldLabel = null) {
+	macro editFieldTip {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettings(fieldFieldLabel = ${fieldFieldLabel});
@@ -644,8 +620,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro makeFieldRequired() {
+	macro makeFieldRequired {
 		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_REQUIRED");
 
 		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_YES_RADIO");
@@ -661,8 +636,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro selectDynamicDataMappingFrame() {
+	macro selectDynamicDataMappingFrame {
 		if (IsElementPresent(locator1 = "DDMEditStructure#IFRAME")) {
 			SelectFrame(locator1 = "DDMEditStructure#IFRAME");
 		}
@@ -671,8 +645,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewCanAddField(field = null) {
+	macro viewCanAddField {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		var key_field = ${field};
@@ -684,8 +657,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewCannotAddField(field = null) {
+	macro viewCannotAddField {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		var key_field = ${field};
@@ -697,8 +669,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewField(fieldTip = null, fieldName = null, fieldFieldLabel = null, i = null, j = null, ddlFormTemplateMode = null, fieldOptionsValue = null, fieldOptionsName = null, fieldShowLabel = null, field = null, fieldOptionsNames = null, fieldReadOnly = null, fieldPredefinedValue = null, fieldEditable = null, fieldOptionsValues = null) {
+	macro viewField {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		var key_fieldFieldLabel = ${fieldFieldLabel};
@@ -763,8 +734,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewFieldFormTemplateSpecific(field = null, fieldFieldLabel = null) {
+	macro viewFieldFormTemplateSpecific {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		var key_fieldFieldLabel = ${fieldFieldLabel};
@@ -788,8 +758,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewFieldNameNested(fieldNameNested = null) {
+	macro viewFieldNameNested {
 		DynamicDataMapping.selectDynamicDataMappingFrame();
 
 		DynamicDataMapping.editFieldSettingsNested();
@@ -801,8 +770,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewFieldOptionsCmd(fieldName = null, field = null, fieldOptionsNames = null, fieldFieldLabel = null, fieldEditable = null, fieldOptionsValues = null) {
+	macro viewFieldOptionsCmd {
 		var key_fieldFieldLabel = ${fieldFieldLabel};
 		var key_fieldName = ${fieldName};
 
@@ -859,8 +827,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewFieldPredefinedValueCmd(fieldName = null, field = null, fieldFieldLabel = null, fieldPredefinedValue = null) {
+	macro viewFieldPredefinedValueCmd {
 		var key_fieldFieldLabel = ${fieldFieldLabel};
 		var key_fieldName = ${fieldName};
 
@@ -884,8 +851,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewFieldReadOnlyCmd(fieldReadOnly = null, ddlFormTemplateMode = null) {
+	macro viewFieldReadOnlyCmd {
 		if (${ddlFormTemplateMode} == "Create") {
 			AssertElementNotPresent(locator1 = "DDMEditStructure#SETTINGS_READ_ONLY");
 		}

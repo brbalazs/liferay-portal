@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addCP(subcategoryName = null, vocabularyName = null, categoryName = null, subcategoryDescription = null) {
+	macro _addCP {
 		LexiconEntry.gotoEntry(rowEntry = ${vocabularyName});
 
 		LexiconEntry.gotoEntryMenuItem(
@@ -15,8 +14,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro addCP(subcategoryName = null, vocabularyName = null, categoryName = null, subcategoryDescription = null) {
+	macro addCP {
 		Subcategory._addCP(
 			categoryName = ${categoryName},
 			subcategoryDescription = ${subcategoryDescription},
@@ -26,8 +24,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro addDuplicateCP(subcategoryName = null, vocabularyName = null, categoryName = null) {
+	macro addDuplicateCP {
 		LexiconEntry.gotoEntry(rowEntry = ${vocabularyName});
 
 		LexiconEntry.gotoEntryMenuItem(
@@ -45,8 +42,7 @@ definition {
 			value1 = "Please enter a unique name.");
 	}
 
-	@summary = "Default summary"
-	macro addPropertyCP(subcategoryName = null, propertiesValueField = null, propertiesKeyField = null) {
+	macro addPropertyCP {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${subcategoryName});
@@ -64,8 +60,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro deleteViaIconCP(subcategoryName = null, vocabularyName = null, categoryName = null) {
+	macro deleteViaIconCP {
 		for (var rowEntry : list "${vocabularyName},${categoryName}") {
 			LexiconEntry.gotoEntry(rowEntry = ${rowEntry});
 		}
@@ -83,8 +78,7 @@ definition {
 		AssertTextNotPresent(value1 = ${subcategoryName});
 	}
 
-	@summary = "Default summary"
-	macro deleteViaMenuCP(subcategoryName = null, vocabularyName = null, categoryName = null) {
+	macro deleteViaMenuCP {
 		for (var rowEntry : list "${vocabularyName},${categoryName}") {
 			LexiconEntry.gotoEntry(rowEntry = ${rowEntry});
 		}
@@ -100,8 +94,7 @@ definition {
 		AssertTextNotPresent(value1 = ${subcategoryName});
 	}
 
-	@summary = "Default summary"
-	macro editCP(subcategoryNameEdit = null, subcategoryName = null, vocabularyName = null, categoryName = null) {
+	macro editCP {
 		for (var rowEntry : list "${vocabularyName},${categoryName}") {
 			LexiconEntry.gotoEntry(rowEntry = ${rowEntry});
 		}
@@ -115,8 +108,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro moveCP(subcategoryName = null, categoryNameMove = null, vocabularyName = null, categoryName = null) {
+	macro moveCP {
 		AssertClick(
 			key_rowEntry = ${vocabularyName},
 			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK",
@@ -134,8 +126,7 @@ definition {
 		AssetCategorization.selectCategory(categoryName = ${categoryNameMove});
 	}
 
-	@summary = "Default summary"
-	macro searchCP(subcategorySearchEntry = null, vocabularyName = null, categoryName = null) {
+	macro searchCP {
 		for (var rowEntry : list "${vocabularyName},${categoryName}") {
 			LexiconEntry.gotoEntry(rowEntry = ${rowEntry});
 		}
@@ -143,8 +134,7 @@ definition {
 		Search.searchCP(searchTerm = ${subcategorySearchEntry});
 	}
 
-	@summary = "Default summary"
-	macro viewCategoryPropertyCP(subcategoryName = null, propertiesValueField = null, propertiesKeyField = null, vocabularyName = null, categoryName = null) {
+	macro viewCategoryPropertyCP {
 		LexiconEntry.gotoEntry(rowEntry = ${vocabularyName});
 
 		var key_categoryName = ${categoryName};
@@ -166,8 +156,7 @@ definition {
 			value1 = ${propertiesValueField});
 	}
 
-	@summary = "Default summary"
-	macro viewCP(subcategoryName = null, vocabularyName = null, categoryName = null) {
+	macro viewCP {
 		var key_categoryName = ${categoryName};
 
 		LexiconEntry.gotoEntry(rowEntry = ${vocabularyName});
@@ -183,8 +172,7 @@ definition {
 			value1 = ${subcategoryName});
 	}
 
-	@summary = "Default summary"
-	macro viewSearchResultsCP(subcategoryName = null, nullResult = null, subcategoryDescriptionList = null, subCategoryNameList = null, subcategoryDescription = null) {
+	macro viewSearchResultsCP {
 		if (isSet(subCategoryNameList)) {
 			for (var subCategoryName : list ${subCategoryNameList}) {
 				var key_subCategoryName = ${subCategoryName};

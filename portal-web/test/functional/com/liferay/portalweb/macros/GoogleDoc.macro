@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoDrive(userPassword = null, userEmailAddress = null, windowTitle = null) {
+	macro gotoDrive {
 		AssertElementPresent(locator1 = "Button#SELECT_FILE");
 
 		AssertClick(
@@ -45,8 +44,7 @@ definition {
 		SelectFrame(locator1 = "GoogleDrive#GOOGLE_DRIVE_IFRAME");
 	}
 
-	@summary = "Default summary"
-	macro selectDocument(googleDocName = null) {
+	macro selectDocument {
 		var key_googleDocName = ${googleDocName};
 
 		Click.clickAt(

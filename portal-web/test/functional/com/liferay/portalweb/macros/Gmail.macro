@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro deleteSpecificMail(gmailMessageTitleList = null) {
+	macro deleteSpecificMail {
 		for (var gmailMessageTitle : list ${gmailMessageTitleList}) {
 			var key_gmailMessageTitle = ${gmailMessageTitle};
 
@@ -15,8 +14,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro gotoHtmlMode() {
+	macro gotoHtmlMode {
 		Navigator.openSpecificURL(url = "https://mail.google.com/mail/?ui=html&zy=h");
 
 		if (IsElementPresent(locator1 = "Gmail#GMAIL_HTML_MODE_CONFIRMATION")) {
@@ -26,8 +24,7 @@ definition {
 		Pause(locator1 = 5000);
 	}
 
-	@summary = "Default summary"
-	macro gotoMail(emailFromUserName = null, gmailMessageTitle = null, gmailAssetType = null) {
+	macro gotoMail {
 		var key_gmailAssetType = ${gmailAssetType};
 
 		if (IsElementNotPresent(locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_USER_NAME")) {
@@ -51,8 +48,7 @@ definition {
 		Pause(locator1 = 3000);
 	}
 
-	@summary = "Default summary"
-	macro login(userPassword = null, userEmailAddress = null) {
+	macro login {
 		Navigator.openSpecificURL(url = "http://www.gmail.com");
 
 		Pause(locator1 = 5000);
@@ -95,8 +91,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro logoutAndLogin(userPassword = null, userEmailAddress = null) {
+	macro logoutAndLogin {
 		Navigator.openSpecificURL(url = "http://www.gmail.com");
 
 		Pause(locator1 = 3000);
@@ -140,8 +135,7 @@ definition {
 		Pause(locator1 = 5000);
 	}
 
-	@summary = "Default summary"
-	macro openMessageContinueReadingButton(siteName = null, contentTitle = null, pageName = null) {
+	macro openMessageContinueReadingButton {
 		var pageNameURL = StringUtil.replace(${pageName}, " ", "-");
 
 		var pageNameURL = StringUtil.lowerCase("/${pageNameURL}");
@@ -158,8 +152,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro openMessageLink(siteName = null, gmailAssetType = null, contentTitle = null) {
+	macro openMessageLink {
 		var key_gmailAssetType = ${gmailAssetType};
 		var pageNameURL = StringUtil.replace(${pageName}, " ", "-");
 
@@ -184,8 +177,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro replyMail(gmailReplyMessage = null) {
+	macro replyMail {
 		Type(
 			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_QUICK_REPLY_FIELD",
 			value1 = ${gmailReplyMessage});
@@ -199,8 +191,7 @@ definition {
 			value1 = "Your message has been sent.");
 	}
 
-	@summary = "Default summary"
-	macro viewMail(emailFromUserName = null, gmailMessageTitle = null, gmailMessageBody = null, gmailAssetType = null, gmailMessageAttachment = null) {
+	macro viewMail {
 		Gmail.gotoMail(
 			emailFromUserName = ${emailFromUserName},
 			gmailAssetType = ${gmailAssetType},

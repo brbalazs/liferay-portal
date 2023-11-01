@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro setGroupId(groupName = null) {
+	macro setGroupId {
 		Variables.assertDefined(parameterList = ${groupName});
 
 		if (!(isSet(site))) {
@@ -15,8 +14,7 @@ definition {
 		return ${groupId};
 	}
 
-	@summary = "Default summary"
-	macro setType(selectionType = null) {
+	macro setType {
 		Variables.assertDefined(parameterList = ${selectionType});
 
 		if (${selectionType} == "manual") {

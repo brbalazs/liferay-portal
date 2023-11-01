@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro click(menuItem = null) {
+	macro click {
 		Click(
 			key_menuItem = ${menuItem},
 			locator1 = "MenuItem#DROPDOWN_MENU_ITEM");

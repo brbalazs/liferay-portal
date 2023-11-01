@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addPG(entryComment = null) {
+	macro addPG {
 		Click(
 			key_editor = "postReply",
 			locator1 = "AlloyEditor#EDITOR");
@@ -17,8 +16,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro addPGAsGuest(userLastName = null, userEmailAddress = null, userFirstName = null, entryTitle = null, entryContent = null) {
+	macro addPGAsGuest {
 		BlogsNavigator.gotoEntryPG(
 			entryContent = ${entryContent},
 			entryTitle = ${entryTitle});
@@ -74,8 +72,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro delete(entryComment = null) {
+	macro delete {
 		var key_entryComment = ${entryComment};
 
 		MouseOver(
@@ -91,8 +88,7 @@ definition {
 		AssertTextNotPresent(value1 = ${entryComment});
 	}
 
-	@summary = "Default summary"
-	macro edit(entryCommentEdit = null, entryComment = null) {
+	macro edit {
 		var key_entryComment = ${entryComment};
 
 		MouseOver(locator1 = "Comments#COMMENT_BODY_SPECIFIC");
@@ -118,8 +114,7 @@ definition {
 			value1 = ${entryCommentEdit});
 	}
 
-	@summary = "Default summary"
-	macro getCommentId() {
+	macro getCommentId {
 		var currentURL = selenium.getCurrentUrl();
 
 		var commentId = StringUtil.extractLast(${currentURL}, "message_");
@@ -129,8 +124,7 @@ definition {
 		return ${commentId};
 	}
 
-	@summary = "Default summary"
-	macro replyToComment(commentReply = null) {
+	macro replyToComment {
 		AssertClick(
 			key_entryComment = "Reply",
 			key_text = "Reply",
@@ -152,8 +146,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro subscribePG() {
+	macro subscribePG {
 		AssertClick(
 			locator1 = "Comments#SUBSCRIBE_TO_COMMENTS_LINK",
 			value1 = "Subscribe to Comments");
@@ -161,8 +154,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro viewCommentReadOnly() {
+	macro viewCommentReadOnly {
 		AssertElementNotPresent(locator1 = "Comments#COMMENT_FIELD");
 
 		AssertTextEquals(
@@ -170,8 +162,7 @@ definition {
 			value1 = "Comments are read only in Staging.");
 	}
 
-	@summary = "Default summary"
-	macro viewNoPG(entryComment = null, userFullName = null) {
+	macro viewNoPG {
 		AssertTextEquals.assertPartialText(
 			locator1 = "Comments#ENTRY_COUNT_PANEL",
 			value1 = "0 COMMENTS");
@@ -185,8 +176,7 @@ definition {
 			locator1 = "Comments#COMMENT_BODY_SPECIFIC");
 	}
 
-	@summary = "Default summary"
-	macro viewPG(entryComment = null, userFullName = null, commentCount = null) {
+	macro viewPG {
 		var key_entryComment = ${entryComment};
 
 		Pause(locator1 = 1000);
@@ -208,8 +198,7 @@ definition {
 			value1 = ${entryComment});
 	}
 
-	@summary = "Default summary"
-	macro viewSubscribedPG() {
+	macro viewSubscribedPG {
 		AssertTextEquals(
 			locator1 = "Comments#UNSUBSCRIBE_FROM_COMMENTS_LINK",
 			value1 = "Unsubscribe from Comments");

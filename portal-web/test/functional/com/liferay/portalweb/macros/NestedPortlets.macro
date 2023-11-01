@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro dragAndDropPortletToPortletColumnPG(portletColumnNumberTo = null, columnNumberFrom = null, portletName = null) {
+	macro dragAndDropPortletToPortletColumnPG {
 		var key_portletTitleName = ${portletName};
 
 		MouseOver.mouseOverNotVisible(locator1 = "Home#PAGE_COLUMN_PORTLET_COLUMN_${columnNumberFrom}_PORTLET_HEADER");
@@ -20,8 +19,7 @@ definition {
 			value1 = ${portletName});
 	}
 
-	@summary = "Default summary"
-	macro viewConfigurationDefaultLayoutTemplate(portletName = null) {
+	macro viewConfigurationDefaultLayoutTemplate {
 		Portlet.gotoPortletOptions(
 			portletName = ${portletName},
 			portletOption = "Configuration");
@@ -33,8 +31,7 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro viewPG(portletColumnNumberTo = null, portletName = null) {
+	macro viewPG {
 		var key_portletTitleName = ${portletName};
 
 		AssertTextEquals(

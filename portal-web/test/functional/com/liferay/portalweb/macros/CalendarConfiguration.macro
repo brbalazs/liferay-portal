@@ -1,12 +1,10 @@
 definition {
 
-	@summary = "Default summary"
-	macro disableGlobalTimeZone() {
+	macro disableGlobalTimeZone {
 		Uncheck(locator1 = "CalendarConfiguration#USER_SETTINGS_GLOBAL_TIME_ZONE_CHECKBOX");
 	}
 
-	@summary = "Default summary"
-	macro editNumberOfEventsDisplayed(maxNumberOfEvents = null) {
+	macro editNumberOfEventsDisplayed {
 		CalendarConfiguration.gotoDisplaySettings();
 
 		Select(
@@ -14,8 +12,7 @@ definition {
 			value1 = ${maxNumberOfEvents});
 	}
 
-	@summary = "Default summary"
-	macro editTimeZonePacific() {
+	macro editTimeZonePacific {
 		CalendarConfiguration.disableGlobalTimeZone();
 
 		if (IsTextNotEqual(locator1 = "Select#LOS_ANGELES_TIME_ZONE", value1 = "(UTC -07:00) Pacific Daylight Time")) {
@@ -30,8 +27,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro editTimeZoneUTC() {
+	macro editTimeZoneUTC {
 		CalendarConfiguration.disableGlobalTimeZone();
 
 		Select(
@@ -39,67 +35,57 @@ definition {
 			value1 = "(UTC) Coordinated Universal Time");
 	}
 
-	@summary = "Default summary"
-	macro enableGlobalTimeZone() {
+	macro enableGlobalTimeZone {
 		Check(locator1 = "CalendarConfiguration#USER_SETTINGS_GLOBAL_TIME_ZONE_CHECKBOX");
 	}
 
-	@summary = "Default summary"
-	macro enableRSS() {
+	macro enableRSS {
 		CalendarConfiguration.gotoRSS();
 
 		Click(locator1 = "CalendarConfiguration#RSS_ENABLE_RSS_SUBSCRIPTION_SWITCHER");
 	}
 
-	@summary = "Default summary"
-	macro gotoDisplaySettings() {
+	macro gotoDisplaySettings {
 		AssertClick(
 			locator1 = "CalendarConfiguration#NAVIGATION_DISPLAY_SETTINGS",
 			value1 = "Display Settings");
 	}
 
-	@summary = "Default summary"
-	macro gotoRSS() {
+	macro gotoRSS {
 		AssertClick(
 			locator1 = "CalendarConfiguration#NAVIGATION_USER_RSS",
 			value1 = "RSS");
 	}
 
-	@summary = "Default summary"
-	macro save() {
+	macro save {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro selectDefaultDuration(defaultDuration = null) {
+	macro selectDefaultDuration {
 		Select(
 			locator1 = "CalendarConfiguration#USER_SETTINGS_DEFAULT_DURATION_SELECT",
 			value1 = ${defaultDuration});
 	}
 
-	@summary = "Default summary"
-	macro selectDefaultView(defaultView = null) {
+	macro selectDefaultView {
 		Select(
 			locator1 = "CalendarConfiguration#USER_SETTINGS_DEFAULT_VIEW_SELECT",
 			value1 = ${defaultView});
 	}
 
-	@summary = "Default summary"
-	macro selectTimeFormat(timeFormat = null) {
+	macro selectTimeFormat {
 		Select(
 			locator1 = "CalendarConfiguration#USER_SETTINGS_TIME_FORMAT_SELECT",
 			value1 = ${timeFormat});
 	}
 
-	@summary = "Default summary"
-	macro selectWeekStartsOn(weekStartDay = null) {
+	macro selectWeekStartsOn {
 		Select(
 			locator1 = "CalendarConfiguration#USER_SETTINGS_WEEK_STARTS_ON_SELECT",
 			value1 = ${weekStartDay});
 	}
 
-	@summary = "Default summary"
-	macro tearDown() {
+	macro tearDown {
 		CalendarNavigator.gotoConfiguration();
 
 		CalendarConfiguration.selectDefaultDuration(defaultDuration = "60 Minutes");
@@ -115,8 +101,7 @@ definition {
 		CalendarConfiguration.save();
 	}
 
-	@summary = "Default summary"
-	macro viewRSSOptionsDisabled() {
+	macro viewRSSOptionsDisabled {
 		AssertElementNotPresent(locator1 = "CalendarConfiguration#RSS_SETTING_OPTIONS");
 	}
 

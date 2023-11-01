@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _searchSite(site = null) {
+	macro _searchSite {
 		if (contains(${site}, "Liferay")) {
 			var searchTerm = "guest";
 		}
@@ -12,8 +11,7 @@ definition {
 		Search.searchCP(searchTerm = ${searchTerm});
 	}
 
-	@summary = "Default summary"
-	macro selectSite(site = null) {
+	macro selectSite {
 		LexiconEntry.changeDisplayStyle(displayStyle = "table");
 
 		SiteSelector._searchSite(site = ${site});
@@ -23,8 +21,7 @@ definition {
 		SelectFrameTop();
 	}
 
-	@summary = "Default summary"
-	macro viewSite(site = null) {
+	macro viewSite {
 		LexiconEntry.changeDisplayStyle(displayStyle = "table");
 
 		SiteSelector._searchSite(site = ${site});

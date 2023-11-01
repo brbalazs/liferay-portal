@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addSampleBooking() {
+	macro addSampleBooking {
 		AssertClick(
 			locator1 = "Samplelarportlet#ADD_SAMPLE_BOOKING_BUTTON",
 			value1 = "Add Sample Booking");
@@ -13,8 +12,7 @@ definition {
 		AssertElementPresent(locator1 = "Samplelarportlet#SAMPLE_BOOKING_TABLE_BOOKING_NUMBER");
 	}
 
-	@summary = "Default summary"
-	macro viewSampleBookingNumber(bookingNumber = null) {
+	macro viewSampleBookingNumber {
 		AssertElementPresent(locator1 = "Samplelarportlet#SAMPLE_BOOKING_TABLE_BOOKING_ID");
 
 		AssertTextEquals(

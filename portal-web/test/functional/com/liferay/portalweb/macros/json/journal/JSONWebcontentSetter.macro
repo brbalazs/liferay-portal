@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro setArticleId(groupName = null, title = null) {
+	macro setArticleId {
 		Variables.assertDefined(parameterList = "${groupName},${title}");
 
 		var groupId = JSONWebcontentSetter.setGroupId(groupName = ${groupName});
@@ -16,8 +15,7 @@ definition {
 		return ${articleId};
 	}
 
-	@summary = "Default summary"
-	macro setContentXML(contentMap = null, source = null, content = null) {
+	macro setContentXML {
 		JSONUtil2._exclusiveOrCheck(
 			A = ${content},
 			B = ${contentMap},
@@ -35,8 +33,7 @@ definition {
 		return ${contentXML};
 	}
 
-	@summary = "Default summary"
-	macro setDescriptionMap(description = null) {
+	macro setDescriptionMap {
 		if (isSet(description)) {
 			var descriptionMap = '''{"en_US":"${description}"}''';
 		}
@@ -47,8 +44,7 @@ definition {
 		return ${descriptionMap};
 	}
 
-	@summary = "Default summary"
-	macro setFolderId(groupId = null, folderName = null) {
+	macro setFolderId {
 		if (isSet(folderName)) {
 			Variables.assertDefined(parameterList = ${groupId});
 
@@ -63,8 +59,7 @@ definition {
 		return ${folderId};
 	}
 
-	@summary = "Default summary"
-	macro setGroupId(groupName = null) {
+	macro setGroupId {
 		Variables.assertDefined(parameterList = ${groupName});
 
 		if (!(isSet(site))) {
@@ -78,8 +73,7 @@ definition {
 		return ${groupId};
 	}
 
-	@summary = "Default summary"
-	macro setServiceContext(assetCategoryIds = null, assetTagNames = null, workflowAction = null) {
+	macro setServiceContext {
 		if (!(isSet(serviceContext))) {
 			var serviceContext = JSONServiceContextUtil.setServiceContext(
 				addGuestPermissions = "true",
@@ -91,8 +85,7 @@ definition {
 		return ${serviceContext};
 	}
 
-	@summary = "Default summary"
-	macro setTitleMap(title = null) {
+	macro setTitleMap {
 		JSONUtil2._exclusiveOrCheck(
 			A = ${title},
 			B = ${titleMap},

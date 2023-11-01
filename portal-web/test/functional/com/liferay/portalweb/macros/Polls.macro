@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addPollChoice(choiceField = null, pollsQuestionChoice = null) {
+	macro addPollChoice {
 		var key_choiceField = ${choiceField};
 
 		Type(
@@ -9,8 +8,7 @@ definition {
 			value1 = ${pollsQuestionChoice});
 	}
 
-	@summary = "Default summary"
-	macro addPollCP(pollsQuestionChoiceB = null, pollsQuestion = null, pollsQuestionChoiceA = null, pollsQuestionTitle = null, permissionsViewRole = null, pollsQuestionChoiceE = null, pollsQuestionChoiceD = null, pollsQuestionChoiceC = null) {
+	macro addPollCP {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputTitle(title = ${pollsQuestionTitle});
@@ -86,8 +84,7 @@ definition {
 			value1 = "Save");
 	}
 
-	@summary = "Default summary"
-	macro addPollCPWithExpirationDate(pollsQuestionChoiceB = null, pollsQuestion = null, pollsQuestionChoiceA = null, pollsQuestionTitle = null, permissionsViewRole = null, pollsQuestionChoiceE = null, pollsQuestionChoiceD = null, expirationDate = null, pollsQuestionChoiceC = null) {
+	macro addPollCPWithExpirationDate {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputTitle(title = ${pollsQuestionTitle});
@@ -183,8 +180,7 @@ definition {
 			value1 = "Save");
 	}
 
-	@summary = "Default summary"
-	macro addPollPG(pollsQuestionChoiceB = null, pollsQuestion = null, pollsQuestionChoiceA = null, pollsQuestionTitle = null) {
+	macro addPollPG {
 		Click(locator1 = "Polls#ADD_NEW_POLL");
 
 		SelectFrame(locator1 = "IFrame#DIALOG");
@@ -208,8 +204,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro DeletePollCP(pollsQuestionTitle = null) {
+	macro DeletePollCP {
 		ProductMenu.gotoPortlet(
 			category = "Content",
 			panel = "Site Administration",
@@ -228,8 +223,7 @@ definition {
 			value1 = "Your request completed successfully.");
 	}
 
-	@summary = "Default summary"
-	macro selectPollPG(pollsQuestionTitle = null) {
+	macro selectPollPG {
 		MouseOver.mouseOverNotVisible(locator1 = "Polls#SELECT_QUESTION");
 
 		Click(locator1 = "Polls#SELECT_QUESTION");
@@ -249,8 +243,7 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro tearDownCP() {
+	macro tearDownCP {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -271,8 +264,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewPollAsGuestPG(pollsQuestion = null, pollsQuestionChoiceList = null) {
+	macro viewPollAsGuestPG {
 		var key_pollsQuestion = ${pollsQuestion};
 
 		AssertTextEquals.assertPartialText(
@@ -292,8 +284,7 @@ definition {
 			value1 = "Please sign in to vote.");
 	}
 
-	@summary = "Default summary"
-	macro viewPollChartArea(pollsQuestionTitle = null) {
+	macro viewPollChartArea {
 		var key_pollsQuestionTitle = ${pollsQuestionTitle};
 
 		Click(locator1 = "Polls#POLLS_TABLE_TITLE");
@@ -307,8 +298,7 @@ definition {
 		Close.closeWindow(locator1 = "null");
 	}
 
-	@summary = "Default summary"
-	macro viewPollOnLivingSite(pollsQuestion = null, pollsQuestionTotalVotes = null, pollsQuestionVotePercent = null, pollsQuestionChoiceList = null, pollsQuestionVoteCount = null) {
+	macro viewPollOnLivingSite {
 		var key_pollsQuestion = ${pollsQuestion};
 
 		AssertTextEquals.assertPartialText(
@@ -328,8 +318,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewPollPG(pollsQuestion = null, pollsQuestionChoiceList = null) {
+	macro viewPollPG {
 		var key_pollsQuestion = ${pollsQuestion};
 
 		AssertTextEquals.assertPartialText(
@@ -349,8 +338,7 @@ definition {
 			value1 = "Vote");
 	}
 
-	@summary = "Default summary"
-	macro viewVotedPollPG(pollsQuestionTotalVotes = null, pollsQuestionVotePercent = null, pollsQuestionChoice = null, pollsQuestionVoteCount = null) {
+	macro viewVotedPollPG {
 		var key_pollsQuestionChoice = ${pollsQuestionChoice};
 
 		AssertTextEquals(
@@ -368,8 +356,7 @@ definition {
 			value1 = "Total Votes: ${pollsQuestionTotalVotes}");
 	}
 
-	@summary = "Default summary"
-	macro votePollPG(pollsQuestionChoice = null) {
+	macro votePollPG {
 		var key_pollsQuestionChoice = ${pollsQuestionChoice};
 
 		Click(locator1 = "Polls#POLL_QUESTION_CHOICE");

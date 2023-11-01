@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro uploadArchiveFile(fileName = null) {
+	macro uploadArchiveFile {
 		var tempDir = PropsUtil.get("output.dir.name");
 		var dependencyFilePath = TestCase.getDependenciesDirPath(fileName = ${fileName});
 
@@ -14,8 +13,7 @@ definition {
 			value1 = ${dependencyFilePath});
 	}
 
-	@summary = "Default summary"
-	macro uploadFile(fileName = null) {
+	macro uploadFile {
 		var dependencyFilePath = TestCase.getDependenciesDirPath(fileName = ${fileName});
 
 		UploadFile(

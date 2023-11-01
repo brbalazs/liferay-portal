@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro assertCurrentTimeFilterRange(cardName = null, timeFilterRangeWarning = null, timeFilterRange = null) {
+	macro assertCurrentTimeFilterRange {
 		if (isSet(cardName)) {
 			var key_cardName = ${cardName};
 
@@ -21,15 +20,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro clickMorePresetPeriods() {
+	macro clickMorePresetPeriods {
 		var key_dropdownOption = "More Preset Periods";
 
 		Click(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro clickTimeFilterButton(cardName = null) {
+	macro clickTimeFilterButton {
 		if (isSet(cardName)) {
 			var key_cardName = ${cardName};
 
@@ -40,8 +37,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro setCustomRange(cardName = null, startMonth = null, startDay = null, endDay = null, startYear = null, endMonth = null, endYear = null) {
+	macro setCustomRange {
 		var key_dropdownOption = "Custom Range";
 
 		if (isSet(cardName)) {
@@ -86,22 +82,19 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro setLast7Days() {
+	macro setLast7Days {
 		var key_dropdownOption = "Last 7 days";
 
 		Click(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro setLast24Hours() {
+	macro setLast24Hours {
 		var key_dropdownOption = "Last 24 hours";
 
 		Click(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro setLast28Days() {
+	macro setLast28Days {
 		var key_dropdownOption = "More Preset Periods";
 
 		if (IsElementPresent(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION")) {
@@ -113,22 +106,19 @@ definition {
 		Click(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro setLast30Days() {
+	macro setLast30Days {
 		var key_dropdownOption = "Last 30 days";
 
 		Click(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro setLast90Days() {
+	macro setLast90Days {
 		var key_dropdownOption = "Last 90 days";
 
 		Click(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro setLast180Days() {
+	macro setLast180Days {
 		var key_dropdownOption = "More Preset Periods";
 
 		if (IsElementPresent(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION")) {
@@ -140,8 +130,7 @@ definition {
 		Click(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro setLastYear() {
+	macro setLastYear {
 		var key_dropdownOption = "More Preset Periods";
 
 		if (IsElementPresent(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION")) {
@@ -153,8 +142,7 @@ definition {
 		Click(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro setYesterday() {
+	macro setYesterday {
 		var key_dropdownOption = "More Preset Periods";
 
 		if (IsElementPresent(locator1 = "ACTimeFilter#TIME_FILTER_DROPDOWN_OPTION")) {

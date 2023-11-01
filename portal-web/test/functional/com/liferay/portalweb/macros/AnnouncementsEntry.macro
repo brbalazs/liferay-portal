@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addEntryWithFutureDate(distributionScope = null, entryURL = null, entryTitle = null, entryContent = null) {
+	macro addEntryWithFutureDate {
 		AssertClick(
 			locator1 = "Button#ADD_ANNOUNCEMENT",
 			value1 = "Add Announcement");
@@ -62,8 +61,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro addPG(distributionScope = null, entryURL = null, priority = null, entryTitle = null, entryContent = null, expirationDate = null) {
+	macro addPG {
 		AssertClick(
 			locator1 = "Button#ADD_ANNOUNCEMENT",
 			value1 = "Add Announcement");
@@ -112,8 +110,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro deletePG(distributionScope = null, entryTitle = null, entryContent = null) {
+	macro deletePG {
 		var key_distributionScope = ${distributionScope};
 		var key_entryTitle = ${entryTitle};
 
@@ -140,8 +137,7 @@ definition {
 		AssertTextNotPresent(value1 = ${entryContent});
 	}
 
-	@summary = "Default summary"
-	macro editPG(entryContentEdit = null, distributionScope = null, entryTitleEdit = null, entryTitle = null, entryContent = null, entryURLEdit = null) {
+	macro editPG {
 		var key_distributionScope = ${distributionScope};
 		var key_entryTitle = ${entryTitle};
 
@@ -186,8 +182,7 @@ definition {
 		Button.clickSave();
 	}
 
-	@summary = "Default summary"
-	macro markAsReadPG(entryContent = null) {
+	macro markAsReadPG {
 		var key_entryContent = ${entryContent};
 
 		AssertVisible(locator1 = "Announcements#CARD_VIEW_ENTRY_CONTENT");
@@ -197,8 +192,7 @@ definition {
 		AssertElementNotPresent(locator1 = "Announcements#CARD_VIEW_ENTRY_CONTENT");
 	}
 
-	@summary = "Default summary"
-	macro tearDownPG() {
+	macro tearDownPG {
 		Click(locator1 = "Announcements#NAVIGATION_MANAGE_ENTRIES");
 
 		Select(
@@ -214,15 +208,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewDeletePG(entryTitle = null, entryContent = null) {
+	macro viewDeletePG {
 		AssertTextNotPresent(value1 = ${entryTitle});
 
 		AssertTextNotPresent(value1 = ${entryContent});
 	}
 
-	@summary = "Default summary"
-	macro viewList(distributionScope = null, entryTitle = null) {
+	macro viewList {
 		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
@@ -234,8 +226,7 @@ definition {
 			value1 = ${distributionScope});
 	}
 
-	@summary = "Default summary"
-	macro viewNoPG(entryTitle = null) {
+	macro viewNoPG {
 		var key_entryTitle = ${entryTitle};
 
 		AssertTextNotPresent(
@@ -243,8 +234,7 @@ definition {
 			value1 = ${entryTitle});
 	}
 
-	@summary = "Default summary"
-	macro viewPG(distributionScope = null, entryTitle = null, entryContent = null) {
+	macro viewPG {
 		var key_distributionScope = ${distributionScope};
 		var key_entryTitle = ${entryTitle};
 
@@ -263,8 +253,7 @@ definition {
 			value1 = ${entryContent});
 	}
 
-	@summary = "Default summary"
-	macro viewReadPG(distributionScope = null, announcementType = null, entryTitle = null, entryContent = null) {
+	macro viewReadPG {
 		Click(
 			locator1 = "Announcements#NAVIGATION_ENTRIES_READ",
 			value1 = "Read");
@@ -278,8 +267,7 @@ definition {
 			key_entryTitle = ${entryTitle});
 	}
 
-	@summary = "Default summary"
-	macro viewViaEntriesPG(distributionScope = null, entryTitle = null, entryContent = null) {
+	macro viewViaEntriesPG {
 		var key_distributionScope = ${distributionScope};
 		var key_entryTitle = ${entryTitle};
 

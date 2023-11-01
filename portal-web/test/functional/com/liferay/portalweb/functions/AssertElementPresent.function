@@ -2,38 +2,38 @@
 @summary = "Assert that '${locator1}' is available"
 definition {
 
-	function assertElementPresent() {
+	function assertElementPresent {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent();
 
-		selenium.assertElementPresent(${locator1});
+		selenium.assertElementPresent();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function assertVisible() {
+	function assertVisible {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible();
 
-		selenium.assertVisible(${locator1});
+		selenium.assertVisible();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function pauseAssertVisible() {
+	function pauseAssertVisible {
 		WaitForSPARefresh();
 
 		selenium.pause(2000);
 
 		AssertElementPresent.assertVisible();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

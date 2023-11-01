@@ -1,14 +1,14 @@
 @default = "sikuliType"
 definition {
 
-	function sikuliType() {
+	function sikuliType {
 		WaitForSPARefresh();
 
-		selenium.sikuliType(${locator1}, ${value1});
+		selenium.sikuliType();
 
 		selenium.pause(2000);
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

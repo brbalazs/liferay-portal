@@ -3,8 +3,7 @@ definition {
 	var formDescription = "Created Form Description";
 	var formName = "Created Form Name";
 
-	@summary = "Default summary"
-	macro deleteFormEntry(formEntryValue = null) {
+	macro deleteFormEntry {
 		LexiconEntry.gotoEntryMenuItemNoError(
 			menuItem = "Delete",
 			rowEntry = ${formEntryValue});
@@ -14,8 +13,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	@summary = "Default summary"
-	macro editDataProvider(outputParameterLabel = null, outputParameterPath2 = null, inputParameterName = null, inputParameterLabel = null, url = null, outputParameterName = null, outputParameterPath = null, password = null, inputParameterType = null, outputParameterName2 = null, name = null, outputParameterType2 = null, outputParameterLabel2 = null, outputParameterType = null, username = null) {
+	macro editDataProvider {
 		FormFields.editText(
 			fieldName = "DataProviderPortlet_name",
 			fieldValue = ${name});
@@ -54,8 +52,7 @@ definition {
 			outputParameterType2 = ${outputParameterType2});
 	}
 
-	@summary = "Default summary"
-	macro editDataProviderInputParameter(inputParameterName = null, inputParameterType = null, inputParameterLabel = null) {
+	macro editDataProviderInputParameter {
 		Type(
 			locator1 = "Form#DATA_PROVIDER_INPUT_PARAMETER_LABEL_FIELD",
 			value1 = ${inputParameterLabel});
@@ -67,8 +64,7 @@ definition {
 		FormFields.selectDataProviderInputType(inputParameterType = ${inputParameterType});
 	}
 
-	@summary = "Default summary"
-	macro editDataProviderOutputParameter(outputParameterPath = null, outputParameterLabel = null, outputParameterPath2 = null, outputParameterType2 = null, outputParameterLabel2 = null, outputParameterType = null) {
+	macro editDataProviderOutputParameter {
 		Type(
 			locator1 = "Form#DATA_PROVIDER_OUTPUT_PARAMETER_PATH_FIELD",
 			value1 = ${outputParameterPath});
@@ -100,20 +96,17 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro openFormsAdmin(baseURL = null, siteURLKey = null) {
+	macro openFormsAdmin {
 		Navigator.openWithAppendToBaseURL(
 			baseURL = ${baseURL},
 			urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_dynamic_data_mapping_form_web_portlet_DDMFormAdminPortlet");
 	}
 
-	@summary = "Default summary"
-	macro saveDataProvider() {
+	macro saveDataProvider {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro teardownForms() {
+	macro teardownForms {
 		while (IsElementPresent(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS")) {
 			LexiconEntry.gotoEllipsisMenuItemNoError(menuItem = "Delete");
 
@@ -123,15 +116,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewCannotEditFormEntries() {
+	macro viewCannotEditFormEntries {
 		AssertElementNotPresent(locator1 = "FormPortlet#SUBMIT_BUTTON");
 
 		AssertElementNotPresent(locator1 = "FormFields#FIELD_ADD");
 	}
 
-	@summary = "Default summary"
-	macro viewCheckboxEntry(fieldName = null, fieldLabel = null) {
+	macro viewCheckboxEntry {
 		FormsAdmin.viewCannotEditFormEntries();
 
 		var key_fieldName = ${fieldName};
@@ -143,8 +134,7 @@ definition {
 		AssertElementPresent(locator1 = "FormFields#CHECKBOX");
 	}
 
-	@summary = "Default summary"
-	macro viewDateEntry(fieldName = null, fieldLabel = null, fieldValue = null) {
+	macro viewDateEntry {
 		FormsAdmin.viewCannotEditFormEntries();
 
 		FormFields.viewDateLabel(
@@ -157,8 +147,7 @@ definition {
 			fieldValue = ${fieldValue});
 	}
 
-	@summary = "Default summary"
-	macro viewForm(formName = null, formDescription = null) {
+	macro viewForm {
 		var key_formName = ${formName};
 
 		AssertTextEquals(
@@ -176,8 +165,7 @@ definition {
 		AssertElementPresent(locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
 	}
 
-	@summary = "Default summary"
-	macro viewFormTableEntry(fieldLabel = null, fieldValue = null) {
+	macro viewFormTableEntry {
 		var key_fieldLabel = ${fieldLabel};
 		var key_fieldValue = ${fieldValue};
 
@@ -186,16 +174,14 @@ definition {
 			value1 = ${fieldValue});
 	}
 
-	@summary = "Default summary"
-	macro viewFormTableEntryNotPresent(fieldLabel = null, fieldValue = null) {
+	macro viewFormTableEntryNotPresent {
 		var key_fieldLabel = ${fieldLabel};
 		var key_fieldValue = ${fieldValue};
 
 		AssertElementNotPresent(locator1 = "FormsAdmin#FORM_ENTRY_TABLE_ENTRY");
 	}
 
-	@summary = "Default summary"
-	macro viewMultilineTextEntry(fieldName = null, fieldLabel = null, fieldValue = null) {
+	macro viewMultilineTextEntry {
 		FormsAdmin.viewCannotEditFormEntries();
 
 		FormFields.viewTextLabel(
@@ -207,36 +193,31 @@ definition {
 			fieldValue = ${fieldValue});
 	}
 
-	@summary = "Default summary"
-	macro viewNoDuplicateForms(formName = null) {
+	macro viewNoDuplicateForms {
 		var key_formName = ${formName};
 
 		AssertElementNotPresent(locator1 = "FormsAdmin#FORMS_TABLE_NAME_2");
 	}
 
-	@summary = "Default summary"
-	macro viewNoFormEntries() {
+	macro viewNoFormEntries {
 		AssertTextEquals(
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "There are no entries.");
 	}
 
-	@summary = "Default summary"
-	macro viewNoFormEntriesFound() {
+	macro viewNoFormEntriesFound {
 		AssertTextEquals(
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "No entries were found.");
 	}
 
-	@summary = "Default summary"
-	macro viewNoForms() {
+	macro viewNoForms {
 		AssertTextEquals(
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "There are no forms. Click on the plus button to add the first one.");
 	}
 
-	@summary = "Default summary"
-	macro viewRadioEntry(fieldName = null, fieldLabel = null, fieldValue = null) {
+	macro viewRadioEntry {
 		FormsAdmin.viewCannotEditFormEntries();
 
 		FormFields.viewRadioLabel(
@@ -248,8 +229,7 @@ definition {
 			fieldValue = ${fieldValue});
 	}
 
-	@summary = "Default summary"
-	macro viewSelectEntry(fieldName = null, fieldLabel = null) {
+	macro viewSelectEntry {
 		FormsAdmin.viewCannotEditFormEntries();
 
 		FormFields.viewSelectLabel(
@@ -259,16 +239,14 @@ definition {
 		FormFields.viewSelectValue(fieldName = ${fieldName});
 	}
 
-	@summary = "Default summary"
-	macro viewTableEntryNotPresent(fieldLabel = null, fieldValue = null) {
+	macro viewTableEntryNotPresent {
 		AssertElementNotPresent(
 			key_fieldLabel = ${fieldLabel},
 			key_fieldValue = ${fieldValue},
 			locator1 = "FormsAdmin#FORM_ENTRY_TABLE_ENTRY");
 	}
 
-	@summary = "Default summary"
-	macro viewTextEntry(fieldName = null, fieldLabel = null, fieldValue = null) {
+	macro viewTextEntry {
 		FormsAdmin.viewCannotEditFormEntries();
 
 		FormFields.viewTextLabel(
@@ -280,8 +258,7 @@ definition {
 			fieldValue = ${fieldValue});
 	}
 
-	@summary = "Default summary"
-	macro viewUploadFile(uploadFileName = null, fieldName = null, fieldLabel = null) {
+	macro viewUploadFile {
 		FormFields.viewUploadLabel(
 			fieldLabel = ${fieldLabel},
 			fieldName = ${fieldName});

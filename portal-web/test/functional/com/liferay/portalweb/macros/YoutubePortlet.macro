@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addVideoId(videoId = null) {
+	macro addVideoId {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
 		Type(
@@ -9,8 +8,7 @@ definition {
 			value1 = ${videoId});
 	}
 
-	@summary = "Default summary"
-	macro assertVideoTitle(videoTitle = null) {
+	macro assertVideoTitle {
 		SelectFrame(locator1 = "YoutubePortlet#VIDEO_IFRAME");
 
 		AssertTextEquals.assertPartialText(
@@ -20,8 +18,7 @@ definition {
 		SelectFrameTop();
 	}
 
-	@summary = "Default summary"
-	macro viewPortletConfiguration(videoId = null) {
+	macro viewPortletConfiguration {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 
 		AssertTextEquals(

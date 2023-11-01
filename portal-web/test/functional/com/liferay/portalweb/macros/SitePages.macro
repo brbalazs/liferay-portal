@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addPage(inheritChanges = null, sitePageType = null, pageTypeURL = null, pageTemplateName = null, pageName = null) {
+	macro _addPage {
 		SitePages._selectPageType(
 			pageTemplateName = ${pageTemplateName},
 			sitePageType = ${sitePageType});
@@ -53,8 +52,7 @@ definition {
 		WaitForSPARefresh();
 	}
 
-	@summary = "Default summary"
-	macro _configurePage(sitePageType = null, pageTypeURL = null, portlet = null, componentName = null, layoutPageTemplateName = null, columnName = null) {
+	macro _configurePage {
 		if (${sitePageType} == "Embedded") {
 			Page._addPageTypeEmbedded(pageTypeURL = ${pageTypeURL});
 		}
@@ -76,8 +74,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro _selectPageType(pageTemplateName = null) {
+	macro _selectPageType {
 		if (!(isSet(sitePageType))) {
 			var sitePageType = "Widget Page";
 		}
@@ -96,8 +93,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro addChildPage(parentPageName = null, sitePageType = null, childPageName = null, pageTemplateName = null) {
+	macro addChildPage {
 		MouseOver(
 			key_itemName = ${parentPageName},
 			locator1 = "SitePages#LIST_GROUP_ITEM");
@@ -112,8 +108,7 @@ definition {
 			sitePageType = ${sitePageType});
 	}
 
-	@summary = "Default summary"
-	macro addPrivateChildPage(parentPageName = null, sitePageType = null, childPageName = null, pageTemplateName = null) {
+	macro addPrivateChildPage {
 		SitePages.togglePrivacy(privacy = "Private Pages");
 
 		SitePages.addChildPage(
@@ -123,8 +118,7 @@ definition {
 			sitePageType = ${sitePageType});
 	}
 
-	@summary = "Default summary"
-	macro addPrivatePage(sitePageType = null, siteTemplate = null, pageTemplateName = null, pageName = null) {
+	macro addPrivatePage {
 		if (${siteTemplate} == "true") {
 			LexiconEntry.gotoAdd();
 		}
@@ -138,8 +132,7 @@ definition {
 			sitePageType = ${sitePageType});
 	}
 
-	@summary = "Default summary"
-	macro addPublicChildPage(parentPageName = null, sitePageType = null, childPageName = null, pageTemplateName = null) {
+	macro addPublicChildPage {
 		SitePages.togglePrivacy(privacy = "Public Pages");
 
 		SitePages.addChildPage(
@@ -149,8 +142,7 @@ definition {
 			sitePageType = ${sitePageType});
 	}
 
-	@summary = "Default summary"
-	macro addPublicPage(inheritChanges = null, pageTypeURL = null, sitePageType = null, pageTemplateName = null, pageName = null) {
+	macro addPublicPage {
 		LexiconEntry.gotoAddMenuItem(menuItem = "Public Page");
 
 		SitePages._addPage(
@@ -161,8 +153,7 @@ definition {
 			sitePageType = ${sitePageType});
 	}
 
-	@summary = "Default summary"
-	macro addPublicPageLocalization(sitePageType = null, pageTemplateName = null, saveButton = null, menuItemLocalization = null, pageName = null) {
+	macro addPublicPageLocalization {
 		LexiconEntry.gotoAddMenuItem(menuItem = ${menuItemLocalization});
 
 		SitePages._selectPageType(
@@ -182,8 +173,7 @@ definition {
 		AssertVisible(locator1 = "TextInput#NAME");
 	}
 
-	@summary = "Default summary"
-	macro configureChildPage(pageTypeURL = null, sitePageType = null, parentPagesHierarchy = null, portlet = null, componentName = null, layoutPageTemplateName = null, pageName = null, columnName = null) {
+	macro configureChildPage {
 		SitePages.gotoPageMenuItem(
 			menuItem = "Configure",
 			pageName = ${pageName},
@@ -200,8 +190,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro configurePage(pageTypeURL = null, sitePageType = null, privacy = null, portlet = null, componentName = null, layoutPageTemplateName = null, pageName = null, columnName = null) {
+	macro configurePage {
 		ProductMenu.gotoPortlet(
 			category = "Build",
 			panel = "Site Administration",
@@ -224,8 +213,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro deletePage(failure = null, pageName = null) {
+	macro deletePage {
 		Click(
 			key_pageName = ${pageName},
 			locator1 = "SitePages#LIST_GROUP_ITEM_ELLIPSIS_ICON");
@@ -253,8 +241,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro expandPageTree() {
+	macro expandPageTree {
 		if (!(isSet(depth))) {
 			var depth = 1;
 		}
@@ -272,8 +259,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro gotoPageMenuItem(parentPagesHierarchy = null, menuItem = null, pageName = null) {
+	macro gotoPageMenuItem {
 		if (isSet(parentPagesHierarchy)) {
 			for (var parentPage : list ${parentPagesHierarchy}) {
 				Click(
@@ -289,8 +275,7 @@ definition {
 		MenuItem.click(menuItem = ${menuItem});
 	}
 
-	@summary = "Default summary"
-	macro openPagesAdmin(baseURL = null) {
+	macro openPagesAdmin {
 		var siteURLKey = StringUtil.replace(${siteURLKey}, " ", "-");
 
 		var siteURLKey = StringUtil.lowerCase(${siteURLKey});
@@ -300,8 +285,7 @@ definition {
 			urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_layout_admin_web_portlet_GroupPagesPortlet");
 	}
 
-	@summary = "Default summary"
-	macro togglePrivacy(privacy = null) {
+	macro togglePrivacy {
 		AssertTextEquals(
 			locator1 = "Portlet#HEADER",
 			value1 = "Pages");

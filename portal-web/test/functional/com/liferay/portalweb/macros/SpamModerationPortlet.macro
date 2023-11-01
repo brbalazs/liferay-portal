@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro MarkAsNotSpam(wikiPageTitle = null, assetType = null) {
+	macro MarkAsNotSpam {
 		if (${assetType} == "wikiPage") {
 			var key_wikiPageTitle = ${wikiPageTitle};
 
@@ -17,15 +16,13 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro navigateToWikis() {
+	macro navigateToWikis {
 		AssertClick(
 			locator1 = "SpamModeration#NAVIGATION_WIKIS",
 			value1 = "Wikis");
 	}
 
-	@summary = "Default summary"
-	macro viewDefault(assetType = null) {
+	macro viewDefault {
 		if (${assetType} == "wikiPage") {
 			AssertTextEquals(
 				locator1 = "Message#INFO",
@@ -33,8 +30,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewMarkedAsSpam(wikiPageTitle = null, wikiPageUsername = null, wikiPageRevision = null, assetType = null) {
+	macro viewMarkedAsSpam {
 		if (${assetType} == "wikiPage") {
 			var key_wikiPageTitle = ${wikiPageTitle};
 

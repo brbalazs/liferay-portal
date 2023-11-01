@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro configureShowAllPG() {
+	macro configureShowAllPG {
 		Portlet.gotoPortletOptions(
 			portletName = "Media Gallery",
 			portletOption = "Configuration");
@@ -13,8 +12,7 @@ definition {
 		PortletEntry.save();
 	}
 
-	@summary = "Default summary"
-	macro viewCustomADTCarouselPG() {
+	macro viewCustomADTCarouselPG {
 		AssertElementPresent(locator1 = "MediaGallery#ADT_CAROUSEL_ITEM");
 
 		AssertElementPresent(locator1 = "MediaGallery#ADT_CAROUSEL_PLAY_PAUSE");
@@ -26,8 +24,7 @@ definition {
 		AssertElementPresent(locator1 = "MediaGallery#ADT_CAROUSEL_MENU_INDEX");
 	}
 
-	@summary = "Default summary"
-	macro viewShowAllPG() {
+	macro viewShowAllPG {
 		Click.waitForMenuToggleJSClick(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
 
 		for (var menuItem : list "Permissions,Add Subfolder,Multiple Media,Add Shortcut,Access from Desktop") {

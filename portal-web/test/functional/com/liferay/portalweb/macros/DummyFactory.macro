@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addBulkAssets(number = null, dateType = null, contents = null, subject = null, siteName = null, body = null, baseName = null) {
+	macro addBulkAssets {
 		Click(
 			key_dateType = ${dateType},
 			locator1 = "DummyFactory#DATA_TYPE_SELECT",

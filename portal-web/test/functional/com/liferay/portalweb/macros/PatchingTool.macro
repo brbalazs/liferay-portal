@@ -1,12 +1,10 @@
 definition {
 
-	@summary = "Default summary"
-	macro installPatch(patchFileZipURL = null) {
+	macro installPatch {
 		AntCommands.runCommand("build-test.xml", "install-patch -Dpatch.file.zip.url=${patchFileZipURL}");
 	}
 
-	@summary = "Default summary"
-	macro installPatchOnSpecificServer(nodePort = null, patchFileZipURL = null) {
+	macro installPatchOnSpecificServer {
 		var leadingPortNumber = StringUtil.replace(${nodePort}, 080, "");
 
 		var bundleIndex = ${leadingPortNumber} - 8;
@@ -14,13 +12,11 @@ definition {
 		AntCommands.runCommand("build-test.xml", "install-patch -Dinstall.patch.cluster.node.index=${bundleIndex} -Dpatch.file.zip.url=${patchFileZipURL}");
 	}
 
-	@summary = "Default summary"
-	macro uninstallPatches() {
+	macro uninstallPatches {
 		AntCommands.runCommand("build-test.xml", "uninstall-patches");
 	}
 
-	@summary = "Default summary"
-	macro uninstallPatchOnSpecificServer(nodePort = null) {
+	macro uninstallPatchOnSpecificServer {
 		var leadingPortNumber = StringUtil.replace(${nodePort}, 080, "");
 
 		var bundleIndex = ${leadingPortNumber} - 8;
@@ -28,8 +24,7 @@ definition {
 		AntCommands.runCommand("build-test.xml", "uninstall-patches -Duninstall.patch.cluster.node.index=${bundleIndex}");
 	}
 
-	@summary = "Default summary"
-	macro updateConfigurationOnSpecificServer(nodePort = null, updateConfiguration = null) {
+	macro updateConfigurationOnSpecificServer {
 		var leadingPortNumber = StringUtil.replace(${nodePort}, 080, "");
 
 		var bundleIndex = ${leadingPortNumber} - 8;

@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addSiteNavigationMenu(groupName = null, siteNavigationMenuName = null) {
+	macro addSiteNavigationMenu {
 		Variables.assertDefined(parameterList = "${groupName},${siteNavigationMenuName}");
 
 		var groupId = JSONSitenavigationSetter.setGroupId(groupName = ${groupName});
@@ -11,8 +10,7 @@ definition {
 			siteNavigationMenuName = ${siteNavigationMenuName});
 	}
 
-	@summary = "Default summary"
-	macro deleteSiteNavigationMenu(groupName = null, site = null, siteNavigationMenuName = null) {
+	macro deleteSiteNavigationMenu {
 		Variables.assertDefined(parameterList = "${groupName},${siteNavigationMenuName}");
 
 		var siteNavigationMenuId = JSONSitenavigationSetter.setSiteNavigationMenuId(

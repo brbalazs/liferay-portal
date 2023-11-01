@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoSelectForm() {
+	macro gotoSelectForm {
 		AssertClick(
 			locator1 = "FormPortlet#SELECT_FORM",
 			value1 = "Select Form");

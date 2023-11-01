@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro _addUserGroup(userGroupName = null, userGroupDescription = null) {
+	macro _addUserGroup {
 		Variables.assertDefined(parameterList = ${userGroupName});
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -16,8 +15,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _assignGroupRoleToUserGroup(userGroupId = null, roleId = null, groupId = null) {
+	macro _assignGroupRoleToUserGroup {
 		Variables.assertDefined(parameterList = "${groupId},${roleId},${userGroupId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -33,8 +31,7 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	@summary = "Default summary"
-	macro _getUserGroupIdByName(userGroupName = null, groupId = null) {
+	macro _getUserGroupIdByName {
 		Variables.assertDefined(parameterList = ${userGroupName});
 
 		var portalURL = JSONCompany.getPortalURL();

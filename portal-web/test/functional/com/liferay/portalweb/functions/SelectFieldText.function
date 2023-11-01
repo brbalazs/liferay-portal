@@ -2,7 +2,7 @@
 @summary = "Selecting all text at '${locator1}'"
 definition {
 
-	function selectFieldText(locator1) {
+	function selectFieldText {
 		WaitForSPARefresh();
 
 		var input = "keys=CONTROL,a";
@@ -14,7 +14,7 @@ definition {
 
 		selenium.sendKeys(${locator1}, ${input});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

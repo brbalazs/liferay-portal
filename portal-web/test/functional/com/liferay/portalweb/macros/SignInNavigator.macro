@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro gotoCreateAccount() {
+	macro gotoCreateAccount {
 		AssertClick(
 			locator1 = "UserBar#USER_SIGN_IN",
 			value1 = "Sign In");
@@ -11,8 +10,7 @@ definition {
 			value1 = "Create Account");
 	}
 
-	@summary = "Default summary"
-	macro gotoForgotPassword() {
+	macro gotoForgotPassword {
 		AssertClick(
 			locator1 = "UserBar#USER_SIGN_IN",
 			value1 = "Sign In");

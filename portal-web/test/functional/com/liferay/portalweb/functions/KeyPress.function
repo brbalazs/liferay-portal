@@ -1,46 +1,46 @@
 @default = "keyPress"
 definition {
 
-	function keyDown() {
+	function keyDown {
 		WaitForSPARefresh();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.keyDown(${locator1}, ${value1});
+		selenium.keyDown();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function keyPress() {
+	function keyPress {
 		WaitForSPARefresh();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.keyPress(${locator1}, ${value1});
+		selenium.keyPress();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}
 
-	function keyPressNoError() {
+	function keyPressNoError {
 		WaitForSPARefresh();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.keyPress(${locator1}, ${value1});
+		selenium.keyPress();
 	}
 
-	function keyUp() {
+	function keyUp {
 		WaitForSPARefresh();
 
-		selenium.mouseOver(${locator1});
+		selenium.mouseOver();
 
-		selenium.keyUp(${locator1}, ${value1});
+		selenium.keyUp();
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors();
 
 		selenium.assertLiferayErrors();
 	}

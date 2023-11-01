@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro getCssValue() {
+	macro getCssValue {
 		WaitForSPARefresh();
 
 		var cssClassSelector = '''document.querySelector('${cssClassSelector}')''';
