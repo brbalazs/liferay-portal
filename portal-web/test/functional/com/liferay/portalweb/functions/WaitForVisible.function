@@ -2,7 +2,7 @@
 definition {
 
 	function waitForVisible() {
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 	}
 
 }

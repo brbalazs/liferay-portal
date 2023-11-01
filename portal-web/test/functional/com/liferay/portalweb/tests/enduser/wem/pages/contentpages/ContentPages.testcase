@@ -136,7 +136,7 @@ definition {
 			id = "content",
 			text = "New editable fragment text");
 
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 
 		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-content-page-name");
 

@@ -5,13 +5,13 @@ definition {
 	function click() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
 		selenium.click(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -19,13 +19,13 @@ definition {
 	function clickAt() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
 		selenium.clickAt(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -33,13 +33,13 @@ definition {
 	function clickAtNotVisible() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
 		selenium.clickAt(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -49,27 +49,27 @@ definition {
 
 		selenium.pause(1000);
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.pause(1000);
 
 		Click.clickAt();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 	}
 
 	function clickNoMouseOver() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.click(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -79,19 +79,19 @@ definition {
 
 		selenium.click(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
 	function clickNoSPARefresh() {
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
 		selenium.click(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -103,7 +103,7 @@ definition {
 
 		selenium.click(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -112,10 +112,10 @@ definition {
 		WaitForSPARefresh();
 
 		if (selenium.isElementPresent("//div[contains(@class,'cke_editable_inline')]")) {
-			selenium.waitForElementPresent(${locator1}, "false");
+			selenium.waitForElementPresent(${locator1}, ${value1});
 		}
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.click(${locator1});
 	}
@@ -125,7 +125,7 @@ definition {
 
 		selenium.javaScriptClick(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -133,15 +133,15 @@ definition {
 	function mouseDownMouseUp() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.mouseDown(${locator1});
 
 		selenium.mouseUp(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -149,17 +149,17 @@ definition {
 	function mouseMoveLeftClick(locator1) {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.mouseMoveAt(${locator1}, "-100,0");
 
 		selenium.click(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -167,15 +167,15 @@ definition {
 	function mouseOverClick() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.click(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -189,7 +189,7 @@ definition {
 
 		Click.clickAt();
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -199,7 +199,7 @@ definition {
 
 		selenium.selectFrame("relative=top");
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		if (selenium.isElementPresent("//iframe")) {
 			selenium.selectFrame("//iframe");
@@ -209,7 +209,7 @@ definition {
 
 		Click();
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

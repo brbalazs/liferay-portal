@@ -4,13 +4,13 @@ definition {
 	function uploadCommonFile() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
 		selenium.uploadCommonFile(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -22,7 +22,7 @@ definition {
 
 		selenium.uploadCommonFile(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -32,7 +32,7 @@ definition {
 
 		selenium.uploadCommonFile(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

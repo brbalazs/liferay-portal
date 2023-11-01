@@ -179,7 +179,7 @@ definition {
 			menuItem = "Manage",
 			rowEntry = ${siteTemplateName});
 
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 
 		var currentURL = Navigator.getCurrentURL();
 
@@ -227,7 +227,7 @@ definition {
 			locator1 = "SiteTemplates#SITE_TEMPLATE_TABLE_NAME",
 			value1 = ${siteTemplateName});
 
-		SelectWindow(value1 = "Home - ${siteTemplateName} - ${siteName}");
+		SelectWindow(locator1 = "Home - ${siteTemplateName} - ${siteName}");
 	}
 
 	@summary = "Default summary"

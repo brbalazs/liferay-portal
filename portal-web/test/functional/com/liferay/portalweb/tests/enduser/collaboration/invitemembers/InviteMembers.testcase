@@ -78,7 +78,7 @@ definition {
 			password = "test",
 			userEmailAddress = "userea@liferay.com");
 
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 
 		AssertVisible(locator1 = "Notifications#USER_BAR_BADGE_COUNT");
 

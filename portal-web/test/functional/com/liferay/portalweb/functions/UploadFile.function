@@ -4,11 +4,11 @@ definition {
 	function uploadFile() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.uploadFile(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

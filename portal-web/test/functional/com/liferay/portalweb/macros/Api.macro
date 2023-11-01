@@ -5,7 +5,7 @@ definition {
 
 	@summary = "Default summary"
 	macro apiJsonwsUserView() {
-		Open(value1 = "Home#API_JSON_URL");
+		Open(locator1 = "Home#API_JSON_URL");
 
 		Click(locator1 = "JSONWS#USER_UPDATE_USER");
 
@@ -77,7 +77,7 @@ definition {
 
 	@summary = "Default summary"
 	macro getPAuth() {
-		Open(value1 = "Home#API_JSON_URL");
+		Open(locator1 = "Home#API_JSON_URL");
 
 		Click(locator1 = "JSONWS#ADDRESS_ADD_ADDRESS");
 

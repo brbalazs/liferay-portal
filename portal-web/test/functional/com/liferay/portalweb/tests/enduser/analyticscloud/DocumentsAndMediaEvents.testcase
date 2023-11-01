@@ -102,7 +102,7 @@ definition {
 				locator1 = "Button#DOWNLOAD_SIDEBAR",
 				value1 = "Download");
 
-			Pause(value1 = 5000);
+			Pause(locator1 = 5000);
 		}
 
 		task ("View the Document events triggered") {

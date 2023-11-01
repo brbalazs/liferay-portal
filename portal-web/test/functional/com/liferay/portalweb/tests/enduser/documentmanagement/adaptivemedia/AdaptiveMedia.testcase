@@ -269,7 +269,7 @@ definition {
 			dmDocumentFile = "high_resolution_photo.jpg",
 			dmDocumentTitle = "high_resolution_photo.jpg");
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		ProductMenu.gotoPortlet(
 			category = "Content",
@@ -286,7 +286,7 @@ definition {
 			imageFileName = "high_resolution_photo.jpg",
 			navTab = "Documents and Media");
 
-		Pause(value1 = 2000);
+		Pause(locator1 = 2000);
 
 		AdaptiveMedia.viewImageVariantURL(imageName = "high_resolution_photo.jpg");
 

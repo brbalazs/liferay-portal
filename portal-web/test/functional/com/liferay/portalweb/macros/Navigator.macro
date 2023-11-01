@@ -33,7 +33,7 @@ definition {
 	macro closeSpecificWindow(closeWindowTitle = null, selectWindowTitle = null) {
 		Navigator.selectSpecificWindow(windowTitle = ${closeWindowTitle});
 
-		Close.closeAndSelectWindow(value1 = "title=${selectWindowTitle}");
+		Close.closeAndSelectWindow(locator1 = "title=${selectWindowTitle}");
 	}
 
 	@summary = "Default summary"
@@ -129,7 +129,7 @@ definition {
 	macro gotoPage(baseURL = null, pageName = null) {
 		Navigator.openURL(baseURL = ${baseURL});
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		Navigator._gotoPage(pageName = ${pageName});
 	}
@@ -193,7 +193,7 @@ definition {
 
 	@summary = "Default summary"
 	macro openNodePort(nodePort = null) {
-		Open(value1 = "http://localhost:${nodePort}");
+		Open(locator1 = "http://localhost:${nodePort}");
 	}
 
 	@summary = "Default summary"
@@ -210,7 +210,7 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		Open(value1 = "${baseURL}/group/${siteNameURL}/${pageNameURL}");
+		Open(locator1 = "${baseURL}/group/${siteNameURL}/${pageNameURL}");
 	}
 
 	@summary = "Default summary"
@@ -224,7 +224,7 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		Open(value1 = "${baseURL}/group/${siteNameURL}");
+		Open(locator1 = "${baseURL}/group/${siteNameURL}");
 	}
 
 	@summary = "Default summary"
@@ -238,7 +238,7 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		Open(value1 = "${baseURL}/group/${siteNameURL}-staging");
+		Open(locator1 = "${baseURL}/group/${siteNameURL}-staging");
 	}
 
 	@summary = "Default summary"
@@ -249,7 +249,7 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		Open(value1 = "${baseURL}/group/guest");
+		Open(locator1 = "${baseURL}/group/guest");
 	}
 
 	@summary = "Default summary"
@@ -263,12 +263,12 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		Open(value1 = "${baseURL}/web/${siteNameURL}");
+		Open(locator1 = "${baseURL}/web/${siteNameURL}");
 	}
 
 	@summary = "Default summary"
 	macro openSpecificURL(url = null) {
-		Open(value1 = ${url});
+		Open(locator1 = ${url});
 	}
 
 	@summary = "Default summary"
@@ -282,7 +282,7 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		Open(value1 = "${baseURL}/web/${siteNameURL}-staging");
+		Open(locator1 = "${baseURL}/web/${siteNameURL}-staging");
 	}
 
 	@summary = "Default summary"
@@ -295,7 +295,7 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		Open(value1 = "${baseURL}/web/guest/home");
+		Open(locator1 = "${baseURL}/web/guest/home");
 	}
 
 	@summary = "Default summary"
@@ -306,12 +306,12 @@ definition {
 			var baseURL = PropsUtil.get("portal.url");
 		}
 
-		Open(value1 = "${baseURL}/${urlAppend}");
+		Open(locator1 = "${baseURL}/${urlAppend}");
 	}
 
 	@summary = "Default summary"
 	macro selectSpecificWindow(windowTitle = null) {
-		SelectWindow(value1 = "title=${windowTitle}");
+		SelectWindow(locator1 = "title=${windowTitle}");
 	}
 
 }

@@ -1190,7 +1190,7 @@ definition {
 
 		Form.closeSidebar();
 
-		Pause(value1 = 60000);
+		Pause(locator1 = 60000);
 
 		FormsAdminNavigator.gotoBack();
 
@@ -1206,7 +1206,7 @@ definition {
 
 		Form.closeSidebar();
 
-		Pause(value1 = 120000);
+		Pause(locator1 = 120000);
 
 		FormsAdminNavigator.gotoBack();
 
@@ -2743,7 +2743,7 @@ definition {
 
 		FormsAdminNavigator.gotoAddForm();
 
-		Pause(value1 = 2000);
+		Pause(locator1 = 2000);
 
 		Form.gotoAddField(
 			fieldPositionNumber = 1,
@@ -3076,7 +3076,7 @@ definition {
 
 		LAR.exportPortlet(larFileName = "FormsExport.lar");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 
 		JSONGroup.addGroup(groupName = "Site Name");
 
@@ -3212,7 +3212,7 @@ definition {
 			asset = "Form Subject",
 			bodyLink = "Click here to access the form");
 
-		SelectWindow.selectPopUp(value1 = "null");
+		SelectWindow.selectPopUp(locator1 = "null");
 
 		FormsAdmin.viewTextEntry(
 			fieldLabel = "Text Field",
@@ -4478,7 +4478,7 @@ definition {
 
 		Form.enableAutocompleteConfiguration();
 
-		Pause(value1 = 60000);
+		Pause(locator1 = 60000);
 
 		FormsAdminNavigator.gotoBack();
 
@@ -4920,7 +4920,7 @@ definition {
 
 		Form.closeSidebar();
 
-		Pause(value1 = 60000);
+		Pause(locator1 = 60000);
 
 		Form.viewSaveNotification();
 

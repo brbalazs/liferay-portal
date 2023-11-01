@@ -16,7 +16,7 @@ definition {
 			locator1 = "ControlMenuAddPanel#APPLICATIONS_ACCORDION_PANEL_TITLE",
 			value1 = "Widgets");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 
 		Panel.expandSidebarApplicationsPanel();
 

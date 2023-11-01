@@ -457,7 +457,7 @@ definition {
 
 		// It needs a 30 second pause which is the time required for the command to be executed. For more information about pause see LRAC-9518
 
-		Pause(value1 = 30000);
+		Pause(locator1 = 30000);
 	}
 
 	@summary = "Default summary"
@@ -720,7 +720,7 @@ definition {
 	macro launchAC(password = null, emailList = null, workspaceName = null) {
 		var analyticsCloudURL = PropsUtil.get("analytics.cloud.url");
 
-		Open(value1 = ${analyticsCloudURL});
+		Open(locator1 = ${analyticsCloudURL});
 
 		if (!(isSet(emailAddress))) {
 			var emailAddress = "test@liferay.com";
@@ -772,7 +772,7 @@ definition {
 
 		// Pause is necessary because poshi logs in from one user to another quickly. For more information about pause see LRAC-9514
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 	}
 
 	@summary = "Default summary"
@@ -836,7 +836,7 @@ definition {
 
 			// Pause is necessary because poshi logs in from one user to another very quickly. For more information about pause see LRAC-9514
 
-			Pause(value1 = 5000);
+			Pause(locator1 = 5000);
 		}
 	}
 
@@ -1131,13 +1131,13 @@ definition {
 
 			// Pausing for harRecording test for reuse purpose, see LRAC-10600
 
-			Pause(value1 = ${time});
+			Pause(locator1 = ${time});
 		}
 		else if (!(isSet(time))) {
 
 			// Pausing for harRecording tests, see LRAC-10600
 
-			Pause(value1 = 5000);
+			Pause(locator1 = 5000);
 		}
 	}
 

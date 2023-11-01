@@ -281,7 +281,7 @@ definition {
 				locator1 = "DocumentsAndMediaSelectDocument#SELECT_FILE_BUTTON",
 				value1 = ${document});
 
-			Pause(value1 = 1000);
+			Pause(locator1 = 1000);
 
 			SelectFrameTop(value1 = "relative=top");
 
@@ -299,7 +299,7 @@ definition {
 			locator1 = "DDLEditRecord#FIELD_LABEL",
 			value1 = ${fieldName});
 
-		Pause(value1 = 2000);
+		Pause(locator1 = 2000);
 
 		AssertElementPresent(locator1 = "DDLEditRecord#GEOLOCATION_GOOGLE_MAP");
 	}

@@ -22,7 +22,7 @@ definition {
 	macro gotoAddCP() {
 		AssertVisible(locator1 = "Button#PLUS");
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		LexiconEntry.gotoAdd();
 
@@ -138,7 +138,7 @@ definition {
 
 	@summary = "Default summary"
 	macro gotoEntryMenuItem(entry = null, menuItem = null) {
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		Click.waitForMenuToggleJSClick(
 			key_webContentTitle = ${entry},

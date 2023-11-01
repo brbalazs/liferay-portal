@@ -177,7 +177,7 @@ definition {
 
 		MessageboardsThread.moveToRecycleBinCP(threadSubject = "MB Subject");
 
-		Pause(value1 = 120000);
+		Pause(locator1 = 120000);
 
 		AssertConsoleTextNotPresent(value1 = "MessageListenerException");
 

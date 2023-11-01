@@ -201,7 +201,7 @@ definition {
 
 		Button.click(button = "Authorize");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 
 		var currentURL = selenium.getCurrentUrl();
 

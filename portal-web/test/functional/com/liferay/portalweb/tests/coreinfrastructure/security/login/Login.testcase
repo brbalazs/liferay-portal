@@ -280,7 +280,7 @@ definition {
 		while ((IsElementNotPresent(locator1 = "TextInput#TEXT")) && (${pauseCount} != 20)) {
 			Refresh();
 
-			Pause(value1 = 30000);
+			Pause(locator1 = 30000);
 
 			var pauseCount = ${pauseCount} + 1;
 
@@ -298,7 +298,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Instance Settings");
 
-		Pause(value1 = 30000);
+		Pause(locator1 = 30000);
 
 		PortalSettingsNavigator.gotoOpenSSO();
 

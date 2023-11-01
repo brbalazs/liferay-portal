@@ -4,7 +4,7 @@ definition {
 	function clickAt() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
@@ -14,7 +14,7 @@ definition {
 
 		AssertNotChecked.assertNotChecked();
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -22,7 +22,7 @@ definition {
 	function uncheckHiddenToggleSwitch(locator1) {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
@@ -32,7 +32,7 @@ definition {
 
 		AssertNotChecked.assertNotCheckedHiddenToggleSwitch();
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -40,7 +40,7 @@ definition {
 	function uncheckToggleSwitch() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 
@@ -50,7 +50,7 @@ definition {
 
 		AssertNotChecked.assertNotCheckedNotVisible();
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -58,7 +58,7 @@ definition {
 	function uncheckToggleSwitchNoErrorNoAssert() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 

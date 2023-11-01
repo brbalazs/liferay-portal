@@ -67,7 +67,7 @@ definition {
 			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
 			value1 = ${userScreenName});
 
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 	}
 
 }

@@ -47,7 +47,7 @@ definition {
 			navTab = "Upload Image",
 			uploadFileName = "Document_1.jpg");
 
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 
 		BlogsEntry.saveAsDraft();
 

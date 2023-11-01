@@ -90,7 +90,7 @@ definition {
 
 		Refresh();
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		Bookmark.viewBookmark(
 			bookmarkName = "Test Bookmark Name",

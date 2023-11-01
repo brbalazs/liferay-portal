@@ -352,7 +352,7 @@ definition {
 
 		DDLRecord.addViaDDLDisplayPG();
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		DDLRecord.populateFieldText(
 			ddlRecordFieldData = "Name1",

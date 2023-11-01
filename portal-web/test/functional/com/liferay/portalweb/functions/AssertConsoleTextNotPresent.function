@@ -6,7 +6,7 @@ definition {
 
 		selenium.assertConsoleTextNotPresent(${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

@@ -24,7 +24,7 @@ definition {
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 	}
 
 	tearDown {
@@ -84,7 +84,7 @@ definition {
 
 		Button.click(button = "Submit");
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",
@@ -177,7 +177,7 @@ definition {
 
 		Button.click(button = "Checkout");
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		CommerceCheckout.initializersCheckout(
 			newAddressAddress = "Test Address",

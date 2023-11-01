@@ -18,7 +18,7 @@ definition {
 	macro applyChangesAndSaveFile() {
 		ImageEditor._applyChanges();
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		ImageEditor._saveFile();
 	}
@@ -48,7 +48,7 @@ definition {
 
 		var key_imageFileName = StringUtil.replace(${imageFileName}, " ", "+");
 
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 
 		Click(locator1 = "ItemSelector#SELECT_FILE_IMAGE_PREVIEW");
 

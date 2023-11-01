@@ -70,7 +70,7 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		Ratings.rate(ratingResult = "Thumb Up");
 
@@ -612,7 +612,7 @@ definition {
 
 		Blogs.viewNoEntryCP();
 
-		Pause(value1 = 180000);
+		Pause(locator1 = 180000);
 
 		Refresh();
 
@@ -662,7 +662,7 @@ definition {
 
 		Button.clickPublish();
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		BlogsNavigator.gotoAddEntry();
 
@@ -673,7 +673,7 @@ definition {
 			navTab = "Upload Image",
 			uploadFileName = "Document_2.jpg");
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		PortletEntry.publish();
 

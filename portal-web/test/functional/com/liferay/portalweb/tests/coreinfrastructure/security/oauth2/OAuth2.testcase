@@ -286,7 +286,7 @@ definition {
 
 		Button.click(button = "Obtain OAuth2 Access");
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		Button.click(button = "Launch Request");
 
@@ -565,7 +565,7 @@ definition {
 
 		AntCommands.runCommand("build-test.xml", "deploy-dependency-jars -Dliferay.dependency.jars=com.liferay.oauth2.provider.sample.jar");
 
-		Pause(value1 = 7000);
+		Pause(locator1 = 7000);
 
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",

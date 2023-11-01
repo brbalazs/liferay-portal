@@ -24,7 +24,7 @@ definition {
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 	}
 
 	tearDown {

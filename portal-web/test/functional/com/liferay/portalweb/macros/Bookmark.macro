@@ -584,7 +584,7 @@ definition {
 
 		Click(locator1 = "AP#ASSET_ABSTRACT_BOOKMARK_DETAIL_LINK");
 
-		SelectWindow(value1 = "title=Digital Experience Software Tailored to Your Needs | Liferay");
+		SelectWindow(locator1 = "title=Digital Experience Software Tailored to Your Needs | Liferay");
 
 		AssertElementPresent.assertElementPresent(locator1 = "AP#ASSET_ABSTRACT_BOOKMARK_LIFERAY_LOGO");
 

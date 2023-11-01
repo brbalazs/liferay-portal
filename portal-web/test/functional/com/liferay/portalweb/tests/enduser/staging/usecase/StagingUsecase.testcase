@@ -799,7 +799,7 @@ definition {
 
 		Navigator.gotoStagedView();
 
-		Pause(value1 = 30000);
+		Pause(locator1 = 30000);
 
 		ProductMenu.gotoPortlet(
 			category = "Publishing",

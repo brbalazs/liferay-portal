@@ -8,7 +8,7 @@ definition {
 
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.mouseOver(${locator1});
 

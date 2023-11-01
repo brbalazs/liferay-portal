@@ -5,13 +5,13 @@ definition {
 	function assertNotPartialText() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.waitForNotPartialText(${locator1}, ${value1});
 
 		selenium.assertNotPartialText(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -19,13 +19,13 @@ definition {
 	function assertNotText() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.waitForNotText(${locator1}, ${value1});
 
 		selenium.assertNotText(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -33,13 +33,13 @@ definition {
 	function assertNotValue() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		selenium.waitForNotValue(${locator1}, ${value1});
 
 		selenium.assertNotValue(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

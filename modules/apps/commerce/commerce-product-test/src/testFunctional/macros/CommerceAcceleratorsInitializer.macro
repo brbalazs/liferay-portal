@@ -15,7 +15,7 @@ definition {
 			locator1 = "ControlMenuAddPanel#APPLICATIONS_ACCORDION_PANEL_TITLE",
 			value1 = "Widgets");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 
 		Panel.expandSidebarApplicationsPanel();
 
@@ -45,7 +45,7 @@ definition {
 			key_text = "Add Account",
 			locator1 = "Button#ANY");
 
-		Pause(value1 = 2000);
+		Pause(locator1 = 2000);
 
 		Type(
 			locator1 = "TextInput#NAME",

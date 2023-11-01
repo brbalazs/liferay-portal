@@ -2,15 +2,15 @@
 definition {
 
 	function waitForSPARefresh() {
-		selenium.waitForElementNotPresent(${locator1, "false"});
+		selenium.waitForElementNotPresent(${locator1}, ${value1});
 
 		if ((selenium.isElementPresent("//div[contains(@class,'lfr-notification-wrapper') and contains(@style,'height: 82px;')]")) && (selenium.isVisible("//div[contains(@class,'lfr-notification-wrapper') and contains(@style,'height: 82px;')]"))) {
 			selenium.click("//button[contains(@class,'close')]");
 		}
 
-		selenium.waitForElementNotPresent(${locator1, "false"});
+		selenium.waitForElementNotPresent(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

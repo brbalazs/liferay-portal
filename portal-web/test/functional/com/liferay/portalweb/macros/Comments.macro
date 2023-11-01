@@ -189,7 +189,7 @@ definition {
 	macro viewPG(entryComment = null, userFullName = null, commentCount = null) {
 		var key_entryComment = ${entryComment};
 
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 
 		if (isSet(commentCount)) {
 			AssertTextEquals.assertPartialText(

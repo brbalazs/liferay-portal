@@ -33,7 +33,7 @@ definition {
 
 		Click(locator1 = "Icon#GOOGLE_PLUS");
 
-		SelectWindow(value1 = "GoogleLogin#PAGE_TITLE");
+		SelectWindow(locator1 = "GoogleLogin#PAGE_TITLE");
 
 		Type(
 			locator1 = "GoogleLogin#LOGIN_EMAIL_FIELD",

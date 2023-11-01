@@ -816,7 +816,7 @@ definition {
 			locator1 = "KnowledgeBase#HIERARCHY_NAVIGATION_PARENT",
 			value1 = ${kbArticleTitle});
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 	}
 
 	@summary = "Default summary"

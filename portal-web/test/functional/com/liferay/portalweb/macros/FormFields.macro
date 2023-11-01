@@ -259,7 +259,7 @@ definition {
 
 	@summary = "Default summary"
 	macro getFieldName() {
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		var fieldName = selenium.getElementValue("FormFields#FIELD_NAME_EDIT");
 

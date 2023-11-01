@@ -30,7 +30,7 @@ definition {
 			item = "Delete",
 			tableEntry = ${tableEntry});
 
-		Confirm(value1 = "null");
+		Confirm();
 	}
 
 	@summary = "Default summary"

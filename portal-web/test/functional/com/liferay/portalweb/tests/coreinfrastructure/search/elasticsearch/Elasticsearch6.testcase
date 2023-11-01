@@ -222,7 +222,7 @@ definition {
 
 		AntCommands.runCommand("build-test-elasticsearch6.xml", "start-elasticsearch-node -Delasticsearch.cluster.size=1");
 
-		Pause(value1 = 30000);
+		Pause(locator1 = 30000);
 
 		ProductMenu.gotoPortlet(
 			category = "Configuration",

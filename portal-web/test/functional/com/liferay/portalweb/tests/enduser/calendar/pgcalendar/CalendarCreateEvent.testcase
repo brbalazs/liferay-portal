@@ -318,7 +318,7 @@ definition {
 
 			CalendarEvent.view(eventTitle = "Calendar Event Title");
 
-			Pause(value1 = 1000);
+			Pause(locator1 = 1000);
 
 			AssertConsoleTextNotPresent(value1 = "java.lang.OutOfMemoryError");
 

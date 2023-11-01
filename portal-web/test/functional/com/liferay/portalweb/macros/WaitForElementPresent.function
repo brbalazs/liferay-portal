@@ -2,7 +2,7 @@
 definition {
 
 	function waitForElementPresent() {
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 	}
 
 }

@@ -333,7 +333,7 @@ definition {
 
 		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Options");
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		CommerceOptions.deleteOptionsEntries();
 

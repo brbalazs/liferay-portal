@@ -22,7 +22,7 @@ definition {
 
 		selenium.clickAt(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -36,7 +36,7 @@ definition {
 
 		selenium.clickAt(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -50,7 +50,7 @@ definition {
 
 		selenium.clickAt(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 
@@ -72,15 +72,15 @@ definition {
 	function assertTextClickAtWaitForLastScript() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, "false");
+		selenium.waitForVisible(${locator1}, ${value1});
 
 		AssertClick.assertTextClickAt();
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 	}
 
 	function assertTextClickCaseSensitive() {
@@ -92,7 +92,7 @@ definition {
 
 		selenium.click(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -104,7 +104,7 @@ definition {
 
 		selenium.click(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -118,7 +118,7 @@ definition {
 
 		selenium.clickAt(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -130,7 +130,7 @@ definition {
 
 		AssertClick.assertTextClickAt();
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
@@ -138,13 +138,13 @@ definition {
 	function waitForDMHomeAssertTextEqualsClick() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, "false");
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
 		selenium.pause(1500);
 
 		AssertClick.assertTextClickAt();
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

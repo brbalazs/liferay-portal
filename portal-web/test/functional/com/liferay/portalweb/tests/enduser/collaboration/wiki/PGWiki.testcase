@@ -495,7 +495,7 @@ definition {
 			wikiPageTitle = "Wiki Page Title",
 			wikiPageUsername = "Test Test");
 
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 
 		WikiPage.viewPG(
 			wikiPageContent = "Welcome to LIFERAY",

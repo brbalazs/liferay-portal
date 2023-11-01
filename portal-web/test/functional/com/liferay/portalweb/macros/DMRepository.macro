@@ -83,12 +83,12 @@ definition {
 		while (IsElementPresent(locator1 = "DocumentsAndMedia#FILTER_REPOSITORY_GENERIC")) {
 			Click(locator1 = "DocumentsAndMedia#FILTER_REPOSITORY_GENERIC");
 
-			Pause(value1 = 1000);
+			Pause(locator1 = 1000);
 
 			if (IsElementPresent(locator1 = "DocumentsAndMedia#ICON_DOCUMENT_GENERIC")) {
 				Check(locator1 = "DocumentsAndMedia#TOOLBAR_SELECT_ALL_CHECKBOX");
 
-				Pause(value1 = 1000);
+				Pause(locator1 = 1000);
 
 				AssertClick.waitForDMHomeAssertTextEqualsClick(
 					locator1 = "DocumentsAndMedia#TOOLBAR_ACTIONS",

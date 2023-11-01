@@ -8,10 +8,10 @@ definition {
 			locator1 = "Button#SELECT_FILE",
 			value1 = "Select File");
 
-		Pause(value1 = 3000);
+		Pause(locator1 = 3000);
 
 		if (isSet(windowTitle)) {
-			SelectWindow(value1 = "GoogleLogin#PAGE_TITLE");
+			SelectWindow(locator1 = "GoogleLogin#PAGE_TITLE");
 
 			if (IsElementPresent(locator1 = "GoogleLogin#HEADER")) {
 				AssertClick(
@@ -35,7 +35,7 @@ definition {
 
 			SelectWindow.selectWindowNoSPARefresh(locator1 = "title=${windowTitle}");
 
-			Pause(value1 = 3000);
+			Pause(locator1 = 3000);
 		}
 
 		if (IsElementPresent(locator1 = "ProductMenu#PRODUCT_MENU_OPENED")) {

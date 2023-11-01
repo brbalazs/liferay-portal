@@ -27,7 +27,7 @@ definition {
 
 		ClickNoError(locator1 = "DocumentsAndMediaDocument#DETAILS_URL");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 	}
 
 	@summary = "Default summary"

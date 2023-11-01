@@ -39,7 +39,7 @@ definition {
 
 		Navigator.openSpecificURL(url = "http://localhost:8080/api/atom");
 
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 
 		AssertConsoleTextPresent(value1 = "EXT_ATOM_SERVLET_INSTALLED");
 
@@ -53,7 +53,7 @@ definition {
 
 		AssertElementNotPresent(locator1 = "UserBar#USER_SIGN_IN");
 
-		Pause(value1 = 120000);
+		Pause(locator1 = 120000);
 
 		AssertTextEquals(
 			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",
@@ -82,7 +82,7 @@ definition {
 
 		AssertElementNotPresent(locator1 = "UserBar#USER_SIGN_IN");
 
-		Pause(value1 = 120000);
+		Pause(locator1 = 120000);
 
 		AssertTextEquals(
 			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",

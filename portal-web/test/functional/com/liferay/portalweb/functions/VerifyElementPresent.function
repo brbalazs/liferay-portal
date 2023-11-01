@@ -9,7 +9,7 @@ definition {
 
 		selenium.verifyElementPresent(${locator1});
 
-		selenium.assertJavaScriptErrors("true");
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

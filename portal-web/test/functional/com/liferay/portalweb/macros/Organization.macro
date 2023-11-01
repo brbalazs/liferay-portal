@@ -171,7 +171,7 @@ definition {
 
 		Check(locator1 = "UserGroupsAssignUsers#USER_TABLE_CHECKBOX");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 
 		SelectFrameTop();
 
@@ -341,7 +341,7 @@ definition {
 
 		var key_orgName = ${orgName};
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 
 		MenuItem.click(menuItem = "Assign Organization Roles");
 
@@ -435,7 +435,7 @@ definition {
 
 	@summary = "Default summary"
 	macro gotoActionsCmd(orgName = null) {
-		Pause(value1 = 1000);
+		Pause(locator1 = 1000);
 
 		Search.searchCP(searchTerm = ${orgName});
 

@@ -116,7 +116,7 @@ definition {
 
 		WaitForElementPresent(locator1 = "Button#ANY_ENABLED");
 
-		Pause(value1 = 2500);
+		Pause(locator1 = 2500);
 	}
 
 }

@@ -54,7 +54,7 @@ definition {
 
 	@summary = "Default summary"
 	macro gotoManageDataDefinitions() {
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Manage Data Definitions");
 

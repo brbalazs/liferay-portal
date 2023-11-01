@@ -122,7 +122,7 @@ definition {
 			locator1 = "ReportsAdminViewReportEntry#INFO_MESSAGE",
 			value1 = "Processing report. This may take several minutes.");
 
-		Pause(value1 = 180000);
+		Pause(locator1 = 180000);
 
 		Navigator.openURL();
 
@@ -591,7 +591,7 @@ definition {
 			reportName = "Custom Report Name",
 			reportsDefinitionName = "Reports Definition Name");
 
-		Pause(value1 = 30000);
+		Pause(locator1 = 30000);
 
 		Gmail.login(
 			userEmailAddress = PropsUtil.get("email.address.2"),
@@ -612,9 +612,9 @@ definition {
 			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_BODY_LINK",
 			value1 = "report");
 
-		Pause(value1 = 30000);
+		Pause(locator1 = 30000);
 
-		SelectWindow(value1 = "title=Reports Definition Name - ${siteName}");
+		SelectWindow(locator1 = "title=Reports Definition Name - ${siteName}");
 
 		ReportsAdmin.viewReportEntryFields(
 			dataSource = "portal",
@@ -670,7 +670,7 @@ definition {
 			reportFormat = "pdf",
 			reportsDefinitionName = "Reports Definition Name");
 
-		Pause(value1 = 30000);
+		Pause(locator1 = 30000);
 
 		Gmail.login(
 			userEmailAddress = PropsUtil.get("email.address.4"),

@@ -44,7 +44,7 @@ definition {
 
 		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Options");
 
-		Pause(value1 = 2000);
+		Pause(locator1 = 2000);
 
 		CPCommerceCatalog.newOptionsEntry(
 			optionDescription = "Option Description",

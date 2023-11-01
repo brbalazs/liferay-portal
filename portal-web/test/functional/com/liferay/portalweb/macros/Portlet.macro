@@ -62,7 +62,7 @@ definition {
 		while (!((IsElementPresent(locator1 = "Home#PORTLET")) || (${i} == 3))) {
 			var i = ${i} + 1;
 
-			Pause(value1 = 30000);
+			Pause(locator1 = 30000);
 
 			echo("The PORTLET could not be found. Refreshing the page. Attempt number ${i}...");
 
@@ -90,7 +90,7 @@ definition {
 			locator1 = "ControlMenuAddPanel#APPLICATIONS_ACCORDION_PANEL_TITLE",
 			value1 = "Widgets");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 
 		Panel.expandSidebarApplicationsPanel();
 
@@ -112,7 +112,7 @@ definition {
 		while ((IsElementPresent(locator1 = "//body")) && (${shutdownPauseCount} != 12)) {
 			Refresh();
 
-			Pause(value1 = 10000);
+			Pause(locator1 = 10000);
 
 			var shutdownPauseCount = ${shutdownPauseCount} + 1;
 
@@ -127,7 +127,7 @@ definition {
 		while (!(IsElementPresent(locator1 = "UserBar#USER_SIGN_IN")) && (${startupPauseCount} != 12)) {
 			Refresh();
 
-			Pause(value1 = 10000);
+			Pause(locator1 = 10000);
 
 			var startupPauseCount = ${startupPauseCount} + 1;
 

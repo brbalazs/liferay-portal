@@ -124,7 +124,7 @@ definition {
 
 		WikiNavigator.gotoEntryViaPGTable(wikiPageTitle = "Wiki Page Title");
 
-		Pause(value1 = 30000);
+		Pause(locator1 = 30000);
 
 		Mentions.addMentionViaComments(
 			entryComment = "Comment mentioning",

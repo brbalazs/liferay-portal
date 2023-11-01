@@ -1977,7 +1977,7 @@ definition {
 			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
 			value1 = "test");
 
-		Pause(value1 = 5000);
+		Pause(locator1 = 5000);
 
 		var userId = selenium.getElementValue("UsersAndOrganizationsEditUser#DETAILS_USER_ID_FIELD");
 
