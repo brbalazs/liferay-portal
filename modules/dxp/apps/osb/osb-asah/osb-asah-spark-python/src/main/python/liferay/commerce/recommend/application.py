@@ -35,12 +35,12 @@ from liferay.commerce.recommend.job import \
 	UserInteractionCollaborativeFilteringSparkJob, \
 	UserInteractionDataPreparationSparkJob
 from liferay.commerce.common import BaseCommerceSparkApplication
-from liferay.commerce.udf import TanimotoCoefficientUDFFunction, \
+from liferay.common.spark import SparkJobPipeline
+from liferay.ml.udf import TanimotoCoefficientUDFFunction, \
 	ToDenseVectorUDFFunction, \
 	VectorDotProductUDFFunction, \
 	VectorMergeUDFFunction, \
 	VectorNormUDFFunction
-from liferay.common.spark import SparkJobPipeline
 
 class FrequentPatternRecommendationApplication(BaseCommerceSparkApplication):
 
