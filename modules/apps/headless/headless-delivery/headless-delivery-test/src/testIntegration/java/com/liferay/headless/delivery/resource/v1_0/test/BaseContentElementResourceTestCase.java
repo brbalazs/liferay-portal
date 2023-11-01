@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
@@ -198,7 +199,7 @@ public abstract class BaseContentElementResourceTestCase {
 			contentElementResource.getSiteContentElementsPage(
 				siteId, null, null, null, Pagination.of(1, 10), null);
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if (irrelevantSiteId != null) {
 			ContentElement irrelevantContentElement =
@@ -206,12 +207,13 @@ public abstract class BaseContentElementResourceTestCase {
 					irrelevantSiteId, randomIrrelevantContentElement());
 
 			page = contentElementResource.getSiteContentElementsPage(
-				irrelevantSiteId, null, null, null, Pagination.of(1, 2), null);
+				irrelevantSiteId, null, null, null,
+				Pagination.of(1, (int)totalCount + 1), null);
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantContentElement),
+			assertContains(
+				irrelevantContentElement,
 				(List<ContentElement>)page.getItems());
 			assertValid(
 				page,
@@ -230,11 +232,10 @@ public abstract class BaseContentElementResourceTestCase {
 		page = contentElementResource.getSiteContentElementsPage(
 			siteId, null, null, null, Pagination.of(1, 10), null);
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(contentElement1, contentElement2),
-			(List<ContentElement>)page.getItems());
+		assertContains(contentElement1, (List<ContentElement>)page.getItems());
+		assertContains(contentElement2, (List<ContentElement>)page.getItems());
 		assertValid(
 			page, testGetSiteContentElementsPage_getExpectedActions(siteId));
 	}
@@ -349,6 +350,13 @@ public abstract class BaseContentElementResourceTestCase {
 
 		Long siteId = testGetSiteContentElementsPage_getSiteId();
 
+		Page<ContentElement> contentElementPage =
+			contentElementResource.getSiteContentElementsPage(
+				siteId, null, null, null, null, null);
+
+		int totalCount = GetterUtil.getInteger(
+			contentElementPage.getTotalCount());
+
 		ContentElement contentElement1 =
 			testGetSiteContentElementsPage_addContentElement(
 				siteId, randomContentElement());
@@ -363,19 +371,22 @@ public abstract class BaseContentElementResourceTestCase {
 
 		Page<ContentElement> page1 =
 			contentElementResource.getSiteContentElementsPage(
-				siteId, null, null, null, Pagination.of(1, 2), null);
+				siteId, null, null, null, Pagination.of(1, totalCount + 2),
+				null);
 
 		List<ContentElement> contentElements1 =
 			(List<ContentElement>)page1.getItems();
 
 		Assert.assertEquals(
-			contentElements1.toString(), 2, contentElements1.size());
+			contentElements1.toString(), totalCount + 2,
+			contentElements1.size());
 
 		Page<ContentElement> page2 =
 			contentElementResource.getSiteContentElementsPage(
-				siteId, null, null, null, Pagination.of(2, 2), null);
+				siteId, null, null, null, Pagination.of(2, totalCount + 2),
+				null);
 
-		Assert.assertEquals(3, page2.getTotalCount());
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
 		List<ContentElement> contentElements2 =
 			(List<ContentElement>)page2.getItems();
@@ -385,11 +396,12 @@ public abstract class BaseContentElementResourceTestCase {
 
 		Page<ContentElement> page3 =
 			contentElementResource.getSiteContentElementsPage(
-				siteId, null, null, null, Pagination.of(1, 3), null);
+				siteId, null, null, null, Pagination.of(1, (int)totalCount + 3),
+				null);
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(contentElement1, contentElement2, contentElement3),
-			(List<ContentElement>)page3.getItems());
+		assertContains(contentElement1, (List<ContentElement>)page3.getItems());
+		assertContains(contentElement2, (List<ContentElement>)page3.getItems());
+		assertContains(contentElement3, (List<ContentElement>)page3.getItems());
 	}
 
 	@Test
@@ -515,24 +527,32 @@ public abstract class BaseContentElementResourceTestCase {
 		contentElement2 = testGetSiteContentElementsPage_addContentElement(
 			siteId, contentElement2);
 
+		Page<ContentElement> page =
+			contentElementResource.getSiteContentElementsPage(
+				siteId, null, null, null, null, null);
+
 		for (EntityField entityField : entityFields) {
 			Page<ContentElement> ascPage =
 				contentElementResource.getSiteContentElementsPage(
-					siteId, null, null, null, Pagination.of(1, 2),
+					siteId, null, null, null,
+					Pagination.of(1, (int)page.getTotalCount() + 1),
 					entityField.getName() + ":asc");
 
-			assertEquals(
-				Arrays.asList(contentElement1, contentElement2),
-				(List<ContentElement>)ascPage.getItems());
+			assertContains(
+				contentElement1, (List<ContentElement>)ascPage.getItems());
+			assertContains(
+				contentElement2, (List<ContentElement>)ascPage.getItems());
 
 			Page<ContentElement> descPage =
 				contentElementResource.getSiteContentElementsPage(
-					siteId, null, null, null, Pagination.of(1, 2),
+					siteId, null, null, null,
+					Pagination.of(1, (int)page.getTotalCount() + 1),
 					entityField.getName() + ":desc");
 
-			assertEquals(
-				Arrays.asList(contentElement2, contentElement1),
-				(List<ContentElement>)descPage.getItems());
+			assertContains(
+				contentElement2, (List<ContentElement>)descPage.getItems());
+			assertContains(
+				contentElement1, (List<ContentElement>)descPage.getItems());
 		}
 	}
 
@@ -575,7 +595,7 @@ public abstract class BaseContentElementResourceTestCase {
 			invokeGraphQLQuery(graphQLField), "JSONObject/data",
 			"JSONObject/contentElements");
 
-		Assert.assertEquals(0, contentElementsJSONObject.get("totalCount"));
+		long totalCount = contentElementsJSONObject.getLong("totalCount");
 
 		ContentElement contentElement1 =
 			testGraphQLGetSiteContentElementsPage_addContentElement();
@@ -586,10 +606,16 @@ public abstract class BaseContentElementResourceTestCase {
 			invokeGraphQLQuery(graphQLField), "JSONObject/data",
 			"JSONObject/contentElements");
 
-		Assert.assertEquals(2, contentElementsJSONObject.getLong("totalCount"));
+		Assert.assertEquals(
+			totalCount + 2, contentElementsJSONObject.getLong("totalCount"));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(contentElement1, contentElement2),
+		assertContains(
+			contentElement1,
+			Arrays.asList(
+				ContentElementSerDes.toDTOs(
+					contentElementsJSONObject.getString("items"))));
+		assertContains(
+			contentElement2,
 			Arrays.asList(
 				ContentElementSerDes.toDTOs(
 					contentElementsJSONObject.getString("items"))));

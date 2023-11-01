@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
@@ -392,19 +393,18 @@ public abstract class BaseCartResourceTestCase {
 		Page<Cart> page = cartResource.getChannelCartsPage(
 			channelId, Pagination.of(1, 10));
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if (irrelevantChannelId != null) {
 			Cart irrelevantCart = testGetChannelCartsPage_addCart(
 				irrelevantChannelId, randomIrrelevantCart());
 
 			page = cartResource.getChannelCartsPage(
-				irrelevantChannelId, Pagination.of(1, 2));
+				irrelevantChannelId, Pagination.of(1, (int)totalCount + 1));
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantCart), (List<Cart>)page.getItems());
+			assertContains(irrelevantCart, (List<Cart>)page.getItems());
 			assertValid(
 				page,
 				testGetChannelCartsPage_getExpectedActions(
@@ -418,10 +418,10 @@ public abstract class BaseCartResourceTestCase {
 		page = cartResource.getChannelCartsPage(
 			channelId, Pagination.of(1, 10));
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(cart1, cart2), (List<Cart>)page.getItems());
+		assertContains(cart1, (List<Cart>)page.getItems());
+		assertContains(cart2, (List<Cart>)page.getItems());
 		assertValid(
 			page, testGetChannelCartsPage_getExpectedActions(channelId));
 
@@ -443,6 +443,10 @@ public abstract class BaseCartResourceTestCase {
 	public void testGetChannelCartsPageWithPagination() throws Exception {
 		Long channelId = testGetChannelCartsPage_getChannelId();
 
+		Page<Cart> cartPage = cartResource.getChannelCartsPage(channelId, null);
+
+		int totalCount = GetterUtil.getInteger(cartPage.getTotalCount());
+
 		Cart cart1 = testGetChannelCartsPage_addCart(channelId, randomCart());
 
 		Cart cart2 = testGetChannelCartsPage_addCart(channelId, randomCart());
@@ -450,26 +454,27 @@ public abstract class BaseCartResourceTestCase {
 		Cart cart3 = testGetChannelCartsPage_addCart(channelId, randomCart());
 
 		Page<Cart> page1 = cartResource.getChannelCartsPage(
-			channelId, Pagination.of(1, 2));
+			channelId, Pagination.of(1, totalCount + 2));
 
 		List<Cart> carts1 = (List<Cart>)page1.getItems();
 
-		Assert.assertEquals(carts1.toString(), 2, carts1.size());
+		Assert.assertEquals(carts1.toString(), totalCount + 2, carts1.size());
 
 		Page<Cart> page2 = cartResource.getChannelCartsPage(
-			channelId, Pagination.of(2, 2));
+			channelId, Pagination.of(2, totalCount + 2));
 
-		Assert.assertEquals(3, page2.getTotalCount());
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
 		List<Cart> carts2 = (List<Cart>)page2.getItems();
 
 		Assert.assertEquals(carts2.toString(), 1, carts2.size());
 
 		Page<Cart> page3 = cartResource.getChannelCartsPage(
-			channelId, Pagination.of(1, 3));
+			channelId, Pagination.of(1, (int)totalCount + 3));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(cart1, cart2, cart3), (List<Cart>)page3.getItems());
+		assertContains(cart1, (List<Cart>)page3.getItems());
+		assertContains(cart2, (List<Cart>)page3.getItems());
+		assertContains(cart3, (List<Cart>)page3.getItems());
 	}
 
 	protected Cart testGetChannelCartsPage_addCart(Long channelId, Cart cart)

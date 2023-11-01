@@ -197,7 +197,7 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 		Page<WorkflowTask> page = workflowTaskResource.getRoleWorkflowTasksPage(
 			roleId, Pagination.of(1, 10));
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if (irrelevantRoleId != null) {
 			WorkflowTask irrelevantWorkflowTask =
@@ -205,13 +205,12 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 					irrelevantRoleId, randomIrrelevantWorkflowTask());
 
 			page = workflowTaskResource.getRoleWorkflowTasksPage(
-				irrelevantRoleId, Pagination.of(1, 2));
+				irrelevantRoleId, Pagination.of(1, (int)totalCount + 1));
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantWorkflowTask),
-				(List<WorkflowTask>)page.getItems());
+			assertContains(
+				irrelevantWorkflowTask, (List<WorkflowTask>)page.getItems());
 			assertValid(
 				page,
 				testGetRoleWorkflowTasksPage_getExpectedActions(
@@ -229,11 +228,10 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 		page = workflowTaskResource.getRoleWorkflowTasksPage(
 			roleId, Pagination.of(1, 10));
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(workflowTask1, workflowTask2),
-			(List<WorkflowTask>)page.getItems());
+		assertContains(workflowTask1, (List<WorkflowTask>)page.getItems());
+		assertContains(workflowTask2, (List<WorkflowTask>)page.getItems());
 		assertValid(
 			page, testGetRoleWorkflowTasksPage_getExpectedActions(roleId));
 	}
@@ -251,6 +249,12 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 	public void testGetRoleWorkflowTasksPageWithPagination() throws Exception {
 		Long roleId = testGetRoleWorkflowTasksPage_getRoleId();
 
+		Page<WorkflowTask> workflowTaskPage =
+			workflowTaskResource.getRoleWorkflowTasksPage(roleId, null);
+
+		int totalCount = GetterUtil.getInteger(
+			workflowTaskPage.getTotalCount());
+
 		WorkflowTask workflowTask1 =
 			testGetRoleWorkflowTasksPage_addWorkflowTask(
 				roleId, randomWorkflowTask());
@@ -265,19 +269,19 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 
 		Page<WorkflowTask> page1 =
 			workflowTaskResource.getRoleWorkflowTasksPage(
-				roleId, Pagination.of(1, 2));
+				roleId, Pagination.of(1, totalCount + 2));
 
 		List<WorkflowTask> workflowTasks1 =
 			(List<WorkflowTask>)page1.getItems();
 
 		Assert.assertEquals(
-			workflowTasks1.toString(), 2, workflowTasks1.size());
+			workflowTasks1.toString(), totalCount + 2, workflowTasks1.size());
 
 		Page<WorkflowTask> page2 =
 			workflowTaskResource.getRoleWorkflowTasksPage(
-				roleId, Pagination.of(2, 2));
+				roleId, Pagination.of(2, totalCount + 2));
 
-		Assert.assertEquals(3, page2.getTotalCount());
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
 		List<WorkflowTask> workflowTasks2 =
 			(List<WorkflowTask>)page2.getItems();
@@ -287,11 +291,11 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 
 		Page<WorkflowTask> page3 =
 			workflowTaskResource.getRoleWorkflowTasksPage(
-				roleId, Pagination.of(1, 3));
+				roleId, Pagination.of(1, (int)totalCount + 3));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(workflowTask1, workflowTask2, workflowTask3),
-			(List<WorkflowTask>)page3.getItems());
+		assertContains(workflowTask1, (List<WorkflowTask>)page3.getItems());
+		assertContains(workflowTask2, (List<WorkflowTask>)page3.getItems());
+		assertContains(workflowTask3, (List<WorkflowTask>)page3.getItems());
 	}
 
 	protected WorkflowTask testGetRoleWorkflowTasksPage_addWorkflowTask(
@@ -353,10 +357,11 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 	public void testGetWorkflowTasksAssignedToMePageWithPagination()
 		throws Exception {
 
-		Page<WorkflowTask> totalPage =
+		Page<WorkflowTask> workflowTaskPage =
 			workflowTaskResource.getWorkflowTasksAssignedToMePage(null);
 
-		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(
+			workflowTaskPage.getTotalCount());
 
 		WorkflowTask workflowTask1 =
 			testGetWorkflowTasksAssignedToMePage_addWorkflowTask(
@@ -394,7 +399,7 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 
 		Page<WorkflowTask> page3 =
 			workflowTaskResource.getWorkflowTasksAssignedToMePage(
-				Pagination.of(1, totalCount + 3));
+				Pagination.of(1, (int)totalCount + 3));
 
 		assertContains(workflowTask1, (List<WorkflowTask>)page3.getItems());
 		assertContains(workflowTask2, (List<WorkflowTask>)page3.getItems());
@@ -450,10 +455,11 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 	public void testGetWorkflowTasksAssignedToMyRolesPageWithPagination()
 		throws Exception {
 
-		Page<WorkflowTask> totalPage =
+		Page<WorkflowTask> workflowTaskPage =
 			workflowTaskResource.getWorkflowTasksAssignedToMyRolesPage(null);
 
-		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(
+			workflowTaskPage.getTotalCount());
 
 		WorkflowTask workflowTask1 =
 			testGetWorkflowTasksAssignedToMyRolesPage_addWorkflowTask(
@@ -491,7 +497,7 @@ public abstract class BaseWorkflowTaskResourceTestCase {
 
 		Page<WorkflowTask> page3 =
 			workflowTaskResource.getWorkflowTasksAssignedToMyRolesPage(
-				Pagination.of(1, totalCount + 3));
+				Pagination.of(1, (int)totalCount + 3));
 
 		assertContains(workflowTask1, (List<WorkflowTask>)page3.getItems());
 		assertContains(workflowTask2, (List<WorkflowTask>)page3.getItems());

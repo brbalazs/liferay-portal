@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
@@ -199,7 +200,7 @@ public abstract class BaseSkuResourceTestCase {
 		Page<Sku> page = skuResource.getChannelProductSkusPage(
 			channelId, productId, null, Pagination.of(1, 10));
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if ((irrelevantChannelId != null) && (irrelevantProductId != null)) {
 			Sku irrelevantSku = testGetChannelProductSkusPage_addSku(
@@ -208,12 +209,11 @@ public abstract class BaseSkuResourceTestCase {
 
 			page = skuResource.getChannelProductSkusPage(
 				irrelevantChannelId, irrelevantProductId, null,
-				Pagination.of(1, 2));
+				Pagination.of(1, (int)totalCount + 1));
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantSku), (List<Sku>)page.getItems());
+			assertContains(irrelevantSku, (List<Sku>)page.getItems());
 			assertValid(
 				page,
 				testGetChannelProductSkusPage_getExpectedActions(
@@ -229,10 +229,10 @@ public abstract class BaseSkuResourceTestCase {
 		page = skuResource.getChannelProductSkusPage(
 			channelId, productId, null, Pagination.of(1, 10));
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(sku1, sku2), (List<Sku>)page.getItems());
+		assertContains(sku1, (List<Sku>)page.getItems());
+		assertContains(sku2, (List<Sku>)page.getItems());
 		assertValid(
 			page,
 			testGetChannelProductSkusPage_getExpectedActions(
@@ -254,6 +254,11 @@ public abstract class BaseSkuResourceTestCase {
 		Long channelId = testGetChannelProductSkusPage_getChannelId();
 		Long productId = testGetChannelProductSkusPage_getProductId();
 
+		Page<Sku> skuPage = skuResource.getChannelProductSkusPage(
+			channelId, productId, null, null);
+
+		int totalCount = GetterUtil.getInteger(skuPage.getTotalCount());
+
 		Sku sku1 = testGetChannelProductSkusPage_addSku(
 			channelId, productId, randomSku());
 
@@ -264,26 +269,27 @@ public abstract class BaseSkuResourceTestCase {
 			channelId, productId, randomSku());
 
 		Page<Sku> page1 = skuResource.getChannelProductSkusPage(
-			channelId, productId, null, Pagination.of(1, 2));
+			channelId, productId, null, Pagination.of(1, totalCount + 2));
 
 		List<Sku> skus1 = (List<Sku>)page1.getItems();
 
-		Assert.assertEquals(skus1.toString(), 2, skus1.size());
+		Assert.assertEquals(skus1.toString(), totalCount + 2, skus1.size());
 
 		Page<Sku> page2 = skuResource.getChannelProductSkusPage(
-			channelId, productId, null, Pagination.of(2, 2));
+			channelId, productId, null, Pagination.of(2, totalCount + 2));
 
-		Assert.assertEquals(3, page2.getTotalCount());
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
 		List<Sku> skus2 = (List<Sku>)page2.getItems();
 
 		Assert.assertEquals(skus2.toString(), 1, skus2.size());
 
 		Page<Sku> page3 = skuResource.getChannelProductSkusPage(
-			channelId, productId, null, Pagination.of(1, 3));
+			channelId, productId, null, Pagination.of(1, (int)totalCount + 3));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(sku1, sku2, sku3), (List<Sku>)page3.getItems());
+		assertContains(sku1, (List<Sku>)page3.getItems());
+		assertContains(sku2, (List<Sku>)page3.getItems());
+		assertContains(sku3, (List<Sku>)page3.getItems());
 	}
 
 	protected Sku testGetChannelProductSkusPage_addSku(

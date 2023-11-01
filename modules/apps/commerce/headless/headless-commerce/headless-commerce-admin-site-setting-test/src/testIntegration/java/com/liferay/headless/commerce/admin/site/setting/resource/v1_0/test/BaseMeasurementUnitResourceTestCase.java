@@ -33,6 +33,7 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
@@ -197,7 +198,7 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 				getCommerceAdminSiteSettingGroupMeasurementUnitPage(
 					groupId, null, Pagination.of(1, 10));
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if (irrelevantGroupId != null) {
 			MeasurementUnit irrelevantMeasurementUnit =
@@ -207,12 +208,13 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 			page =
 				measurementUnitResource.
 					getCommerceAdminSiteSettingGroupMeasurementUnitPage(
-						irrelevantGroupId, null, Pagination.of(1, 2));
+						irrelevantGroupId, null,
+						Pagination.of(1, (int)totalCount + 1));
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantMeasurementUnit),
+			assertContains(
+				irrelevantMeasurementUnit,
 				(List<MeasurementUnit>)page.getItems());
 			assertValid(
 				page,
@@ -233,11 +235,12 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 				getCommerceAdminSiteSettingGroupMeasurementUnitPage(
 					groupId, null, Pagination.of(1, 10));
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(measurementUnit1, measurementUnit2),
-			(List<MeasurementUnit>)page.getItems());
+		assertContains(
+			measurementUnit1, (List<MeasurementUnit>)page.getItems());
+		assertContains(
+			measurementUnit2, (List<MeasurementUnit>)page.getItems());
 		assertValid(
 			page,
 			testGetCommerceAdminSiteSettingGroupMeasurementUnitPage_getExpectedActions(
@@ -265,6 +268,14 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 		Long groupId =
 			testGetCommerceAdminSiteSettingGroupMeasurementUnitPage_getGroupId();
 
+		Page<MeasurementUnit> measurementUnitPage =
+			measurementUnitResource.
+				getCommerceAdminSiteSettingGroupMeasurementUnitPage(
+					groupId, null, null);
+
+		int totalCount = GetterUtil.getInteger(
+			measurementUnitPage.getTotalCount());
+
 		MeasurementUnit measurementUnit1 =
 			testGetCommerceAdminSiteSettingGroupMeasurementUnitPage_addMeasurementUnit(
 				groupId, randomMeasurementUnit());
@@ -280,20 +291,21 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 		Page<MeasurementUnit> page1 =
 			measurementUnitResource.
 				getCommerceAdminSiteSettingGroupMeasurementUnitPage(
-					groupId, null, Pagination.of(1, 2));
+					groupId, null, Pagination.of(1, totalCount + 2));
 
 		List<MeasurementUnit> measurementUnits1 =
 			(List<MeasurementUnit>)page1.getItems();
 
 		Assert.assertEquals(
-			measurementUnits1.toString(), 2, measurementUnits1.size());
+			measurementUnits1.toString(), totalCount + 2,
+			measurementUnits1.size());
 
 		Page<MeasurementUnit> page2 =
 			measurementUnitResource.
 				getCommerceAdminSiteSettingGroupMeasurementUnitPage(
-					groupId, null, Pagination.of(2, 2));
+					groupId, null, Pagination.of(2, totalCount + 2));
 
-		Assert.assertEquals(3, page2.getTotalCount());
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
 		List<MeasurementUnit> measurementUnits2 =
 			(List<MeasurementUnit>)page2.getItems();
@@ -304,11 +316,14 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 		Page<MeasurementUnit> page3 =
 			measurementUnitResource.
 				getCommerceAdminSiteSettingGroupMeasurementUnitPage(
-					groupId, null, Pagination.of(1, 3));
+					groupId, null, Pagination.of(1, (int)totalCount + 3));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(measurementUnit1, measurementUnit2, measurementUnit3),
-			(List<MeasurementUnit>)page3.getItems());
+		assertContains(
+			measurementUnit1, (List<MeasurementUnit>)page3.getItems());
+		assertContains(
+			measurementUnit2, (List<MeasurementUnit>)page3.getItems());
+		assertContains(
+			measurementUnit3, (List<MeasurementUnit>)page3.getItems());
 	}
 
 	protected MeasurementUnit

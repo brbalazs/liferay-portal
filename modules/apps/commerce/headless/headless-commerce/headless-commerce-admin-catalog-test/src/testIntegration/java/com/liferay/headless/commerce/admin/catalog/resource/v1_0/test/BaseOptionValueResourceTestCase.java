@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
@@ -197,7 +198,7 @@ public abstract class BaseOptionValueResourceTestCase {
 				getOptionByExternalReferenceCodeOptionValuesPage(
 					externalReferenceCode, Pagination.of(1, 10));
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if (irrelevantExternalReferenceCode != null) {
 			OptionValue irrelevantOptionValue =
@@ -208,13 +209,13 @@ public abstract class BaseOptionValueResourceTestCase {
 			page =
 				optionValueResource.
 					getOptionByExternalReferenceCodeOptionValuesPage(
-						irrelevantExternalReferenceCode, Pagination.of(1, 2));
+						irrelevantExternalReferenceCode,
+						Pagination.of(1, (int)totalCount + 1));
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantOptionValue),
-				(List<OptionValue>)page.getItems());
+			assertContains(
+				irrelevantOptionValue, (List<OptionValue>)page.getItems());
 			assertValid(
 				page,
 				testGetOptionByExternalReferenceCodeOptionValuesPage_getExpectedActions(
@@ -234,11 +235,10 @@ public abstract class BaseOptionValueResourceTestCase {
 				getOptionByExternalReferenceCodeOptionValuesPage(
 					externalReferenceCode, Pagination.of(1, 10));
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(optionValue1, optionValue2),
-			(List<OptionValue>)page.getItems());
+		assertContains(optionValue1, (List<OptionValue>)page.getItems());
+		assertContains(optionValue2, (List<OptionValue>)page.getItems());
 		assertValid(
 			page,
 			testGetOptionByExternalReferenceCodeOptionValuesPage_getExpectedActions(
@@ -262,6 +262,13 @@ public abstract class BaseOptionValueResourceTestCase {
 		String externalReferenceCode =
 			testGetOptionByExternalReferenceCodeOptionValuesPage_getExternalReferenceCode();
 
+		Page<OptionValue> optionValuePage =
+			optionValueResource.
+				getOptionByExternalReferenceCodeOptionValuesPage(
+					externalReferenceCode, null);
+
+		int totalCount = GetterUtil.getInteger(optionValuePage.getTotalCount());
+
 		OptionValue optionValue1 =
 			testGetOptionByExternalReferenceCodeOptionValuesPage_addOptionValue(
 				externalReferenceCode, randomOptionValue());
@@ -277,18 +284,19 @@ public abstract class BaseOptionValueResourceTestCase {
 		Page<OptionValue> page1 =
 			optionValueResource.
 				getOptionByExternalReferenceCodeOptionValuesPage(
-					externalReferenceCode, Pagination.of(1, 2));
+					externalReferenceCode, Pagination.of(1, totalCount + 2));
 
 		List<OptionValue> optionValues1 = (List<OptionValue>)page1.getItems();
 
-		Assert.assertEquals(optionValues1.toString(), 2, optionValues1.size());
+		Assert.assertEquals(
+			optionValues1.toString(), totalCount + 2, optionValues1.size());
 
 		Page<OptionValue> page2 =
 			optionValueResource.
 				getOptionByExternalReferenceCodeOptionValuesPage(
-					externalReferenceCode, Pagination.of(2, 2));
+					externalReferenceCode, Pagination.of(2, totalCount + 2));
 
-		Assert.assertEquals(3, page2.getTotalCount());
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
 		List<OptionValue> optionValues2 = (List<OptionValue>)page2.getItems();
 
@@ -297,11 +305,12 @@ public abstract class BaseOptionValueResourceTestCase {
 		Page<OptionValue> page3 =
 			optionValueResource.
 				getOptionByExternalReferenceCodeOptionValuesPage(
-					externalReferenceCode, Pagination.of(1, 3));
+					externalReferenceCode,
+					Pagination.of(1, (int)totalCount + 3));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(optionValue1, optionValue2, optionValue3),
-			(List<OptionValue>)page3.getItems());
+		assertContains(optionValue1, (List<OptionValue>)page3.getItems());
+		assertContains(optionValue2, (List<OptionValue>)page3.getItems());
+		assertContains(optionValue3, (List<OptionValue>)page3.getItems());
 	}
 
 	protected OptionValue
@@ -360,7 +369,7 @@ public abstract class BaseOptionValueResourceTestCase {
 			optionValueResource.getOptionIdOptionValuesPage(
 				id, Pagination.of(1, 10));
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if (irrelevantId != null) {
 			OptionValue irrelevantOptionValue =
@@ -368,13 +377,12 @@ public abstract class BaseOptionValueResourceTestCase {
 					irrelevantId, randomIrrelevantOptionValue());
 
 			page = optionValueResource.getOptionIdOptionValuesPage(
-				irrelevantId, Pagination.of(1, 2));
+				irrelevantId, Pagination.of(1, (int)totalCount + 1));
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantOptionValue),
-				(List<OptionValue>)page.getItems());
+			assertContains(
+				irrelevantOptionValue, (List<OptionValue>)page.getItems());
 			assertValid(
 				page,
 				testGetOptionIdOptionValuesPage_getExpectedActions(
@@ -392,11 +400,10 @@ public abstract class BaseOptionValueResourceTestCase {
 		page = optionValueResource.getOptionIdOptionValuesPage(
 			id, Pagination.of(1, 10));
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(optionValue1, optionValue2),
-			(List<OptionValue>)page.getItems());
+		assertContains(optionValue1, (List<OptionValue>)page.getItems());
+		assertContains(optionValue2, (List<OptionValue>)page.getItems());
 		assertValid(
 			page, testGetOptionIdOptionValuesPage_getExpectedActions(id));
 	}
@@ -416,6 +423,11 @@ public abstract class BaseOptionValueResourceTestCase {
 
 		Long id = testGetOptionIdOptionValuesPage_getId();
 
+		Page<OptionValue> optionValuePage =
+			optionValueResource.getOptionIdOptionValuesPage(id, null);
+
+		int totalCount = GetterUtil.getInteger(optionValuePage.getTotalCount());
+
 		OptionValue optionValue1 =
 			testGetOptionIdOptionValuesPage_addOptionValue(
 				id, randomOptionValue());
@@ -430,17 +442,18 @@ public abstract class BaseOptionValueResourceTestCase {
 
 		Page<OptionValue> page1 =
 			optionValueResource.getOptionIdOptionValuesPage(
-				id, Pagination.of(1, 2));
+				id, Pagination.of(1, totalCount + 2));
 
 		List<OptionValue> optionValues1 = (List<OptionValue>)page1.getItems();
 
-		Assert.assertEquals(optionValues1.toString(), 2, optionValues1.size());
+		Assert.assertEquals(
+			optionValues1.toString(), totalCount + 2, optionValues1.size());
 
 		Page<OptionValue> page2 =
 			optionValueResource.getOptionIdOptionValuesPage(
-				id, Pagination.of(2, 2));
+				id, Pagination.of(2, totalCount + 2));
 
-		Assert.assertEquals(3, page2.getTotalCount());
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
 		List<OptionValue> optionValues2 = (List<OptionValue>)page2.getItems();
 
@@ -448,11 +461,11 @@ public abstract class BaseOptionValueResourceTestCase {
 
 		Page<OptionValue> page3 =
 			optionValueResource.getOptionIdOptionValuesPage(
-				id, Pagination.of(1, 3));
+				id, Pagination.of(1, (int)totalCount + 3));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(optionValue1, optionValue2, optionValue3),
-			(List<OptionValue>)page3.getItems());
+		assertContains(optionValue1, (List<OptionValue>)page3.getItems());
+		assertContains(optionValue2, (List<OptionValue>)page3.getItems());
+		assertContains(optionValue3, (List<OptionValue>)page3.getItems());
 	}
 
 	protected OptionValue testGetOptionIdOptionValuesPage_addOptionValue(

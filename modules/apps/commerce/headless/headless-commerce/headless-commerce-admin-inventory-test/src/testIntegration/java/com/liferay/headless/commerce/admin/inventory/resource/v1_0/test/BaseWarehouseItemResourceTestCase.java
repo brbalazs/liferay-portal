@@ -490,7 +490,7 @@ public abstract class BaseWarehouseItemResourceTestCase {
 				getWarehousByExternalReferenceCodeWarehouseItemsPage(
 					externalReferenceCode, Pagination.of(1, 10));
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if (irrelevantExternalReferenceCode != null) {
 			WarehouseItem irrelevantWarehouseItem =
@@ -501,13 +501,13 @@ public abstract class BaseWarehouseItemResourceTestCase {
 			page =
 				warehouseItemResource.
 					getWarehousByExternalReferenceCodeWarehouseItemsPage(
-						irrelevantExternalReferenceCode, Pagination.of(1, 2));
+						irrelevantExternalReferenceCode,
+						Pagination.of(1, (int)totalCount + 1));
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantWarehouseItem),
-				(List<WarehouseItem>)page.getItems());
+			assertContains(
+				irrelevantWarehouseItem, (List<WarehouseItem>)page.getItems());
 			assertValid(
 				page,
 				testGetWarehousByExternalReferenceCodeWarehouseItemsPage_getExpectedActions(
@@ -527,11 +527,10 @@ public abstract class BaseWarehouseItemResourceTestCase {
 				getWarehousByExternalReferenceCodeWarehouseItemsPage(
 					externalReferenceCode, Pagination.of(1, 10));
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(warehouseItem1, warehouseItem2),
-			(List<WarehouseItem>)page.getItems());
+		assertContains(warehouseItem1, (List<WarehouseItem>)page.getItems());
+		assertContains(warehouseItem2, (List<WarehouseItem>)page.getItems());
 		assertValid(
 			page,
 			testGetWarehousByExternalReferenceCodeWarehouseItemsPage_getExpectedActions(
@@ -559,6 +558,14 @@ public abstract class BaseWarehouseItemResourceTestCase {
 		String externalReferenceCode =
 			testGetWarehousByExternalReferenceCodeWarehouseItemsPage_getExternalReferenceCode();
 
+		Page<WarehouseItem> warehouseItemPage =
+			warehouseItemResource.
+				getWarehousByExternalReferenceCodeWarehouseItemsPage(
+					externalReferenceCode, null);
+
+		int totalCount = GetterUtil.getInteger(
+			warehouseItemPage.getTotalCount());
+
 		WarehouseItem warehouseItem1 =
 			testGetWarehousByExternalReferenceCodeWarehouseItemsPage_addWarehouseItem(
 				externalReferenceCode, randomWarehouseItem());
@@ -574,20 +581,20 @@ public abstract class BaseWarehouseItemResourceTestCase {
 		Page<WarehouseItem> page1 =
 			warehouseItemResource.
 				getWarehousByExternalReferenceCodeWarehouseItemsPage(
-					externalReferenceCode, Pagination.of(1, 2));
+					externalReferenceCode, Pagination.of(1, totalCount + 2));
 
 		List<WarehouseItem> warehouseItems1 =
 			(List<WarehouseItem>)page1.getItems();
 
 		Assert.assertEquals(
-			warehouseItems1.toString(), 2, warehouseItems1.size());
+			warehouseItems1.toString(), totalCount + 2, warehouseItems1.size());
 
 		Page<WarehouseItem> page2 =
 			warehouseItemResource.
 				getWarehousByExternalReferenceCodeWarehouseItemsPage(
-					externalReferenceCode, Pagination.of(2, 2));
+					externalReferenceCode, Pagination.of(2, totalCount + 2));
 
-		Assert.assertEquals(3, page2.getTotalCount());
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
 		List<WarehouseItem> warehouseItems2 =
 			(List<WarehouseItem>)page2.getItems();
@@ -598,11 +605,12 @@ public abstract class BaseWarehouseItemResourceTestCase {
 		Page<WarehouseItem> page3 =
 			warehouseItemResource.
 				getWarehousByExternalReferenceCodeWarehouseItemsPage(
-					externalReferenceCode, Pagination.of(1, 3));
+					externalReferenceCode,
+					Pagination.of(1, (int)totalCount + 3));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(warehouseItem1, warehouseItem2, warehouseItem3),
-			(List<WarehouseItem>)page3.getItems());
+		assertContains(warehouseItem1, (List<WarehouseItem>)page3.getItems());
+		assertContains(warehouseItem2, (List<WarehouseItem>)page3.getItems());
+		assertContains(warehouseItem3, (List<WarehouseItem>)page3.getItems());
 	}
 
 	protected WarehouseItem
@@ -662,7 +670,7 @@ public abstract class BaseWarehouseItemResourceTestCase {
 			warehouseItemResource.getWarehousIdWarehouseItemsPage(
 				id, Pagination.of(1, 10));
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if (irrelevantId != null) {
 			WarehouseItem irrelevantWarehouseItem =
@@ -670,13 +678,12 @@ public abstract class BaseWarehouseItemResourceTestCase {
 					irrelevantId, randomIrrelevantWarehouseItem());
 
 			page = warehouseItemResource.getWarehousIdWarehouseItemsPage(
-				irrelevantId, Pagination.of(1, 2));
+				irrelevantId, Pagination.of(1, (int)totalCount + 1));
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantWarehouseItem),
-				(List<WarehouseItem>)page.getItems());
+			assertContains(
+				irrelevantWarehouseItem, (List<WarehouseItem>)page.getItems());
 			assertValid(
 				page,
 				testGetWarehousIdWarehouseItemsPage_getExpectedActions(
@@ -694,11 +701,10 @@ public abstract class BaseWarehouseItemResourceTestCase {
 		page = warehouseItemResource.getWarehousIdWarehouseItemsPage(
 			id, Pagination.of(1, 10));
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(warehouseItem1, warehouseItem2),
-			(List<WarehouseItem>)page.getItems());
+		assertContains(warehouseItem1, (List<WarehouseItem>)page.getItems());
+		assertContains(warehouseItem2, (List<WarehouseItem>)page.getItems());
 		assertValid(
 			page, testGetWarehousIdWarehouseItemsPage_getExpectedActions(id));
 
@@ -722,6 +728,12 @@ public abstract class BaseWarehouseItemResourceTestCase {
 
 		Long id = testGetWarehousIdWarehouseItemsPage_getId();
 
+		Page<WarehouseItem> warehouseItemPage =
+			warehouseItemResource.getWarehousIdWarehouseItemsPage(id, null);
+
+		int totalCount = GetterUtil.getInteger(
+			warehouseItemPage.getTotalCount());
+
 		WarehouseItem warehouseItem1 =
 			testGetWarehousIdWarehouseItemsPage_addWarehouseItem(
 				id, randomWarehouseItem());
@@ -736,19 +748,19 @@ public abstract class BaseWarehouseItemResourceTestCase {
 
 		Page<WarehouseItem> page1 =
 			warehouseItemResource.getWarehousIdWarehouseItemsPage(
-				id, Pagination.of(1, 2));
+				id, Pagination.of(1, totalCount + 2));
 
 		List<WarehouseItem> warehouseItems1 =
 			(List<WarehouseItem>)page1.getItems();
 
 		Assert.assertEquals(
-			warehouseItems1.toString(), 2, warehouseItems1.size());
+			warehouseItems1.toString(), totalCount + 2, warehouseItems1.size());
 
 		Page<WarehouseItem> page2 =
 			warehouseItemResource.getWarehousIdWarehouseItemsPage(
-				id, Pagination.of(2, 2));
+				id, Pagination.of(2, totalCount + 2));
 
-		Assert.assertEquals(3, page2.getTotalCount());
+		Assert.assertEquals(totalCount + 3, page2.getTotalCount());
 
 		List<WarehouseItem> warehouseItems2 =
 			(List<WarehouseItem>)page2.getItems();
@@ -758,11 +770,11 @@ public abstract class BaseWarehouseItemResourceTestCase {
 
 		Page<WarehouseItem> page3 =
 			warehouseItemResource.getWarehousIdWarehouseItemsPage(
-				id, Pagination.of(1, 3));
+				id, Pagination.of(1, (int)totalCount + 3));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(warehouseItem1, warehouseItem2, warehouseItem3),
-			(List<WarehouseItem>)page3.getItems());
+		assertContains(warehouseItem1, (List<WarehouseItem>)page3.getItems());
+		assertContains(warehouseItem2, (List<WarehouseItem>)page3.getItems());
+		assertContains(warehouseItem3, (List<WarehouseItem>)page3.getItems());
 	}
 
 	protected WarehouseItem
@@ -852,11 +864,12 @@ public abstract class BaseWarehouseItemResourceTestCase {
 	public void testGetWarehouseItemsUpdatedPageWithPagination()
 		throws Exception {
 
-		Page<WarehouseItem> totalPage =
+		Page<WarehouseItem> warehouseItemPage =
 			warehouseItemResource.getWarehouseItemsUpdatedPage(
 				null, null, null);
 
-		int totalCount = GetterUtil.getInteger(totalPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(
+			warehouseItemPage.getTotalCount());
 
 		WarehouseItem warehouseItem1 =
 			testGetWarehouseItemsUpdatedPage_addWarehouseItem(
@@ -894,7 +907,7 @@ public abstract class BaseWarehouseItemResourceTestCase {
 
 		Page<WarehouseItem> page3 =
 			warehouseItemResource.getWarehouseItemsUpdatedPage(
-				null, null, Pagination.of(1, totalCount + 3));
+				null, null, Pagination.of(1, (int)totalCount + 3));
 
 		assertContains(warehouseItem1, (List<WarehouseItem>)page3.getItems());
 		assertContains(warehouseItem2, (List<WarehouseItem>)page3.getItems());

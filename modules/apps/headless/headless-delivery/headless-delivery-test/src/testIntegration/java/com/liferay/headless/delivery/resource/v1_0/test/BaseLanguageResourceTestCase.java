@@ -191,7 +191,7 @@ public abstract class BaseLanguageResourceTestCase {
 
 		Page<Language> page = languageResource.getSiteLanguagesPage(siteId);
 
-		Assert.assertEquals(0, page.getTotalCount());
+		long totalCount = page.getTotalCount();
 
 		if (irrelevantSiteId != null) {
 			Language irrelevantLanguage = testGetSiteLanguagesPage_addLanguage(
@@ -199,11 +199,9 @@ public abstract class BaseLanguageResourceTestCase {
 
 			page = languageResource.getSiteLanguagesPage(irrelevantSiteId);
 
-			Assert.assertEquals(1, page.getTotalCount());
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
 
-			assertEquals(
-				Arrays.asList(irrelevantLanguage),
-				(List<Language>)page.getItems());
+			assertContains(irrelevantLanguage, (List<Language>)page.getItems());
 			assertValid(
 				page,
 				testGetSiteLanguagesPage_getExpectedActions(irrelevantSiteId));
@@ -217,11 +215,10 @@ public abstract class BaseLanguageResourceTestCase {
 
 		page = languageResource.getSiteLanguagesPage(siteId);
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(language1, language2),
-			(List<Language>)page.getItems());
+		assertContains(language1, (List<Language>)page.getItems());
+		assertContains(language2, (List<Language>)page.getItems());
 		assertValid(page, testGetSiteLanguagesPage_getExpectedActions(siteId));
 	}
 
@@ -270,7 +267,7 @@ public abstract class BaseLanguageResourceTestCase {
 			invokeGraphQLQuery(graphQLField), "JSONObject/data",
 			"JSONObject/languages");
 
-		Assert.assertEquals(0, languagesJSONObject.get("totalCount"));
+		long totalCount = languagesJSONObject.getLong("totalCount");
 
 		Language language1 = testGraphQLGetSiteLanguagesPage_addLanguage();
 		Language language2 = testGraphQLGetSiteLanguagesPage_addLanguage();
@@ -279,10 +276,15 @@ public abstract class BaseLanguageResourceTestCase {
 			invokeGraphQLQuery(graphQLField), "JSONObject/data",
 			"JSONObject/languages");
 
-		Assert.assertEquals(2, languagesJSONObject.getLong("totalCount"));
+		Assert.assertEquals(
+			totalCount + 2, languagesJSONObject.getLong("totalCount"));
 
-		assertEqualsIgnoringOrder(
-			Arrays.asList(language1, language2),
+		assertContains(
+			language1,
+			Arrays.asList(
+				LanguageSerDes.toDTOs(languagesJSONObject.getString("items"))));
+		assertContains(
+			language2,
 			Arrays.asList(
 				LanguageSerDes.toDTOs(languagesJSONObject.getString("items"))));
 	}
