@@ -2,7 +2,7 @@
 @summary = "Mouse over '${locator1}'"
 definition {
 
-	function mouseOver(locator1) {
+	function mouseOver() {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");
@@ -14,7 +14,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseOverClickNavigation(locator1) {
+	function mouseOverClickNavigation() {
 		WaitForSPARefresh();
 
 		selenium.clickAt("//div[@id='navigationCollapse']", "");
@@ -30,7 +30,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseOverInvisible(locator1) {
+	function mouseOverInvisible() {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "false");
@@ -42,7 +42,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function mouseOverNotVisible(locator1) {
+	function mouseOverNotVisible() {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "false");

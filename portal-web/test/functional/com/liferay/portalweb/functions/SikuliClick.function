@@ -1,7 +1,7 @@
 @default = "sikuliClick"
 definition {
 
-	function sikuliClick(locator1) {
+	function sikuliClick() {
 		WaitForSPARefresh();
 
 		selenium.sikuliClick(${locator1});

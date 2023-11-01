@@ -1,7 +1,7 @@
 @default = "scrollBy"
 definition {
 
-	function scrollBy(value1) {
+	function scrollBy() {
 		WaitForSPARefresh();
 
 		selenium.scrollBy(${value1});

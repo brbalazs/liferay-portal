@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro assertGuestCheckoutAuthenticationPage() {
+	macro assertGuestCheckoutAuthenticationPage {
 		AssertElementPresent(locator1 = "TextInput#EMAIL_ADDRESS");
 
 		AssertElementPresent(locator1 = "TextInput#PASSWORD");

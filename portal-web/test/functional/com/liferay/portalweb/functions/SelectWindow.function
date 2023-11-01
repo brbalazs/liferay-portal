@@ -1,7 +1,7 @@
 @default = "selectWindow"
 definition {
 
-	function selectPopUp(value1) {
+	function selectPopUp() {
 		WaitForSPARefresh();
 
 		selenium.pause(5000);
@@ -13,7 +13,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function selectWindow(value1) {
+	function selectWindow() {
 		WaitForSPARefresh();
 
 		selenium.pause(5000);
@@ -25,7 +25,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function selectWindowNoSPARefresh(value1) {
+	function selectWindowNoSPARefresh() {
 		selenium.pause(5000);
 
 		selenium.selectWindow(${value1});

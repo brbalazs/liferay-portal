@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addInitializerProductToCart(productQuantity = null, productName = null) {
+	macro addInitializerProductToCart {
 		Type(
 			key_productName = ${productName},
 			locator1 = "CommerceAccelerators#COMMERCE_QUANTITY_SELECTOR_INPUT",
@@ -19,8 +18,7 @@ definition {
 		Pause(value1 = 2000);
 	}
 
-	@summary = "Default summary"
-	macro selectAssociatedFSOptionsValue(FSOptionValue = null) {
+	macro selectAssociatedFSOptionsValue {
 		Click(locator1 = "CommerceFrontStore#FS_PRODUCT_OPTIONS_SELECT");
 
 		Click(
@@ -28,8 +26,7 @@ definition {
 			locator1 = "CommerceFrontStore#FS_PRODUCT_OPTION");
 	}
 
-	@summary = "Default summary"
-	macro viewMiniCart(cartItemNames = null, cartSummaryTotal = null, cartItemQuantities = null, cartItemSKUs = null, cartItemPriceValues = null, cartSummaryOrderDiscount = null, cartSummaryQuantity = null, cartSummarySubtotal = null) {
+	macro viewMiniCart {
 		FrontStore.viewMiniCartItems(
 			cartItemNames = ${cartItemNames},
 			cartItemPriceValues = ${cartItemPriceValues},
@@ -64,8 +61,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewMiniCartItem(cartItemName = null, cartItemQuantity = null, cartItemSKU = null, cartItemPriceValue = null) {
+	macro viewMiniCartItem {
 		AssertTextEquals(
 			key_cartItemSKU = ${cartItemSKU},
 			locator1 = "CommerceAccelerators#MINI_CART_ITEM_NAME",
@@ -87,8 +83,7 @@ definition {
 			value1 = "$ ${cartItemPriceValue}");
 	}
 
-	@summary = "Default summary"
-	macro viewMiniCartItems() {
+	macro viewMiniCartItems {
 		var count = StringUtil.count(${cartItemSKUs}, ",");
 
 		while (${count} != 0) {
@@ -111,8 +106,7 @@ definition {
 		}
 	}
 
-	@summary = "Default summary"
-	macro viewProductDetail(FSProductName = null, FSOptionValuesList = null) {
+	macro viewProductDetail {
 		AssertElementPresent(
 			key_FSProductName = ${FSProductName},
 			locator1 = "CommerceFrontStore#FS_PRODUCT_NAME");

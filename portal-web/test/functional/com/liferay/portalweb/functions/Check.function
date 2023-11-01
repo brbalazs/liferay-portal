@@ -1,7 +1,7 @@
 @default = "clickAt"
 definition {
 
-	function checkAll(locator1, value1) {
+	function checkAll() {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");
@@ -37,7 +37,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function checkToggleSwitch(locator1, value1) {
+	function checkToggleSwitch() {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "false");
@@ -55,7 +55,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAt(locator1, value1) {
+	function clickAt() {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");
@@ -73,7 +73,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAtWithPause(locator1, value1) {
+	function clickAtWithPause() {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");
@@ -93,7 +93,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function toggleSwitch(locator1, value1) {
+	function toggleSwitch() {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "false");

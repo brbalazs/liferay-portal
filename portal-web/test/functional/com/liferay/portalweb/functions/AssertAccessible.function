@@ -1,7 +1,7 @@
 @default = "assertAccessible"
 definition {
 
-	function assertAccessible(locator1) {
+	function assertAccessible() {
 		WaitForSPARefresh();
 
 		selenium.assertAccessible(${locator1});

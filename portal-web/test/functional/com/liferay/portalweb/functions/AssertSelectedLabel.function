@@ -1,7 +1,7 @@
 @default = "assertSelectedLabel"
 definition {
 
-	function assertSelectedLabel(locator1, value1) {
+	function assertSelectedLabel() {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");

@@ -1,7 +1,7 @@
 @default = "dragAndDropToObject"
 definition {
 
-	function dragAndDrop(locator1, value1) {
+	function dragAndDrop() {
 		WaitForSPARefresh();
 
 		selenium.dragAndDrop(${locator1}, ${value1});

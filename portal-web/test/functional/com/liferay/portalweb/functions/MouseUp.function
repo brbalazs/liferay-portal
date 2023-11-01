@@ -1,7 +1,7 @@
 @default = "mouseUp"
 definition {
 
-	function mouseUp(locator1) {
+	function mouseUp() {
 		WaitForSPARefresh();
 
 		selenium.mouseUp(${locator1});

@@ -2,14 +2,14 @@
 definition {
 
 	@summary-ignore = "true"
-	function pause(value1) {
+	function pause() {
 		WaitForSPARefresh();
 
 		selenium.pause(${value1});
 	}
 
 	@summary-ignore = "true"
-	function pauseNoSPARefresh(value1) {
+	function pauseNoSPARefresh() {
 		selenium.pause(${value1});
 	}
 

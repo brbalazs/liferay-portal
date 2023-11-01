@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro assignAllRelationsToProductsEntry() {
+	macro assignAllRelationsToProductsEntry {
 		Click(locator1 = "CommerceEntry#ADD_BUTTON");
 
 		WaitForSPARefresh();
@@ -13,8 +12,7 @@ definition {
 			value1 = "Add");
 	}
 
-	@summary = "Default summary"
-	macro assignMultipleRelationToProductsEntry(entriesList = null) {
+	macro assignMultipleRelationToProductsEntry {
 		Click(locator1 = "CommerceEntry#ADD_BUTTON");
 
 		WaitForSPARefresh();
@@ -28,8 +26,7 @@ definition {
 			value1 = "Add");
 	}
 
-	@summary = "Default summary"
-	macro assignSingleRelationToProductsEntry(entryName = null, title = null) {
+	macro assignSingleRelationToProductsEntry {
 		Type(
 			key_title = ${title},
 			locator1 = "CommerceEntry#ADD_RELATION_FIELD",

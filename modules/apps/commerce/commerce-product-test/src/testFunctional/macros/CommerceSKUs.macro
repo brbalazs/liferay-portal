@@ -1,14 +1,12 @@
 definition {
 
-	@summary = "Default summary"
-	macro addPriceToSKU(price = null) {
+	macro addPriceToSKU {
 		Type(
 			locator1 = "CommerceEntry#INPUT_PRICE",
 			value1 = ${price});
 	}
 
-	@summary = "Default summary"
-	macro addSKU(key_menuItem = null, optionValuesList = null) {
+	macro addSKU {
 		for (var optionValues : list ${optionValuesList}) {
 			var optionValue = StringUtil.extractFirst(${optionValues}, ":");
 			var price = StringUtil.extractLast(${optionValues}, ":");

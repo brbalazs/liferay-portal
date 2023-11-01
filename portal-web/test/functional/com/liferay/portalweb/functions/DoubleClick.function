@@ -1,7 +1,7 @@
 @default = "doubleClick"
 definition {
 
-	function doubleClick(locator1) {
+	function doubleClick() {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");
@@ -15,7 +15,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function doubleClickAt(locator1, value1) {
+	function doubleClickAt() {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");

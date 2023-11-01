@@ -13,7 +13,7 @@ definition {
 		}
 	}
 
-	function assertPartialTextClickAt(locator1, value1) {
+	function assertPartialTextClickAt() {
 		WaitForSPARefresh();
 
 		AssertTextEquals.assertPartialText();
@@ -27,7 +27,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertTextClickAt(locator1, value1) {
+	function assertTextClickAt() {
 		WaitForSPARefresh();
 
 		AssertTextEquals.assertText();
@@ -41,7 +41,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertTextClickAtAndPause(locator1, value1) {
+	function assertTextClickAtAndPause() {
 		WaitForSPARefresh();
 
 		AssertTextEquals.assertText();
@@ -57,7 +57,7 @@ definition {
 		selenium.pause(1000);
 	}
 
-	function assertTextClickAtNoJavaScript(locator1, value1) {
+	function assertTextClickAtNoJavaScript() {
 		WaitForSPARefresh();
 
 		AssertTextEquals.assertText();
@@ -69,7 +69,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertTextClickAtWaitForLastScript(locator1) {
+	function assertTextClickAtWaitForLastScript() {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "false");
@@ -83,7 +83,7 @@ definition {
 		selenium.waitForElementPresent(${locator1}, "false");
 	}
 
-	function assertTextClickCaseSensitive(locator1) {
+	function assertTextClickCaseSensitive() {
 		WaitForSPARefresh();
 
 		AssertTextEquals.assertTextCaseSensitive();
@@ -97,7 +97,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertTextClickNoMouseOver(locator1) {
+	function assertTextClickNoMouseOver() {
 		WaitForSPARefresh();
 
 		AssertTextEquals.assertText();
@@ -109,7 +109,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertValueClickAt(locator1, value1) {
+	function assertValueClickAt() {
 		WaitForSPARefresh();
 
 		AssertTextEquals.assertValue();
@@ -135,7 +135,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function waitForDMHomeAssertTextEqualsClick(locator1) {
+	function waitForDMHomeAssertTextEqualsClick() {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "false");

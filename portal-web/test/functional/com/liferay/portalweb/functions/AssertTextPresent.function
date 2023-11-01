@@ -1,7 +1,7 @@
 @default = "assertTextPresent"
 definition {
 
-	function assertTextPresent(value1) {
+	function assertTextPresent() {
 		WaitForSPARefresh();
 
 		selenium.waitForTextPresent(${value1});

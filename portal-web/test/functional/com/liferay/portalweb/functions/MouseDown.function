@@ -1,7 +1,7 @@
 @default = "mouseDown"
 definition {
 
-	function mouseDown(locator1) {
+	function mouseDown() {
 		WaitForSPARefresh();
 
 		selenium.mouseDown(${locator1});

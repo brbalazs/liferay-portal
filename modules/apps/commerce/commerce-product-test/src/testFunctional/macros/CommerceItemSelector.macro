@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro selectAlleEntries() {
+	macro selectAlleEntries {
 		SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
 
 		Click(locator1 = "CommerceNavigation#SELECT_ALL_CHECKBOX");
@@ -11,8 +10,7 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro selectEntry(entryName = null) {
+	macro selectEntry {
 		SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
 
 		Click(
@@ -24,8 +22,7 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
-	@summary = "Default summary"
-	macro uploadSingleFile(uploadFileName = null) {
+	macro uploadSingleFile {
 		var key_uploadFileName = ${uploadFileName};
 
 		SelectFrameTop(value1 = "relative=top");

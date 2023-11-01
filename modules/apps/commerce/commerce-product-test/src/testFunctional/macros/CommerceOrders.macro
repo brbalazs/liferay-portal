@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro editOrderItemDetails(orderItemDeliveryGroup = null, orderItemSKU = null, orderItemPrice = null, orderItemRequestedDeliveryDate = null, orderItemQuantity = null) {
+	macro editOrderItemDetails {
 		Click(
 			key_productSKU = ${orderItemSKU},
 			locator1 = "CommerceOrders#ORDER_ITEMS_PRODUCT_DETAILS");
@@ -45,8 +44,7 @@ definition {
 		IFrame.selectTopFrame();
 	}
 
-	@summary = "Default summary"
-	macro viewOrdersEntry(addressZipCode = null, addressAddress = null, productSKU = null, productQuantity = null, productDiscount = null, productUnitPrice = null, paymentMethod = null, productName = null, productPrice = null, addressCity = null) {
+	macro viewOrdersEntry {
 		if (isSet(addressAddress) && isSet(addressCity) && isSet(addressZipCode)) {
 			AssertTextEquals.assertPartialText(
 				key_addressInfo = ${addressAddress},

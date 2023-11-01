@@ -1,7 +1,7 @@
 @default = "sikuliAssertElementPresent"
 definition {
 
-	function sikuliAssertElementPresent(locator1) {
+	function sikuliAssertElementPresent() {
 		WaitForSPARefresh();
 
 		selenium.sikuliAssertElementPresent(${locator1});

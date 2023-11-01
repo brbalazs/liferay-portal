@@ -1,7 +1,6 @@
 definition {
 
-	@summary = "Default summary"
-	macro addEntry(productTitle = null, productShortDescription = null, productFullDescription = null, plusMenu = null) {
+	macro addEntry {
 		Click(locator1 = "Button#PLUS");
 
 		AssertClick(
@@ -15,15 +14,13 @@ definition {
 			productTitle = ${productTitle});
 	}
 
-	@summary = "Default summary"
-	macro moveCatalogEntriesToRecycleBin() {
+	macro moveCatalogEntriesToRecycleBin {
 		Click(locator1 = "CommerceNavigation#SELECT_ALL_CHECKBOX");
 
 		Click(locator1 = "Button#RECYCLE_BIN");
 	}
 
-	@summary = "Default summary"
-	macro moveCatalogEntryToRecycleBinViaCheckbox(productTitle = null) {
+	macro moveCatalogEntryToRecycleBinViaCheckbox {
 		Click(
 			key_entryTitle = ${productTitle},
 			locator1 = "CommerceNavigation#SINGLE_ENTRY_CHECKBOX");
