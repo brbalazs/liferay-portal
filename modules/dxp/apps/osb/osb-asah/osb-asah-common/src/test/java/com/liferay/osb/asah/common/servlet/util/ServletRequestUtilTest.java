@@ -21,8 +21,8 @@ public class ServletRequestUtilTest {
 			new MockHttpServletRequest();
 
 		mockHttpServletRequest.addHeader(
-			"X-Forwarded-Host", "www.first-second.com");
-		mockHttpServletRequest.addHeader("X-Forwarded-Proto", "https");
+			"X-Forwarded-Origin-Host", "www.first-second.com");
+		mockHttpServletRequest.addHeader("X-Forwarded-Origin-Proto", "https");
 
 		String originalURL = ServletRequestUtil.getOriginalURL(
 			mockHttpServletRequest);
@@ -32,8 +32,8 @@ public class ServletRequestUtilTest {
 		mockHttpServletRequest = new MockHttpServletRequest();
 
 		mockHttpServletRequest.addHeader(
-			"X-Forwarded-Host", "www.first second com");
-		mockHttpServletRequest.addHeader("X-Forwarded-Proto", "https ");
+			"X-Forwarded-Origin-Host", "www.first second com");
+		mockHttpServletRequest.addHeader("X-Forwarded-Origin-Proto", "https ");
 
 		originalURL = ServletRequestUtil.getOriginalURL(mockHttpServletRequest);
 

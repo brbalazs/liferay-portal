@@ -30,7 +30,7 @@ public class ServletRequestUtil {
 
 	private static String _getScheme(HttpServletRequest httpServletRequest) {
 		String forwardedProtocol = httpServletRequest.getHeader(
-			"X-Forwarded-Proto");
+			"X-Forwarded-Origin-Proto");
 
 		if (forwardedProtocol != null) {
 			return forwardedProtocol;
@@ -42,7 +42,8 @@ public class ServletRequestUtil {
 	private static String _getServerName(
 		HttpServletRequest httpServletRequest) {
 
-		String forwardedHost = httpServletRequest.getHeader("X-Forwarded-Host");
+		String forwardedHost = httpServletRequest.getHeader(
+			"X-Forwarded-Origin-Host");
 
 		if (forwardedHost != null) {
 			return forwardedHost;
@@ -52,7 +53,8 @@ public class ServletRequestUtil {
 	}
 
 	private static int _getServerPort(HttpServletRequest httpServletRequest) {
-		String forwardedPort = httpServletRequest.getHeader("X-Forwarded-Port");
+		String forwardedPort = httpServletRequest.getHeader(
+			"X-Forwarded-Origin-Port");
 
 		if (forwardedPort != null) {
 			return Integer.parseInt(forwardedPort);
