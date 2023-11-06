@@ -7,6 +7,7 @@ package com.liferay.osb.asah.batch.curator.bot.scheduling;
 
 import com.liferay.osb.asah.batch.curator.bot.nanite.Nanite;
 import com.liferay.osb.asah.common.concurrent.BoundedExecutor;
+import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.AsahTaskDog;
 import com.liferay.osb.asah.common.dog.ProjectDog;
 import com.liferay.osb.asah.common.dog.RunLogDog;
@@ -18,6 +19,7 @@ import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 import com.liferay.osb.asah.common.wedeploy.data.WeDeployDataService;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,12 +29,14 @@ import java.util.stream.Stream;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
 
@@ -70,6 +74,39 @@ public class AsahTaskManager {
 				}
 
 				return;
+			}
+
+			if (Objects.equals(
+					asahTask.getClassName(), "DeleteChannelsNanite")) {
+
+				JSONObject contextJSONObject = asahTask.getContextJSONObject();
+
+				String createDateString = contextJSONObject.optString(
+					"createDate");
+
+				if (StringUtils.isBlank(createDateString)) {
+					_log.error(
+						"Unable to run DeleteChannelsNanite without create " +
+							"date " + asahTask.getId());
+
+					return;
+				}
+
+				Date executableDate = DateUtil.addMinutes(
+					DateUtil.toUTCDate(createDateString),
+					_deleteChannelsNaniteDelayMinutes);
+
+				if (executableDate.after(DateUtil.newDate())) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							String.format(
+								"DeleteChannelsNanite task %s delayed until %s",
+								asahTask.getId(),
+								DateUtil.toUTCString(executableDate)));
+					}
+
+					return;
+				}
 			}
 
 			_boundedExecutor.runAsync(
@@ -333,6 +370,9 @@ public class AsahTaskManager {
 
 	private final BoundedExecutor _boundedExecutor =
 		BoundedExecutor.newBoundedExecutor(50, 40);
+
+	@Value("${delete.channels.nanite.delay.minutes:90}")
+	private int _deleteChannelsNaniteDelayMinutes;
 
 	@Autowired
 	private List<Nanite> _nanites;
