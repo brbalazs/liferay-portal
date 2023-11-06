@@ -898,6 +898,14 @@ type PageMetric implements AssetMetric {
 	viewsMetric: Metric
 }
 
+type PagePathNode {
+	canonicalUrl: String
+	previousPagePathNodeDTOS: [PagePathNode]
+	title: String
+	views: Int
+    nextPagePathNodeDTOS: [PagePathNode]
+}
+
 type PageReferrerMetric {
 	accessMetric: Metric
 	assetTitle: String
@@ -1346,6 +1354,16 @@ type QueryType {
 		fromDate: String,
 		toDate: String
 	): Int
+
+	pagePath(
+		canonicalUrl: String,
+        channelId: String,
+        rangeEnd: String,
+        rangeKey: Int,
+        rangeStart: String,
+        segmentId: Int,
+        title: String!
+	): PagePathNode
 
 	preference(
 		key: String!
