@@ -127,15 +127,16 @@ public class PagePathDataFetcherTest
 			return;
 		}
 
-		if ((expectedPagePathNodeDTOs == null) &&
-			(actualPagePathNodeDTOs != null)) {
+		if ((expectedPagePathNodeDTOs == null) ||
+			(actualPagePathNodeDTOs == null)) {
 
 			Assertions.fail();
+
+			return;
 		}
 
-		if (expectedPagePathNodeDTOs.size() != actualPagePathNodeDTOs.size()) {
-			Assertions.fail();
-		}
+		Assertions.assertEquals(
+			expectedPagePathNodeDTOs.size(), actualPagePathNodeDTOs.size());
 
 		for (int i = 0; i < expectedPagePathNodeDTOs.size(); i++) {
 			PagePathNodeDTO actualPagePathNodeDTO = actualPagePathNodeDTOs.get(
