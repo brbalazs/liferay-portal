@@ -9,11 +9,11 @@
 # distribution rights of the Software.
 #
 
-from liferay.commerce.common import BaseBigQueryDataFrameReaderSparkJob, \
-	BaseJSONDataFrameReaderSparkJob, \
+from liferay.commerce.common import BaseJSONDataFrameReaderSparkJob, \
 	BaseJSONDataFrameWriterSparkJob
 from liferay.commerce.recommend.feature import CommerceFeatureExtractor
-from liferay.common.spark import BaseSparkJob
+from liferay.common.spark import BaseBigQueryDataFrameReaderSparkJob, \
+	BaseSparkJob
 
 from pyspark import StorageLevel
 from pyspark.ml import Pipeline

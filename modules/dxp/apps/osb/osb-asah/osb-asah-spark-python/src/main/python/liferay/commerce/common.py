@@ -29,44 +29,6 @@ import pyspark.sql.functions as F
 import pytz
 import sys
 
-class BaseBigQueryDataFrameReaderSparkJob(BaseSparkJob):
-
-	def __init__(
-		self,
-		spark_application,
-		table_name,
-		cache=True,
-	):
-		super(BaseBigQueryDataFrameReaderSparkJob, self).__init__(
-			spark_application
-		)
-
-		self.cache = cache
-		self.table_name = table_name
-
-	@abstractmethod
-	def _get_sql_query(self):
-		raise NotImplementedError()
-
-	def _post_process(self, data_frame):
-		return data_frame
-
-	def run(self):
-		data_frame_reader = self.spark_session.read
-
-		data_frame = data_frame_reader.format(
-			"bigquery"
-		).load(
-			self._get_sql_query()
-		)
-
-		data_frame = self._post_process(data_frame)
-
-		data_frame.createOrReplaceTempView(self.table_name)
-
-		if self.cache:
-			self.spark_session.catalog.cacheTable(self.table_name)
-
 class BaseCommerceSparkApplication(BaseSparkApplication, metaclass=ABCMeta):
 
 	def __init__(self):
