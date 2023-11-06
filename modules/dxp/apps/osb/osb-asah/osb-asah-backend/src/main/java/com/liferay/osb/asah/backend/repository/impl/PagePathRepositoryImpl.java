@@ -42,6 +42,47 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 		TimeRange timeRange, @Nullable String title, ZoneId zoneId) {
 
 		SelectJoinStep<Record> select = _dslContext.with(
+			"PagePath"
+		).as(
+			_dslContext.select(
+				DSL.field("canonicalUrl"),
+				DSL.field("channelId"),
+				DSL.field("eventDate"),
+				DSL.coalesce(
+					DSL.lag(
+						DSL.field("canonicalUrl")
+					).over(
+						DSL.partitionBy(
+							DSL.field("channelId"),
+							DSL.field("sessionId"),
+							DSL.field("userId")
+						).orderBy(
+							DSL.field("eventDate")
+						)
+					),
+					DSL.nullif(DSL.field("referrer"), "")
+				).as("previousCanonicalUrl"),
+				DSL.lag(
+					DSL.field("title")
+				).over(
+					DSL.partitionBy(
+						DSL.field("channelId"),
+						DSL.field("sessionId"),
+						DSL.field("userId")
+					).orderBy(
+						DSL.field("eventDate")
+					)
+				).as("previousTitle"),
+				DSL.field("title"),
+				DSL.field("userId")
+			).from(
+				"BQEvent"
+			).where(
+				DSL.field("applicationId").eq("Page"),
+				DSL.field("eventId").eq("pageViewed")
+			)
+
+		).with(
 			"FollowingPages"
 		).as(
 			_dslContext.select(
@@ -52,7 +93,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					"views"
 				)
 			).from(
-				"BQPagePath"
+				"PagePath"
 			).where(
 				DSL.field(
 					"previousCanonicalUrl"
@@ -126,7 +167,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					"views"
 				)
 			).from(
-				"BQPagePath"
+				"PagePath"
 			).where(
 				DSL.field(
 					"canonicalUrl"

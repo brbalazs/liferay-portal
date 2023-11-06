@@ -33,8 +33,5 @@
 	},
 	"pagereferrers": {
 		"path": "page_referrers.sql"
-	},
-	"previouspageviews": {
-		"path": "previous_page_views.sql"
 	}
 }
