@@ -50,16 +50,17 @@ public class ReportDogTest
 		ClassPathResource classPathResource = new ClassPathResource(
 			"dependencies/test_get_csv_report_expected.csv", getClass());
 
-		InputStream inputStream = new FileInputStream(
-			_reportDog.getCsvReport(
-				"https://www.beryl.com/delivery", "page", 1L, null, null,
-				TimeRange.of(
-					LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
-				"individual"));
+		try (InputStream inputStream = new FileInputStream(
+				_reportDog.getCsvReport(
+					"https://www.beryl.com/delivery", "page", 1L, null, null,
+					TimeRange.of(
+						LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
+					"individual"))) {
 
-		Assertions.assertTrue(
-			IOUtils.contentEquals(
-				classPathResource.getInputStream(), inputStream));
+			Assertions.assertTrue(
+				IOUtils.contentEquals(
+					classPathResource.getInputStream(), inputStream));
+		}
 	}
 
 	@Autowired
