@@ -1,0 +1,3 @@
+INSERT INTO AsahTask(id, className, context, cronExpression, projectId) VALUES (1, 'DeleteChannelsNanite', '{"channelIds": [1, 2], "userId": "123456789", "userName": "Test Test"}'::json, null, 'test');
+INSERT INTO AsahTask(id, className, context, cronExpression, projectId) VALUES (2, 'DeleteChannelsNanite', '{"channelIds": [3], "userId": "123456789", "userName": "Test Test"}'::json, null, 'test');
+INSERT INTO AsahTask(id, className, context, cronExpression, projectId) VALUES (3, 'DeleteChannelsNanite', '{"channelIds": [10], "userId": "123456789", "userName": "Test Test"}'::json, null, 'test');
