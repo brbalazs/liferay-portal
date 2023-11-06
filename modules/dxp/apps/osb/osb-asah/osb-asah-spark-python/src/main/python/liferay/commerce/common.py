@@ -221,34 +221,3 @@ class BaseJSONDataFrameReaderSparkJob(BaseSparkJob):
 
 		if self.cache:
 			self.spark_session.catalog.cacheTable(self.table_name)
-
-class BaseJSONDataFrameWriterSparkJob(BaseSparkJob):
-
-	def __init__(self, spark_application, target_folder, table_name):
-		super(BaseJSONDataFrameWriterSparkJob, self).__init__(spark_application)
-
-		self.table_name = table_name
-		self.target_folder = target_folder
-
-	def _get_bucket_path(self):
-		configuration = self.spark_application_configuration
-
-		return '{}/{}/{}/{}/'.format(
-			configuration.get('google.storage.bucket'),
-			self.spark_application.args.ac_project_id,
-			self.spark_application_args.data_source_id, self.target_folder
-		)
-
-	def _pre_process(self, data_frame):
-		return data_frame
-
-	def run(self):
-		data_frame = self.spark_session.table(self.table_name)
-
-		data_frame = self._pre_process(data_frame)
-
-		data_frame_writer = data_frame.write
-
-		data_frame_writer.format("json").mode("overwrite").save(
-			self._get_bucket_path()
-		)

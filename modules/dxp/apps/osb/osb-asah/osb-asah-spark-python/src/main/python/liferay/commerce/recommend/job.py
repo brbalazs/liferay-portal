@@ -9,10 +9,10 @@
 # distribution rights of the Software.
 #
 
-from liferay.commerce.common import BaseJSONDataFrameReaderSparkJob, \
-	BaseJSONDataFrameWriterSparkJob
+from liferay.commerce.common import BaseJSONDataFrameReaderSparkJob
 from liferay.commerce.recommend.feature import CommerceFeatureExtractor
 from liferay.common.spark import BaseBigQueryDataFrameReaderSparkJob, \
+	BaseJSONDataFrameWriterSparkJob, \
 	BaseSparkJob
 
 from pyspark import StorageLevel
@@ -29,11 +29,14 @@ from liferay.ml.job import CollaborativeFilteringSparkJob
 class ContextUserInteractionRecommendationJSONDataFrameWriterSparkJob(BaseJSONDataFrameWriterSparkJob):
 
 	def __init__(self, spark_application):
+		configuration = spark_application.configuration
+
 		super(
 			ContextUserInteractionRecommendationJSONDataFrameWriterSparkJob,
 			self
 		).__init__(
 			spark_application,
+			configuration.get('google.storage.bucket'),
 			'com.liferay.headless.commerce.machine.learning.dto.v1_0.'
 			'UserRecommendation', 'context_user_interaction_recommendation'
 		)
@@ -282,11 +285,14 @@ class FrequentPatternProductJSONDataFrameReaderSparkJob(BaseJSONDataFrameReaderS
 class FrequentPatternRecommendationJSONDataFrameWriterSparkJob(BaseJSONDataFrameWriterSparkJob):
 
 	def __init__(self, spark_application):
+		configuration = spark_application.configuration
+
 		super(
 			FrequentPatternRecommendationJSONDataFrameWriterSparkJob,
 			self
 		).__init__(
 			spark_application,
+			configuration.get('google.storage.bucket'),
 			'com.liferay.headless.commerce.machine.learning.dto.v1_0.'
 			'FrequentPatternRecommendation', 'frequent_pattern_recommendation'
 		)
@@ -672,11 +678,14 @@ class ProductContentPipelineSparkJob(BaseSparkJob):
 class ProductContentRecommendationJSONDataFrameWriter(BaseJSONDataFrameWriterSparkJob):
 
 	def __init__(self, spark_application):
+		configuration = spark_application.configuration
+
 		super(
 			ProductContentRecommendationJSONDataFrameWriter,
 			self
 		).__init__(
 			spark_application,
+			configuration.get('google.storage.bucket'),
 			'com.liferay.headless.commerce.machine.learning.dto.v1_0.'
 			'ProductContentRecommendation', 'product_content_recommendations'
 		)
@@ -876,11 +885,14 @@ class ProductInteractionJSONDataFrameReaderSparkJob(BaseJSONDataFrameReaderSpark
 class ProductInteractionRecommendationJSONDataFrameWriterSparkJob(BaseJSONDataFrameWriterSparkJob):
 
 	def __init__(self, spark_application):
+		configuration = spark_application.configuration
+
 		super(
 			ProductInteractionRecommendationJSONDataFrameWriterSparkJob,
 			self
 		).__init__(
 			spark_application,
+			configuration.get('google.storage.bucket'),
 			'com.liferay.headless.commerce.machine.learning.dto.v1_0.'
 			'ProductInteractionRecommendation',
 			'product_interaction_recommendations'
