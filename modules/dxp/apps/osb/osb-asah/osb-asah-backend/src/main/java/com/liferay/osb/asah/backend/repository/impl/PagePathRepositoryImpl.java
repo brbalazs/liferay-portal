@@ -77,6 +77,8 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					"PreviousPages"
 				).where(
 					_canonicalUrlField.eq("direct")
+				).groupBy(
+					_canonicalUrlField, _previousField, _titleField
 				)
 			));
 	}
@@ -88,7 +90,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 			"FollowingPages"
 		).as(
 			_dslContext.select(
-				_canonicalUrlField,
+				_canonicalUrlField, _titleField,
 				DSL.val(
 					1
 				).as(
@@ -183,6 +185,11 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				).as(
 					"canonicalUrl"
 				),
+				DSL.coalesce(
+					DSL.field("previousTitle"), "direct"
+				).as(
+					"title"
+				),
 				DSL.val(
 					1
 				).as(
@@ -217,6 +224,18 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				).as(
 					"canonicalUrl"
 				),
+				DSL.when(
+					DSL.field(
+						"rowNumber", Long.class
+					).greaterThan(
+						3L
+					),
+					DSL.val("other")
+				).otherwise(
+					_titleField
+				).as(
+					"title"
+				),
 				DSL.sum(
 					_viewsField
 				).as(
@@ -229,7 +248,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				)
 			).from(
 				_dslContext.select(
-					_canonicalUrlField,
+					_canonicalUrlField, _titleField,
 					DSL.sum(
 						_viewsField
 					).as(
@@ -247,10 +266,10 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				).from(
 					"FollowingPages"
 				).groupBy(
-					_canonicalUrlField
+					_canonicalUrlField, _titleField
 				)
 			).groupBy(
-				_canonicalUrlField
+				_canonicalUrlField, _titleField
 			)
 		);
 	}
@@ -272,6 +291,18 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				).as(
 					"canonicalUrl"
 				),
+				DSL.when(
+					DSL.field(
+						"rowNumber", Long.class
+					).greaterThan(
+						3L
+					),
+					DSL.val("other")
+				).otherwise(
+					_titleField
+				).as(
+					"title"
+				),
 				DSL.sum(
 					_viewsField
 				).as(
@@ -284,7 +315,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				)
 			).from(
 				_dslContext.select(
-					_canonicalUrlField,
+					_canonicalUrlField, _titleField,
 					DSL.sum(
 						_viewsField
 					).as(
@@ -304,10 +335,10 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				).where(
 					_canonicalUrlField.notEqual("direct")
 				).groupBy(
-					_canonicalUrlField
+					_canonicalUrlField, _titleField
 				)
 			).groupBy(
-				_canonicalUrlField
+				_canonicalUrlField, _titleField
 			)
 		);
 	}
