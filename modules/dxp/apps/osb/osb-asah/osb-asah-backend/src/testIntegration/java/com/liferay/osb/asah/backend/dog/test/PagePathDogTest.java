@@ -7,12 +7,10 @@ package com.liferay.osb.asah.backend.dog.test;
 
 import com.liferay.osb.asah.backend.OSBAsahBackendSpringTestContext;
 import com.liferay.osb.asah.backend.dog.PagePathDog;
-import com.liferay.osb.asah.backend.model.AdjacentPageViewsMetric;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
-import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +25,10 @@ public class PagePathDogTest
 	@BQSQLResource(resourcePath = "page_referrers_events.sql")
 	@Test
 	public void testPagePathNode() {
-		List<AdjacentPageViewsMetric> adjacentPagesViewsMetric =
+		System.out.println(
 			_pagePathDog.getAdjacentPagesViewsMetric(
 				"http://liferay.com", 1L, null, TimeRange.LAST_30_DAYS,
-				"Home - Liferay DXP");
-
-
-		System.out.println(adjacentPagesViewsMetric);
+				"Home - Liferay DXP"));
 	}
 
 	@Autowired

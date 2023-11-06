@@ -15,15 +15,11 @@ import java.math.BigDecimal;
 
 import java.time.ZoneId;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
-import org.jooq.Condition;
+import org.jooq.CommonTableExpression;
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.SelectJoinStep;
+import org.jooq.Field;
 import org.jooq.impl.DSL;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,52 +37,58 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 		String canonicalUrl, @Nullable Long channelId, @Nullable Long segmentId,
 		TimeRange timeRange, @Nullable String title, ZoneId zoneId) {
 
-		SelectJoinStep<Record> select = _dslContext.with(
-			"PagePath"
-		).as(
-			_dslContext.select(
-				DSL.field("canonicalUrl"),
-				DSL.field("channelId"),
-				DSL.field("eventDate"),
-				DSL.coalesce(
-					DSL.lag(
-						DSL.field("canonicalUrl")
-					).over(
-						DSL.partitionBy(
-							DSL.field("channelId"),
-							DSL.field("sessionId"),
-							DSL.field("userId")
-						).orderBy(
-							DSL.field("eventDate")
-						)
-					),
-					DSL.nullif(DSL.field("referrer"), "")
-				).as("previousCanonicalUrl"),
-				DSL.lag(
-					DSL.field("title")
-				).over(
-					DSL.partitionBy(
-						DSL.field("channelId"),
-						DSL.field("sessionId"),
-						DSL.field("userId")
-					).orderBy(
-						DSL.field("eventDate")
-					)
-				).as("previousTitle"),
-				DSL.field("title"),
-				DSL.field("userId")
+		return _queryExecutor.queryForList(
+			AdjacentPageViewsMetric::new,
+			_dslContext.with(
+				_getPagePathCTE(channelId, timeRange, zoneId)
+			).with(
+				_getFollowingPagesCTE(canonicalUrl)
+			).with(
+				_getTopFollowingPagesCTE()
+			).with(
+				_getPreviousPagesCTE(canonicalUrl)
+			).with(
+				_getTopPreviousPagesCTE()
+			).select(
+				_canonicalUrlField, _previousField, _titleField, _viewsField
 			).from(
-				"BQEvent"
-			).where(
-				DSL.field("applicationId").eq("Page"),
-				DSL.field("eventId").eq("pageViewed")
-			)
+				"TopFollowingPages"
+			).unionAll(
+				_dslContext.select(
+					_canonicalUrlField, _previousField, _titleField, _viewsField
+				).from(
+					"TopPreviousPages"
+				)
+			).unionAll(
+				_dslContext.select(
+					_canonicalUrlField,
+					DSL.val(
+						Boolean.TRUE
+					).as(
+						"previous"
+					),
+					_titleField,
+					DSL.sum(
+						_viewsField
+					).as(
+						"views"
+					)
+				).from(
+					"PreviousPages"
+				).where(
+					_canonicalUrlField.eq("direct")
+				)
+			));
+	}
 
-		).with(
+	private CommonTableExpression<?> _getFollowingPagesCTE(
+		String canonicalUrl) {
+
+		return DSL.name(
 			"FollowingPages"
 		).as(
 			_dslContext.select(
-				DSL.field("canonicalUrl"),
+				_canonicalUrlField,
 				DSL.val(
 					1
 				).as(
@@ -101,58 +103,78 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					canonicalUrl
 				)
 			)
-		).with(
-			"TopFollowingPages"
+		);
+	}
+
+	private CommonTableExpression<?> _getPagePathCTE(
+		Long channelId, TimeRange timeRange, ZoneId zoneId) {
+
+		return DSL.name(
+			"PagePath"
 		).as(
 			_dslContext.select(
-				DSL.when(
-					DSL.field(
-						"rowNumber", Long.class
-					).greaterThan(
-						3L
-					),
-					DSL.val("other")
-				).otherwise(
-					DSL.field("canonicalUrl", String.class)
-				).as(
-					"canonicalUrl"
-				),
-				DSL.sum(
-					DSL.field("views", Long.class)
-				).as(
-					"views"
-				),
-				DSL.val(
-					Boolean.FALSE
-				).as(
-					"previous"
-				)
-			).from(
-				_dslContext.select(
-					DSL.field("canonicalUrl"),
-					DSL.sum(
-						DSL.field("views", Long.class)
-					).as(
-						"views"
-					),
-					DSL.rowNumber(
+				DSL.field("canonicalUrl"), DSL.field("channelId"),
+				DSL.field("eventDate"),
+				DSL.coalesce(
+					DSL.lag(
+						DSL.field("canonicalUrl")
 					).over(
-						DSL.orderBy(
-							DSL.sum(
-								DSL.field("views", Long.class)
-							).desc())
-					).as(
-						"rowNumber"
+						DSL.partitionBy(
+							DSL.field("channelId"), DSL.field("sessionId"),
+							DSL.field("userId")
+						).orderBy(
+							DSL.field("eventDate")
+						)
+					),
+					DSL.nullif(DSL.field("referrer"), "")
+				).as(
+					"previousCanonicalUrl"
+				),
+				DSL.lag(
+					DSL.field("title")
+				).over(
+					DSL.partitionBy(
+						DSL.field("channelId"), DSL.field("sessionId"),
+						DSL.field("userId")
+					).orderBy(
+						DSL.field("eventDate")
 					)
-				).from(
-					"FollowingPages"
-				).groupBy(
-					DSL.field("canonicalUrl")
+				).as(
+					"previousTitle"
+				),
+				DSL.field("title"), DSL.field("userId")
+			).from(
+				"BQEvent"
+			).where(
+				DSL.field(
+					"applicationId"
+				).eq(
+					"Page"
+				),
+				DSL.field(
+					"channelId"
+				).eq(
+					channelId
+				),
+				DSL.field(
+					"eventId"
+				).eq(
+					"pageViewed"
+				),
+				DSL.field(
+					"eventDate"
+				).between(
+					DateUtil.toUTCLocalDateTime(
+						timeRange.getStartLocalDateTime(), zoneId),
+					DateUtil.toUTCLocalDateTime(
+						timeRange.getEndLocalDateTime(), zoneId)
 				)
-			).groupBy(
-				DSL.field("canonicalUrl", String.class)
 			)
-		).with(
+		);
+	}
+
+	private CommonTableExpression<?> _getPreviousPagesCTE(String canonicalUrl) {
+		return DSL.name(
 			"PreviousPages"
 		).as(
 			_dslContext.select(
@@ -175,7 +197,66 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					canonicalUrl
 				)
 			)
-		).with(
+		);
+	}
+
+	private CommonTableExpression<?> _getTopFollowingPagesCTE() {
+		return DSL.name(
+			"TopFollowingPages"
+		).as(
+			_dslContext.select(
+				DSL.when(
+					DSL.field(
+						"rowNumber", Long.class
+					).greaterThan(
+						3L
+					),
+					DSL.val("other")
+				).otherwise(
+					_canonicalUrlField
+				).as(
+					"canonicalUrl"
+				),
+				DSL.sum(
+					_viewsField
+				).as(
+					"views"
+				),
+				DSL.val(
+					Boolean.FALSE
+				).as(
+					"previous"
+				)
+			).from(
+				_dslContext.select(
+					_canonicalUrlField,
+					DSL.sum(
+						_viewsField
+					).as(
+						"views"
+					),
+					DSL.rowNumber(
+					).over(
+						DSL.orderBy(
+							DSL.sum(
+								_viewsField
+							).desc())
+					).as(
+						"rowNumber"
+					)
+				).from(
+					"FollowingPages"
+				).groupBy(
+					_canonicalUrlField
+				)
+			).groupBy(
+				_canonicalUrlField
+			)
+		);
+	}
+
+	private CommonTableExpression<?> _getTopPreviousPagesCTE() {
+		return DSL.name(
 			"TopPreviousPages"
 		).as(
 			_dslContext.select(
@@ -187,12 +268,12 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					),
 					DSL.val("other")
 				).otherwise(
-					DSL.field("canonicalUrl", String.class)
+					_canonicalUrlField
 				).as(
 					"canonicalUrl"
 				),
 				DSL.sum(
-					DSL.field("views", Long.class)
+					_viewsField
 				).as(
 					"views"
 				),
@@ -203,9 +284,9 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				)
 			).from(
 				_dslContext.select(
-					DSL.field("canonicalUrl"),
+					_canonicalUrlField,
 					DSL.sum(
-						DSL.field("views", Long.class)
+						_viewsField
 					).as(
 						"views"
 					),
@@ -213,7 +294,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					).over(
 						DSL.orderBy(
 							DSL.sum(
-								DSL.field("views", Long.class)
+								_viewsField
 							).desc())
 					).as(
 						"rowNumber"
@@ -221,206 +302,30 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				).from(
 					"PreviousPages"
 				).where(
-					DSL.field(
-						"canonicalUrl"
-					).notEqual(
-						"direct"
-					)
+					_canonicalUrlField.notEqual("direct")
 				).groupBy(
-					DSL.field("canonicalUrl")
+					_canonicalUrlField
 				)
 			).groupBy(
-				DSL.field("canonicalUrl", String.class)
+				_canonicalUrlField
 			)
-		).with(
-			"Result"
-		).as(
-			_dslContext.select(
-				DSL.field("canonicalUrl", String.class),
-				DSL.field("views", BigDecimal.class),
-				DSL.field("previous", Boolean.class)
-			).from(
-				"TopFollowingPages"
-			).unionAll(
-				_dslContext.select(
-					DSL.field("canonicalUrl", String.class),
-					DSL.field("views", BigDecimal.class),
-					DSL.field("previous", Boolean.class)
-				).from(
-					"TopPreviousPages"
-				)
-			).unionAll(
-				_dslContext.select(
-					DSL.val(
-						"direct"
-					).as(
-						"canonicalUrl"
-					),
-					DSL.sum(
-						DSL.field("views", Long.class)
-					).as(
-						"views"
-					),
-					DSL.val(
-						Boolean.TRUE
-					).as(
-						"previous"
-					)
-				).from(
-					"PreviousPages"
-				).where(
-					DSL.field(
-						"canonicalUrl"
-					).eq(
-						"direct"
-					)
-				)
-			)
-		).select(
-			DSL.asterisk()
-		).from(
-			"Result"
 		);
-
-		return _queryExecutor.queryForList(
-			AdjacentPageViewsMetric::new, select);
 	}
 
-	//
-	//
-	//
-	//
-	//		Field<BigDecimal> accessesField = DSL.sum(
-	//			DSL.field("access", Long.class)
-	//		).as(
-
-	// 			"accesses"
-
-	//		);
-	//
-	//		Field<String> referrerField = DSL.coalesce(DSL.field("referrer", String.class), "");
-
-	//
-	//		SelectJoinStep<Record2<String, BigDecimal>> selectJoinStep = _dslContext.select(
-
-	// 			referrerField, accessesField
-
-	//		).from(
-	//			DSL.table(
-
-	// 				"BQPageReferrers"
-
-	//			).as(
-
-	// 				"PageReferrers"
-
-	//			)
-	//		);
-	//
-	//		if (segmentId != null) {
-	//			selectJoinStep = selectJoinStep.leftJoin(
-	//				DSL.table(
-
-	// 					"BQMembership"
-
-	//				).as(
-
-	// 					"Membership"
-
-	//				)
-	//			).on(
-	//				DSL.field(
-	//					"PageReferrers.userId"
-	//				).eq(
-	//					DSL.field("Membership.identityId")
-	//				)
-	//			);
-	//		}
-	//
-	//
-	//		return _queryExecutor.queryForMap(
-	//			GetterUtil::getString,
-	//			selectJoinStep.where(
-	//				_createWhereClauseConditions(
-	//					canonicalUrl, channelId, segmentId, timeRange, title, zoneId)
-	//			).groupBy(
-
-	// 				referrerField
-
-	//			).orderBy(
-	//				accessesField.desc()
-	//			).limit(
-
-	// 				3
-
-	//			),
-	//			value -> {
-	//				BigDecimal bigDecimalValue = (BigDecimal)value;
-
-	//
-	//				return bigDecimalValue.longValue();
-	//			});
-	//	}
-
-	private List<Condition> _createWhereClauseConditions(
-		String canonicalUrl, @Nullable Long channelId, @Nullable Long segmentId,
-		TimeRange timeRange, @Nullable String title, ZoneId zoneId) {
-
-		List<Condition> conditions = new ArrayList<>();
-
-		conditions.add(
-			DSL.field(
-				"PageReferrers.canonicalUrl"
-			).eq(
-				canonicalUrl
-			));
-		conditions.add(
-			DSL.field(
-				"PageReferrers.eventDate"
-			).between(
-				DateUtil.toUTCLocalDateTime(
-					timeRange.getStartLocalDateTime(), zoneId),
-				DateUtil.toUTCLocalDateTime(
-					timeRange.getEndLocalDateTime(), zoneId)
-			));
-		conditions.add(
-			DSL.field(
-				"PageReferrers.channelId"
-			).eq(
-				channelId
-			));
-
-		if (StringUtils.isNotBlank(title)) {
-			conditions.add(
-				DSL.field(
-					"PageReferrers.title"
-				).eq(
-					title
-				));
-		}
-
-		if (segmentId != null) {
-			conditions.add(
-				DSL.field(
-					"Membership.channelId"
-				).eq(
-					channelId
-				));
-			conditions.add(
-				DSL.field(
-					"Membership.segmentId"
-				).eq(
-					segmentId
-				));
-		}
-
-		return conditions;
-	}
+	private final Field<String> _canonicalUrlField = DSL.field(
+		"canonicalUrl", String.class);
 
 	@Autowired
 	private DSLContext _dslContext;
 
+	private final Field<Boolean> _previousField = DSL.field(
+		"previous", Boolean.class);
+
 	@Autowired
 	private QueryExecutor _queryExecutor;
+
+	private final Field<String> _titleField = DSL.field("title", String.class);
+	private final Field<BigDecimal> _viewsField = DSL.field(
+		"views", BigDecimal.class);
 
 }

@@ -96,14 +96,11 @@ public class PagePathDataFetcher extends BaseDataFetcher<PagePathNodeDTO> {
 					PagePathNodeDTO pagePathNodeDTO1,
 					PagePathNodeDTO pagePathNodeDTO2) {
 
-					String title1 = pagePathNodeDTO1.getTitle();
-					String title2 = pagePathNodeDTO2.getTitle();
-
-					if (Objects.equals(title1, "others")) {
+					if (Objects.equals(pagePathNodeDTO1.getTitle(), "others")) {
 						return 1;
 					}
 
-					if (Objects.equals(title2, "others")) {
+					if (Objects.equals(pagePathNodeDTO2.getTitle(), "others")) {
 						return -1;
 					}
 
