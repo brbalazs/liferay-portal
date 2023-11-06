@@ -8,6 +8,7 @@ package com.liferay.osb.asah.backend.rest.controller;
 import com.liferay.osb.asah.backend.dto.ChannelDTO;
 import com.liferay.osb.asah.backend.dto.DataSourceDTO;
 import com.liferay.osb.asah.backend.dto.PageDTO;
+import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.AsahTaskDog;
 import com.liferay.osb.asah.common.dog.ChannelDog;
 import com.liferay.osb.asah.common.dog.DataSourceDog;
@@ -84,6 +85,8 @@ public class ChannelsRestController extends BaseRestController {
 			"DeleteChannelsNanite",
 			JSONUtil.put(
 				"channelIds", jsonArray
+			).put(
+				"createDate", DateUtil.newDateString()
 			).put(
 				"userId", jsonObject.get("userId")
 			).put(
