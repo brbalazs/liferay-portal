@@ -1,0 +1,71 @@
+/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+package com.liferay.osb.asah.backend.dog.test;
+
+import com.liferay.osb.asah.backend.OSBAsahBackendSpringTestContext;
+import com.liferay.osb.asah.backend.dog.ReportDog;
+import com.liferay.osb.asah.common.entity.Channel;
+import com.liferay.osb.asah.common.model.TimeRange;
+import com.liferay.osb.asah.common.repository.ChannelRepository;
+import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
+import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
+
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import java.time.LocalDate;
+
+import org.apache.commons.io.IOUtils;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+
+/**
+ * @author Marcos Martins
+ */
+public class ReportDogTest
+	implements OSBAsahBackendSpringTestContext,
+			   OSBAsahTestExecutionListenersContext {
+
+	@BeforeEach
+	public void setUp() {
+		Channel channel = new Channel("Channel Test");
+
+		channel.setId(1L);
+		channel.setIsNew(true);
+
+		_channelRepository.save(channel);
+	}
+
+	@BQSQLResource(resourcePath = "test_report_dog.sql")
+	@Test
+	public void testGetCsvReport() throws Exception {
+		ClassPathResource classPathResource = new ClassPathResource(
+			"dependencies/test_get_csv_report_expected.csv", getClass());
+
+		InputStream inputStream = new FileInputStream(
+			_reportDog.getCsvReport(
+				"https://www.beryl.com/delivery", "page", 1L, null, null,
+				TimeRange.of(
+					LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
+				"individual"));
+
+		Assertions.assertTrue(
+			IOUtils.contentEquals(
+				classPathResource.getInputStream(), inputStream));
+	}
+
+	@Autowired
+	private ChannelRepository _channelRepository;
+
+	@Autowired
+	private ReportDog _reportDog;
+
+}
