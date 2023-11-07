@@ -10,7 +10,7 @@ import com.liferay.osb.asah.backend.repository.PagePathRepository;
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 import com.liferay.osb.asah.common.model.TimeRange;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PagePathDog {
 
-	public List<AdjacentPageViewsMetric> getAdjacentPagesViewsMetric(
+	public Set<AdjacentPageViewsMetric> getAdjacentPagesViewsMetric(
 		String canonicalUrl, @Nullable Long channelId, @Nullable Long segmentId,
 		TimeRange timeRange, @Nullable String title) {
 

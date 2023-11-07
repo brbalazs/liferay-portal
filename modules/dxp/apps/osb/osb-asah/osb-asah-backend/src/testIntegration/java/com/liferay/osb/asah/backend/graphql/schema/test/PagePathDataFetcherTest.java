@@ -18,9 +18,10 @@ import graphql.schema.DataFetchingEnvironment;
 
 import java.math.BigDecimal;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -41,8 +42,7 @@ public class PagePathDataFetcherTest
 
 	@Test
 	public void testGet() {
-		List<AdjacentPageViewsMetric> adjacentPageViewsMetrics =
-			new ArrayList<>();
+		Set<AdjacentPageViewsMetric> adjacentPageViewsMetrics = new HashSet<>();
 
 		adjacentPageViewsMetrics.add(
 			new AdjacentPageViewsMetric(

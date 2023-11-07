@@ -17,6 +17,7 @@ import java.time.ZoneId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.jooq.CommonTableExpression;
 import org.jooq.Condition;
@@ -35,11 +36,11 @@ import org.springframework.stereotype.Repository;
 public class PagePathRepositoryImpl implements PagePathRepository {
 
 	@Override
-	public List<AdjacentPageViewsMetric> getAdjacentPagesViewsMetric(
+	public Set<AdjacentPageViewsMetric> getAdjacentPagesViewsMetric(
 		String canonicalUrl, @Nullable Long channelId, @Nullable Long segmentId,
 		TimeRange timeRange, @Nullable String title, ZoneId zoneId) {
 
-		return _queryExecutor.queryForList(
+		return _queryExecutor.queryForSet(
 			AdjacentPageViewsMetric::new,
 			_dslContext.with(
 				_getPagePathCTE(channelId, segmentId, timeRange, zoneId)

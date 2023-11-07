@@ -21,6 +21,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class PagePathDataFetcher extends BaseDataFetcher<PagePathNodeDTO> {
 		DataFetchingEnvironment dataFetchingEnvironment,
 		SearchQueryContext searchQueryContext) {
 
-		List<AdjacentPageViewsMetric> adjacentPagesViewsMetric =
+		Set<AdjacentPageViewsMetric> adjacentPagesViewsMetric =
 			_pagePathDog.getAdjacentPagesViewsMetric(
 				searchQueryContext.getCanonicalUrl(),
 				searchQueryContext.getChannelIdAsLong(),
@@ -62,7 +63,7 @@ public class PagePathDataFetcher extends BaseDataFetcher<PagePathNodeDTO> {
 	}
 
 	private List<PagePathNodeDTO> _getPagePathNodeDTOs(
-		List<AdjacentPageViewsMetric> adjacentPagesViewsMetrics,
+		Set<AdjacentPageViewsMetric> adjacentPagesViewsMetrics,
 		boolean includePrevious) {
 
 		List<PagePathNodeDTO> previousPagePathNodeDTOs = new ArrayList<>();
@@ -101,7 +102,7 @@ public class PagePathDataFetcher extends BaseDataFetcher<PagePathNodeDTO> {
 	}
 
 	private void _setFollowingPagePathNodeDTOs(
-		List<AdjacentPageViewsMetric> adjacentPagesViewsMetrics,
+		Set<AdjacentPageViewsMetric> adjacentPagesViewsMetrics,
 		PagePathNodeDTO rootPagePathNodeDTO) {
 
 		List<PagePathNodeDTO> followingPagePathNodeDTOs = _getPagePathNodeDTOs(
@@ -126,7 +127,7 @@ public class PagePathDataFetcher extends BaseDataFetcher<PagePathNodeDTO> {
 	}
 
 	private void _setPreviousPagePathNodeDTOs(
-		List<AdjacentPageViewsMetric> adjacentPagesViewsMetrics,
+		Set<AdjacentPageViewsMetric> adjacentPagesViewsMetrics,
 		PagePathNodeDTO rootPagePathNodeDTO) {
 
 		List<PagePathNodeDTO> previousPagePathNodeDTOs = _getPagePathNodeDTOs(

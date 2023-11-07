@@ -10,7 +10,7 @@ import com.liferay.osb.asah.common.model.TimeRange;
 
 import java.time.ZoneId;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.lang.Nullable;
 
@@ -19,7 +19,7 @@ import org.springframework.lang.Nullable;
  */
 public interface PagePathRepository {
 
-	public List<AdjacentPageViewsMetric> getAdjacentPagesViewsMetric(
+	public Set<AdjacentPageViewsMetric> getAdjacentPagesViewsMetric(
 		String canonicalUrl, @Nullable Long channelId, @Nullable Long segmentId,
 		TimeRange timeRange, @Nullable String title, ZoneId zoneId);
 
