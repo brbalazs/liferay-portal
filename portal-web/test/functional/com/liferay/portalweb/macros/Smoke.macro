@@ -3,6 +3,7 @@ definition {
 	var userFirstName = "Test";
 	var userLastName = "Test";
 
+	@summary = "Default summary"
 	@summary-ignore = "true"
 	macro runSmoke(i = null) {
 		task ("Ensure that the super admin can add a Blank Site") {
