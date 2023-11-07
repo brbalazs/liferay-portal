@@ -15,6 +15,7 @@ import java.io.File;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.Date;
 
@@ -77,7 +78,8 @@ public class ReportRestController {
 		File file = _reportDog.getCSVReport(
 			assetId, assetType, Long.valueOf(channelId), query, sorts,
 			TimeRange.of(
-				LocalDateTime.parse(toDate), LocalDateTime.parse(fromDate)),
+				LocalDateTime.parse(toDate, _dateTimeFormatter),
+				LocalDateTime.parse(fromDate, _dateTimeFormatter)),
 			type);
 
 		return bodyBuilder.body(new FileSystemResource(file.getAbsolutePath()));
@@ -104,6 +106,9 @@ public class ReportRestController {
 			throw new IllegalArgumentException("From date is after to date");
 		}
 	}
+
+	private static final DateTimeFormatter _dateTimeFormatter =
+		DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm[:ss.SSS'Z']");
 
 	@Autowired
 	private ReportDog _reportDog;
