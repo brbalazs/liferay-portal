@@ -63,13 +63,7 @@ public class ReportDog {
 			@Nullable TimeRange timeRange, String type)
 		throws Exception {
 
-		File file = File.createTempFile("report", ".csv");
-
-		List<String[]> rows = new ArrayList<>();
-
-		rows.add(_columnHeader.get(type));
-
-		Channel channel = _channelDog.getChannel(channelId);
+		List<String[]> rows = null;
 
 		if (StringUtils.equals(type, "blog")) {
 
@@ -90,69 +84,13 @@ public class ReportDog {
 				 StringUtils.isEmpty(assetId) &&
 				 StringUtils.isEmpty(assetType)) {
 
-			List<Individual> individuals =
-				_bqIndividualRepository.searchBQIndividuals(
-					null, channelId, null, null, null,
-					PageRequest.of(0, _MAX_SIZE, SortUtil.getSort(sorts)),
-					query, null);
-
-			for (Individual individual : individuals) {
-				Individual.Demographics demographics =
-					individual.getDemographics();
-
-				Map<String, List<Field>> fieldMap = demographics.getField();
-
-				Object givenNameFiledValue = fieldMap.get(
-					"givenName"
-				).get(
-					0
-				).getValue();
-
-				Object familyNameFieldValue = fieldMap.get(
-					"familyName"
-				).get(
-					0
-				).getValue();
-
-				String name =
-					String.valueOf(givenNameFiledValue) + " " +
-						String.valueOf(familyNameFieldValue);
-
-				rows.add(
-					new String[] {
-						name,
-						String.valueOf(
-							fieldMap.get(
-								"email"
-							).get(
-								0
-							).getValue()),
-						channel.getName()
-					});
-			}
+			rows = _getIndividualRows(channelId, query, sorts);
 		}
 		else if (StringUtils.equals(type, "individual") &&
 				 !StringUtils.isEmpty(assetType)) {
 
-			AssetMetricRepository assetMetricRepository =
-				_assetMetricRepositoryMap.get(AssetType.of(assetType));
-
-			List<com.liferay.osb.asah.backend.model.Individual> individuals =
-				assetMetricRepository.getKnownIndividuals(
-					assetId, null, channelId,
-					_getMetricType(AssetType.of(assetType)),
-					PageRequest.of(0, _MAX_SIZE, SortUtil.getSort(sorts)),
-					query, timeRange);
-
-			for (com.liferay.osb.asah.backend.model.Individual individual :
-					individuals) {
-
-				rows.add(
-					new String[] {
-						individual.getName(), individual.getEmailAddress(),
-						channel.getName()
-					});
-			}
+			rows = _getAssetIndividualRows(
+				assetId, assetType, channelId, query, sorts, timeRange);
 		}
 		else if (StringUtils.equals(type, "journal")) {
 
@@ -165,6 +103,8 @@ public class ReportDog {
 
 		}
 
+		File file = File.createTempFile("report", ".csv");
+
 		try (CSVWriter writer = new CSVWriter(new FileWriter(file))) {
 			for (String[] row : rows) {
 				writer.writeNext(row);
@@ -172,6 +112,88 @@ public class ReportDog {
 		}
 
 		return file;
+	}
+
+	private List<String[]> _getAssetIndividualRows(
+		@Nullable String assetId, String assetType, Long channelId,
+		@Nullable String query, @Nullable String[] sorts,
+		@Nullable TimeRange timeRange) {
+
+		List<String[]> rows = new ArrayList<>();
+
+		rows.add(_columnHeader.get("individual"));
+
+		AssetMetricRepository assetMetricRepository =
+			_assetMetricRepositoryMap.get(AssetType.of(assetType));
+
+		List<com.liferay.osb.asah.backend.model.Individual> individuals =
+			assetMetricRepository.getKnownIndividuals(
+				assetId, null, channelId,
+				_getMetricType(AssetType.of(assetType)),
+				PageRequest.of(0, _MAX_SIZE, SortUtil.getSort(sorts)), query,
+				timeRange);
+
+		Channel channel = _channelDog.getChannel(channelId);
+
+		for (com.liferay.osb.asah.backend.model.Individual individual :
+				individuals) {
+
+			rows.add(
+				new String[] {
+					individual.getName(), individual.getEmailAddress(),
+					channel.getName()
+				});
+		}
+
+		return rows;
+	}
+
+	private List<String[]> _getIndividualRows(
+		Long channelId, @Nullable String query, @Nullable String[] sorts) {
+
+		List<String[]> rows = new ArrayList<>();
+
+		rows.add(_columnHeader.get("individual"));
+
+		List<Individual> individuals =
+			_bqIndividualRepository.searchBQIndividuals(
+				null, channelId, null, null, null,
+				PageRequest.of(0, _MAX_SIZE, SortUtil.getSort(sorts)), query,
+				null);
+
+		Channel channel = _channelDog.getChannel(channelId);
+
+		for (Individual individual : individuals) {
+			Individual.Demographics demographics = individual.getDemographics();
+
+			Map<String, List<Field>> fieldMap = demographics.getField();
+
+			Object givenNameFiledValue = fieldMap.get(
+				"givenName"
+			).get(
+				0
+			).getValue();
+
+			Object familyNameFieldValue = fieldMap.get(
+				"familyName"
+			).get(
+				0
+			).getValue();
+
+			rows.add(
+				new String[] {
+					givenNameFiledValue + " " + familyNameFieldValue,
+					String.valueOf(
+						fieldMap.get(
+							"email"
+						).get(
+							0
+						).getValue()),
+					channel.getName()
+				});
+		}
+
+		return rows;
 	}
 
 	private MetricType _getMetricType(AssetType assetType) {
