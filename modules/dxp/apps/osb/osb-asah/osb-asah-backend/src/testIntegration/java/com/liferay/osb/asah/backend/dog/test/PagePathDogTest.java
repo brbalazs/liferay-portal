@@ -36,21 +36,21 @@ public class PagePathDogTest
 					"direct", Boolean.TRUE, "direct", new BigDecimal(3)),
 				new AdjacentPageViewsMetric(
 					"http://google.com", Boolean.TRUE, "http://google.com",
-					new BigDecimal(1)),
+					BigDecimal.ONE),
 				new AdjacentPageViewsMetric(
 					"http://liferay.com/b", Boolean.FALSE, "B - Liferay DXP",
 					new BigDecimal(2)),
 				new AdjacentPageViewsMetric(
 					"http://liferay.com/c", Boolean.TRUE, "C - Liferay DXP",
-					new BigDecimal(1)),
+					BigDecimal.ONE),
 				new AdjacentPageViewsMetric(
 					"http://liferay.com/d", Boolean.FALSE, "D - Liferay DXP",
-					new BigDecimal(1)),
+					BigDecimal.ONE),
 				new AdjacentPageViewsMetric(
 					"http://liferay.com/e", Boolean.TRUE, "E - Liferay DXP",
 					new BigDecimal(2)),
 				new AdjacentPageViewsMetric(
-					"other", Boolean.TRUE, "other", new BigDecimal(1))),
+					"other", Boolean.TRUE, "other", BigDecimal.ONE)),
 			_pagePathDog.getAdjacentPagesViewsMetric(
 				"http://liferay.com/a", 1L, null, TimeRange.LAST_30_DAYS,
 				"A - Liferay DXP"));
