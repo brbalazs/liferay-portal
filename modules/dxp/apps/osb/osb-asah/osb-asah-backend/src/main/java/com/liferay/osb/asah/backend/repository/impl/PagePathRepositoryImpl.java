@@ -42,7 +42,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 		return _queryExecutor.queryForList(
 			AdjacentPageViewsMetric::new,
 			_dslContext.with(
-				_getPagePathCTE(channelId, timeRange, zoneId)
+				_getPagePathCTE(channelId, segmentId, timeRange, zoneId)
 			).with(
 				_getFollowingPagesCTE(canonicalUrl)
 			).with(
@@ -143,6 +143,25 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				DateUtil.toUTCLocalDateTime(
 					timeRange.getEndLocalDateTime(), zoneId)
 			));
+
+		if (segmentId != null) {
+			conditions.add(
+				DSL.field(
+					"userId"
+				).in(
+					_dslContext.select(
+						DSL.field("identityId")
+					).from(
+						"BQMembership"
+					).where(
+						DSL.field(
+							"segmentId"
+						).eq(
+							segmentId
+						)
+					)
+				));
+		}
 
 		return DSL.name(
 			"PagePath"
