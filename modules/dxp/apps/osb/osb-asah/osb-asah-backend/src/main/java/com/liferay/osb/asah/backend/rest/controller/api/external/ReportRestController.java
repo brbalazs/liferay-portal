@@ -218,7 +218,7 @@ public class ReportRestController extends BaseRestController {
 			_validateDateRange(fromDate, toDate);
 		}
 
-		File file = _reportDog.getCsvReport(
+		File file = _reportDog.getCSVReport(
 			assetId, assetType, Long.valueOf(channelId), query, sorts,
 			TimeRange.of(
 				LocalDateTime.parse(toDate), LocalDateTime.parse(fromDate)),

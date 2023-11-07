@@ -57,7 +57,7 @@ public class ReportDog {
 		_channelDog = channelDog;
 	}
 
-	public File getCsvReport(
+	public File getCSVReport(
 			@Nullable String assetId, @Nullable String assetType,
 			Long channelId, @Nullable String query, @Nullable String[] sorts,
 			@Nullable TimeRange timeRange, String type)

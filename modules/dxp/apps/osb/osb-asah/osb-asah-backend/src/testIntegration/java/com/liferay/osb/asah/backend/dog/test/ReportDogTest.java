@@ -46,12 +46,12 @@ public class ReportDogTest
 
 	@BQSQLResource(resourcePath = "test_report_dog.sql")
 	@Test
-	public void testGetCsvReport() throws Exception {
+	public void testGetCSVReport() throws Exception {
 		ClassPathResource classPathResource = new ClassPathResource(
 			"dependencies/test_get_csv_report_expected.csv", getClass());
 
 		try (InputStream inputStream = new FileInputStream(
-				_reportDog.getCsvReport(
+				_reportDog.getCSVReport(
 					"https://www.beryl.com/delivery", "page", 1L, null, null,
 					TimeRange.of(
 						LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
