@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 
 import org.jooq.Query;
@@ -47,6 +48,10 @@ public interface QueryExecutor {
 		SelectFinalStep<? extends Record> selectFinalStep);
 
 	public <T> Optional<T> queryForObject(
+		Function<Map<String, Object>, T> rowMapperFunction,
+		SelectFinalStep<? extends Record> selectFinalStep);
+
+	public <T> Set<T> queryForSet(
 		Function<Map<String, Object>, T> rowMapperFunction,
 		SelectFinalStep<? extends Record> selectFinalStep);
 

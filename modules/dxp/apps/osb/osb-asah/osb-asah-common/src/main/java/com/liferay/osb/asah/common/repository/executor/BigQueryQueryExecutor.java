@@ -29,10 +29,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 
 import org.apache.commons.collections4.IterableUtils;
@@ -210,6 +212,24 @@ public class BigQueryQueryExecutor implements QueryExecutor {
 		return Optional.ofNullable(
 			rowMapperFunction.apply(
 				_toObjectMap(fieldValueLists.get(0), tableResult)));
+	}
+
+	@Override
+	public <T> Set<T> queryForSet(
+		Function<Map<String, Object>, T> rowMapperFunction,
+		SelectFinalStep<? extends Record> selectFinalStep) {
+
+		Set<T> set = new HashSet<>();
+
+		TableResult tableResult = _query(selectFinalStep);
+
+		for (FieldValueList fieldValueList : tableResult.iterateAll()) {
+			set.add(
+				rowMapperFunction.apply(
+					_toObjectMap(fieldValueList, tableResult)));
+		}
+
+		return set;
 	}
 
 	private String _getBigQueryTableName(String tableName) {
