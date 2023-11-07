@@ -64,7 +64,7 @@ class ContentInteractionRecommendationJSONDataFrameWriterSparkJob(BaseJSONDataFr
 
 		asset_entity_data_frame = self.spark_session.table(
 			'asset_entity'
-		).selectExpr('id as entryClassPK', 'assetCategoryIds')
+		).selectExpr('assetEntryId as entryClassPK', 'assetCategoryIds')
 
 		return data_frame.join(asset_entity_data_frame, on='entryClassPK')
 
@@ -147,6 +147,130 @@ class ContentInteractionRecommendationSparkJob(BaseSparkJob):
 		self.spark_session.catalog.cacheTable(
 			'content_interaction_recommendation'
 		)
+
+class MostViewedContentRecommendationEventsBigQueryDataFrameReaderSparkJob(BaseBigQueryDataFrameReaderSparkJob):
+
+	def __init__(self, spark_application):
+		super(
+			MostViewedContentRecommendationEventsBigQueryDataFrameReaderSparkJob,
+			self
+		).__init__(
+			spark_application,
+			table_name='most_viewed_content_recommendation_event'
+		)
+
+		configuration = self.spark_application_configuration
+
+		self._event_ids = [
+			'assetViewed', 'blogViewed', 'documentDownloaded',
+			'documentPreviewed', 'webContentViewed'
+		]
+
+		self._window_days = configuration.get(
+			'most.viewed.content.recommendation.window.days'
+		)
+
+	def _get_sql_query(self):
+		end_date = self.spark_application_args.end_date
+
+		start_date = self.spark_application_args.start_date
+
+		time_zone = self.spark_application_args.time_zone
+
+		if end_date and start_date:
+			end_date_sql_string = f'"{end_date}"'
+			start_date_sql_string = \
+				f'DATE_SUB("{start_date}", INTERVAL {self._window_days} DAY)'
+		else:
+			end_date_sql_string = f'CURRENT_DATE("{time_zone}")'
+			start_date_sql_string = \
+				'DATE_SUB(CURRENT_DATE("{}"), INTERVAL {} DAY)'.format(
+					time_zone,
+					self._window_days
+				)
+
+		return f"""
+			SELECT
+				applicationId,
+				assetId AS entryClassPK,
+				count(*) as score
+			FROM 
+				`{self.spark_application_args.ac_project_id}`.event
+			WHERE
+				assetId IS NOT NULL AND
+				dataSourceId = {self.spark_application_args.data_source_id} AND
+				event.eventId IN ({'"' + '","'.join(self._event_ids) + '"'}) AND
+				DATE(event.eventDate, "{time_zone}") >= {start_date_sql_string} AND
+				DATE(event.eventDate, "{time_zone}") <= {end_date_sql_string}
+			GROUP BY
+				applicationId, assetId
+			ORDER BY
+				score DESC
+		"""
+
+	def _post_process(self, data_frame):
+		lookup_data_frame = self.spark_session.createDataFrame(
+			[
+				('Blog', 'com.liferay.blogs.model.BlogsEntry'),
+				('Document', 'com.liferay.document.library.kernel.model.DLFileEntry'),
+				('WebContent', 'com.liferay.journal.model.JournalArticle')
+			],
+			['applicationId', 'className']
+		)
+
+		return data_frame.join(
+			lookup_data_frame,
+			on=['applicationId'],
+			how='left'
+		)
+
+class MostViewedContentRecommendationJSONDataFrameWriterSparkJob(BaseJSONDataFrameWriterSparkJob):
+
+	def __init__(self, spark_application):
+		configuration = spark_application.configuration
+
+		super(
+			MostViewedContentRecommendationJSONDataFrameWriterSparkJob,
+			self
+		).__init__(
+			spark_application,
+			configuration.get('google.storage.bucket'),
+			'com.liferay.analytics.dxp.entity.rest.dto.v1_0.'
+			'AnalyticsMostViewedContentRecommendation',
+			'most_viewed_content_recommendation_event'
+		)
+
+	def _pre_process(self, data_frame):
+		catalog = self.spark_session._jsparkSession.catalog()
+
+		data_frame = data_frame.withColumn('createDate', F.current_date())
+		data_frame = data_frame.withColumn(
+			'jobId',
+			F.lit(self.spark_application_configuration.get('spark.app.id'))
+		)
+
+		if not catalog.tableExists('asset_entity'):
+			return data_frame
+
+		asset_entity_data_frame = self.spark_session.table(
+			'asset_entity'
+		).selectExpr(
+			'assetEntryId AS recommendedEntryClassPK',
+			'classPK AS entryClassPK',
+			'assetCategoryIds'
+		)
+
+		data_frame = data_frame.join(
+			asset_entity_data_frame,
+			on='entryClassPK',
+			how='left'
+		)
+
+		data_frame = data_frame.filter(
+			'recommendedEntryClassPK IS NOT NULL'
+		)
+
+		return data_frame
 
 class UserContentRecommendationCollaborativeFilteringSparkJob(CollaborativeFilteringSparkJob):
 
