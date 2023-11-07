@@ -585,6 +585,16 @@ public abstract class BaseAccountResourceImpl
 
 		if (StringUtil.equalsIgnoreCase(createStrategy, "INSERT")) {
 			accountUnsafeFunction = account -> postAccount(account);
+
+			if (parameters.containsKey("externalReferenceCode")) {
+				accountUnsafeFunction = account -> {
+					postAccountGroupByExternalReferenceCodeAccount(
+						(String)parameters.get("externalReferenceCode"),
+						account);
+
+					return null;
+				};
+			}
 		}
 
 		if (accountUnsafeFunction == null) {

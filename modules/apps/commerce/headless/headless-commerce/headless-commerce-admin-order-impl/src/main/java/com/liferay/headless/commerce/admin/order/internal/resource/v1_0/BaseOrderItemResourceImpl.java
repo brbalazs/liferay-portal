@@ -508,8 +508,44 @@ public abstract class BaseOrderItemResourceImpl
 			Map<String, Serializable> parameters)
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		UnsafeFunction<OrderItem, OrderItem, Exception>
+			orderItemUnsafeFunction = null;
+
+		String createStrategy = (String)parameters.getOrDefault(
+			"createStrategy", "INSERT");
+
+		if (StringUtil.equalsIgnoreCase(createStrategy, "INSERT")) {
+			if (parameters.containsKey("externalReferenceCode")) {
+				orderItemUnsafeFunction =
+					orderItem -> postOrderByExternalReferenceCodeOrderItem(
+						(String)parameters.get("externalReferenceCode"),
+						orderItem);
+			}
+			else {
+				throw new NotSupportedException(
+					"One of the following parameters must be specified: [externalReferenceCode]");
+			}
+		}
+
+		if (orderItemUnsafeFunction == null) {
+			throw new NotSupportedException(
+				"Create strategy \"" + createStrategy +
+					"\" is not supported for OrderItem");
+		}
+
+		if (contextBatchUnsafeBiConsumer != null) {
+			contextBatchUnsafeBiConsumer.accept(
+				orderItems, orderItemUnsafeFunction);
+		}
+		else if (contextBatchUnsafeConsumer != null) {
+			contextBatchUnsafeConsumer.accept(
+				orderItems, orderItemUnsafeFunction::apply);
+		}
+		else {
+			for (OrderItem orderItem : orderItems) {
+				orderItemUnsafeFunction.apply(orderItem);
+			}
+		}
 	}
 
 	@Override
@@ -524,7 +560,7 @@ public abstract class BaseOrderItemResourceImpl
 	}
 
 	public Set<String> getAvailableCreateStrategies() {
-		return SetUtil.fromArray();
+		return SetUtil.fromArray("INSERT");
 	}
 
 	public Set<String> getAvailableUpdateStrategies() {
