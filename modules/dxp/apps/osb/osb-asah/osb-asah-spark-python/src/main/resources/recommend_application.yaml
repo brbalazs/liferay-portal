@@ -1,0 +1,42 @@
+content:
+    interaction:
+        recommendation:
+            enable: true
+            max:
+                rank: 10
+            score:
+                function: "tanimoto_coefficient"
+google:
+    storage:
+        bucket: gs://${PROJECT_ID}-dxp-entities
+user:
+    content:
+        recommendation:
+            als:
+                checkpoint:
+                    interval: 5
+            catalog:
+                coverage: 0.3
+            train:
+                split:
+                    ratio: 0.85
+            tuning:
+                alpha:
+                    - 40
+                    - 60
+                cross:
+                    validator:
+                        numFolds: 5
+                        parallelism: 2
+                max:
+                    iteration:
+                        - 10
+                        - 20
+                rank:
+                    - 10
+                    - 20
+                    - 5
+                regularization:
+                    parameter:
+                        - 0.1
+                        - 1.0
