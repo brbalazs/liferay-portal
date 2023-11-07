@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liferay.osb.asah.backend.dog.HistogramDog;
 import com.liferay.osb.asah.backend.dog.MetricDog;
 import com.liferay.osb.asah.backend.dog.MetricTypeDog;
-import com.liferay.osb.asah.backend.dog.ReportDog;
 import com.liferay.osb.asah.backend.dog.SegmentMetricDog;
 import com.liferay.osb.asah.backend.dog.UserDog;
 import com.liferay.osb.asah.backend.dog.helper.SearchQueryContext;
@@ -42,7 +41,6 @@ import com.liferay.osb.asah.backend.model.PageMetric;
 import com.liferay.osb.asah.backend.model.Trend;
 import com.liferay.osb.asah.backend.rest.controller.BaseRestController;
 import com.liferay.osb.asah.common.date.DateUtil;
-import com.liferay.osb.asah.common.date.dog.util.TimeZoneDogUtil;
 import com.liferay.osb.asah.common.dog.BQEventDog;
 import com.liferay.osb.asah.common.dog.BQIdentityDog;
 import com.liferay.osb.asah.common.dog.BQIdentityInterestScoreDog;
@@ -68,10 +66,6 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 
 import java.nio.charset.StandardCharsets;
-
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -182,49 +176,6 @@ public class ReportRestController extends BaseRestController {
 			blogMetricResultBag,
 			blogMetric -> _toBlogAssetReportEntityModel(
 				new AssetReport(blogMetric), rangeKey));
-	}
-
-	@GetMapping("/export/csv/{type}")
-	public ResponseEntity<FileSystemResource> getCSVReport(
-			@RequestParam(required = false) String assetId,
-			@RequestParam(required = false) String assetType,
-			@RequestParam String channelId,
-			@RequestParam(name = "fromDate", required = false) String fromDate,
-			@RequestParam(required = false) String query,
-			@RequestParam(name = "sort", required = false) String[] sorts,
-			@RequestParam(name = "toDate", required = false) String toDate,
-			@PathVariable String type)
-		throws Exception {
-
-		ResponseEntity.BodyBuilder bodyBuilder = ResponseEntity.ok();
-
-		bodyBuilder.contentType(MediaType.APPLICATION_OCTET_STREAM);
-
-		LocalDateTime localDateTime = LocalDateTime.now();
-
-		ZonedDateTime zonedDateTime = localDateTime.atZone(
-			TimeZoneDogUtil.getZoneId());
-
-		Instant instant = zonedDateTime.toInstant();
-
-		String fileName = String.format(
-			"%s-report-%s.csv", StringUtils.lowerCase(type),
-			instant.toEpochMilli());
-
-		bodyBuilder.header(
-			HttpHeaders.CONTENT_DISPOSITION, "filename=\"" + fileName + "\"");
-
-		if (!StringUtils.equals(type, "individual")) {
-			_validateDateRange(fromDate, toDate);
-		}
-
-		File file = _reportDog.getCSVReport(
-			assetId, assetType, Long.valueOf(channelId), query, sorts,
-			TimeRange.of(
-				LocalDateTime.parse(toDate), LocalDateTime.parse(fromDate)),
-			type);
-
-		return bodyBuilder.body(new FileSystemResource(file.getAbsolutePath()));
 	}
 
 	@GetMapping("/export/{type}")
@@ -1412,9 +1363,6 @@ public class ReportRestController extends BaseRestController {
 
 	@Autowired
 	private ObjectMapper _objectMapper;
-
-	@Autowired
-	private ReportDog _reportDog;
 
 	@Autowired
 	private SegmentDog _segmentDog;
