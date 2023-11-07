@@ -185,15 +185,18 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 				).as(
 					"previousCanonicalUrl"
 				),
-				DSL.lag(
-					DSL.field("title")
-				).over(
-					DSL.partitionBy(
-						DSL.field("channelId"), DSL.field("sessionId"),
-						DSL.field("userId")
-					).orderBy(
-						DSL.field("eventDate")
-					)
+				DSL.coalesce(
+					DSL.lag(
+						DSL.field("title")
+					).over(
+						DSL.partitionBy(
+							DSL.field("channelId"), DSL.field("sessionId"),
+							DSL.field("userId")
+						).orderBy(
+							DSL.field("eventDate")
+						)
+					),
+					DSL.nullif(DSL.field("referrer"), "")
 				).as(
 					"previousTitle"
 				),
