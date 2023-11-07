@@ -15,9 +15,11 @@ import java.math.BigDecimal;
 
 import java.time.ZoneId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jooq.CommonTableExpression;
+import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.impl.DSL;
@@ -109,7 +111,38 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 	}
 
 	private CommonTableExpression<?> _getPagePathCTE(
-		Long channelId, TimeRange timeRange, ZoneId zoneId) {
+		Long channelId, @Nullable Long segmentId, TimeRange timeRange,
+		ZoneId zoneId) {
+
+		List<Condition> conditions = new ArrayList<>();
+
+		conditions.add(
+			DSL.field(
+				"applicationId"
+			).eq(
+				"Page"
+			));
+		conditions.add(
+			DSL.field(
+				"channelId"
+			).eq(
+				channelId
+			));
+		conditions.add(
+			DSL.field(
+				"eventId"
+			).eq(
+				"pageViewed"
+			));
+		conditions.add(
+			DSL.field(
+				"eventDate"
+			).between(
+				DateUtil.toUTCLocalDateTime(
+					timeRange.getStartLocalDateTime(), zoneId),
+				DateUtil.toUTCLocalDateTime(
+					timeRange.getEndLocalDateTime(), zoneId)
+			));
 
 		return DSL.name(
 			"PagePath"
@@ -148,29 +181,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 			).from(
 				"BQEvent"
 			).where(
-				DSL.field(
-					"applicationId"
-				).eq(
-					"Page"
-				),
-				DSL.field(
-					"channelId"
-				).eq(
-					channelId
-				),
-				DSL.field(
-					"eventId"
-				).eq(
-					"pageViewed"
-				),
-				DSL.field(
-					"eventDate"
-				).between(
-					DateUtil.toUTCLocalDateTime(
-						timeRange.getStartLocalDateTime(), zoneId),
-					DateUtil.toUTCLocalDateTime(
-						timeRange.getEndLocalDateTime(), zoneId)
-				)
+				conditions
 			)
 		);
 	}
