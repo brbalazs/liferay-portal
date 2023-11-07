@@ -101,8 +101,7 @@ public class AsahTaskManager {
 						_log.debug(
 							String.format(
 								"Delete channels nanite task %s delayed until ",
-								"%s",
-								asahTask.getId(),
+								"%s", asahTask.getId(),
 								DateUtil.toUTCString(executableDate)));
 					}
 
