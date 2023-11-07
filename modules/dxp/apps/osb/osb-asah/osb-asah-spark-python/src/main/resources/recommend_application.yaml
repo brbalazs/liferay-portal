@@ -9,13 +9,21 @@ content:
 google:
     storage:
         bucket: gs://${PROJECT_ID}-dxp-entities
+        path:
+            temporaryGcsBucket: ${PROJECT_ID}-dataproc-${REGION}/temp_write_bucket_for_bq_writes
+most:
+    viewed:
+        content:
+            recommendation:
+                window:
+                    days: 30
 user:
     content:
         recommendation:
             als:
                 checkpoint:
                     interval: 5
-            catalog:
+            content:
                 coverage: 0.3
             train:
                 split:
@@ -26,7 +34,8 @@ user:
                     - 60
                 cross:
                     validator:
-                        numFolds: 5
+                        num:
+                            folds: 5
                         parallelism: 2
                 max:
                     iteration:
