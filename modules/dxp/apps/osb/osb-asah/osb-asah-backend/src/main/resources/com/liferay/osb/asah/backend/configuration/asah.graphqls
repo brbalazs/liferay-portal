@@ -900,10 +900,10 @@ type PageMetric implements AssetMetric {
 
 type PagePathNode {
 	canonicalUrl: String
-	previousPagePathNodeDTOS: [PagePathNode]
+	previousPagePathNodes: [PagePathNode]
 	title: String
 	views: Int
-    nextPagePathNodeDTOS: [PagePathNode]
+    followingPagePathNodes: [PagePathNode]
 }
 
 type PageReferrerMetric {

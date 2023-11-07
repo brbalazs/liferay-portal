@@ -5,6 +5,8 @@
 
 package com.liferay.osb.asah.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 /**
@@ -32,10 +34,12 @@ public class PagePathNodeDTO {
 		return _canonicalUrl;
 	}
 
+	@JsonProperty("followingPagePathNodes")
 	public List<PagePathNodeDTO> getFollowingPagePathNodeDTOs() {
 		return _followingPagePathNodeDTOS;
 	}
 
+	@JsonProperty("previousPagePathNodes")
 	public List<PagePathNodeDTO> getPreviousPagePathNodeDTOs() {
 		return _previousPagePathNodeDTOS;
 	}
