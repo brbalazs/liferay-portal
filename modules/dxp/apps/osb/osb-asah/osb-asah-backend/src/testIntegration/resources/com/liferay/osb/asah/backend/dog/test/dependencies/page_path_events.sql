@@ -1,0 +1,23 @@
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/a', 1, timestamp '${now-3d}', 'pageViewed', '{}', '1', '', 'session-1', 'A - Liferay DXP', 'user-1');
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/b', 1, timestamp '${now-2d}', 'pageViewed', '{}', '1', '', 'session-1', 'B - Liferay DXP', 'user-1');
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/c', 1, timestamp '${now-1d}', 'pageViewed', '{}', '1', '', 'session-1', 'C - Liferay DXP', 'user-1');
+
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/a', 1, timestamp '${now-1d}', 'pageViewed', '{}', '1', 'http://google.com', 'session-1', 'A - Liferay DXP', 'user-2');
+
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/c', 1, timestamp '${now-4d}', 'pageViewed', '{}', '1', '', 'session-1', 'C - Liferay DXP', 'user-3');
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/a', 1, timestamp '${now-3d}', 'pageViewed', '{}', '1', '', 'session-1', 'A - Liferay DXP', 'user-3');
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/b', 1, timestamp '${now-1d}', 'pageViewed', '{}', '1', '', 'session-1', 'B - Liferay DXP', 'user-3');
+
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/d', 1, timestamp '${now-3d}', 'pageViewed', '{}', '1', '', 'session-1', 'D - Liferay DXP', 'user-4');
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/a', 1, timestamp '${now-1d}', 'pageViewed', '{}', '1', '', 'session-1', 'A - Liferay DXP', 'user-4');
+
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/e', 1, timestamp '${now-3d}', 'pageViewed', '{}', '1', '', 'session-1', 'E - Liferay DXP', 'user-5');
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/a', 1, timestamp '${now-1d}', 'pageViewed', '{}', '1', '', 'session-1', 'A - Liferay DXP', 'user-5');
+
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/e', 1, timestamp '${now-3d}', 'pageViewed', '{}', '1', '', 'session-1', 'E - Liferay DXP', 'user-6');
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/a', 1, timestamp '${now-1d}', 'pageViewed', '{}', '1', '', 'session-1', 'A - Liferay DXP', 'user-6');
+
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/a', 1, timestamp '${now-2d}', 'pageViewed', '{}', '1', '', 'session-1', 'A - Liferay DXP', 'user-8');
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/a', 1, timestamp '${now-1d}', 'pageViewed', '{}', '1', '', 'session-1', 'A - Liferay DXP', 'user-7');
+
+INSERT INTO Event (applicationId, canonicalUrl, channelId, eventDate, eventId, eventProperties, id, referrer, sessionId, title, userId) VALUES ('Page', 'http://liferay.com/d', 1, timestamp '${now-1d}', 'pageViewed', '{}', '1', '', 'session-1', 'D - Liferay DXP', 'user-8');
