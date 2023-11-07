@@ -86,7 +86,7 @@ public class AsahTaskManager {
 
 				if (StringUtils.isBlank(createDateString)) {
 					_log.error(
-						"Unable to run DeleteChannelsNanite without create " +
+						"Unable to run delete channels nanite without create " +
 							"date " + asahTask.getId());
 
 					return;
@@ -100,7 +100,8 @@ public class AsahTaskManager {
 					if (_log.isDebugEnabled()) {
 						_log.debug(
 							String.format(
-								"DeleteChannelsNanite task %s delayed until %s",
+								"Delete channels nanite task %s delayed until ",
+								"%s",
 								asahTask.getId(),
 								DateUtil.toUTCString(executableDate)));
 					}
