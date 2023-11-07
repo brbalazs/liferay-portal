@@ -22,8 +22,12 @@ import com.liferay.osb.asah.common.repository.BQIndividualRepository;
 
 import com.opencsv.CSVWriter;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+
+import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,9 +109,16 @@ public class ReportDog {
 
 		File file = File.createTempFile("report", ".csv");
 
-		try (CSVWriter writer = new CSVWriter(new FileWriter(file))) {
-			for (String[] row : rows) {
-				writer.writeNext(row);
+		if (rows != null) {
+			try (CSVWriter csvWriter = new CSVWriter(
+					new BufferedWriter(
+						new OutputStreamWriter(
+							new FileOutputStream(file, true),
+							StandardCharsets.UTF_8)))) {
+
+				for (String[] row : rows) {
+					csvWriter.writeNext(row);
+				}
 			}
 		}
 
