@@ -48,6 +48,7 @@ public class ReportRestController {
 			@RequestParam String channelId,
 			@RequestParam(name = "fromDate", required = false) String fromDate,
 			@RequestParam(required = false) String query,
+			@RequestParam(required = false) Integer rangeKey,
 			@RequestParam(name = "sort", required = false) String[] sorts,
 			@RequestParam(name = "toDate", required = false) String toDate,
 			@PathVariable String type)
@@ -77,12 +78,15 @@ public class ReportRestController {
 			_validateDateRange(fromDate, toDate);
 		}
 
-		TimeRange timeRange = TimeRange.LAST_30_DAYS;
+		TimeRange timeRange = null;
 
 		if ((fromDate != null) && (toDate != null)) {
 			timeRange = TimeRange.of(
 				LocalDateTime.parse(toDate, _dateTimeFormatter),
 				LocalDateTime.parse(fromDate, _dateTimeFormatter));
+		}
+		else if (rangeKey != null) {
+			timeRange = TimeRange.of(rangeKey);
 		}
 
 		File file = _reportDog.getCSVReport(
@@ -93,6 +97,10 @@ public class ReportRestController {
 	}
 
 	private void _validateDateRange(String fromDate, String toDate) {
+		if ((fromDate == null) && (toDate == null)) {
+			return;
+		}
+
 		if ((fromDate == null) || (toDate == null)) {
 			throw new IllegalArgumentException("Date range is mandatory");
 		}
