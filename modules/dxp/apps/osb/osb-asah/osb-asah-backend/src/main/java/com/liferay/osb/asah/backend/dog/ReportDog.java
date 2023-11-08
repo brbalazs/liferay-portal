@@ -11,12 +11,12 @@ import com.liferay.osb.asah.backend.model.FormMetricType;
 import com.liferay.osb.asah.backend.model.JournalMetricType;
 import com.liferay.osb.asah.backend.repository.AssetMetricRepository;
 import com.liferay.osb.asah.common.dog.ChannelDog;
-import com.liferay.osb.asah.common.dog.util.SortUtil;
 import com.liferay.osb.asah.common.entity.Channel;
 import com.liferay.osb.asah.common.model.Field;
 import com.liferay.osb.asah.common.model.Individual;
 import com.liferay.osb.asah.common.model.MetricType;
 import com.liferay.osb.asah.common.model.PageMetricType;
+import com.liferay.osb.asah.common.model.Sort;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.repository.BQIndividualRepository;
 
@@ -33,7 +33,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,7 +143,7 @@ public class ReportDog {
 			assetMetricRepository.getKnownIndividuals(
 				assetId, null, channelId,
 				_getMetricType(AssetType.of(assetType)),
-				PageRequest.of(0, _MAX_SIZE, SortUtil.getSort(sorts)), query,
+				PageRequest.of(0, _MAX_SIZE, _getSort(sorts)), query,
 				timeRange);
 
 		Channel channel = _channelDog.getChannel(channelId);
@@ -169,8 +171,7 @@ public class ReportDog {
 		List<Individual> individuals =
 			_bqIndividualRepository.searchBQIndividuals(
 				null, channelId, null, null, null,
-				PageRequest.of(0, _MAX_SIZE, SortUtil.getSort(sorts)), query,
-				null);
+				PageRequest.of(0, _MAX_SIZE, _getSort(sorts)), query, null);
 
 		Channel channel = _channelDog.getChannel(channelId);
 
@@ -225,6 +226,48 @@ public class ReportDog {
 		}
 
 		return null;
+	}
+
+	private org.springframework.data.domain.Sort _getSort(String[] sorts) {
+		if (ArrayUtils.isEmpty(sorts)) {
+			return org.springframework.data.domain.Sort.by(
+				org.springframework.data.domain.Sort.Order.asc("id"));
+		}
+
+		List<Sort.Order> orders = new ArrayList<>();
+
+		for (int i = 0; i < sorts.length; i++) {
+			String sort = sorts[i];
+
+			String orderString = null;
+
+			String[] properties = sort.split(",");
+
+			if (properties.length == 1) {
+				orderString = sorts[++i];
+			}
+			else {
+				orderString = properties[1];
+			}
+
+			Sort.Order order = null;
+
+			if (Objects.equals(orderString, "asc")) {
+				order = Sort.Order.asc(properties[0]);
+			}
+			else {
+				order = Sort.Order.desc(properties[0]);
+			}
+
+			if (StringUtils.containsIgnoreCase(properties[0], "date")) {
+				orders.add(order);
+			}
+			else {
+				orders.add(order.ignoreCase());
+			}
+		}
+
+		return Sort.by(orders);
 	}
 
 	private static final int _MAX_SIZE = 10000;
