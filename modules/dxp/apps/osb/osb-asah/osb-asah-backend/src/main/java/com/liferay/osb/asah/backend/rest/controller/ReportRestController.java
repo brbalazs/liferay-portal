@@ -71,16 +71,23 @@ public class ReportRestController {
 		bodyBuilder.header(
 			HttpHeaders.CONTENT_DISPOSITION, "filename=\"" + fileName + "\"");
 
-		if (!StringUtils.equals(type, "individual")) {
+		if (!StringUtils.equals(type, "individual") ||
+			!StringUtils.isEmpty(assetType)) {
+
 			_validateDateRange(fromDate, toDate);
+		}
+
+		TimeRange timeRange = TimeRange.LAST_30_DAYS;
+
+		if ((fromDate != null) && (toDate != null)) {
+			timeRange = TimeRange.of(
+				LocalDateTime.parse(toDate, _dateTimeFormatter),
+				LocalDateTime.parse(fromDate, _dateTimeFormatter));
 		}
 
 		File file = _reportDog.getCSVReport(
 			assetId, assetType, Long.valueOf(channelId), query, sorts,
-			TimeRange.of(
-				LocalDateTime.parse(toDate, _dateTimeFormatter),
-				LocalDateTime.parse(fromDate, _dateTimeFormatter)),
-			type);
+			timeRange, type);
 
 		return bodyBuilder.body(new FileSystemResource(file.getAbsolutePath()));
 	}
