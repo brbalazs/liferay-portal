@@ -27,6 +27,10 @@ public class LocalStorage implements Storage {
 	public LocalStorage(StorageConfiguration storageConfiguration) {
 		_storageConfiguration = storageConfiguration;
 
+		if (storageConfiguration.getPath() == null) {
+			return;
+		}
+
 		if (_log.isInfoEnabled()) {
 			_log.info(
 				"Local storage initialized for path " +
@@ -43,6 +47,10 @@ public class LocalStorage implements Storage {
 
 	@Override
 	public void close() {
+		if (_fileEncoder == null) {
+			return;
+		}
+
 		try {
 			_fileEncoder.close();
 		}
