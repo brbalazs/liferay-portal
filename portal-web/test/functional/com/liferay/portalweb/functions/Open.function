@@ -21,9 +21,9 @@ definition {
 	function openInTheNewTab() {
 		WaitForSPARefresh();
 
-		selenium.executeJavaScript(${value1}, ${value2}, ${value3});
+		ExecuteJavaScript(value1 = "sessionStorage.clear(); window.open();");
 
-		SelectWindow.selectPopUp(locator1 = "null");
+		SelectWindow.selectPopUp(value1 = "null");
 
 		selenium.open(${value1});
 	}

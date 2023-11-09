@@ -14,7 +14,7 @@ definition {
 			};
 		''';
 
-		selenium.executeJavaScript(${value1}, ${value2}, ${value3});
+		ExecuteJavaScript(value1 = ${javascript});
 	}
 
 }

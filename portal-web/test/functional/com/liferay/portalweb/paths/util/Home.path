@@ -16,11 +16,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>API_JSON_URL</td>
-	<td>/api/jsonws/</td>
-	<td></td>
-</tr>
-<tr>
 	<td>GUEST_URL</td>
 	<td>/web/guest/home/</td>
 	<td></td>

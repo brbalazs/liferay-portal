@@ -2,9 +2,16 @@
 definition {
 
 	function assertAccessible() {
-		WaitForSPARefresh();
+	WaitForSPARefresh();
 
-		selenium.assertAccessible(${locator1});
+		if (isSet(value1)) {
+			var ignorableImpacts = ListUtil.newListFromString(${value1});
+		}
+		else {
+			var ignorableImpacts = ListUtil.newList();
+		}
+
+		selenium.assertAccessible(${ignorableImpacts});
 
 		selenium.assertJavaScriptErrors("true");
 
