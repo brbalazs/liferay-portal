@@ -5,13 +5,19 @@
 
 package com.liferay.osb.asah.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.liferay.osb.asah.common.graphql.GraphQLProperty;
+import com.liferay.osb.asah.common.graphql.GraphQLType;
 
 import java.util.List;
 
 /**
  * @author Marcellus Tavares
  */
+@GraphQLType("PagePathNode")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PagePathNodeDTO {
 
 	public PagePathNodeDTO() {
@@ -23,25 +29,26 @@ public class PagePathNodeDTO {
 		Long views) {
 
 		_canonicalUrl = canonicalUrl;
+		_followingPagePathNodeDTOs = followingPagePathNodeDTOs;
+		_previousPagePathNodeDTOs = previousPagePathNodeDTOs;
 		_title = title;
 		_views = views;
-
-		_followingPagePathNodeDTOS = followingPagePathNodeDTOs;
-		_previousPagePathNodeDTOS = previousPagePathNodeDTOs;
 	}
 
 	public String getCanonicalUrl() {
 		return _canonicalUrl;
 	}
 
+	@GraphQLProperty("followingPagePathNodes")
 	@JsonProperty("followingPagePathNodes")
 	public List<PagePathNodeDTO> getFollowingPagePathNodeDTOs() {
-		return _followingPagePathNodeDTOS;
+		return _followingPagePathNodeDTOs;
 	}
 
+	@GraphQLProperty("previousPagePathNodes")
 	@JsonProperty("previousPagePathNodes")
 	public List<PagePathNodeDTO> getPreviousPagePathNodeDTOs() {
-		return _previousPagePathNodeDTOS;
+		return _previousPagePathNodeDTOs;
 	}
 
 	public String getTitle() {
@@ -57,15 +64,15 @@ public class PagePathNodeDTO {
 	}
 
 	public void setFollowingPagePathNodeDTOS(
-		List<PagePathNodeDTO> followingPagePathNodeDTOS) {
+		List<PagePathNodeDTO> followingPagePathNodeDTOs) {
 
-		_followingPagePathNodeDTOS = followingPagePathNodeDTOS;
+		_followingPagePathNodeDTOs = followingPagePathNodeDTOs;
 	}
 
 	public void setPreviousPagePathNodes(
-		List<PagePathNodeDTO> previousPagePathNodeDTOS) {
+		List<PagePathNodeDTO> previousPagePathNodeDTOs) {
 
-		_previousPagePathNodeDTOS = previousPagePathNodeDTOS;
+		_previousPagePathNodeDTOs = previousPagePathNodeDTOs;
 	}
 
 	public void setTitle(String title) {
@@ -77,8 +84,8 @@ public class PagePathNodeDTO {
 	}
 
 	private String _canonicalUrl;
-	private List<PagePathNodeDTO> _followingPagePathNodeDTOS;
-	private List<PagePathNodeDTO> _previousPagePathNodeDTOS;
+	private List<PagePathNodeDTO> _followingPagePathNodeDTOs;
+	private List<PagePathNodeDTO> _previousPagePathNodeDTOs;
 	private String _title;
 	private Long _views;
 
