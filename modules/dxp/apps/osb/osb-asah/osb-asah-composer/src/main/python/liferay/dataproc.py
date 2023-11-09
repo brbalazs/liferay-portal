@@ -171,6 +171,93 @@ class DataprocSubmitCommercePySparkJobOperator(BaseOperator):
 
 		dataproc_submit_pyspark_job_operator.execute(Context(kwargs))
 
+class DataprocSubmitContentRecommenderPySparkJobOperator(BaseOperator):
+
+	APPLICATION_MAP = {
+		'MostViewedContentRecommendation':
+			'liferay.recommend.MostViewedContentRecommendationApplication',
+		'UserContentRecommendation':
+			'liferay.recommend.UserContentRecommendationApplication',
+	}
+
+	def __init__(self, application_name: str, cluster_name: str, data_source_id: str, **kwargs):
+		super().__init__(**kwargs)
+
+		self._application_name = application_name
+
+		self.log.warning(cluster_name)
+
+		self._cluster_name = cluster_name
+
+		self._data_source_id = data_source_id
+
+	def do_execute(self, dag: DAG, dag_run: DagRun, **kwargs):
+		cluster_name = self.render_template(
+			content=self._cluster_name, context=Context(kwargs)
+		)
+
+		dag_configuration = kwargs[dag.dag_id]
+
+		time_zone_id = dag.default_args['ac_project_time_zone_id']
+
+		arguments = [
+			self.APPLICATION_MAP.get(
+				self._application_name
+			),
+			'--ac-project-id',
+			dag.default_args['ac_project_id'],
+			'--configuration',
+			dag_configuration['dataproc.pyspark.configuration'],
+			'--data-source-id',
+			self._data_source_id,
+			'--time-zone',
+			time_zone_id
+		]
+
+		end_date = dag_run.conf.get("endDate", None)
+
+		start_date = dag_run.conf.get("startDate", None)
+
+		if end_date and start_date:
+			arguments += [
+				'--end-date',
+				end_date,
+				'--start-date',
+				start_date
+			]
+
+		dataproc_submit_pyspark_job_operator = DataprocSubmitPySparkJobOperator(
+			archives=[
+				'gs://{}/resources/{}'.format(
+					dag_configuration['dataproc.bucket'],
+					dag_configuration['dataproc.pyspark.configuration']
+				)
+			],
+			arguments=arguments,
+			cluster_name=cluster_name,
+			dataproc_properties=json.loads(
+				dag_configuration['dataproc.pyspark.properties']
+			),
+			job_name='{}-{}-{}'.format(
+				dag.default_args['ac_project_id'],
+				self._application_name.lower(),
+				self._data_source_id
+			),
+			main='gs://{}/osb-asah-spark-python-driver.py'.format(
+				dag_configuration['dataproc.bucket']
+			),
+			project_id=dag.default_args['project_id'],
+			pyfiles=[
+				'gs://{}/osb-asah-spark-python.zip'.format(
+					dag_configuration['dataproc.bucket']
+				)
+			],
+			region=dag.default_args['region'],
+			task_id='dataproc_submit_pyspark_job'
+		)
+
+		dataproc_submit_pyspark_job_operator.execute(Context(kwargs))
+
 class DataprocSubmitInterestScorePySparkJobOperator(BaseOperator):
 
 	def __init__(self, cluster_name: str, **kwargs):
