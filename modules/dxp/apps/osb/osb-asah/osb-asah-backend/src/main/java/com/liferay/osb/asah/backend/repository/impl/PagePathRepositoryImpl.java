@@ -252,7 +252,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					).greaterThan(
 						3L
 					),
-					DSL.val("other")
+					DSL.val("others")
 				).otherwise(
 					_canonicalUrlField
 				).as(
@@ -264,7 +264,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					).greaterThan(
 						3L
 					),
-					DSL.val("other")
+					DSL.val("others")
 				).otherwise(
 					_titleField
 				).as(
@@ -319,7 +319,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					).greaterThan(
 						3L
 					),
-					DSL.val("other")
+					DSL.val("others")
 				).otherwise(
 					_canonicalUrlField
 				).as(
@@ -331,7 +331,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 					).greaterThan(
 						3L
 					),
-					DSL.val("other")
+					DSL.val("others")
 				).otherwise(
 					_titleField
 				).as(
