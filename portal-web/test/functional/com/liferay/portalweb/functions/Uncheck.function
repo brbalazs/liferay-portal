@@ -1,69 +1,69 @@
 @default = "clickAt"
 definition {
 
-	function clickAt {
+	function clickAt() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible();
+		selenium.waitForVisible(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		if (selenium.isChecked()) {
-			selenium.clickAt();
+		if (selenium.isChecked(${locator1})) {
+			selenium.clickAt(${locator1}, ${value1});
 		}
 
 		AssertNotChecked.assertNotChecked();
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function uncheckHiddenToggleSwitch {
+	function uncheckHiddenToggleSwitch(locator1) {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent();
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
 		if (selenium.isChecked("xpath=(${locator1})/../../input")) {
-			selenium.clickAt();
+			selenium.clickAt(${locator1}, ${value1});
 		}
 
 		AssertNotChecked.assertNotCheckedHiddenToggleSwitch();
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function uncheckToggleSwitch {
+	function uncheckToggleSwitch() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent();
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		if (selenium.isChecked()) {
-			selenium.clickAt();
+		if (selenium.isChecked(${locator1})) {
+			selenium.clickAt(${locator1}, ${value1});
 		}
 
 		AssertNotChecked.assertNotCheckedNotVisible();
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function uncheckToggleSwitchNoErrorNoAssert {
+	function uncheckToggleSwitchNoErrorNoAssert() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent();
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		if (selenium.isChecked()) {
-			selenium.clickAt();
+		if (selenium.isChecked(${locator1})) {
+			selenium.clickAt(${locator1}, ${value1});
 		}
 	}
 

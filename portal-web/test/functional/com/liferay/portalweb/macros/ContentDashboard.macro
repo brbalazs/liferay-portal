@@ -1,6 +1,7 @@
 definition {
 
-	macro searchValue {
+	@summary = "Default summary"
+	macro searchValue(webContentTitle = null) {
 		Click(locator1 = "ContentDashboard#SEARCH_FIELD");
 
 		Type(

@@ -1,30 +1,35 @@
 definition {
 
-	macro gotoGeneral {
+	@summary = "Default summary"
+	macro gotoGeneral() {
 		AssertClick(
 			locator1 = "NavTab#GENERAL",
 			value1 = "General");
 	}
 
-	macro gotoIdentityProvider {
+	@summary = "Default summary"
+	macro gotoIdentityProvider() {
 		AssertClick(
 			locator1 = "NavTab#IDENTITY_PROVIDER",
 			value1 = "Identity Provider");
 	}
 
-	macro gotoIdentityProviderConnections {
+	@summary = "Default summary"
+	macro gotoIdentityProviderConnections() {
 		AssertClick(
 			locator1 = "NavTab#IDENTITY_PROVIDER_CONNECTIONS",
 			value1 = "Identity Provider Connections");
 	}
 
-	macro gotoServiceProvider {
+	@summary = "Default summary"
+	macro gotoServiceProvider() {
 		AssertClick(
 			locator1 = "NavTab#SERVICE_PROVIDER",
 			value1 = "Service Provider");
 	}
 
-	macro gotoServiceProviderConnection {
+	@summary = "Default summary"
+	macro gotoServiceProviderConnection() {
 		AssertClick(
 			locator1 = "NavTab#SERVICE_PROVIDER_CONNECTIONS",
 			value1 = "Service Provider Connections");

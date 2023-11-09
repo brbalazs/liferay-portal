@@ -1,12 +1,12 @@
 @default = "assertAccessible"
 definition {
 
-	function assertAccessible {
+	function assertAccessible() {
 		WaitForSPARefresh();
 
-		selenium.assertAccessible();
+		selenium.assertAccessible(${locator1});
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

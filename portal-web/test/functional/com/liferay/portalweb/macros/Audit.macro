@@ -1,6 +1,7 @@
 definition {
 
-	macro searchCP {
+	@summary = "Default summary"
+	macro searchCP(resourceAction = null, resourceId = null, searchTerm = null, resourceName = null, userName = null, userId = null) {
 		if (${searchTerm} == ${resourceAction}) {
 			var reportFieldKey = "RESOURCE_ACTION";
 		}

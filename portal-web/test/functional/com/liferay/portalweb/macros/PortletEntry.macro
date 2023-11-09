@@ -1,6 +1,7 @@
 definition {
 
-	macro changeLocale {
+	@summary = "Default summary"
+	macro changeLocale(fieldName = null, locale = null) {
 		Click(
 			key_fieldName = ${fieldName},
 			locator1 = "Button#LOCALIZATION");
@@ -10,17 +11,20 @@ definition {
 			locator1 = "Translation#LOCALIZATION_NAME");
 	}
 
-	macro clickEditFromEllipsis {
+	@summary = "Default summary"
+	macro clickEditFromEllipsis() {
 		Click.waitForMenuToggleJSClick(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
 
 		MenuItem.click(menuItem = "Edit");
 	}
 
-	macro clickMoveToRecycleBin {
+	@summary = "Default summary"
+	macro clickMoveToRecycleBin() {
 		MenuItem.click(menuItem = "Move to Recycle Bin");
 	}
 
-	macro deleteViaMenuItem {
+	@summary = "Default summary"
+	macro deleteViaMenuItem(rowEntry = null) {
 		LexiconEntry.gotoEntryMenuItemNoError(
 			menuItem = "Delete",
 			rowEntry = ${rowEntry});
@@ -28,7 +32,8 @@ definition {
 		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
 	}
 
-	macro deleteViaToolbar {
+	@summary = "Default summary"
+	macro deleteViaToolbar(rowEntries = null) {
 		for (var rowEntry : list ${rowEntries}) {
 			LexiconEntry.selectEntry(key_rowEntry = ${rowEntry});
 		}
@@ -38,7 +43,8 @@ definition {
 		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
 	}
 
-	macro inputDescription {
+	@summary = "Default summary"
+	macro inputDescription(description = null) {
 		Click(locator1 = "TextArea#DESCRIPTION");
 
 		Type(
@@ -46,7 +52,8 @@ definition {
 			value1 = ${description});
 	}
 
-	macro inputDescriptionTextInput {
+	@summary = "Default summary"
+	macro inputDescriptionTextInput(description = null) {
 		Click(locator1 = "TextInput#DESCRIPTION");
 
 		Type(
@@ -54,7 +61,8 @@ definition {
 			value1 = ${description});
 	}
 
-	macro inputLocalizedName {
+	@summary = "Default summary"
+	macro inputLocalizedName(localizedName = null, language = null) {
 		PortletEntry.changeLocale(
 			fieldName = "Name",
 			locale = ${language});
@@ -62,7 +70,8 @@ definition {
 		PortletEntry.inputName(name = ${localizedName});
 	}
 
-	macro inputName {
+	@summary = "Default summary"
+	macro inputName(name = null) {
 		Click(locator1 = "TextInput#NAME");
 
 		Type(
@@ -70,7 +79,8 @@ definition {
 			value1 = ${name});
 	}
 
-	macro inputText {
+	@summary = "Default summary"
+	macro inputText(fieldLabel = null, text = null) {
 		Click(
 			key_fieldLabel = ${fieldLabel},
 			locator1 = "TextInput#GENERIC_TEXT_INPUT");
@@ -81,7 +91,8 @@ definition {
 			value1 = ${text});
 	}
 
-	macro inputTextArea {
+	@summary = "Default summary"
+	macro inputTextArea(text = null, fieldId = null) {
 		Click(
 			key_text = ${fieldId},
 			locator1 = "TextArea#ANY");
@@ -92,7 +103,8 @@ definition {
 			value1 = ${text});
 	}
 
-	macro inputTitle {
+	@summary = "Default summary"
+	macro inputTitle(title = null) {
 		Click(locator1 = "TextInput#TITLE");
 
 		Type(
@@ -100,13 +112,15 @@ definition {
 			value1 = ${title});
 	}
 
-	macro publish {
+	@summary = "Default summary"
+	macro publish() {
 		Button.clickPublish();
 
 		Alert.viewSuccessMessage();
 	}
 
-	macro publishAndWait {
+	@summary = "Default summary"
+	macro publishAndWait() {
 		Button.clickPublish();
 
 		Pause(locator1 = 3000);
@@ -114,19 +128,22 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro save {
+	@summary = "Default summary"
+	macro save() {
 		Button.clickSave();
 
 		Alert.viewSuccessMessage();
 	}
 
-	macro saveAsDraft {
+	@summary = "Default summary"
+	macro saveAsDraft() {
 		Button.clickSaveAsDraft();
 
 		Alert.viewSuccessMessage();
 	}
 
-	macro selectAll {
+	@summary = "Default summary"
+	macro selectAll() {
 		if (IsNotChecked.isNotCheckedNotVisible(locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT")) {
 			Click(locator1 = "Checkbox#LEXICON_SELECT_ALL_CONTAINER");
 		}
@@ -137,7 +154,8 @@ definition {
 		AssertChecked.assertCheckedNotVisible(locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT");
 	}
 
-	macro SelectAllOnSpecificWidget {
+	@summary = "Default summary"
+	macro SelectAllOnSpecificWidget(widgetPosition = null) {
 		if (IsNotChecked.isNotCheckedNotVisible(key_position = ${widgetPosition}, locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT_SPECIFIC")) {
 			Click(
 				key_position = ${widgetPosition},
@@ -149,13 +167,15 @@ definition {
 			locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT_SPECIFIC");
 	}
 
-	macro update {
+	@summary = "Default summary"
+	macro update() {
 		Button.clickUpdate();
 
 		Alert.viewSuccessMessage();
 	}
 
-	macro viewEmptyMessage {
+	@summary = "Default summary"
+	macro viewEmptyMessage() {
 		var entity = StringUtil.toLowerCase(${entity});
 
 		AssertTextEquals(
@@ -163,17 +183,20 @@ definition {
 			value1 = "There are no ${entity}.");
 	}
 
-	macro viewLocale {
+	@summary = "Default summary"
+	macro viewLocale(locale = null) {
 		AssertElementPresent(
 			key_locale = ${locale},
 			locator1 = "Translation#CURRENT_LOCALE");
 	}
 
-	macro viewNoNavItemLink {
+	@summary = "Default summary"
+	macro viewNoNavItemLink() {
 		AssertElementNotPresent(locator1 = "NavBar#NAV_ITEM_LINK");
 	}
 
-	macro viewWorkflowStatus {
+	@summary = "Default summary"
+	macro viewWorkflowStatus(rowEntry = null, workflowStatus = null) {
 		AssertTextEquals(
 			key_rowEntry = ${rowEntry},
 			locator1 = "Card#GENERIC_SMALL_TEXT",

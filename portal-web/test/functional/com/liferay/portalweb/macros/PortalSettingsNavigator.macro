@@ -1,10 +1,12 @@
 definition {
 
-	macro expandAuthenticationPanel {
+	@summary = "Default summary"
+	macro expandAuthenticationPanel() {
 		Panel.expandPanel(panel = "Authentication");
 	}
 
-	macro gotoCAS {
+	@summary = "Default summary"
+	macro gotoCAS() {
 		PortalSettingsNavigator.expandAuthenticationPanel();
 
 		AssertClick(
@@ -12,7 +14,8 @@ definition {
 			value1 = "CAS");
 	}
 
-	macro gotoFacebook {
+	@summary = "Default summary"
+	macro gotoFacebook() {
 		PortalSettingsNavigator.expandAuthenticationPanel();
 
 		AssertClick(
@@ -20,7 +23,8 @@ definition {
 			value1 = "Facebook");
 	}
 
-	macro gotoGoogle {
+	@summary = "Default summary"
+	macro gotoGoogle() {
 		PortalSettingsNavigator.expandAuthenticationPanel();
 
 		AssertClick(
@@ -28,7 +32,8 @@ definition {
 			value1 = "Google");
 	}
 
-	macro gotoLDAP {
+	@summary = "Default summary"
+	macro gotoLDAP() {
 		PortalSettingsNavigator.expandAuthenticationPanel();
 
 		AssertClick(
@@ -36,7 +41,8 @@ definition {
 			value1 = "LDAP");
 	}
 
-	macro gotoNTLM {
+	@summary = "Default summary"
+	macro gotoNTLM() {
 		PortalSettingsNavigator.expandAuthenticationPanel();
 
 		AssertClick(
@@ -44,7 +50,8 @@ definition {
 			value1 = "NTLM");
 	}
 
-	macro gotoOpenID {
+	@summary = "Default summary"
+	macro gotoOpenID() {
 		PortalSettingsNavigator.expandAuthenticationPanel();
 
 		AssertClick(
@@ -52,7 +59,8 @@ definition {
 			value1 = "OpenID");
 	}
 
-	macro gotoOpenIDConnect {
+	@summary = "Default summary"
+	macro gotoOpenIDConnect() {
 		PortalSettingsNavigator.expandAuthenticationPanel();
 
 		AssertClick(
@@ -60,7 +68,8 @@ definition {
 			value1 = "OpenId Connect");
 	}
 
-	macro gotoOpenSSO {
+	@summary = "Default summary"
+	macro gotoOpenSSO() {
 		PortalSettingsNavigator.expandAuthenticationPanel();
 
 		AssertClick(

@@ -3,7 +3,8 @@ definition {
 	var key_panel = "user";
 
 	@description = "Navigate to My Dashboard."
-	macro gotoDashboard {
+	@summary = "Default summary"
+	macro gotoDashboard(key_category = null) {
 		Navigator.openURL();
 
 		if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
@@ -25,7 +26,8 @@ definition {
 	}
 
 	@description = "Navigate to Account via the User Bar."
-	macro gotoMyAccount {
+	@summary = "Default summary"
+	macro gotoMyAccount(key_category = null) {
 		Navigator.openURL();
 
 		if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
@@ -45,7 +47,8 @@ definition {
 	}
 
 	@description = "Navigate to Organizations via the User Bar."
-	macro gotoMyOrganizations {
+	@summary = "Default summary"
+	macro gotoMyOrganizations(key_category = null) {
 		Navigator.openURL();
 
 		if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
@@ -65,7 +68,8 @@ definition {
 	}
 
 	@description = "Navigate to My Profile."
-	macro gotoProfile {
+	@summary = "Default summary"
+	macro gotoProfile(key_category = null) {
 		Navigator.openURL();
 
 		if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
@@ -84,7 +88,8 @@ definition {
 		}
 	}
 
-	macro signOut {
+	@summary = "Default summary"
+	macro signOut(key_category = null) {
 		if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 			if (IsElementNotPresent(key_category = ${key_category}, locator1 = "ProductMenu#PANEL_EXPANDED")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");

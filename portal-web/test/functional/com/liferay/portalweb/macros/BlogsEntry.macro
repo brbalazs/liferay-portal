@@ -2,11 +2,13 @@ definition {
 
 	var entryAuthorFullName = "Test Test";
 
-	macro addContent {
+	@summary = "Default summary"
+	macro addContent(entryContent = null) {
 		AlloyEditor.addContent(content = ${entryContent});
 	}
 
-	macro addContentWithInlineImage {
+	@summary = "Default summary"
+	macro addContentWithInlineImage(navTab = null, uploadFileName = null, entryContent = null, entryInlineImageURL = null) {
 		AlloyEditor.addContent(content = ${entryContent});
 
 		ItemSelector.gotoItemSelectorViaAlloyEditor();
@@ -38,13 +40,15 @@ definition {
 		}
 	}
 
-	macro addCustomAbstract {
+	@summary = "Default summary"
+	macro addCustomAbstract(entryAbstractDescription = null) {
 		Click(locator1 = "Radio#CUSTOM_ABSTRACT");
 
 		PortletEntry.inputDescriptionTextInput(description = ${entryAbstractDescription});
 	}
 
-	macro addCustomURL {
+	@summary = "Default summary"
+	macro addCustomURL(customURL = null) {
 		Click(locator1 = "Radio#CUSTOM_URL");
 
 		Type(
@@ -52,7 +56,8 @@ definition {
 			value1 = ${customURL});
 	}
 
-	macro addEntryContent {
+	@summary = "Default summary"
+	macro addEntryContent(entrySubtitle = null, videoService = null, embedVideo = null, entryTitle = null, entryContent = null) {
 		BlogsEntry.addTitle(entryTitle = ${entryTitle});
 
 		if (isSet(entrySubtitle)) {
@@ -86,7 +91,8 @@ definition {
 		}
 	}
 
-	macro addEntryExternalLinkViaBrowseButton {
+	@summary = "Default summary"
+	macro addEntryExternalLinkViaBrowseButton(navTab = null, imageFileName = null, entryContent = null) {
 		if (isSet(entryContent)) {
 			DoubleClick(
 				key_entryContent = ${entryContent},
@@ -109,7 +115,8 @@ definition {
 		PortletEntry.publish();
 	}
 
-	macro addRelatedAsset {
+	@summary = "Default summary"
+	macro addRelatedAsset(assetTitle = null, assetType = null) {
 		AssertClick(
 			locator1 = "AssetRelatedAssets#RELATED_ASSETS_SELECT",
 			value1 = "Select");
@@ -131,7 +138,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro addSmallImage {
+	@summary = "Default summary"
+	macro addSmallImage(navTab = null, uploadFileName = null) {
 		Click(locator1 = "Button#SELECT_FILE_SMALL_IMAGE");
 
 		ItemSelector.uploadFile(
@@ -139,13 +147,15 @@ definition {
 			uploadFileName = ${uploadFileName});
 	}
 
-	macro addSubtitle {
+	@summary = "Default summary"
+	macro addSubtitle(entrySubtitle = null) {
 		AlloyEditor.typeEditor(
 			content = ${entrySubtitle},
 			editor = "subtitle");
 	}
 
-	macro addTag {
+	@summary = "Default summary"
+	macro addTag(tagName = null) {
 		var key_tagName = ${tagName};
 
 		Type.clickAtType(
@@ -161,11 +171,13 @@ definition {
 			value1 = ${tagName});
 	}
 
-	macro addTitle {
+	@summary = "Default summary"
+	macro addTitle(entryTitle = null) {
 		AlloyEditor.addTitle(title = ${entryTitle});
 	}
 
-	macro addWithTrackbackURLPG {
+	@summary = "Default summary"
+	macro addWithTrackbackURLPG(virtualHosts = null, entryTitle2 = null, entryContent2 = null, entryTitle = null, entryContent = null) {
 		BlogsNavigator.gotoEntryPG(
 			entryContent = ${entryContent},
 			entryTitle = ${entryTitle});
@@ -212,7 +224,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro addWithWorkflowPG {
+	@summary = "Default summary"
+	macro addWithWorkflowPG(entryTitle = null, entryContent = null) {
 		BlogsNavigator.gotoAddEntry();
 
 		BlogsEntry.addEntryContent(
@@ -226,13 +239,15 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro autoSaveDraft {
+	@summary = "Default summary"
+	macro autoSaveDraft() {
 		Pause(locator1 = 30000);
 
 		AssertElementPresent(locator1 = "Message#DRAFT_AUTO_SAVE");
 	}
 
-	macro editContent {
+	@summary = "Default summary"
+	macro editContent(entryContentEdit = null, entryContent = null) {
 		AssertTextEquals(
 			key_editor = "content",
 			locator1 = "AlloyEditor#EDITOR",
@@ -241,7 +256,8 @@ definition {
 		AlloyEditor.addContent(content = ${entryContentEdit});
 	}
 
-	macro editContentViaCardViewPG {
+	@summary = "Default summary"
+	macro editContentViaCardViewPG(entryContentEdit = null, entryContent = null) {
 		MouseOver(locator1 = "Portlet#PORTLET_CONTENT");
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Edit");
@@ -251,7 +267,8 @@ definition {
 			entryContentEdit = ${entryContentEdit});
 	}
 
-	macro editDisplayDate {
+	@summary = "Default summary"
+	macro editDisplayDate() {
 		var displayDateDay = DateUtil.getCurrentDate();
 		var displayDateMonth = DateUtil.getCurrentMonth();
 		var displayDateYear = DateUtil.getCurrentYear();
@@ -272,7 +289,8 @@ definition {
 			value1 = ${displayTime});
 	}
 
-	macro editDisplayDateYear {
+	@summary = "Default summary"
+	macro editDisplayDateYear() {
 		var displayDateDay = selenium.getElementValue("TextInput#DISPLAY_DATE_DAY");
 		var displayDateMonth = selenium.getElementValue("TextInput#DISPLAY_DATE_MONTH");
 		var displayDateYear = DateUtil.getCurrentYear();
@@ -286,7 +304,8 @@ definition {
 			value1 = ${displayDate});
 	}
 
-	macro editEntryContent {
+	@summary = "Default summary"
+	macro editEntryContent(entrySubtitleEdit = null, entrySubtitle = null, entryContentEdit = null, entryTitleEdit = null, entryTitle = null, entryContent = null) {
 		BlogsEntry.editTitle(
 			entryTitle = ${entryTitle},
 			entryTitleEdit = ${entryTitleEdit});
@@ -302,7 +321,8 @@ definition {
 			entryContentEdit = ${entryContentEdit});
 	}
 
-	macro editNoPermissionPG {
+	@summary = "Default summary"
+	macro editNoPermissionPG(entryTitle = null, entryContent = null) {
 		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
@@ -322,7 +342,8 @@ definition {
 		MenuItem.viewNotPresent(menuItem = "Edit");
 	}
 
-	macro editSubtitle {
+	@summary = "Default summary"
+	macro editSubtitle(entrySubtitleEdit = null, entrySubtitle = null) {
 		AssertTextEquals(
 			key_editor = "subtitle",
 			locator1 = "AlloyEditor#EDITOR",
@@ -333,7 +354,8 @@ definition {
 			editor = "subtitle");
 	}
 
-	macro editTitle {
+	@summary = "Default summary"
+	macro editTitle(entryTitleEdit = null, entryTitle = null) {
 		AssertTextEquals(
 			key_editor = "title",
 			locator1 = "AlloyEditor#EDITOR",
@@ -342,7 +364,8 @@ definition {
 		AlloyEditor.addTitle(title = ${entryTitleEdit});
 	}
 
-	macro entryAddPermissions {
+	@summary = "Default summary"
+	macro entryAddPermissions(permissionDefinitionKey = null, viewableBy = null, roleTitle = null) {
 		if (isSet(viewableBy)) {
 			Select(
 				locator1 = "AssetPermissions#VIEWABLE_AS_SELECT",
@@ -363,7 +386,8 @@ definition {
 		}
 	}
 
-	macro flagPG {
+	@summary = "Default summary"
+	macro flagPG(flagReason = null, siteName = null, entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		Click(locator1 = "BlogsEntry#FLAG_LINK");
@@ -395,7 +419,8 @@ definition {
 		Click(locator1 = "Button#CLOSE");
 	}
 
-	macro moveToRecycleBinCP {
+	@summary = "Default summary"
+	macro moveToRecycleBinCP(entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
@@ -409,7 +434,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro moveToRecycleBinDraftCP {
+	@summary = "Default summary"
+	macro moveToRecycleBinDraftCP(entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
@@ -427,11 +453,13 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro moveToRecycleBinNoPermissionPG {
+	@summary = "Default summary"
+	macro moveToRecycleBinNoPermissionPG() {
 		AssertElementNotPresent(locator1 = "Link#MOVE_TO_RECYCLING_BIN");
 	}
 
-	macro moveToRecycleBinPG {
+	@summary = "Default summary"
+	macro moveToRecycleBinPG(entryTitle = null, entryContent = null) {
 		var key_entryContent = ${entryContent};
 		var key_entryTitle = ${entryTitle};
 
@@ -454,7 +482,8 @@ definition {
 		AssertElementNotPresent(locator1 = "BlogsEntry#CONTENT");
 	}
 
-	macro publishWithInvalidContent {
+	@summary = "Default summary"
+	macro publishWithInvalidContent() {
 		AssertClick(
 			locator1 = "Button#PUBLISH",
 			value1 = "Publish");
@@ -464,7 +493,8 @@ definition {
 		AssertElementNotPresent(locator1 = "Message#SUCCESS");
 	}
 
-	macro publishWithInvalidTitle {
+	@summary = "Default summary"
+	macro publishWithInvalidTitle() {
 		AssertClick(
 			locator1 = "Button#PUBLISH",
 			value1 = "Publish");
@@ -476,7 +506,8 @@ definition {
 		AssertElementNotPresent(locator1 = "Message#SUCCESS");
 	}
 
-	macro publishWithInvalidTitleLength {
+	@summary = "Default summary"
+	macro publishWithInvalidTitleLength() {
 		AssertClick(
 			locator1 = "Button#PUBLISH",
 			value1 = "Publish");
@@ -488,7 +519,8 @@ definition {
 			value1 = "Please enter a valid title.");
 	}
 
-	macro publishWithWorkflow {
+	@summary = "Default summary"
+	macro publishWithWorkflow(entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		AssertClick(
@@ -498,7 +530,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro removeSmallImage {
+	@summary = "Default summary"
+	macro removeSmallImage(uploadFileName = null) {
 		Click(locator1 = "Button#REMOVE_IMAGE");
 
 		AssertElementNotPresent(
@@ -510,7 +543,8 @@ definition {
 			value1 = "Select File");
 	}
 
-	macro removeViewPermissionsPG {
+	@summary = "Default summary"
+	macro removeViewPermissionsPG(roleTitle = null) {
 		var key_roleTitle = StringUtil.replace(${roleTitle}, " ", "-");
 
 		var key_roleTitle = StringUtil.lowerCase(${key_roleTitle});
@@ -532,7 +566,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro saveAsDraft {
+	@summary = "Default summary"
+	macro saveAsDraft() {
 		AssertClick(
 			locator1 = "Button#SAVE_AS_DRAFT",
 			value1 = "Save as Draft");
@@ -540,7 +575,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro scheduleBlogEntry {
+	@summary = "Default summary"
+	macro scheduleBlogEntry() {
 		var displayDateDay = selenium.getElementValue("TextInput#DISPLAY_DATE_DAY");
 		var displayDateMonth = selenium.getElementValue("TextInput#DISPLAY_DATE_MONTH");
 
@@ -584,7 +620,8 @@ definition {
 			value1 = ${displayTime});
 	}
 
-	macro searchCP {
+	@summary = "Default summary"
+	macro searchCP(entryTitle = null, entryContent = null, entrySearchTerm = null) {
 		var key_entryContent = ${entryContent};
 		var key_entryTitle = ${entryTitle};
 
@@ -595,7 +632,8 @@ definition {
 			value1 = ${entryTitle});
 	}
 
-	macro searchNoCP {
+	@summary = "Default summary"
+	macro searchNoCP(entryTitle = null, entryContent = null, entrySearchTerm = null) {
 		var key_entryContent = ${entryContent};
 		var key_entryTitle = ${entryTitle};
 
@@ -608,7 +646,8 @@ definition {
 		AssertElementNotPresent(locator1 = "Blogs#DESCRIPTIVE_VIEW_ENTRY_TITLE");
 	}
 
-	macro selectFormattingStyle {
+	@summary = "Default summary"
+	macro selectFormattingStyle(styleFormat = null) {
 		SelectFieldText(
 			key_editor = "content",
 			locator1 = "AlloyEditor#EDITOR");
@@ -620,7 +659,8 @@ definition {
 			locator1 = "AlloyEditor#TEXT_FORMATTING_STYLE_DROPDOWN");
 	}
 
-	macro tearDownCP {
+	@summary = "Default summary"
+	macro tearDownCP() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -649,7 +689,8 @@ definition {
 		RecycleBin.emptyCP();
 	}
 
-	macro viewAbstractDisplay {
+	@summary = "Default summary"
+	macro viewAbstractDisplay(entryAbstractDescription = null, entryTitle = null, entryContent = null) {
 		var key_entryAbstractDescription = ${entryAbstractDescription};
 		var key_entryTitle = ${entryTitle};
 
@@ -666,7 +707,8 @@ definition {
 			value1 = ${entryContent});
 	}
 
-	macro viewAsRelatedAssetPG {
+	@summary = "Default summary"
+	macro viewAsRelatedAssetPG(assetTitle = null, entryTitle = null, entryContent = null) {
 		var key_assetTitle = ${assetTitle};
 		var key_entryContent = ${entryContent};
 		var key_entryTitle = ${entryTitle};
@@ -688,7 +730,8 @@ definition {
 			value1 = ${assetTitle});
 	}
 
-	macro viewContent {
+	@summary = "Default summary"
+	macro viewContent(entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
@@ -696,7 +739,8 @@ definition {
 			value1 = ${entryTitle});
 	}
 
-	macro viewDefaultCP {
+	@summary = "Default summary"
+	macro viewDefaultCP() {
 		AssertTextEquals(
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "No entries were found.");
@@ -704,7 +748,8 @@ definition {
 		AssertElementNotPresent(locator1 = "Blogs#ENTRY_TABLE_TITLE");
 	}
 
-	macro viewEntry {
+	@summary = "Default summary"
+	macro viewEntry(entryExternalURL = null, uploadFileName = null, entryInlineImage = null, entrySubtitle = null, entryContentItalics = null, entryTitle = null, entryContent = null, entryContentBold = null) {
 		var key_entryContent = ${entryContent};
 		var key_entrySubtitle = ${entrySubtitle};
 		var key_entryTitle = ${entryTitle};
@@ -764,7 +809,8 @@ definition {
 		}
 	}
 
-	macro viewEntryAsWorkflowAsset {
+	@summary = "Default summary"
+	macro viewEntryAsWorkflowAsset(entryTitle = null, entryContent = null) {
 		SiteAdmin.viewPortletTitle(portletTitle = ${entryTitle});
 
 		var key_entryContent = ${entryContent};
@@ -774,7 +820,8 @@ definition {
 			value1 = ${entryContent});
 	}
 
-	macro viewEntryAuthorCP {
+	@summary = "Default summary"
+	macro viewEntryAuthorCP(entryTitle = null) {
 		var entryAuthorFullName = ${entryAuthorFullName};
 		var key_entryTitle = ${entryTitle};
 
@@ -783,7 +830,8 @@ definition {
 			value1 = ${entryAuthorFullName});
 	}
 
-	macro viewEntryExternalURL {
+	@summary = "Default summary"
+	macro viewEntryExternalURL(entryExternalURL = null, entryTitle = null, entryContent = null) {
 		BlogsNavigator.gotoEditCP(entryTitle = ${entryTitle});
 
 		DoubleClick(
@@ -797,7 +845,8 @@ definition {
 			value1 = ${entryExternalURL});
 	}
 
-	macro viewEntryPG {
+	@summary = "Default summary"
+	macro viewEntryPG(entryExternalURL = null, internalVideo = null, entryContentHtml = null, entryCaption = null, uploadFileName = null, entryInlineImage = null, entrySubtitle = null, entryContentItalics = null, embedVideo = null, videoName = null, entryTitle = null, entryContent = null, entryContentBold = null) {
 		var key_entryTitle = ${entryTitle};
 
 		AssertElementPresent(locator1 = "BlogsEntry#TITLE");
@@ -886,7 +935,8 @@ definition {
 		}
 	}
 
-	macro viewEntryTable {
+	@summary = "Default summary"
+	macro viewEntryTable(entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		LexiconEntry.changeDisplayStyle(displayStyle = "table");
@@ -904,7 +954,8 @@ definition {
 			value1 = "Approved");
 	}
 
-	macro viewEntryViaAPPG {
+	@summary = "Default summary"
+	macro viewEntryViaAPPG(assetTitle = null, entryTitle = null, entryContent = null) {
 		var key_assetContent = ${entryContent};
 		var key_assetTitle = ${assetTitle};
 
@@ -921,7 +972,8 @@ definition {
 			value1 = ${entryContent});
 	}
 
-	macro viewInlineImage {
+	@summary = "Default summary"
+	macro viewInlineImage(uploadFileName = null) {
 		var key_uploadFileName = ${uploadFileName};
 
 		AssertVisible(
@@ -929,25 +981,29 @@ definition {
 			value1 = ${uploadFileName});
 	}
 
-	macro viewNoAddPermissions {
+	@summary = "Default summary"
+	macro viewNoAddPermissions() {
 		var key_text = "New Entry";
 
 		AssertElementNotPresent(locator1 = "Button#ANY");
 	}
 
-	macro viewNoCP {
+	@summary = "Default summary"
+	macro viewNoCP(entryTitle = null) {
 		AssertElementNotPresent(
 			key_entryTitle = ${entryTitle},
 			locator1 = "Blogs#ENTRY_TABLE_TITLE");
 	}
 
-	macro viewNoEntryAsGuestPG {
+	@summary = "Default summary"
+	macro viewNoEntryAsGuestPG(entryTitle = null) {
 		AssertElementNotPresent(
 			key_entryTitle = ${entryTitle},
 			locator1 = "BlogsEntry#TITLE");
 	}
 
-	macro viewNoEntryViaAPPG {
+	@summary = "Default summary"
+	macro viewNoEntryViaAPPG(assetTitle = null, entryTitle = null, entryContent = null) {
 		var key_assetTitle = ${assetTitle};
 
 		AssertTextNotPresent(
@@ -959,17 +1015,20 @@ definition {
 			value1 = ${entryContent});
 	}
 
-	macro viewNoEntryViaBlogsAggregatorPG {
+	@summary = "Default summary"
+	macro viewNoEntryViaBlogsAggregatorPG() {
 		AssertElementPresent(locator1 = "BlogsAggregator#NO_ENTRY_MESSAGE");
 	}
 
-	macro viewNoPG {
+	@summary = "Default summary"
+	macro viewNoPG(entryTitle = null) {
 		AssertElementNotPresent(
 			key_entryTitle = ${entryTitle},
 			locator1 = "BlogsEntry#TITLE");
 	}
 
-	macro viewNoRelatedAssetPG {
+	@summary = "Default summary"
+	macro viewNoRelatedAssetPG(assetTitle = null) {
 		var key_assetTitle = ${assetTitle};
 
 		AssertElementNotPresent(locator1 = "AssetRelatedAssets#RELATED_ASSETS_TABLE_TITLE");
@@ -977,7 +1036,8 @@ definition {
 		AssertElementNotPresent(locator1 = "AssetRelatedAssets#RELATED_ASSETS_TABLE_REMOVE_LINK");
 	}
 
-	macro viewNoTag {
+	@summary = "Default summary"
+	macro viewNoTag(tagNameList = null, entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		if (isSet(tagNameList)) {
@@ -994,17 +1054,20 @@ definition {
 		}
 	}
 
-	macro viewPermissionsNoPermission {
+	@summary = "Default summary"
+	macro viewPermissionsNoPermission() {
 		AssertElementNotPresent(locator1 = "Link#PERMISSIONS");
 	}
 
-	macro viewPermissionsNoPermissionPG {
+	@summary = "Default summary"
+	macro viewPermissionsNoPermissionPG(entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		MenuItem.viewNotPresent(menuItem = "Permissions");
 	}
 
-	macro viewPermissionsPG {
+	@summary = "Default summary"
+	macro viewPermissionsPG() {
 		Portlet.mouseOverPortletTitle(portletTitleName = "Blogs");
 
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Permissions");
@@ -1014,7 +1077,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro viewPG {
+	@summary = "Default summary"
+	macro viewPG(readingTime = null, entrySubtitle = null, entryTitle = null, entryContent = null) {
 		var key_entryContent = ${entryContent};
 		var key_entryTitle = ${entryTitle};
 
@@ -1043,7 +1107,8 @@ definition {
 			value1 = ${entryContent});
 	}
 
-	macro viewPGViaAP {
+	@summary = "Default summary"
+	macro viewPGViaAP(entryTitle = null, entryContent = null) {
 		var key_assetContent = ${entryContent};
 		var key_assetTitle = ${entryTitle};
 
@@ -1070,7 +1135,8 @@ definition {
 			value1 = ${entryContent});
 	}
 
-	macro viewRelatedAssetPG {
+	@summary = "Default summary"
+	macro viewRelatedAssetPG(assetTitle = null, entryTitle = null, assetType = null) {
 		var key_assetTitle = ${assetTitle};
 		var key_assetType = ${assetType};
 		var key_entryTitle = ${entryTitle};
@@ -1088,7 +1154,8 @@ definition {
 			value1 = ${assetTitle});
 	}
 
-	macro viewRSS {
+	@summary = "Default summary"
+	macro viewRSS(siteName = null, entryTitle = null, entryContent = null) {
 		var key_text = "RSS";
 
 		AssertClick(
@@ -1121,13 +1188,15 @@ definition {
 			value1 = ${entryContent});
 	}
 
-	macro viewStatus {
+	@summary = "Default summary"
+	macro viewStatus(entryStatus = null) {
 		AssertTextEquals(
 			locator1 = "AssetWorkflow#WORKFLOW_STATUS",
 			value1 = ${entryStatus});
 	}
 
-	macro viewTag {
+	@summary = "Default summary"
+	macro viewTag(tagNameList = null, entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		if (isSet(tagNameList)) {
@@ -1174,7 +1243,8 @@ definition {
 		}
 	}
 
-	macro viewTagPG {
+	@summary = "Default summary"
+	macro viewTagPG(tagNameList = null, entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		if (isSet(tagNameList)) {
@@ -1215,7 +1285,8 @@ definition {
 		}
 	}
 
-	macro viewTitle {
+	@summary = "Default summary"
+	macro viewTitle(entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
@@ -1223,7 +1294,8 @@ definition {
 			value1 = ${entryTitle});
 	}
 
-	macro viewViewCountPG {
+	@summary = "Default summary"
+	macro viewViewCountPG(pageName = null, entryTitle = null) {
 		Navigator.gotoPage(pageName = ${pageName});
 
 		var key_entryTitle = ${entryTitle};
@@ -1289,7 +1361,8 @@ definition {
 			value1 = "${entryViewCount} Views");
 	}
 
-	macro viewWithAbstractDisplayTemplatePG {
+	@summary = "Default summary"
+	macro viewWithAbstractDisplayTemplatePG(entryAbstractDescription = null, entryTitle = null) {
 		var key_entryAbstractDescription = ${entryAbstractDescription};
 		var key_entryTitle = ${entryTitle};
 
@@ -1302,7 +1375,8 @@ definition {
 			value1 = ${entryAbstractDescription});
 	}
 
-	macro viewWithTitleDisplayTemplatePG {
+	@summary = "Default summary"
+	macro viewWithTitleDisplayTemplatePG(entryTitle = null, entryContent = null) {
 		var key_entryTitle = ${entryTitle};
 
 		AssertTextEquals(
@@ -1314,7 +1388,8 @@ definition {
 			value1 = ${entryContent});
 	}
 
-	macro viewWithTrackbackURLPG {
+	@summary = "Default summary"
+	macro viewWithTrackbackURLPG(entryTitle2 = null, entryContent2 = null, entryTitle = null, entryContent = null) {
 		BlogsEntry.viewPG(
 			entryContent = ${entryContent},
 			entryTitle = ${entryTitle});
@@ -1369,7 +1444,8 @@ definition {
 			value1 = ${entryContent2});
 	}
 
-	macro viewWithWorkflowCP {
+	@summary = "Default summary"
+	macro viewWithWorkflowCP(entryTitle = null) {
 		var key_entryTitle = ${entryTitle};
 
 		LexiconEntry.changeDisplayStyle(displayStyle = "table");
@@ -1383,7 +1459,8 @@ definition {
 			value1 = "Pending");
 	}
 
-	macro viewWithWorkflowPGViaAP {
+	@summary = "Default summary"
+	macro viewWithWorkflowPGViaAP(entryTitle = null) {
 		var key_assetTitle = ${entryTitle};
 
 		AssertElementNotPresent(locator1 = "AP#ASSET_ABSTRACT_TITLE");

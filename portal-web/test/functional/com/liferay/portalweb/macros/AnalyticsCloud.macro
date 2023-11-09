@@ -1,6 +1,7 @@
 definition {
 
-	macro loginAnalyticsCloud {
+	@summary = "Default summary"
+	macro loginAnalyticsCloud(emailAddress = null, password = null) {
 		Click(locator1 = "AnalyticsCloudConnection#ANALYTICS_CLOUD_USER_LOGIN_FIELD");
 
 		Type(
@@ -16,7 +17,8 @@ definition {
 		Click(locator1 = "AnalyticsCloudConnection#ANALYTICS_CLOUD_LOGIN_BUTTON");
 	}
 
-	macro syncAnalyticsCloud {
+	@summary = "Default summary"
+	macro syncAnalyticsCloud(token = null) {
 		ApplicationsMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -41,7 +43,8 @@ definition {
 		Click(locator1 = "AnalyticsCloudConnection#DONE_BUTTON");
 	}
 
-	macro takeInvalidTokenFromAnalyticsCloud {
+	@summary = "Default summary"
+	macro takeInvalidTokenFromAnalyticsCloud() {
 		Click(locator1 = "AnalyticsCloudConnection#ANALYTICS_CLOUD_SETTINGS_BUTTON");
 
 		Click(locator1 = "AnalyticsCloudConnection#ANALYTICS_CLOUD_ADD_DATA_SOURCE_BUTTON");
@@ -69,7 +72,8 @@ definition {
 		Alert.viewErrorMessage(errorMessage = "Your request failed to complete.");
 	}
 
-	macro takeTokenFromAnalyticsCloud {
+	@summary = "Default summary"
+	macro takeTokenFromAnalyticsCloud() {
 		Click(locator1 = "AnalyticsCloudConnection#FARO_WORKSPACE_BUTTON");
 
 		if (IsElementPresent(locator1 = "AnalyticsCloudConnection#INTRODUCING_PROPERTIES_NEXT_BUTTON")) {
@@ -91,7 +95,8 @@ definition {
 		return ${token};
 	}
 
-	macro teardownAnalyticsCloud {
+	@summary = "Default summary"
+	macro teardownAnalyticsCloud() {
 		ApplicationsMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",

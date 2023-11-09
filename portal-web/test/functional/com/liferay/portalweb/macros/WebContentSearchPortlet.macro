@@ -1,6 +1,7 @@
 definition {
 
-	macro search {
+	@summary = "Default summary"
+	macro search(webContentSearchTerm = null) {
 		Type(
 			locator1 = "TextInput#SEARCH_2",
 			value1 = ${webContentSearchTerm});
@@ -10,13 +11,15 @@ definition {
 			value1 = "Search");
 	}
 
-	macro viewNoResults {
+	@summary = "Default summary"
+	macro viewNoResults(webContentSearchTerm = null) {
 		AssertTextEquals(
 			locator1 = "Message#EMPTY_INFO",
 			value1 = "No pages were found that matched the keywords: ${webContentSearchTerm}.");
 	}
 
-	macro viewResultsEntry {
+	@summary = "Default summary"
+	macro viewResultsEntry(webContentTitle = null, webContentContent = null) {
 		var key_webContentTitle = ${webContentTitle};
 
 		AssertTextEquals(

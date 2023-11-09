@@ -1,12 +1,12 @@
 @default = "sikuliUploadTCatFile"
 definition {
 
-	function sikuliUploadTCatFile {
+	function sikuliUploadTCatFile() {
 		WaitForSPARefresh();
 
-		selenium.sikuliUploadTCatFile();
+		selenium.sikuliUploadTCatFile(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

@@ -1,12 +1,14 @@
 definition {
 
-	macro assertAssetTypeUnselectable {
+	@summary = "Default summary"
+	macro assertAssetTypeUnselectable() {
 		PageEditor.gotoTab(tabName = "Mapping");
 
 		Button.viewNotPresent(button = "Select");
 	}
 
-	macro mapEditableTextToAsset {
+	@summary = "Default summary"
+	macro mapEditableTextToAsset(itemName = null, fragmentName = null, id = null) {
 		PageEditor.gotoTab(tabName = "Mapping");
 
 		MouseOver.mouseOverNotVisible(
@@ -27,7 +29,8 @@ definition {
 			value1 = ${itemName});
 	}
 
-	macro selectAssetType {
+	@summary = "Default summary"
+	macro selectAssetType() {
 		PageEditor.gotoTab(tabName = "Mapping");
 
 		Button.clickSelect();

@@ -1,6 +1,7 @@
 definition {
 
-	macro configureWorkspaceSettings {
+	@summary = "Default summary"
+	macro configureWorkspaceSettings(timezone = null, timezoneId = null, workspaceName = null) {
 		if (isSet(workspaceName)) {
 			Type(
 				key_text = "Workspace Name",
@@ -51,7 +52,8 @@ definition {
 		}
 	}
 
-	macro createWorkspace {
+	@summary = "Default summary"
+	macro createWorkspace(emailList = null, workspaceName = null) {
 		ACUtils.clickAnyButton(button = "Start Free Trial");
 
 		Type(
@@ -73,7 +75,8 @@ definition {
 		Button.clickSubmitButton();
 	}
 
-	macro openWorkspace {
+	@summary = "Default summary"
+	macro openWorkspace(workspaceName = null) {
 		if (isSet(workspaceName)) {
 			var key_workspaceName = ${workspaceName};
 
@@ -91,7 +94,8 @@ definition {
 		ACUtils.dismissOnboardingModal();
 	}
 
-	macro signOut {
+	@summary = "Default summary"
+	macro signOut() {
 		if (IsElementPresent(locator1 = "ACSettings#SETTINGS_PAGE")) {
 			Click(locator1 = "ACSettings#EXIT_SETTINGS_BUTTON");
 		}
@@ -101,7 +105,8 @@ definition {
 		Click(locator1 = "ACWorkspace#LOGOUT_WORKSPACE_OPTION");
 	}
 
-	macro switchWorkspace {
+	@summary = "Default summary"
+	macro switchWorkspace(workspaceName = null) {
 		Click(locator1 = "ACWorkspace#USER_MENU_OPTION");
 
 		Click(locator1 = "ACWorkspace#SWITCH_WORKSPACE_OPTION");
@@ -109,7 +114,8 @@ definition {
 		ACWorkspace.openWorkspace(workspaceName = ${workspaceName});
 	}
 
-	macro viewWorkspaceSettings {
+	@summary = "Default summary"
+	macro viewWorkspaceSettings(timezone = null, timezoneId = null, workspaceName = null) {
 		if (isSet(workspaceName)) {
 			AssertTextEquals(
 				key_text = "Workspace Name",

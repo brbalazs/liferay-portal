@@ -2,40 +2,40 @@
 @summary = "Open browser to '${locator1}'"
 definition {
 
-	function open {
+	function open() {
 		WaitForSPARefresh();
 
 		selenium.selectWindow("null");
 
 		selenium.selectFrame("relative=top");
 
-		selenium.open();
+		selenium.open(${value1});
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 
 		WaitForSPARefresh();
 	}
 
-	function openInTheNewTab {
+	function openInTheNewTab() {
 		WaitForSPARefresh();
 
-		selenium.executeJavaScript("sessionStorage.clear(); window.open();");
+		selenium.executeJavaScript(${value1}, ${value2}, ${value3});
 
 		SelectWindow.selectPopUp(locator1 = "null");
 
-		selenium.open();
+		selenium.open(${value1});
 	}
 
-	function openNoError {
+	function openNoError() {
 		WaitForSPARefresh();
 
 		selenium.selectWindow("null");
 
 		selenium.selectFrame("relative=top");
 
-		selenium.open();
+		selenium.open(${value1});
 	}
 
 }

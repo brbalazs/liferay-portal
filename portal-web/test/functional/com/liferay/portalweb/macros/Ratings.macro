@@ -1,6 +1,7 @@
 definition {
 
-	macro _openToConfigInSiteSettings {
+	@summary = "Default summary"
+	macro _openToConfigInSiteSettings(siteURLKey = null, portlet = null) {
 		var baseURL = PropsUtil.get("portal.url");
 
 		if (${portlet} == "Ratings") {
@@ -10,7 +11,8 @@ definition {
 		Open(locator1 = "${baseURL}/group/${siteURLKey}/~/control_panel/manage/-/site/settings?_com_liferay_site_admin_web_portlet_SiteSettingsPortlet_mvcRenderCommandName=%2Fconfiguration_admin%2Fview_configuration_screen&_com_liferay_site_admin_web_portlet_SiteSettingsPortlet_configurationScreenKey=${portletKey}");
 	}
 
-	macro configureRatingType {
+	@summary = "Default summary"
+	macro configureRatingType(ratingType = null, siteURLKey = null, siteName = null, portlet = null, applications = null) {
 		if (isSet(siteURLKey)) {
 			Ratings._openToConfigInSiteSettings(
 				portlet = ${portlet},
@@ -48,7 +50,8 @@ definition {
 			value1 = ${ratingType});
 	}
 
-	macro rate {
+	@summary = "Default summary"
+	macro rate(ratingResult = null) {
 		var key_ratingResult = StringUtil.replace(${ratingResult}, " ", "-");
 
 		var key_ratingResult = StringUtil.lowerCase(${key_ratingResult});
@@ -61,7 +64,8 @@ definition {
 		}
 	}
 
-	macro rateStar {
+	@summary = "Default summary"
+	macro rateStar(ratingStarCount = null) {
 		Click(locator1 = "Ratings#YOUR_RATING_STAR");
 
 		if (isSet(checkDeleteButton)) {
@@ -77,7 +81,8 @@ definition {
 			locator1 = "Ratings#YOUR_RATING_STAR_RESULT");
 	}
 
-	macro rateThumb {
+	@summary = "Default summary"
+	macro rateThumb(threadSubject = null, ratingResult = null) {
 		if (isSet(blogCommentRating)) {
 			Click.javaScriptClick(
 				key_ratingResult = ${ratingResult},
@@ -106,7 +111,8 @@ definition {
 		}
 	}
 
-	macro revokeStarsRating {
+	@summary = "Default summary"
+	macro revokeStarsRating() {
 		Click(locator1 = "Ratings#YOUR_RATING_STAR");
 
 		Click.clickNoMouseOver(locator1 = "Ratings#YOUR_RATING_STAR_DELETE");
@@ -114,7 +120,8 @@ definition {
 		AssertElementPresent(locator1 = "Ratings#YOUR_RATING_STAR_EMPTY");
 	}
 
-	macro viewRating {
+	@summary = "Default summary"
+	macro viewRating(ratingResult = null, voteCount = null) {
 		var key_ratingResult = StringUtil.replace(${ratingResult}, " ", "-");
 
 		var key_ratingResult = StringUtil.lowerCase(${key_ratingResult});
@@ -138,7 +145,8 @@ definition {
 		}
 	}
 
-	macro viewRatingReadOnly {
+	@summary = "Default summary"
+	macro viewRatingReadOnly() {
 		AssertElementNotPresent(locator1 = "Ratings#THUMB_UP");
 
 		AssertElementNotPresent(locator1 = "Ratings#THUMB_DOWN");
@@ -148,7 +156,8 @@ definition {
 		AssertElementPresent(locator1 = "Ratings#THUMB_DOWN_OFF");
 	}
 
-	macro viewRatingWithStarsReadOnly {
+	@summary = "Default summary"
+	macro viewRatingWithStarsReadOnly() {
 		for (var starCount : list "1,2,3,4,5") {
 			AssertElementNotPresent(
 				key_averageRatingStar = ${starCount},

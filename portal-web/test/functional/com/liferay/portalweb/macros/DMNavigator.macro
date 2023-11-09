@@ -2,7 +2,8 @@ definition {
 
 	var dmDocumentTypeName = "Basic Document";
 
-	macro gotoAddDocumentType {
+	@summary = "Default summary"
+	macro gotoAddDocumentType(dmDocumentTypeName = null) {
 		LexiconEntry.gotoAdd();
 
 		var key_dmDocumentTypeName = ${dmDocumentTypeName};
@@ -10,7 +11,8 @@ definition {
 		MenuItem.click(menuItem = ${dmDocumentTypeName});
 	}
 
-	macro gotoAddDocumentTypePG {
+	@summary = "Default summary"
+	macro gotoAddDocumentTypePG(dmDocumentTypeName = null) {
 		Portlet.clickPortletPlusIconPG(portletName = "Documents and Media");
 
 		var key_dmDocumentTypeName = ${dmDocumentTypeName};
@@ -18,7 +20,8 @@ definition {
 		MenuItem.click(menuItem = ${dmDocumentTypeName});
 	}
 
-	macro gotoAddRepositoryCP {
+	@summary = "Default summary"
+	macro gotoAddRepositoryCP() {
 		AssertVisible(locator1 = "Button#PLUS");
 
 		LexiconEntry.gotoAdd();
@@ -26,13 +29,15 @@ definition {
 		MenuItem.click(menuItem = "Repository");
 	}
 
-	macro gotoAddRepositoryPG {
+	@summary = "Default summary"
+	macro gotoAddRepositoryPG() {
 		Portlet.clickPortletPlusIconPG(portletName = "Documents and Media");
 
 		MenuItem.click(menuItem = "Repository");
 	}
 
-	macro gotoCheckedOutDocument {
+	@summary = "Default summary"
+	macro gotoCheckedOutDocument(dmDocumentTitle = null, dmCheckedOutDocumentTitle = null) {
 		var key_dmDocumentTitle = ${dmDocumentTitle};
 
 		AssertClick(
@@ -40,11 +45,13 @@ definition {
 			value1 = ${dmCheckedOutDocumentTitle});
 	}
 
-	macro gotoDocumentCP {
+	@summary = "Default summary"
+	macro gotoDocumentCP(dmDocumentTitle = null) {
 		LexiconEntry.gotoEntry(rowEntry = ${dmDocumentTitle});
 	}
 
-	macro gotoDocumentDetails {
+	@summary = "Default summary"
+	macro gotoDocumentDetails() {
 		Click(locator1 = "Button#INFO");
 
 		AssertClick(
@@ -52,7 +59,8 @@ definition {
 			value1 = "Details");
 	}
 
-	macro gotoDocumentPermissionsCP {
+	@summary = "Default summary"
+	macro gotoDocumentPermissionsCP(dmDocumentTitle = null) {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Permissions",
 			rowEntry = ${dmDocumentTitle});
@@ -60,7 +68,8 @@ definition {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 	}
 
-	macro gotoDocumentPG {
+	@summary = "Default summary"
+	macro gotoDocumentPG(dmDocumentTitle = null) {
 		var key_dmDocumentTitle = ${dmDocumentTitle};
 
 		AssertClick(
@@ -68,17 +77,20 @@ definition {
 			value1 = ${dmDocumentTitle});
 	}
 
-	macro gotoDocumentType {
+	@summary = "Default summary"
+	macro gotoDocumentType() {
 		Navigator.gotoNavItem(navItem = "Document Types");
 	}
 
-	macro gotoDocumentVersion {
+	@summary = "Default summary"
+	macro gotoDocumentVersion() {
 		DMNavigator.gotoDocumentDetails();
 
 		MenuItem.click(menuItem = "Versions");
 	}
 
-	macro gotoFolder {
+	@summary = "Default summary"
+	macro gotoFolder(dmFolderName = null) {
 		var key_dmFolderName = ${dmFolderName};
 
 		AssertClick(
@@ -88,7 +100,8 @@ definition {
 		AssertVisible(locator1 = "DocumentsAndMedia#BREADCRUMB_FOLDER_NAME");
 	}
 
-	macro gotoFolderPermissions {
+	@summary = "Default summary"
+	macro gotoFolderPermissions(dmFolderName = null) {
 		var key_dmFolderName = ${dmFolderName};
 
 		Click(locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_VERTICAL_ELLIPSIS");
@@ -98,23 +111,27 @@ definition {
 		SelectFrame(locator1 = "IFrame#DIALOG");
 	}
 
-	macro gotoFolderViaBreadcrumb {
+	@summary = "Default summary"
+	macro gotoFolderViaBreadcrumb(dmFolderName = null) {
 		var key_dmFolderName = ${dmFolderName};
 
 		AssertClick.assertTextClickAt(locator1 = "DocumentsAndMedia#BREADCRUMB_FOLDER_NAME");
 	}
 
-	macro gotoHomeCP {
+	@summary = "Default summary"
+	macro gotoHomeCP() {
 		AssertClick.assertTextClickAt(
 			locator1 = "DocumentsAndMedia#BREADCRUMB_HOME",
 			value1 = "Home");
 	}
 
-	macro gotoMetadataSets {
+	@summary = "Default summary"
+	macro gotoMetadataSets() {
 		Navigator.gotoNavItem(navItem = "Metadata Sets");
 	}
 
-	macro gotoRelatedAssetPG {
+	@summary = "Default summary"
+	macro gotoRelatedAssetPG(dmDocumentTitle = null, assetTitle = null) {
 		var key_dmDocumentTitle = ${dmDocumentTitle};
 
 		AssertClick(
@@ -140,7 +157,8 @@ definition {
 			value1 = ${assetTitle});
 	}
 
-	macro gotoRepository {
+	@summary = "Default summary"
+	macro gotoRepository(dmRepositoryName = null) {
 		var key_dmFolderName = ${dmRepositoryName};
 
 		AssertClick(
@@ -150,13 +168,15 @@ definition {
 		AssertVisible(locator1 = "DocumentsAndMedia#BREADCRUMB_FOLDER_NAME");
 	}
 
-	macro gotoURLDetail {
+	@summary = "Default summary"
+	macro gotoURLDetail() {
 		Click(locator1 = "Icon#INFO");
 
 		Click(locator1 = "DocumentsAndMediaDocument#DETAILS_URL");
 	}
 
-	macro openDocumentsAndMediaAdmin {
+	@summary = "Default summary"
+	macro openDocumentsAndMediaAdmin(siteURLKey = null) {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_document_library_web_portlet_DLAdminPortlet");
 	}
 

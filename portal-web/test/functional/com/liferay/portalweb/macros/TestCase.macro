@@ -1,6 +1,7 @@
 definition {
 
-	macro enableMetal {
+	@summary = "Default summary"
+	macro enableMetal() {
 		SystemSettings.openSystemSettingsAdmin();
 
 		SystemSettings.gotoConfiguration(
@@ -17,7 +18,8 @@ definition {
 		SystemSettings.saveConfiguration();
 	}
 
-	macro getDependenciesDirPath {
+	@summary = "Default summary"
+	macro getDependenciesDirPath(fileName = null) {
 		var projectDir = PropsUtil.get("project.dir");
 		var testBaseDir = PropsUtil.get("test.base.dir.name");
 		var testDependenciesDir = PropsUtil.get("test.dependencies.dir.name");
@@ -64,7 +66,8 @@ definition {
 		return ${dependencyFilePath};
 	}
 
-	macro getDownloadedTempFileName {
+	@summary = "Default summary"
+	macro getDownloadedTempFileName(fileNamePattern = null) {
 		var tempDir = PropsUtil.get("output.dir.name");
 		var pattern = StringUtil.split("**/${fileNamePattern}");
 
@@ -81,7 +84,8 @@ definition {
 		return ${fileName};
 	}
 
-	macro getFileContent {
+	@summary = "Default summary"
+	macro getFileContent(fileName = null) {
 		var baseDir = PropsUtil.get("test.base.dir.name");
 		var dependenciesDir = PropsUtil.get("test.dependencies.dir.name");
 
@@ -90,7 +94,8 @@ definition {
 		return ${fileContent};
 	}
 
-	macro getSiteName {
+	@summary = "Default summary"
+	macro getSiteName(siteName = null) {
 		var testLiferayVirtualInstance = PropsUtil.get("test.liferay.virtual.instance");
 		var testNameSkipPortalInstance = PropsUtil.get("test.name.skip.portal.instance");
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
@@ -130,7 +135,8 @@ definition {
 		}
 	}
 
-	macro getSiteViaEnvironment {
+	@summary = "Default summary"
+	macro getSiteViaEnvironment() {
 		var testRunEnvironment = PropsUtil.get("test.run.environment");
 
 		if (${testRunEnvironment} == "EE") {
@@ -141,7 +147,8 @@ definition {
 		}
 	}
 
-	macro getTestName {
+	@summary = "Default summary"
+	macro getTestName() {
 		var testName = PropsUtil.get("test.name");
 
 		var testName = RegexUtil.replace(${testName}, "[^\.]*\.(.*)", 1);
@@ -149,7 +156,8 @@ definition {
 		return ${testName};
 	}
 
-	macro setUpPortalInstance {
+	@summary = "Default summary"
+	macro setUpPortalInstance() {
 		var testNameSkipPortalInstance = PropsUtil.get("test.name.skip.portal.instance");
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 

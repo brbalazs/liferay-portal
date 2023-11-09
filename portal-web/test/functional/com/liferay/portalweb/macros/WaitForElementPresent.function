@@ -1,8 +1,8 @@
 @default = "waitForElementPresent"
 definition {
 
-	function waitForElementPresent {
-		selenium.waitForElementPresent();
+	function waitForElementPresent() {
+		selenium.waitForElementPresent(${locator1}, ${value1});
 	}
 
 }

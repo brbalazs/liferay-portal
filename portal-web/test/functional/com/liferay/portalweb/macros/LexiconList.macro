@@ -1,6 +1,7 @@
 definition {
 
-	macro viewListEntryLabel {
+	@summary = "Default summary"
+	macro viewListEntryLabel(listEntryLabel = null, listEntry = null) {
 		AssertTextEquals(
 			key_listEntry = ${listEntry},
 			key_listEntryLabel = ${listEntryLabel},

@@ -1,6 +1,7 @@
 definition {
 
-	macro addIdentityProviderConnection {
+	@summary = "Default summary"
+	macro addIdentityProviderConnection(idpMetadataURL = null, idpKeepAliveURL = null, nameIdentifierFormat = null, idpAttributes = null, idpNameID = null, idpEntityID = null) {
 		AssertClick(
 			locator1 = "CPSAMLAdminIdentityProviderConnection#ADD_IDENTITY_PROVIDER_BUTTON",
 			value1 = "Add Identity Provider");
@@ -45,7 +46,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro addServiceProviderConnection {
+	@summary = "Default summary"
+	macro addServiceProviderConnection(spMetadataURL = null, nameIdentifierFormat = null, spNameID = null, spEntityID = null, spKeepAliveURL = null, spAttributes = null) {
 		AssertClick(
 			locator1 = "CPSAMLAdminServiceProviderConnections#ADD_SERVICE_PROVIDER_BUTTON",
 			value1 = "Add Service Provider");
@@ -95,7 +97,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro configureIdentityProvider {
+	@summary = "Default summary"
+	macro configureIdentityProvider(authnRequestSignatureRequired = null, signMetadata = null) {
 		if (${signMetadata} == "disable") {
 			Uncheck(locator1 = "CPSAMLAdminIdentityProvider#IDENTITY_PROVIDER_SIGN_METADATA_CHECKBOX");
 		}
@@ -113,7 +116,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro configureIdentityProviderConnection {
+	@summary = "Default summary"
+	macro configureIdentityProviderConnection(forceAuthn = null, samlEntityID = null) {
 		Click.waitForMenuToggleJSClick(
 			key_samlEntityID = ${samlEntityID},
 			locator1 = "CPSAMLAdmin#SAML_CONNECTION_ACTION_BUTTON");
@@ -127,7 +131,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro configureServiceProvider {
+	@summary = "Default summary"
+	macro configureServiceProvider(signAuthnRequests = null, allowShowingTheLoginPortlet = null, LDAPImport = null) {
 		if (${signAuthnRequests} == "disable") {
 			Uncheck(locator1 = "CPSAMLAdminServiceProvider#SERVICE_PROVIDER_SIGN_AUTHN_REQUESTS_CHECKBOX");
 		}
@@ -143,7 +148,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro deleteSAMLConnection {
+	@summary = "Default summary"
+	macro deleteSAMLConnection(samlEntityID = null) {
 		Click.waitForMenuToggleJSClick(
 			key_samlEntityID = ${samlEntityID},
 			locator1 = "CPSAMLAdmin#SAML_CONNECTION_ACTION_BUTTON");

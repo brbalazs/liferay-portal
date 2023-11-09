@@ -1,6 +1,7 @@
 definition {
 
-	macro setGroupId {
+	@summary = "Default summary"
+	macro setGroupId(groupName = null) {
 		Variables.assertDefined(parameterList = ${groupName});
 
 		var groupId = JSONGroupAPI._getGroupIdByName(
@@ -10,7 +11,8 @@ definition {
 		return ${groupId};
 	}
 
-	macro setSiteNavigationMenuId {
+	@summary = "Default summary"
+	macro setSiteNavigationMenuId(groupName = null, siteNavigationMenuName = null) {
 		Variables.assertDefined(parameterList = "${groupName},${siteNavigationMenuName}");
 
 		var groupId = JSONSitenavigationSetter.setGroupId(groupName = ${groupName});

@@ -1,6 +1,7 @@
 definition {
 
-	macro getFragmentFileContent {
+	@summary = "Default summary"
+	macro getFragmentFileContent(fileName = null) {
 		var baseDir = PropsUtil.get("test.base.dir.name");
 		var dependenciesDir = PropsUtil.get("test.dependencies.dir.name");
 

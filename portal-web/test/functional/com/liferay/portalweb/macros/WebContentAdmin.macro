@@ -1,6 +1,7 @@
 definition {
 
-	macro viewEntryWorkflowStatus {
+	@summary = "Default summary"
+	macro viewEntryWorkflowStatus(entry = null, workflowStatus = null) {
 		LexiconList.viewListEntryLabel(
 			listEntry = ${entry},
 			listEntryLabel = ${workflowStatus});

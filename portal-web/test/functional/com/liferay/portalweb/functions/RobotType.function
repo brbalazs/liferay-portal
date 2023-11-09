@@ -2,10 +2,10 @@
 @summary = "Type to '${locator1}' the value '${value1}'"
 definition {
 
-	function robotTypeShortcut {
+	function robotTypeShortcut() {
 		WaitForSPARefresh();
 
-		selenium.robotTypeShortcut();
+		selenium.robotTypeShortcut(${locator1});
 	}
 
 }

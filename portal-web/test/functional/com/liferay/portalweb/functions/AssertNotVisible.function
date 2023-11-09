@@ -1,14 +1,14 @@
 @default = "assertNotVisible"
 definition {
 
-	function assertNotVisible {
+	function assertNotVisible() {
 		WaitForSPARefresh();
 
-		selenium.waitForNotVisible();
+		selenium.waitForNotVisible(${locator1}, ${value1});
 
-		selenium.assertNotVisible();
+		selenium.assertNotVisible(${locator1});
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

@@ -1,7 +1,8 @@
 definition {
 
 	@description = "Configures Liferay SAML as the IdP and Liferay SAML as the SP."
-	macro configureLiferaySAMLAsIdP {
+	@summary = "Default summary"
+	macro configureLiferaySAMLAsIdP(idpSessionMaximumAge = null, idpSessionIdleTimeout = null, idpURL = null, samlEntityID = null) {
 
 		// Configure IdP (Identity Provider) on http://localhost:8080 with database lportal and saml deployed
 
@@ -49,7 +50,8 @@ definition {
 		SAMLPortlet.configureIdentityProvider();
 	}
 
-	macro configureLiferaySAMLAsSP {
+	@summary = "Default summary"
+	macro configureLiferaySAMLAsSP(idpKeepAliveURL = null, idpAttributes = null, nameIdentifierFormat = null, spKeepAliveURL = null, spURL = null, samlEntityID = null, nameIdentifierAttributeName = null, spAttributes = null) {
 		User.loginPG(
 			password = "test",
 			specificURL = ${spURL},
@@ -82,7 +84,8 @@ definition {
 			spURL = ${spURL});
 	}
 
-	macro connectSPAndIdP {
+	@summary = "Default summary"
+	macro connectSPAndIdP(idpKeepAliveURL = null, idpAttributes = null, nameIdentifierFormat = null, spEntityID = null, idpURL = null, spKeepAliveURL = null, spURL = null, nodePort = null, nameIdentifierAttributeName = null, idpEntityID = null, spAttributes = null) {
 		Navigator.openSpecificURL(url = ${spURL});
 
 		if (IsElementNotPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
@@ -144,7 +147,8 @@ definition {
 	}
 
 	@description = "Sign into portal by executing a IdP initiated SSO login. The IdP will redirect to the SP. If the same users with the same email address are present on both instances, it will authenticate and show the SP. SAML can authenticate across major portal versions, that is, the IdP can be Portal 6.1 EE GA3 and the SP can be Portal 6.2. EE GA1. For testing purposes, it is obvious if the authentication succeeds or fails if the IdP and SP are different portal versions."
-	macro executeIdPInitiatedSSO {
+	@summary = "Default summary"
+	macro executeIdPInitiatedSSO(password = null, idpInitiatedSSOURL = null, userEmailAddress = null, spURL = null, autoLogin = null) {
 		if (${autoLogin} == "true") {
 			Navigator.openSpecificURL(url = ${idpInitiatedSSOURL});
 
@@ -164,7 +168,8 @@ definition {
 	}
 
 	@description = "Sign into portal by executing a SP initiated SSO login. In the SP, click on the Sign In button to."
-	macro executeSPInitiatedSSO {
+	@summary = "Default summary"
+	macro executeSPInitiatedSSO(idpName = null, password = null, idpInitiatedSSOURL = null, samlMultiIdPs = null, specificURL = null, autoLogin = null) {
 		if (${autoLogin} == "true") {
 			Navigator.openSpecificURL(url = ${idpInitiatedSSOURL});
 
@@ -184,7 +189,8 @@ definition {
 		AssertLocation.assertPartialLocation(value1 = ${specificURL});
 	}
 
-	macro waitForSLO {
+	@summary = "Default summary"
+	macro waitForSLO() {
 		var key_title = "Signing Out from Services";
 
 		WaitForElementPresent(locator1 = "Header#H3_TITLE");

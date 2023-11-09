@@ -1,6 +1,7 @@
 definition {
 
-	macro _addUser {
+	@summary = "Default summary"
+	macro _addUser(userLastName = null, userScreenName = null, userEmailAddress = null, userFirstName = null, locale = null) {
 		Variables.assertDefined(parameterList = "${locale},${userEmailAddress},${userFirstName},${userLastName},${userScreenName}");
 
 		var companyId = JSONCompany.getCompanyId();
@@ -39,7 +40,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _addUserToSite {
+	@summary = "Default summary"
+	macro _addUserToSite(groupId = null, userId = null) {
 		Variables.assertDefined(parameterList = "${groupId},${userId}");
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -52,7 +54,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _addUserToUserGroup {
+	@summary = "Default summary"
+	macro _addUserToUserGroup(userGroupId = null, specificURL = null, userId = null) {
 		Variables.assertDefined(parameterList = "${userGroupId},${userId}");
 
 		if (isSet(specificURL)) {
@@ -70,7 +73,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _agreeToTermsAndAnswerReminderQuery {
+	@summary = "Default summary"
+	macro _agreeToTermsAndAnswerReminderQuery(userId = null) {
 		Variables.assertDefined(parameterList = ${userId});
 
 		var companyId = JSONCompany.getCompanyId();
@@ -91,7 +95,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _deleteUser {
+	@summary = "Default summary"
+	macro _deleteUser(userId = null) {
 		Variables.assertDefined(parameterList = ${userId});
 
 		var portalURL = JSONCompany.getPortalURL();
@@ -105,7 +110,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _disablePasswordChangeRequired {
+	@summary = "Default summary"
+	macro _disablePasswordChangeRequired() {
 		var companyId = JSONCompany.getCompanyId();
 		var portalURL = JSONCompany.getPortalURL();
 
@@ -154,7 +160,8 @@ definition {
 		com.liferay.poshi.runner.util.JSONCurlUtil.post(${curl});
 	}
 
-	macro _getUserIdByEmailAddress {
+	@summary = "Default summary"
+	macro _getUserIdByEmailAddress(userEmailAddress = null) {
 		Variables.assertDefined(parameterList = ${userEmailAddress});
 
 		var companyId = JSONCompany.getCompanyId();
@@ -170,7 +177,8 @@ definition {
 		return ${userId};
 	}
 
-	macro _getUserIds {
+	@summary = "Default summary"
+	macro _getUserIds() {
 		var companyId = JSONCompany.getCompanyId();
 		var portalURL = JSONCompany.getPortalURL();
 
@@ -193,7 +201,8 @@ definition {
 		return ${userIds};
 	}
 
-	macro _updatePassword {
+	@summary = "Default summary"
+	macro _updatePassword(newPassword = null, requireReset = null, userId = null) {
 		Variables.assertDefined(parameterList = "${userId},${newPassword},${requireReset}");
 
 		var portalURL = JSONCompany.getPortalURL();

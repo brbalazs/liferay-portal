@@ -1,6 +1,7 @@
 definition {
 
-	macro addBasicWebContentLocalized {
+	@summary = "Default summary"
+	macro addBasicWebContentLocalized(contentMap = null, description = null, workflowAction = null, title = null, content = null, groupName = null, assetCategoryIds = null, assetTagNames = null, folderName = null) {
 		Variables.assertDefined(parameterList = ${groupName});
 
 		var groupId = JSONWebcontentSetter.setGroupId(groupName = ${groupName});
@@ -29,7 +30,8 @@ definition {
 			titleMap = ${titleMap});
 	}
 
-	macro addFolder {
+	@summary = "Default summary"
+	macro addFolder(parentFolderName = null, groupName = null, folderName = null) {
 		Variables.assertDefined(parameterList = "${folderName},${groupName}");
 
 		var groupId = JSONWebcontentSetter.setGroupId(groupName = ${groupName});
@@ -44,7 +46,8 @@ definition {
 			parentFolderId = ${parentFolderId});
 	}
 
-	macro addWebContent {
+	@summary = "Default summary"
+	macro addWebContent(userPassword = null, description = null, userEmailAddress = null, title = null, workflowAction = null, content = null, groupName = null, site = null, assetCategoryIds = null, assetTagNames = null, folderName = null) {
 		Variables.assertDefined(parameterList = "${content},${groupName},${title}");
 
 		var groupId = JSONWebcontentSetter.setGroupId(
@@ -73,7 +76,8 @@ definition {
 			userPassword = ${userPassword});
 	}
 
-	macro deleteWebContent {
+	@summary = "Default summary"
+	macro deleteWebContent(groupName = null, title = null) {
 		Variables.assertDefined(parameterList = "${groupName},${title}");
 
 		var groupId = JSONWebcontentSetter.setGroupId(groupName = ${groupName});
@@ -86,7 +90,8 @@ definition {
 			groupId = ${groupId});
 	}
 
-	macro getFolderIdByFolderName {
+	@summary = "Default summary"
+	macro getFolderIdByFolderName(groupName = null, folderName = null) {
 		Variables.assertDefined(parameterList = "${folderName},${groupName}");
 
 		var groupId = JSONWebcontentSetter.setGroupId(groupName = ${groupName});

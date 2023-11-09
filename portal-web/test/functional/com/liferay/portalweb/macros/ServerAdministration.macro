@@ -1,6 +1,7 @@
 definition {
 
-	macro addCategoryLogLevels {
+	@summary = "Default summary"
+	macro addCategoryLogLevels(categoryName = null, categoryPriority = null) {
 		Navigator.gotoNavItem(navItem = "Log Levels");
 
 		AssertClick(
@@ -18,7 +19,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro configureExternalServices {
+	@summary = "Default summary"
+	macro configureExternalServices(enableXuggler = null, enableOpenOfficeIntegration = null) {
 		Navigator.gotoNavItem(navItem = "External Services");
 
 		if (${enableOpenOfficeIntegration} == "true") {
@@ -59,7 +61,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro configureFileUploadOverallMaximumFileSize {
+	@summary = "Default summary"
+	macro configureFileUploadOverallMaximumFileSize(maxFileSize = null) {
 		Type(
 			locator1 = "ServerAdministrationFileUploads#GENERAL_OVERALL_MAX_FILE_SIZE_FIELD",
 			value1 = ${maxFileSize});
@@ -73,7 +76,8 @@ definition {
 			value1 = "Your request completed successfully.");
 	}
 
-	macro configureMailServerSettings {
+	@summary = "Default summary"
+	macro configureMailServerSettings(userPassword = null, needsReply = null, userName = null) {
 		Navigator.gotoNavItem(navItem = "Mail");
 
 		Type(
@@ -135,7 +139,8 @@ definition {
 			value1 = "Your request completed successfully.");
 	}
 
-	macro executeScript {
+	@summary = "Default summary"
+	macro executeScript(language = null, script = null) {
 		Navigator.gotoNavItem(navItem = "Script");
 
 		Select(
@@ -153,7 +158,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro executeServerResourcesActions {
+	@summary = "Default summary"
+	macro executeServerResourcesActions(actionsDescription = null) {
 		Navigator.gotoNavItem(navItem = "Resources");
 
 		Panel.expandPanel(panel = "Clean Up Actions");
@@ -171,11 +177,13 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro openServerAdmin {
+	@summary = "Default summary"
+	macro openServerAdmin() {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_server_admin_web_portlet_ServerAdminPortlet");
 	}
 
-	macro tearDownDMFileUploadSettings {
+	@summary = "Default summary"
+	macro tearDownDMFileUploadSettings() {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -192,7 +200,8 @@ definition {
 			value1 = "Save");
 	}
 
-	macro tearDownMailServerSettings {
+	@summary = "Default summary"
+	macro tearDownMailServerSettings() {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -245,7 +254,8 @@ definition {
 			value1 = "Your request completed successfully.");
 	}
 
-	macro viewProperties {
+	@summary = "Default summary"
+	macro viewProperties(propertyName = null, propertyTitle = null) {
 		Navigator.gotoNavItem(navItem = "Properties");
 
 		var key_propertyName = ${propertyName};

@@ -1,6 +1,7 @@
 definition {
 
-	macro createNewExportSchedule {
+	@summary = "Default summary"
+	macro createNewExportSchedule(endDate = null, startTime = null, endTime = null, type = null, startDate = null, token = null) {
 		var analyticsCloudURL = PropsUtil.get("analytics.cloud.url");
 
 		var curl = '''
@@ -13,7 +14,8 @@ definition {
 		return ${apiResponse};
 	}
 
-	macro createQueryData {
+	@summary = "Default summary"
+	macro createQueryData(token = null) {
 		var analyticsCloudURL = PropsUtil.get("analytics.cloud.url");
 
 		var curl = '''
@@ -25,7 +27,8 @@ definition {
 		return ${apiResponse};
 	}
 
-	macro getTokenValue {
+	@summary = "Default summary"
+	macro getTokenValue() {
 		if (IsElementNotPresent(locator1 = "ACSettings#COPY_TOKEN_BUTTON")) {
 			ACUtils.clickAnyButton(button = "Generate Token");
 		}
@@ -39,7 +42,8 @@ definition {
 		return ${token};
 	}
 
-	macro viewApiResponseForError {
+	@summary = "Default summary"
+	macro viewApiResponseForError(apiResponse = null, message = null) {
 
 		// Checks if the API response message explains the reason for the error
 
@@ -60,7 +64,8 @@ definition {
 		}
 	}
 
-	macro viewApiResponseForExportProcess {
+	@summary = "Default summary"
+	macro viewApiResponseForExportProcess(endDate = null, apiResponse = null, upperCaseType = null, startTime = null, endTime = null, message = null, startDate = null, status = null) {
 
 		// Checks if the API response message is correct
 
@@ -108,7 +113,8 @@ definition {
 		}
 	}
 
-	macro viewApiResponseForQueryData {
+	@summary = "Default summary"
+	macro viewApiResponseForQueryData(typeList = null, apiResponse = null) {
 		for (var type : list ${typeList}) {
 			if (contains(${apiResponse}, "${type}={href=http://osbasahbackend:8080/api/reports/${type}}")) {
 				echo("${type} - PASSED");

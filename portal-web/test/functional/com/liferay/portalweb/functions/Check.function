@@ -1,112 +1,112 @@
 @default = "clickAt"
 definition {
 
-	function checkAll {
+	function checkAll() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible();
+		selenium.waitForVisible(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		if (selenium.isNotChecked()) {
-			selenium.clickAt();
+		if (selenium.isNotChecked(${locator1})) {
+			selenium.clickAt(${locator1}, ${value1});
 		}
 
 		selenium.assertChecked("xpath=( //div[@class='checkbox']//input[@title='Select All'])[2]");
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function checkHiddenToggleSwitch {
+	function checkHiddenToggleSwitch(locator1) {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent();
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
 		if (selenium.isNotChecked("xpath=(${locator1})/../../input")) {
-			selenium.clickAt();
+			selenium.clickAt(${locator1}, ${value1});
 		}
 
 		AssertChecked.assertCheckedHiddenToggleSwitch();
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function checkToggleSwitch {
+	function checkToggleSwitch() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent();
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		if (selenium.isNotChecked()) {
-			selenium.clickAt();
+		if (selenium.isNotChecked(${locator1})) {
+			selenium.clickAt(${locator1}, ${value1});
 		}
 
 		AssertChecked.assertCheckedNotVisible();
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAt {
+	function clickAt() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible();
+		selenium.waitForVisible(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		if (selenium.isNotChecked()) {
-			selenium.clickAt();
+		if (selenium.isNotChecked(${locator1})) {
+			selenium.clickAt(${locator1}, ${value1});
 		}
 
 		AssertChecked.assertChecked();
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function clickAtWithPause {
+	function clickAtWithPause() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible();
+		selenium.waitForVisible(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		if (selenium.isNotChecked()) {
-			selenium.clickAt();
+		if (selenium.isNotChecked(${locator1})) {
+			selenium.clickAt(${locator1}, ${value1});
 		}
 
 		selenium.pause(3000);
 
 		AssertChecked.assertChecked();
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}
 
-	function toggleSwitch {
+	function toggleSwitch() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent();
+		selenium.waitForElementPresent(${locator1}, ${value1});
 
-		selenium.mouseOver();
+		selenium.mouseOver(${locator1});
 
-		if (selenium.isNotChecked()) {
-			selenium.clickAt();
+		if (selenium.isNotChecked(${locator1})) {
+			selenium.clickAt(${locator1}, ${value1});
 		}
 
 		AssertElementPresent();
 
-		selenium.assertJavaScriptErrors();
+		selenium.assertJavaScriptErrors(${value1});
 
 		selenium.assertLiferayErrors();
 	}

@@ -1,6 +1,7 @@
 definition {
 
-	macro addBehaviorContentVisitedRuleCP {
+	@summary = "Default summary"
+	macro addBehaviorContentVisitedRuleCP(webContentTitle = null, contentVisitedContent = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Content Visited");
 
 		Click(locator1 = "EditUserSegment#USER_SEGMENT_RULE_BEHAVIOR_CONTENT_VISITED_SELECT_CONTENT_BUTTON");
@@ -14,7 +15,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro addBehaviorPageVisitedRuleCP {
+	@summary = "Default summary"
+	macro addBehaviorPageVisitedRuleCP(friendlyURL = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Page Visited");
 
 		Type(
@@ -22,7 +24,8 @@ definition {
 			value1 = ${friendlyURL});
 	}
 
-	macro addBehaviorPreviouslyVisitedSiteRuleCP {
+	@summary = "Default summary"
+	macro addBehaviorPreviouslyVisitedSiteRuleCP(condition = null, conditionValue = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Previously Visited Site");
 
 		Select(
@@ -36,7 +39,8 @@ definition {
 		Click(locator1 = "EditUserSegment#USER_SEGMENT_RULE_BEHAVIOR_PREVIOUSLY_VISITED_SITE_ADD_BUTTON");
 	}
 
-	macro addBehaviorScorePointsRuleCP {
+	@summary = "Default summary"
+	macro addBehaviorScorePointsRuleCP(scorePoints = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Score Points");
 
 		Type(
@@ -44,7 +48,8 @@ definition {
 			value1 = ${scorePoints});
 	}
 
-	macro addCP {
+	@summary = "Default summary"
+	macro addCP(userSegmentDescription = null, userSegmentName = null) {
 		Navigator.gotoNavItem(navItem = "User Segments");
 
 		LexiconEntry.gotoAdd();
@@ -54,7 +59,8 @@ definition {
 		PortletEntry.inputDescription(description = ${userSegmentDescription});
 	}
 
-	macro addRuleCmdCP {
+	@summary = "Default summary"
+	macro addRuleCmdCP(userSegmentRule = null) {
 		Type(
 			locator1 = "ContentTargeting#FORM_SEARCH_FIELD",
 			value1 = ${userSegmentRule});
@@ -69,7 +75,8 @@ definition {
 			value1 = ${userSegmentRule});
 	}
 
-	macro addSocialFacebookAgeRuleCP {
+	@summary = "Default summary"
+	macro addSocialFacebookAgeRuleCP(facebookOlderThanAge = null, facebookYoungerThanAge = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Facebook Age");
 
 		Type(
@@ -81,7 +88,8 @@ definition {
 			value1 = ${facebookYoungerThanAge});
 	}
 
-	macro addSocialFacebookCityRuleCP {
+	@summary = "Default summary"
+	macro addSocialFacebookCityRuleCP(facebookCity = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Facebook City");
 
 		Type(
@@ -89,7 +97,8 @@ definition {
 			value1 = ${facebookCity});
 	}
 
-	macro addSocialFacebookEducationRuleCP {
+	@summary = "Default summary"
+	macro addSocialFacebookEducationRuleCP(facebookEducationLevel = null, facebookCollegeHighSchoolName = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Facebook Education");
 
 		Select(
@@ -101,7 +110,8 @@ definition {
 			value1 = ${facebookCollegeHighSchoolName});
 	}
 
-	macro addSocialFacebookFriendsRuleCP {
+	@summary = "Default summary"
+	macro addSocialFacebookFriendsRuleCP(moreLessThan = null, numberOfFriends = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Facebook Friends");
 
 		Select(
@@ -113,7 +123,8 @@ definition {
 			value1 = ${numberOfFriends});
 	}
 
-	macro addSocialFacebookGenderRuleCP {
+	@summary = "Default summary"
+	macro addSocialFacebookGenderRuleCP(facebookGenderRadio = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Facebook Gender");
 
 		if (${facebookGenderRadio} == "Male") {
@@ -127,7 +138,8 @@ definition {
 		}
 	}
 
-	macro addSocialFacebookPageLikeRuleCP {
+	@summary = "Default summary"
+	macro addSocialFacebookPageLikeRuleCP(facebookURL = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Facebook Page Like");
 
 		Type(
@@ -135,7 +147,8 @@ definition {
 			value1 = ${facebookURL});
 	}
 
-	macro addSystemAttributesBrowserRuleCP {
+	@summary = "Default summary"
+	macro addSystemAttributesBrowserRuleCP(browserName = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Browser");
 
 		Select(
@@ -143,7 +156,8 @@ definition {
 			value1 = ${browserName});
 	}
 
-	macro addSystemAttributesDeviceRuleCP {
+	@summary = "Default summary"
+	macro addSystemAttributesDeviceRuleCP(deviceFamilyName = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Device");
 
 		Select(
@@ -151,7 +165,8 @@ definition {
 			value1 = ${deviceFamilyName});
 	}
 
-	macro addSystemAttributesLocationRuleCP {
+	@summary = "Default summary"
+	macro addSystemAttributesLocationRuleCP(regionName = null, countryName = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Location");
 
 		Select(
@@ -163,7 +178,8 @@ definition {
 			value1 = ${regionName});
 	}
 
-	macro addSystemAttributesOperatingSystemRuleCP {
+	@summary = "Default summary"
+	macro addSystemAttributesOperatingSystemRuleCP(operatingSystemName = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Operating System");
 
 		Select(
@@ -171,7 +187,8 @@ definition {
 			value1 = ${operatingSystemName});
 	}
 
-	macro addSystemAttributesTimeRuleCP {
+	@summary = "Default summary"
+	macro addSystemAttributesTimeRuleCP(startTime = null, endTime = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Access Time");
 
 		Type(
@@ -183,7 +200,8 @@ definition {
 			value1 = ${endTime});
 	}
 
-	macro addUserAttributesAgeRuleCP {
+	@summary = "Default summary"
+	macro addUserAttributesAgeRuleCP(youngerThanAge = null, olderThanAge = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Age");
 
 		Type(
@@ -195,7 +213,8 @@ definition {
 			value1 = ${youngerThanAge});
 	}
 
-	macro addUserAttributesCustomFieldCP {
+	@summary = "Default summary"
+	macro addUserAttributesCustomFieldCP(customFieldValue = null, customFieldKey = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Custom Field");
 
 		Click(locator1 = "EditUserSegment#USER_SEGMENT_RULE_USER_ATTRIBUTES_CUSTOM_FIELD_SELECT_BUTTON");
@@ -215,7 +234,8 @@ definition {
 		SelectFrameTop();
 	}
 
-	macro addUserAttributesGenderRuleCP {
+	@summary = "Default summary"
+	macro addUserAttributesGenderRuleCP(genderRadio = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Gender");
 
 		if (${genderRadio} == "Male") {
@@ -226,7 +246,8 @@ definition {
 		}
 	}
 
-	macro addUserAttributesOrganizationMemberRuleCP {
+	@summary = "Default summary"
+	macro addUserAttributesOrganizationMemberRuleCP(organizationName = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Organization Member");
 
 		Select(
@@ -234,7 +255,8 @@ definition {
 			value1 = ${organizationName});
 	}
 
-	macro addUserAttributesOrganizationRoleRuleCP {
+	@summary = "Default summary"
+	macro addUserAttributesOrganizationRoleRuleCP(organizationName = null, organizationRole = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Organization Role");
 
 		Select(
@@ -246,7 +268,8 @@ definition {
 			value1 = ${organizationRole});
 	}
 
-	macro addUserAttributesRegularRoleRuleCP {
+	@summary = "Default summary"
+	macro addUserAttributesRegularRoleRuleCP(regularRole = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Regular Role");
 
 		var key_regularRole = ${regularRole};
@@ -260,7 +283,8 @@ definition {
 			value1 = ${regularRole});
 	}
 
-	macro addUserAttributesSiteMemberRuleCP {
+	@summary = "Default summary"
+	macro addUserAttributesSiteMemberRuleCP(selectSiteMemberSite = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Site Member");
 
 		AssertClick(
@@ -276,7 +300,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro addUserAttributesSiteRoleRuleCP {
+	@summary = "Default summary"
+	macro addUserAttributesSiteRoleRuleCP(siteRole = null, siteRoleSite = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "Site Role");
 
 		AssertClick(
@@ -304,7 +329,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro addUserAttributesUserGroupMemberRuleCP {
+	@summary = "Default summary"
+	macro addUserAttributesUserGroupMemberRuleCP(userGroupName = null) {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "User Group Member");
 
 		AssertClick(
@@ -321,7 +347,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro addUserAttributesUserSignedInRuleCP {
+	@summary = "Default summary"
+	macro addUserAttributesUserSignedInRuleCP() {
 		ContentTargetingUserSegment.addRuleCmdCP(userSegmentRule = "User Signed In");
 
 		AssertTextEquals(
@@ -329,7 +356,8 @@ definition {
 			value1 = "This rule will be matched if the user is signed in.");
 	}
 
-	macro deleteAllCP {
+	@summary = "Default summary"
+	macro deleteAllCP() {
 		PortletEntry.selectAll();
 
 		ClickNoError(locator1 = "Icon#DELETE");
@@ -339,7 +367,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro deleteUserSegmentCP {
+	@summary = "Default summary"
+	macro deleteUserSegmentCP(userSegmentName = null) {
 		LexiconEntry.gotoEntryMenuItemNoError(
 			menuItem = "Delete",
 			rowEntry = ${userSegmentName});
@@ -353,7 +382,8 @@ definition {
 			value1 = "No User Segments were found");
 	}
 
-	macro editGenderRule {
+	@summary = "Default summary"
+	macro editGenderRule(userSegmentName = null, genderRadioPath = null) {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${userSegmentName});
@@ -363,7 +393,8 @@ definition {
 		Click(locator1 = "EditUserSegment#USER_SEGMENT_RULE_USER_ATTRIBUTES_GENDER_${genderRadioPath}_RADIO");
 	}
 
-	macro editUserSegmentCP {
+	@summary = "Default summary"
+	macro editUserSegmentCP(userSegmentName = null, userSegmentRuleAddList = null, userSegmentDescriptionEdit = null, userSegmentNameEdit = null, userSegmentRuleDeleteList = null) {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Edit",
 			rowEntry = ${userSegmentName});
@@ -389,7 +420,8 @@ definition {
 		}
 	}
 
-	macro expandCategory {
+	@summary = "Default summary"
+	macro expandCategory() {
 		Pause(locator1 = 1000);
 
 		if ((IsElementPresent(locator1 = "EditUserSegment#USER_SEGMENT_RULES_CATEGORY_COLLAPSED")) && (IsVisible(locator1 = "EditUserSegment#USER_SEGMENT_RULES_CATEGORY_COLLAPSED"))) {
@@ -399,7 +431,8 @@ definition {
 		AssertElementPresent(locator1 = "EditUserSegment#USER_SEGMENT_RULES_CATEGORY_EXPANDED");
 	}
 
-	macro gotoViewReport {
+	@summary = "Default summary"
+	macro gotoViewReport(userSegmentName = null, reportName = null) {
 		LexiconEntry.gotoEntry(rowEntry = ${userSegmentName});
 
 		Navigator.gotoNavItem(navItem = "Reports");
@@ -416,7 +449,8 @@ definition {
 		Pause(locator1 = 1000);
 	}
 
-	macro openFormField {
+	@summary = "Default summary"
+	macro openFormField(usersegmentRuleName = null) {
 		var key_fieldName = ${usersegmentRuleName};
 
 		if (IsElementPresent(locator1 = "ContentTargeting#FORM_FIELD_COLLAPSED")) {
@@ -424,7 +458,8 @@ definition {
 		}
 	}
 
-	macro viewContentVisitedRuleEmpty {
+	@summary = "Default summary"
+	macro viewContentVisitedRuleEmpty(userSegmentName = null) {
 		LexiconEntry.gotoEntry(rowEntry = ${userSegmentName});
 
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Edit");
@@ -432,7 +467,8 @@ definition {
 		AssertElementNotPresent(locator1 = "EditUserSegment#USER_SEGMENT_RULE_BEHAVIOR_CONTENT_VISITED_WEB_CONTENT_TITLE");
 	}
 
-	macro viewCP {
+	@summary = "Default summary"
+	macro viewCP(userSegmentDescription = null, userSegmentName = null) {
 		Navigator.gotoNavItem(navItem = "User Segments");
 
 		LexiconEntry.viewEntryName(rowEntry = ${userSegmentName});
@@ -443,13 +479,15 @@ definition {
 			value1 = ${userSegmentDescription});
 	}
 
-	macro viewNotPresentCP {
+	@summary = "Default summary"
+	macro viewNotPresentCP(userSegmentName = null) {
 		Navigator.gotoNavItem(navItem = "User Segments");
 
 		LexiconEntry.viewNoEntry(rowEntry = ${userSegmentName});
 	}
 
-	macro viewReportContentViews {
+	@summary = "Default summary"
+	macro viewReportContentViews(reportTitle = null, reportsContentTableList = null) {
 		var key_rowEntry = ${reportTitle};
 
 		for (var contentReports : list ${reportsContentTableList}) {
@@ -462,7 +500,8 @@ definition {
 		}
 	}
 
-	macro viewRulesCP {
+	@summary = "Default summary"
+	macro viewRulesCP(regionName = null, facebookEducationLevel = null, facebookURL = null, siteRoleSite = null, selectSiteMemberSite = null, browserName = null, deviceFamilyName = null, startTime = null, facebookCity = null, viewUserSegmentRuleList = null, numberOfFriends = null, customFieldKey = null, facebookCollegeHighSchoolName = null, siteRole = null, youngerThanAge = null, facebookOlderThanAge = null, organizationName = null, regularRole = null, moreLessThan = null, facebookGenderRadio = null, userSegmentRuleName = null, customFieldValue = null, scorePoints = null, olderThanAge = null, condition = null, webContentTitle = null, organizationRole = null, userGroupName = null, conditionValue = null, countryName = null, endTime = null, friendlyURL = null, operatingSystemName = null, facebookYoungerThanAge = null) {
 		for (var usersegmentRuleName : list ${viewUserSegmentRuleList}) {
 			var key_userSegmentRuleName = ${usersegmentRuleName};
 

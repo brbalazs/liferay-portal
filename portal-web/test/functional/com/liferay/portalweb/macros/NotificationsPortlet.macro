@@ -1,6 +1,7 @@
 definition {
 
-	macro disableUserDeliveries {
+	@summary = "Default summary"
+	macro disableUserDeliveries(actionType = null, notificationType = null, contentType = null) {
 		var key_contentType = ${contentType};
 		var key_panel = ${contentType};
 
@@ -26,7 +27,8 @@ definition {
 		Button.clickSave();
 	}
 
-	macro gotoNotificationDelivery {
+	@summary = "Default summary"
+	macro gotoNotificationDelivery() {
 		ProductMenu.gotoPortlet(
 			category = "My Account",
 			panel = "User",
@@ -35,7 +37,8 @@ definition {
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Configuration");
 	}
 
-	macro tearDownUserDeliveries {
+	@summary = "Default summary"
+	macro tearDownUserDeliveries() {
 		var actionList = "adds,updates";
 		var contentList = "Wiki,Message Boards,Comments,Documents and Media,Bookmarks,Web Content,Blogs";
 		var notificationList = "Email,Website";
@@ -57,7 +60,8 @@ definition {
 		}
 	}
 
-	macro viewDefaultNotificationDeliveries {
+	@summary = "Default summary"
+	macro viewDefaultNotificationDeliveries() {
 		var key_contentType = "Blogs";
 
 		AssertTextEquals(

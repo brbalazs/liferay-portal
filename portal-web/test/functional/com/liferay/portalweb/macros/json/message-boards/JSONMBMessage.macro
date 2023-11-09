@@ -1,6 +1,7 @@
 definition {
 
-	macro addCategory {
+	@summary = "Default summary"
+	macro addCategory(userEmailAddress = null, categoryName = null, categoryDescription = null) {
 		var portalURL = JSONCompany.getPortalURL();
 		var userId = JSONUserAPI._getUserIdByEmailAddress(userEmailAddress = ${userEmailAddress});
 
@@ -26,7 +27,8 @@ definition {
 		var messageId = JSONCurlUtil.post(${curl});
 	}
 
-	macro addMessage {
+	@summary = "Default summary"
+	macro addMessage(groupName = null, threadSubject = null, threadBody = null) {
 		if (!(isSet(site))) {
 			var site = "true";
 		}
@@ -71,7 +73,8 @@ definition {
 		var messageId = JSONCurlUtil.post(${curl});
 	}
 
-	macro addMessageReply {
+	@summary = "Default summary"
+	macro addMessageReply(threadSubject = null, threadBody = null) {
 		var messageId = JSONMBMessage.getmessageId();
 		var portalURL = JSONCompany.getPortalURL();
 
@@ -99,7 +102,8 @@ definition {
 		var messageId = JSONCurlUtil.post(${curl}, "$['messageId']");
 	}
 
-	macro getCategoryId {
+	@summary = "Default summary"
+	macro getCategoryId() {
 		var messageBoardsCategoryURL = selenium.getLocation();
 		var portalURL = PropsUtil.get("portal.url");
 
@@ -108,7 +112,8 @@ definition {
 		return ${categoryId};
 	}
 
-	macro getmessageId {
+	@summary = "Default summary"
+	macro getmessageId() {
 		var messageBoardsThreadURL = selenium.getLocation();
 		var portalURL = PropsUtil.get("portal.url");
 

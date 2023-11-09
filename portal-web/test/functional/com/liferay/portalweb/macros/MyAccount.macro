@@ -1,6 +1,7 @@
 definition {
 
-	macro addOrganization {
+	@summary = "Default summary"
+	macro addOrganization(organizationName = null) {
 		LexiconEntry.gotoAdd();
 
 		PortletEntry.inputName(name = ${organizationName});
@@ -8,7 +9,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro changeUserLanguage {
+	@summary = "Default summary"
+	macro changeUserLanguage(saveButton = null, languageName = null) {
 		Select(
 			locator1 = "MyAccount#LANGUAGE_SELECT",
 			value1 = ${languageName});
@@ -22,7 +24,8 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	macro configureDisplaySettingsLanguage {
+	@summary = "Default summary"
+	macro configureDisplaySettingsLanguage(languageName = null) {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -41,7 +44,8 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	macro configureDisplaySettingsLanguageLocalized {
+	@summary = "Default summary"
+	macro configureDisplaySettingsLanguageLocalized(portlet = null, category = null, saveButton = null, languageName = null) {
 		ProductMenu.gotoPortlet(
 			category = ${category},
 			panel = "User",
@@ -60,7 +64,8 @@ definition {
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 	}
 
-	macro editPasswordInvalidCP {
+	@summary = "Default summary"
+	macro editPasswordInvalidCP(newPassword = null, changeable = null, currentPassword = null) {
 		UserNavigator.gotoPassword();
 
 		if (isSet(currentPassword)) {
@@ -100,7 +105,8 @@ definition {
 		}
 	}
 
-	macro view {
+	@summary = "Default summary"
+	macro view() {
 		AssertElementPresent(locator1 = "UsersAndOrganizationsEditUser#CATEGORIZATION_LABEL");
 
 		UserNavigator.gotoOrganizations();

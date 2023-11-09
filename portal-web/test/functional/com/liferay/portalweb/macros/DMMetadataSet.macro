@@ -1,6 +1,7 @@
 definition {
 
-	macro add {
+	@summary = "Default summary"
+	macro add(metadataSetName = null, dmMetadataSetFieldNames = null) {
 		LexiconEntry.gotoAdd();
 
 		var key_headerTitle = "New Metadata Set";
@@ -19,7 +20,8 @@ definition {
 		}
 	}
 
-	macro addField {
+	@summary = "Default summary"
+	macro addField(fieldName = null, field = null, fieldFieldLabel = null) {
 		var key_field = ${field};
 
 		DragAndDrop(
@@ -66,7 +68,8 @@ definition {
 		Click(locator1 = "TextInput#NAME");
 	}
 
-	macro selectMetadataSetsFrame {
+	@summary = "Default summary"
+	macro selectMetadataSetsFrame() {
 		if (IsElementPresent(locator1 = "IFrame#DIALOG")) {
 			SelectFrameTop();
 
@@ -74,7 +77,8 @@ definition {
 		}
 	}
 
-	macro tearDownCP {
+	@summary = "Default summary"
+	macro tearDownCP() {
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(

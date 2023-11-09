@@ -1,6 +1,7 @@
 definition {
 
-	macro accountSignIn {
+	@summary = "Default summary"
+	macro accountSignIn() {
 		var key_userEmail = PropsUtil.get("sharepoint.oauth.user.name");
 		var key_userPassword = PropsUtil.get("sharepoint.oauth.user.password");
 
@@ -40,7 +41,8 @@ definition {
 		}
 	}
 
-	macro confirmSharepointApp {
+	@summary = "Default summary"
+	macro confirmSharepointApp(dmRepositoryName = null) {
 		Pause(locator1 = 3000);
 
 		var app_name = "Collaboration Test Application";

@@ -1,6 +1,7 @@
 definition {
 
-	macro _addCP {
+	@summary = "Default summary"
+	macro _addCP(tagName = null) {
 		LexiconEntry.gotoAdd();
 
 		AssertElementPresent(locator1 = "TextInput#NAME");
@@ -8,7 +9,8 @@ definition {
 		PortletEntry.inputName(name = ${tagName});
 	}
 
-	macro addAutoAssertionTagViaBlogsPG {
+	@summary = "Default summary"
+	macro addAutoAssertionTagViaBlogsPG(tagName = null, entryTitle = null, entryContent = null) {
 		BlogsNavigator.gotoAddEntry();
 
 		BlogsEntry.addEntryContent(
@@ -29,13 +31,15 @@ definition {
 		PortletEntry.publish();
 	}
 
-	macro addCP {
+	@summary = "Default summary"
+	macro addCP(tagName = null) {
 		Tag._addCP(tagName = ${tagName});
 
 		PortletEntry.save();
 	}
 
-	macro addViaSiteCP {
+	@summary = "Default summary"
+	macro addViaSiteCP(tagName = null) {
 		Panel.expandPanel(panel = "Categorization");
 
 		AssetCategorization.addTag(tagName = ${tagName});
@@ -43,7 +47,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro addWithNullTitleCP {
+	@summary = "Default summary"
+	macro addWithNullTitleCP(tagName = null) {
 		Tag._addCP(tagName = ${tagName});
 
 		Button.clickSave();
@@ -53,7 +58,8 @@ definition {
 		Alert.viewRequiredField();
 	}
 
-	macro gotoMerge {
+	@summary = "Default summary"
+	macro gotoMerge(mergeMethod = null, tagName = null) {
 		if (${mergeMethod} == "menuItem") {
 			LexiconEntry.gotoEntryMenuItem(
 				menuItem = "Merge",
@@ -66,7 +72,8 @@ definition {
 		}
 	}
 
-	macro mergeSingleTagWarning {
+	@summary = "Default summary"
+	macro mergeSingleTagWarning() {
 		AssertClickNoError(
 			locator1 = "Button#SAVE",
 			value1 = "Save");
@@ -74,7 +81,8 @@ definition {
 		AssertConfirm(value1 = "Please choose at least 2 tags.");
 	}
 
-	macro mergeTags {
+	@summary = "Default summary"
+	macro mergeTags(tagNameList = null, mergedTag = null) {
 		ClickNoError(locator1 = "Button#SAVE");
 
 		var message = "Are you sure you want to merge \"${tagNameList}\" into \"${mergedTag}\"? This will change all items tagged with \"${tagNameList}\" to instead be tagged with \"${mergedTag}\".";
@@ -84,7 +92,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro mergeTagsSelectAdditionalTags {
+	@summary = "Default summary"
+	macro mergeTagsSelectAdditionalTags(tagName = null) {
 		Click(locator1 = "Button#SELECT");
 
 		SelectFrameTop();
@@ -98,7 +107,8 @@ definition {
 		Button.clickDone();
 	}
 
-	macro tearDownCP {
+	@summary = "Default summary"
+	macro tearDownCP(stagingSite = null) {
 		if (${stagingSite} == "true") {
 			ProductMenu.gotoStagingSite();
 		}
@@ -124,7 +134,8 @@ definition {
 			value1 = "There are no tags.");
 	}
 
-	macro viewCP {
+	@summary = "Default summary"
+	macro viewCP(tagName = null) {
 		var key_tagName = ${tagName};
 
 		AssertTextEquals(

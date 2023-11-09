@@ -1,6 +1,7 @@
 definition {
 
-	macro _addAssetCategoryIds {
+	@summary = "Default summary"
+	macro _addAssetCategoryIds(assetCategoryIds = null) {
 		Variables.assertDefined(parameterList = "${JSON},${assetCategoryIds}");
 
 		var JSON = JSONUtil2._addJSONArray(
@@ -15,7 +16,8 @@ definition {
 		return ${JSON};
 	}
 
-	macro _addAssetTagNames {
+	@summary = "Default summary"
+	macro _addAssetTagNames(assetTagNames = null) {
 		Variables.assertDefined(parameterList = "${JSON},${assetTagNames}");
 
 		var JSON = JSONUtil2._addJSONArray(
@@ -30,7 +32,8 @@ definition {
 		return ${JSON};
 	}
 
-	macro _addGroupId {
+	@summary = "Default summary"
+	macro _addGroupId(groupName = null) {
 		Variables.assertDefined(parameterList = "${groupName},${JSON}");
 
 		if (!(isSet(site))) {
@@ -49,7 +52,8 @@ definition {
 		return ${JSON};
 	}
 
-	macro _addGuestPermissions {
+	@summary = "Default summary"
+	macro _addGuestPermissions(addGuestPermissions = null) {
 		Variables.assertDefined(parameterList = "${JSON},${addGuestPermissions}");
 
 		if (!((${addGuestPermissions} == "true") || (${addGuestPermissions} == "false"))) {
@@ -64,7 +68,8 @@ definition {
 		return ${JSON};
 	}
 
-	macro _addWorkflowAction {
+	@summary = "Default summary"
+	macro _addWorkflowAction(workflowAction = null) {
 		Variables.assertDefined(parameterList = "${JSON},${workflowAction}");
 
 		if (${workflowAction} == "DRAFT") {
@@ -85,7 +90,8 @@ definition {
 		return ${JSON};
 	}
 
-	macro setServiceContext {
+	@summary = "Default summary"
+	macro setServiceContext(groupName = null, assetCategoryIds = null, addGuestPermissions = null, assetTagNames = null, workflowAction = null) {
 		var serviceContext = "{}";
 
 		if (isSet(assetCategoryIds)) {

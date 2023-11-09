@@ -3,7 +3,8 @@ definition {
 	var siteMember = "User";
 	var siteType = "Open";
 
-	macro activateInactive {
+	@summary = "Default summary"
+	macro activateInactive(siteName = null) {
 		var key_siteName = ${siteName};
 
 		Search.searchCP(searchTerm = ${siteName});
@@ -15,7 +16,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro addAllMembersCP {
+	@summary = "Default summary"
+	macro addAllMembersCP() {
 		Navigator.gotoNavItem(navItem = "Users");
 
 		LexiconEntry.gotoAdd();
@@ -33,7 +35,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro addBlankCP {
+	@summary = "Default summary"
+	macro addBlankCP(membershipType = null, singleSiteTypePermission = null, parentSiteName = null, uncheckPropagation = null, siteName = null, siteTemplateName = null) {
 		Site.addCP(
 			membershipType = ${membershipType},
 			parentSiteName = ${parentSiteName},
@@ -44,7 +47,8 @@ definition {
 			uncheckPropagation = ${uncheckPropagation});
 	}
 
-	macro addCommunityCP {
+	@summary = "Default summary"
+	macro addCommunityCP(membershipType = null, parentSiteName = null, uncheckPropagation = null, siteName = null, siteTemplateName = null) {
 		Site.addCP(
 			membershipType = ${membershipType},
 			parentSiteName = ${parentSiteName},
@@ -54,7 +58,8 @@ definition {
 			uncheckPropagation = ${uncheckPropagation});
 	}
 
-	macro addCP {
+	@summary = "Default summary"
+	macro addCP(membershipType = null, singleSiteTypePermission = null, parentSiteName = null, uncheckPropagation = null, siteName = null, siteType = null) {
 		LexiconEntry.gotoAdd();
 
 		if (${singleSiteTypePermission} != "true") {
@@ -126,7 +131,8 @@ definition {
 			value1 = ${siteName});
 	}
 
-	macro addIntranetCP {
+	@summary = "Default summary"
+	macro addIntranetCP(membershipType = null, parentSiteName = null, uncheckPropagation = null, siteName = null, siteTemplateName = null) {
 		Site.addCP(
 			membershipType = ${membershipType},
 			parentSiteName = ${parentSiteName},
@@ -136,7 +142,8 @@ definition {
 			uncheckPropagation = ${uncheckPropagation});
 	}
 
-	macro addSiteTemplateCP {
+	@summary = "Default summary"
+	macro addSiteTemplateCP(membershipType = null, parentSiteName = null, uncheckPropagation = null, siteName = null, siteTemplateName = null) {
 		Site.addCP(
 			membershipType = ${membershipType},
 			parentSiteName = ${parentSiteName},
@@ -146,7 +153,8 @@ definition {
 			uncheckPropagation = ${uncheckPropagation});
 	}
 
-	macro addVirtualHostsURLCP {
+	@summary = "Default summary"
+	macro addVirtualHostsURLCP(privatePageVirtualHostURL = null, publicPageVirtualHostURL = null) {
 		Panel.expandPanel(panel = "Site URL");
 
 		if (isSet(publicVirtualHosts)) {
@@ -172,7 +180,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro approveJoinSiteRestrictedViaMySitesPG {
+	@summary = "Default summary"
+	macro approveJoinSiteRestrictedViaMySitesPG(userLastName = null, userScreenName = null, userFirstName = null) {
 		var key_userScreenName = ${userScreenName};
 
 		Click(locator1 = "Icon#INFO");
@@ -222,7 +231,8 @@ definition {
 			value1 = "Test Test");
 	}
 
-	macro assertMemberListNotVisibleCP {
+	@summary = "Default summary"
+	macro assertMemberListNotVisibleCP(usersEmailsList = null) {
 		for (var userEmail : list ${usersEmailsList}) {
 			var userName = StringUtil.replace(${userEmail}, "@liferay.com", "");
 
@@ -233,7 +243,8 @@ definition {
 		}
 	}
 
-	macro assertMemberNotVisibleCP {
+	@summary = "Default summary"
+	macro assertMemberNotVisibleCP(userLastName = null, userScreenName = null, userFirstName = null) {
 		var key_userScreenName = ${userScreenName};
 
 		AssertTextNotPresent(
@@ -245,7 +256,8 @@ definition {
 			value1 = ${userScreenName});
 	}
 
-	macro assignDefaultSiteTeam {
+	@summary = "Default summary"
+	macro assignDefaultSiteTeam(teamName = null) {
 		Click(locator1 = "SitesEditSite#MENU_ADVANCED_TAB");
 
 		AssertClick(
@@ -275,7 +287,8 @@ definition {
 			value1 = ${teamName});
 	}
 
-	macro assignOrganizationAsMemberCP {
+	@summary = "Default summary"
+	macro assignOrganizationAsMemberCP(orgName = null) {
 		var key_cardText = ${orgName};
 
 		Navigator.gotoNavItem(navItem = "Organizations");
@@ -297,7 +310,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro assignSiteRoleCP {
+	@summary = "Default summary"
+	macro assignSiteRoleCP(roleTitle = null, resourceName = null) {
 		LexiconEntry.gotoEntryMenuItem(
 			menuItem = "Assign Site Roles",
 			rowEntry = ${resourceName});
@@ -315,7 +329,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro assignSiteRoleToUserGroup {
+	@summary = "Default summary"
+	macro assignSiteRoleToUserGroup(userGroupName = null, roleName = null) {
 		var key_userGroupName = ${userGroupName};
 
 		Navigator.gotoNavItem(navItem = "User Groups");
@@ -348,7 +363,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro assignUserAsMemberCP {
+	@summary = "Default summary"
+	macro assignUserAsMemberCP(userLastName = null, userScreenName = null, userMiddleName = null, userFirstName = null) {
 		var key_cardText = ${userScreenName};
 
 		LexiconEntry.gotoAdd();
@@ -381,7 +397,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro assignUserGroupAsMemberCP {
+	@summary = "Default summary"
+	macro assignUserGroupAsMemberCP(userGroupName = null) {
 		Navigator.gotoNavItem(navItem = "User Groups");
 
 		Pause(locator1 = 5000);
@@ -399,7 +416,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro assignUserSitesCP {
+	@summary = "Default summary"
+	macro assignUserSitesCP(userScreenName = null, siteName = null) {
 		var key_userScreenName = ${userScreenName};
 
 		AssertTextEquals(
@@ -439,7 +457,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro changeSiteLogo {
+	@summary = "Default summary"
+	macro changeSiteLogo(logoFile = null, pageName = null) {
 		ProductMenu.gotoPortlet(
 			category = "Build",
 			panel = "Site Administration",
@@ -456,7 +475,8 @@ definition {
 		Page.uploadFileForLogo(logoFile = ${logoFile});
 	}
 
-	macro configureCurrentLanguagesCP {
+	@summary = "Default summary"
+	macro configureCurrentLanguagesCP(localizedLanguageTab = null, displaySettings = null, currentSiteLanguages = null, localizedSaveButton = null) {
 		var key_displaySettings = ${displaySettings};
 
 		if (IsNotVisible(locator1 = "SiteSettingsDisplaySettings#DEFINE_DEFAULT_AND_AVAILABLE_SITE_LANGUAGES_RADIO")) {
@@ -521,7 +541,8 @@ definition {
 		}
 	}
 
-	macro deactivateCP {
+	@summary = "Default summary"
+	macro deactivateCP(siteName = null, successMessage = null) {
 		var key_siteName = ${siteName};
 
 		Search.searchCP(searchTerm = ${siteName});
@@ -548,7 +569,8 @@ definition {
 		}
 	}
 
-	macro deleteAllCP {
+	@summary = "Default summary"
+	macro deleteAllCP() {
 		PortletEntry.selectAll();
 
 		ClickNoError(locator1 = "Icon#DELETE");
@@ -558,7 +580,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro deleteCP {
+	@summary = "Default summary"
+	macro deleteCP(siteName = null) {
 		var key_siteName = ${siteName};
 
 		Search.searchCP(searchTerm = "Name");
@@ -582,7 +605,8 @@ definition {
 		AssertTextNotPresent(value1 = ${siteName});
 	}
 
-	macro disableRecycleBinCP {
+	@summary = "Default summary"
+	macro disableRecycleBinCP() {
 		AssertClick(
 			locator1 = "SitesEditSite#MENU_ADVANCED_TAB",
 			value1 = "Advanced");
@@ -598,7 +622,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro editCP {
+	@summary = "Default summary"
+	macro editCP(siteNameEdit = null, siteName = null) {
 		AssertTextEquals(
 			locator1 = "TextInput#NAME",
 			value1 = ${siteName});
@@ -612,7 +637,8 @@ definition {
 			value1 = ${siteNameEdit});
 	}
 
-	macro editFriendlyURLCP {
+	@summary = "Default summary"
+	macro editFriendlyURLCP(siteFriendlyURLEdit = null, friendlyURLInvalid = null) {
 		Panel.expandPanel(panel = "Site URL");
 
 		AssertTextEquals(
@@ -643,7 +669,8 @@ definition {
 		}
 	}
 
-	macro editGoogleAnalyticsIDCP {
+	@summary = "Default summary"
+	macro editGoogleAnalyticsIDCP(googleAnalyticsID = null) {
 		AssertClick(
 			locator1 = "SitesEditSite#MENU_ADVANCED_TAB",
 			value1 = "Advanced");
@@ -657,7 +684,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro editPiwikCP {
+	@summary = "Default summary"
+	macro editPiwikCP(piwik = null) {
 		AssertClick(
 			locator1 = "SitesEditSite#MENU_ADVANCED_TAB",
 			value1 = "Advanced");
@@ -671,7 +699,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro getSiteId {
+	@summary = "Default summary"
+	macro getSiteId() {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -684,14 +713,16 @@ definition {
 		return ${siteId};
 	}
 
-	macro gotoSiteViaMySitesPG {
+	@summary = "Default summary"
+	macro gotoSiteViaMySitesPG(siteName = null) {
 		AssertClick(
 			key_itemName = ${siteName},
 			locator1 = "ListGroupItem#ITEM_NAME_LINK",
 			value1 = ${siteName});
 	}
 
-	macro importSiteFromTempFolder {
+	@summary = "Default summary"
+	macro importSiteFromTempFolder() {
 		AssertClick(
 			locator1 = "Button#SELECT_FILE",
 			value1 = "Select File");
@@ -713,7 +744,8 @@ definition {
 			value1 = "Successful");
 	}
 
-	macro inactivateCP {
+	@summary = "Default summary"
+	macro inactivateCP(siteName = null) {
 		AssertTextEquals(
 			locator1 = "TextInput#NAME",
 			value1 = ${siteName});
@@ -727,7 +759,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro joinViaMySitesPG {
+	@summary = "Default summary"
+	macro joinViaMySitesPG(membershipType = null, siteName = null) {
 		var key_siteName = ${siteName};
 
 		AssertTextEquals(
@@ -804,7 +837,8 @@ definition {
 		}
 	}
 
-	macro leaveViaMySitesPG {
+	@summary = "Default summary"
+	macro leaveViaMySitesPG(siteName = null) {
 		AssertTextEquals(
 			key_itemName = ${siteName},
 			locator1 = "ListGroupItem#ITEM_NAME",
@@ -851,7 +885,8 @@ definition {
 			value1 = "Join");
 	}
 
-	macro limitMembership {
+	@summary = "Default summary"
+	macro limitMembership(siteLimitMembership = null) {
 		if (${siteLimitMembership} == "Yes") {
 			Check.checkToggleSwitch(locator1 = "SitesEditSite#PARENT_SITE_LIMIT_MEMBERSHIP_CHECKBOX");
 		}
@@ -862,7 +897,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro manageMembershipOptions {
+	@summary = "Default summary"
+	macro manageMembershipOptions(membershipType = null, selectMembershipType = null, allowManualMembershipManagement = null) {
 		ProductMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Site Administration",
@@ -888,23 +924,28 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro openSiteMembershipsAdmin {
+	@summary = "Default summary"
+	macro openSiteMembershipsAdmin(siteURLKey = null) {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage/-/site_memberships");
 	}
 
-	macro openSitesAdmin {
+	@summary = "Default summary"
+	macro openSitesAdmin() {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage/-/sites");
 	}
 
-	macro openSiteSettingsAdmin {
+	@summary = "Default summary"
+	macro openSiteSettingsAdmin(siteURLKey = null) {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage/-/site/settings");
 	}
 
-	macro openSiteTeamsAdmin {
+	@summary = "Default summary"
+	macro openSiteTeamsAdmin(siteURLKey = null) {
 		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage/-/site_teams");
 	}
 
-	macro removeMemberCP {
+	@summary = "Default summary"
+	macro removeMemberCP(userLastName = null, userScreenName = null, userMiddleName = null, userFirstName = null) {
 		var key_cardText = ${userScreenName};
 
 		Search.searchCP(searchTerm = ${userScreenName});
@@ -933,7 +974,8 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro removeSiteRolesSiteOwnerUserGroupsCP {
+	@summary = "Default summary"
+	macro removeSiteRolesSiteOwnerUserGroupsCP(userGroupName = null) {
 		var key_userGroupName = ${userGroupName};
 
 		Navigator.gotoNavItem(navItem = "User Groups");
@@ -963,13 +1005,15 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
-	macro searchCP {
+	@summary = "Default summary"
+	macro searchCP() {
 		Search.searchCP(searchTerm = "Site Name");
 
 		Site.viewSearchResultsCP(siteName = "Site Name");
 	}
 
-	macro searchMemberCP {
+	@summary = "Default summary"
+	macro searchMemberCP(userLastNameSearchValue = null, userScreenNameSearchValue = null, userEmailAddressSearchValue = null, userLastName = null, userScreenName = null, userFirstNameSearchValue = null, userFirstName = null) {
 		var searchTerm = ${userEmailAddressSearchValue};
 
 		if (isSet(userScreenNameSearchValue)) {
@@ -990,7 +1034,8 @@ definition {
 			userScreenName = ${userScreenName});
 	}
 
-	macro searchMembershipCP {
+	@summary = "Default summary"
+	macro searchMembershipCP(emptyResults = null, searchValue = null) {
 		Search.searchCP(searchTerm = ${searchValue});
 
 		if (${emptyResults} == "true") {
@@ -1001,7 +1046,8 @@ definition {
 		}
 	}
 
-	macro selectPageType {
+	@summary = "Default summary"
+	macro selectPageType(checkPropagation = null, siteTemplate = null, selectPrivatePages = null, selectPublicPages = null) {
 		Panel.expandPanel(panel = "Pages");
 
 		if (${selectPublicPages} == "true") {
@@ -1024,7 +1070,8 @@ definition {
 		PortletEntry.save();
 	}
 
-	macro selectParentSite {
+	@summary = "Default summary"
+	macro selectParentSite(parentSiteName = null, chooseButtonAvailable = null) {
 		AssertClick(
 			locator1 = "SitesEditSite#PARENT_SITE_SELECT",
 			value1 = "Select");
@@ -1050,7 +1097,8 @@ definition {
 		SelectFrame(value1 = "relative=top");
 	}
 
-	macro tearDownCP {
+	@summary = "Default summary"
+	macro tearDownCP() {
 		ProductMenu.gotoPortlet(
 			category = "Sites",
 			panel = "Control Panel",
@@ -1071,7 +1119,8 @@ definition {
 		}
 	}
 
-	macro viewCannotAdd {
+	@summary = "Default summary"
+	macro viewCannotAdd(siteNameInvalid = null, siteName = null) {
 		LexiconEntry.gotoAdd();
 
 		LexiconEntry.gotoEntry(rowEntry = "Blank Site");
@@ -1092,7 +1141,8 @@ definition {
 		}
 	}
 
-	macro viewChildCP {
+	@summary = "Default summary"
+	macro viewChildCP(siteName = null, childSiteName = null) {
 		Site.viewCP(siteName = ${siteName});
 
 		LexiconEntry.gotoEntryMenuItem(
@@ -1104,7 +1154,8 @@ definition {
 		Site.viewCP(siteName = ${childSiteName});
 	}
 
-	macro viewCP {
+	@summary = "Default summary"
+	macro viewCP(siteMember = null, siteName = null, siteType = null) {
 		var key_siteName = ${siteName};
 
 		AssertElementPresent(locator1 = "Sites#SITE_TABLE_CHECKBOX");
@@ -1130,7 +1181,8 @@ definition {
 		AssertElementPresent(locator1 = "Sites#SITE_TABLE_ACTIONS");
 	}
 
-	macro viewCurrentLanguagesCP {
+	@summary = "Default summary"
+	macro viewCurrentLanguagesCP(displaySettings = null, currentSiteLanguages = null, availableSiteLanguages = null) {
 		var key_displaySettings = ${displaySettings};
 
 		if (IsNotVisible(locator1 = "SiteSettingsDisplaySettings#DEFINE_DEFAULT_AND_AVAILABLE_SITE_LANGUAGES_RADIO")) {
@@ -1166,7 +1218,8 @@ definition {
 		}
 	}
 
-	macro viewGlobalLandingDefault {
+	@summary = "Default summary"
+	macro viewGlobalLandingDefault(siteName = null, portletName = null) {
 		var key_portletName = ${portletName};
 		var key_siteName = ${siteName};
 
@@ -1179,7 +1232,8 @@ definition {
 			value1 = ${portletName});
 	}
 
-	macro viewLimitMembershipParentSiteCP {
+	@summary = "Default summary"
+	macro viewLimitMembershipParentSiteCP(userLastName = null, userScreenName = null, userFirstName = null) {
 		var key_userScreenName = ${userScreenName};
 
 		Navigator.gotoNavItem(navItem = "Users");
@@ -1197,7 +1251,8 @@ definition {
 			value1 = ${userScreenName});
 	}
 
-	macro viewMemberCP {
+	@summary = "Default summary"
+	macro viewMemberCP(userLastName = null, userScreenName = null, userFirstName = null) {
 		var key_cardText = ${userScreenName};
 
 		AssertTextEquals.assertPartialText(
@@ -1213,7 +1268,8 @@ definition {
 		AssertVisible(locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
 	}
 
-	macro viewMemberListCP {
+	@summary = "Default summary"
+	macro viewMemberListCP(usersEmailsList = null) {
 		for (var userEmail : list ${usersEmailsList}) {
 			var userName = StringUtil.replace(${userEmail}, "@liferay.com", "");
 
@@ -1224,7 +1280,8 @@ definition {
 		}
 	}
 
-	macro viewMemberOrganizationCP {
+	@summary = "Default summary"
+	macro viewMemberOrganizationCP(orgName = null, toolTip = null) {
 		var key_cardText = ${orgName};
 
 		Navigator.gotoNavItem(navItem = "Organizations");
@@ -1242,7 +1299,8 @@ definition {
 		}
 	}
 
-	macro viewMemberUserGroupCP {
+	@summary = "Default summary"
+	macro viewMemberUserGroupCP(userGroupName = null) {
 		Navigator.gotoNavItem(navItem = "User Groups");
 
 		AssertTextEquals(
@@ -1251,7 +1309,8 @@ definition {
 			value1 = ${userGroupName});
 	}
 
-	macro viewMySitesViaMySitesPG {
+	@summary = "Default summary"
+	macro viewMySitesViaMySitesPG(memberCount = null, siteName = null) {
 		AssertTextEquals(
 			key_navItem = "My Sites",
 			locator1 = "NavBar#NAV_ITEM_LINK",
@@ -1268,7 +1327,8 @@ definition {
 			value1 = "Members: ${memberCount}");
 	}
 
-	macro viewNoMySitesViaMySitesPG {
+	@summary = "Default summary"
+	macro viewNoMySitesViaMySitesPG(siteName = null) {
 		AssertElementNotPresent(
 			key_itemName = ${siteName},
 			locator1 = "ListGroupItem#ITEM_NAME");
@@ -1282,7 +1342,8 @@ definition {
 			locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
 	}
 
-	macro viewNoSiteMembershipsRequest {
+	@summary = "Default summary"
+	macro viewNoSiteMembershipsRequest() {
 		Click(locator1 = "Icon#INFO");
 
 		AssertElementNotPresent(locator1 = "SiteMemberships#REQUEST_MESSAGE");
@@ -1302,7 +1363,8 @@ definition {
 			value1 = "Please allow me to join the Restricted Site.");
 	}
 
-	macro viewPrivateVirtualHostURLUserLoginRedirect {
+	@summary = "Default summary"
+	macro viewPrivateVirtualHostURLUserLoginRedirect(userEmailAddress = null) {
 		AssertTextEquals(
 			locator1 = "TextInput#EMAIL_ADDRESS",
 			value1 = ${userEmailAddress});
@@ -1310,7 +1372,8 @@ definition {
 		AssertElementPresent(locator1 = "TextInput#PASSWORD");
 	}
 
-	macro viewSearchResultsCP {
+	@summary = "Default summary"
+	macro viewSearchResultsCP(siteName = null, siteType = null) {
 		var key_siteName = ${siteName};
 
 		AssertElementPresent(locator1 = "Sites#SITE_TABLE_CHECKBOX");
@@ -1330,7 +1393,8 @@ definition {
 		AssertVisible(locator1 = "Sites#SITE_TABLE_ACTIONS");
 	}
 
-	macro viewSiteAdminPermissionsCP {
+	@summary = "Default summary"
+	macro viewSiteAdminPermissionsCP(siteName = null) {
 		var key_siteName = ${siteName};
 
 		Search.searchCP(searchTerm = ${siteName});
@@ -1358,7 +1422,8 @@ definition {
 			value1 = "Delete");
 	}
 
-	macro viewSiteClonedFromSiteTemplateCP {
+	@summary = "Default summary"
+	macro viewSiteClonedFromSiteTemplateCP(clonedFromTemplate = null, siteTemplateName = null) {
 		Navigator.gotoNavTab(navTab = "General");
 
 		Panel.expandPanel(panel = "Site Template");
@@ -1375,7 +1440,8 @@ definition {
 		}
 	}
 
-	macro viewSiteFriendlyURLPG {
+	@summary = "Default summary"
+	macro viewSiteFriendlyURLPG(siteName = null, sitePageURL = null) {
 		AssertTextEquals(
 			locator1 = "Home#SITE_NAME",
 			value1 = ${siteName});
@@ -1383,7 +1449,8 @@ definition {
 		AssertLocation(value1 = ${sitePageURL});
 	}
 
-	macro viewSiteMembershipsRequest {
+	@summary = "Default summary"
+	macro viewSiteMembershipsRequest(userLastName = null, userFirstName = null) {
 		Click(locator1 = "Icon#INFO");
 
 		AssertTextEquals.assertPartialText(
@@ -1405,7 +1472,8 @@ definition {
 			value1 = "Please allow me to join the Restricted Site.");
 	}
 
-	macro viewSiteRoleViaSiteMembershipsCP {
+	@summary = "Default summary"
+	macro viewSiteRoleViaSiteMembershipsCP(roleTitle = null, resourceName = null) {
 		AssertTextEquals(
 			key_cardText = ${resourceName},
 			locator1 = "Card#SPECIFIC_LARGE_TEXT",
@@ -1417,7 +1485,8 @@ definition {
 			value1 = ${roleTitle});
 	}
 
-	macro viewUserGroupSiteRoleViaSiteMembershipsCP {
+	@summary = "Default summary"
+	macro viewUserGroupSiteRoleViaSiteMembershipsCP(roleTitle = null, resourceName = null) {
 		AssertTextEquals(
 			key_userGroupName = ${resourceName},
 			locator1 = "SiteMemberships#USER_GROUPS_TABLE_NAME",
@@ -1429,7 +1498,8 @@ definition {
 			value1 = ${roleTitle});
 	}
 
-	macro viewVirtualHostsURLPG {
+	@summary = "Default summary"
+	macro viewVirtualHostsURLPG(siteName = null, pageName = null, sitePageURL = null) {
 		var key_pageName = ${pageName};
 
 		AssertTextEquals(

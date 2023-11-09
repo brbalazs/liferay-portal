@@ -1,6 +1,7 @@
 definition {
 
-	macro chooseMenu {
+	@summary = "Default summary"
+	macro chooseMenu(menuName = null) {
 		Click(locator1 = "Radio#CHOOSE_MENU");
 
 		Click(locator1 = "Button#SELECT");
@@ -22,7 +23,8 @@ definition {
 			value1 = ${menuName});
 	}
 
-	macro gotoNavigationMenuWidgetConfig {
+	@summary = "Default summary"
+	macro gotoNavigationMenuWidgetConfig() {
 		Portlet.gotoPortletOptions(
 			portletName = "Navigation Menu",
 			portletOption = "Configuration");
@@ -30,7 +32,8 @@ definition {
 		IFrame.selectModalFrame();
 	}
 
-	macro selectNavigation {
+	@summary = "Default summary"
+	macro selectNavigation(menuType = null) {
 		Select(
 			locator1 = "NavigationMenusWidget#SELECT_NAVIGATION",
 			value1 = ${menuType});
