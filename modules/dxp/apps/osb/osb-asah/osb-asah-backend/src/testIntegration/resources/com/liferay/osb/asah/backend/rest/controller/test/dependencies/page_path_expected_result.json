@@ -1,0 +1,74 @@
+{
+	"data": {
+		"pagePath": {
+			"__typename": "PagePathNode",
+			"canonicalUrl": "https://www.computer.com/abacus",
+			"followingPagePathNodes": [
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "https://www.computer.com/binary",
+					"title": "How Binary Encoding is Used in a Computer",
+					"views": 1
+				},
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "https://www.computer.com/decimal",
+					"title": "Encoding Decimal to Binary",
+					"views": 1
+				},
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "https://www.computer.com/encoding",
+					"title": "How Do Computers Talk?",
+					"views": 1
+				},
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "others",
+					"title": "others",
+					"views": 2
+				},
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "drop-offs",
+					"title": "drop-offs",
+					"views": 1
+				}
+			],
+			"previousPagePathNodes": [
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "https://www.computer.com/calculator",
+					"title": "Are Calculators Computers?",
+					"views": 1
+				},
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "https://www.computer.com/decimal",
+					"title": "Encoding Decimal to Binary",
+					"views": 1
+				},
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "https://www.computer.com/encoding",
+					"title": "How Do Computers Talk?",
+					"views": 1
+				},
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "direct",
+					"title": "direct",
+					"views": 1
+				},
+				{
+					"__typename": "PagePathNode",
+					"canonicalUrl": "others",
+					"title": "others",
+					"views": 2
+				}
+			],
+			"title": "From Abacus to Modern Day Computers",
+			"views": 6
+		}
+	}
+}

@@ -1,0 +1,11 @@
+{
+	"operationName": "PagePath",
+	"variables": {
+		"canonicalUrl": "https://www.computer.com/abacus",
+		"channelId": "12345",
+		"rangeEnd": "2023-11-05",
+		"rangeKey": null,
+		"rangeStart": "2023-10-25",
+		"title": "From Abacus to Modern Day Computers"
+	}
+}
