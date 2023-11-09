@@ -1,6 +1,7 @@
 definition {
 
-	macro deleteCP {
+	@summary = "Default summary"
+	macro deleteCP(siteName = null) {
 		var key_siteName = ${siteName};
 
 		Type(

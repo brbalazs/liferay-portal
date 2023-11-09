@@ -1,6 +1,7 @@
 definition {
 
-	macro initializersCheckout {
+	@summary = "Default summary"
+	macro initializersCheckout(newAddressCity = null, shippingMethod = null, productUnitPrice = null, guestEmail = null, productName = null, newAddressAddress = null, productQuantity = null, newAddressCountry = null, newAddressZipCode = null, paymentMethod = null, newAddressName = null) {
 		if (isSet(newAddressName)) {
 			Type(
 				key_fieldName = "Name",
@@ -78,7 +79,8 @@ definition {
 		Click(locator1 = "Button#CONTINUE");
 	}
 
-	macro viewCheckoutOrderSummary {
+	@summary = "Default summary"
+	macro viewCheckoutOrderSummary(addressCountry = null, totalValue = null, addressAddress = null, productQuantity = null, taxValue = null, deliveryValue = null, paymentMethod = null, addressName = null, subtotalValue = null, productName = null, productPrice = null, addressCity = null) {
 		if (IsElementPresent(locator1 = "CommerceAccelerators#CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL")) {
 			AssertTextEquals.assertPartialText(
 				key_addressInfo = ${addressName},

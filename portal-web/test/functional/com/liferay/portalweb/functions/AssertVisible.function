@@ -1,7 +1,7 @@
 @default = "assertVisible"
 definition {
 
-	function assertVisible() {
+	function assertVisible(locator1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "true");
@@ -13,7 +13,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertVisibleNoSPAWait() {
+	function assertVisibleNoSPAWait(locator1) {
 		selenium.waitForVisible(${locator1}, "true");
 
 		selenium.assertVisible(${locator1});

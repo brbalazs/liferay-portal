@@ -1,7 +1,7 @@
 @default = "addSelection"
 definition {
 
-	function addSelection() {
+	function addSelection(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "true");

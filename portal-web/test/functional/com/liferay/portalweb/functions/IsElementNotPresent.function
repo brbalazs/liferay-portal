@@ -1,7 +1,7 @@
 @default = "isElementNotPresent"
 definition {
 
-	function isElementNotPresent() {
+	function isElementNotPresent(locator1) {
 		WaitForSPARefresh();
 
 		if (selenium.isElementPresent(${locator1})) {
@@ -12,7 +12,7 @@ definition {
 		}
 	}
 
-	function isNotVisible() {
+	function isNotVisible(locator1) {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "true");

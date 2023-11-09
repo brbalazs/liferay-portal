@@ -1,7 +1,7 @@
 @default = "assertNotChecked"
 definition {
 
-	function assertNotChecked() {
+	function assertNotChecked(locator1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "true");
@@ -25,7 +25,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertNotCheckedNotVisible() {
+	function assertNotCheckedNotVisible(locator1) {
 		WaitForSPARefresh();
 
 		selenium.waitForElementPresent(${locator1}, "true");

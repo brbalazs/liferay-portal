@@ -2,7 +2,7 @@
 @summary = "Assert that '${locator1}' does not equal the value '${value1}'"
 definition {
 
-	function assertNotPartialText() {
+	function assertNotPartialText(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "true");
@@ -16,7 +16,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertNotText() {
+	function assertNotText(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "true");
@@ -30,7 +30,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function assertNotValue() {
+	function assertNotValue(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "true");

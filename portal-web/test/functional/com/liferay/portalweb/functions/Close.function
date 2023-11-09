@@ -13,7 +13,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function closeAndSelectWindow() {
+	function closeAndSelectWindow(value1) {
 		WaitForSPARefresh();
 
 		selenium.pause(1000);

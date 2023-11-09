@@ -1,7 +1,7 @@
 @default = "uploadCommonFile"
 definition {
 
-	function uploadCommonFile() {
+	function uploadCommonFile(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "true");
@@ -15,7 +15,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function uploadCommonFileHidden() {
+	function uploadCommonFileHidden(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.mouseOver(${locator1});
@@ -27,7 +27,7 @@ definition {
 		selenium.assertLiferayErrors();
 	}
 
-	function uploadCommonFileHiddenNoMouseOver() {
+	function uploadCommonFileHiddenNoMouseOver(locator1, value1) {
 		WaitForSPARefresh();
 
 		selenium.uploadCommonFile(${locator1}, ${value1});

@@ -1,8 +1,8 @@
 @default = "assertAccessible"
 definition {
 
-	function assertAccessible() {
-	WaitForSPARefresh();
+	function assertAccessible(value1) {
+		WaitForSPARefresh();
 
 		if (isSet(value1)) {
 			var ignorableImpacts = ListUtil.newListFromString(${value1});

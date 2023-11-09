@@ -1,7 +1,7 @@
 @default = "assertNotEditable"
 definition {
 
-	function assertNotEditable() {
+	function assertNotEditable(locator1) {
 		WaitForSPARefresh();
 
 		selenium.waitForVisible(${locator1}, "true");

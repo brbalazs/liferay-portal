@@ -1,6 +1,7 @@
 definition {
 
-	macro activatePaymentMethod {
+	@summary = "Default summary"
+	macro activatePaymentMethod(paymentMethod = null) {
 		Click(
 			key_paymentMethod = ${paymentMethod},
 			locator1 = "CommerceEntry#CHANNEL_PAYMENT_METHOD_NAME");

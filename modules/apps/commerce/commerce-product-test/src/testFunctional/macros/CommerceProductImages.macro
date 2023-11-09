@@ -1,6 +1,7 @@
 definition {
 
-	macro addProductImages {
+	@summary = "Default summary"
+	macro addProductImages(optionValuesList = null) {
 		for (var optionValues : list ${optionValuesList}) {
 			Refresh();
 
