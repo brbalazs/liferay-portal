@@ -10,7 +10,7 @@ definition {
 
 				Click(locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_DELETE_BUTTON");
 
-				Pause(locator1 = 3000);
+				Pause(value1 = 3000);
 			}
 		}
 	}
@@ -23,7 +23,7 @@ definition {
 			Click(locator1 = "Gmail#GMAIL_HTML_MODE_CONFIRMATION");
 		}
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 	}
 
 	@summary = "Default summary"
@@ -37,7 +37,7 @@ definition {
 		}
 
 		while (!(IsTextEqual.isPartialText(locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_USER_NAME", value1 = ${emailFromUserName}))) {
-			Pause(locator1 = 5000);
+			Pause(value1 = 5000);
 		}
 
 		AssertTextEquals.assertPartialText(
@@ -48,14 +48,14 @@ definition {
 			locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_MESSAGE_TITLE",
 			value1 = ${gmailMessageTitle});
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 	}
 
 	@summary = "Default summary"
 	macro login(userPassword = null, userEmailAddress = null) {
 		Navigator.openSpecificURL(url = "http://www.gmail.com");
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		var key_userEmailAddress = ${userEmailAddress};
 
@@ -85,7 +85,7 @@ definition {
 				Click(locator1 = "Gmail#MAIL_NAVIGATION");
 			}
 
-			Pause(locator1 = 5000);
+			Pause(value1 = 5000);
 		}
 		else if (IsElementPresent(locator1 = "Gmail#GMAIL_HTML_MODE_USER_SCREENNAME")) {
 			AssertElementPresent(locator1 = "Gmail#GMAIL_HTML_MODE_USER_SCREENNAME");
@@ -99,7 +99,7 @@ definition {
 	macro logoutAndLogin(userPassword = null, userEmailAddress = null) {
 		Navigator.openSpecificURL(url = "http://www.gmail.com");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		Gmail.gotoHtmlMode();
 
@@ -137,7 +137,7 @@ definition {
 			Click(locator1 = "Gmail#MAIL_NAVIGATION");
 		}
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 	}
 
 	@summary = "Default summary"
@@ -151,10 +151,10 @@ definition {
 			value1 = "CONTINUE READING");
 
 		if (isSet(contentTitle)) {
-			SelectWindow(locator1 = "title=- ${contentTitle} - ${siteName}");
+			SelectWindow(value1 = "title=- ${contentTitle} - ${siteName}");
 		}
 		else {
-			SelectWindow(locator1 = "title=${pageName} - ${siteName}");
+			SelectWindow(value1 = "title=${pageName} - ${siteName}");
 		}
 	}
 
@@ -172,15 +172,15 @@ definition {
 			value1 = ${pageNameURL});
 
 		if (isSet(contentTitle)) {
-			SelectWindow(locator1 = "title=${contentTitle} - ${pageName} - ${siteName}");
+			SelectWindow(value1 = "title=${contentTitle} - ${pageName} - ${siteName}");
 		}
 		else if (${pageName} == "update_password") {
 			var pageName = "New Password";
 
-			SelectWindow(locator1 = "title=${pageName} - ${siteName}");
+			SelectWindow(value1 = "title=${pageName} - ${siteName}");
 		}
 		else {
-			SelectWindow(locator1 = "title=${pageName} - ${siteName}");
+			SelectWindow(value1 = "title=${pageName} - ${siteName}");
 		}
 	}
 

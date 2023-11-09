@@ -4,7 +4,7 @@ definition {
 	function isNotVisible() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1}, "true");
 
 		selenium.isNotVisible(${locator1});
 	}

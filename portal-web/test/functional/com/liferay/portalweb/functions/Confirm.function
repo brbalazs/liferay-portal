@@ -5,7 +5,7 @@ definition {
 	function confirm() {
 		selenium.getConfirmation(${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 

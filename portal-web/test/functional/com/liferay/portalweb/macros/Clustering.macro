@@ -26,7 +26,7 @@ definition {
 
 		AntCommands.runCommand("build-test.xml", "deploy-dependency-jars -Dapp.server.bundle.index=${bundleIndex} -Dliferay.dependency.jars=${liferayDependencyJars}");
 
-		Pause(locator1 = 10000);
+		Pause(value1 = 10000);
 	}
 
 	@summary = "Default summary"
@@ -265,7 +265,7 @@ definition {
 	macro waitForNodeShutdown(nodePort = null) {
 		AntCommands.runCommand("build-test.xml", "wait-for-server-shutdown -Dapp.server.port.number=${nodePort}");
 
-		Pause(locator1 = 30000);
+		Pause(value1 = 30000);
 	}
 
 }

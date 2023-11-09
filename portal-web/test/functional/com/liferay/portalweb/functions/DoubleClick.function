@@ -4,13 +4,13 @@ definition {
 	function doubleClick() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "true");
 
 		selenium.mouseOver(${locator1});
 
 		selenium.doubleClick(${locator1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -18,13 +18,13 @@ definition {
 	function doubleClickAt() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "true");
 
 		selenium.mouseOver(${locator1});
 
 		selenium.doubleClickAt(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}

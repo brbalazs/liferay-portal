@@ -6,7 +6,7 @@ definition {
 
 		selenium.assertLocation(${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -16,7 +16,7 @@ definition {
 
 		selenium.assertPartialLocation(${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}

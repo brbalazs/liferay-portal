@@ -5,7 +5,7 @@ definition {
 	function ocularAssertElementImage() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "true");
 
 		selenium.ocularAssertElementImage(${locator1}, ${value1}, ${value2});
 	}

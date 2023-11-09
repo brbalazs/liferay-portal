@@ -3,15 +3,15 @@ definition {
 
 	function selectFrame(locator1) {
 		if (contains(${locator1}, "/iframe")) {
-			selenium.waitForVisible(${locator1}, ${value1});
+			selenium.waitForVisible(${locator1}, "true");
 
 			selenium.mouseOver(${locator1});
 
 			selenium.selectFrame(${locator1});
 
-			selenium.waitForElementNotPresent(${locator1}, ${value1});
+			selenium.waitForElementNotPresent(${locator1}, "true");
 
-			selenium.assertJavaScriptErrors(${value1});
+			selenium.assertJavaScriptErrors("true");
 
 			selenium.assertLiferayErrors();
 		}
@@ -24,13 +24,13 @@ definition {
 
 	function selectFrameNoLoading(locator1) {
 		if (contains(${locator1}, "/iframe")) {
-			selenium.waitForVisible(${locator1}, ${value1});
+			selenium.waitForVisible(${locator1}, "true");
 
 			selenium.mouseOver(${locator1});
 
 			selenium.selectFrame(${locator1});
 
-			selenium.assertJavaScriptErrors(${value1});
+			selenium.assertJavaScriptErrors("true");
 
 			selenium.assertLiferayErrors();
 		}
@@ -44,7 +44,7 @@ definition {
 	function selectFrameTop() {
 		selenium.selectFrame("relative=top");
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 

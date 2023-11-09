@@ -36,7 +36,7 @@ definition {
 
 		// Pausing 10 seconds due to LRQA-78979
 
-		Pause(locator1 = 10000);
+		Pause(value1 = 10000);
 
 		AssertConsoleTextPresent(value1 = "STARTED com.liferay.external.data.source.test.api_");
 
@@ -44,7 +44,7 @@ definition {
 
 		// Pausing 10 seconds due to LRQA-78979
 
-		Pause(locator1 = 10000);
+		Pause(value1 = 10000);
 
 		AssertConsoleTextPresent(value1 = "STARTED com.liferay.external.data.source.test.service_");
 
@@ -71,7 +71,7 @@ definition {
 
 		// Pausing 10 seconds due to LRQA-78979
 
-		Pause(locator1 = 10000);
+		Pause(value1 = 10000);
 
 		AssertConsoleTextPresent(value1 = "STARTED com.liferay.portal.tools.service.builder.test.api_");
 
@@ -79,7 +79,7 @@ definition {
 
 		// Pausing 10 seconds due to LRQA-78979
 
-		Pause(locator1 = 10000);
+		Pause(value1 = 10000);
 
 		AssertConsoleTextPresent(value1 = "STARTED com.liferay.portal.tools.service.builder.test.service_");
 	}

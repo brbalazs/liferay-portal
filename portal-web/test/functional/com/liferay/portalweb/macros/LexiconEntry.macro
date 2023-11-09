@@ -36,7 +36,7 @@ definition {
 			AssertConfirm(value1 = ${confirmationText});
 		}
 		else {
-			Confirm();
+			Confirm(value1 = "null");
 		}
 
 		if (isSet(failure)) {
@@ -215,7 +215,7 @@ definition {
 
 	@summary = "Default summary"
 	macro waitForManagementBar() {
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertVisible(locator1 = "ManagementBar#MANAGEMENT_BAR");
 
@@ -239,7 +239,7 @@ else {
 		while (${managementBarReady} != "ready") {
 			var managementBarReady = selenium.getEval(${javaScript});
 
-			Pause(locator1 = 1000);
+			Pause(value1 = 1000);
 		}
 	}
 

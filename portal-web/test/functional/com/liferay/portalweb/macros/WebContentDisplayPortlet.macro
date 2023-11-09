@@ -41,7 +41,7 @@ definition {
 			Click(locator1 = "WCDConfiguration#CONTENT_METADATA_SELECT");
 
 			for (var key_toggleCardLabel : list ${metadataNameList}) {
-				Pause(locator1 = 1000);
+				Pause(value1 = 1000);
 
 				SelectFrameTop();
 
@@ -103,7 +103,7 @@ definition {
 			SelectFrame(value1 = "relative=top");
 		}
 		else {
-			Pause(locator1 = 2000);
+			Pause(value1 = 2000);
 
 			Click(locator1 = "Button#CLOSE_IFRAME");
 

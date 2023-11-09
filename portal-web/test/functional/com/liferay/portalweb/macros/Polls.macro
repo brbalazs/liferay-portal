@@ -300,7 +300,7 @@ definition {
 
 		Click(locator1 = "Polls#CHART_AREA");
 
-		SelectWindow.selectPopUp(locator1 = "null");
+		SelectWindow.selectPopUp(value1 = "null");
 
 		AssertElementPresent(locator1 = "Polls#CHART_IMAGE");
 

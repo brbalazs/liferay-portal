@@ -96,7 +96,7 @@ definition {
 			navTab = "Upload Image",
 			uploadFileName = "Document_1.jpg");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		PortletEntry.publish();
 
@@ -246,7 +246,7 @@ definition {
 
 		Button.clickPublish();
 
-		Pause(locator1 = 30000);
+		Pause(value1 = 30000);
 
 		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
 
@@ -1232,11 +1232,11 @@ definition {
 			navTab = "Documents and Media",
 			uploadFileName = "Document_1.jpg");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		Button.clickPublish();
 
-		Pause(locator1 = 30000);
+		Pause(value1 = 30000);
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -1376,7 +1376,7 @@ definition {
 
 		BlogsEntry.viewNoEntryViaBlogsAggregatorPG();
 
-		Pause(locator1 = 180000);
+		Pause(value1 = 180000);
 
 		Navigator.gotoPage(pageName = "Blogs Aggregator Page");
 
@@ -1459,11 +1459,11 @@ definition {
 
 		ImageEditor.rotateImage(rotateDirection = "right");
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		ImageEditor.applyChangesAndSaveFile();
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		SelectFrameTop(value1 = "relative=top");
 
@@ -1565,7 +1565,7 @@ definition {
 
 		Button.clickPublish();
 
-		Pause(locator1 = 30000);
+		Pause(value1 = 30000);
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 

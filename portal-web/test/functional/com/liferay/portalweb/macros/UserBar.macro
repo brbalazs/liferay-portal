@@ -11,7 +11,7 @@ definition {
 			if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
 				Click(locator1 = "UserBar#USER_AVATAR_IMAGE");
 
-				Pause(locator1 = 5000);
+				Pause(value1 = 5000);
 
 				AssertClick(
 					locator1 = "UserBar#USER_DASHBOARD",

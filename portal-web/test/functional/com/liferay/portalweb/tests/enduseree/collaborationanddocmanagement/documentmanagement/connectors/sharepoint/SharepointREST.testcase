@@ -153,7 +153,7 @@ definition {
 			dmDocumentFile = "Document_3.txt",
 			dmDocumentTitle = "Document_3.txt");
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		DMDocument.checkoutCP(
 			dmDocumentTitle = "Document_3.txt",
@@ -172,7 +172,7 @@ definition {
 
 		DMNavigator.gotoDocumentCP(dmDocumentTitle = "Document_3.txt");
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		DMDocument.viewCheckedoutCP(dmRepositoryName = "true");
 

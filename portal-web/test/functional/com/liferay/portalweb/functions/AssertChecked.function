@@ -4,11 +4,11 @@ definition {
 	function assertChecked() {
 		WaitForSPARefresh();
 
-		selenium.waitForVisible(${locator1}, ${value1});
+		selenium.waitForVisible(${locator1}, "true");
 
 		selenium.assertChecked(${locator1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -16,11 +16,11 @@ definition {
 	function assertCheckedHiddenToggleSwitch(locator1) {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1}, "true");
 
 		selenium.assertChecked("xpath=(${locator1})/../../input");
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}
@@ -28,11 +28,11 @@ definition {
 	function assertCheckedNotVisible() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementPresent(${locator1}, ${value1});
+		selenium.waitForElementPresent(${locator1}, "true");
 
 		selenium.assertChecked(${locator1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}

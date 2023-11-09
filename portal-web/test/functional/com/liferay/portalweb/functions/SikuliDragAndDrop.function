@@ -6,7 +6,7 @@ definition {
 
 		selenium.sikuliDragAndDrop(${locator1}, ${value1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}

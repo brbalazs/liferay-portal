@@ -75,7 +75,7 @@ definition {
 			productShortDescription = "${productName} Short Description",
 			productType = ${productType});
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		CommerceEntry.publishEntry(status = "Approved");
 	}

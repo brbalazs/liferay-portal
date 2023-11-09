@@ -5,11 +5,11 @@ definition {
 	function assertElementNotPresent() {
 		WaitForSPARefresh();
 
-		selenium.waitForElementNotPresent(${locator1}, ${value1});
+		selenium.waitForElementNotPresent(${locator1}, "true");
 
 		selenium.assertElementNotPresent(${locator1});
 
-		selenium.assertJavaScriptErrors(${value1});
+		selenium.assertJavaScriptErrors("true");
 
 		selenium.assertLiferayErrors();
 	}

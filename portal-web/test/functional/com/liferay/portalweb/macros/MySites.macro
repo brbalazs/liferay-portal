@@ -6,7 +6,7 @@ definition {
 			menuItem = ${menuItem},
 			rowEntry = ${siteName});
 
-		SelectWindow.selectPopUp(locator1 = "null");
+		SelectWindow.selectPopUp(value1 = "null");
 
 		Navigator._gotoPage(pageName = ${pageName});
 

@@ -36,7 +36,7 @@ definition {
 
 		PageTemplatesAdminGlobalSite.gotoPageTemplateViaEdit(pageTemplateName = "Wiki");
 
-		SelectWindow(locator1 = "title=Wiki - ${siteName}");
+		SelectWindow(value1 = "title=Wiki - ${siteName}");
 
 		Dockbar.viewAddTabsWithNoAddPagePermission();
 	}

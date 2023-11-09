@@ -2691,7 +2691,7 @@ definition {
 
 		Staging.publishToLive();
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		AssertConsoleTextNotPresent(value1 = "RuntimeException");
 
@@ -2787,7 +2787,7 @@ definition {
 
 		Staging.publishToLive();
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		AssertConsoleTextNotPresent(value1 = "RuntimeException");
 

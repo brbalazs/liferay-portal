@@ -158,11 +158,11 @@ definition {
 
 	@summary = "Default summary"
 	macro closeSidebar() {
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		Click(locator1 = "Form#SIDEBAR_CLOSE");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		AssertElementNotPresent(locator1 = "Form#SIDEBAR_CLOSE");
 	}

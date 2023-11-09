@@ -466,11 +466,11 @@ definition {
 			locator1 = "TextInput#FILE",
 			value1 = ${logoFile});
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		Button.clickDone();
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		SelectFrameTop();
 
@@ -975,7 +975,7 @@ definition {
 
 	@summary = "Default summary"
 	macro viewWithWorkflowPG(livePage = null, workflowStatus = null, pageName = null) {
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		if (${workflowStatus} == "Ready for Publication") {
 			AssertElementPresent(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION");

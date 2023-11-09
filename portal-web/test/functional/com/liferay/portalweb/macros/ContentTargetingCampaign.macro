@@ -335,7 +335,7 @@ definition {
 
 	@summary = "Default summary"
 	macro saveCP() {
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		PortletEntry.save();
 	}
@@ -363,7 +363,7 @@ definition {
 
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Update");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		Alert.viewSuccessMessage();
 

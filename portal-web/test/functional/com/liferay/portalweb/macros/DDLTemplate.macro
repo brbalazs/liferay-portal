@@ -51,7 +51,7 @@ definition {
 			locator1 = "DDMEditTemplate#DETAILS_LANGUAGE_SELECT",
 			value1 = ${ddlDisplayTemplateLanguage});
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		if (isSet(ddlDisplayTemplateTextFieldScript)) {
 			AssertClick(
@@ -71,7 +71,7 @@ definition {
 				value1 = ${ddlDisplayTemplateScriptFile});
 		}
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		SelectFrameTop();
 
@@ -94,7 +94,7 @@ definition {
 			locator1 = "DDMEditTemplate#DETAILS_LANGUAGE_SELECT",
 			value1 = ${ddlDisplayTemplateLanguage});
 
-		Pause(locator1 = 5000);
+		Pause(value1 = 5000);
 
 		Type.typeAceEditor(
 			locator1 = "DDMEditTemplate#SCRIPT_CONTENT_FIELD_TEXT_AREA",
@@ -212,7 +212,7 @@ definition {
 
 		MenuItem.click(menuItem = "Edit");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		PortletEntry.inputName(name = ${ddlDisplayTemplateNameEdit});
 
@@ -254,13 +254,13 @@ definition {
 			Click(locator1 = "DDMEditTemplate#DETAILS_TOGGLE");
 		}
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		Select(
 			locator1 = "DDMEditStructure#DETAILS_MODE_SELECT",
 			value1 = ${ddlFormTemplateMode});
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 	}
 
 	@summary = "Default summary"

@@ -123,7 +123,7 @@ definition {
 	macro publishAndWait() {
 		Button.clickPublish();
 
-		Pause(locator1 = 3000);
+		Pause(value1 = 3000);
 
 		Alert.viewSuccessMessage();
 	}

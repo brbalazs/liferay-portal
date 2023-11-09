@@ -422,7 +422,7 @@ definition {
 
 	@summary = "Default summary"
 	macro expandCategory() {
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 
 		if ((IsElementPresent(locator1 = "EditUserSegment#USER_SEGMENT_RULES_CATEGORY_COLLAPSED")) && (IsVisible(locator1 = "EditUserSegment#USER_SEGMENT_RULES_CATEGORY_COLLAPSED"))) {
 			Click(locator1 = "EditUserSegment#USER_SEGMENT_RULES_CATEGORY_COLLAPSED");
@@ -446,7 +446,7 @@ definition {
 
 		LexiconEntry.gotoHeaderMenuItem(menuItem = "Update");
 
-		Pause(locator1 = 1000);
+		Pause(value1 = 1000);
 	}
 
 	@summary = "Default summary"
