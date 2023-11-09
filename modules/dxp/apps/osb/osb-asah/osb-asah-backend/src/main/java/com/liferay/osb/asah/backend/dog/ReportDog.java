@@ -15,6 +15,7 @@ import com.liferay.osb.asah.backend.model.FormMetric;
 import com.liferay.osb.asah.backend.model.FormMetricType;
 import com.liferay.osb.asah.backend.model.JournalMetric;
 import com.liferay.osb.asah.backend.model.JournalMetricType;
+import com.liferay.osb.asah.backend.model.Metric;
 import com.liferay.osb.asah.backend.model.PageMetric;
 import com.liferay.osb.asah.backend.repository.AssetMetricRepository;
 import com.liferay.osb.asah.common.dog.ChannelDog;
@@ -165,7 +166,11 @@ public class ReportDog {
 
 		List<String[]> rows = new ArrayList<>();
 
-		rows.add(_columnHeader.get(type));
+		rows.add(
+			new String[] {
+				"Name", "Id", "Views", "Reading Time", "Comments", "Rating",
+				"Property Name"
+			});
 
 		Channel channel = _channelDog.getChannel(channelId);
 
@@ -178,18 +183,10 @@ public class ReportDog {
 			rows.add(
 				new String[] {
 					blogMetric.getAssetTitle(), blogMetric.getAssetId(),
-					String.valueOf(
-						blogMetric.getViewsMetric(
-						).getValue()),
-					String.valueOf(
-						blogMetric.getReadingTimeMetric(
-						).getValue()),
-					String.valueOf(
-						blogMetric.getCommentsMetric(
-						).getValue()),
-					String.valueOf(
-						blogMetric.getRatingsMetric(
-						).getValue()),
+					_getMetricValueAsString(blogMetric.getViewsMetric()),
+					_getMetricValueAsString(blogMetric.getReadingTimeMetric()),
+					_getMetricValueAsString(blogMetric.getCommentsMetric()),
+					_getMetricValueAsString(blogMetric.getRatingsMetric()),
 					channel.getName()
 				});
 		}
@@ -203,7 +200,11 @@ public class ReportDog {
 
 		List<String[]> rows = new ArrayList<>();
 
-		rows.add(_columnHeader.get(type));
+		rows.add(
+			new String[] {
+				"Name", "Id", "Downloads", "Previews", "Comments", "Rating",
+				"Property Name"
+			});
 
 		Channel channel = _channelDog.getChannel(channelId);
 
@@ -222,18 +223,14 @@ public class ReportDog {
 				new String[] {
 					documentLibraryMetric.getAssetTitle(),
 					documentLibraryMetric.getAssetId(),
-					String.valueOf(
-						documentLibraryMetric.getDownloadsMetric(
-						).getValue()),
-					String.valueOf(
-						documentLibraryMetric.getPreviewsMetric(
-						).getValue()),
-					String.valueOf(
-						documentLibraryMetric.getCommentsMetric(
-						).getValue()),
-					String.valueOf(
-						documentLibraryMetric.getRatingsMetric(
-						).getValue()),
+					_getMetricValueAsString(
+						documentLibraryMetric.getDownloadsMetric()),
+					_getMetricValueAsString(
+						documentLibraryMetric.getPreviewsMetric()),
+					_getMetricValueAsString(
+						documentLibraryMetric.getCommentsMetric()),
+					_getMetricValueAsString(
+						documentLibraryMetric.getRatingsMetric()),
 					channel.getName()
 				});
 		}
@@ -247,7 +244,11 @@ public class ReportDog {
 
 		List<String[]> rows = new ArrayList<>();
 
-		rows.add(_columnHeader.get(type));
+		rows.add(
+			new String[] {
+				"Name", "id", "Submissions", "Views", "Abandonment",
+				"Completion time", "Property Name"
+			});
 
 		Channel channel = _channelDog.getChannel(channelId);
 
@@ -260,18 +261,11 @@ public class ReportDog {
 			rows.add(
 				new String[] {
 					formMetric.getAssetTitle(), formMetric.getAssetId(),
-					String.valueOf(
-						formMetric.getSubmissionsMetric(
-						).getValue()),
-					String.valueOf(
-						formMetric.getViewsMetric(
-						).getValue()),
-					String.valueOf(
-						formMetric.getAbandonmentsMetric(
-						).getValue()),
-					String.valueOf(
-						formMetric.getCompletionTimeMetric(
-						).getValue()),
+					_getMetricValueAsString(formMetric.getSubmissionsMetric()),
+					_getMetricValueAsString(formMetric.getViewsMetric()),
+					_getMetricValueAsString(formMetric.getAbandonmentsMetric()),
+					_getMetricValueAsString(
+						formMetric.getCompletionTimeMetric()),
 					channel.getName()
 				});
 		}
@@ -286,7 +280,7 @@ public class ReportDog {
 
 		List<String[]> rows = new ArrayList<>();
 
-		rows.add(_columnHeader.get("individual"));
+		rows.add(new String[] {"Name", "Email", "Property Name"});
 
 		AssetMetricRepository assetMetricRepository =
 			_assetMetricRepositoryMap.get(AssetType.of(assetType));
@@ -319,7 +313,7 @@ public class ReportDog {
 
 		List<String[]> rows = new ArrayList<>();
 
-		rows.add(_columnHeader.get(type));
+		rows.add(new String[] {"Name", "Id", "Views", "Property Name"});
 
 		Channel channel = _channelDog.getChannel(channelId);
 
@@ -333,9 +327,7 @@ public class ReportDog {
 			rows.add(
 				new String[] {
 					journalMetric.getAssetTitle(), journalMetric.getAssetId(),
-					String.valueOf(
-						journalMetric.getViewsMetric(
-						).getValue()),
+					_getMetricValueAsString(journalMetric.getViewsMetric()),
 					channel.getName()
 				});
 		}
@@ -362,7 +354,12 @@ public class ReportDog {
 
 		List<String[]> rows = new ArrayList<>();
 
-		rows.add(_columnHeader.get(type));
+		rows.add(
+			new String[] {
+				"Page Title", "Canonical URL", "Unique Visitors", "Views",
+				"Time on Page", "Bounce Rate", "Entrances", "Exit %",
+				"Property Name"
+			});
 
 		Channel channel = _channelDog.getChannel(channelId);
 
@@ -375,24 +372,12 @@ public class ReportDog {
 			rows.add(
 				new String[] {
 					pageMetric.getAssetTitle(), pageMetric.getAssetId(),
-					String.valueOf(
-						pageMetric.getVisitorsMetric(
-						).getValue()),
-					String.valueOf(
-						pageMetric.getViewsMetric(
-						).getValue()),
-					String.valueOf(
-						pageMetric.getTimeOnPageMetric(
-						).getValue()),
-					String.valueOf(
-						pageMetric.getBounceRateMetric(
-						).getValue()),
-					String.valueOf(
-						pageMetric.getEntrancesMetric(
-						).getValue()),
-					String.valueOf(
-						pageMetric.getExitRateMetric(
-						).getValue()),
+					_getMetricValueAsString(pageMetric.getVisitorsMetric()),
+					_getMetricValueAsString(pageMetric.getViewsMetric()),
+					_getMetricValueAsString(pageMetric.getTimeOnPageMetric()),
+					_getMetricValueAsString(pageMetric.getBounceRateMetric()),
+					_getMetricValueAsString(pageMetric.getEntrancesMetric()),
+					_getMetricValueAsString(pageMetric.getExitRateMetric()),
 					channel.getName()
 				});
 		}
@@ -405,7 +390,7 @@ public class ReportDog {
 
 		List<String[]> rows = new ArrayList<>();
 
-		rows.add(_columnHeader.get("individual"));
+		rows.add(new String[] {"Name", "Email", "Property Name"});
 
 		List<Individual> individuals =
 			_bqIndividualRepository.searchBQIndividuals(
@@ -468,6 +453,10 @@ public class ReportDog {
 		return null;
 	}
 
+	private String _getMetricValueAsString(Metric metric) {
+		return String.valueOf(metric.getValue());
+	}
+
 	private org.springframework.data.domain.Sort _getSort(
 		String[] sorts, Order defaultOrder) {
 
@@ -517,57 +506,5 @@ public class ReportDog {
 		_assetMetricRepositoryMap = new HashMap<>();
 	private final BQIndividualRepository _bqIndividualRepository;
 	private final ChannelDog _channelDog;
-
-	private final Map<String, String[]> _columnHeader =
-		new HashMap<String, String[]>() {
-			{
-				put(
-					"blog",
-					new String[] {
-						"Name", "Id", "Views", "Reading Time", "Comments",
-						"Rating", "Property Name"
-					});
-			}
-
-			{
-				put(
-					"document",
-					new String[] {
-						"Name", "Id", "Downloads", "Previews", "Comments",
-						"Rating", "Property Name"
-					});
-			}
-
-			{
-				put(
-					"individual",
-					new String[] {"Name", "Email", "Property Name"});
-			}
-
-			{
-				put(
-					"journal",
-					new String[] {"Name", "Id", "Views", "Property Name"});
-			}
-
-			{
-				put(
-					"form",
-					new String[] {
-						"Name", "id", "Submissions", "Views", "Abandonment",
-						"Completion time", "Property Name"
-					});
-			}
-
-			{
-				put(
-					"page",
-					new String[] {
-						"Page Title", "Canonical URL", "Unique Visitors",
-						"Views", "Time on Page", "Bounce Rate", "Entrances",
-						"Exit %", "Property Name"
-					});
-			}
-		};
 
 }
