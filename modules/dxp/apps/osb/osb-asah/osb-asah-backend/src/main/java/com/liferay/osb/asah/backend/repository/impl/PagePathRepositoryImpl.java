@@ -7,9 +7,9 @@ package com.liferay.osb.asah.backend.repository.impl;
 
 import com.liferay.osb.asah.backend.model.AdjacentPageViewsMetric;
 import com.liferay.osb.asah.backend.repository.PagePathRepository;
-import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.repository.executor.QueryExecutor;
+import com.liferay.osb.asah.common.repository.helper.DSLHelper;
 
 import java.math.BigDecimal;
 
@@ -139,10 +139,10 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 			DSL.field(
 				"eventDate"
 			).between(
-				DateUtil.toUTCLocalDateTime(
-					timeRange.getStartLocalDateTime(), zoneId),
-				DateUtil.toUTCLocalDateTime(
-					timeRange.getEndLocalDateTime(), zoneId)
+				_dslHelper.getDateParam(
+					timeRange.getStartLocalDateTime(), zoneId.toString()),
+				_dslHelper.getDateParam(
+					timeRange.getEndLocalDateTime(), zoneId.toString())
 			));
 
 		if (segmentId != null) {
@@ -382,6 +382,9 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 
 	@Autowired
 	private DSLContext _dslContext;
+
+	@Autowired
+	private DSLHelper _dslHelper;
 
 	private final Field<Boolean> _previousField = DSL.field(
 		"previous", Boolean.class);
