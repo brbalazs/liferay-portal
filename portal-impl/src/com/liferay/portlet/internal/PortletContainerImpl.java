@@ -507,35 +507,38 @@ public class PortletContainerImpl implements PortletContainer {
 			String redirectLocation =
 				liferayActionResponse.getRedirectLocation();
 
-			if (Validator.isNull(redirectLocation) &&
-				portlet.isActionURLRedirect()) {
+			if (Validator.isNull(redirectLocation)) {
+				if (portlet.isActionURLRedirect()) {
+					PortletURL portletURL = null;
 
-				PortletURL portletURL = null;
+					if (portletApp.getSpecMajorVersion() < 3) {
+						portletURL = PortletURLFactoryUtil.create(
+							liferayActionRequest, portlet, layout,
+							PortletRequest.RENDER_PHASE);
 
-				if (portletApp.getSpecMajorVersion() < 3) {
-					portletURL = PortletURLFactoryUtil.create(
-						liferayActionRequest, portlet, layout,
-						PortletRequest.RENDER_PHASE);
+						Map<String, String[]> renderParameters =
+							liferayActionResponse.getRenderParameterMap();
 
-					Map<String, String[]> renderParameters =
-						liferayActionResponse.getRenderParameterMap();
+						for (Map.Entry<String, String[]> entry :
+								renderParameters.entrySet()) {
 
-					for (Map.Entry<String, String[]> entry :
-							renderParameters.entrySet()) {
+							String key = entry.getKey();
+							String[] value = entry.getValue();
 
-						String key = entry.getKey();
-						String[] value = entry.getValue();
-
-						portletURL.setParameter(key, value);
+							portletURL.setParameter(key, value);
+						}
 					}
-				}
-				else {
-					portletURL = PortletURLFactoryUtil.create(
-						liferayActionRequest, portlet, layout.getPlid(),
-						PortletRequest.RENDER_PHASE, MimeResponse.Copy.ALL);
-				}
+					else {
+						portletURL = PortletURLFactoryUtil.create(
+							liferayActionRequest, portlet, layout.getPlid(),
+							PortletRequest.RENDER_PHASE, MimeResponse.Copy.ALL);
+					}
 
-				redirectLocation = portletURL.toString();
+					redirectLocation = portletURL.toString();
+				}
+			}
+			else {
+				redirectLocation = PortalUtil.escapeRedirect(redirectLocation);
 			}
 
 			return new ActionResult(events, redirectLocation);
