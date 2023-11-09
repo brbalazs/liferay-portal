@@ -507,39 +507,38 @@ public class PortletContainerImpl implements PortletContainer {
 			String redirectLocation =
 				liferayActionResponse.getRedirectLocation();
 
-			if (Validator.isNull(redirectLocation)) {
-				if (portlet.isActionURLRedirect()) {
-					PortletURL portletURL = null;
+			if (Validator.isNotNull(redirectLocation)) {
+				return new ActionResult(
+					events, PortalUtil.escapeRedirect(redirectLocation));
+			}
 
-					if (portletApp.getSpecMajorVersion() < 3) {
-						portletURL = PortletURLFactoryUtil.create(
-							liferayActionRequest, portlet, layout,
-							PortletRequest.RENDER_PHASE);
+			if (!portlet.isActionURLRedirect()) {
+				return new ActionResult(events, null);
+			}
 
-						Map<String, String[]> renderParameters =
-							liferayActionResponse.getRenderParameterMap();
+			PortletURL portletURL = null;
 
-						for (Map.Entry<String, String[]> entry :
-								renderParameters.entrySet()) {
+			if (portletApp.getSpecMajorVersion() < 3) {
+				portletURL = PortletURLFactoryUtil.create(
+					liferayActionRequest, portlet, layout,
+					PortletRequest.RENDER_PHASE);
 
-							String key = entry.getKey();
-							String[] value = entry.getValue();
+				Map<String, String[]> renderParameters =
+					liferayActionResponse.getRenderParameterMap();
 
-							portletURL.setParameter(key, value);
-						}
-					}
-					else {
-						portletURL = PortletURLFactoryUtil.create(
-							liferayActionRequest, portlet, layout.getPlid(),
-							PortletRequest.RENDER_PHASE, MimeResponse.Copy.ALL);
-					}
+				for (Map.Entry<String, String[]> entry :
+						renderParameters.entrySet()) {
 
-					redirectLocation = portletURL.toString();
+					portletURL.setParameter(entry.getKey(), entry.getValue());
 				}
 			}
 			else {
-				redirectLocation = PortalUtil.escapeRedirect(redirectLocation);
+				portletURL = PortletURLFactoryUtil.create(
+					liferayActionRequest, portlet, layout.getPlid(),
+					PortletRequest.RENDER_PHASE, MimeResponse.Copy.ALL);
 			}
+
+			redirectLocation = portletURL.toString();
 
 			return new ActionResult(events, redirectLocation);
 		}
