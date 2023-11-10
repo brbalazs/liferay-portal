@@ -126,15 +126,19 @@ public class PagePathDataFetcher extends BaseDataFetcher<PagePathNodeDTO> {
 			followingPagePathNodeDTOs,
 			new FollowingPagePathNodeDTOComparator());
 
-		PagePathNodeDTO dropOffPagePathNodeDTO = new PagePathNodeDTO();
-
-		dropOffPagePathNodeDTO.setTitle("drop-offs");
-		dropOffPagePathNodeDTO.setCanonicalUrl("drop-offs");
-		dropOffPagePathNodeDTO.setViews(
+		long dropOffs =
 			rootPagePathNodeDTO.getViews() -
-				_getTotalViews(followingPagePathNodeDTOs));
+				_getTotalViews(followingPagePathNodeDTOs);
 
-		followingPagePathNodeDTOs.add(dropOffPagePathNodeDTO);
+		if (dropOffs > 0) {
+			PagePathNodeDTO dropOffPagePathNodeDTO = new PagePathNodeDTO();
+
+			dropOffPagePathNodeDTO.setTitle("drop-offs");
+			dropOffPagePathNodeDTO.setCanonicalUrl("drop-offs");
+			dropOffPagePathNodeDTO.setViews(dropOffs);
+
+			followingPagePathNodeDTOs.add(dropOffPagePathNodeDTO);
+		}
 
 		rootPagePathNodeDTO.setFollowingPagePathNodeDTOS(
 			followingPagePathNodeDTOs);
