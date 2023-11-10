@@ -8,12 +8,10 @@ package com.liferay.osb.asah.backend.dog.test;
 import com.liferay.osb.asah.backend.OSBAsahBackendSpringTestContext;
 import com.liferay.osb.asah.backend.dog.PageReferrerDog;
 import com.liferay.osb.asah.backend.dog.helper.SearchQueryContext;
-import com.liferay.osb.asah.backend.model.PageReferrerMetric;
 import com.liferay.osb.asah.common.model.Interval;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
-import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
@@ -91,28 +89,6 @@ public class PageReferrerDogTest
 
 		Assertions.assertEquals(
 			1, pageReferrers.size(), pageReferrers.toString());
-	}
-
-	@BQSQLResource(resourcePath = "page_referrers_events.sql")
-	@Test
-	public void testPageReferrerMetrics() {
-		List<PageReferrerMetric> pageReferrerMetrics =
-			_pageReferrerDog.getPageReferrerMetrics(
-				new SearchQueryContext() {
-					{
-						setCanonicalUrl("http://liferay.com");
-						setChannelId("1");
-						setDataSourceId("1");
-						setTitle("Home - Liferay DXP");
-					}
-				});
-
-		Assertions.assertEquals(
-			2, pageReferrerMetrics.size(), pageReferrerMetrics.toString());
-
-		PageReferrerMetric pageReferrerMetric = pageReferrerMetrics.get(0);
-
-		DogTestUtil.assertMetric(2, pageReferrerMetric.getAccessMetric());
 	}
 
 	@BQSQLResource(resourcePath = "page_referrers_events.sql")

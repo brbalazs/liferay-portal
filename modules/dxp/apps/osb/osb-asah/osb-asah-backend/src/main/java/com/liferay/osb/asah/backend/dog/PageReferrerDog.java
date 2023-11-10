@@ -7,16 +7,9 @@ package com.liferay.osb.asah.backend.dog;
 
 import com.liferay.osb.asah.backend.dog.helper.SearchQueryContext;
 import com.liferay.osb.asah.backend.dog.title.TitleDog;
-import com.liferay.osb.asah.backend.model.AssetType;
-import com.liferay.osb.asah.backend.model.Metric;
-import com.liferay.osb.asah.backend.model.PageReferrerMetric;
-import com.liferay.osb.asah.backend.model.PageReferrerMetricType;
 import com.liferay.osb.asah.backend.repository.PageReferrerRepository;
 import com.liferay.osb.asah.common.date.dog.TimeZoneDog;
 
-import java.math.BigDecimal;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,43 +39,6 @@ public class PageReferrerDog {
 			searchQueryContext.getCanonicalUrl(),
 			searchQueryContext.getChannelIdAsLong(),
 			searchQueryContext.getTimeRange(), _timeZoneDog.getZoneId());
-	}
-
-	public List<PageReferrerMetric> getPageReferrerMetrics(
-		SearchQueryContext searchQueryContext) {
-
-		Map<String, Double> pageReferrerAccesses =
-			_pageReferrerRepository.getPageReferrerAccesses(
-				searchQueryContext.getCanonicalUrl(),
-				searchQueryContext.getChannelIdAsLong(),
-				searchQueryContext.getTimeRange(),
-				searchQueryContext.getTitle(), _timeZoneDog.getZoneId());
-
-		if (pageReferrerAccesses.isEmpty()) {
-			return Collections.emptyList();
-		}
-
-		List<PageReferrerMetric> pageReferrerMetrics = new ArrayList<>();
-
-		BigDecimal partial = BigDecimal.ZERO;
-
-		for (Map.Entry<String, Double> entry :
-				pageReferrerAccesses.entrySet()) {
-
-			Metric accessMetric = _getAccessMetric(entry.getValue());
-
-			PageReferrerMetric pageReferrerMetric = _createPageReferrerMetric(
-				accessMetric, entry.getKey());
-
-			partial = partial.add(BigDecimal.valueOf(accessMetric.getValue()));
-
-			pageReferrerMetrics.add(pageReferrerMetric);
-		}
-
-		pageReferrerMetrics.add(
-			_getOthersPageReferrerMetrics(partial, searchQueryContext));
-
-		return pageReferrerMetrics;
 	}
 
 	public Map<String, Double> getPageReferrers(
@@ -156,75 +112,6 @@ public class PageReferrerDog {
 				Map.Entry::getKey, Map.Entry::getValue,
 				(value1, value2) -> value1, LinkedHashMap::new)
 		);
-	}
-
-	private PageReferrerMetric _createPageReferrerMetric(
-		Metric accessMetric, String referrer) {
-
-		PageReferrerMetric pageReferrerMetric = new PageReferrerMetric();
-
-		pageReferrerMetric.setAccessMetric(accessMetric);
-
-		boolean external = _isPageExternal(referrer);
-
-		String title = _getPageTitle(external, referrer);
-
-		pageReferrerMetric.setAssetTitle(title);
-
-		pageReferrerMetric.setExternal(external);
-		pageReferrerMetric.setReferrer(referrer);
-
-		return pageReferrerMetric;
-	}
-
-	private Metric _getAccessMetric(Double accesses) {
-		Metric metric = new Metric(PageReferrerMetricType.ACCESS);
-
-		metric.setValue(accesses);
-
-		return metric;
-	}
-
-	private PageReferrerMetric _getOthersPageReferrerMetrics(
-		BigDecimal partial, SearchQueryContext searchQueryContext) {
-
-		PageReferrerMetric pageReferrerMetric = new PageReferrerMetric();
-
-		Metric metric = new Metric(PageReferrerMetricType.ACCESS);
-
-		BigDecimal total = BigDecimal.valueOf(
-			_pageDog.getIndirectAccessMetricValue(searchQueryContext));
-
-		BigDecimal others = total.subtract(partial);
-
-		metric.setValue(others.doubleValue());
-
-		pageReferrerMetric.setAccessMetric(metric);
-		pageReferrerMetric.setExternal(true);
-		pageReferrerMetric.setReferrer("others");
-
-		return pageReferrerMetric;
-	}
-
-	private String _getPageTitle(boolean external, String url) {
-		if (external) {
-			return null;
-		}
-
-		Map<String, String> titleMap = _titleDog.getTitle(
-			AssetType.PAGE, Collections.singleton(url));
-
-		return titleMap.get(url);
-	}
-
-	private boolean _isPageExternal(String url) {
-		long views = _pageDog.getViewsMetricValue(url);
-
-		if (views == 0) {
-			return true;
-		}
-
-		return false;
 	}
 
 	private Double _sumMapValues(Map<String, Double> map) {
