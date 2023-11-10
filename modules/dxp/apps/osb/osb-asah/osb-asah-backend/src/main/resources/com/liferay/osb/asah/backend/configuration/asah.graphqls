@@ -1353,7 +1353,7 @@ type QueryType {
         rangeEnd: String,
         rangeKey: Int,
         rangeStart: String,
-        segmentId: Int,
+        segmentId: String,
         title: String!
 	): PagePathNode
 

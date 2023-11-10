@@ -43,7 +43,7 @@ public class PagePathDataFetcher extends BaseDataFetcher<PagePathNodeDTO> {
 			_pagePathDog.getAdjacentPagesViewsMetric(
 				searchQueryContext.getCanonicalUrl(),
 				searchQueryContext.getChannelIdAsLong(),
-				dataFetchingEnvironment.getArgument("segmentId"),
+				Long.valueOf(dataFetchingEnvironment.getArgument("segmentId")),
 				searchQueryContext.getTimeRange(),
 				searchQueryContext.getTitle());
 
