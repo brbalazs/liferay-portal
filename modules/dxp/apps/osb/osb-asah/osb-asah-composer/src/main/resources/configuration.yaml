@@ -35,41 +35,7 @@ commerce_recommenders_dag_trigger:
                     "spark.jars": "gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar",
                     "spark.serializer": "org.apache.spark.serializer.KryoSerializer"
                 }
-interest_score_dag_trigger:
-    dataproc:
-        bucket: "{{ dag.default_args['project_id'] }}-dataproc-{{ dag.default_args['region'] }}"
-        cluster:
-            idle_delete_ttl: 900
-            image_version: '2.0'
-            master:
-                count: 1
-                disk_size: 256
-                disk_type: pd-standard
-                machine_type: n1-standard-4
-            metadata: !!str >
-                {
-                    "MINICONDA_VARIANT": "3",
-                    "MINICONDA_VERSION": "latest"
-                }
-            name: "interest-score-{{ dag.default_args['ac_project_id'] | truncate(20, True, '') }}-{{ ds_nodash }}"
-            properties: !!str >
-                {
-                    "dataproc:pip.packages": "spark-nlp==4.4.2,google-cloud-bigquery==3.3.5"
-                }
-            worker:
-                count: 2
-                disk_size: 256
-                disk_type: pd-ssd
-                machine_type: n1-standard-8
-        pyspark:
-            configuration: interest_score.yaml
-            properties: !!str >
-                {
-                    "spark.serializer": "org.apache.spark.serializer.KryoSerializer",
-                    "spark.jars.packages": "com.johnsnowlabs.nlp:spark-nlp_2.12:4.4.2",
-                    "spark.jars": "gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar"
-                }
-recommenders_dag_trigger:
+content_recommenders_dag_trigger:
     dataproc:
         bucket: "{{ dag.default_args['project_id'] }}-dataproc-{{ dag.default_args['region'] }}"
         cluster:
@@ -105,4 +71,38 @@ recommenders_dag_trigger:
                     "spark.executor.memoryOverhead": "1536",
                     "spark.jars": "gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar",
                     "spark.serializer": "org.apache.spark.serializer.KryoSerializer"
+                }
+interest_score_dag_trigger:
+    dataproc:
+        bucket: "{{ dag.default_args['project_id'] }}-dataproc-{{ dag.default_args['region'] }}"
+        cluster:
+            idle_delete_ttl: 900
+            image_version: '2.0'
+            master:
+                count: 1
+                disk_size: 256
+                disk_type: pd-standard
+                machine_type: n1-standard-4
+            metadata: !!str >
+                {
+                    "MINICONDA_VARIANT": "3",
+                    "MINICONDA_VERSION": "latest"
+                }
+            name: "interest-score-{{ dag.default_args['ac_project_id'] | truncate(20, True, '') }}-{{ ds_nodash }}"
+            properties: !!str >
+                {
+                    "dataproc:pip.packages": "spark-nlp==4.4.2,google-cloud-bigquery==3.3.5"
+                }
+            worker:
+                count: 2
+                disk_size: 256
+                disk_type: pd-ssd
+                machine_type: n1-standard-8
+        pyspark:
+            configuration: interest_score.yaml
+            properties: !!str >
+                {
+                    "spark.serializer": "org.apache.spark.serializer.KryoSerializer",
+                    "spark.jars.packages": "com.johnsnowlabs.nlp:spark-nlp_2.12:4.4.2",
+                    "spark.jars": "gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar"
                 }
