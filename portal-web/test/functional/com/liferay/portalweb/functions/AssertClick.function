@@ -80,7 +80,7 @@ definition {
 
 		selenium.assertLiferayErrors();
 
-		selenium.waitForElementPresent(${locator1}, "true");
+		selenium.waitForElementPresent("xpath=(//script)[last()]", "true");
 	}
 
 	function assertTextClickCaseSensitive(locator1) {
