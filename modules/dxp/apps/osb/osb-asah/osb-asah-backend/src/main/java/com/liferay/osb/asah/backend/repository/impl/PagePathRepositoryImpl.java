@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 import org.jooq.CommonTableExpression;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
@@ -45,11 +47,11 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 			_dslContext.with(
 				_getPagePathCTE(channelId, segmentId, timeRange, zoneId)
 			).with(
-				_getFollowingPagesCTE(canonicalUrl)
+				_getFollowingPagesCTE(canonicalUrl, title)
 			).with(
 				_getTopFollowingPagesCTE()
 			).with(
-				_getPreviousPagesCTE(canonicalUrl)
+				_getPreviousPagesCTE(canonicalUrl, title)
 			).with(
 				_getTopPreviousPagesCTE()
 			).select(
@@ -87,7 +89,22 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 	}
 
 	private CommonTableExpression<?> _getFollowingPagesCTE(
-		String canonicalUrl) {
+		String canonicalUrl, @Nullable String title) {
+
+		Condition condition = DSL.field(
+			"previousCanonicalUrl"
+		).eq(
+			canonicalUrl
+		);
+
+		if (StringUtils.isNotBlank(title)) {
+			condition = condition.and(
+				DSL.field(
+					"previousTitle"
+				).eq(
+					title
+				));
+		}
 
 		return DSL.name(
 			"FollowingPages"
@@ -102,11 +119,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 			).from(
 				"PagePath"
 			).where(
-				DSL.field(
-					"previousCanonicalUrl"
-				).eq(
-					canonicalUrl
-				)
+				condition
 			)
 		);
 	}
@@ -209,7 +222,24 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 		);
 	}
 
-	private CommonTableExpression<?> _getPreviousPagesCTE(String canonicalUrl) {
+	private CommonTableExpression<?> _getPreviousPagesCTE(
+		String canonicalUrl, @Nullable String title) {
+
+		Condition condition = DSL.field(
+			"canonicalUrl"
+		).eq(
+			canonicalUrl
+		);
+
+		if (StringUtils.isNotBlank(title)) {
+			condition = condition.and(
+				DSL.field(
+					"title"
+				).eq(
+					title
+				));
+		}
+
 		return DSL.name(
 			"PreviousPages"
 		).as(
@@ -232,11 +262,7 @@ public class PagePathRepositoryImpl implements PagePathRepository {
 			).from(
 				"PagePath"
 			).where(
-				DSL.field(
-					"canonicalUrl"
-				).eq(
-					canonicalUrl
-				)
+				condition
 			)
 		);
 	}
