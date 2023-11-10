@@ -23,6 +23,7 @@ public abstract class RecentVisitDTO {
 
 	public RecentVisitDTO(RecentVisit recentVisit) {
 		_firstVisitDate = recentVisit.getFirstVisitDate();
+		_groupId = recentVisit.getGroupId();
 		_lastVisitDate = recentVisit.getLastVisitDate();
 		_visits = recentVisit.getVisits();
 	}
