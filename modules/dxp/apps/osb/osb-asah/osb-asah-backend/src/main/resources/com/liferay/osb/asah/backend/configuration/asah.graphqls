@@ -892,7 +892,6 @@ type PageMetric implements AssetMetric {
 	entrancesMetric: Metric
 	exitRateMetric: Metric
 	indirectAccessMetric: Metric
-	pageReferrerMetrics: [PageReferrerMetric]
 	urls: [String]
 	visitorsMetric: Metric
 	viewsMetric: Metric
@@ -904,13 +903,6 @@ type PagePathNode {
 	previousPagePathNodes: [PagePathNode]
 	title: String
 	views: Int
-}
-
-type PageReferrerMetric {
-	accessMetric: Metric
-	assetTitle: String
-	external: Boolean
-	referrer: String
 }
 
 type Preference {
