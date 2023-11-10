@@ -24,6 +24,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -43,7 +45,7 @@ public class PagePathDataFetcher extends BaseDataFetcher<PagePathNodeDTO> {
 			_pagePathDog.getAdjacentPagesViewsMetric(
 				searchQueryContext.getCanonicalUrl(),
 				searchQueryContext.getChannelIdAsLong(),
-				Long.valueOf(dataFetchingEnvironment.getArgument("segmentId")),
+				_getSegmentId(dataFetchingEnvironment),
 				searchQueryContext.getTimeRange(),
 				searchQueryContext.getTitle());
 
@@ -87,6 +89,18 @@ public class PagePathDataFetcher extends BaseDataFetcher<PagePathNodeDTO> {
 		}
 
 		return previousPagePathNodeDTOs;
+	}
+
+	private Long _getSegmentId(
+		DataFetchingEnvironment dataFetchingEnvironment) {
+
+		String segmentId = dataFetchingEnvironment.getArgument("segmentId");
+
+		if (NumberUtils.isCreatable(segmentId)) {
+			return Long.valueOf(segmentId);
+		}
+
+		return null;
 	}
 
 	private long _getTotalViews(List<PagePathNodeDTO> pagePathNodeDTOs) {
