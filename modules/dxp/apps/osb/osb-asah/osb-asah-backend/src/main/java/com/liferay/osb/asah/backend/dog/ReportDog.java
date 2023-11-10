@@ -18,6 +18,7 @@ import com.liferay.osb.asah.backend.model.JournalMetricType;
 import com.liferay.osb.asah.backend.model.Metric;
 import com.liferay.osb.asah.backend.model.PageMetric;
 import com.liferay.osb.asah.backend.repository.AssetMetricRepository;
+import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.dog.ChannelDog;
 import com.liferay.osb.asah.common.entity.Channel;
 import com.liferay.osb.asah.common.model.Field;
@@ -390,7 +391,11 @@ public class ReportDog {
 
 		List<String[]> rows = new ArrayList<>();
 
-		rows.add(new String[] {"Name", "Email", "Property Name"});
+		rows.add(
+			new String[] {
+				"Name", "Email", "Job Title", "Total Activities",
+				"Last Activity", "Property Name"
+			});
 
 		List<Individual> individuals =
 			_bqIndividualRepository.searchBQIndividuals(
@@ -426,6 +431,14 @@ public class ReportDog {
 						).get(
 							0
 						).getValue()),
+					String.valueOf(
+						fieldMap.get(
+							"jobTitle"
+						).get(
+							0
+						).getValue()),
+					String.valueOf(individual.getActivitiesCount()),
+					DateUtil.toUTCString(individual.getLastActivityDate()),
 					channel.getName()
 				});
 		}
