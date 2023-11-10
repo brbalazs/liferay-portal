@@ -9,12 +9,12 @@
 # distribution rights of the Software.
 #
 
-from liferay.commerce.configuration import CommerceConfiguration
 from liferay.commerce.forecast.constants import CommerceMLForecastPeriod, \
 	CommerceMLForecastScope, \
 	CommerceMLForecastTarget
 from liferay.commerce.forecast.prophet import ProphetCommerceForecast
 from liferay.commerce.forecast.sarima import SARIMAXCommerceForecast
+from liferay.common.configuration import Configuration
 
 from pyspark.sql import types as T
 
@@ -24,7 +24,7 @@ import os
 class ForecastUDFHelper(object):
 
 	def __init__(
-		self, configuration: CommerceConfiguration,
+		self, configuration: Configuration,
 		period: CommerceMLForecastPeriod, scope: CommerceMLForecastScope,
 		target: CommerceMLForecastTarget
 	):

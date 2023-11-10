@@ -16,7 +16,7 @@ from datetime import datetime
 
 from dateutil import parser
 
-from liferay.commerce.configuration import CommerceConfiguration
+from liferay.common.configuration import Configuration
 from liferay.common.spark import BaseSparkApplication, \
 	BaseSparkJob
 
@@ -34,7 +34,7 @@ class BaseCommerceSparkApplication(BaseSparkApplication, metaclass=ABCMeta):
 	def __init__(self):
 		super(BaseCommerceSparkApplication, self).__init__()
 
-		self.configuration = CommerceConfiguration(self.args.configuration)
+		self.configuration = Configuration(self.args.configuration)
 
 		spark_context = self.spark_session.sparkContext
 
