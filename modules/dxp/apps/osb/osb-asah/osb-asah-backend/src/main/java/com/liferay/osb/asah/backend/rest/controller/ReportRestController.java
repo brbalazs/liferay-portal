@@ -48,7 +48,7 @@ public class ReportRestController {
 			@RequestParam String channelId,
 			@RequestParam(name = "fromDate", required = false) String fromDate,
 			@RequestParam(required = false) String query,
-			@RequestParam(required = false) Integer rangeKey,
+			@RequestParam(defaultValue = "30") int rangeKey,
 			@RequestParam(name = "sort", required = false) String[] sorts,
 			@RequestParam(name = "toDate", required = false) String toDate,
 			@PathVariable String type)
@@ -85,7 +85,7 @@ public class ReportRestController {
 				LocalDateTime.parse(toDate, _dateTimeFormatter),
 				LocalDateTime.parse(fromDate, _dateTimeFormatter));
 		}
-		else if (rangeKey != null) {
+		else {
 			timeRange = TimeRange.of(rangeKey);
 		}
 
