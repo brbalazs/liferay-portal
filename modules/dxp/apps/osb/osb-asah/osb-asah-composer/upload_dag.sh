@@ -11,7 +11,7 @@ cd src/main/python
 for i in `ls`;
 do
 	if [ $i = "content_recommenders_dataproc_trigger.py" ] &&
-		 [ $PROJECT_ID != "liferaycloud-ac-uat" ]
+	   [ $PROJECT_ID != "liferaycloud-ac-uat" ]
 	then
 		continue
 	fi
