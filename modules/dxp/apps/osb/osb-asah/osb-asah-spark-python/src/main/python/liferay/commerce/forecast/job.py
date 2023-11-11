@@ -9,12 +9,12 @@
 # distribution rights of the Software.
 #
 
-from liferay.commerce.common import BaseJSONDataFrameReaderSparkJob, \
-	BaseJSONDataFrameWriterSparkJob
+from liferay.commerce.common import BaseJSONDataFrameReaderSparkJob
 from liferay.commerce.forecast.constants import CommerceMLForecastPeriod, \
 	CommerceMLForecastScope, \
 	CommerceMLForecastTarget
 from liferay.commerce.forecast.udf import ForecastUDFHelper
+from liferay.common.job import BaseJSONDataFrameWriterSparkJob
 from liferay.common.spark import BaseSparkJob
 
 from pyspark.sql import Window, \

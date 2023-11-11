@@ -9,9 +9,9 @@
 # distribution rights of the Software.
 #
 
-from liferay.common.spark import BaseBigQueryDataFrameReaderSparkJob, \
-	BaseJSONDataFrameWriterSparkJob, \
-	BaseSparkJob
+from liferay.common.job import BaseBigQueryDataFrameReaderSparkJob, \
+	BaseJSONDataFrameWriterSparkJob
+from liferay.common.spark import BaseSparkJob
 from liferay.ml.job import CollaborativeFilteringSparkJob
 
 from pyspark.sql import Window, \

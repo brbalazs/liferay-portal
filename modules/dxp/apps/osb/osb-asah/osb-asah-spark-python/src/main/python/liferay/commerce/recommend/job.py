@@ -11,9 +11,9 @@
 
 from liferay.commerce.common import BaseJSONDataFrameReaderSparkJob
 from liferay.commerce.recommend.feature import CommerceFeatureExtractor
-from liferay.common.spark import BaseBigQueryDataFrameReaderSparkJob, \
-	BaseJSONDataFrameWriterSparkJob, \
-	BaseSparkJob
+from liferay.common.job import BaseBigQueryDataFrameReaderSparkJob, \
+	BaseJSONDataFrameWriterSparkJob
+from liferay.common.spark import BaseSparkJob
 
 from pyspark import StorageLevel
 from pyspark.ml import Pipeline
