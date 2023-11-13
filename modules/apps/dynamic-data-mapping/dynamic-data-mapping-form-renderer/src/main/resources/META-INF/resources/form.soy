@@ -18,6 +18,9 @@
 		<div class="clearfix {if not $field.visible}hide{/if} lfr-ddm-form-field-container" ref="{$field.name}">
 			{delcall ddm.field variant="$variant" data="$field" /}
 		</div>
+		{if $field.type == 'select'}
+			{delcall ddm.field variant="'span'" data="$field" /}
+		{/if}
 	{/foreach}
 {/template}
 

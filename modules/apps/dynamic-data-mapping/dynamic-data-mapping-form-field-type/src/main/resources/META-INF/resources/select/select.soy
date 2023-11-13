@@ -6,6 +6,9 @@
 {deltemplate ddm.field variant="'select'"}
 	{call .render data="all" /}
 {/deltemplate}
+{deltemplate ddm.field variant="'span'"}
+	{call .span data="all" /}
+{/deltemplate}
 
 /**
  * Prints the DDM form select field.
@@ -31,11 +34,8 @@
 	{@param? selectCaretDoubleIcon: html}
 	{@param? selectedLabels: ?}
 	{@param? selectSearchIcon: html}
-	{@param? showLabel: bool}
 	{@param? showPlaceholderOption: bool}
 	{@param? showSearch: bool}
-	{@param? tip: string}
-
 	{let $displayValues: length($value) > 0 ? $value : length($predefinedValue) > 0 ? $predefinedValue : null /}
 
 	<div class="form-group{$visible ? '' : ' hide'}" data-fieldname="{$name}">
@@ -152,12 +152,22 @@
 					</div>
 				{/if}
 			</div>
-
-			{if $showLabel and $tip}
-				<span class="form-text">{$tip}</span>
-			{/if}
 		</div>
 	</div>
+{/template}
+
+/**
+ * span under dropdown
+ */
+{template .span}
+	{@param? showLabel: bool}
+	{@param? tip: string}
+
+		<div>
+			{if $showLabel and $tip}
+				<span class="form-text dropdown-span">{$tip}</span>
+			{/if}
+		</div>
 {/template}
 
 /**
