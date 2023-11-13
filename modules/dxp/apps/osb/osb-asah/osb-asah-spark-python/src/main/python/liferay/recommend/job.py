@@ -453,7 +453,16 @@ class UserContentRecommendationEventsBigQueryDataFrameReaderSparkJob(BaseBigQuer
 				)
 
 		return f"""
-			WITH Individual AS (
+			WITH EventProperty AS (
+			SELECT
+				id,
+				SAFE_CAST(value AS INT) AS webContentResourcePk
+			FROM
+				`{self.spark_application_args.ac_project_id}`.eventproperty
+			WHERE
+				name = 'webContentResourcePk'
+			),
+			Individual AS (
 				SELECT DISTINCT
 				identity.id as userId,
 				(
@@ -473,12 +482,21 @@ class UserContentRecommendationEventsBigQueryDataFrameReaderSparkJob(BaseBigQuer
 			)
 			SELECT
 				applicationId,
-				SAFE_CAST(assetId AS INT) AS classPK,
+				CASE
+					WHEN
+						applicationId = 'WebContent' THEN webContentResourcePk
+					ELSE
+						SAFE_CAST(assetId AS INT)
+				END AS classPK,
 				dxpUserId,
 				eventdate,
 				1 as rating
 			FROM
 				`{self.spark_application_args.ac_project_id}`.event
+			LEFT JOIN
+				EventProperty
+			ON
+				event.id = EventProperty.id
 			LEFT JOIN
 				Individual
 			ON
