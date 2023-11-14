@@ -43,8 +43,9 @@ public class ProjectDog {
 			ProjectIdThreadLocal.setGlobalContext(false);
 		}
 
-		_bigQuerySchemaManager.createSchema(projectId);
 		_postgreSQLSchemaManager.createSchema(project);
+
+		_bigQuerySchemaManager.createSchema(projectId);
 
 		ProjectIdThreadLocal.forProject(
 			project, _nanitesHttp::rescheduleNanites);
