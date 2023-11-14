@@ -165,6 +165,49 @@ public class ReportDogTest
 		}
 	}
 
+	@BQSQLResource(resourcePath = "test_report_dog.sql")
+	@Test
+	public void testGetCSVReportAssetPageFilteredByQuery() throws Exception {
+		ClassPathResource classPathResource = new ClassPathResource(
+			"dependencies/test_get_csv_report_asset_page_filtered_by_" +
+				"query_expected.csv",
+			getClass());
+
+		try (InputStream inputStream = new FileInputStream(
+				_reportDog.getCSVReport(
+					null, null, 1L, "Liferay", null,
+					TimeRange.of(
+						LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
+					"page"))) {
+
+			Assertions.assertTrue(
+				IOUtils.contentEquals(
+					classPathResource.getInputStream(), inputStream));
+		}
+	}
+
+	@BQSQLResource(resourcePath = "test_report_dog.sql")
+	@Test
+	public void testGetCSVReportAssetPageSortedByEntrances() throws Exception {
+		ClassPathResource classPathResource = new ClassPathResource(
+			"dependencies/test_get_csv_report_asset_page_sorted_by_" +
+				"entrances_expected.csv",
+			getClass());
+
+		try (InputStream inputStream = new FileInputStream(
+				_reportDog.getCSVReport(
+					null, null, 1L, null,
+					new String[] {"entrancesMetric", "asc"},
+					TimeRange.of(
+						LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
+					"page"))) {
+
+			Assertions.assertTrue(
+				IOUtils.contentEquals(
+					classPathResource.getInputStream(), inputStream));
+		}
+	}
+
 	@Autowired
 	private ChannelRepository _channelRepository;
 
