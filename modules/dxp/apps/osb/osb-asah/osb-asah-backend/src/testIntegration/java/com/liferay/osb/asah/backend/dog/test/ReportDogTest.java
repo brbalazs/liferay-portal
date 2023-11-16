@@ -129,6 +129,53 @@ public class ReportDogTest
 
 	@BQSQLResource(resourcePath = "test_report_dog.sql")
 	@Test
+	public void testGetCSVReportAssetDocumentLibraryFilteredByQuery()
+		throws Exception {
+
+		ClassPathResource classPathResource = new ClassPathResource(
+			"dependencies/test_get_csv_report_asset_" +
+				"document_library_filtered_by_query_expected.csv",
+			getClass());
+
+		try (InputStream inputStream = new FileInputStream(
+				_reportDog.getCSVReport(
+					null, null, 1L, "Document 3", null,
+					TimeRange.of(
+						LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
+					"document"))) {
+
+			Assertions.assertTrue(
+				IOUtils.contentEquals(
+					classPathResource.getInputStream(), inputStream));
+		}
+	}
+
+	@BQSQLResource(resourcePath = "test_report_dog.sql")
+	@Test
+	public void testGetCSVReportAssetDocumentLibrarySortedByDownloads()
+		throws Exception {
+
+		ClassPathResource classPathResource = new ClassPathResource(
+			"dependencies/test_get_csv_report_asset_" +
+				"document_library_sorted_by_downloads_expected.csv",
+			getClass());
+
+		try (InputStream inputStream = new FileInputStream(
+				_reportDog.getCSVReport(
+					null, null, 1L, null,
+					new String[] {"downloadsMetric", "asc"},
+					TimeRange.of(
+						LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
+					"document"))) {
+
+			Assertions.assertTrue(
+				IOUtils.contentEquals(
+					classPathResource.getInputStream(), inputStream));
+		}
+	}
+
+	@BQSQLResource(resourcePath = "test_report_dog.sql")
+	@Test
 	public void testGetCSVReportAssetForm() throws Exception {
 		ClassPathResource classPathResource = new ClassPathResource(
 			"dependencies/test_get_csv_report_asset_form_expected.csv",
