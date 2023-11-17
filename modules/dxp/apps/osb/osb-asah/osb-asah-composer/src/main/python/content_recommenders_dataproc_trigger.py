@@ -26,7 +26,7 @@ def create_dag(ac_project_id, ac_project_time_zone_id, dag_id, dag_description, 
 		default_args={
 			'ac_project_id': ac_project_id,
 			'ac_project_time_zone_id': ac_project_time_zone_id,
-			'dag_configuration_key': 'recommenders_dag_trigger',
+			'dag_configuration_key': 'content_recommenders_dag_trigger',
 			'data_source_ids': data_source_ids,
 			'owner': 'Liferay',
 			'project_id': os.environ['GOOGLE_PROJECT_ID'],
