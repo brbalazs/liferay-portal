@@ -91,6 +91,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.domain.Page;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpHeaders;
@@ -168,11 +169,17 @@ public class ReportRestController extends BaseRestController {
 			_metricDog.getAssetMetricsCount(searchQueryContext));
 
 		return _toResultBagEntityModel(
-			_getBlogAssetReportResultBagEntityModel(
-				channelId, page + 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_NEXT_KEY,
+				_getBlogAssetReportResultBagEntityModel(
+					channelId, page + 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			page,
-			_getBlogAssetReportResultBagEntityModel(
-				channelId, page - 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_PREV_KEY,
+				_getBlogAssetReportResultBagEntityModel(
+					channelId, page - 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			blogMetricResultBag,
 			blogMetric -> _toBlogAssetReportEntityModel(
 				new AssetReport(blogMetric), rangeKey));
@@ -329,11 +336,17 @@ public class ReportRestController extends BaseRestController {
 			_metricDog.getAssetMetricsCount(searchQueryContext));
 
 		return _toResultBagEntityModel(
-			_getDocumentLibraryAssetReportResultBagEntityModel(
-				channelId, page + 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_NEXT_KEY,
+				_getDocumentLibraryAssetReportResultBagEntityModel(
+					channelId, page + 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			page,
-			_getDocumentLibraryAssetReportResultBagEntityModel(
-				channelId, page - 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_PREV_KEY,
+				_getDocumentLibraryAssetReportResultBagEntityModel(
+					channelId, page - 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			documentLibraryMetricResultBag,
 			documentLibraryMetric -> _toDocumentLibraryAssetReportEntityModel(
 				new AssetReport(documentLibraryMetric), rangeKey));
@@ -410,11 +423,17 @@ public class ReportRestController extends BaseRestController {
 			_metricDog.getAssetMetricsCount(searchQueryContext));
 
 		return _toResultBagEntityModel(
-			_getFormAssetReportResultBagEntityModel(
-				channelId, page + 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_NEXT_KEY,
+				_getFormAssetReportResultBagEntityModel(
+					channelId, page + 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			page,
-			_getFormAssetReportResultBagEntityModel(
-				channelId, page - 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_PREV_KEY,
+				_getFormAssetReportResultBagEntityModel(
+					channelId, page - 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			formMetricResultBag,
 			formMetric -> _toFormAssetReportEntityModel(
 				new AssetReport(formMetric), rangeKey));
@@ -454,11 +473,15 @@ public class ReportRestController extends BaseRestController {
 			activityDTOs.getContent(), activityDTOs.getTotalElements());
 
 		return _toResultBagEntityModel(
-			_getIndividualActivityResultBagEntityModel(
-				channelId, individualId, page + 1),
+			_getLink(
+				_NEXT_KEY,
+				_getIndividualActivityResultBagEntityModel(
+					channelId, individualId, page + 1)),
 			page,
-			_getIndividualActivityResultBagEntityModel(
-				channelId, individualId, page - 1),
+			_getLink(
+				_PREV_KEY,
+				_getIndividualActivityResultBagEntityModel(
+					channelId, individualId, page - 1)),
 			activityResultBag,
 			activityDTO -> _toChildEntityModel(individualId, activityDTO));
 	}
@@ -475,11 +498,15 @@ public class ReportRestController extends BaseRestController {
 				channelId, individualId, _PAGE_SIZE, page * _PAGE_SIZE);
 
 		return _toResultBagEntityModel(
-			_getIndividualInterestResultBagEntityModel(
-				channelId, individualId, page + 1),
+			_getLink(
+				_NEXT_KEY,
+				_getIndividualInterestResultBagEntityModel(
+					channelId, individualId, page + 1)),
 			page,
-			_getIndividualInterestResultBagEntityModel(
-				channelId, individualId, page - 1),
+			_getLink(
+				_PREV_KEY,
+				_getIndividualInterestResultBagEntityModel(
+					channelId, individualId, page - 1)),
 			new ResultBag<>(
 				bqIdentityInterestScorePage.getContent(),
 				bqIdentityInterestScorePage.getTotalElements()),
@@ -556,11 +583,17 @@ public class ReportRestController extends BaseRestController {
 			_metricDog.getAssetMetricsCount(searchQueryContext));
 
 		return _toResultBagEntityModel(
-			_getJournalAssetReportResultBagEntityModel(
-				channelId, page + 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_NEXT_KEY,
+				_getJournalAssetReportResultBagEntityModel(
+					channelId, page + 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			page,
-			_getJournalAssetReportResultBagEntityModel(
-				channelId, page - 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_PREV_KEY,
+				_getJournalAssetReportResultBagEntityModel(
+					channelId, page - 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			journalMetricResultBag,
 			journalMetric -> _toJournalAssetReportEntityModel(
 				new AssetReport(journalMetric), rangeKey));
@@ -674,11 +707,17 @@ public class ReportRestController extends BaseRestController {
 			_metricDog.getAssetMetricsCount(searchQueryContext));
 
 		return _toResultBagEntityModel(
-			_getPageAssetReportResultBagEntityModel(
-				channelId, page + 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_NEXT_KEY,
+				_getPageAssetReportResultBagEntityModel(
+					channelId, page + 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			page,
-			_getPageAssetReportResultBagEntityModel(
-				channelId, page - 1, keywords, rangeKey, sortMetric, sortOrder),
+			_getLink(
+				_PREV_KEY,
+				_getPageAssetReportResultBagEntityModel(
+					channelId, page - 1, keywords, rangeKey, sortMetric,
+					sortOrder)),
 			pageMetricResultBag,
 			pageMetric -> _toPageAssetReportEntityModel(
 				new PageAssetReport(new AssetReport(pageMetric)), rangeKey));
@@ -713,11 +752,15 @@ public class ReportRestController extends BaseRestController {
 				individualPage.getTotalElements());
 
 		return _toResultBagEntityModel(
-			_getReportIndividualDTOResultBagEntityModel(
-				channelId, page + 1, query),
+			_getLink(
+				_NEXT_KEY,
+				_getReportIndividualDTOResultBagEntityModel(
+					channelId, page + 1, query)),
 			page,
-			_getReportIndividualDTOResultBagEntityModel(
-				channelId, page - 1, query),
+			_getLink(
+				_PREV_KEY,
+				_getReportIndividualDTOResultBagEntityModel(
+					channelId, page - 1, query)),
 			reportIndividualDTOResultBag,
 			this::_toReportIndividualDTOEntityModel);
 	}
@@ -747,9 +790,14 @@ public class ReportRestController extends BaseRestController {
 			_bqMembershipChangeDog.getLastBQMembershipChanges(segments);
 
 		return _toResultBagEntityModel(
-			_getSegmentResultBagEntityModel(channelId, page + 1), page,
-			_getSegmentResultBagEntityModel(channelId, page - 1), segments,
-			segmentPage.getTotalElements(),
+			_getLink(
+				_NEXT_KEY,
+				_getSegmentResultBagEntityModel(channelId, page + 1)),
+			page,
+			_getLink(
+				_PREV_KEY,
+				_getSegmentResultBagEntityModel(channelId, page - 1)),
+			segments, segmentPage.getTotalElements(),
 			segment -> _toReportSegmentDTOEntityModel(
 				bqMembershipChanges.getOrDefault(segment.getId(), null),
 				segment));
@@ -774,11 +822,15 @@ public class ReportRestController extends BaseRestController {
 				individualPage.getTotalElements());
 
 		return _toResultBagEntityModel(
-			_getSegmentReportIndividualDTOResultBagEntityModel(
-				channelId, segmentId, page + 1, query),
+			_getLink(
+				_NEXT_KEY,
+				_getSegmentReportIndividualDTOResultBagEntityModel(
+					channelId, segmentId, page + 1, query)),
 			page,
-			_getSegmentReportIndividualDTOResultBagEntityModel(
-				channelId, segmentId, page - 1, query),
+			_getLink(
+				_PREV_KEY,
+				_getSegmentReportIndividualDTOResultBagEntityModel(
+					channelId, segmentId, page - 1, query)),
 			reportIndividualDTOResultBag,
 			this::_toReportIndividualDTOEntityModel);
 	}
@@ -997,6 +1049,14 @@ public class ReportRestController extends BaseRestController {
 			JournalMetricType::getName
 		).collect(
 			Collectors.toSet()
+		);
+	}
+
+	private Link _getLink(String key, Object methodInvocation) {
+		return WebMvcLinkBuilder.linkTo(
+			methodInvocation
+		).withRel(
+			key
 		);
 	}
 
@@ -1261,8 +1321,8 @@ public class ReportRestController extends BaseRestController {
 	}
 
 	private <T, R> ResultBagEntityModel<R> _toResultBagEntityModel(
-		Object nextPageMethodInvocation, int page,
-		Object prevPageMethodInvocation, List<T> results, long total,
+		Link nextPageLink, int page, Link prevPageLink, List<T> results,
+		long total,
 		Function<T, EntityModel<R>> resultEntityModelMapperFunction) {
 
 		ResultBagEntityModel<R> resultBagEntityModel =
@@ -1273,35 +1333,23 @@ public class ReportRestController extends BaseRestController {
 					total));
 
 		if (((page + 1L) * _PAGE_SIZE) < total) {
-			resultBagEntityModel.add(
-				WebMvcLinkBuilder.linkTo(
-					nextPageMethodInvocation
-				).withRel(
-					"next"
-				));
+			resultBagEntityModel.add(nextPageLink);
 		}
 
 		if (page > 0) {
-			resultBagEntityModel.add(
-				WebMvcLinkBuilder.linkTo(
-					prevPageMethodInvocation
-				).withRel(
-					"prev"
-				));
+			resultBagEntityModel.add(prevPageLink);
 		}
 
 		return resultBagEntityModel;
 	}
 
 	private <T, R> ResultBagEntityModel<R> _toResultBagEntityModel(
-		Object nextPageMethodInvocation, int page,
-		Object prevPageMethodInvocation, ResultBag<T> resultBag,
+		Link nextPageLink, int page, Link prevPageLink, ResultBag<T> resultBag,
 		Function<T, EntityModel<R>> resultEntityModelMapperFunction) {
 
 		return _toResultBagEntityModel(
-			nextPageMethodInvocation, page, prevPageMethodInvocation,
-			resultBag.getResults(), resultBag.getTotal(),
-			resultEntityModelMapperFunction);
+			nextPageLink, page, prevPageLink, resultBag.getResults(),
+			resultBag.getTotal(), resultEntityModelMapperFunction);
 	}
 
 	private void _validateDateRange(String fromDate, String toDate) {
@@ -1326,7 +1374,11 @@ public class ReportRestController extends BaseRestController {
 		}
 	}
 
+	private static final String _NEXT_KEY = "next";
+
 	private static final int _PAGE_SIZE = 20;
+
+	private static final String _PREV_KEY = "prev";
 
 	private static final Log _log = LogFactory.getLog(
 		ReportRestController.class);
