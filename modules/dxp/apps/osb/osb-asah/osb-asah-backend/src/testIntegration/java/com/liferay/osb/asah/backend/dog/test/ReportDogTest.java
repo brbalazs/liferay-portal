@@ -399,6 +399,52 @@ public class ReportDogTest
 
 	@BQSQLResource(resourcePath = "test_report_dog.sql")
 	@Test
+	public void testGetCSVReportAssetIndividualForAGivenJournalFilteredByEmailInQuery()
+		throws Exception {
+
+		ClassPathResource classPathResource = new ClassPathResource(
+			"dependencies/test_get_csv_report_asset_individual_for_a_given_" +
+				"journal_filtered_by_email_in_query_expected.csv",
+			getClass());
+
+		try (InputStream inputStream = new FileInputStream(
+				_reportDog.getCSVReport(
+					"3", "journal", 1L, "test3@liferay.com", null,
+					TimeRange.of(
+						LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
+					"individual"))) {
+
+			Assertions.assertTrue(
+				IOUtils.contentEquals(
+					classPathResource.getInputStream(), inputStream));
+		}
+	}
+
+	@BQSQLResource(resourcePath = "test_report_dog.sql")
+	@Test
+	public void testGetCSVReportAssetIndividualForAGivenJournalFilteredByNameInQuery()
+		throws Exception {
+
+		ClassPathResource classPathResource = new ClassPathResource(
+			"dependencies/test_get_csv_report_asset_individual_for_a_given_" +
+				"journal_filtered_by_name_in_query_expected.csv",
+			getClass());
+
+		try (InputStream inputStream = new FileInputStream(
+				_reportDog.getCSVReport(
+					"2", "journal", 1L, "Test 2", null,
+					TimeRange.of(
+						LocalDate.of(2023, 11, 6), LocalDate.of(2023, 11, 3)),
+					"individual"))) {
+
+			Assertions.assertTrue(
+				IOUtils.contentEquals(
+					classPathResource.getInputStream(), inputStream));
+		}
+	}
+
+	@BQSQLResource(resourcePath = "test_report_dog.sql")
+	@Test
 	public void testGetCSVReportAssetIndividualForAGivenPageFilteredByEmailInQuery()
 		throws Exception {
 
