@@ -1,0 +1,14 @@
+{
+	"data": {
+		"pagePath": {
+			"__typename": "PagePathNode",
+			"canonicalUrl": "https://www.computer.com/abacus",
+			"followingPagePathNodes": [
+			],
+			"previousPagePathNodes": [
+			],
+			"title": "From Abacus to Modern Day Computers",
+			"views": 0
+		}
+	}
+}

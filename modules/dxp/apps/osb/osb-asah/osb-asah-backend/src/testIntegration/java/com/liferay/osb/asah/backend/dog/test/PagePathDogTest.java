@@ -8,16 +8,21 @@ package com.liferay.osb.asah.backend.dog.test;
 import com.liferay.osb.asah.backend.OSBAsahBackendSpringTestContext;
 import com.liferay.osb.asah.backend.dog.PagePathDog;
 import com.liferay.osb.asah.backend.model.AdjacentPageViewsMetric;
+import com.liferay.osb.asah.common.dog.BQMembershipDog;
 import com.liferay.osb.asah.common.dog.PreferenceDog;
+import com.liferay.osb.asah.common.dog.SegmentDog;
 import com.liferay.osb.asah.common.entity.Preference;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.util.SetUtil;
 import com.liferay.osb.asah.test.util.annotation.BQSQLResource;
+import com.liferay.osb.asah.test.util.annotation.SQLResource;
 import com.liferay.osb.asah.test.util.spring.OSBAsahTestExecutionListenersContext;
 
 import java.math.BigDecimal;
 
 import java.time.LocalDate;
+
+import java.util.Collections;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -427,6 +432,19 @@ public class PagePathDogTest
 				"From Abacus to Modern Day Computers"));
 	}
 
+	@BQSQLResource(resourcePath = "test_get_adjacent_pages_views_metric.sql")
+	@Test
+	public void testGetAdjacentPagesViewsMetricNoResults() {
+		Assertions.assertEquals(
+			Collections.emptySet(),
+			_pagePathDog.getAdjacentPagesViewsMetric(
+				"https://www.computer.com/abacus", 12345L, null,
+				TimeRange.of(
+					LocalDate.parse("1971-01-01"),
+					LocalDate.parse("1970-01-01")),
+				"From Abacus to Modern Day Computers"));
+	}
+
 	@BQSQLResource(
 		resourcePath = "test_get_adjacent_pages_views_metric_one_next_page_view.sql"
 	)
@@ -563,10 +581,10 @@ public class PagePathDogTest
 	}
 
 	@BQSQLResource(
-		resourcePath = "test_get_adjacent_pages_views_metric_with_segment_id.sql"
+		resourcePath = "test_get_adjacent_pages_views_metric_with_segment_id_bq.sql"
 	)
 	@Test
-	public void testGetAdjacentPagesViewsMetricWithSegmentId() {
+	public void testGetAdjacentPagesViewsMetricWithSegmentId1() {
 		Assertions.assertEquals(
 			SetUtil.of(
 				new AdjacentPageViewsMetric(
@@ -583,6 +601,65 @@ public class PagePathDogTest
 				new AdjacentPageViewsMetric(
 					"https://www.computer.com/files", Boolean.FALSE,
 					"Computer File Systems", BigDecimal.ONE)),
+			_pagePathDog.getAdjacentPagesViewsMetric(
+				"https://www.computer.com/abacus", 12345L, 24680L,
+				TimeRange.of(
+					LocalDate.parse("2023-11-05"),
+					LocalDate.parse("2023-10-25")),
+				"From Abacus to Modern Day Computers"));
+	}
+
+	@BQSQLResource(
+		resourcePath = "test_get_adjacent_pages_views_metric_with_segment_id_bq.sql"
+	)
+	@SQLResource(
+		resourcePath = "test_get_adjacent_pages_views_metric_with_segment_id.sql"
+	)
+	@Test
+	public void testGetAdjacentPagesViewsMetricWithSegmentId2() {
+		Assertions.assertEquals(
+			SetUtil.of(
+				new AdjacentPageViewsMetric(
+					"https://www.computer.com/decimal", Boolean.TRUE,
+					"Encoding Decimal to Binary", BigDecimal.ONE),
+				new AdjacentPageViewsMetric(
+					"https://www.computer.com/gui", Boolean.TRUE,
+					"Graphical User Interface", BigDecimal.ONE),
+				new AdjacentPageViewsMetric(
+					"direct", Boolean.TRUE, "direct", BigDecimal.ONE),
+				new AdjacentPageViewsMetric(
+					"https://www.computer.com/encoding", Boolean.FALSE,
+					"How Do Computers Talk?", BigDecimal.ONE),
+				new AdjacentPageViewsMetric(
+					"https://www.computer.com/files", Boolean.FALSE,
+					"Computer File Systems", BigDecimal.ONE)),
+			_pagePathDog.getAdjacentPagesViewsMetric(
+				"https://www.computer.com/abacus", 12345L, 24680L,
+				TimeRange.of(
+					LocalDate.parse("2023-11-05"),
+					LocalDate.parse("2023-10-25")),
+				"From Abacus to Modern Day Computers"));
+
+		_bqMembershipDog.updateBQMemberships(
+			"(activities.filterByCount(filter='(activityKey eq " +
+				"''Page#pageViewed#10981d0044ea936f74b42f2a68c41fe7f11c15b0bd" +
+					"8858f85dbf940d79704ca6'')',operator='ge',value=1))",
+			true, _segmentDog.fetchSegment(24680L));
+
+		Assertions.assertEquals(
+			SetUtil.of(
+				new AdjacentPageViewsMetric(
+					"https://www.computer.com/files", Boolean.TRUE,
+					"Computer File Systems", BigDecimal.ONE),
+				new AdjacentPageViewsMetric(
+					"https://www.computer.com/gui", Boolean.TRUE,
+					"Graphical User Interface", BigDecimal.ONE),
+				new AdjacentPageViewsMetric(
+					"https://www.computer.com/files", Boolean.FALSE,
+					"Computer File Systems", BigDecimal.ONE),
+				new AdjacentPageViewsMetric(
+					"https://www.computer.com/gui", Boolean.FALSE,
+					"Graphical User Interface", BigDecimal.ONE)),
 			_pagePathDog.getAdjacentPagesViewsMetric(
 				"https://www.computer.com/abacus", 12345L, 24680L,
 				TimeRange.of(
@@ -633,48 +710,16 @@ public class PagePathDogTest
 				"From Abacus to Modern Day Computers"));
 	}
 
-	@BQSQLResource(
-		resourcePath = "test_get_adjacent_pages_views_metric_yesterday.sql"
-	)
-	@Test
-	public void testGetAdjacentPagesViewsMetricYesterday() {
-		Assertions.assertEquals(
-			SetUtil.of(
-				new AdjacentPageViewsMetric(
-					"https://www.computer.com/binary", Boolean.TRUE,
-					"How Binary Encoding is Used in a Computer",
-					new BigDecimal(2)),
-				new AdjacentPageViewsMetric(
-					"https://www.computer.com/calculator", Boolean.TRUE,
-					"Are Calculators Computers?", BigDecimal.ONE),
-				new AdjacentPageViewsMetric(
-					"https://www.computer.com/decimal", Boolean.TRUE,
-					"Encoding Decimal to Binary", BigDecimal.ONE),
-				new AdjacentPageViewsMetric(
-					"others", Boolean.TRUE, "others", new BigDecimal(3)),
-				new AdjacentPageViewsMetric(
-					"direct", Boolean.TRUE, "direct", new BigDecimal(3)),
-				new AdjacentPageViewsMetric(
-					"https://www.computer.com/decimal", Boolean.FALSE,
-					"Encoding Decimal to Binary", new BigDecimal(2)),
-				new AdjacentPageViewsMetric(
-					"https://www.computer.com/binary", Boolean.FALSE,
-					"How Binary Encoding is Used in a Computer",
-					BigDecimal.ONE),
-				new AdjacentPageViewsMetric(
-					"https://www.computer.com/calculator", Boolean.FALSE,
-					"Try Our Online Calculator", BigDecimal.ONE),
-				new AdjacentPageViewsMetric(
-					"others", Boolean.FALSE, "others", new BigDecimal(3))),
-			_pagePathDog.getAdjacentPagesViewsMetric(
-				"https://www.computer.com/abacus", 12345L, null,
-				TimeRange.YESTERDAY, "From Abacus to Modern Day Computers"));
-	}
+	@Autowired
+	private BQMembershipDog _bqMembershipDog;
 
 	@Autowired
 	private PagePathDog _pagePathDog;
 
 	@Autowired
 	private PreferenceDog _preferenceDog;
+
+	@Autowired
+	private SegmentDog _segmentDog;
 
 }
