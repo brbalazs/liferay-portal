@@ -1343,22 +1343,6 @@ public class BQIndividualRepositoryImpl
 			);
 		}
 
-		if (referencedTableNames.contains("Event")) {
-			selectJoinStep = selectJoinStep.join(
-				DSL.table(
-					"BQEvent"
-				).as(
-					"Event"
-				)
-			).on(
-				DSL.field(
-					"Event.userId"
-				).eq(
-					DSL.field("Identity.id")
-				)
-			);
-		}
-
 		if (referencedTableNames.contains("Individual")) {
 			SelectOnStep selectOnStep = null;
 
