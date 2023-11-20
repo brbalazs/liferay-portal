@@ -266,7 +266,7 @@ public class ReportDogTest
 
 		ClassPathResource classPathResource = new ClassPathResource(
 			"dependencies/test_get_csv_report_asset_individual_for_a_given_" +
-				"blog_filtered_by_email_in_query_expected.csv",
+				"blog_filtered_by_email_address_in_query_expected.csv",
 			getClass());
 
 		try (InputStream inputStream = new FileInputStream(
@@ -312,7 +312,8 @@ public class ReportDogTest
 
 		ClassPathResource classPathResource = new ClassPathResource(
 			"dependencies/test_get_csv_report_asset_individual_for_a_given_" +
-				"document_library_filtered_by_email_in_query_expected.csv",
+				"document_library_filtered_by_email_address_in_query_" +
+					"expected.csv",
 			getClass());
 
 		try (InputStream inputStream = new FileInputStream(
@@ -358,7 +359,7 @@ public class ReportDogTest
 
 		ClassPathResource classPathResource = new ClassPathResource(
 			"dependencies/test_get_csv_report_asset_individual_for_a_given_" +
-				"form_filtered_by_email_in_query_expected.csv",
+				"form_filtered_by_email_address_in_query_expected.csv",
 			getClass());
 
 		try (InputStream inputStream = new FileInputStream(
@@ -404,7 +405,7 @@ public class ReportDogTest
 
 		ClassPathResource classPathResource = new ClassPathResource(
 			"dependencies/test_get_csv_report_asset_individual_for_a_given_" +
-				"journal_filtered_by_email_in_query_expected.csv",
+				"journal_filtered_by_email_address_in_query_expected.csv",
 			getClass());
 
 		try (InputStream inputStream = new FileInputStream(
@@ -451,7 +452,7 @@ public class ReportDogTest
 		ClassPathResource classPathResource = new ClassPathResource(
 			"dependencies/test_get_csv_report_asset_" +
 				"individual_for_a_given_page_filtered_by_" +
-					"email_in_query_expected.csv",
+					"email_address_in_query_expected.csv",
 			getClass());
 
 		try (InputStream inputStream = new FileInputStream(
@@ -642,7 +643,7 @@ public class ReportDogTest
 
 		ClassPathResource classPathResource = new ClassPathResource(
 			"dependencies/test_get_csv_report_individual_filtered_by_email_" +
-				"in_query_expected.csv",
+				"address_in_query_expected.csv",
 			getClass());
 
 		try (InputStream inputStream = new FileInputStream(
@@ -680,7 +681,7 @@ public class ReportDogTest
 	@Test
 	public void testGetCSVReportIndividualSortedByJobTitle() throws Exception {
 		ClassPathResource classPathResource = new ClassPathResource(
-			"dependencies/test_get_csv_report_individual_sorted_by_jobtitle_" +
+			"dependencies/test_get_csv_report_individual_sorted_by_job_title_" +
 				"expected.csv",
 			getClass());
 
