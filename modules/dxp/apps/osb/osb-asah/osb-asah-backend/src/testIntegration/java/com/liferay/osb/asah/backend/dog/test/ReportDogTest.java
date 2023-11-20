@@ -261,7 +261,7 @@ public class ReportDogTest
 
 	@BQSQLResource(resourcePath = "test_report_dog.sql")
 	@Test
-	public void testGetCSVReportAssetIndividualForAGivenBlogFilteredByEmailInQuery()
+	public void testGetCSVReportAssetIndividualForAGivenBlogFilteredByEmailAddressInQuery()
 		throws Exception {
 
 		ClassPathResource classPathResource = new ClassPathResource(
@@ -307,7 +307,7 @@ public class ReportDogTest
 
 	@BQSQLResource(resourcePath = "test_report_dog.sql")
 	@Test
-	public void testGetCSVReportAssetIndividualForAGivenDocumentLibraryFilteredByEmailInQuery()
+	public void testGetCSVReportAssetIndividualForAGivenDocumentLibraryFilteredByEmailAddressInQuery()
 		throws Exception {
 
 		ClassPathResource classPathResource = new ClassPathResource(
@@ -353,7 +353,7 @@ public class ReportDogTest
 
 	@BQSQLResource(resourcePath = "test_report_dog.sql")
 	@Test
-	public void testGetCSVReportAssetIndividualForAGivenFormFilteredByEmailInQuery()
+	public void testGetCSVReportAssetIndividualForAGivenFormFilteredByEmailAddressInQuery()
 		throws Exception {
 
 		ClassPathResource classPathResource = new ClassPathResource(
@@ -399,7 +399,7 @@ public class ReportDogTest
 
 	@BQSQLResource(resourcePath = "test_report_dog.sql")
 	@Test
-	public void testGetCSVReportAssetIndividualForAGivenJournalFilteredByEmailInQuery()
+	public void testGetCSVReportAssetIndividualForAGivenJournalFilteredByEmailAddressInQuery()
 		throws Exception {
 
 		ClassPathResource classPathResource = new ClassPathResource(
@@ -445,7 +445,7 @@ public class ReportDogTest
 
 	@BQSQLResource(resourcePath = "test_report_dog.sql")
 	@Test
-	public void testGetCSVReportAssetIndividualForAGivenPageFilteredByEmailInQuery()
+	public void testGetCSVReportAssetIndividualForAGivenPageFilteredByEmailAddressInQuery()
 		throws Exception {
 
 		ClassPathResource classPathResource = new ClassPathResource(
@@ -637,7 +637,7 @@ public class ReportDogTest
 
 	@BQSQLResource(resourcePath = "test_report_dog.sql")
 	@Test
-	public void testGetCSVReportIndividualFilteredByEmailInQuery()
+	public void testGetCSVReportIndividualFilteredByEmailAddressInQuery()
 		throws Exception {
 
 		ClassPathResource classPathResource = new ClassPathResource(
