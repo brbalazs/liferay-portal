@@ -190,12 +190,30 @@ class MostViewedContentRecommendationEventsBigQueryDataFrameReaderSparkJob(BaseB
 				)
 
 		return f"""
+			WITH EventProperty AS (
+			SELECT
+				id,
+				SAFE_CAST(value AS INT) AS webContentResourcePk
+			FROM
+				`{self.spark_application_args.ac_project_id}`.eventproperty
+			WHERE
+				name = 'webContentResourcePk'
+			)
 			SELECT
 				applicationId,
-				assetId AS entryClassPK,
+				CASE
+					WHEN
+						applicationId = 'WebContent' THEN webContentResourcePk
+					ELSE
+						SAFE_CAST(assetId AS INT)
+				END AS entryClassPK,
 				count(*) as score
 			FROM 
 				`{self.spark_application_args.ac_project_id}`.event
+			LEFT JOIN
+				EventProperty
+			ON
+				event.id = EventProperty.id
 			WHERE
 				assetId IS NOT NULL AND
 				dataSourceId = {self.spark_application_args.data_source_id} AND
@@ -203,7 +221,7 @@ class MostViewedContentRecommendationEventsBigQueryDataFrameReaderSparkJob(BaseB
 				DATE(event.eventDate, "{time_zone}") >= {start_date_sql_string} AND
 				DATE(event.eventDate, "{time_zone}") <= {end_date_sql_string}
 			GROUP BY
-				applicationId, assetId
+				applicationId, entryClassPK
 			ORDER BY
 				score DESC
 		"""
