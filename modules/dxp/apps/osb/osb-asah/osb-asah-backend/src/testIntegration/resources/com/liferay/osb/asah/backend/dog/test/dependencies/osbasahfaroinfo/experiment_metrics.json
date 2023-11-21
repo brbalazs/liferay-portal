@@ -85,36 +85,6 @@
 		"metrics": [
 			{
 				"confidenceLevel": 0.95,
-				"elapsedDays": 1,
-				"estimatedDaysLeft": 13,
-				"processedDate": "${now-2d}",
-				"variantMetrics": [
-					{
-						"confidenceInterval": [
-							0.5,
-							2.5
-						],
-						"control": true,
-						"dxpVariantId": "1",
-						"improvement": 0.3,
-						"median": 0.4,
-						"probabilityToWin": 0.2
-					},
-					{
-						"confidenceInterval": [
-							0.6,
-							3.2
-						],
-						"control": false,
-						"dxpVariantId": "2",
-						"improvement": 0.4,
-						"median": 0.5,
-						"probabilityToWin": 0.3
-					}
-				]
-			},
-			{
-				"confidenceLevel": 0.95,
 				"elapsedDays": 2,
 				"estimatedDaysLeft": 12,
 				"processedDate": "${now-1d}",
@@ -140,6 +110,36 @@
 						"improvement": 0.6,
 						"median": 0.6,
 						"probabilityToWin": 0.5
+					}
+				]
+			},
+			{
+				"confidenceLevel": 0.95,
+				"elapsedDays": 1,
+				"estimatedDaysLeft": 13,
+				"processedDate": "${now-2d}",
+				"variantMetrics": [
+					{
+						"confidenceInterval": [
+							0.5,
+							2.5
+						],
+						"control": true,
+						"dxpVariantId": "1",
+						"improvement": 0.3,
+						"median": 0.4,
+						"probabilityToWin": 0.2
+					},
+					{
+						"confidenceInterval": [
+							0.6,
+							3.2
+						],
+						"control": false,
+						"dxpVariantId": "2",
+						"improvement": 0.4,
+						"median": 0.5,
+						"probabilityToWin": 0.3
 					}
 				]
 			}
