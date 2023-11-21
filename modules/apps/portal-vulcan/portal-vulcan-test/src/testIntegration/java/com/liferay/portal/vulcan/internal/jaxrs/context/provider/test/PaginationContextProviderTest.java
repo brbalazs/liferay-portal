@@ -7,10 +7,9 @@ package com.liferay.portal.vulcan.internal.jaxrs.context.provider.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.petra.function.UnsafeRunnable;
-import com.liferay.portal.configuration.test.util.CompanyConfigurationTemporarySwapper;
+import com.liferay.portal.configuration.test.util.ConfigurationTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.util.HashMapDictionaryBuilder;
-import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.internal.jaxrs.context.provider.test.util.MockFeature;
@@ -175,16 +174,20 @@ public class PaginationContextProviderTest {
 			int pageSizeLimit, UnsafeRunnable<Exception> runnable)
 		throws Exception {
 
-		try (CompanyConfigurationTemporarySwapper
-				companyConfigurationTemporarySwapper =
-					new CompanyConfigurationTemporarySwapper(
-						TestPropsValues.getCompanyId(),
-						"com.liferay.portal.vulcan.internal.configuration." +
-							"HeadlessAPICompanyConfiguration",
-						MapUtil.singletonDictionary(
-							"pageSizeLimit", pageSizeLimit))) {
+		String pid = ConfigurationTestUtil.createFactoryConfiguration(
+			"com.liferay.portal.vulcan.internal.configuration." +
+				"HeadlessAPICompanyConfiguration",
+			HashMapDictionaryBuilder.<String, Object>put(
+				"companyId", TestPropsValues.getCompanyId()
+			).put(
+				"pageSizeLimit", pageSizeLimit
+			).build());
 
+		try {
 			runnable.run();
+		}
+		finally {
+			ConfigurationTestUtil.deleteConfiguration(pid);
 		}
 	}
 
