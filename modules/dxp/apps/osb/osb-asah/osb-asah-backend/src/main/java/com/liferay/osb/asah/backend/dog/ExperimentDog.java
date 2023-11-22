@@ -163,7 +163,7 @@ public class ExperimentDog {
 					"draft");
 		}
 
-		ArrayList<ExperimentMetric> experimentMetrics = new ArrayList<>(
+		List<ExperimentMetric> experimentMetrics = new ArrayList<>(
 			experiment.getExperimentMetrics());
 
 		experimentMetrics.sort(
