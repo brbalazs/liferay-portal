@@ -79,7 +79,8 @@ public class ConfigurationModelToDDMFormValuesConverter {
 				values = AttributeDefinitionUtil.getPropertyStringArray(
 					attributeDefinition, configuration);
 			}
-			else {
+
+			if ((values == null) || (values.length == 0)) {
 				values = AttributeDefinitionUtil.getDefaultValue(
 					attributeDefinition);
 			}
