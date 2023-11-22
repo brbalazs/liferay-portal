@@ -7,24 +7,16 @@ package com.liferay.portal.vulcan.internal.graphql.instrumentation;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
 import graphql.execution.AbortExecutionException;
 
 import org.junit.Assert;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.Test;
 
 /**
  * @author Carlos Correa
  */
 public class QueryDepthLimitInstrumentationTest {
-
-	@ClassRule
-	@Rule
-	public static final LiferayUnitTestRule liferayUnitTestRule =
-		LiferayUnitTestRule.INSTANCE;
 
 	@Test
 	public void testMkAbortException() {
