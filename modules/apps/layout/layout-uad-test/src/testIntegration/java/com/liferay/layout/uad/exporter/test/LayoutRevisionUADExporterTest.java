@@ -74,11 +74,6 @@ public class LayoutRevisionUADExporterTest
 	}
 
 	@Override
-	protected String getPrimaryKeyName() {
-		return "layoutRevisionId";
-	}
-
-	@Override
 	protected UADExporter getUADExporter() {
 		return _uadExporter;
 	}
