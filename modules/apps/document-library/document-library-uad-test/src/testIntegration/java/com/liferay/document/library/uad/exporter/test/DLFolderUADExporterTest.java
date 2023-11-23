@@ -61,11 +61,6 @@ public class DLFolderUADExporterTest
 	}
 
 	@Override
-	protected String getPrimaryKeyName() {
-		return "folderId";
-	}
-
-	@Override
 	protected UADExporter getUADExporter() {
 		return _uadExporter;
 	}
