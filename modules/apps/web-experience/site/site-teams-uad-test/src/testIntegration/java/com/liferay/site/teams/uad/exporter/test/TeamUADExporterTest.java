@@ -49,11 +49,6 @@ public class TeamUADExporterTest extends BaseUADExporterTestCase<Team> {
 	}
 
 	@Override
-	protected String getPrimaryKeyName() {
-		return "teamId";
-	}
-
-	@Override
 	protected UADExporter getUADExporter() {
 		return _uadExporter;
 	}
