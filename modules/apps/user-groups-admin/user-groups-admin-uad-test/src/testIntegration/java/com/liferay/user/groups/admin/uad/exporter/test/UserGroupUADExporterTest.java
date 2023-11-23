@@ -50,11 +50,6 @@ public class UserGroupUADExporterTest
 	}
 
 	@Override
-	protected String getPrimaryKeyName() {
-		return "userGroupId";
-	}
-
-	@Override
 	protected UADExporter getUADExporter() {
 		return _uadExporter;
 	}
