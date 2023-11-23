@@ -72,11 +72,6 @@ public class MBThreadUADExporterTest
 	}
 
 	@Override
-	protected String getPrimaryKeyName() {
-		return "threadId";
-	}
-
-	@Override
 	protected UADExporter getUADExporter() {
 		return _uadExporter;
 	}
