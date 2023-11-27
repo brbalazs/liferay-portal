@@ -3,15 +3,7 @@
 		<Package name="com.liferay.osb.asah.common.filter.expression.parser" />
 	</Match>
 	<Match>
-		<Bug pattern="CIPHER_INTEGRITY" />
-		<Class name="com.liferay.osb.asah.common.security.Encryptor" />
-	</Match>
-	<Match>
 		<Bug pattern="CRLF_INJECTION_LOGS" />
-	</Match>
-	<Match>
-		<Bug pattern="ECB_MODE" />
-		<Class name="com.liferay.osb.asah.common.security.Encryptor" />
 	</Match>
 	<Match>
 		<Bug pattern="PATH_TRAVERSAL_IN" />
@@ -88,9 +80,5 @@
 		<Bug pattern="SPRING_CSRF_UNRESTRICTED_REQUEST_MAPPING" />
 		<Class name="com.liferay.osb.asah.common.rest.controller.ErrorRestController" />
 		<Method name="handleError" />
-	</Match>
-	<Match>
-		<Bug pattern="WEAK_MESSAGE_DIGEST_SHA1" />
-		<Class name="com.liferay.osb.asah.common.security.Encryptor" />
 	</Match>
 </FindBugsFilter>

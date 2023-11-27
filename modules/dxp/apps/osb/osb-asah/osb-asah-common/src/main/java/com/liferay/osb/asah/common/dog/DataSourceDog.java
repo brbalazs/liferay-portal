@@ -19,7 +19,6 @@ import com.liferay.osb.asah.common.postgresql.converter.helper.DataSourceFilterS
 import com.liferay.osb.asah.common.repository.BQIndividualRepository;
 import com.liferay.osb.asah.common.repository.DataSourceRepository;
 import com.liferay.osb.asah.common.repository.helper.FilterHelper;
-import com.liferay.osb.asah.common.security.Encryptor;
 import com.liferay.osb.asah.common.spring.http.exception.OSBAsahException;
 import com.liferay.osb.asah.common.util.BeanUtils;
 import com.liferay.osb.asah.common.util.TimeOrderedUuidGenerator;
@@ -538,9 +537,6 @@ public class DataSourceDog {
 
 	@Autowired
 	private DXPEntityDog _dxpEntityDog;
-
-	@Autowired
-	private Encryptor _encryptor;
 
 	@Autowired
 	private ObjectMapper _objectMapper;
