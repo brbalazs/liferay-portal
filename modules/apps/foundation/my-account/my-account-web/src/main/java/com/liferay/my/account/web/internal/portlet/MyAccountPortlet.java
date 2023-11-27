@@ -10,7 +10,6 @@ import com.liferay.portal.kernel.model.Release;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.users.admin.constants.UsersAdminPortletKeys;
 
 import java.io.IOException;
 
