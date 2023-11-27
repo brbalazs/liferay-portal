@@ -513,32 +513,12 @@ public class DataSource implements Persistable<Long> {
 
 	@AccessType(AccessType.Type.PROPERTY)
 	@JsonIgnore
-	public String getPrivateKey() {
-		if (_credential == null) {
-			return null;
-		}
-
-		return _credential.getPrivateKey();
-	}
-
-	@AccessType(AccessType.Type.PROPERTY)
-	@JsonIgnore
 	public String getProviderType() {
 		if (_provider == null) {
 			return null;
 		}
 
 		return _provider.getType();
-	}
-
-	@AccessType(AccessType.Type.PROPERTY)
-	@JsonIgnore
-	public String getPublicKey() {
-		if (_credential == null) {
-			return null;
-		}
-
-		return _credential.getPublicKey();
 	}
 
 	@AccessType(AccessType.Type.PROPERTY)
@@ -1001,18 +981,6 @@ public class DataSource implements Persistable<Long> {
 		_credential.setPassword(password);
 	}
 
-	public void setPrivateKey(String privateKey) {
-		if (privateKey == null) {
-			return;
-		}
-
-		if (_credential == null) {
-			_credential = new Credential();
-		}
-
-		_credential.setPrivateKey(privateKey);
-	}
-
 	public void setProvider(Provider provider) {
 		_provider = provider;
 	}
@@ -1027,18 +995,6 @@ public class DataSource implements Persistable<Long> {
 		}
 
 		_provider.setType(providerType);
-	}
-
-	public void setPublicKey(String publicKey) {
-		if (publicKey == null) {
-			return;
-		}
-
-		if (_credential == null) {
-			_credential = new Credential();
-		}
-
-		_credential.setPublicKey(publicKey);
 	}
 
 	public void setSitesSelected(Boolean sitesSelected) {
@@ -1520,8 +1476,6 @@ public class DataSource implements Persistable<Long> {
 				Objects.equals(
 					_oAuthRefreshToken, credential._oAuthRefreshToken) &&
 				Objects.equals(_password, credential._password) &&
-				Objects.equals(_privateKey, credential._privateKey) &&
-				Objects.equals(_publicKey, credential._publicKey) &&
 				Objects.equals(_type, credential._type)) {
 
 				return true;
@@ -1578,14 +1532,6 @@ public class DataSource implements Persistable<Long> {
 			return _password;
 		}
 
-		public String getPrivateKey() {
-			return _privateKey;
-		}
-
-		public String getPublicKey() {
-			return _publicKey;
-		}
-
 		public String getType() {
 			return _type;
 		}
@@ -1595,8 +1541,7 @@ public class DataSource implements Persistable<Long> {
 			return Objects.hash(
 				_login, _oAuthAccessSecret, _oAuthAccessToken, _oAuthClientId,
 				_oAuthClientSecret, _oAuthConsumerKey, _oAuthConsumerSecret,
-				_oAuthOwner, _oAuthRefreshToken, _password, _privateKey,
-				_publicKey, _type);
+				_oAuthOwner, _oAuthRefreshToken, _password, _type);
 		}
 
 		public void setLogin(String login) {
@@ -1637,14 +1582,6 @@ public class DataSource implements Persistable<Long> {
 
 		public void setPassword(String password) {
 			_password = password;
-		}
-
-		public void setPrivateKey(String privateKey) {
-			_privateKey = privateKey;
-		}
-
-		public void setPublicKey(String publicKey) {
-			_publicKey = publicKey;
 		}
 
 		public void setType(String type) {
@@ -1711,8 +1648,6 @@ public class DataSource implements Persistable<Long> {
 		private OAuthOwner _oAuthOwner;
 		private String _oAuthRefreshToken;
 		private String _password;
-		private String _privateKey;
-		private String _publicKey;
 		private String _type;
 
 	}

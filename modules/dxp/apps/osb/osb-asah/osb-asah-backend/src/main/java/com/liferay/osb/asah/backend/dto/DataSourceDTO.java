@@ -442,8 +442,6 @@ public class DataSourceDTO {
 
 			_oAuthRefreshToken = dataSource.getOAuthRefreshToken();
 			_password = dataSource.getPassword();
-			_privateKey = dataSource.getPrivateKey();
-			_publicKey = dataSource.getPublicKey();
 		}
 
 		@Override

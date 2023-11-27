@@ -25,8 +25,6 @@ import com.liferay.osb.asah.common.util.BeanUtils;
 import com.liferay.osb.asah.common.util.TimeOrderedUuidGenerator;
 import com.liferay.osb.asah.common.wedeploy.data.WeDeployDataService;
 
-import java.security.KeyPair;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -126,8 +124,6 @@ public class DataSourceDog {
 
 		dataSource.setContactsSelected(false);
 		dataSource.setFaroBackendSecuritySignature(null);
-		dataSource.setPrivateKey(null);
-		dataSource.setPublicKey(null);
 		dataSource.setSitesSelected(false);
 		dataSource.setState("DISCONNECTED");
 		dataSource.setStatus("INACTIVE");
@@ -498,16 +494,6 @@ public class DataSourceDog {
 		}
 
 		try {
-			if (StringUtils.isBlank(dataSource.getPrivateKey())) {
-				KeyPair keyPair = _encryptor.generateKeyPair();
-
-				dataSource.setPrivateKey(
-					_encryptor.encrypt(
-						dataSource.getURL(),
-						_encryptor.encode(keyPair.getPrivate())));
-				dataSource.setPublicKey(_encryptor.encode(keyPair.getPublic()));
-			}
-
 			if (StringUtils.isBlank(
 					dataSource.getFaroBackendSecuritySignature())) {
 

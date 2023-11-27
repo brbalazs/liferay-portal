@@ -232,8 +232,6 @@ public class DataSourceDogTest
 		DataSource dataSource = _dataSourceDog.patchDataSource(
 			liferayDataSource);
 
-		Assertions.assertNotNull(dataSource.getPrivateKey());
-		Assertions.assertNotNull(dataSource.getPublicKey());
 		Assertions.assertEquals(
 			"Token Authentication", dataSource.getCredentialType());
 	}
