@@ -25,6 +25,12 @@ As another example, these services serve the data of an Analytics Cloud customer
 
 <img src="./asah.drawio.svg">
 
+### kong-gateway
+
+This service proxies all requests directed to osb-asah-backend or osb-asah-publisher.
+
+Please read [LRAC-15096](https://liferay.atlassian.net/browse/LRAC-15096) for configuration instructions. 
+
 ### osb-asah-backend
 
 This service exposes endpoints to the [Faro frontend](https://github.com/liferay/com-liferay-osb-faro-private) and Liferay Portal.
