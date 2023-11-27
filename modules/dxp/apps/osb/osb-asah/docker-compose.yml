@@ -74,6 +74,7 @@ services:
             context: ./osb-asah-backend
         container_name: osbasahbackend
         depends_on:
+            - konggateway
             - osbasahupgrade
         env_file:
             - common.env
