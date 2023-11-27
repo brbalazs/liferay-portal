@@ -28,8 +28,8 @@ services:
             test: [ "CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/status" ]
         ports:
             - "3001:3000"
-    kong:
-        container_name: kong
+    konggateway:
+        container_name: konggateway
         environment:
             KONG_ADMIN_ACCESS_LOG: /dev/stdout
             KONG_ADMIN_ERROR_LOG: /dev/stderr
@@ -55,7 +55,7 @@ services:
             - "9080:9080"
             - "9081:9081"
         volumes:
-            - ./kong/declarative:/usr/local/kong/declarative
+            - ./devtools/kong-gateway/declarative:/usr/local/kong/declarative
     osbapiemulator:
         build: ./devtools/osb-api-emulator
         container_name: osbapiemulator
@@ -125,7 +125,7 @@ services:
             context: ./osb-asah-publisher
         container_name: osbasahpublisher
         depends_on:
-            - kong
+            - konggateway
             - osbasahupgrade
             - pubsubemulator
         env_file:
