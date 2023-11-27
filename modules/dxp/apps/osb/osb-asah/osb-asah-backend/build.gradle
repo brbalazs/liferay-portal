@@ -29,7 +29,6 @@ dependencies {
 	testImplementation group: "nl.jqno.equalsverifier", name: "equalsverifier", version: "2.5.1"
 	testImplementation project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-test-util")
 
-	testIntegrationImplementation group: "com.esotericsoftware.yamlbeans", name: "yamlbeans", version: "1.12"
 	testIntegrationImplementation group: "io.rest-assured", name: "json-schema-validator", version: "3.2.0"
 	testIntegrationImplementation group: "io.rest-assured", name: "rest-assured", version: "3.2.0"
 	testIntegrationImplementation project(configuration: "default", path: ":dxp:apps:osb:osb-asah:osb-asah-batch-curator")
