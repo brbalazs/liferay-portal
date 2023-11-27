@@ -10,7 +10,7 @@
 <div class="case-summary-container">
 	<h1><liferay-ui:message key="cases" /></h1>
 
-	<hr size="5" noshade />
+	<hr noshade size="5" />
 
 	<c:forEach items="${testrayCaseComposites}" var="testrayCaseComposite">
 		<div class="testray-card testray-card-metadata-panel">
@@ -130,7 +130,7 @@
 <div class="case-summary-container">
 	<h1><liferay-ui:message key="associated-requirements" /></h1>
 
-	<hr size="5" noshade />
+	<hr noshade size="5" />
 
 	<c:forEach items="${testrayRequirementComposites}" var="testrayRequirementComposite">
 		<div class="testray-card testray-card-metadata-panel">
