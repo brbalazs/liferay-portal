@@ -170,13 +170,13 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getBlogAssetReportResultBagEntityModel(
 					channelId, page + 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getBlogAssetReportResultBagEntityModel(
 					channelId, page - 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
@@ -337,13 +337,13 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getDocumentLibraryAssetReportResultBagEntityModel(
 					channelId, page + 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getDocumentLibraryAssetReportResultBagEntityModel(
 					channelId, page - 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
@@ -424,13 +424,13 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getFormAssetReportResultBagEntityModel(
 					channelId, page + 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getFormAssetReportResultBagEntityModel(
 					channelId, page - 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
@@ -474,12 +474,12 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getIndividualActivityResultBagEntityModel(
 					channelId, individualId, page + 1)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getIndividualActivityResultBagEntityModel(
 					channelId, individualId, page - 1)),
 			activityResultBag,
@@ -499,12 +499,12 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getIndividualInterestResultBagEntityModel(
 					channelId, individualId, page + 1)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getIndividualInterestResultBagEntityModel(
 					channelId, individualId, page - 1)),
 			new ResultBag<>(
@@ -584,13 +584,13 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getJournalAssetReportResultBagEntityModel(
 					channelId, page + 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getJournalAssetReportResultBagEntityModel(
 					channelId, page - 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
@@ -708,13 +708,13 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getPageAssetReportResultBagEntityModel(
 					channelId, page + 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getPageAssetReportResultBagEntityModel(
 					channelId, page - 1, keywords, rangeKey, sortMetric,
 					sortOrder)),
@@ -753,12 +753,12 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getReportIndividualDTOResultBagEntityModel(
 					channelId, page + 1, query)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getReportIndividualDTOResultBagEntityModel(
 					channelId, page - 1, query)),
 			reportIndividualDTOResultBag,
@@ -791,11 +791,11 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getSegmentResultBagEntityModel(channelId, page + 1)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getSegmentResultBagEntityModel(channelId, page - 1)),
 			segments, segmentPage.getTotalElements(),
 			segment -> _toReportSegmentDTOEntityModel(
@@ -823,12 +823,12 @@ public class ReportRestController extends BaseRestController {
 
 		return _toResultBagEntityModel(
 			_getLink(
-				_REL_NEXT,
+				channelId, _REL_NEXT,
 				_getSegmentReportIndividualDTOResultBagEntityModel(
 					channelId, segmentId, page + 1, query)),
 			page,
 			_getLink(
-				_REL_PREV,
+				channelId, _REL_PREV,
 				_getSegmentReportIndividualDTOResultBagEntityModel(
 					channelId, segmentId, page - 1, query)),
 			reportIndividualDTOResultBag,
@@ -1052,11 +1052,13 @@ public class ReportRestController extends BaseRestController {
 		);
 	}
 
-	private Link _getLink(String rel, Object methodInvocation) {
+	private Link _getLink(Long channelId, String rel, Object methodInvocation) {
 		return WebMvcLinkBuilder.linkTo(
 			methodInvocation
 		).withRel(
 			rel
+		).expand(
+			Collections.singletonMap("channelId", channelId)
 		);
 	}
 
