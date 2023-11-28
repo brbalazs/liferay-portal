@@ -50,12 +50,12 @@ public class OSBAsahBackendSpringBootApplication
 	public FilterRegistrationBean<ForwardedHeaderFilter>
 		forwardedHeaderFilter() {
 
-		FilterRegistrationBean<ForwardedHeaderFilter> bean =
+		FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean =
 			new FilterRegistrationBean<>();
 
-		bean.setFilter(new ForwardedHeaderFilter());
+		filterRegistrationBean.setFilter(new ForwardedHeaderFilter());
 
-		return bean;
+		return filterRegistrationBean;
 	}
 
 }
