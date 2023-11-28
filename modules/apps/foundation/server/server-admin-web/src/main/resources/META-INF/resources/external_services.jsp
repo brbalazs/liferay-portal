@@ -130,7 +130,7 @@
 							<liferay-ui:message key="<%= xugglerHelp %>" />
 						</div>
 
-						<aui:select label="jar-file" name="jarName">
+						<aui:select label="jar-file" name="xugglerOption">
 							<c:if test="<%= Validator.isNull(guess) %>">
 								<aui:option label="unknown" value="" />
 							</c:if>
@@ -141,7 +141,7 @@
 								String jarName = PropsUtil.get(PropsKeys.XUGGLER_JAR_NAME, new Filter(xugglerOption));
 							%>
 
-								<aui:option label='<%= jarName + " (" + jarFile + ")" %>' selected="<%= xugglerOption.equals(guess) %>" value="<%= jarFile %>" />
+								<aui:option label='<%= jarName + " (" + jarFile + ")" %>' selected="<%= xugglerOption.equals(guess) %>" value="<%= xugglerOption %>" />
 
 							<%
 							}
