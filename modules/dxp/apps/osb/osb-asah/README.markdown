@@ -29,7 +29,7 @@ As another example, these services serve the data of an Analytics Cloud customer
 
 This service proxies all requests directed to osb-asah-backend or osb-asah-publisher.
 
-Please read [LRAC-15096](https://liferay.atlassian.net/browse/LRAC-15096) for configuration instructions. 
+Please read [LRAC-15096](https://liferay.atlassian.net/browse/LRAC-15096) for configuration instructions.
 
 ### osb-asah-backend
 
