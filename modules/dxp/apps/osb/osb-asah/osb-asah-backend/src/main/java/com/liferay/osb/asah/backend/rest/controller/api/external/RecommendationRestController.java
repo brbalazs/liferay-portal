@@ -87,8 +87,17 @@ public class RecommendationRestController extends BaseRestController {
 			keywords, page, _PAGE_SIZE, Sort.desc("id"));
 
 		return _toResultBagEntityModel(
-			_getModelResultBagEntityModel(page + 1, keywords), page,
-			_getModelResultBagEntityModel(page - 1, keywords),
+			WebMvcLinkBuilder.linkTo(
+				_getModelResultBagEntityModel(page + 1, keywords)
+			).withRel(
+				_REL_NEXT
+			),
+			page,
+			WebMvcLinkBuilder.linkTo(
+				_getModelResultBagEntityModel(page - 1, keywords)
+			).withRel(
+				_REL_PREV
+			),
 			new ResultBag<>(jobPage.getContent(), jobPage.getTotalElements()),
 			this::_toModelEntityModel);
 	}
@@ -128,8 +137,17 @@ public class RecommendationRestController extends BaseRestController {
 				Long.valueOf(modelId), page, _PAGE_SIZE, Sort.asc("itemId"));
 
 		return _toResultBagEntityModel(
-			_getPageRecommendationResultBagEntityModel(modelId, page + 1), page,
-			_getPageRecommendationResultBagEntityModel(modelId, page - 1),
+			WebMvcLinkBuilder.linkTo(
+				_getPageRecommendationResultBagEntityModel(modelId, page + 1)
+			).withRel(
+				_REL_NEXT
+			),
+			page,
+			WebMvcLinkBuilder.linkTo(
+				_getPageRecommendationResultBagEntityModel(modelId, page - 1)
+			).withRel(
+				_REL_PREV
+			),
 			new ResultBag<>(
 				itemRecommendationPage.getContent(),
 				itemRecommendationPage.getTotalElements()),
@@ -271,8 +289,7 @@ public class RecommendationRestController extends BaseRestController {
 	}
 
 	private <T, R> ResultBagEntityModel<R> _toResultBagEntityModel(
-		Object nextPageMethodInvocation, int page,
-		Object prevPageMethodInvocation, ResultBag<T> resultBag,
+		Link nextPageLink, int page, Link prevPageLink, ResultBag<T> resultBag,
 		Function<T, EntityModel<R>> resultEntityModelMapperFunction) {
 
 		ResultBagEntityModel<R> resultBagResource = new ResultBagEntityModel<>(
@@ -282,27 +299,21 @@ public class RecommendationRestController extends BaseRestController {
 				resultBag.getTotal()));
 
 		if (((page + 1L) * _PAGE_SIZE) < resultBag.getTotal()) {
-			resultBagResource.add(
-				WebMvcLinkBuilder.linkTo(
-					nextPageMethodInvocation
-				).withRel(
-					"next"
-				));
+			resultBagResource.add(nextPageLink);
 		}
 
 		if (page > 0) {
-			resultBagResource.add(
-				WebMvcLinkBuilder.linkTo(
-					prevPageMethodInvocation
-				).withRel(
-					"prev"
-				));
+			resultBagResource.add(prevPageLink);
 		}
 
 		return resultBagResource;
 	}
 
 	private static final int _PAGE_SIZE = 20;
+
+	private static final String _REL_NEXT = "next";
+
+	private static final String _REL_PREV = "prev";
 
 	@Autowired
 	private AssetDog _assetDog;
