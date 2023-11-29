@@ -1257,7 +1257,11 @@
 				"name": "lastActivityDate",
 				"type": "TIMESTAMP"
 			}
-		]
+		],
+		"timePartitioning": {
+			"field": "firstActivityDate",
+			"type": "DAY"
+		}
 	},
 	"identityinterestpage": {
 		"clusteringFields": [
