@@ -207,7 +207,6 @@ public class DataSourcesRestController extends BaseRestController {
 
 	private void _sanitize(DataSource dataSource) {
 		dataSource.setFaroBackendSecuritySignature(null);
-		dataSource.setPrivateKey(null);
 	}
 
 	private PageDTO<DataSourceDTO> _toPageDTO(

@@ -49,7 +49,6 @@ public class DataSourcesRestController {
 
 	private void _sanitize(DataSource dataSource) {
 		dataSource.setFaroBackendSecuritySignature(null);
-		dataSource.setPrivateKey(null);
 	}
 
 	@Autowired

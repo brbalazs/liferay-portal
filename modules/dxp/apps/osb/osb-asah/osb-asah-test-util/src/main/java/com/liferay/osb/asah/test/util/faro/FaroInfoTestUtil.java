@@ -313,12 +313,6 @@ public class FaroInfoTestUtil {
 			dataSource.setOAuthRefreshToken(
 				credentialsJSONObject.getString("oAuthRefreshToken"));
 		}
-		else if (authenticationType.equals("Token Authentication")) {
-			dataSource.setPrivateKey(
-				credentialsJSONObject.getString("privateKey"));
-			dataSource.setPublicKey(
-				credentialsJSONObject.getString("publicKey"));
-		}
 
 		DataSource.Provider provider = new DataSource.Provider();
 
