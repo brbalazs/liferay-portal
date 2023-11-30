@@ -6,7 +6,7 @@
 package com.liferay.osb.asah.common.dog;
 
 import com.liferay.osb.asah.common.bigquery.BigQuerySchemaManager;
-import com.liferay.osb.asah.common.date.DateUtil;
+import com.liferay.osb.asah.common.constants.PreferenceConstants;
 import com.liferay.osb.asah.common.entity.Preference;
 import com.liferay.osb.asah.common.repository.PreferenceRepository;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
@@ -78,8 +78,8 @@ public class PreferenceDog {
 			{
 				put(
 					"data-retention-period",
-					String.valueOf(13 * DateUtil.MONTH));
-				put("time-zone-id", "UTC");
+					PreferenceConstants.DEFAULT_DATA_RETENTION_PERIOD);
+				put("time-zone-id", PreferenceConstants.DEFAULT_TIME_ZONE_ID);
 			}
 		};
 
