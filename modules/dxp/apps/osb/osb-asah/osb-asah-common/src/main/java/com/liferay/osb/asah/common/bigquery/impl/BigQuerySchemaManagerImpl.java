@@ -74,6 +74,32 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 		_bigQueryOptions = bigQuery.getOptions();
 	}
 
+	@Override
+	public void alterTable(
+		String projectId, String tableName, Map<String, String> options) {
+
+		Table table = _bigQuery.getTable(TableId.of(projectId, tableName));
+
+		if (table == null) {
+			_log.error(
+				String.format(
+					"Table %s.%s does not exists", projectId, tableName));
+
+			return;
+		}
+
+		_executeQuery(
+			String.format(
+				"ALTER TABLE `%s.%s` SET OPTIONS (%s)", projectId, tableName,
+				_getOptionsString(options)));
+
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				String.format(
+					"Table %s.%s altered successfully", projectId, tableName));
+		}
+	}
+
 	public void createFunction(String projectId, String functionName) {
 		JSONObject jsonObject = _functionsJSONObject.getJSONObject(
 			functionName);
@@ -464,6 +490,16 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 		catch (InterruptedException interruptedException) {
 			throw new RuntimeException(interruptedException);
 		}
+	}
+
+	private String _getOptionsString(Map<String, String> optionsMap) {
+		List<String> options = new ArrayList<>();
+
+		for (Map.Entry<String, String> entry : optionsMap.entrySet()) {
+			options.add(entry.getKey() + "=" + entry.getValue());
+		}
+
+		return String.join(",", options);
 	}
 
 	private String _getTimeZoneIdQuery(String projectId) {
