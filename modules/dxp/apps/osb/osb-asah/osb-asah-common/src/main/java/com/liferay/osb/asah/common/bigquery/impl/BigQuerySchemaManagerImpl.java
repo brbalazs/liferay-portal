@@ -29,6 +29,8 @@ import com.google.cloud.bigquery.TimePartitioning;
 import com.google.cloud.bigquery.ViewDefinition;
 
 import com.liferay.osb.asah.common.bigquery.BigQuerySchemaManager;
+import com.liferay.osb.asah.common.constants.PreferenceConstants;
+import com.liferay.osb.asah.common.dog.PreferenceDog;
 import com.liferay.osb.asah.common.json.JSONUtil;
 
 import java.io.InputStream;
@@ -358,6 +360,12 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 			TimePartitioning.Type.valueOf(
 				timePartitioningJSONObject.getString("type")));
 
+		if (timePartitioningJSONObject.optBoolean("expirable")) {
+			builder = builder.setExpirationMs(
+				Long.valueOf(
+					PreferenceConstants.DEFAULT_DATA_RETENTION_PERIOD));
+		}
+
 		return builder.setField(
 			timePartitioningJSONObject.getString("field")
 		).build();
@@ -559,6 +567,10 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 	private Environment _environment;
 
 	private JSONObject _functionsJSONObject;
+
+	@Autowired
+	private PreferenceDog _preferenceDog;
+
 	private JSONObject _tablesJSONObject;
 	private JSONObject _viewsJSONObject;
 
