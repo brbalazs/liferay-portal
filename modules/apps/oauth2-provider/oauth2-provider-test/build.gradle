@@ -14,7 +14,7 @@ dependencies {
 	compileOnly project(":core:petra:petra-string")
 
 	testIntegrationImplementation group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.19"
-	testIntegrationImplementation group: "org.apache.cxf", name: "cxf-rt-rs-client", version: "3.4.4"
+	testIntegrationImplementation group: "org.apache.cxf", name: "cxf-rt-rs-client", version: "3.4.10"
 	testIntegrationImplementation project(":apps:document-library:document-library-api")
 	testIntegrationImplementation project(":apps:portal-configuration:portal-configuration-test-util")
 }
