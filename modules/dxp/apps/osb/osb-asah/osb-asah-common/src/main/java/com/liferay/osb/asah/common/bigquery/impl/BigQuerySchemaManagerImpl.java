@@ -39,6 +39,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -262,6 +263,27 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 				String.format(
 					"Table %s.%s deleted successfully", projectId, tableName));
 		}
+	}
+
+	@Override
+	public Set<String> getExpirableTableNames() {
+		Set<String> tableNames = new HashSet<>();
+
+		for (String tableName : _tablesJSONObject.keySet()) {
+			JSONObject tableJSONObject = _tablesJSONObject.getJSONObject(
+				tableName);
+
+			JSONObject timePartitioningJSONObject =
+				tableJSONObject.optJSONObject("timePartitioning");
+
+			if ((timePartitioningJSONObject != null) &&
+				timePartitioningJSONObject.optBoolean("expirable")) {
+
+				tableNames.add(tableName);
+			}
+		}
+
+		return tableNames;
 	}
 
 	private Clustering _buildClustering(JSONArray clusteringFieldsJSONArray) {

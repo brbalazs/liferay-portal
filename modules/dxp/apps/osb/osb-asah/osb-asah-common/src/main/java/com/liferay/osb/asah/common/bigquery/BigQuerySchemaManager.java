@@ -5,6 +5,8 @@
 
 package com.liferay.osb.asah.common.bigquery;
 
+import java.util.Set;
+
 /**
  * @author Marcellus Tavares
  */
@@ -23,5 +25,7 @@ public interface BigQuerySchemaManager {
 	public void deleteSchema(String projectId);
 
 	public void dropTable(String projectId, String tableName);
+
+	public Set<String> getExpirableTableNames();
 
 }
