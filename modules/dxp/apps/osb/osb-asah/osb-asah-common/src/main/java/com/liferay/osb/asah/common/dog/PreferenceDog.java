@@ -5,15 +5,21 @@
 
 package com.liferay.osb.asah.common.dog;
 
-import com.liferay.osb.asah.common.date.DateUtil;
+import com.liferay.osb.asah.common.bigquery.BigQuerySchemaManager;
 import com.liferay.osb.asah.common.entity.Preference;
 import com.liferay.osb.asah.common.repository.PreferenceRepository;
+import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.commons.codec.binary.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Component;
 
 /**
@@ -38,22 +44,43 @@ public class PreferenceDog {
 	}
 
 	public synchronized Preference savePreference(String id, String value) {
+		Preference preference = null;
+
 		Optional<Preference> preferenceOptional =
 			_preferenceRepository.findById(id);
 
 		if (preferenceOptional.isPresent()) {
-			Preference preference = preferenceOptional.get();
+			preference = preferenceOptional.get();
 
 			preference.setValue(value);
+		}
+		else {
+			preference = new Preference(id, value);
 
-			return _preferenceRepository.save(preference);
+			preference.setIsNew(Boolean.TRUE);
 		}
 
-		Preference preference = new Preference(id, value);
+		preference = _preferenceRepository.save(preference);
 
-		preference.setIsNew(Boolean.TRUE);
+		if (_environment.acceptsProfiles(Profiles.of("prod")) &&
+			StringUtils.equals(id, "data-retention-period")) {
 
-		return _preferenceRepository.save(preference);
+			_updateDataRetentionPeriod(Long.valueOf(preference.getValue()));
+		}
+
+		return preference;
+	}
+
+	private void _updateDataRetentionPeriod(Long expirationTime) {
+		for (String tableName :
+				_bigQuerySchemaManager.getExpirableTableNames()) {
+
+			_bigQuerySchemaManager.alterTable(
+				ProjectIdThreadLocal.getProjectId(), tableName,
+				Collections.singletonMap(
+					"partition_expiration_days",
+					String.valueOf(expirationTime)));
+		}
 	}
 
 	private static final Map<String, String> _defaultPreferences =
@@ -65,6 +92,12 @@ public class PreferenceDog {
 				put("time-zone-id", "UTC");
 			}
 		};
+
+	@Autowired
+	private BigQuerySchemaManager _bigQuerySchemaManager;
+
+	@Autowired
+	private Environment _environment;
 
 	@Autowired
 	private PreferenceRepository _preferenceRepository;
