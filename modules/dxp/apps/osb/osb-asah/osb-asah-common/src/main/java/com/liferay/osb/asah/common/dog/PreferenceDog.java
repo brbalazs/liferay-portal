@@ -11,7 +11,6 @@ import com.liferay.osb.asah.common.entity.Preference;
 import com.liferay.osb.asah.common.repository.PreferenceRepository;
 import com.liferay.osb.asah.common.util.ProjectIdThreadLocal;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -66,22 +65,12 @@ public class PreferenceDog {
 		if (_environment.acceptsProfiles(Profiles.of("prod")) &&
 			StringUtils.equals(id, "data-retention-period")) {
 
-			_updateDataRetentionPeriod(Long.valueOf(preference.getValue()));
+			_bigQuerySchemaManager.updateTablesExpiration(
+				Long.valueOf(preference.getValue()),
+				ProjectIdThreadLocal.getProjectId());
 		}
 
 		return preference;
-	}
-
-	private void _updateDataRetentionPeriod(Long expirationTime) {
-		for (String tableName :
-				_bigQuerySchemaManager.getExpirableTableNames()) {
-
-			_bigQuerySchemaManager.alterTable(
-				ProjectIdThreadLocal.getProjectId(), tableName,
-				Collections.singletonMap(
-					"partition_expiration_days",
-					String.valueOf(expirationTime)));
-		}
 	}
 
 	private static final Map<String, String> _defaultPreferences =

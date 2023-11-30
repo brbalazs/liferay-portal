@@ -74,32 +74,6 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 		_bigQueryOptions = bigQuery.getOptions();
 	}
 
-	@Override
-	public void alterTable(
-		String projectId, String tableName, Map<String, String> options) {
-
-		Table table = _bigQuery.getTable(TableId.of(projectId, tableName));
-
-		if (table == null) {
-			_log.error(
-				String.format(
-					"Table %s.%s does not exists", projectId, tableName));
-
-			return;
-		}
-
-		_executeQuery(
-			String.format(
-				"ALTER TABLE `%s.%s` SET OPTIONS (%s)", projectId, tableName,
-				_getOptionsString(options)));
-
-		if (_log.isInfoEnabled()) {
-			_log.info(
-				String.format(
-					"Table %s.%s altered successfully", projectId, tableName));
-		}
-	}
-
 	public void createFunction(String projectId, String functionName) {
 		JSONObject jsonObject = _functionsJSONObject.getJSONObject(
 			functionName);
@@ -292,24 +266,10 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 	}
 
 	@Override
-	public Set<String> getExpirableTableNames() {
-		Set<String> tableNames = new HashSet<>();
-
-		for (String tableName : _tablesJSONObject.keySet()) {
-			JSONObject tableJSONObject = _tablesJSONObject.getJSONObject(
-				tableName);
-
-			JSONObject timePartitioningJSONObject =
-				tableJSONObject.optJSONObject("timePartitioning");
-
-			if ((timePartitioningJSONObject != null) &&
-				timePartitioningJSONObject.optBoolean("expirable")) {
-
-				tableNames.add(tableName);
-			}
+	public void updateTablesExpiration(Long expirationTime, String projectId) {
+		for (String tableName : _getExpirableTableNames()) {
+			_updateTableExpiration(expirationTime, projectId, tableName);
 		}
-
-		return tableNames;
 	}
 
 	private Clustering _buildClustering(JSONArray clusteringFieldsJSONArray) {
@@ -492,14 +452,24 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 		}
 	}
 
-	private String _getOptionsString(Map<String, String> optionsMap) {
-		List<String> options = new ArrayList<>();
+	private Set<String> _getExpirableTableNames() {
+		Set<String> tableNames = new HashSet<>();
 
-		for (Map.Entry<String, String> entry : optionsMap.entrySet()) {
-			options.add(entry.getKey() + "=" + entry.getValue());
+		for (String tableName : _tablesJSONObject.keySet()) {
+			JSONObject tableJSONObject = _tablesJSONObject.getJSONObject(
+				tableName);
+
+			JSONObject timePartitioningJSONObject =
+				tableJSONObject.optJSONObject("timePartitioning");
+
+			if ((timePartitioningJSONObject != null) &&
+				timePartitioningJSONObject.optBoolean("expirable")) {
+
+				tableNames.add(tableName);
+			}
 		}
 
-		return String.join(",", options);
+		return tableNames;
 	}
 
 	private String _getTimeZoneIdQuery(String projectId) {
@@ -536,6 +506,35 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 		}
 		catch (Exception exception) {
 			throw new IllegalStateException(exception);
+		}
+	}
+
+	private void _updateTableExpiration(
+		Long expirationTime, String projectId, String tableName) {
+
+		try {
+			Table table = _bigQuery.getTable(TableId.of(projectId, tableName));
+
+			Table.Builder builder = table.toBuilder();
+
+			_bigQuery.update(
+				builder.setExpirationTime(
+					expirationTime
+				).build());
+
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					String.format(
+						"Table %s.%s expiration updated successfully to %s",
+						projectId, tableName, expirationTime));
+			}
+		}
+		catch (BigQueryException bigQueryException) {
+			_log.error(
+				String.format(
+					"Unable to set expiration for table %s.%s", projectId,
+					tableName),
+				bigQueryException);
 		}
 	}
 

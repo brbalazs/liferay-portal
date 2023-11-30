@@ -5,16 +5,10 @@
 
 package com.liferay.osb.asah.common.bigquery;
 
-import java.util.Map;
-import java.util.Set;
-
 /**
  * @author Marcellus Tavares
  */
 public interface BigQuerySchemaManager {
-
-	public void alterTable(
-		String projectId, String tableName, Map<String, String> options);
 
 	public void createFunction(String projectId, String functionsName);
 
@@ -30,6 +24,6 @@ public interface BigQuerySchemaManager {
 
 	public void dropTable(String projectId, String tableName);
 
-	public Set<String> getExpirableTableNames();
+	public void updateTablesExpiration(Long expirationTime, String projectId);
 
 }
