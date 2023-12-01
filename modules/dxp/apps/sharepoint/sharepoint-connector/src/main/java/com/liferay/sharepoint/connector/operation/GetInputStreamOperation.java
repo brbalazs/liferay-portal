@@ -54,7 +54,9 @@ public class GetInputStreamOperation extends BaseOperation {
 		return execute(url);
 	}
 
-	protected void authenticate(HttpClient httpClient, URL url) {
+	protected void authenticate(
+		org.apache.commons.httpclient.HttpClient httpClient, URL url) {
+
 		throw new UnsupportedOperationException();
 	}
 
