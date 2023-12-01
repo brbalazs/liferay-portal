@@ -63,7 +63,6 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 		HttpServletRequest wrappedHttpServletRequest =
 			new ForwardedHeaderExtractingRequest(httpServletRequest);
-
 		HttpServletResponse wrappedHttpServletResponse =
 			new ForwardedHeaderExtractingResponse(
 				wrappedHttpServletRequest, httpServletResponse);
@@ -414,10 +413,10 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 		public ForwardedPrefixExtractor(
 			Supplier<HttpServletRequest> delegateRequest, String baseUrl) {
 
-			HttpServletRequest httpServletRequest = delegateRequest.get();
-
 			_delegateRequest = delegateRequest;
 			_baseUrl = baseUrl;
+
+			HttpServletRequest httpServletRequest = delegateRequest.get();
 
 			_actualRequestUri = httpServletRequest.getRequestURI();
 
