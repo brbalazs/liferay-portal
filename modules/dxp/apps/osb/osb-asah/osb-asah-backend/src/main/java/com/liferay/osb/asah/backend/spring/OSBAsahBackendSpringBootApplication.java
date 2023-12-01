@@ -5,11 +5,9 @@
 
 package com.liferay.osb.asah.backend.spring;
 
-import com.liferay.osb.asah.backend.servlet.filter.ForwardedHeaderFilter;
 import com.liferay.osb.asah.common.spring.OSBAsahSpringBootApplication;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -44,18 +42,6 @@ public class OSBAsahBackendSpringBootApplication
 				"classpath*:/application.properties"));
 
 		return propertySourcesPlaceholderConfigurer;
-	}
-
-	@Bean
-	public FilterRegistrationBean<ForwardedHeaderFilter>
-		forwardedHeaderFilter() {
-
-		FilterRegistrationBean<ForwardedHeaderFilter> filterRegistrationBean =
-			new FilterRegistrationBean<>();
-
-		filterRegistrationBean.setFilter(new ForwardedHeaderFilter());
-
-		return filterRegistrationBean;
 	}
 
 }

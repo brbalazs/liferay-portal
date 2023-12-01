@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 import org.springframework.util.StringUtils;
@@ -38,6 +39,7 @@ import org.springframework.web.util.UrlPathHelper;
 /**
  * @author Ivica Cardic
  */
+@Component
 public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 	public ForwardedHeaderFilter() {
