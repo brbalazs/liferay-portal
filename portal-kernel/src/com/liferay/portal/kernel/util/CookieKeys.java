@@ -5,8 +5,7 @@
 
 package com.liferay.portal.kernel.util;
 
-import com.liferay.petra.string.CharPool;
-import com.liferay.portal.kernel.configuration.Filter;
+import com.liferay.portal.kernel.cookies.CookiesManagerUtil;
 import com.liferay.portal.kernel.exception.CookieNotSupportedException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -175,60 +174,11 @@ public class CookieKeys {
 	}
 
 	public static String getDomain(HttpServletRequest request) {
-
-		// See LEP-4602 and	LEP-4618.
-
-		if (Validator.isNotNull(_SESSION_COOKIE_DOMAIN)) {
-			return _SESSION_COOKIE_DOMAIN;
-		}
-
-		String host = request.getServerName();
-
-		if (_SESSION_COOKIE_USE_FULL_HOSTNAME) {
-			return StringPool.BLANK;
-		}
-
-		return getDomain(host);
+		return CookiesManagerUtil.getDomain(request);
 	}
 
 	public static String getDomain(String host) {
-
-		// See LEP-4602 and LEP-4645.
-
-		if (host == null) {
-			return null;
-		}
-
-		// See LEP-5595.
-
-		if (Validator.isIPAddress(host)) {
-			return host;
-		}
-
-		int x = host.lastIndexOf(CharPool.PERIOD);
-
-		if (x <= 0) {
-			return null;
-		}
-
-		int y = host.lastIndexOf(CharPool.PERIOD, x - 1);
-
-		if (y <= 0) {
-			return StringPool.PERIOD + host;
-		}
-
-		int z = host.lastIndexOf(CharPool.PERIOD, y - 1);
-
-		String domain = null;
-
-		if (z <= 0) {
-			domain = host.substring(y);
-		}
-		else {
-			domain = host.substring(z);
-		}
-
-		return domain;
+		return CookiesManagerUtil.getDomain(host);
 	}
 
 	public static boolean hasSessionId(HttpServletRequest request) {
@@ -315,15 +265,6 @@ public class CookieKeys {
 
 		return cookieMap;
 	}
-
-	private static final String _SESSION_COOKIE_DOMAIN = PropsUtil.get(
-		PropsKeys.SESSION_COOKIE_DOMAIN);
-
-	private static final boolean _SESSION_COOKIE_USE_FULL_HOSTNAME =
-		GetterUtil.getBoolean(
-			PropsUtil.get(
-				PropsKeys.SESSION_COOKIE_USE_FULL_HOSTNAME,
-				new Filter(ServerDetector.getServerId())));
 
 	private static final boolean _SESSION_ENABLE_PERSISTENT_COOKIES =
 		GetterUtil.getBoolean(
