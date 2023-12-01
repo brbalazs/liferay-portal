@@ -686,7 +686,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-analyzers-common.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene Common Analyzers</project-name>
 				<licenses>
 					<license>
@@ -697,7 +697,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-core.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene Core</project-name>
 				<licenses>
 					<license>
@@ -708,7 +708,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-queries.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene Queries</project-name>
 				<licenses>
 					<license>
@@ -719,7 +719,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-queryparser.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene QueryParsers</project-name>
 				<licenses>
 					<license>
@@ -730,7 +730,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-sandbox.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene Sandbox</project-name>
 				<licenses>
 					<license>
@@ -3580,12 +3580,12 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.template.soy.impl.jar!protobuf-java.jar</file-name>
-				<version>3.16.1</version>
+				<version>3.21.7</version>
 				<project-name>Protocol Buffers [Core]</project-name>
 				<project-url>https://developers.google.com/protocol-buffers/</project-url>
 				<licenses>
 					<license>
-						<license-name>3-Clause BSD License</license-name>
+						<license-name>BSD-3-Clause</license-name>
 						<license-url>https://opensource.org/licenses/BSD-3-Clause</license-url>
 					</license>
 				</licenses>
