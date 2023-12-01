@@ -17,7 +17,6 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.Serializable;
@@ -96,9 +95,6 @@ public class ExportImportConfigurationFactory {
 		long sourceGroupId = ParamUtil.getLong(portletRequest, "sourceGroupId");
 		boolean privateLayout = ParamUtil.getBoolean(
 			portletRequest, "privateLayout");
-		String remoteAddress = ParamUtil.getString(
-			portletRequest, "remoteAddress");
-		int remotePort = ParamUtil.getInteger(portletRequest, "remotePort");
 		String remotePathContext = ParamUtil.getString(
 			portletRequest, "remotePathContext");
 		boolean secureConnection = ParamUtil.getBoolean(
@@ -107,18 +103,11 @@ public class ExportImportConfigurationFactory {
 
 		Map<String, String[]> parameterMap = _getParameterMap(portletRequest);
 
-		if (Validator.isNull(remoteAddress) || (remotePort == 0)) {
-			Group group = GroupLocalServiceUtil.getGroup(sourceGroupId);
+		Group group = GroupLocalServiceUtil.getGroup(sourceGroupId);
 
-			if (Validator.isNull(remoteAddress)) {
-				remoteAddress = group.getTypeSettingsProperty("remoteAddress");
-			}
-
-			if (remotePort == 0) {
-				remotePort = GetterUtil.getInteger(
-					group.getTypeSettingsProperty("remotePort"));
-			}
-		}
+		String remoteAddress = group.getTypeSettingsProperty("remoteAddress");
+		int remotePort = GetterUtil.getInteger(
+			group.getTypeSettingsProperty("remotePort"));
 
 		return buildDefaultRemotePublishingExportImportConfiguration(
 			themeDisplay.getUser(), sourceGroupId, privateLayout, remoteAddress,
