@@ -10,6 +10,6 @@ package com.liferay.osb.asah.common.model;
  */
 public enum ExperimentType {
 
-	AB
+	AB, MAB
 
 }
