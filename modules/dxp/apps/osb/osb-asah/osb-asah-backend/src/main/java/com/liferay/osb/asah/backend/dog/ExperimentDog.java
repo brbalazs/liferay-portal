@@ -267,6 +267,14 @@ public class ExperimentDog {
 				existingExperiment, experiment.getPublishedDXPVariantId());
 		}
 
+		if ((experiment.getExperimentStatus() == ExperimentStatus.RUNNING) &&
+			(existingExperiment.getExperimentStatus() ==
+				ExperimentStatus.DRAFT)) {
+
+			existingExperiment.setExperimentType(
+				experiment.getExperimentType());
+		}
+
 		if (experiment.getName() != null) {
 			existingExperiment.setName(experiment.getName());
 		}
