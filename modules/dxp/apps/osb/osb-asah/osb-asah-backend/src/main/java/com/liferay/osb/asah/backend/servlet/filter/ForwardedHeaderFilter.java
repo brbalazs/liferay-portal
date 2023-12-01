@@ -1,5 +1,5 @@
 /**
- * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-FileCopyrightText: (c) 2023 Liferay, Inc. https://liferay.com
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
@@ -41,12 +41,12 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 	public ForwardedHeaderFilter() {
 		_forwardedHeaderNames.add("Forwarded");
+		_forwardedHeaderNames.add("X-Forwarded-For");
 		_forwardedHeaderNames.add("X-Forwarded-Host");
 		_forwardedHeaderNames.add("X-Forwarded-Port");
-		_forwardedHeaderNames.add("X-Forwarded-Proto");
 		_forwardedHeaderNames.add("X-Forwarded-Prefix");
+		_forwardedHeaderNames.add("X-Forwarded-Proto");
 		_forwardedHeaderNames.add("X-Forwarded-Ssl");
-		_forwardedHeaderNames.add("X-Forwarded-For");
 		_forwardedHeaderNames.add("X-Liferay-Origin-Forwarded-Host");
 		_forwardedHeaderNames.add("X-Liferay-Origin-Forwarded-Port");
 		_forwardedHeaderNames.add("X-Liferay-Origin-Forwarded-Proto");
@@ -58,14 +58,15 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 			HttpServletResponse httpServletResponse, FilterChain filterChain)
 		throws IOException, ServletException {
 
-		HttpServletRequest wrappedRequest =
+		HttpServletRequest wrappedHttpServletRequest =
 			new ForwardedHeaderExtractingRequest(httpServletRequest);
 
-		HttpServletResponse wrappedResponse =
+		HttpServletResponse wrappedHttpServletResponse =
 			new ForwardedHeaderExtractingResponse(
-				wrappedRequest, httpServletResponse);
+				wrappedHttpServletRequest, httpServletResponse);
 
-		filterChain.doFilter(wrappedRequest, wrappedResponse);
+		filterChain.doFilter(
+			wrappedHttpServletRequest, wrappedHttpServletResponse);
 	}
 
 	@Override
@@ -79,8 +80,8 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest httpServletRequest) {
-		for (String headerName : _forwardedHeaderNames) {
-			if (httpServletRequest.getHeader(headerName) != null) {
+		for (String forwardedHeaderName : _forwardedHeaderNames) {
+			if (httpServletRequest.getHeader(forwardedHeaderName) != null) {
 				return false;
 			}
 		}
@@ -172,11 +173,11 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 			super(httpServletRequest);
 
-			ServerHttpRequest request = new ServletServerHttpRequest(
-				httpServletRequest);
+			ServerHttpRequest servletServerHttpRequest =
+				new ServletServerHttpRequest(httpServletRequest);
 
 			UriComponents uriComponents = UriComponentsBuilder.fromHttpRequest(
-				request
+				servletServerHttpRequest
 			).build();
 
 			int port = uriComponents.getPort();
@@ -190,7 +191,8 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 			_port = (port == -1) ? (_secure ? 443 : 80) : port;
 
 			_remoteAddress = UriComponentsBuilder.parseForwardedFor(
-				request, request.getRemoteAddress());
+				servletServerHttpRequest,
+				servletServerHttpRequest.getRemoteAddress());
 
 			String baseUrl =
 				_scheme + "://" + _host + ((port == -1) ? "" : ":" + port);
@@ -215,10 +217,10 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 		@Override
 		public void sendRedirect(String location) throws IOException {
-			UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(
-				location);
+			UriComponentsBuilder uriComponentsBuilder =
+				UriComponentsBuilder.fromUriString(location);
 
-			UriComponents uriComponents = builder.build();
+			UriComponents uriComponents = uriComponentsBuilder.build();
 
 			if (uriComponents.getScheme() != null) {
 				super.sendRedirect(location);
@@ -228,7 +230,7 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 			if (location.startsWith("//")) {
 				super.sendRedirect(
-					builder.scheme(
+					uriComponentsBuilder.scheme(
 						_httpServletRequest.getScheme()
 					).toUriString());
 
@@ -242,19 +244,20 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 					_httpServletRequest.getRequestURI(), path);
 			}
 
-			String result = UriComponentsBuilder.fromHttpRequest(
-				new ServletServerHttpRequest(_httpServletRequest)
-			).replacePath(
+			uriComponentsBuilder = UriComponentsBuilder.fromHttpRequest(
+				new ServletServerHttpRequest(_httpServletRequest));
+
+			uriComponents = uriComponentsBuilder.replacePath(
 				path
 			).replaceQuery(
 				uriComponents.getQuery()
 			).fragment(
 				uriComponents.getFragment()
-			).build(
-			).normalize(
-			).toUriString();
+			).build();
 
-			super.sendRedirect(result);
+			UriComponents normalizedUriComponents = uriComponents.normalize();
+
+			super.sendRedirect(normalizedUriComponents.toUriString());
 		}
 
 		private ForwardedHeaderExtractingResponse(
@@ -341,10 +344,10 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 			HttpServletRequest httpServletRequest = delegateRequest.get();
 
-			_actualRequestUri = httpServletRequest.getRequestURI();
-
 			_delegateRequest = delegateRequest;
 			_baseUrl = baseUrl;
+
+			_actualRequestUri = httpServletRequest.getRequestURI();
 
 			_forwardedPrefix = _initForwardedPrefix(delegateRequest.get());
 			_requestUri = _initRequestUri();
