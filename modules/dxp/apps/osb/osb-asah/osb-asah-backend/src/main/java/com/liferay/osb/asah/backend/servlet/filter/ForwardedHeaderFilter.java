@@ -186,7 +186,14 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 			_scheme = uriComponents.getScheme();
 
-			_secure = _scheme.equals("https") || _scheme.equals("wss");
+			if ((_scheme != null) &&
+				(_scheme.equals("https") || _scheme.equals("wss"))) {
+
+				_secure = true;
+			}
+			else {
+				_secure = false;
+			}
 
 			_host = uriComponents.getHost();
 
