@@ -35,10 +35,6 @@ Please read [LRAC-15096](https://liferay.atlassian.net/browse/LRAC-15096) for co
 
 This service exposes endpoints to the [Faro frontend](https://github.com/liferay/com-liferay-osb-faro-private) and Liferay Portal.
 
-### osb-asah-backend-ext-seo
-
-This service exposes additional endpoints related to SEO features (integrates with [SEMrush](https://www.semrush.com/)).
-
 ### osb-asah-batch-curator
 
 This service processes raw data into intelligent information using scheduled routines (e.g., once a day).
