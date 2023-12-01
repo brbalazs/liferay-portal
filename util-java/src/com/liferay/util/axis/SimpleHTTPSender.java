@@ -5,10 +5,12 @@
 
 package com.liferay.util.axis;
 
+import com.liferay.petra.string.CharPool;
 import com.liferay.portal.kernel.io.unsync.UnsyncBufferedInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncBufferedOutputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.SystemProperties;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -19,9 +21,6 @@ import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.axis.AxisFault;
 import org.apache.axis.Message;
@@ -34,14 +33,14 @@ import org.apache.axis.transport.http.HTTPSender;
 public class SimpleHTTPSender extends HTTPSender {
 
 	public SimpleHTTPSender() {
-		String regexp = SystemProperties.get(
-			SimpleHTTPSender.class.getName() + ".regexp.pattern");
+		String urlPattern = SystemProperties.get(
+			SimpleHTTPSender.class.getName() + ".url.pattern");
 
-		if (Validator.isNotNull(regexp)) {
-			_pattern = Pattern.compile(regexp);
+		if (Validator.isNotNull(urlPattern)) {
+			_urlPattern = urlPattern;
 		}
 		else {
-			_pattern = null;
+			_urlPattern = null;
 		}
 	}
 
@@ -49,13 +48,11 @@ public class SimpleHTTPSender extends HTTPSender {
 	public void invoke(MessageContext messageContext) throws AxisFault {
 		String url = messageContext.getStrProp(MessageContext.TRANS_URL);
 
-		Matcher matcher = null;
+		if ((_urlPattern != null) &&
+			StringUtil.wildcardMatches(
+				url, _urlPattern, CharPool.QUESTION, CharPool.STAR,
+				CharPool.PERCENT, false)) {
 
-		if (_pattern != null) {
-			matcher = _pattern.matcher(url);
-		}
-
-		if ((matcher != null) && matcher.matches()) {
 			if (_log.isDebugEnabled()) {
 				_log.debug("A match was found for " + url);
 			}
@@ -149,6 +146,6 @@ public class SimpleHTTPSender extends HTTPSender {
 	private static final Log _log = LogFactoryUtil.getLog(
 		SimpleHTTPSender.class);
 
-	private final Pattern _pattern;
+	private final String _urlPattern;
 
 }
