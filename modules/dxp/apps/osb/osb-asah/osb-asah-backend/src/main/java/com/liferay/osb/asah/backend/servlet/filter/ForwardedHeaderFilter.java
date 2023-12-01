@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.CollectionUtils;
@@ -176,9 +177,8 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 			ServerHttpRequest servletServerHttpRequest =
 				new ServletServerHttpRequest(httpServletRequest);
 
-			UriComponents uriComponents = UriComponentsBuilder.fromHttpRequest(
-				servletServerHttpRequest
-			).build();
+			UriComponents uriComponents = _getForwardedRequestUriComponents(
+				servletServerHttpRequest);
 
 			int port = uriComponents.getPort();
 
@@ -201,6 +201,69 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 			_forwardedPrefixExtractor = new ForwardedPrefixExtractor(
 				delegateRequest, baseUrl);
+		}
+
+		private void _adaptForwardedHost(
+			String rawValue, UriComponentsBuilder uriComponentsBuilder) {
+
+			int portSeparatorIdx = rawValue.lastIndexOf(':');
+			int squareBracketIdx = rawValue.lastIndexOf(']');
+
+			if (portSeparatorIdx > squareBracketIdx) {
+				if ((squareBracketIdx == -1) &&
+					(rawValue.indexOf(':') != portSeparatorIdx)) {
+
+					throw new IllegalArgumentException(
+						"Invalid IPv4 address: " + rawValue);
+				}
+
+				uriComponentsBuilder.host(
+					rawValue.substring(0, portSeparatorIdx));
+				uriComponentsBuilder.port(
+					Integer.parseInt(rawValue.substring(portSeparatorIdx + 1)));
+			}
+			else {
+				uriComponentsBuilder.host(rawValue);
+				uriComponentsBuilder.port(null);
+			}
+		}
+
+		private UriComponents _getForwardedRequestUriComponents(
+			ServerHttpRequest serverHttpRequest) {
+
+			UriComponentsBuilder uriComponentsBuilder =
+				UriComponentsBuilder.fromHttpRequest(serverHttpRequest);
+
+			HttpHeaders httpHeaders = serverHttpRequest.getHeaders();
+
+			String hostHeader = httpHeaders.getFirst(
+				"X-Liferay-Origin-Forwarded-Host");
+
+			if (StringUtils.hasText(hostHeader)) {
+				_adaptForwardedHost(
+					StringUtils.tokenizeToStringArray(hostHeader, ",")[0],
+					uriComponentsBuilder);
+			}
+
+			String portHeader = httpHeaders.getFirst(
+				"X-Liferay-Origin-Forwarded-Port");
+
+			if (StringUtils.hasText(portHeader)) {
+				uriComponentsBuilder.port(
+					Integer.parseInt(
+						StringUtils.tokenizeToStringArray(portHeader, ",")[0]));
+			}
+
+			String protocolHeader = httpHeaders.getFirst(
+				"X-Liferay-Origin-Forwarded-Proto");
+
+			if (StringUtils.hasText(protocolHeader)) {
+				uriComponentsBuilder.scheme(
+					StringUtils.tokenizeToStringArray(protocolHeader, ",")[0]);
+				uriComponentsBuilder.port(null);
+			}
+
+			return uriComponentsBuilder.build();
 		}
 
 		private final ForwardedPrefixExtractor _forwardedPrefixExtractor;
