@@ -13,7 +13,6 @@ import com.liferay.portal.kernel.cookies.UnsupportedCookieException;
 import com.liferay.portal.kernel.cookies.constants.CookiesConstants;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PropsKeys;
@@ -329,7 +328,7 @@ public class CookiesManagerImpl implements CookiesManager {
 
 		Map<String, Cookie> cookiesMap =
 			(Map<String, Cookie>)httpServletRequest.getAttribute(
-				CookieKeys.class.getName());
+				CookiesManagerImpl.class.getName());
 
 		if (cookiesMap != null) {
 			return cookiesMap;
@@ -352,7 +351,8 @@ public class CookiesManagerImpl implements CookiesManager {
 			}
 		}
 
-		httpServletRequest.setAttribute(CookieKeys.class.getName(), cookiesMap);
+		httpServletRequest.setAttribute(
+			CookiesManagerImpl.class.getName(), cookiesMap);
 
 		return cookiesMap;
 	}
