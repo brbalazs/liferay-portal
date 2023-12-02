@@ -11,6 +11,7 @@ import com.liferay.asset.kernel.model.AssetVocabulary;
 import com.liferay.asset.kernel.service.AssetCategoryLocalServiceUtil;
 import com.liferay.asset.kernel.service.AssetVocabularyLocalServiceUtil;
 import com.liferay.exportimport.kernel.configuration.ExportImportConfigurationParameterMapFactory;
+import com.liferay.exportimport.kernel.exception.RemoteExportException;
 import com.liferay.exportimport.kernel.lar.ExportImportDateUtil;
 import com.liferay.exportimport.kernel.lar.ExportImportHelperUtil;
 import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
@@ -34,6 +35,7 @@ import com.liferay.portal.kernel.service.LayoutSetBranchLocalServiceUtil;
 import com.liferay.portal.kernel.service.LayoutSetLocalServiceUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.service.persistence.GroupUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.rule.Sync;
@@ -46,6 +48,7 @@ import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.MapUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.SystemProperties;
 import com.liferay.portal.kernel.util.UnicodeProperties;
@@ -54,10 +57,13 @@ import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.kernel.zip.ZipReader;
 import com.liferay.portal.kernel.zip.ZipReaderFactoryUtil;
+import com.liferay.portal.test.log.CaptureAppender;
+import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerTestRule;
 import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.test.LayoutTestUtil;
+import com.liferay.staging.test.util.PropsValuesReplacer;
 
 import java.io.File;
 import java.io.Serializable;
@@ -69,6 +75,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.portlet.PortletPreferences;
+
+import org.apache.log4j.Level;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -97,6 +105,8 @@ public class StagingImplTest {
 		UserTestUtil.setUser(TestPropsValues.getUser());
 
 		_group = GroupTestUtil.addGroup();
+		_remoteLiveGroup = GroupTestUtil.addGroup();
+		_remoteStagingGroup = GroupTestUtil.addGroup();
 	}
 
 	@Test
@@ -179,6 +189,47 @@ public class StagingImplTest {
 	@Test
 	public void testLocalStagingWithLayoutVersioningJournal() throws Exception {
 		enableLocalStagingWithContent(true, false, true);
+	}
+
+	@Test
+	public void testRemoteStagingHiddenError() throws Exception {
+		try (AutoCloseable autoCloseable = new PropsValuesReplacer(
+				"TUNNEL_SERVLET_HIDE_EXCEPTION_DATA", true)) {
+
+			Throwable caughtThrowable = _enableRemoteStagingWithError();
+
+			Assert.assertEquals(
+				"Invocation failed due to " +
+					"com.liferay.portal.kernel.exception.NoSuchGroupException",
+				caughtThrowable.getMessage());
+
+			Assert.assertNotEquals(
+				caughtThrowable.getClass(), RemoteExportException.class);
+		}
+	}
+
+	@Test
+	public void testRemoteStagingVisibleError() throws Exception {
+		try (AutoCloseable autoCloseable = new PropsValuesReplacer(
+				"TUNNEL_SERVLET_HIDE_EXCEPTION_DATA", false)) {
+
+			Throwable caughtThrowable = _enableRemoteStagingWithError();
+
+			Assert.assertNotEquals(
+				"Invocation failed due to " +
+					"com.liferay.portal.kernel.exception.NoSuchGroupException",
+				caughtThrowable.getMessage());
+
+			Assert.assertEquals(
+				caughtThrowable.getClass(), RemoteExportException.class);
+
+			RemoteExportException remoteExportException =
+				(RemoteExportException)caughtThrowable;
+
+			Assert.assertEquals(
+				remoteExportException.getType(),
+				RemoteExportException.NO_GROUP);
+		}
 	}
 
 	protected AssetCategory addAssetCategory(
@@ -445,11 +496,60 @@ public class StagingImplTest {
 			ServiceContextTestUtil.getServiceContext());
 	}
 
+	private Throwable _enableRemoteStagingWithError() throws Exception {
+		Throwable caughtThrowable = null;
+
+		try (AutoCloseable autoCloseable1 = new PropsValuesReplacer(
+				"TUNNELING_SERVLET_SHARED_SECRET",
+				"F0E1D2C3B4A5968778695A4B3C2D1E0F");
+			AutoCloseable autoCloseable2 = new PropsValuesReplacer(
+				"TUNNELING_SERVLET_SHARED_SECRET_HEX", true);
+			CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"com.liferay.portal.servlet.TunnelServlet", Level.OFF)) {
+
+			ServiceContext serviceContext =
+				ServiceContextTestUtil.getServiceContext(
+					_remoteStagingGroup.getGroupId());
+
+			Map<String, Serializable> attributes =
+				serviceContext.getAttributes();
+
+			attributes.putAll(
+				ExportImportConfigurationParameterMapFactory.
+					buildParameterMap());
+
+			UserTestUtil.setUser(TestPropsValues.getUser());
+
+			try {
+				StagingLocalServiceUtil.enableRemoteStaging(
+					TestPropsValues.getUserId(), _remoteStagingGroup, false,
+					false, "localhost", PortalUtil.getPortalServerPort(false),
+					PortalUtil.getPathContext(), false,
+					_remoteLiveGroup.getGroupId() + 1, serviceContext);
+			}
+			catch (Throwable throwable) {
+				caughtThrowable = throwable;
+			}
+			finally {
+				GroupUtil.clearCache();
+			}
+		}
+
+		return caughtThrowable;
+	}
+
 	private static final Locale[] _locales = {
 		LocaleUtil.GERMANY, LocaleUtil.SPAIN, LocaleUtil.US
 	};
 
 	@DeleteAfterTestRun
 	private Group _group;
+
+	@DeleteAfterTestRun
+	private Group _remoteLiveGroup;
+
+	@DeleteAfterTestRun
+	private Group _remoteStagingGroup;
 
 }
