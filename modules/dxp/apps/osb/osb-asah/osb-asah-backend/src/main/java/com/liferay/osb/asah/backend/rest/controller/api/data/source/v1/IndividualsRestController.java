@@ -29,9 +29,11 @@ import com.liferay.osb.asah.common.model.SearchKeyword;
 import com.liferay.osb.asah.common.model.TimeRange;
 import com.liferay.osb.asah.common.model.Transformation;
 import com.liferay.osb.asah.common.spring.http.exception.OSBAsahException;
+import com.liferay.osb.asah.common.util.ListUtil;
 import com.liferay.osb.asah.common.util.MatcherUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -219,16 +221,27 @@ public class IndividualsRestController extends BaseRestController {
 
 	@GetMapping("/{id}/recent-assets")
 	public PageDTO<RecentVisitAssetDTO> getRecentVisitAssetDTOPageDTO(
-		@PathVariable String id, @RequestParam String contentType,
+		@PathVariable String id,
+		@RequestParam(required = false) String[] contentTypes,
 		@RequestParam(required = false) String groupId,
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "7") int rangeKey,
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
+		List<RecentVisitAsset.ContentType> contentTypesList;
+
+		if (contentTypes == null) {
+			contentTypesList = Collections.emptyList();
+		}
+		else {
+			contentTypesList = ListUtil.map(
+				Arrays.asList(contentTypes), RecentVisitAsset.ContentType::of);
+		}
+
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.of(contentType), groupId, id, page,
-			size, sorts, TimeRange.of(rangeKey));
+			contentTypesList, groupId, id, page, size, sorts,
+			TimeRange.of(rangeKey));
 
 		return new PageDTO<>(
 			"_embedded", new RecentVisitAssetDTO(recentAssetPage.getContent()),
