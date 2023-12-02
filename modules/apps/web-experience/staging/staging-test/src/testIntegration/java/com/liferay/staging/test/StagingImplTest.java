@@ -25,6 +25,9 @@ import com.liferay.journal.constants.JournalPortletKeys;
 import com.liferay.journal.model.JournalArticle;
 import com.liferay.journal.service.JournalArticleLocalServiceUtil;
 import com.liferay.journal.test.util.JournalTestUtil;
+import com.liferay.portal.kernel.exception.NoSuchGroupException;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.LayoutSet;
 import com.liferay.portal.kernel.model.LayoutSetBranch;
@@ -107,6 +110,71 @@ public class StagingImplTest {
 		_group = GroupTestUtil.addGroup();
 		_remoteLiveGroup = GroupTestUtil.addGroup();
 		_remoteStagingGroup = GroupTestUtil.addGroup();
+	}
+
+	@Test
+	public void testDisableRemoteStagingWithIncorrectLiveGroupHiddenError()
+		throws Exception {
+
+		enableRemoteStaging(false);
+
+		Throwable caughtThrowable;
+
+		try (AutoCloseable autoCloseable = new PropsValuesReplacer(
+				"TUNNEL_SERVLET_HIDE_EXCEPTION_DATA", true)) {
+
+			caughtThrowable = _disableRemoteStagingWithIncorrectLiveGroupId();
+		}
+
+		Assert.assertNotNull(caughtThrowable);
+
+		Class<? extends Throwable> caughtExceptionClass =
+			caughtThrowable.getClass();
+
+		Assert.assertNotEquals(PortalException.class, caughtExceptionClass);
+		Assert.assertNotEquals(SystemException.class, caughtExceptionClass);
+		Assert.assertNotEquals(
+			NoSuchGroupException.class, caughtExceptionClass);
+
+		Assert.assertEquals(RemoteExportException.class, caughtExceptionClass);
+
+		RemoteExportException remoteExportException =
+			(RemoteExportException)caughtThrowable;
+
+		Assert.assertEquals(
+			remoteExportException.getType(), RemoteExportException.NO_GROUP);
+	}
+
+	@Test
+	public void testDisableRemoteStagingWithIncorrectLiveGroupVisibleError()
+		throws Exception {
+
+		enableRemoteStaging(false);
+
+		Throwable caughtThrowable;
+
+		try (AutoCloseable autoCloseable = new PropsValuesReplacer(
+				"TUNNEL_SERVLET_HIDE_EXCEPTION_DATA", false)) {
+
+			caughtThrowable = _disableRemoteStagingWithIncorrectLiveGroupId();
+		}
+
+		Assert.assertNotNull(caughtThrowable);
+
+		Class<? extends Throwable> caughtExceptionClass =
+			caughtThrowable.getClass();
+
+		Assert.assertNotEquals(PortalException.class, caughtExceptionClass);
+		Assert.assertNotEquals(SystemException.class, caughtExceptionClass);
+		Assert.assertNotEquals(
+			RemoteExportException.class, caughtExceptionClass);
+
+		Assert.assertEquals(NoSuchGroupException.class, caughtExceptionClass);
+
+		Assert.assertEquals(
+			"No Group exists with the primary key " +
+				(_remoteLiveGroup.getGroupId() + 1),
+			caughtThrowable.getMessage());
 	}
 
 	@Test
@@ -479,6 +547,65 @@ public class StagingImplTest {
 		}
 	}
 
+	protected void enableRemoteStaging(boolean branching) throws Exception {
+		try (AutoCloseable autoCloseable1 = new PropsValuesReplacer(
+				"TUNNELING_SERVLET_SHARED_SECRET",
+				"F0E1D2C3B4A5968778695A4B3C2D1E0F");
+			AutoCloseable autoCloseable2 = new PropsValuesReplacer(
+				"TUNNELING_SERVLET_SHARED_SECRET_HEX", true)) {
+
+			ServiceContext serviceContext =
+				ServiceContextTestUtil.getServiceContext(
+					_remoteStagingGroup.getGroupId());
+
+			Map<String, Serializable> attributes =
+				serviceContext.getAttributes();
+
+			attributes.putAll(
+				ExportImportConfigurationParameterMapFactory.
+					buildParameterMap());
+
+			if (branching) {
+				serviceContext.setSignedIn(true);
+			}
+
+			UserTestUtil.setUser(TestPropsValues.getUser());
+
+			StagingLocalServiceUtil.enableRemoteStaging(
+				TestPropsValues.getUserId(), _remoteStagingGroup, branching,
+				branching, "localhost", PortalUtil.getPortalServerPort(false),
+				PortalUtil.getPathContext(), false,
+				_remoteLiveGroup.getGroupId(), serviceContext);
+
+			GroupUtil.clearCache();
+
+			if (!branching) {
+				return;
+			}
+
+			UnicodeProperties typeSettingsUnicodeProperties =
+				_remoteStagingGroup.getTypeSettingsProperties();
+
+			Assert.assertTrue(
+				GetterUtil.getBoolean(
+					typeSettingsUnicodeProperties.getProperty(
+						"branchingPrivate")));
+			Assert.assertTrue(
+				GetterUtil.getBoolean(
+					typeSettingsUnicodeProperties.getProperty(
+						"branchingPublic")));
+
+			Assert.assertNotNull(
+				LayoutSetBranchLocalServiceUtil.fetchLayoutSetBranch(
+					_remoteStagingGroup.getGroupId(), false,
+					LayoutSetBranchConstants.MASTER_BRANCH_NAME));
+			Assert.assertNotNull(
+				LayoutSetBranchLocalServiceUtil.fetchLayoutSetBranch(
+					_remoteStagingGroup.getGroupId(), true,
+					LayoutSetBranchConstants.MASTER_BRANCH_NAME));
+		}
+	}
+
 	protected AssetCategory updateAssetCategory(
 			AssetCategory category, String name)
 		throws Exception {
@@ -494,6 +621,39 @@ public class StagingImplTest {
 			category.getParentCategoryId(), titleMap,
 			category.getDescriptionMap(), category.getVocabularyId(), null,
 			ServiceContextTestUtil.getServiceContext());
+	}
+
+	private Throwable _disableRemoteStagingWithIncorrectLiveGroupId()
+		throws Exception {
+
+		Throwable caughtThrowable = null;
+
+		try (AutoCloseable autoCloseable1 = new PropsValuesReplacer(
+				"TUNNELING_SERVLET_SHARED_SECRET",
+				"F0E1D2C3B4A5968778695A4B3C2D1E0F");
+			AutoCloseable autoCloseable2 = new PropsValuesReplacer(
+				"TUNNELING_SERVLET_SHARED_SECRET_HEX", true);
+			CaptureAppender captureAppender =
+				Log4JLoggerTestUtil.configureLog4JLogger(
+					"com.liferay.portal.servlet.TunnelServlet", Level.OFF)) {
+
+			_setLiveGroupUnicodePropertiesIncorrectGroupId();
+
+			try {
+				StagingLocalServiceUtil.disableStaging(
+					_remoteLiveGroup,
+					ServiceContextTestUtil.getServiceContext(
+						_remoteStagingGroup.getGroupId()));
+			}
+			catch (Throwable throwable) {
+				caughtThrowable = throwable;
+			}
+			finally {
+				GroupUtil.clearCache();
+			}
+		}
+
+		return caughtThrowable;
 	}
 
 	private Throwable _enableRemoteStagingWithError() throws Exception {
@@ -537,6 +697,22 @@ public class StagingImplTest {
 		}
 
 		return caughtThrowable;
+	}
+
+	private void _setLiveGroupUnicodePropertiesIncorrectGroupId() {
+		UnicodeProperties typeSettingsUnicodeProperties =
+			_remoteLiveGroup.getTypeSettingsProperties();
+
+		typeSettingsUnicodeProperties.setProperty(
+			"staged", Boolean.TRUE.toString());
+		typeSettingsUnicodeProperties.setProperty(
+			"stagedRemotely", Boolean.TRUE.toString());
+		typeSettingsUnicodeProperties.setProperty("remoteAddress", "localhost");
+		typeSettingsUnicodeProperties.setProperty(
+			"remotePort",
+			String.valueOf(PortalUtil.getPortalServerPort(false)));
+		typeSettingsUnicodeProperties.setProperty(
+			"remoteGroupId", String.valueOf(_remoteLiveGroup.getGroupId() + 1));
 	}
 
 	private static final Locale[] _locales = {
