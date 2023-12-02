@@ -163,7 +163,7 @@ public class BQEventDog {
 	}
 
 	public Page<RecentVisitAsset> getRecentAssetPage(
-		RecentVisitAsset.ContentType contentType, String groupId,
+		List<RecentVisitAsset.ContentType> contentTypes, String groupId,
 		String individualId, int page, int size, String[] sorts,
 		TimeRange timeRange) {
 
@@ -186,12 +186,11 @@ public class BQEventDog {
 
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getRecentAssets(
-				contentType.getApplicationId(), contentType.getEventId(),
-				groupId, individualId, pageable, timeRange, timeZoneId),
+				contentTypes, groupId, individualId, pageable, timeRange,
+				timeZoneId),
 			pageable,
 			() -> _bqEventRepository.getRecentAssetsCount(
-				contentType.getApplicationId(), contentType.getEventId(),
-				groupId, individualId, timeRange, timeZoneId));
+				contentTypes, groupId, individualId, timeRange, timeZoneId));
 	}
 
 	public List<BQEventPropertyValue> getRecentBQEventPropertyValues(
