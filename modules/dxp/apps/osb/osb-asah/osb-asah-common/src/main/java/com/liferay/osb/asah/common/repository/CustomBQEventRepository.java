@@ -107,13 +107,14 @@ public interface CustomBQEventRepository {
 		String columnName, int size);
 
 	public List<RecentVisitAsset> getRecentAssets(
-		String applicationId, String eventId, @Nullable String groupId,
-		String individualId, Pageable pageable, TimeRange timeRange,
-		String timeZoneId);
+		List<RecentVisitAsset.ContentType> contentTypes,
+		@Nullable String groupId, String individualId, Pageable pageable,
+		TimeRange timeRange, String timeZoneId);
 
 	public Long getRecentAssetsCount(
-		String applicationId, String eventId, @Nullable String groupId,
-		String individualId, TimeRange timeRange, String timeZoneId);
+		List<RecentVisitAsset.ContentType> contentTypes,
+		@Nullable String groupId, String individualId, TimeRange timeRange,
+		String timeZoneId);
 
 	public List<RecentVisitPage> getRecentPages(
 		@Nullable String displayLanguageId, @Nullable String groupId,
