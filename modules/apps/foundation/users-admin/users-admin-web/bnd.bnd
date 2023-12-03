@@ -16,3 +16,4 @@ Import-Package:\
 	\
 	*
 Web-ContextPath: /users-admin-web
+-dsannotations-options: inherit
