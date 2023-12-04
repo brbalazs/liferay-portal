@@ -61,7 +61,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -124,7 +124,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -164,7 +164,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -243,7 +243,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -375,7 +375,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -387,7 +387,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -457,7 +457,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -469,7 +469,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -539,7 +539,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -551,7 +551,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -568,7 +568,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsWithGroupId() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, "12345",
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG),
+			"12345",
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -670,7 +671,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -681,7 +682,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -696,7 +697,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -713,7 +714,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.BLOG, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -774,7 +775,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -837,7 +839,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -877,7 +880,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -955,7 +959,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1085,7 +1090,8 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1097,7 +1103,8 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1166,7 +1173,8 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1178,7 +1186,8 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1247,7 +1256,8 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1259,7 +1269,8 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1276,7 +1287,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsWithGroupId() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, "12345",
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			"12345",
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1376,7 +1388,8 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1387,7 +1400,8 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1402,7 +1416,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1419,7 +1434,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentDocumentsYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.DOCUMENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -1459,7 +1475,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -1522,7 +1538,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -1562,7 +1578,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -1640,7 +1656,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1770,7 +1786,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(2L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1782,7 +1798,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1851,7 +1867,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(2L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1863,7 +1879,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1932,7 +1948,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(2L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1944,7 +1960,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1961,7 +1977,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsWithGroupId() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, "12345",
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM),
+			"12345",
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -2061,7 +2078,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(2L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -2072,7 +2089,7 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -2087,7 +2104,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -2104,7 +2121,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.FORM, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -3099,7 +3116,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -3165,7 +3183,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -3205,7 +3224,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -3287,7 +3307,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -3425,7 +3446,8 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3437,7 +3459,8 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -3510,7 +3533,8 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3522,7 +3546,8 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -3595,7 +3620,8 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3607,7 +3633,8 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3624,7 +3651,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentWithGroupId() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, "12345",
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			"12345",
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -3730,7 +3758,8 @@ public class BQEventDogTest
 		recentVisitAsset4.setVisits(3L);
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3741,7 +3770,8 @@ public class BQEventDogTest
 			recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3756,7 +3786,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -3773,7 +3804,8 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentWebContentYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			RecentVisitAsset.ContentType.WEBCONTENT, null,
+			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
