@@ -1067,3 +1067,26 @@ If you want to maintain the old sort behavior, you will have to customize the El
 If you need to retrieve data from these fields, you can get the same information from the _source field of Elasticsearch https://www.elastic.co/guide/en/elasticsearch/reference/7.17/mapping-source-field.html or you can also remove the `icu_collation_keyword` as it is explained in the previous paragraph.
 
 ---------------------------------------
+
+## The support of Apache SOAP 2.2 has been removed.
+- **Date:** 2023-Dec-4
+- **JIRA Ticket:** [LPS-164220](https://liferay.atlassian.net/browse/LPS-164220)
+
+### What changed?
+
+This change was made to address vulnerabilities in outdated libraries that are no longer
+maintained.
+
+### Who is affected?
+
+This will affect you if you are using SOAP web service
+
+### How should I update my code?
+
+Move soap services to JSON Web Services
+
+### Why was this change made?
+
+Apache SOAP is no longer maintained and will not receive any updates
+
+---------------------------------------
