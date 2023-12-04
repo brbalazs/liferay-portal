@@ -1,55 +1,44 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ * SPDX-FileCopyrightText: (c) 2023 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
 package com.liferay.portal.kernel.cookies;
 
-import com.liferay.portal.kernel.exception.CookieNotSupportedException;
+import aQute.bnd.annotation.ProviderType;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.osgi.annotation.versioning.ProviderType;
-
 /**
  * @author Tamas Molnar
+ * @author Brian Wing Shun Chan
  */
 @ProviderType
 public interface CookiesManager {
 
-	public void addCookie(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse, Cookie cookie, boolean secure,
-		int type);
+	public boolean addCookie(
+		int consentType, Cookie cookie, HttpServletRequest httpServletRequest,
+		HttpServletResponse httpServletResponse);
 
-	public void addCookie(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse, Cookie cookie, int type);
+	public boolean addCookie(
+		int consentType, Cookie cookie, HttpServletRequest httpServletRequest,
+		HttpServletResponse httpServletResponse, boolean secure);
 
-	public void addSupportCookie(
+	public boolean addSupportCookie(
 		HttpServletRequest httpServletRequest,
 		HttpServletResponse httpServletResponse);
 
-	public void deleteCookies(
-		HttpServletRequest httpServletRequest,
-		HttpServletResponse httpServletResponse, String domain,
-		String... cookieNames);
+	public boolean deleteCookies(
+		String domain, HttpServletRequest httpServletRequest,
+		HttpServletResponse httpServletResponse, String... cookieNames);
 
-	public String getCookie(HttpServletRequest httpServletRequest, String name);
+	public String getCookieValue(
+		String cookieName, HttpServletRequest httpServletRequest);
 
-	public String getCookie(
-		HttpServletRequest httpServletRequest, String name,
+	public String getCookieValue(
+		String cookieName, HttpServletRequest httpServletRequest,
 		boolean toUpperCase);
 
 	public String getDomain(HttpServletRequest httpServletRequest);
@@ -57,13 +46,13 @@ public interface CookiesManager {
 	public String getDomain(String host);
 
 	public boolean hasConsentType(
-		HttpServletRequest httpServletRequest, int type);
+		int consentType, HttpServletRequest httpServletRequest);
 
 	public boolean hasSessionId(HttpServletRequest httpServletRequest);
 
-	public boolean isEncodedCookie(String name);
+	public boolean isEncodedCookie(String cookieName);
 
 	public void validateSupportCookie(HttpServletRequest httpServletRequest)
-		throws CookieNotSupportedException;
+		throws UnsupportedCookieException;
 
 }
