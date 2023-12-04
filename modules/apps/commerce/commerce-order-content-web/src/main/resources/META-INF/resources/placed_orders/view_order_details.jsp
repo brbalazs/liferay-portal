@@ -41,6 +41,13 @@ CommerceAccount commerceAccount = commerceOrderContentDisplayContext.getCommerce
 if (commerceOrder != null) {
 	commerceAccount = commerceOrder.getCommerceAccount();
 }
+
+String backURL = ParamUtil.getString(request, "backURL", null);
+
+if (backURL != null) {
+	portletDisplay.setShowBackIcon(true);
+	portletDisplay.setURLBack(backURL);
+}
 %>
 
 <liferay-ui:error exception="<%= CommerceOrderValidatorException.class %>">

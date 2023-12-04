@@ -23,7 +23,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
-import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.portlet.PortletURLFactory;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
@@ -215,9 +214,7 @@ public class EditCommerceOrderMVCActionCommand extends BaseMVCActionCommand {
 				String redirect = ParamUtil.getString(
 					actionRequest, "redirect");
 
-				openOrdersPortletURL.setParameter(
-					PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
-					redirect);
+				openOrdersPortletURL.setParameter("backURL", redirect);
 
 				openOrdersPortletURL.setParameter(
 					"mvcRenderCommandName", "editCommerceOrder");

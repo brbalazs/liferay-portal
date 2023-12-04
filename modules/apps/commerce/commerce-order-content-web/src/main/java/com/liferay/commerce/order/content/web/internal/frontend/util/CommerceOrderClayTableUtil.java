@@ -17,7 +17,6 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
-import com.liferay.portal.kernel.portlet.PortletQName;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -160,9 +159,7 @@ public class CommerceOrderClayTableUtil {
 			"tableName",
 			CommerceOrderDataSetConstants.COMMERCE_DATA_SET_KEY_PLACED_ORDERS);
 
-		portletURL.setParameter(
-			PortletQName.PUBLIC_RENDER_PARAMETER_NAMESPACE + "backURL",
-			backURL.toString());
+		portletURL.setParameter("backURL", backURL.toString());
 
 		portletURL.setParameter(
 			"mvcRenderCommandName", "viewCommerceOrderDetails");
