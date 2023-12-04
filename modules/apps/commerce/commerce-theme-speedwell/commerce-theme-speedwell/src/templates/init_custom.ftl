@@ -1,17 +1,16 @@
 <#assign
 	copyright = getterUtil.getString(themeDisplay.getThemeSetting("copyright"))
-	show_top_menu = getterUtil.getBoolean(themeDisplay.getThemeSetting("show-top-menu"))
 	my_account_url = themeDisplay.getPathFriendlyURLPublic() + themeDisplay.getScopeGroup().getFriendlyURL() + "/my-account"
-	wishlistUrl = commerceWishListHttpHelper.getCommerceWishListPortletURL(request)
-	wish_lists_text = commerceThemeMiniumHttpHelper.getMyListsLabel(locale)
-	notifications_text = languageUtil.get(locale, "notifications")
-	notification_url = commerceThemeMiniumHttpHelper.getNotificationsURL(request)
 	notification_count = commerceThemeMiniumHttpHelper.getNotificationsCount(themeDisplay)
-	wide_layout = getterUtil.getBoolean(themeDisplay.getThemeSetting("wide-layout"))
-	back_url = paramUtil.getString(request, "p_r_p_backURL")
+	notification_url = commerceThemeMiniumHttpHelper.getNotificationsURL(request)
+	notifications_text = languageUtil.get(locale, "notifications")
+	show_top_menu = getterUtil.getBoolean(themeDisplay.getThemeSetting("show-top-menu"))
 	speedwell_content_css_class = "speedwell-content"
-	translucent_topbar = getterUtil.getBoolean(themeDisplay.getThemeSetting("translucent-topbar"))
 	speedwell_topbar_css_class = "speedwell-topbar"
+	translucent_topbar = getterUtil.getBoolean(themeDisplay.getThemeSetting("translucent-topbar"))
+	wide_layout = getterUtil.getBoolean(themeDisplay.getThemeSetting("wide-layout"))
+	wish_lists_text = commerceThemeMiniumHttpHelper.getMyListsLabel(locale)
+	wishlistUrl = commerceWishListHttpHelper.getCommerceWishListPortletURL(request)
 />
 
 <#if !is_setup_complete && is_signed_in>
