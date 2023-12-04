@@ -78,8 +78,8 @@ public class PreferenceDog {
 			{
 				put(
 					"data-retention-period",
-					PreferenceConstants.DEFAULT_DATA_RETENTION_PERIOD);
-				put("time-zone-id", PreferenceConstants.DEFAULT_TIME_ZONE_ID);
+					PreferenceConstants.DATA_RETENTION_PERIOD);
+				put("time-zone-id", PreferenceConstants.TIME_ZONE_ID);
 			}
 		};
 

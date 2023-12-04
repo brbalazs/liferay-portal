@@ -362,8 +362,7 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 
 		if (timePartitioningJSONObject.optBoolean("expirable")) {
 			builder = builder.setExpirationMs(
-				Long.valueOf(
-					PreferenceConstants.DEFAULT_DATA_RETENTION_PERIOD));
+				Long.valueOf(PreferenceConstants.DATA_RETENTION_PERIOD));
 		}
 
 		return builder.setField(

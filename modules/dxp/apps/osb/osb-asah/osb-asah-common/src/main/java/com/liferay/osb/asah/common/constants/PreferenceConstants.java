@@ -12,9 +12,9 @@ import com.liferay.osb.asah.common.date.DateUtil;
  */
 public interface PreferenceConstants {
 
-	public static String DEFAULT_DATA_RETENTION_PERIOD = String.valueOf(
+	public static String DATA_RETENTION_PERIOD = String.valueOf(
 		13 * DateUtil.MONTH);
 
-	public static String DEFAULT_TIME_ZONE_ID = "UTC";
+	public static String TIME_ZONE_ID = "UTC";
 
 }
