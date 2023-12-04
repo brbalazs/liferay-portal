@@ -1855,6 +1855,7 @@ public class VerifyProperties extends VerifyProcess {
 	};
 
 	private static final String[] _OBSOLETE_SYSTEM_KEYS = {
+		"com.liferay.util.axis.SimpleHTTPSender.regexp.pattern",
 		"com.liferay.util.Http.proxy.host", "com.liferay.util.Http.proxy.port",
 		"com.liferay.util.XSSUtil.regexp.pattern"
 	};
