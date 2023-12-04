@@ -63,6 +63,7 @@ public class ForwardedHeaderFilter extends OncePerRequestFilter {
 
 		HttpServletRequest wrappedHttpServletRequest =
 			new ForwardedHeaderExtractingRequest(httpServletRequest);
+
 		HttpServletResponse wrappedHttpServletResponse =
 			new ForwardedHeaderExtractingResponse(
 				wrappedHttpServletRequest, httpServletResponse);
