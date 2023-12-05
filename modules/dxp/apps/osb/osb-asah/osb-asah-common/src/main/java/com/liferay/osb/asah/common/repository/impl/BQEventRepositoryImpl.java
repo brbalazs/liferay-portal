@@ -917,7 +917,7 @@ public class BQEventRepositoryImpl
 				)
 			).where(
 				_createConditions(
-					null, null, null, null, individualId,
+					"Page", null, "pageViewed", null, individualId,
 					Collections.emptySet(), timeRange, timeZoneId)
 			).groupBy(
 				DSL.field("groupid")
@@ -962,7 +962,7 @@ public class BQEventRepositoryImpl
 					)
 				).where(
 					_createConditions(
-						null, null, null, null, individualId,
+						"Page", null, "pageViewed", null, individualId,
 						Collections.emptySet(), timeRange, timeZoneId)
 				).groupBy(
 					DSL.field("groupid")
@@ -1048,8 +1048,8 @@ public class BQEventRepositoryImpl
 			},
 			selectJoinStep.where(
 				_createConditions(
-					null, displayLanguageId, null, groupId, individualId,
-					searchQueryParams, timeRange, timeZoneId)
+					"Page", displayLanguageId, "pageViewed", groupId,
+					individualId, searchQueryParams, timeRange, timeZoneId)
 			).groupBy(
 				DSL.field("displaylanguageid"), DSL.field("groupid"),
 				_dslHelper.getField(
@@ -1120,8 +1120,8 @@ public class BQEventRepositoryImpl
 			selectSelectStep.from(
 				selectJoinStep.where(
 					_createConditions(
-						null, displayLanguageId, null, groupId, individualId,
-						searchQueryParams, timeRange, timeZoneId)
+						"Page", displayLanguageId, "pageViewed", groupId,
+						individualId, searchQueryParams, timeRange, timeZoneId)
 				).groupBy(
 					DSL.field("displaylanguageid"), DSL.field("groupid"),
 					_dslHelper.getField(
@@ -1512,14 +1512,6 @@ public class BQEventRepositoryImpl
 					applicationId
 				));
 		}
-		else {
-			conditions.add(
-				DSL.field(
-					"BQEvent.applicationId"
-				).eq(
-					"Page"
-				));
-		}
 
 		if (!searchQueryParams.isEmpty()) {
 			conditions.add(
@@ -1544,14 +1536,6 @@ public class BQEventRepositoryImpl
 					"BQEvent.eventId"
 				).eq(
 					eventId
-				));
-		}
-		else {
-			conditions.add(
-				DSL.field(
-					"BQEvent.eventId"
-				).eq(
-					"pageViewed"
 				));
 		}
 
@@ -2325,7 +2309,7 @@ public class BQEventRepositoryImpl
 					)))
 		).where(
 			_createConditions(
-				null, displayLanguageId, null, groupId, individualId,
+				"Page", displayLanguageId, "pageViewed", groupId, individualId,
 				Collections.emptySet(), timeRange, timeZoneId)
 		).groupBy(
 			groupByFields
