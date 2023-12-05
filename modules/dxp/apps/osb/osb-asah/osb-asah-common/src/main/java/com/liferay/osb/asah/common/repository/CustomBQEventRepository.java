@@ -108,13 +108,14 @@ public interface CustomBQEventRepository {
 
 	public List<RecentVisitAsset> getRecentAssets(
 		List<RecentVisitAsset.ContentType> contentTypes,
-		@Nullable String groupId, String individualId, Pageable pageable,
-		TimeRange timeRange, String timeZoneId);
+		@Nullable Long dataSourceId, @Nullable String groupId,
+		String individualId, Pageable pageable, TimeRange timeRange,
+		String timeZoneId);
 
 	public Long getRecentAssetsCount(
 		List<RecentVisitAsset.ContentType> contentTypes,
-		@Nullable String groupId, String individualId, TimeRange timeRange,
-		String timeZoneId);
+		@Nullable Long dataSourceId, @Nullable String groupId,
+		String individualId, TimeRange timeRange, String timeZoneId);
 
 	public List<RecentVisitPage> getRecentPages(
 		@Nullable Long dataSourceId, @Nullable String displayLanguageId,

@@ -709,8 +709,9 @@ public class BQEventRepositoryImpl
 	@Override
 	public List<RecentVisitAsset> getRecentAssets(
 		List<RecentVisitAsset.ContentType> contentTypes,
-		@Nullable String groupId, String individualId, Pageable pageable,
-		TimeRange timeRange, String timeZoneId) {
+		@Nullable Long dataSourceId, @Nullable String groupId,
+		String individualId, Pageable pageable, TimeRange timeRange,
+		String timeZoneId) {
 
 		Field assetIdField = DSL.when(
 			DSL.field(
@@ -728,11 +729,11 @@ public class BQEventRepositoryImpl
 		);
 
 		SelectHavingStep selectHavingStep = _getRecentAssetsSelectHavingStep(
-			contentTypes, groupId,
+			contentTypes, dataSourceId, groupId,
 			Arrays.asList(
 				DSL.field("applicationId"), DSL.field("assetId"),
 				DSL.field("assetTitle"), DSL.field("canonicalUrl"),
-				DSL.field("groupid")),
+				DSL.field("dataSourceId"), DSL.field("groupid")),
 			individualId,
 			_dslContext.select(
 				assetIdField, DSL.field("assetTitle"),
@@ -741,6 +742,7 @@ public class BQEventRepositoryImpl
 				).as(
 					"contentType"
 				),
+				DSL.field("dataSourceId"),
 				DSL.min(
 					DSL.field("eventDate", Date.class)
 				).as(
@@ -781,18 +783,19 @@ public class BQEventRepositoryImpl
 	@Override
 	public Long getRecentAssetsCount(
 		List<RecentVisitAsset.ContentType> contentTypes,
-		@Nullable String groupId, String individualId, TimeRange timeRange,
-		String timeZoneId) {
+		@Nullable Long dataSourceId, @Nullable String groupId,
+		String individualId, TimeRange timeRange, String timeZoneId) {
 
 		return _queryExecutor.queryForLong(
 			_dslContext.with(
 				"RecentAssets"
 			).as(
 				_getRecentAssetsSelectHavingStep(
-					contentTypes, groupId,
+					contentTypes, dataSourceId, groupId,
 					Arrays.asList(
 						DSL.field("applicationId"), DSL.field("assetId"),
 						DSL.field("assetTitle"), DSL.field("canonicalUrl"),
+						DSL.field("dataSourceId"),
 						_dslHelper.jsonExtractScalar(
 							"BQEvent.context", "groupId")),
 					individualId,
@@ -2243,12 +2246,13 @@ public class BQEventRepositoryImpl
 
 	private SelectHavingStep _getRecentAssetsSelectHavingStep(
 		List<RecentVisitAsset.ContentType> contentTypes,
-		@Nullable String groupId, List<Field> groupByFields,
-		String individualId, SelectSelectStep selectSelectStep,
-		TimeRange timeRange, String timeZoneId) {
+		@Nullable Long dataSourceId, @Nullable String groupId,
+		List<Field> groupByFields, String individualId,
+		SelectSelectStep selectSelectStep, TimeRange timeRange,
+		String timeZoneId) {
 
 		List<Condition> conditions = _createConditions(
-			null, null, null, null, groupId, individualId,
+			null, dataSourceId, null, null, groupId, individualId,
 			Collections.emptySet(), timeRange, timeZoneId);
 
 		conditions.add(_getContentTypeCondition(contentTypes));
