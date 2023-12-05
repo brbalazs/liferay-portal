@@ -399,7 +399,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-analyzers-common.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene Common Analyzers</project-name>
 				<licenses>
 					<license>
@@ -410,7 +410,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-core.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene Core</project-name>
 				<licenses>
 					<license>
@@ -421,7 +421,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-queries.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene Queries</project-name>
 				<licenses>
 					<license>
@@ -432,7 +432,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-queryparser.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene QueryParsers</project-name>
 				<licenses>
 					<license>
@@ -443,7 +443,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.document.library.repository.search.jar!lucene-sandbox.jar</file-name>
-				<version>5.2.1</version>
+				<version>7.1.0</version>
 				<project-name>Lucene Sandbox</project-name>
 				<licenses>
 					<license>
@@ -1079,7 +1079,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.remote.axis.extender.jar!org.apache.axis.jar</file-name>
-				<version>1.4.LIFERAY-PATCHED-6</version>
+				<version>1.4.LIFERAY-PATCHED-8</version>
 				<project-name>org.apache.axis</project-name>
 				<licenses>
 					<license>
@@ -2639,6 +2639,18 @@
 				</licenses>
 			</library>
 			<library>
+				<file-name>com.liferay.portal.template.soy.jar!args4j.jar</file-name>
+				<version>2.0.23</version>
+				<project-name>args4j</project-name>
+				<project-url>http://www.kohsuke.org/</project-url>
+				<licenses>
+					<license>
+						<license-name>MIT license</license-name>
+						<license-url>http://www.opensource.org/licenses/mit-license.php</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
 				<file-name>com.liferay.portal.template.soy.jar!cglib.jar</file-name>
 				<version>2.2.1-v20090111</version>
 				<project-name>CGLIB</project-name>
@@ -2676,9 +2688,9 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.template.soy.jar!guice-multibindings.jar</file-name>
-				<version>3.0</version>
+				<version>4.1.0</version>
 				<project-name>Google Guice - Extensions - MultiBindings</project-name>
-				<project-url>http://code.google.com/p/google-guice/</project-url>
+				<project-url>https://github.com/google/guice</project-url>
 				<licenses>
 					<license>
 						<license-name>The Apache Software License, Version 2.0</license-name>
@@ -2688,9 +2700,9 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.template.soy.jar!guice.jar</file-name>
-				<version>3.0</version>
+				<version>4.1.0</version>
 				<project-name>Google Guice - Core Library</project-name>
-				<project-url>http://code.google.com/p/google-guice/</project-url>
+				<project-url>https://github.com/google/guice</project-url>
 				<licenses>
 					<license>
 						<license-name>The Apache Software License, Version 2.0</license-name>
@@ -2700,13 +2712,13 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.template.soy.jar!icu4j.jar</file-name>
-				<version>51.1</version>
+				<version>57.1</version>
 				<project-name>ICU4J</project-name>
 				<project-url>http://icu-project.org/</project-url>
 				<licenses>
 					<license>
 						<license-name>ICU License</license-name>
-						<license-url>http://source.icu-project.org/repos/icu/icu/trunk/license.html</license-url>
+						<license-url>http://source.icu-project.org/repos/icu/icu/trunk/LICENSE</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -2723,10 +2735,44 @@
 				</licenses>
 			</library>
 			<library>
+				<file-name>com.liferay.portal.template.soy.jar!protobuf-java.jar</file-name>
+				<version>3.16.1</version>
+				<project-name>Protocol Buffers [Core]</project-name>
+				<project-url>https://developers.google.com/protocol-buffers/</project-url>
+				<licenses>
+					<license>
+						<license-name>3-Clause BSD License</license-name>
+						<license-url>https://opensource.org/licenses/BSD-3-Clause</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
 				<file-name>com.liferay.portal.template.soy.jar!soy.jar</file-name>
-				<version>2015-04-10</version>
+				<version>2018-01-03</version>
 				<project-name>Closure Templates</project-name>
 				<project-url>https://github.com/google/closure-templates</project-url>
+				<licenses>
+					<license>
+						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.portal.template.soy.jar!truth.jar</file-name>
+				<version>0.36</version>
+				<project-name>Truth Core</project-name>
+				<licenses>
+					<license>
+						<license-name>The Apache Software License, Version 2.0</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>com.liferay.portal.template.soy.jar!types.jar</file-name>
+				<version>1.0.4</version>
+				<project-name>Safe HTML Types Library</project-name>
 				<licenses>
 					<license>
 						<license-name>The Apache Software License, Version 2.0</license-name>
@@ -4614,7 +4660,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/axis.jar</file-name>
-				<version>1.4.LIFERAY-PATCHED-6</version>
+				<version>1.4.LIFERAY-PATCHED-8</version>
 				<project-name>Axis</project-name>
 				<project-url>http://ws.apache.org/axis</project-url>
 				<licenses>
