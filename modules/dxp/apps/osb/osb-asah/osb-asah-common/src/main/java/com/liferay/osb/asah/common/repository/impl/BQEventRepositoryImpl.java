@@ -899,12 +899,13 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public List<RecentVisitSite> getRecentSites(
-		String individualId, Pageable pageable, TimeRange timeRange,
-		String timeZoneId) {
+		@Nullable Long dataSourceId, String individualId, Pageable pageable,
+		TimeRange timeRange, String timeZoneId) {
 
 		return _queryExecutor.queryForList(
 			RecentVisitSite::new,
 			_dslContext.select(
+				DSL.field("dataSourceId"),
 				_dslHelper.jsonExtractScalar(
 					"BQEvent.context", "groupId"
 				).as(
@@ -937,10 +938,10 @@ public class BQEventRepositoryImpl
 				)
 			).where(
 				_createConditions(
-					"Page", null, null, "pageViewed", null, individualId,
-					Collections.emptySet(), timeRange, timeZoneId)
+					"Page", dataSourceId, null, "pageViewed", null,
+					individualId, Collections.emptySet(), timeRange, timeZoneId)
 			).groupBy(
-				DSL.field("groupid")
+				DSL.field("dataSourceId"), DSL.field("groupid")
 			).orderBy(
 				getSortFields(pageable.getSort(), null)
 			).limit(
@@ -952,7 +953,8 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public long getRecentSitesCount(
-		String individualId, TimeRange timeRange, String timeZoneId) {
+		@Nullable Long dataSourceId, String individualId, TimeRange timeRange,
+		String timeZoneId) {
 
 		SelectSelectStep<Record1<Integer>> selectSelectStep =
 			_dslContext.selectCount();
@@ -965,6 +967,7 @@ public class BQEventRepositoryImpl
 					).as(
 						"counts"
 					),
+					DSL.field("dataSourceId"),
 					_dslHelper.jsonExtractScalar(
 						"BQEvent.context", "groupId"
 					).as(
@@ -982,10 +985,11 @@ public class BQEventRepositoryImpl
 					)
 				).where(
 					_createConditions(
-						"Page", null, null, "pageViewed", null, individualId,
-						Collections.emptySet(), timeRange, timeZoneId)
+						"Page", dataSourceId, null, "pageViewed", null,
+						individualId, Collections.emptySet(), timeRange,
+						timeZoneId)
 				).groupBy(
-					DSL.field("groupid")
+					DSL.field("dataSourceId"), DSL.field("groupid")
 				)));
 	}
 

@@ -128,12 +128,12 @@ public interface CustomBQEventRepository {
 		String timeZoneId);
 
 	public List<RecentVisitSite> getRecentSites(
-		@Nullable String individualId, Pageable pageable,
-		@Nullable TimeRange timeRange, String timeZoneId);
+		@Nullable Long dataSourceId, @Nullable String individualId,
+		Pageable pageable, @Nullable TimeRange timeRange, String timeZoneId);
 
 	public long getRecentSitesCount(
-		@Nullable String individualId, @Nullable TimeRange timeRange,
-		String timeZoneId);
+		@Nullable Long dataSourceId, @Nullable String individualId,
+		@Nullable TimeRange timeRange, String timeZoneId);
 
 	public List<SearchKeyword> getSearchKeywords(
 		@Nullable Long dataSourceId, @Nullable String displayLanguageId,
