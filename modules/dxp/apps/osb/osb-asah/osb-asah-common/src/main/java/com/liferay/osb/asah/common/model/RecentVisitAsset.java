@@ -95,7 +95,9 @@ public class RecentVisitAsset extends RecentVisit {
 		BLOG("Blog", "blogViewed", "blog"),
 		DOCUMENT("Document", "documentPreviewed", "document"),
 		FORM("Form", "formViewed", "form"),
-		WEBCONTENT("WebContent", "webContentViewed", "web-content");
+		WEBCONTENT(
+			"WebContent", "webContentResourcePk", "webContentViewed",
+			"web-content");
 
 		public static ContentType of(String value) {
 			return Optional.ofNullable(
@@ -107,6 +109,10 @@ public class RecentVisitAsset extends RecentVisit {
 
 		public String getApplicationId() {
 			return _applicationId;
+		}
+
+		public String getAssetIdFieldName() {
+			return _assetIdFieldName;
 		}
 
 		public String getEventId() {
@@ -123,6 +129,19 @@ public class RecentVisitAsset extends RecentVisit {
 			_applicationId = applicationId;
 			_eventId = eventId;
 			_value = value;
+
+			_assetIdFieldName = null;
+		}
+
+		private ContentType(
+			String applicationId, String assetiIdFieldName, String eventId,
+			String value) {
+
+			_applicationId = applicationId;
+			_eventId = eventId;
+			_value = value;
+
+			_assetIdFieldName = assetiIdFieldName;
 		}
 
 		private static final Map<String, ContentType> _contentTypes =
@@ -135,6 +154,7 @@ public class RecentVisitAsset extends RecentVisit {
 		}
 
 		private final String _applicationId;
+		private final String _assetIdFieldName;
 		private final String _eventId;
 		private final String _value;
 
