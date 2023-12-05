@@ -3227,6 +3227,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
+		recentVisitPage.setTitle("Title 2");
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage.setVisits(2L);
 
@@ -3241,6 +3242,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
+		recentVisitPage.setTitle("Title 1");
 		recentVisitPage.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage.setVisits(1L);
@@ -3325,6 +3327,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -1));
+		recentVisitPage.setTitle("Title 2");
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage.setVisits(4L);
 
@@ -3339,6 +3342,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
+		recentVisitPage.setTitle("Title 1");
 		recentVisitPage.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage.setVisits(4L);
@@ -3354,6 +3358,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -11));
+		recentVisitPage.setTitle("Title 2");
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage.setVisits(2L);
 
@@ -3368,6 +3373,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -16));
+		recentVisitPage.setTitle("Title 1");
 		recentVisitPage.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage.setVisits(2L);
@@ -3401,6 +3407,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitPage.setTitle("Title 2");
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage.setVisits(4L);
 
@@ -3415,6 +3422,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitPage.setTitle("Title 1");
 		recentVisitPage.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage.setVisits(4L);
@@ -3430,6 +3438,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
+		recentVisitPage.setTitle("Title 2");
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage.setVisits(2L);
 
@@ -3444,6 +3453,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
+		recentVisitPage.setTitle("Title 1");
 		recentVisitPage.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage.setVisits(2L);
@@ -3575,6 +3585,7 @@ public class BQEventDogTest
 		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitPage1.setTitle("Title 2");
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage1.setVisits(4L);
 
@@ -3587,6 +3598,7 @@ public class BQEventDogTest
 		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitPage2.setTitle("Title 1");
 		recentVisitPage2.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage2.setVisits(4L);
@@ -3600,6 +3612,7 @@ public class BQEventDogTest
 		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
+		recentVisitPage3.setTitle("Title 1");
 		recentVisitPage3.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage3.setVisits(2L);
@@ -3613,6 +3626,7 @@ public class BQEventDogTest
 		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
+		recentVisitPage4.setTitle("Title 2");
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
@@ -3653,6 +3667,7 @@ public class BQEventDogTest
 		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitPage1.setTitle("Title 2");
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage1.setVisits(4L);
 
@@ -3665,6 +3680,7 @@ public class BQEventDogTest
 		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitPage2.setTitle("Title 1");
 		recentVisitPage2.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage2.setVisits(4L);
@@ -3678,6 +3694,7 @@ public class BQEventDogTest
 		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
+		recentVisitPage3.setTitle("Title 1");
 		recentVisitPage3.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage3.setVisits(2L);
@@ -3691,6 +3708,7 @@ public class BQEventDogTest
 		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
+		recentVisitPage4.setTitle("Title 2");
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
@@ -3730,6 +3748,7 @@ public class BQEventDogTest
 		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitPage1.setTitle("Title 2");
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage1.setVisits(4L);
 
@@ -3742,6 +3761,7 @@ public class BQEventDogTest
 		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitPage2.setTitle("Title 1");
 		recentVisitPage2.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage2.setVisits(4L);
@@ -3755,6 +3775,7 @@ public class BQEventDogTest
 		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
+		recentVisitPage3.setTitle("Title 1");
 		recentVisitPage3.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage3.setVisits(2L);
@@ -3768,6 +3789,7 @@ public class BQEventDogTest
 		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
+		recentVisitPage4.setTitle("Title 2");
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
@@ -3807,6 +3829,7 @@ public class BQEventDogTest
 		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitPage1.setTitle("Title 2");
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage1.setVisits(4L);
 
@@ -3819,6 +3842,7 @@ public class BQEventDogTest
 		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitPage2.setTitle("Title 1");
 		recentVisitPage2.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage2.setVisits(4L);
@@ -3832,6 +3856,7 @@ public class BQEventDogTest
 		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
+		recentVisitPage3.setTitle("Title 1");
 		recentVisitPage3.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage3.setVisits(2L);
@@ -3845,6 +3870,7 @@ public class BQEventDogTest
 		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
+		recentVisitPage4.setTitle("Title 2");
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
@@ -3934,6 +3960,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitPage.setTitle("Title 2");
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage.setVisits(4L);
 
@@ -3948,6 +3975,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("12345");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
+		recentVisitPage.setTitle("Title 1");
 		recentVisitPage.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage.setVisits(2L);
@@ -3978,6 +4006,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitPage.setTitle("Title 2");
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage.setVisits(4L);
 
@@ -3992,6 +4021,7 @@ public class BQEventDogTest
 		recentVisitPage.setGroupId("67890");
 		recentVisitPage.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
+		recentVisitPage.setTitle("Title 2");
 		recentVisitPage.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage.setVisits(2L);
 
@@ -4019,6 +4049,7 @@ public class BQEventDogTest
 		recentVisitPage1.setGroupId("67890");
 		recentVisitPage1.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitPage1.setTitle("Title 2");
 		recentVisitPage1.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage1.setVisits(4L);
 
@@ -4031,6 +4062,7 @@ public class BQEventDogTest
 		recentVisitPage2.setGroupId("12345");
 		recentVisitPage2.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitPage2.setTitle("Title 1");
 		recentVisitPage2.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage2.setVisits(4L);
@@ -4044,6 +4076,7 @@ public class BQEventDogTest
 		recentVisitPage3.setGroupId("12345");
 		recentVisitPage3.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -12));
+		recentVisitPage3.setTitle("Title 1");
 		recentVisitPage3.setUrl(
 			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
 		recentVisitPage3.setVisits(2L);
@@ -4057,6 +4090,7 @@ public class BQEventDogTest
 		recentVisitPage4.setGroupId("67890");
 		recentVisitPage4.setLastVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -17));
+		recentVisitPage4.setTitle("Title 2");
 		recentVisitPage4.setUrl("https://www.beryl.com/delivery");
 		recentVisitPage4.setVisits(2L);
 
