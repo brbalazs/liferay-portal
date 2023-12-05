@@ -986,10 +986,10 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public List<SearchKeyword> getSearchKeywords(
-		@Nullable String displayLanguageId, @Nullable String groupId,
-		@Nullable String individualId, int minCounts, Pageable pageable,
-		Set<String> searchQueryParams, @Nullable TimeRange timeRange,
-		String timeZoneId) {
+		@Nullable Long dataSourceId, @Nullable String displayLanguageId,
+		@Nullable String groupId, @Nullable String individualId, int minCounts,
+		Pageable pageable, Set<String> searchQueryParams,
+		@Nullable TimeRange timeRange, String timeZoneId) {
 
 		SelectJoinStep selectJoinStep = _dslContext.select(
 			DSL.count(
@@ -1001,6 +1001,11 @@ public class BQEventRepositoryImpl
 				DSL.field("BQEvent.eventDate", Date.class)
 			).as(
 				"createdate"
+			),
+			DSL.field(
+				"BQEvent.dataSourceId"
+			).as(
+				"dataSourceId"
 			),
 			DSL.field(
 				"BQEvent.contentLanguageId"
@@ -1063,10 +1068,12 @@ public class BQEventRepositoryImpl
 			},
 			selectJoinStep.where(
 				_createConditions(
-					"Page", null, displayLanguageId, "pageViewed", groupId,
-					individualId, searchQueryParams, timeRange, timeZoneId)
+					"Page", dataSourceId, displayLanguageId, "pageViewed",
+					groupId, individualId, searchQueryParams, timeRange,
+					timeZoneId)
 			).groupBy(
-				DSL.field("displaylanguageid"), DSL.field("groupid"),
+				DSL.field("datasourceid"), DSL.field("displaylanguageid"),
+				DSL.field("groupid"),
 				_dslHelper.getField(
 					DSL.field("keywords"), _getKeywordsField(searchQueryParams))
 			).having(
@@ -1086,8 +1093,8 @@ public class BQEventRepositoryImpl
 
 	@Override
 	public long getSearchKeywordsCount(
-		@Nullable String displayLanguageId, @Nullable String groupId,
-		@Nullable String individualId, int minCounts,
+		@Nullable Long dataSourceId, @Nullable String displayLanguageId,
+		@Nullable String groupId, @Nullable String individualId, int minCounts,
 		Set<String> searchQueryParams, @Nullable TimeRange timeRange,
 		String timeZoneId) {
 
@@ -1135,10 +1142,12 @@ public class BQEventRepositoryImpl
 			selectSelectStep.from(
 				selectJoinStep.where(
 					_createConditions(
-						"Page", null, displayLanguageId, "pageViewed", groupId,
-						individualId, searchQueryParams, timeRange, timeZoneId)
+						"Page", dataSourceId, displayLanguageId, "pageViewed",
+						groupId, individualId, searchQueryParams, timeRange,
+						timeZoneId)
 				).groupBy(
-					DSL.field("displaylanguageid"), DSL.field("groupid"),
+					DSL.field("datasourceid"), DSL.field("displaylanguageid"),
+					DSL.field("groupid"),
 					_dslHelper.getField(
 						DSL.field("keywords"),
 						_getKeywordsField(searchQueryParams))

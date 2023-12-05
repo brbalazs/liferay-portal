@@ -134,14 +134,14 @@ public interface CustomBQEventRepository {
 		String timeZoneId);
 
 	public List<SearchKeyword> getSearchKeywords(
-		@Nullable String displayLanguageId, @Nullable String groupId,
-		@Nullable String individualId, int minCounts, Pageable pageable,
-		Set<String> searchQueryParams, @Nullable TimeRange timeRange,
-		String timeZoneId);
+		@Nullable Long dataSourceId, @Nullable String displayLanguageId,
+		@Nullable String groupId, @Nullable String individualId, int minCounts,
+		Pageable pageable, Set<String> searchQueryParams,
+		@Nullable TimeRange timeRange, String timeZoneId);
 
 	public long getSearchKeywordsCount(
-		@Nullable String displayLanguageId, @Nullable String groupId,
-		@Nullable String individualId, int minCounts,
+		@Nullable Long dataSourceId, @Nullable String displayLanguageId,
+		@Nullable String groupId, @Nullable String individualId, int minCounts,
 		Set<String> searchQueryParams, @Nullable TimeRange timeRange,
 		String timeZoneId);
 

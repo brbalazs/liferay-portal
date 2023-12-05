@@ -37,6 +37,7 @@ public class SearchKeyword {
 
 		if (Objects.equals(_counts, searchKeyword._counts) &&
 			Objects.equals(_createDate, searchKeyword._createDate) &&
+			Objects.equals(_dataSourceId, searchKeyword._dataSourceId) &&
 			Objects.equals(
 				_displayLanguageId, searchKeyword._displayLanguageId) &&
 			Objects.equals(_groupId, searchKeyword._groupId) &&
@@ -62,6 +63,10 @@ public class SearchKeyword {
 		return new Date(_createDate.getTime());
 	}
 
+	public Long getDataSourceId() {
+		return _dataSourceId;
+	}
+
 	public String getDisplayLanguageId() {
 		return _displayLanguageId;
 	}
@@ -85,8 +90,8 @@ public class SearchKeyword {
 	@Override
 	public int hashCode() {
 		return Objects.hash(
-			_counts, _createDate, _displayLanguageId, _groupId, _keywords,
-			_lastModifiedDate);
+			_counts, _createDate, _dataSourceId, _displayLanguageId, _groupId,
+			_keywords, _lastModifiedDate);
 	}
 
 	public void setCounts(Long counts) {
@@ -97,6 +102,10 @@ public class SearchKeyword {
 		if (createDate != null) {
 			_createDate = new Date(createDate.getTime());
 		}
+	}
+
+	public void setDataSourceId(Long dataSourceId) {
+		_dataSourceId = dataSourceId;
 	}
 
 	public void setDisplayLanguageId(String displayLanguageId) {
@@ -119,6 +128,7 @@ public class SearchKeyword {
 
 	private Long _counts;
 	private Date _createDate;
+	private Long _dataSourceId;
 	private String _displayLanguageId;
 	private String _groupId;
 	private String _keywords;
