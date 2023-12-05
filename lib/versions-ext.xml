@@ -1186,7 +1186,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/axis.jar</file-name>
-				<version>1.4.LIFERAY-PATCHED-6</version>
+				<version>1.4.LIFERAY-PATCHED-8</version>
 				<project-name>Axis</project-name>
 				<project-url>http://ws.apache.org/axis</project-url>
 				<licenses>

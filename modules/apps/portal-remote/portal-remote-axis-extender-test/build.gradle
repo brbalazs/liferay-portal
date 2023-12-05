@@ -1,5 +1,5 @@
 dependencies {
-	compileOnly group: "com.liferay", name: "org.apache.axis", version: "1.4.LIFERAY-PATCHED-6"
+	compileOnly group: "com.liferay", name: "org.apache.axis", version: "1.4.LIFERAY-PATCHED-8"
 
 	testIntegrationImplementation group: "com.liferay.arquillian", name: "com.liferay.arquillian.arquillian-container-liferay", version: "1.0.9"
 	testIntegrationImplementation group: "com.liferay.arquillian", name: "com.liferay.arquillian.arquillian-deployment-generator-bnd", version: "1.0.4"
