@@ -229,12 +229,10 @@ public class IndividualsRestController extends BaseRestController {
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
-		List<RecentVisitAsset.ContentType> contentTypesList;
+		List<RecentVisitAsset.ContentType> contentTypesList =
+			Collections.emptyList();
 
-		if (contentTypes == null) {
-			contentTypesList = Collections.emptyList();
-		}
-		else {
+		if (contentTypes != null) {
 			contentTypesList = ListUtil.map(
 				Arrays.asList(contentTypes), RecentVisitAsset.ContentType::of);
 		}
