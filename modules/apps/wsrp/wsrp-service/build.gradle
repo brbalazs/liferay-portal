@@ -10,7 +10,6 @@ buildWSDD {
 dependencies {
 	compileInclude group: "org.apache.ws.security", name: "wss4j", version: "1.5.12"
 	compileInclude group: "org.bouncycastle", name: "bcprov-jdk18on", version: "1.76"
-	compileInclude group: "org.opensaml", name: "opensaml", version: "1.1"
 
 	compileOnly group: "axis", name: "axis", version: "1.4"
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
