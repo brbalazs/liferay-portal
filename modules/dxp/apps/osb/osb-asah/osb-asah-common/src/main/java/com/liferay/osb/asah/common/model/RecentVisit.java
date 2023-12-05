@@ -12,6 +12,10 @@ import java.util.Date;
  */
 public abstract class RecentVisit {
 
+	public Long getDataSourceId() {
+		return dataSourceId;
+	}
+
 	public Date getFirstVisitDate() {
 		if (firstVisitDate == null) {
 			return null;
@@ -36,6 +40,10 @@ public abstract class RecentVisit {
 		return visits;
 	}
 
+	public void setDataSourceId(Long dataSourceId) {
+		this.dataSourceId = dataSourceId;
+	}
+
 	public void setFirstVisitDate(Date firstVisitDate) {
 		if (firstVisitDate != null) {
 			this.firstVisitDate = new Date(firstVisitDate.getTime());
@@ -56,6 +64,7 @@ public abstract class RecentVisit {
 		this.visits = visits;
 	}
 
+	protected Long dataSourceId;
 	protected Date firstVisitDate;
 	protected String groupId;
 	protected Date lastVisitDate;
