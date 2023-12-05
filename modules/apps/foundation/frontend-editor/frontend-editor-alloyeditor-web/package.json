@@ -1,7 +1,7 @@
 {
 	"dependencies": {
 		"alloyeditor": "2.14.7",
-		"create-react-class": "15.6.3"
+		"create-react-class": "^15.7.0"
 	},
 	"name": "frontend-editor-alloyeditor-web",
 	"version": "1.0.101"
