@@ -59,6 +59,328 @@ public class BQEventDogTest
 	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
 	@SQLResource(resourcePath = "test_get_recent_assets.sql")
 	@Test
+	public void testGetRecentAssetMultipleWebContentTypes() {
+		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
+			Arrays.asList(
+				RecentVisitAsset.ContentType.BLOG,
+				RecentVisitAsset.ContentType.FORM),
+			null,
+			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
+			0, 10, new String[] {"visits", "desc"}, TimeRange.LAST_7_DAYS);
+
+		Assertions.assertEquals(6, recentAssetPage.getTotalElements());
+		Assertions.assertEquals(1, recentAssetPage.getTotalPages());
+
+		List<RecentVisitAsset> expectedRecentVisitAssets = new ArrayList<>();
+
+		RecentVisitAsset recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("a73ihsy9");
+		recentVisitAsset.setAssetTitle("Blog Title 2");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setUrl("https://www.beryl.com/delivery");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("b73ihsy9");
+		recentVisitAsset.setAssetTitle("Blog Title 3");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setUrl("https://www.beryl.com/confirmation");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("c73ihsy9");
+		recentVisitAsset.setAssetTitle("Blog Title 4");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setUrl("https://www.beryl.com/about");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("a37higg1");
+		recentVisitAsset.setAssetTitle("Form Title 2");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-2");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("b42spry4");
+		recentVisitAsset.setAssetTitle("Form Title 3");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -3));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -3));
+		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-3");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("e242gdef");
+		recentVisitAsset.setAssetTitle("Form Title 1");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -5));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -5));
+		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-1");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		Assertions.assertEquals(
+			expectedRecentVisitAssets, recentAssetPage.getContent());
+	}
+
+	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
+	@SQLResource(resourcePath = "test_get_recent_assets.sql")
+	@Test
+	public void testGetRecentAssetNoContentTypes() {
+		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
+			Collections.emptyList(), null,
+			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
+			0, 10, new String[] {"contentType", "asc"}, TimeRange.LAST_7_DAYS);
+
+		Assertions.assertEquals(12, recentAssetPage.getTotalElements());
+		Assertions.assertEquals(2, recentAssetPage.getTotalPages());
+
+		List<RecentVisitAsset> expectedRecentVisitAssets = new ArrayList<>();
+
+		RecentVisitAsset recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("a73ihsy9");
+		recentVisitAsset.setAssetTitle("Blog Title 2");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setUrl("https://www.beryl.com/delivery");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("b73ihsy9");
+		recentVisitAsset.setAssetTitle("Blog Title 3");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setUrl("https://www.beryl.com/confirmation");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("c73ihsy9");
+		recentVisitAsset.setAssetTitle("Blog Title 4");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setUrl("https://www.beryl.com/about");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("a73ihsy9");
+		recentVisitAsset.setAssetTitle("Document Title 2");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-2");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("b73ihsy9");
+		recentVisitAsset.setAssetTitle("Document Title 3");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-3");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("c73ihsy9");
+		recentVisitAsset.setAssetTitle("Document Title 4");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setUrl("https://www.beryl.com/docs/doc-4");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("a37higg1");
+		recentVisitAsset.setAssetTitle("Form Title 2");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-2");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("b42spry4");
+		recentVisitAsset.setAssetTitle("Form Title 3");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -3));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -3));
+		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-3");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("e242gdef");
+		recentVisitAsset.setAssetTitle("Form Title 1");
+		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -5));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -5));
+		recentVisitAsset.setUrl("https://www.beryl.com/forms/form-1");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("a73ihsy9");
+		recentVisitAsset.setAssetTitle("WebContent Title 2");
+		recentVisitAsset.setContentType(
+			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-2");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		Assertions.assertEquals(
+			expectedRecentVisitAssets, recentAssetPage.getContent());
+
+		recentAssetPage = _bqEventDog.getRecentAssetPage(
+			Collections.emptyList(), null,
+			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
+			1, 10, new String[] {"contentType", "asc"}, TimeRange.LAST_7_DAYS);
+
+		expectedRecentVisitAssets = new ArrayList<>();
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("b73ihsy9");
+		recentVisitAsset.setAssetTitle("WebContent Title 3");
+		recentVisitAsset.setContentType(
+			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setGroupId("12345");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -7));
+		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-3");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		recentVisitAsset = new RecentVisitAsset();
+
+		recentVisitAsset.setAssetId("c73ihsy9");
+		recentVisitAsset.setAssetTitle("WebContent Title 4");
+		recentVisitAsset.setContentType(
+			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setGroupId("67890");
+		recentVisitAsset.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -4));
+		recentVisitAsset.setUrl("https://www.beryl.com/journals/journal-4");
+		recentVisitAsset.setVisits(1L);
+
+		expectedRecentVisitAssets.add(recentVisitAsset);
+
+		Assertions.assertEquals(
+			expectedRecentVisitAssets, recentAssetPage.getContent());
+	}
+
+	@BQSQLResource(resourcePath = "test_get_recent_assets_bq.sql")
+	@SQLResource(resourcePath = "test_get_recent_assets.sql")
+	@Test
 	public void testGetRecentBlogsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
