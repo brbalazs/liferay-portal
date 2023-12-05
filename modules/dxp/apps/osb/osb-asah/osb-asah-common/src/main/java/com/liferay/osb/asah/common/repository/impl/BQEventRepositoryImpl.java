@@ -712,6 +712,21 @@ public class BQEventRepositoryImpl
 		@Nullable String groupId, String individualId, Pageable pageable,
 		TimeRange timeRange, String timeZoneId) {
 
+		Field assetIdField = DSL.when(
+			DSL.field(
+				"applicationId"
+			).eq(
+				RecentVisitAsset.ContentType.WEBCONTENT.getApplicationId()
+			),
+			_dslHelper.jsonExtractScalar(
+				"BQEvent.eventProperties",
+				RecentVisitAsset.ContentType.WEBCONTENT.getAssetIdFieldName())
+		).otherwise(
+			DSL.field("assetId")
+		).as(
+			"assetId"
+		);
+
 		SelectHavingStep selectHavingStep = _getRecentAssetsSelectHavingStep(
 			contentTypes, groupId,
 			Arrays.asList(
@@ -720,7 +735,7 @@ public class BQEventRepositoryImpl
 				DSL.field("groupid")),
 			individualId,
 			_dslContext.select(
-				DSL.field("assetId"), DSL.field("assetTitle"),
+				assetIdField, DSL.field("assetTitle"),
 				DSL.upper(
 					DSL.field("applicationId", String.class)
 				).as(
