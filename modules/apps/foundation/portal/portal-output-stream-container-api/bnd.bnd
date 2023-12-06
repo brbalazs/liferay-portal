@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Portal Output Stream Container API
 Bundle-SymbolicName: com.liferay.portal.output.stream.container.api
-Bundle-Version: 1.0.4
+Bundle-Version: 1.0.5
 Export-Package: com.liferay.portal.output.stream.container
 Liferay-Releng-Module-Group-Title: Runtime
