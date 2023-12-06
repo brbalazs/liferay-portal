@@ -260,19 +260,19 @@ public class ExperimentDog {
 
 		_setExperimentSettings(existingExperiment, experimentSettings);
 
-		if (experiment.getExperimentStatus() != null) {
-			_setExperimentStatus(
-				existingExperiment, experiment.getExperimentStatus());
-			_setPublishedDXPVariantId(
-				existingExperiment, experiment.getPublishedDXPVariantId());
-		}
-
 		if ((experiment.getExperimentStatus() == ExperimentStatus.RUNNING) &&
 			(existingExperiment.getExperimentStatus() ==
 				ExperimentStatus.DRAFT)) {
 
 			existingExperiment.setExperimentType(
 				experiment.getExperimentType());
+		}
+
+		if (experiment.getExperimentStatus() != null) {
+			_setExperimentStatus(
+				existingExperiment, experiment.getExperimentStatus());
+			_setPublishedDXPVariantId(
+				existingExperiment, experiment.getPublishedDXPVariantId());
 		}
 
 		if (experiment.getName() != null) {
