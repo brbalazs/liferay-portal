@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Portal Settings Authentication OpenID Web
 Bundle-SymbolicName: com.liferay.portal.settings.authentication.openid.web
-Bundle-Version: 1.0.22
+Bundle-Version: 1.0.23
 Liferay-Releng-Module-Group-Title: Portal Settings
 Provide-Capability:\
 	liferay.resource.bundle;\
