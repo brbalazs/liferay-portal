@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Login Authentication Google Web
 Bundle-SymbolicName: com.liferay.login.authentication.google.web
-Bundle-Version: 2.0.38
+Bundle-Version: 2.0.39
 Liferay-Releng-Module-Group-Title: Login
 Web-ContextPath: /login-authentication-google-web
