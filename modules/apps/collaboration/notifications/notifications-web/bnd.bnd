@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Notifications Web
 Bundle-SymbolicName: com.liferay.notifications.web
-Bundle-Version: 1.0.80
+Bundle-Version: 1.0.81
 Web-ContextPath: /notifications-web
 -dsannotations-options: inherit
