@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Portal Rules Engine Sample Web
 Bundle-SymbolicName: com.liferay.portal.rules.engine.sample.web
-Bundle-Version: 2.0.39
+Bundle-Version: 2.0.40
 Liferay-Releng-Module-Group-Title: Rules Engine
 Web-ContextPath: /portal-rules-engine-sample-web
