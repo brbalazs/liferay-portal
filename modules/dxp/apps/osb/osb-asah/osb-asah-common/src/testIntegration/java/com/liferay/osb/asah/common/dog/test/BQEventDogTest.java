@@ -64,7 +64,7 @@ public class BQEventDogTest
 			Arrays.asList(
 				RecentVisitAsset.ContentType.BLOG,
 				RecentVisitAsset.ContentType.FORM),
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[] {"visits", "desc"}, TimeRange.LAST_7_DAYS);
 
@@ -78,6 +78,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("67890");
@@ -93,6 +94,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setGroupId("12345");
@@ -108,6 +110,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setGroupId("67890");
@@ -123,6 +126,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a37higg1");
 		recentVisitAsset.setAssetTitle("Form Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("67890");
@@ -138,6 +142,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b42spry4");
 		recentVisitAsset.setAssetTitle("Form Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset.setGroupId("67890");
@@ -153,6 +158,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e242gdef");
 		recentVisitAsset.setAssetTitle("Form Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -5));
 		recentVisitAsset.setGroupId("12345");
@@ -172,7 +178,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentAssetNoContentTypes() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			Collections.emptyList(), null,
+			Collections.emptyList(), null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[] {"contentType", "asc"}, TimeRange.LAST_7_DAYS);
 
@@ -186,6 +192,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("67890");
@@ -201,6 +208,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setGroupId("12345");
@@ -216,6 +224,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setGroupId("67890");
@@ -231,6 +240,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("12345");
@@ -246,6 +256,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setGroupId("67890");
@@ -261,6 +272,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setGroupId("67890");
@@ -276,6 +288,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a37higg1");
 		recentVisitAsset.setAssetTitle("Form Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("67890");
@@ -291,6 +304,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b42spry4");
 		recentVisitAsset.setAssetTitle("Form Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset.setGroupId("67890");
@@ -306,6 +320,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e242gdef");
 		recentVisitAsset.setAssetTitle("Form Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -5));
 		recentVisitAsset.setGroupId("12345");
@@ -322,6 +337,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 2");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("12345");
@@ -336,7 +352,7 @@ public class BQEventDogTest
 			expectedRecentVisitAssets, recentAssetPage.getContent());
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
-			Collections.emptyList(), null,
+			Collections.emptyList(), null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			1, 10, new String[] {"contentType", "asc"}, TimeRange.LAST_7_DAYS);
 
@@ -348,6 +364,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 3");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setGroupId("12345");
@@ -364,6 +381,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 4");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setGroupId("67890");
@@ -384,6 +402,7 @@ public class BQEventDogTest
 	public void testGetRecentBlogsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -397,6 +416,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("67890");
@@ -412,6 +432,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setGroupId("12345");
@@ -427,6 +448,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setGroupId("67890");
@@ -447,6 +469,7 @@ public class BQEventDogTest
 	public void testGetRecentBlogsLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -487,6 +510,7 @@ public class BQEventDogTest
 	public void testGetRecentBlogsLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -500,6 +524,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset.setGroupId("67890");
@@ -515,6 +540,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -23));
 		recentVisitAsset.setGroupId("12345");
@@ -530,6 +556,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset.setGroupId("67890");
@@ -545,6 +572,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e131fabc");
 		recentVisitAsset.setAssetTitle("Blog Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset.setGroupId("12345");
@@ -566,6 +594,7 @@ public class BQEventDogTest
 	public void testGetRecentBlogsLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -579,6 +608,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -22));
 		recentVisitAsset.setGroupId("67890");
@@ -594,6 +624,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset.setGroupId("12345");
@@ -609,6 +640,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitAsset.setGroupId("67890");
@@ -624,6 +656,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e131fabc");
 		recentVisitAsset.setAssetTitle("Blog Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset.setGroupId("12345");
@@ -648,6 +681,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("a73ihsy9");
 		recentVisitAsset1.setAssetTitle("Blog Title 2");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset1.setDataSourceId(84756L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("67890");
@@ -661,6 +695,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b73ihsy9");
 		recentVisitAsset2.setAssetTitle("Blog Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset2.setDataSourceId(10293L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("12345");
@@ -674,6 +709,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c73ihsy9");
 		recentVisitAsset3.setAssetTitle("Blog Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -687,6 +723,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("e131fabc");
 		recentVisitAsset4.setAssetTitle("Blog Title 1");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset4.setDataSourceId(10293L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("12345");
@@ -698,6 +735,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -710,6 +748,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -730,6 +769,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("a73ihsy9");
 		recentVisitAsset1.setAssetTitle("Blog Title 2");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset1.setDataSourceId(84756L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("67890");
@@ -743,6 +783,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b73ihsy9");
 		recentVisitAsset2.setAssetTitle("Blog Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset2.setDataSourceId(10293L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("12345");
@@ -756,6 +797,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c73ihsy9");
 		recentVisitAsset3.setAssetTitle("Blog Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -769,6 +811,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("e131fabc");
 		recentVisitAsset4.setAssetTitle("Blog Title 1");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset4.setDataSourceId(10293L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("12345");
@@ -780,6 +823,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -792,6 +836,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -812,6 +857,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("a73ihsy9");
 		recentVisitAsset1.setAssetTitle("Blog Title 2");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset1.setDataSourceId(84756L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("67890");
@@ -825,6 +871,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b73ihsy9");
 		recentVisitAsset2.setAssetTitle("Blog Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset2.setDataSourceId(10293L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("12345");
@@ -838,6 +885,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c73ihsy9");
 		recentVisitAsset3.setAssetTitle("Blog Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -851,6 +899,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("e131fabc");
 		recentVisitAsset4.setAssetTitle("Blog Title 1");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset4.setDataSourceId(10293L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("12345");
@@ -862,6 +911,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -874,6 +924,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -890,7 +941,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentBlogsWithGroupId() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			Collections.singletonList(RecentVisitAsset.ContentType.BLOG),
+			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
 			"12345",
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
@@ -905,6 +956,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Blog Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset.setGroupId("12345");
@@ -920,6 +972,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e131fabc");
 		recentVisitAsset.setAssetTitle("Blog Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset.setGroupId("12345");
@@ -944,6 +997,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("a73ihsy9");
 		recentVisitAsset1.setAssetTitle("Blog Title 2");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset1.setDataSourceId(84756L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("67890");
@@ -957,6 +1011,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b73ihsy9");
 		recentVisitAsset2.setAssetTitle("Blog Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset2.setDataSourceId(10293L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("12345");
@@ -970,6 +1025,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c73ihsy9");
 		recentVisitAsset3.setAssetTitle("Blog Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -983,6 +1039,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("e131fabc");
 		recentVisitAsset4.setAssetTitle("Blog Title 1");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.BLOG);
+		recentVisitAsset4.setDataSourceId(10293L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("12345");
@@ -994,6 +1051,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1005,6 +1063,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1020,6 +1079,7 @@ public class BQEventDogTest
 	public void testGetRecentBlogsWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1037,6 +1097,7 @@ public class BQEventDogTest
 	public void testGetRecentBlogsYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.BLOG), null,
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -1098,7 +1159,7 @@ public class BQEventDogTest
 	public void testGetRecentDocumentsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -1112,6 +1173,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("12345");
@@ -1127,6 +1189,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setGroupId("67890");
@@ -1142,6 +1205,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setGroupId("67890");
@@ -1162,7 +1226,7 @@ public class BQEventDogTest
 	public void testGetRecentDocumentsLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -1203,7 +1267,7 @@ public class BQEventDogTest
 	public void testGetRecentDocumentsLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -1217,6 +1281,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset.setGroupId("12345");
@@ -1232,6 +1297,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -23));
 		recentVisitAsset.setGroupId("67890");
@@ -1247,6 +1313,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset.setGroupId("67890");
@@ -1262,6 +1329,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e131fabc");
 		recentVisitAsset.setAssetTitle("Document Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset.setGroupId("12345");
@@ -1282,7 +1350,7 @@ public class BQEventDogTest
 	public void testGetRecentDocumentsLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1296,6 +1364,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -22));
 		recentVisitAsset.setGroupId("12345");
@@ -1311,6 +1380,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset.setGroupId("67890");
@@ -1326,6 +1396,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitAsset.setGroupId("67890");
@@ -1341,6 +1412,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e131fabc");
 		recentVisitAsset.setAssetTitle("Document Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset.setGroupId("12345");
@@ -1364,6 +1436,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("a73ihsy9");
 		recentVisitAsset1.setAssetTitle("Document Title 2");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("12345");
@@ -1377,6 +1450,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b73ihsy9");
 		recentVisitAsset2.setAssetTitle("Document Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset2.setDataSourceId(84756L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("67890");
@@ -1390,6 +1464,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c73ihsy9");
 		recentVisitAsset3.setAssetTitle("Document Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -1403,6 +1478,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("e131fabc");
 		recentVisitAsset4.setAssetTitle("Document Title 1");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset4.setDataSourceId(10293L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("12345");
@@ -1413,7 +1489,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1426,7 +1502,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1447,6 +1523,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("a73ihsy9");
 		recentVisitAsset1.setAssetTitle("Document Title 2");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("12345");
@@ -1460,6 +1537,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b73ihsy9");
 		recentVisitAsset2.setAssetTitle("Document Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset2.setDataSourceId(84756L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("67890");
@@ -1473,6 +1551,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c73ihsy9");
 		recentVisitAsset3.setAssetTitle("Document Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -1486,6 +1565,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("e131fabc");
 		recentVisitAsset4.setAssetTitle("Document Title 1");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset4.setDataSourceId(10293L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("12345");
@@ -1496,7 +1576,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1509,7 +1589,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -1530,6 +1610,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("a73ihsy9");
 		recentVisitAsset1.setAssetTitle("Document Title 2");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("12345");
@@ -1543,6 +1624,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b73ihsy9");
 		recentVisitAsset2.setAssetTitle("Document Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset2.setDataSourceId(84756L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("67890");
@@ -1556,6 +1638,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c73ihsy9");
 		recentVisitAsset3.setAssetTitle("Document Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -1569,6 +1652,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("e131fabc");
 		recentVisitAsset4.setAssetTitle("Document Title 1");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset4.setDataSourceId(10293L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("12345");
@@ -1579,7 +1663,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1592,7 +1676,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1610,7 +1694,7 @@ public class BQEventDogTest
 	public void testGetRecentDocumentsWithGroupId() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			"12345",
+			null, "12345",
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1624,6 +1708,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a73ihsy9");
 		recentVisitAsset.setAssetTitle("Document Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -22));
 		recentVisitAsset.setGroupId("12345");
@@ -1639,6 +1724,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e131fabc");
 		recentVisitAsset.setAssetTitle("Document Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset.setGroupId("12345");
@@ -1662,6 +1748,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("a73ihsy9");
 		recentVisitAsset1.setAssetTitle("Document Title 2");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("12345");
@@ -1675,6 +1762,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b73ihsy9");
 		recentVisitAsset2.setAssetTitle("Document Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset2.setDataSourceId(84756L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("67890");
@@ -1688,6 +1776,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c73ihsy9");
 		recentVisitAsset3.setAssetTitle("Document Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -1701,6 +1790,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("e131fabc");
 		recentVisitAsset4.setAssetTitle("Document Title 1");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.DOCUMENT);
+		recentVisitAsset4.setDataSourceId(10293L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("12345");
@@ -1711,7 +1801,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1723,7 +1813,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -1739,7 +1829,7 @@ public class BQEventDogTest
 	public void testGetRecentDocumentsWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1757,7 +1847,7 @@ public class BQEventDogTest
 	public void testGetRecentDocumentsYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.DOCUMENT),
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -1798,6 +1888,7 @@ public class BQEventDogTest
 	public void testGetRecentFormsLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -1811,6 +1902,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a37higg1");
 		recentVisitAsset.setAssetTitle("Form Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("67890");
@@ -1826,6 +1918,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b42spry4");
 		recentVisitAsset.setAssetTitle("Form Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitAsset.setGroupId("67890");
@@ -1841,6 +1934,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e242gdef");
 		recentVisitAsset.setAssetTitle("Form Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -5));
 		recentVisitAsset.setGroupId("12345");
@@ -1861,6 +1955,7 @@ public class BQEventDogTest
 	public void testGetRecentFormsLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -1901,6 +1996,7 @@ public class BQEventDogTest
 	public void testGetRecentFormsLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -1914,6 +2010,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b42spry4");
 		recentVisitAsset.setAssetTitle("Form Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset.setGroupId("67890");
@@ -1929,6 +2026,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c99ytfl7");
 		recentVisitAsset.setAssetTitle("Form Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset.setGroupId("12345");
@@ -1944,6 +2042,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e242gdef");
 		recentVisitAsset.setAssetTitle("Form Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset.setGroupId("12345");
@@ -1959,6 +2058,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a37higg1");
 		recentVisitAsset.setAssetTitle("Form Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
 		recentVisitAsset.setGroupId("67890");
@@ -1979,6 +2079,7 @@ public class BQEventDogTest
 	public void testGetRecentFormsLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -1992,6 +2093,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e242gdef");
 		recentVisitAsset.setAssetTitle("Form Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset.setGroupId("12345");
@@ -2007,6 +2109,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("b42spry4");
 		recentVisitAsset.setAssetTitle("Form Title 3");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset.setGroupId("67890");
@@ -2022,6 +2125,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c99ytfl7");
 		recentVisitAsset.setAssetTitle("Form Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset.setGroupId("12345");
@@ -2037,6 +2141,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("a37higg1");
 		recentVisitAsset.setAssetTitle("Form Title 2");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
 		recentVisitAsset.setGroupId("67890");
@@ -2060,6 +2165,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("e242gdef");
 		recentVisitAsset1.setAssetTitle("Form Title 1");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset1.setGroupId("12345");
@@ -2073,6 +2179,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b42spry4");
 		recentVisitAsset2.setAssetTitle("Form Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset2.setDataSourceId(84756L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset2.setGroupId("67890");
@@ -2086,6 +2193,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c99ytfl7");
 		recentVisitAsset3.setAssetTitle("Form Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset3.setDataSourceId(10293L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("12345");
@@ -2099,6 +2207,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("a37higg1");
 		recentVisitAsset4.setAssetTitle("Form Title 2");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset4.setDataSourceId(84756L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
 		recentVisitAsset4.setGroupId("67890");
@@ -2109,6 +2218,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -2121,6 +2231,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -2141,6 +2252,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("e242gdef");
 		recentVisitAsset1.setAssetTitle("Form Title 1");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset1.setGroupId("12345");
@@ -2154,6 +2266,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b42spry4");
 		recentVisitAsset2.setAssetTitle("Form Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset2.setDataSourceId(84756L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset2.setGroupId("67890");
@@ -2167,6 +2280,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c99ytfl7");
 		recentVisitAsset3.setAssetTitle("Form Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset3.setDataSourceId(10293L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("12345");
@@ -2180,6 +2294,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("a37higg1");
 		recentVisitAsset4.setAssetTitle("Form Title 2");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset4.setDataSourceId(84756L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
 		recentVisitAsset4.setGroupId("67890");
@@ -2190,6 +2305,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -2202,6 +2318,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -2222,6 +2339,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("e242gdef");
 		recentVisitAsset1.setAssetTitle("Form Title 1");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset1.setGroupId("12345");
@@ -2235,6 +2353,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b42spry4");
 		recentVisitAsset2.setAssetTitle("Form Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset2.setDataSourceId(84756L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset2.setGroupId("67890");
@@ -2248,6 +2367,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c99ytfl7");
 		recentVisitAsset3.setAssetTitle("Form Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset3.setDataSourceId(10293L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("12345");
@@ -2261,6 +2381,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("a37higg1");
 		recentVisitAsset4.setAssetTitle("Form Title 2");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset4.setDataSourceId(84756L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
 		recentVisitAsset4.setGroupId("67890");
@@ -2271,6 +2392,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -2283,6 +2405,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -2299,7 +2422,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentFormsWithGroupId() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			Collections.singletonList(RecentVisitAsset.ContentType.FORM),
+			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
 			"12345",
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
@@ -2314,6 +2437,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("e242gdef");
 		recentVisitAsset.setAssetTitle("Form Title 1");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset.setGroupId("12345");
@@ -2329,6 +2453,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetId("c99ytfl7");
 		recentVisitAsset.setAssetTitle("Form Title 4");
 		recentVisitAsset.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset.setGroupId("12345");
@@ -2352,6 +2477,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetId("e242gdef");
 		recentVisitAsset1.setAssetTitle("Form Title 1");
 		recentVisitAsset1.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset1.setGroupId("12345");
@@ -2365,6 +2491,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetId("b42spry4");
 		recentVisitAsset2.setAssetTitle("Form Title 3");
 		recentVisitAsset2.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset2.setDataSourceId(84756L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset2.setGroupId("67890");
@@ -2378,6 +2505,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetId("c99ytfl7");
 		recentVisitAsset3.setAssetTitle("Form Title 4");
 		recentVisitAsset3.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset3.setDataSourceId(10293L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("12345");
@@ -2391,6 +2519,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetId("a37higg1");
 		recentVisitAsset4.setAssetTitle("Form Title 2");
 		recentVisitAsset4.setContentType(RecentVisitAsset.ContentType.FORM);
+		recentVisitAsset4.setDataSourceId(84756L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
 		recentVisitAsset4.setGroupId("67890");
@@ -2401,6 +2530,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -2412,6 +2542,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -2427,6 +2558,7 @@ public class BQEventDogTest
 	public void testGetRecentFormsWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -2444,6 +2576,7 @@ public class BQEventDogTest
 	public void testGetRecentFormsYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.FORM), null,
+			null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -2566,7 +2699,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesLast7Days() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 7, 10, new String[0]);
 
@@ -2581,6 +2714,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(84756L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -3));
 		recentVisitPage.setDisplayLanguageId("en-US");
@@ -2594,6 +2728,7 @@ public class BQEventDogTest
 
 		recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(10293L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -6));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
@@ -2615,7 +2750,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesLast24Hours() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 0, 10, new String[0]);
 
@@ -2666,7 +2801,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesLast28Days() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 28, 10, new String[0]);
 
@@ -2677,6 +2812,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(84756L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -23));
 		recentVisitPage.setDisplayLanguageId("en-US");
@@ -2690,6 +2826,7 @@ public class BQEventDogTest
 
 		recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(10293L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
@@ -2704,6 +2841,7 @@ public class BQEventDogTest
 
 		recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(84756L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -13));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
@@ -2717,6 +2855,7 @@ public class BQEventDogTest
 
 		recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(10293L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -18));
 		recentVisitPage.setDisplayLanguageId("en-US");
@@ -2738,7 +2877,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesLast30Days() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[0]);
 
@@ -2749,6 +2888,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(84756L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage.setDisplayLanguageId("en-US");
@@ -2762,6 +2902,7 @@ public class BQEventDogTest
 
 		recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(10293L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
@@ -2776,6 +2917,7 @@ public class BQEventDogTest
 
 		recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(84756L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
@@ -2789,6 +2931,7 @@ public class BQEventDogTest
 
 		recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(10293L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage.setDisplayLanguageId("en-US");
@@ -2811,6 +2954,7 @@ public class BQEventDogTest
 	public void testGetRecentPagesSortByDisplayLanguageId() {
 		RecentVisitPage recentVisitPage1 = new RecentVisitPage();
 
+		recentVisitPage1.setDataSourceId(84756L);
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
@@ -2822,6 +2966,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage2 = new RecentVisitPage();
 
+		recentVisitPage2.setDataSourceId(10293L);
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
@@ -2834,6 +2979,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage3 = new RecentVisitPage();
 
+		recentVisitPage3.setDataSourceId(10293L);
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
@@ -2846,6 +2992,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage4 = new RecentVisitPage();
 
+		recentVisitPage4.setDataSourceId(84756L);
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
@@ -2856,7 +3003,7 @@ public class BQEventDogTest
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"displayLanguageId", "asc", "url", "asc"});
 
@@ -2867,7 +3014,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10,
 			new String[] {"displayLanguageId", "desc", "url", "asc"});
@@ -2885,6 +3032,7 @@ public class BQEventDogTest
 	public void testGetRecentPagesSortByFirstVisitDate() {
 		RecentVisitPage recentVisitPage1 = new RecentVisitPage();
 
+		recentVisitPage1.setDataSourceId(84756L);
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
@@ -2896,6 +3044,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage2 = new RecentVisitPage();
 
+		recentVisitPage2.setDataSourceId(10293L);
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
@@ -2908,6 +3057,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage3 = new RecentVisitPage();
 
+		recentVisitPage3.setDataSourceId(10293L);
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
@@ -2920,6 +3070,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage4 = new RecentVisitPage();
 
+		recentVisitPage4.setDataSourceId(84756L);
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
@@ -2930,7 +3081,7 @@ public class BQEventDogTest
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"firstVisitDate", "asc"});
 
@@ -2941,7 +3092,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"firstVisitDate", "desc"});
 
@@ -2958,6 +3109,7 @@ public class BQEventDogTest
 	public void testGetRecentPagesSortByLastVisitDate() {
 		RecentVisitPage recentVisitPage1 = new RecentVisitPage();
 
+		recentVisitPage1.setDataSourceId(84756L);
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
@@ -2969,6 +3121,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage2 = new RecentVisitPage();
 
+		recentVisitPage2.setDataSourceId(10293L);
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
@@ -2981,6 +3134,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage3 = new RecentVisitPage();
 
+		recentVisitPage3.setDataSourceId(10293L);
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
@@ -2993,6 +3147,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage4 = new RecentVisitPage();
 
+		recentVisitPage4.setDataSourceId(84756L);
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
@@ -3003,7 +3158,7 @@ public class BQEventDogTest
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"lastVisitDate", "asc"});
 
@@ -3014,7 +3169,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"lastVisitDate", "desc"});
 
@@ -3031,6 +3186,7 @@ public class BQEventDogTest
 	public void testGetRecentPagesSortByVisits() {
 		RecentVisitPage recentVisitPage1 = new RecentVisitPage();
 
+		recentVisitPage1.setDataSourceId(84756L);
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
@@ -3042,6 +3198,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage2 = new RecentVisitPage();
 
+		recentVisitPage2.setDataSourceId(10293L);
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
@@ -3054,6 +3211,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage3 = new RecentVisitPage();
 
+		recentVisitPage3.setDataSourceId(10293L);
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
@@ -3066,6 +3224,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage4 = new RecentVisitPage();
 
+		recentVisitPage4.setDataSourceId(84756L);
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
@@ -3076,7 +3235,7 @@ public class BQEventDogTest
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"visits", "asc", "url", "asc"});
 
@@ -3087,7 +3246,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[] {"visits", "desc", "url", "asc"});
 
@@ -3106,6 +3265,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(84756L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage.setDisplayLanguageId("en-US");
@@ -3119,6 +3279,7 @@ public class BQEventDogTest
 
 		recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(10293L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage.setDisplayLanguageId("en-US");
@@ -3132,7 +3293,7 @@ public class BQEventDogTest
 		expectedRecentVisitPages.add(recentVisitPage);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			"en-US", null,
+			null, "en-US", null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[0]);
 
@@ -3148,6 +3309,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(84756L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage.setDisplayLanguageId("en-US");
@@ -3161,6 +3323,7 @@ public class BQEventDogTest
 
 		recentVisitPage = new RecentVisitPage();
 
+		recentVisitPage.setDataSourceId(84756L);
 		recentVisitPage.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage.setDisplayLanguageId("pt-BR");
@@ -3173,7 +3336,7 @@ public class BQEventDogTest
 		expectedRecentVisitPages.add(recentVisitPage);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, "67890",
+			null, null, "67890",
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 10, new String[0]);
 
@@ -3187,6 +3350,7 @@ public class BQEventDogTest
 	public void testGetRecentPagesWithPagination() {
 		RecentVisitPage recentVisitPage1 = new RecentVisitPage();
 
+		recentVisitPage1.setDataSourceId(84756L);
 		recentVisitPage1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitPage1.setDisplayLanguageId("en-US");
@@ -3198,6 +3362,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage2 = new RecentVisitPage();
 
+		recentVisitPage2.setDataSourceId(10293L);
 		recentVisitPage2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitPage2.setDisplayLanguageId("pt-BR");
@@ -3210,6 +3375,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage3 = new RecentVisitPage();
 
+		recentVisitPage3.setDataSourceId(10293L);
 		recentVisitPage3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -14));
 		recentVisitPage3.setDisplayLanguageId("en-US");
@@ -3222,6 +3388,7 @@ public class BQEventDogTest
 
 		RecentVisitPage recentVisitPage4 = new RecentVisitPage();
 
+		recentVisitPage4.setDataSourceId(84756L);
 		recentVisitPage4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -19));
 		recentVisitPage4.setDisplayLanguageId("pt-BR");
@@ -3232,7 +3399,7 @@ public class BQEventDogTest
 		recentVisitPage4.setVisits(2L);
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 30, 2, new String[] {"visits", "desc", "url", "asc"});
 
@@ -3241,7 +3408,7 @@ public class BQEventDogTest
 			recentPagePage.getContent());
 
 		recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			1, 30, 2, new String[] {"visits", "desc", "url", "asc"});
 
@@ -3255,7 +3422,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesWithSuppression() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 30, 10, new String[] {"counts", "desc", "url", "asc"});
 
@@ -3272,7 +3439,7 @@ public class BQEventDogTest
 	@Test
 	public void testGetRecentPagesYesterday() {
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			null, null,
+			null, null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 1, 10, new String[0]);
 
@@ -3334,7 +3501,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3213\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 10293L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
@@ -3351,7 +3518,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay",
@@ -3368,7 +3535,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay+DXP",
@@ -3385,14 +3552,14 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
 			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test2@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Diamond+Bar",
 			"123123-sadf-32423-234afsd", "");
 
 		Page<RecentVisitSite> recentSitePage = _bqEventDog.getRecentSitePage(
-			DigestUtils.sha256Hex("test2@liferay.com"), 0, 5,
+			null, DigestUtils.sha256Hex("test2@liferay.com"), 0, 5,
 			new String[] {"visits", "desc"}, TimeRange.LAST_24_HOURS);
 
 		Assertions.assertEquals(1, recentSitePage.getTotalElements());
@@ -3406,11 +3573,12 @@ public class BQEventDogTest
 
 		RecentVisitSite recentVisitSite = recentVisitSitesArray[0];
 
+		Assertions.assertEquals(84756L, recentVisitSite.getDataSourceId());
 		Assertions.assertEquals("3212", recentVisitSite.getGroupId());
 		Assertions.assertEquals(1, recentVisitSite.getVisits());
 
 		recentSitePage = _bqEventDog.getRecentSitePage(
-			DigestUtils.sha256Hex("test@liferay.com"), 0, 5,
+			null, DigestUtils.sha256Hex("test@liferay.com"), 0, 5,
 			new String[] {"visits", "desc"}, TimeRange.LAST_24_HOURS);
 
 		Assertions.assertEquals(2, recentSitePage.getTotalElements());
@@ -3424,11 +3592,13 @@ public class BQEventDogTest
 
 		recentVisitSite = recentVisitSitesArray[0];
 
+		Assertions.assertEquals(84756L, recentVisitSite.getDataSourceId());
 		Assertions.assertEquals("3212", recentVisitSite.getGroupId());
 		Assertions.assertEquals(2, recentVisitSite.getVisits());
 
 		recentVisitSite = recentVisitSitesArray[1];
 
+		Assertions.assertEquals(10293L, recentVisitSite.getDataSourceId());
 		Assertions.assertEquals("3213", recentVisitSite.getGroupId());
 		Assertions.assertEquals(1, recentVisitSite.getVisits());
 	}
@@ -3439,7 +3609,7 @@ public class BQEventDogTest
 	public void testGetRecentWebContentLast7Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_7_DAYS);
 
@@ -3454,6 +3624,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 2");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -2));
 		recentVisitAsset.setGroupId("12345");
@@ -3470,6 +3641,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 3");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -7));
 		recentVisitAsset.setGroupId("12345");
@@ -3486,6 +3658,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 4");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -4));
 		recentVisitAsset.setGroupId("67890");
@@ -3506,7 +3679,7 @@ public class BQEventDogTest
 	public void testGetRecentWebContentLast24Hours() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_24_HOURS);
 
@@ -3547,7 +3720,7 @@ public class BQEventDogTest
 	public void testGetRecentWebContentLast28Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[0], TimeRange.LAST_28_DAYS);
 
@@ -3562,6 +3735,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 2");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset.setGroupId("12345");
@@ -3578,6 +3752,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 3");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -23));
 		recentVisitAsset.setGroupId("12345");
@@ -3594,6 +3769,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 4");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset.setGroupId("67890");
@@ -3610,6 +3786,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 1");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset.setGroupId("67890");
@@ -3630,7 +3807,7 @@ public class BQEventDogTest
 	public void testGetRecentWebContentLast30Days() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -3645,6 +3822,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 2");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -22));
 		recentVisitAsset.setGroupId("12345");
@@ -3661,6 +3839,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 3");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset.setGroupId("12345");
@@ -3677,6 +3856,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 4");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -24));
 		recentVisitAsset.setGroupId("67890");
@@ -3693,6 +3873,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 1");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(84756L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -29));
 		recentVisitAsset.setGroupId("67890");
@@ -3717,6 +3898,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetTitle("WebContent Title 2");
 		recentVisitAsset1.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("12345");
@@ -3731,6 +3913,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetTitle("WebContent Title 3");
 		recentVisitAsset2.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset2.setDataSourceId(10293L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("12345");
@@ -3745,6 +3928,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetTitle("WebContent Title 4");
 		recentVisitAsset3.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -3759,6 +3943,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetTitle("WebContent Title 1");
 		recentVisitAsset4.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset4.setDataSourceId(84756L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("67890");
@@ -3769,7 +3954,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3782,7 +3967,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"firstVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -3804,6 +3989,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetTitle("WebContent Title 2");
 		recentVisitAsset1.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("12345");
@@ -3818,6 +4004,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetTitle("WebContent Title 3");
 		recentVisitAsset2.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset2.setDataSourceId(10293L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("12345");
@@ -3832,6 +4019,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetTitle("WebContent Title 4");
 		recentVisitAsset3.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -3846,6 +4034,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetTitle("WebContent Title 1");
 		recentVisitAsset4.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset4.setDataSourceId(84756L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("67890");
@@ -3856,7 +4045,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3869,7 +4058,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"lastVisitDate", "desc"},
 			TimeRange.LAST_30_DAYS);
@@ -3891,6 +4080,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetTitle("WebContent Title 2");
 		recentVisitAsset1.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("12345");
@@ -3905,6 +4095,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetTitle("WebContent Title 3");
 		recentVisitAsset2.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset2.setDataSourceId(10293L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("12345");
@@ -3919,6 +4110,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetTitle("WebContent Title 4");
 		recentVisitAsset3.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -3933,6 +4125,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetTitle("WebContent Title 1");
 		recentVisitAsset4.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset4.setDataSourceId(84756L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("67890");
@@ -3943,7 +4136,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "asc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3956,7 +4149,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 10, new String[] {"visits", "desc", "assetTitle", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -3974,7 +4167,7 @@ public class BQEventDogTest
 	public void testGetRecentWebContentWithGroupId() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			"12345",
+			null, "12345",
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -3989,6 +4182,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 2");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -22));
 		recentVisitAsset.setGroupId("12345");
@@ -4005,6 +4199,7 @@ public class BQEventDogTest
 		recentVisitAsset.setAssetTitle("WebContent Title 3");
 		recentVisitAsset.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset.setDataSourceId(10293L);
 		recentVisitAsset.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -27));
 		recentVisitAsset.setGroupId("12345");
@@ -4029,6 +4224,7 @@ public class BQEventDogTest
 		recentVisitAsset1.setAssetTitle("WebContent Title 2");
 		recentVisitAsset1.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset1.setDataSourceId(10293L);
 		recentVisitAsset1.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -26));
 		recentVisitAsset1.setGroupId("12345");
@@ -4043,6 +4239,7 @@ public class BQEventDogTest
 		recentVisitAsset2.setAssetTitle("WebContent Title 3");
 		recentVisitAsset2.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset2.setDataSourceId(10293L);
 		recentVisitAsset2.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -30));
 		recentVisitAsset2.setGroupId("12345");
@@ -4057,6 +4254,7 @@ public class BQEventDogTest
 		recentVisitAsset3.setAssetTitle("WebContent Title 4");
 		recentVisitAsset3.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset3.setDataSourceId(84756L);
 		recentVisitAsset3.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -28));
 		recentVisitAsset3.setGroupId("67890");
@@ -4071,6 +4269,7 @@ public class BQEventDogTest
 		recentVisitAsset4.setAssetTitle("WebContent Title 1");
 		recentVisitAsset4.setContentType(
 			RecentVisitAsset.ContentType.WEBCONTENT);
+		recentVisitAsset4.setDataSourceId(84756L);
 		recentVisitAsset4.setFirstVisitDate(
 			DateUtil.addDays(DateUtil.newDayDate(), -21));
 		recentVisitAsset4.setGroupId("67890");
@@ -4081,7 +4280,7 @@ public class BQEventDogTest
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			0, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -4093,7 +4292,7 @@ public class BQEventDogTest
 
 		recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"c2ca75aa0f15bdaf918f704df63b6012bc8c92cf0000764f1016fd84b5d7e485",
 			1, 3, new String[] {"firstVisitDate", "asc"},
 			TimeRange.LAST_30_DAYS);
@@ -4109,7 +4308,7 @@ public class BQEventDogTest
 	public void testGetRecentWebContentWithSuppression() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"8bb3cd4319c4cc4df1addc31cb0fae500288133b91228a1cacb4ff2802446220",
 			0, 10, new String[0], TimeRange.LAST_30_DAYS);
 
@@ -4127,7 +4326,7 @@ public class BQEventDogTest
 	public void testGetRecentWebContentYesterday() {
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
 			Collections.singletonList(RecentVisitAsset.ContentType.WEBCONTENT),
-			null,
+			null, null,
 			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
 			0, 10, new String[0], TimeRange.YESTERDAY);
 
@@ -4177,7 +4376,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "", null,
+			"United States", DateUtil.newDate(), 10293L, "", "", null,
 			DateUtil.newDate(), "pageViewed", "", "analyticsEventId1", "",
 			"en_US", "", "", "", "", "", "", "",
 			"http://localhost:8080/search?q=Liferay%20DXP", "userId", "");
@@ -4193,7 +4392,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "", null,
+			"United States", DateUtil.newDate(), 10293L, "", "", null,
 			DateUtil.newDate(), "pageViewed", "", "analyticsEventId2", "",
 			"en_US", "", "", "", "", "", "", "",
 			"http://localhost:8080/search?q=Liferay", "userId", "");
@@ -4209,7 +4408,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "", null,
+			"United States", DateUtil.newDate(), 10293L, "", "", null,
 			DateUtil.newDate(), "pageViewed", "", "analyticsEventId3", "",
 			"en_US", "", "", "", "", "", "", "",
 			"http://localhost:8080/search?q=Liferay+DXP", "userId", "");
@@ -4225,15 +4424,15 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
 			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "", null,
+			"United States", DateUtil.newDate(), 10293L, "", "", null,
 			DateUtil.newDate(), "pageViewed", "", "analyticsEventId4", "",
 			"en_US", "", "", "", "", "", "", "",
 			"http://localhost:8080/search?q=Diamond+Bar", "userId", "");
 
 		Page<SearchKeyword> searchKeywordPage =
 			_bqEventDog.getSearchKeywordPage(
-				null, null, null, 1, 0, 2, new String[] {"counts", "desc"},
-				null);
+				null, null, null, null, 1, 0, 2,
+				new String[] {"counts", "desc"}, null);
 
 		Assertions.assertEquals(3, searchKeywordPage.getTotalElements());
 
@@ -4247,12 +4446,13 @@ public class BQEventDogTest
 		SearchKeyword searchKeyword = searchKeywordsArray[0];
 
 		Assertions.assertEquals(2, searchKeyword.getCounts());
+		Assertions.assertEquals(10293L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("liferay dxp", searchKeyword.getKeywords());
 
 		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
-			null, null, null, 0, 0, 1,
+			null, null, null, null, 0, 0, 1,
 			new String[] {"lastmodifieddate", "desc"}, null);
 
 		Assertions.assertEquals(3, searchKeywordPage.getTotalElements());
@@ -4266,12 +4466,14 @@ public class BQEventDogTest
 		searchKeyword = searchKeywordsArray[0];
 
 		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals(10293L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("pt_BR", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("diamond bar", searchKeyword.getKeywords());
 
 		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
-			null, null, null, 3, 0, 1, new String[] {"counts", "desc"}, null);
+			null, null, null, null, 3, 0, 1, new String[] {"counts", "desc"},
+			null);
 
 		Assertions.assertEquals(0, searchKeywordPage.getTotalElements());
 	}
@@ -4292,7 +4494,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
@@ -4309,7 +4511,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay",
@@ -4326,7 +4528,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay+DXP",
@@ -4343,7 +4545,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
 			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test2@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Diamond+Bar", "userId",
@@ -4351,8 +4553,8 @@ public class BQEventDogTest
 
 		Page<SearchKeyword> searchKeywordPage =
 			_bqEventDog.getSearchKeywordPage(
-				null, null, DigestUtils.sha256Hex("test@liferay.com"), 1, 0, 2,
-				new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+				null, null, null, DigestUtils.sha256Hex("test@liferay.com"), 1,
+				0, 2, new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
 
 		Assertions.assertEquals(2, searchKeywordPage.getTotalElements());
 
@@ -4366,6 +4568,7 @@ public class BQEventDogTest
 		SearchKeyword searchKeyword = searchKeywordsArray[0];
 
 		Assertions.assertEquals(2, searchKeyword.getCounts());
+		Assertions.assertEquals(84756L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("liferay dxp", searchKeyword.getKeywords());
@@ -4373,6 +4576,7 @@ public class BQEventDogTest
 		searchKeyword = searchKeywordsArray[1];
 
 		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals(84756L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("liferay", searchKeyword.getKeywords());
@@ -4394,7 +4598,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 10293L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
@@ -4411,7 +4615,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 10293L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay",
@@ -4428,7 +4632,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 10293L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay+DXP",
@@ -4445,7 +4649,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
 			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 10293L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Diamond+Bar",
@@ -4453,8 +4657,9 @@ public class BQEventDogTest
 
 		Page<SearchKeyword> searchKeywordPage =
 			_bqEventDog.getSearchKeywordPage(
-				"pt_BR", null, DigestUtils.sha256Hex("test@liferay.com"), 1, 0,
-				2, new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+				null, "pt_BR", null, DigestUtils.sha256Hex("test@liferay.com"),
+				1, 0, 2, new String[] {"counts", "desc"},
+				TimeRange.LAST_24_HOURS);
 
 		Assertions.assertEquals(1, searchKeywordPage.getTotalElements());
 
@@ -4468,13 +4673,14 @@ public class BQEventDogTest
 		SearchKeyword searchKeyword = searchKeywordsArray[0];
 
 		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals(10293L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("pt_BR", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("diamond bar", searchKeyword.getKeywords());
 
 		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
-			"en_US", null, DigestUtils.sha256Hex("test@liferay.com"), 1, 0, 2,
-			new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+			null, "en_US", null, DigestUtils.sha256Hex("test@liferay.com"), 1,
+			0, 2, new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
 
 		Assertions.assertEquals(2, searchKeywordPage.getTotalElements());
 
@@ -4487,6 +4693,7 @@ public class BQEventDogTest
 		searchKeyword = searchKeywordsArray[0];
 
 		Assertions.assertEquals(2, searchKeyword.getCounts());
+		Assertions.assertEquals(10293L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("liferay dxp", searchKeyword.getKeywords());
@@ -4494,6 +4701,7 @@ public class BQEventDogTest
 		searchKeyword = searchKeywordsArray[1];
 
 		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals(10293L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("liferay", searchKeyword.getKeywords());
@@ -4515,7 +4723,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId1", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay%20DXP",
@@ -4532,7 +4740,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId2", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay",
@@ -4549,7 +4757,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Liferay+DXP",
 			channel.getId(), "Diamond Bar", "en_US", "{\"groupId\": \"3212\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId3", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Liferay+DXP",
@@ -4566,7 +4774,7 @@ public class BQEventDogTest
 			},
 			"Firefox", "http://localhost:8080/search?q=Diamond+Bar",
 			channel.getId(), "Diamond Bar", "pt_BR", "{\"groupId\": \"3213\"}",
-			"United States", DateUtil.newDate(), null, "", "",
+			"United States", DateUtil.newDate(), 84756L, "", "",
 			DigestUtils.sha256Hex("test@liferay.com"), DateUtil.newDate(),
 			"pageViewed", "", "analyticsEventId4", "", "en_US", "", "", "", "",
 			"", "", "", "http://localhost:8080/search?q=Diamond+Bar",
@@ -4574,8 +4782,9 @@ public class BQEventDogTest
 
 		Page<SearchKeyword> searchKeywordPage =
 			_bqEventDog.getSearchKeywordPage(
-				null, "3213", DigestUtils.sha256Hex("test@liferay.com"), 1, 0,
-				2, new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+				null, null, "3213", DigestUtils.sha256Hex("test@liferay.com"),
+				1, 0, 2, new String[] {"counts", "desc"},
+				TimeRange.LAST_24_HOURS);
 
 		Assertions.assertEquals(1, searchKeywordPage.getTotalElements());
 
@@ -4589,13 +4798,14 @@ public class BQEventDogTest
 		SearchKeyword searchKeyword = searchKeywordsArray[0];
 
 		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals(84756L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("pt_BR", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3213", searchKeyword.getGroupId());
 		Assertions.assertEquals("diamond bar", searchKeyword.getKeywords());
 
 		searchKeywordPage = _bqEventDog.getSearchKeywordPage(
-			null, "3212", DigestUtils.sha256Hex("test@liferay.com"), 1, 0, 2,
-			new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
+			null, null, "3212", DigestUtils.sha256Hex("test@liferay.com"), 1, 0,
+			2, new String[] {"counts", "desc"}, TimeRange.LAST_24_HOURS);
 
 		Assertions.assertEquals(2, searchKeywordPage.getTotalElements());
 
@@ -4608,6 +4818,7 @@ public class BQEventDogTest
 		searchKeyword = searchKeywordsArray[0];
 
 		Assertions.assertEquals(2, searchKeyword.getCounts());
+		Assertions.assertEquals(84756L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("liferay dxp", searchKeyword.getKeywords());
@@ -4615,6 +4826,7 @@ public class BQEventDogTest
 		searchKeyword = searchKeywordsArray[1];
 
 		Assertions.assertEquals(1, searchKeyword.getCounts());
+		Assertions.assertEquals(84756L, searchKeyword.getDataSourceId());
 		Assertions.assertEquals("en_US", searchKeyword.getDisplayLanguageId());
 		Assertions.assertEquals("3212", searchKeyword.getGroupId());
 		Assertions.assertEquals("liferay", searchKeyword.getKeywords());
