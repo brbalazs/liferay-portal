@@ -223,6 +223,7 @@ public class IndividualsRestController extends BaseRestController {
 	public PageDTO<RecentVisitAssetDTO> getRecentVisitAssetDTOPageDTO(
 		@PathVariable String id,
 		@RequestParam(required = false) String[] contentTypes,
+		@RequestParam(required = false) Long dataSourceId,
 		@RequestParam(required = false) String groupId,
 		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "7") int rangeKey,
@@ -238,7 +239,7 @@ public class IndividualsRestController extends BaseRestController {
 		}
 
 		Page<RecentVisitAsset> recentAssetPage = _bqEventDog.getRecentAssetPage(
-			contentTypesList, groupId, id, page, size, sorts,
+			contentTypesList, dataSourceId, groupId, id, page, size, sorts,
 			TimeRange.of(rangeKey));
 
 		return new PageDTO<>(
@@ -251,6 +252,7 @@ public class IndividualsRestController extends BaseRestController {
 	@GetMapping("/{id}/recent-pages")
 	public PageDTO<RecentVisitPageDTO> getRecentVisitPageDTOPageDTO(
 		@PathVariable String id,
+		@RequestParam(required = false) Long dataSourceId,
 		@RequestParam(required = false) String displayLanguageId,
 		@RequestParam(required = false) String groupId,
 		@RequestParam(defaultValue = "0") int page,
@@ -259,7 +261,8 @@ public class IndividualsRestController extends BaseRestController {
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
 		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
-			displayLanguageId, groupId, id, page, rangeKey, size, sorts);
+			dataSourceId, displayLanguageId, groupId, id, page, rangeKey, size,
+			sorts);
 
 		return new PageDTO<>(
 			"_embedded", new RecentVisitPageDTO(recentPagePage.getContent()),
@@ -269,13 +272,15 @@ public class IndividualsRestController extends BaseRestController {
 
 	@GetMapping("/{id}/recent-sites")
 	public PageDTO<RecentVisitSiteDTO> getRecentVisitSiteDTOPageDTO(
-		@PathVariable String id, @RequestParam(defaultValue = "0") int page,
+		@PathVariable String id,
+		@RequestParam(required = false) Long dataSourceId,
+		@RequestParam(defaultValue = "0") int page,
 		@RequestParam(defaultValue = "7") int rangeKey,
 		@RequestParam(defaultValue = "5") int size,
 		@RequestParam(name = "sort", required = false) String[] sorts) {
 
 		Page<RecentVisitSite> recentSitePage = _bqEventDog.getRecentSitePage(
-			id, page, size, sorts, TimeRange.of(rangeKey));
+			dataSourceId, id, page, size, sorts, TimeRange.of(rangeKey));
 
 		return new PageDTO<>(
 			"_embedded", new RecentVisitSiteDTO(recentSitePage.getContent()),
@@ -285,6 +290,7 @@ public class IndividualsRestController extends BaseRestController {
 
 	@GetMapping("/{id}/search-keywords")
 	public PageDTO<SearchKeywordDTO> getSearchKeywords(
+		@RequestParam(required = false) Long dataSourceId,
 		@RequestParam(required = false) String displayLanguageId,
 		@RequestParam(required = false) String groupId, @PathVariable String id,
 		@RequestParam(defaultValue = "0") int minCounts,
@@ -295,8 +301,8 @@ public class IndividualsRestController extends BaseRestController {
 
 		return _toSearchKeywordDTOPageDTO(
 			_bqEventDog.getSearchKeywordPage(
-				displayLanguageId, groupId, id, minCounts, page, size, sorts,
-				TimeRange.of(rangeKey)));
+				dataSourceId, displayLanguageId, groupId, id, minCounts, page,
+				size, sorts, TimeRange.of(rangeKey)));
 	}
 
 	@GetMapping("/{id}/individual-segments")

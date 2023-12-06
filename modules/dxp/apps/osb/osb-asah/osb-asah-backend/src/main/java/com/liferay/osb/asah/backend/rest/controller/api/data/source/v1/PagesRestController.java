@@ -183,6 +183,7 @@ public class PagesRestController extends BaseRestController {
 
 	@GetMapping("/search-keywords")
 	public PageDTO<SearchKeywordDTO> getSearchKeywords(
+		@RequestParam(required = false) Long dataSourceId,
 		@RequestParam(required = false) String displayLanguageId,
 		@RequestParam(required = false) String groupId,
 		@RequestParam(defaultValue = "0") int minCounts,
@@ -192,8 +193,8 @@ public class PagesRestController extends BaseRestController {
 
 		return _toSearchKeywordDTOPageDTO(
 			_bqEventDog.getSearchKeywordPage(
-				displayLanguageId, groupId, null, minCounts, page, size, sorts,
-				null));
+				dataSourceId, displayLanguageId, groupId, null, minCounts, page,
+				size, sorts, null));
 	}
 
 	@GetMapping("/social-page-referrers")

@@ -163,9 +163,9 @@ public class BQEventDog {
 	}
 
 	public Page<RecentVisitAsset> getRecentAssetPage(
-		List<RecentVisitAsset.ContentType> contentTypes, String groupId,
-		String individualId, int page, int size, String[] sorts,
-		TimeRange timeRange) {
+		List<RecentVisitAsset.ContentType> contentTypes,
+		@Nullable Long dataSourceId, String groupId, String individualId,
+		int page, int size, String[] sorts, TimeRange timeRange) {
 
 		Pageable pageable = PageRequest.of(
 			page, size,
@@ -186,11 +186,12 @@ public class BQEventDog {
 
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getRecentAssets(
-				contentTypes, groupId, individualId, pageable, timeRange,
-				timeZoneId),
+				contentTypes, dataSourceId, groupId, individualId, pageable,
+				timeRange, timeZoneId),
 			pageable,
 			() -> _bqEventRepository.getRecentAssetsCount(
-				contentTypes, groupId, individualId, timeRange, timeZoneId));
+				contentTypes, dataSourceId, groupId, individualId, timeRange,
+				timeZoneId));
 	}
 
 	public List<BQEventPropertyValue> getRecentBQEventPropertyValues(
@@ -222,8 +223,9 @@ public class BQEventDog {
 	}
 
 	public Page<RecentVisitPage> getRecentPagePage(
-		@Nullable String displayLanguageId, @Nullable String groupId,
-		String individualId, int page, int rangeKey, int size, String[] sorts) {
+		@Nullable Long dataSourceId, @Nullable String displayLanguageId,
+		@Nullable String groupId, String individualId, int page, int rangeKey,
+		int size, String[] sorts) {
 
 		Pageable pageable = PageRequest.of(
 			page, size,
@@ -244,17 +246,17 @@ public class BQEventDog {
 
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getRecentPages(
-				displayLanguageId, groupId, individualId, pageable, timeRange,
-				timeZoneId),
+				dataSourceId, displayLanguageId, groupId, individualId,
+				pageable, timeRange, timeZoneId),
 			pageable,
 			() -> _bqEventRepository.getRecentPagesCount(
-				displayLanguageId, groupId, individualId, timeRange,
-				timeZoneId));
+				dataSourceId, displayLanguageId, groupId, individualId,
+				timeRange, timeZoneId));
 	}
 
 	public Page<RecentVisitSite> getRecentSitePage(
-		String individualId, int page, int size, String[] sorts,
-		TimeRange timeRange) {
+		@Nullable Long dataSourceId, String individualId, int page, int size,
+		String[] sorts, TimeRange timeRange) {
 
 		Pageable pageable = PageRequest.of(
 			page, size,
@@ -275,16 +277,16 @@ public class BQEventDog {
 
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getRecentSites(
-				individualId, pageable, timeRange, timeZoneId),
+				dataSourceId, individualId, pageable, timeRange, timeZoneId),
 			pageable,
 			() -> _bqEventRepository.getRecentSitesCount(
-				individualId, timeRange, timeZoneId));
+				dataSourceId, individualId, timeRange, timeZoneId));
 	}
 
 	public Page<SearchKeyword> getSearchKeywordPage(
-		@Nullable String displayLanguageId, @Nullable String groupId,
-		@Nullable String individualId, int minCounts, int page, int size,
-		String[] sorts, @Nullable TimeRange timeRange) {
+		@Nullable Long dataSourceId, @Nullable String displayLanguageId,
+		@Nullable String groupId, @Nullable String individualId, int minCounts,
+		int page, int size, String[] sorts, @Nullable TimeRange timeRange) {
 
 		Pageable pageable = PageRequest.of(
 			page, size,
@@ -305,12 +307,12 @@ public class BQEventDog {
 
 		return PageableExecutionUtils.getPage(
 			_bqEventRepository.getSearchKeywords(
-				displayLanguageId, groupId, individualId, minCounts, pageable,
-				searchQueryStrings, timeRange, timeZoneId),
+				dataSourceId, displayLanguageId, groupId, individualId,
+				minCounts, pageable, searchQueryStrings, timeRange, timeZoneId),
 			pageable,
 			() -> _bqEventRepository.getSearchKeywordsCount(
-				displayLanguageId, groupId, individualId, minCounts,
-				searchQueryStrings, timeRange, timeZoneId));
+				dataSourceId, displayLanguageId, groupId, individualId,
+				minCounts, searchQueryStrings, timeRange, timeZoneId));
 	}
 
 	public List<BQEvent> searchBQEvents(

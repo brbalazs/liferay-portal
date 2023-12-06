@@ -22,10 +22,16 @@ public abstract class RecentVisitDTO {
 	}
 
 	public RecentVisitDTO(RecentVisit recentVisit) {
+		_dataSourceId = recentVisit.getDataSourceId();
 		_firstVisitDate = recentVisit.getFirstVisitDate();
 		_groupId = recentVisit.getGroupId();
 		_lastVisitDate = recentVisit.getLastVisitDate();
 		_visits = recentVisit.getVisits();
+	}
+
+	@JsonProperty("dataSourceId")
+	public Long getDataSourceId() {
+		return _dataSourceId;
 	}
 
 	@JsonFormat(
@@ -64,6 +70,7 @@ public abstract class RecentVisitDTO {
 		return _visits;
 	}
 
+	private Long _dataSourceId;
 	private Date _firstVisitDate;
 	private String _groupId;
 	private Date _lastVisitDate;
