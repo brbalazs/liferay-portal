@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Site Item Selector API
 Bundle-SymbolicName: com.liferay.site.item.selector.api
-Bundle-Version: 1.0.11
+Bundle-Version: 1.0.12
 Export-Package: com.liferay.site.item.selector.criterion
 Liferay-Releng-Module-Group-Title: Site Management
