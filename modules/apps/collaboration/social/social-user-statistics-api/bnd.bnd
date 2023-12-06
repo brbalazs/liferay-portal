@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Social User Statistics API
 Bundle-SymbolicName: com.liferay.social.user.statistics.api
-Bundle-Version: 1.0.4
+Bundle-Version: 1.0.5
 Export-Package: com.liferay.social.user.statistics.constants
 Liferay-Releng-Module-Group-Title: Social
