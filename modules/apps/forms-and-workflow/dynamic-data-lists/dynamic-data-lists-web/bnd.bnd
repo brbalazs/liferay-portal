@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Dynamic Data Lists Web
 Bundle-SymbolicName: com.liferay.dynamic.data.lists.web
-Bundle-Version: 2.0.63
+Bundle-Version: 2.0.64
 Liferay-Releng-Module-Group-Title: Dynamic Data Lists
 Provide-Capability:\
 	liferay.resource.bundle;\
