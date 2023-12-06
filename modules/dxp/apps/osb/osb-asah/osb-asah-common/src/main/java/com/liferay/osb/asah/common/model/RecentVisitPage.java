@@ -41,6 +41,7 @@ public class RecentVisitPage extends RecentVisit {
 			Objects.equals(visits, recentVisitPage.visits) &&
 			Objects.equals(
 				_displayLanguageId, recentVisitPage._displayLanguageId) &&
+			Objects.equals(_title, recentVisitPage._title) &&
 			Objects.equals(_url, recentVisitPage._url)) {
 
 			return true;
@@ -53,6 +54,10 @@ public class RecentVisitPage extends RecentVisit {
 		return _displayLanguageId;
 	}
 
+	public String getTitle() {
+		return _title;
+	}
+
 	public String getURL() {
 		return _url;
 	}
@@ -61,11 +66,15 @@ public class RecentVisitPage extends RecentVisit {
 	public int hashCode() {
 		return Objects.hash(
 			dataSourceId, firstVisitDate, groupId, lastVisitDate, visits,
-			_displayLanguageId, _url);
+			_displayLanguageId, _title, _url);
 	}
 
 	public void setDisplayLanguageId(String displayLanguageId) {
 		_displayLanguageId = displayLanguageId;
+	}
+
+	public void setTitle(String title) {
+		_title = title;
 	}
 
 	public void setUrl(String url) {
@@ -73,6 +82,7 @@ public class RecentVisitPage extends RecentVisit {
 	}
 
 	private String _displayLanguageId;
+	private String _title;
 	private String _url;
 
 }

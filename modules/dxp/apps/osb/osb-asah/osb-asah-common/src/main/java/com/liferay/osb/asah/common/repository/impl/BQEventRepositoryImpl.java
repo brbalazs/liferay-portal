@@ -821,7 +821,8 @@ public class BQEventRepositoryImpl
 			dataSourceId, displayLanguageId, groupId,
 			Arrays.asList(
 				DSL.field("contentLanguageId"), DSL.field("canonicalUrl"),
-				DSL.field("dataSourceId"), DSL.field("groupid")),
+				DSL.field("dataSourceId"), DSL.field("groupid"),
+				DSL.field("title")),
 			individualId,
 			_dslContext.select(
 				DSL.min(
@@ -845,6 +846,7 @@ public class BQEventRepositoryImpl
 				).as(
 					"lastVisitDate"
 				),
+				DSL.field("title", String.class),
 				DSL.field(
 					"canonicalUrl", String.class
 				).as(
