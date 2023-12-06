@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Journal Content Asset Addon Entry Conversions
 Bundle-SymbolicName: com.liferay.journal.content.asset.addon.entry.conversions
-Bundle-Version: 2.0.26
+Bundle-Version: 2.0.27
 Liferay-Releng-Module-Group-Title: Web Content
 Web-ContextPath: /journal-content-asset-addon-entry-conversions
