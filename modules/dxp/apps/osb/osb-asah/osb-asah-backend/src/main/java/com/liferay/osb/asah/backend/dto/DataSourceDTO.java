@@ -691,8 +691,8 @@ public class DataSourceDTO {
 		private OAuthOwnerDTO _oAuthOwnerDTO;
 		private String _oAuthRefreshToken;
 		private String _password;
-		private String _privateKey;
-		private String _publicKey;
+		private String _privateKey = "";
+		private String _publicKey = "";
 
 	}
 
