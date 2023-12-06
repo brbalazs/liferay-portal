@@ -102,3 +102,8 @@ e1e5f114cedd2619deef311b91abbc33816da6f9^..3ea9b2f3a235a5e15b5cfcf6a9556c102e7aa
 # Bundle Version 2.0.25
 #
 3ea9b2f3a235a5e15b5cfcf6a9556c102e7aaa55^..dac19ed35c1c2e91a2a0ec8a5a65d0859105df0a=LPS-178134
+
+#
+# Bundle Version 2.0.26
+#
+dac19ed35c1c2e91a2a0ec8a5a65d0859105df0a^..ae681c8e572c5a35fbb24643483aafaa152e17d9=LPS-77699 LPS-188912
