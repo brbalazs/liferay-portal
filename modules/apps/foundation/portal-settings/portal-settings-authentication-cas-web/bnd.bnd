@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Portal Settings Authentication CAS Web
 Bundle-SymbolicName: com.liferay.portal.settings.authentication.cas.web
-Bundle-Version: 1.0.26
+Bundle-Version: 1.0.27
 Liferay-Releng-Module-Group-Title: Portal Settings
 Provide-Capability:\
 	liferay.resource.bundle;\
