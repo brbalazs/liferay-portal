@@ -1032,6 +1032,18 @@
 				</licenses>
 			</library>
 			<library>
+				<file-name>com.liferay.portal.cluster.multiple.jar!org.jgroups.jar</file-name>
+				<version>3.6.16.LIFERAY-PATCHED-1</version>
+				<project-name>JGroups</project-name>
+				<project-url>http://www.jboss.org</project-url>
+				<licenses>
+					<license>
+						<license-name>LGPL 2.1</license-name>
+						<license-url>http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
 				<file-name>com.liferay.portal.mobile.device.detection.fiftyonedegrees.jar!commons-io.jar</file-name>
 				<version>2.8.0</version>
 				<project-name>Apache Commons IO</project-name>
@@ -6981,7 +6993,7 @@
 			</library>
 			<library>
 				<file-name>lib/portal/xmlsec.jar</file-name>
-				<version>1.5.8</version>
+				<version>3.0.3</version>
 				<project-name>XML Security</project-name>
 				<project-url>http://santuario.apache.org</project-url>
 				<licenses>
