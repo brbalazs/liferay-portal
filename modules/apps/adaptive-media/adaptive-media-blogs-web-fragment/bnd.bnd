@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Adaptive Media Blogs Web Fragment
 Bundle-SymbolicName: com.liferay.adaptive.media.blogs.web.fragment
-Bundle-Version: 1.0.13
+Bundle-Version: 1.0.14
 Fragment-Host: com.liferay.blogs.web;bundle-version="[1.1.0,3.0.0)"
 Liferay-Releng-Module-Group-Title: Adaptive Media
 -dsannotations-options: inherit
