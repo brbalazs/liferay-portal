@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Portal Mobile Device Detection FiftyOneDegrees API
 Bundle-SymbolicName: com.liferay.portal.mobile.device.detection.fiftyonedegrees.api
-Bundle-Version: 1.0.4
+Bundle-Version: 1.0.5
 Export-Package: com.liferay.portal.mobile.device.detection.fiftyonedegrees.data
 Liferay-Releng-Module-Group-Title: Mobile Device Recognition Provider FiftyOneDegrees
