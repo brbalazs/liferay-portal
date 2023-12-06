@@ -1,6 +1,6 @@
 Bundle-Name: Liferay Staging Processes Web
 Bundle-SymbolicName: com.liferay.staging.processes.web
-Bundle-Version: 1.0.60
+Bundle-Version: 1.0.61
 Liferay-Releng-Module-Group-Title: Data Management
 Provide-Capability:\
 	liferay.resource.bundle;\
