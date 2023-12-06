@@ -1,5 +1,5 @@
 Bundle-Name: Liferay Wiki Engine Input Editor Common
 Bundle-SymbolicName: com.liferay.wiki.engine.input.editor.common
-Bundle-Version: 3.0.13
+Bundle-Version: 3.0.14
 Liferay-Releng-Module-Group-Title: Wiki
 Web-ContextPath: /wiki-engine-input-editor-common
