@@ -3200,6 +3200,35 @@ public class BQEventDogTest
 			values.toArray(new Date[0]));
 	}
 
+	@BQSQLResource(
+		resourcePath = "test_get_recent_pages_multiple_titles_bq.sql"
+	)
+	@SQLResource(resourcePath = "test_get_recent_pages.sql")
+	@Test
+	public void testGetRecentPageMultipleTitles() {
+		Page<RecentVisitPage> recentPagePage = _bqEventDog.getRecentPagePage(
+			null, "pt-BR", "12345",
+			"09d283764c971fbd2697396513679fe8ef5f416bfea42858b0c44289c4eb782f",
+			0, 30, 10, new String[0]);
+
+		Assertions.assertEquals(1, recentPagePage.getTotalElements());
+		Assertions.assertEquals(1, recentPagePage.getTotalPages());
+
+		RecentVisitPage recentVisitPage = new RecentVisitPage();
+
+		recentVisitPage.setDataSourceId(10293L);
+		recentVisitPage.setFirstVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -24));
+		recentVisitPage.setDisplayLanguageId("pt-BR");
+		recentVisitPage.setGroupId("12345");
+		recentVisitPage.setLastVisitDate(
+			DateUtil.addDays(DateUtil.newDayDate(), -2));
+		recentVisitPage.setTitle("New Title 1");
+		recentVisitPage.setUrl(
+			"https://www.beryl.com/products/commercial/irrigation/FF-2100");
+		recentVisitPage.setVisits(4L);
+	}
+
 	@BQSQLResource(resourcePath = "test_get_recent_pages_bq.sql")
 	@SQLResource(resourcePath = "test_get_recent_pages.sql")
 	@Test
