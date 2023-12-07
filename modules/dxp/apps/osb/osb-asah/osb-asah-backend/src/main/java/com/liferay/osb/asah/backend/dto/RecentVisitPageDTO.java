@@ -34,6 +34,7 @@ public class RecentVisitPageDTO extends RecentVisitDTO {
 		super(recentVisitPage);
 
 		_displayLanguageId = recentVisitPage.getDisplayLanguageId();
+		_title = recentVisitPage.getTitle();
 		_url = recentVisitPage.getURL();
 	}
 
@@ -42,18 +43,24 @@ public class RecentVisitPageDTO extends RecentVisitDTO {
 		return _displayLanguageId;
 	}
 
-	@JsonProperty("url")
-	public String getKeywords() {
-		return _url;
-	}
-
 	@JsonProperty("recent-pages")
 	public Set<RecentVisitPageDTO> getRecentVisitPageDTOs() {
 		return _recentVisitPageDTOS;
 	}
 
+	@JsonProperty("title")
+	public String getTitle() {
+		return _title;
+	}
+
+	@JsonProperty("url")
+	public String getURL() {
+		return _url;
+	}
+
 	private String _displayLanguageId;
 	private Set<RecentVisitPageDTO> _recentVisitPageDTOS;
+	private String _title;
 	private String _url;
 
 }
