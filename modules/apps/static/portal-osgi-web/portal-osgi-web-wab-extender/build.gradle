@@ -1,7 +1,7 @@
 dependencies {
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
 	compileOnly group: "com.liferay", name: "com.liferay.portal.profile", version: "1.0.0"
-	compileOnly group: "com.liferay", name: "org.apache.axis", version: "1.4.LIFERAY-PATCHED-6"
+	compileOnly group: "com.liferay", name: "org.apache.axis", version: "1.4.LIFERAY-PATCHED-8"
 	compileOnly group: "com.liferay", name: "org.eclipse.equinox.http.servlet", version: "1.2.2.v20180613-2229-LIFERAY-CACHED"
 	compileOnly group: "com.liferay", name: "org.eclipse.osgi", version: "3.10.200-20150904.172142-1.LIFERAY-PATCHED-5"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"

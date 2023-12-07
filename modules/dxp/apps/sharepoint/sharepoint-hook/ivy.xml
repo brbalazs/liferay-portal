@@ -16,6 +16,6 @@
 		<dependency name="com.liferay.sharepoint.connector" org="com.liferay" rev="1.1.0" />
 		<dependency name="com.microsoft.schemas.sharepoint" org="com.liferay" rev="1.0.2" />
 		<dependency name="httpclient" org="org.apache.httpcomponents" rev="4.5.13" />
-		<dependency name="org.apache.axis" org="com.liferay" rev="1.4.LIFERAY-PATCHED-6" />
+		<dependency name="org.apache.axis" org="com.liferay" rev="1.4.LIFERAY-PATCHED-8" />
 	</dependencies>
 </ivy-module>
