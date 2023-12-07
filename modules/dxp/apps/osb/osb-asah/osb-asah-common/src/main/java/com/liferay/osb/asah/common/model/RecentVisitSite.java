@@ -35,10 +35,10 @@ public class RecentVisitSite extends RecentVisit {
 		RecentVisitSite recentVisitSite = (RecentVisitSite)obj;
 
 		if (Objects.equals(dataSourceId, recentVisitSite.dataSourceId) &&
+			Objects.equals(groupId, recentVisitSite.groupId) &&
 			Objects.equals(firstVisitDate, recentVisitSite.firstVisitDate) &&
 			Objects.equals(lastVisitDate, recentVisitSite.lastVisitDate) &&
-			Objects.equals(visits, recentVisitSite.visits) &&
-			Objects.equals(_groupId, recentVisitSite._groupId)) {
+			Objects.equals(visits, recentVisitSite.visits)) {
 
 			return true;
 		}
@@ -46,20 +46,10 @@ public class RecentVisitSite extends RecentVisit {
 		return false;
 	}
 
-	public String getGroupId() {
-		return _groupId;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(
-			dataSourceId, firstVisitDate, lastVisitDate, visits, _groupId);
+			dataSourceId, groupId, firstVisitDate, lastVisitDate, visits);
 	}
-
-	public void setGroupId(String groupId) {
-		_groupId = groupId;
-	}
-
-	private String _groupId;
 
 }
