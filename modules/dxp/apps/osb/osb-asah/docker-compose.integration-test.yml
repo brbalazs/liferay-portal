@@ -3,7 +3,7 @@ services:
         command: --log-level=debug --project=osbasah
         container_name: test_bigqueryemulator
         image: marcellustavares/bigquery-emulator:0.3.1-LIFERAY-PATCH-1
-        mem_limit: 3g
+        mem_limit: 4g
         ports:
             - "9050:9050"
             - "9060:9060"
