@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
@@ -521,12 +522,20 @@ public class BigQuerySchemaManagerImpl implements BigQuerySchemaManager {
 		try {
 			Table table = _bigQuery.getTable(TableId.of(projectId, tableName));
 
-			Table.Builder builder = table.toBuilder();
+			if (!table.exists()) {
+				_log.error(
+					String.format(
+						"Table %s.%s does not exist", projectId, tableName));
 
-			_bigQuery.update(
-				builder.setExpirationTime(
-					expirationTime
-				).build());
+				return;
+			}
+
+			_executeQuery(
+				String.format(
+					"ALTER TABLE `%s.%s` SET OPTIONS (" +
+						"partition_expiration_days = %d)",
+					projectId, tableName,
+					TimeUnit.MILLISECONDS.toDays(expirationTime)));
 
 			if (_log.isInfoEnabled()) {
 				_log.info(
