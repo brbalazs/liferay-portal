@@ -2,3 +2,8 @@
 # Bundle Version 5.0.0
 #
 efc94df9f72b61f1a988d086b7a6cd8ae6ce05db^..3eb3bcbfd998f6eb687065e72ecc0ce036620b56=LPS-77699 LPS-79343 LPS-188912
+
+#
+# Bundle Version 5.0.1
+#
+3eb3bcbfd998f6eb687065e72ecc0ce036620b56^..75df6eacdb507b052eb42577bdc473d54c857566=LPS-86794
