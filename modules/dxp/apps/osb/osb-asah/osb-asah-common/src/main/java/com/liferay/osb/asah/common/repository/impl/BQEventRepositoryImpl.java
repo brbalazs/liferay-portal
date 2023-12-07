@@ -62,6 +62,7 @@ import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import org.jooq.AggregateFunction;
+import org.jooq.CommonTableExpression;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.DatePart;
@@ -815,54 +816,22 @@ public class BQEventRepositoryImpl
 		@Nullable String groupId, String individualId, Pageable pageable,
 		TimeRange timeRange, String timeZoneId) {
 
-		Field<Date> eventDateField = DSL.field("eventDate", Date.class);
-
-		SelectHavingStep selectHavingStep = _getRecentPagesSelectHavingStep(
-			dataSourceId, displayLanguageId, groupId,
-			Arrays.asList(
-				DSL.field("contentLanguageId"), DSL.field("canonicalUrl"),
-				DSL.field("dataSourceId"), DSL.field("groupid"),
-				DSL.field("title")),
-			individualId,
-			_dslContext.select(
-				DSL.min(
-					eventDateField
-				).as(
-					"firstVisitDate"
-				),
-				DSL.field("dataSourceId"),
-				DSL.field(
-					"contentLanguageId", String.class
-				).as(
-					"displayLanguageId"
-				),
-				_dslHelper.jsonExtractScalar(
-					"BQEvent.context", "groupId"
-				).as(
-					"groupid"
-				),
-				DSL.max(
-					eventDateField
-				).as(
-					"lastVisitDate"
-				),
-				DSL.field("title", String.class),
-				DSL.field(
-					"canonicalUrl", String.class
-				).as(
-					"url"
-				),
-				DSL.count(
-				).cast(
-					BigDecimal.class
-				).as(
-					"visits"
-				)),
-			timeRange, timeZoneId);
-
 		return _queryExecutor.queryForList(
 			RecentVisitPage::new,
-			selectHavingStep.orderBy(
+			_dslContext.with(
+				_getEventsWithLatestTitleCTE(
+					dataSourceId, displayLanguageId, groupId, timeRange,
+					timeZoneId)
+			).with(
+				_getRecentPagesCTE(individualId)
+			).select(
+				DSL.field("firstVisitDate"), DSL.field("dataSourceId"),
+				DSL.field("displayLanguageId"), DSL.field("groupId"),
+				DSL.field("lastVisitDate"), DSL.field("title"),
+				DSL.field("url"), DSL.field("visits")
+			).from(
+				"RecentPages"
+			).orderBy(
 				getSortFields(pageable.getSort(), null)
 			).limit(
 				pageable.getPageSize()
@@ -879,20 +848,11 @@ public class BQEventRepositoryImpl
 
 		return _queryExecutor.queryForLong(
 			_dslContext.with(
-				"RecentPages"
-			).as(
-				_getRecentPagesSelectHavingStep(
-					dataSourceId, displayLanguageId, groupId,
-					Arrays.asList(
-						DSL.field("contentLanguageId"),
-						DSL.field("canonicalUrl"), DSL.field("dataSourceId"),
-						_dslHelper.jsonExtractScalar(
-							"BQEvent.context", "groupId")),
-					individualId,
-					_dslContext.select(
-						DSL.field("contentLanguageId"),
-						DSL.field("canonicalUrl")),
-					timeRange, timeZoneId)
+				_getEventsWithLatestTitleCTE(
+					dataSourceId, displayLanguageId, groupId, timeRange,
+					timeZoneId)
+			).with(
+				_getRecentPagesCTE(individualId)
 			).selectCount(
 			).from(
 				"RecentPages"
@@ -2089,6 +2049,47 @@ public class BQEventRepositoryImpl
 		return selectSelectStep.from("BQEvent");
 	}
 
+	private CommonTableExpression<?> _getEventsWithLatestTitleCTE(
+		@Nullable Long dataSourceId, @Nullable String displayLanguageId,
+		@Nullable String groupId, TimeRange timeRange, String timeZoneId) {
+
+		return DSL.name(
+			"EventsWithLatestTitle"
+		).as(
+			_dslContext.select(
+				DSL.field("canonicalUrl"), DSL.field("contentLanguageId"),
+				DSL.field("dataSourceId"), DSL.field("eventDate"),
+				_dslHelper.jsonExtractScalar(
+					"BQEvent.context", "groupId"
+				).as(
+					"groupId"
+				),
+				DSL.firstValue(
+					DSL.field("title")
+				).over(
+					DSL.partitionBy(
+						DSL.field("canonicalUrl"),
+						DSL.field("contentLanguageId")
+					).orderBy(
+						DSL.field(
+							"eventDate"
+						).desc()
+					)
+				).as(
+					"title"
+				),
+				DSL.field("userId")
+			).from(
+				"BQEvent"
+			).where(
+				_createConditions(
+					"Page", dataSourceId, displayLanguageId, "pageViewed",
+					groupId, null, Collections.emptySet(), timeRange,
+					timeZoneId)
+			)
+		);
+	}
+
 	private Field _getField(
 		EventAnalysisFilter eventAnalysisFilter, Field field,
 		String timeZoneId) {
@@ -2316,50 +2317,89 @@ public class BQEventRepositoryImpl
 		);
 	}
 
-	private SelectHavingStep _getRecentPagesSelectHavingStep(
-		@Nullable Long dataSourceId, String displayLanguageId, String groupId,
-		List<Field> groupByFields, String individualId,
-		SelectSelectStep selectSelectStep, TimeRange timeRange,
-		String timeZoneId) {
+	private CommonTableExpression<?> _getRecentPagesCTE(String individualId) {
+		Condition condition = DSL.noCondition();
 
-		return selectSelectStep.from(
-			"BQEvent"
-		).join(
-			DSL.table("BQIdentity")
-		).on(
-			DSL.field(
-				"BQEvent.userId"
+		if (StringUtils.isNotBlank(individualId)) {
+			condition = DSL.field(
+				"BQIdentity.individualId"
 			).eq(
-				DSL.field("BQIdentity.id")
-			)
-		).join(
-			DSL.table(
-				"BQIndividual"
-			).as(
-				"Individual"
-			)
-		).on(
-			DSL.and(
-				DSL.field(
-					"Individual.id"
-				).eq(
-					DSL.field("BQIdentity.individualId")
+				individualId
+			);
+		}
+
+		return DSL.name(
+			"RecentPages"
+		).as(
+			_dslContext.select(
+				DSL.min(
+					DSL.field("eventDate")
+				).as(
+					"firstVisitDate"
 				),
-				DSL.or(
+				DSL.field("dataSourceId"),
+				DSL.field(
+					"contentLanguageId", String.class
+				).as(
+					"displayLanguageId"
+				),
+				DSL.field("groupId"),
+				DSL.max(
+					DSL.field("eventDate")
+				).as(
+					"lastVisitDate"
+				),
+				DSL.field("title", String.class),
+				DSL.field(
+					"canonicalUrl", String.class
+				).as(
+					"url"
+				),
+				DSL.count(
+				).cast(
+					BigDecimal.class
+				).as(
+					"visits"
+				)
+			).from(
+				"EventsWithLatestTitle"
+			).join(
+				DSL.table("BQIdentity")
+			).on(
+				DSL.field(
+					"EventsWithLatestTitle.userId"
+				).eq(
+					DSL.field("BQIdentity.id")
+				)
+			).join(
+				DSL.table(
+					"BQIndividual"
+				).as(
+					"Individual"
+				)
+			).on(
+				DSL.and(
 					DSL.field(
-						"Individual.suppressed"
-					).isNull(),
-					DSL.field(
-						"Individual.suppressed"
-					).notEqual(
-						DSL.val(Boolean.TRUE)
-					)))
-		).where(
-			_createConditions(
-				"Page", dataSourceId, displayLanguageId, "pageViewed", groupId,
-				individualId, Collections.emptySet(), timeRange, timeZoneId)
-		).groupBy(
-			groupByFields
+						"Individual.id"
+					).eq(
+						DSL.field("BQIdentity.individualId")
+					),
+					DSL.or(
+						DSL.field(
+							"Individual.suppressed"
+						).isNull(),
+						DSL.field(
+							"Individual.suppressed"
+						).notEqual(
+							DSL.val(Boolean.TRUE)
+						)))
+			).where(
+				condition
+			).groupBy(
+				DSL.field("contentLanguageId"), DSL.field("canonicalUrl"),
+				DSL.field("dataSourceId"), DSL.field("groupId"),
+				DSL.field("title")
+			)
 		);
 	}
 
