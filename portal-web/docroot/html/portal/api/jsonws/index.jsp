@@ -12,7 +12,7 @@
 		<%@ include file="/html/portal/api/jsonws/css.jspf" %>
 	</style>
 
-	<div id="wrapper">
+	<div id="wrapper" style="padding-left: 0px;">
 		<header id="banner" role="banner">
 			<div id="heading">
 				<h1 class="site-title">
