@@ -5,7 +5,9 @@
 
 package com.liferay.osb.asah.common.dog;
 
+import com.liferay.osb.asah.common.date.DateUtil;
 import com.liferay.osb.asah.common.entity.DataExportTask;
+import com.liferay.osb.asah.common.entity.Preference;
 import com.liferay.osb.asah.common.repository.DataExportTaskRepository;
 import com.liferay.osb.asah.common.spring.http.exception.OSBAsahException;
 import com.liferay.osb.asah.common.util.TimeOrderedUuidGenerator;
@@ -35,6 +37,8 @@ public class DataExportTaskDog {
 
 	public DataExportTask addDataExportTask(
 		Date fromDate, Date toDate, DataExportTask.Type type) {
+
+		_validateDateRange(fromDate, toDate);
 
 		DataExportTask dataExportTask = new DataExportTask();
 
@@ -109,11 +113,36 @@ public class DataExportTaskDog {
 		return _dataExportTaskRepository.save(dataExportTask);
 	}
 
+	private void _validateDateRange(Date fromUTCDate, Date toUTCDate) {
+		if (fromUTCDate.after(toUTCDate)) {
+			throw new IllegalArgumentException("From date is after to date");
+		}
+
+		long deltaMilliseconds = DateUtil.getDeltaMilliseconds(
+			fromUTCDate, DateUtil.newDate());
+
+		Preference preference = _preferenceDog.getPreference(
+			"data-retention-period");
+
+		Long maxDataRetentionDelta = Long.valueOf(preference.getValue());
+
+		if (deltaMilliseconds > maxDataRetentionDelta) {
+			throw new IllegalArgumentException(
+				String.format(
+					"The requested data is outside of your %s months data " +
+						"retention period",
+					maxDataRetentionDelta / DateUtil.MONTH));
+		}
+	}
+
 	@Autowired
 	private DataExportTaskRepository _dataExportTaskRepository;
 
 	@Value("${osb.asah.batch.curator.data.export.path:/export}")
 	private String _exportPath;
+
+	@Autowired
+	private PreferenceDog _preferenceDog;
 
 	private final TimeOrderedUuidGenerator _timeOrderedUuidGenerator =
 		new TimeOrderedUuidGenerator();
