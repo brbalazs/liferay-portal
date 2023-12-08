@@ -191,10 +191,8 @@ public class ReportRestController extends BaseRestController {
 		@RequestParam(value = "toDate") String toDate,
 		@PathVariable String type) {
 
-		_validateDateRange(fromDate, toDate);
-
-		Date fromUTCDate = DateUtil.toUTCDate(fromDate);
-		Date toUTCDate = DateUtil.toUTCDate(toDate);
+		Date fromUTCDate = _toUTCDate(fromDate);
+		Date toUTCDate = _toUTCDate(toDate);
 
 		DataExportTask dataExportTask =
 			_dataExportTaskDog.fetchLastDataExportTaskByRange(
@@ -244,11 +242,9 @@ public class ReportRestController extends BaseRestController {
 		@RequestParam("fromDate") String fromDate,
 		@RequestParam("toDate") String toDate, @PathVariable String type) {
 
-		_validateDateRange(fromDate, toDate);
-
 		DataExportTask dataExportTask =
 			_dataExportTaskDog.fetchLastDataExportTaskByRange(
-				DateUtil.toUTCDate(fromDate), DateUtil.toUTCDate(toDate),
+				_toUTCDate(fromDate), _toUTCDate(toDate),
 				DataExportTask.Type.valueOf(StringUtils.upperCase(type)));
 
 		if (dataExportTask == null) {
@@ -1354,25 +1350,17 @@ public class ReportRestController extends BaseRestController {
 			resultBag.getTotal(), resultEntityModelMapperFunction);
 	}
 
-	private void _validateDateRange(String fromDate, String toDate) {
-		if ((fromDate == null) || (toDate == null)) {
+	private Date _toUTCDate(String dateString) {
+		if (dateString == null) {
 			throw new IllegalArgumentException("Date range is mandatory");
 		}
 
-		Date fromUTCDate = null;
-		Date toUTCDate = null;
-
 		try {
-			fromUTCDate = DateUtil.toUTCDate(fromDate);
-			toUTCDate = DateUtil.toUTCDate(toDate);
+			return DateUtil.toUTCDate(dateString);
 		}
 		catch (Exception exception) {
 			throw new IllegalArgumentException(
 				"Unable to convert to UTC date", exception);
-		}
-
-		if (fromUTCDate.after(toUTCDate)) {
-			throw new IllegalArgumentException("From date is after to date");
 		}
 	}
 
