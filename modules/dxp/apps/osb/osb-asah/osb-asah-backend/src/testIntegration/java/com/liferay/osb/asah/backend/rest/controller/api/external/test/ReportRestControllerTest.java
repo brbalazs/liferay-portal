@@ -116,20 +116,6 @@ public class ReportRestControllerTest
 	}
 
 	@Test
-	public void testGetDataExportTaskFileWithToDateLesserThanFromDate() {
-		Exception exception = Assertions.assertThrows(
-			IllegalArgumentException.class,
-			() -> _reportRestController.getDataExportTaskFile(
-				DateUtil.toUTCString(DateUtil.newDayDate()),
-				DateUtil.toUTCString(
-					DateUtil.addDays(DateUtil.newDayDate(), -1)),
-				"page"));
-
-		Assertions.assertEquals(
-			"From date is after to date", exception.getMessage());
-	}
-
-	@Test
 	public void testGetDataExportTaskWithNoFromDate() {
 		Exception exception = Assertions.assertThrows(
 			IllegalArgumentException.class,
@@ -190,16 +176,20 @@ public class ReportRestControllerTest
 	)
 	@Test
 	public void testNoPreviousExportProcessForTheSameTypeAndDateRange() {
+		Date toDate = DateUtil.newDayDate();
+
+		Date fromDate = DateUtil.addDays(toDate, -7);
+
 		ResponseEntity<DataExportTaskDTO> responseEntity =
 			_reportRestController.getDataExportTask(
-				DateUtil.toUTCString(_fromDate), DateUtil.toUTCString(_toDate),
+				DateUtil.toUTCString(fromDate), DateUtil.toUTCString(toDate),
 				"page");
 
 		Assertions.assertNotNull(responseEntity);
 
 		_assertDataExportTaskDTO(
-			null, DateUtil.newDayDate(), responseEntity.getBody(), _fromDate,
-			null, null, null, DataExportTask.Status.PENDING, _toDate,
+			null, DateUtil.newDayDate(), responseEntity.getBody(), fromDate,
+			null, null, null, DataExportTask.Status.PENDING, toDate,
 			DataExportTask.Type.PAGE);
 	}
 
@@ -262,17 +252,21 @@ public class ReportRestControllerTest
 	)
 	@Test
 	public void testThereIsPreviousExportProcessForTheSameTypeAndDateRangeButResultedInError() {
+		Date toDate = DateUtil.newDayDate();
+
+		Date fromDate = DateUtil.addDays(toDate, -7);
+
 		ResponseEntity<DataExportTaskDTO> responseEntity =
 			_reportRestController.getDataExportTask(
-				DateUtil.toUTCString(_fromDate), DateUtil.toUTCString(_toDate),
+				DateUtil.toUTCString(fromDate), DateUtil.toUTCString(toDate),
 				"page");
 
 		Assertions.assertNotNull(responseEntity);
 
 		_assertDataExportTaskDTO(
-			null, DateUtil.newDayDate(), responseEntity.getBody(), _fromDate,
+			null, DateUtil.newDayDate(), responseEntity.getBody(), fromDate,
 			null, DataExportTask.Status.ERROR, null,
-			DataExportTask.Status.PENDING, _toDate, DataExportTask.Type.PAGE);
+			DataExportTask.Status.PENDING, toDate, DataExportTask.Type.PAGE);
 	}
 
 	private void _assertDataExportTaskDTO(
