@@ -59,6 +59,8 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
+import org.apache.commons.validator.routines.UrlValidator;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -193,6 +195,20 @@ public class EditCompanyMVCActionCommand extends BaseFormMVCActionCommand {
 		List<Website> websites = UsersAdminUtil.getWebsites(actionRequest);
 		UnicodeProperties properties = PropertiesParamUtil.getProperties(
 			actionRequest, "settings--");
+
+		UrlValidator urlValidator = new UrlValidator();
+
+		String http = properties.getProperty(PropsKeys.CDN_HOST_HTTP);
+
+		if (!Validator.isBlank(http) && !urlValidator.isValid(http)) {
+			throw new WebsiteURLException(http);
+		}
+
+		String https = properties.getProperty(PropsKeys.CDN_HOST_HTTPS);
+
+		if (!Validator.isBlank(https) && !urlValidator.isValid(https)) {
+			throw new WebsiteURLException(https);
+		}
 
 		_companyService.updateCompany(
 			companyId, virtualHostname, mx, homeURL, !deleteLogo, logoBytes,
