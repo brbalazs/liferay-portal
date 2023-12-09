@@ -140,7 +140,7 @@ public class BQSQLUtil {
 
 	private static String _getValueString(Collection<?> values) {
 		if (values.isEmpty()) {
-			return "[]";
+			return "ARRAY<STRING>[]";
 		}
 
 		StringBuilder sb = new StringBuilder();
