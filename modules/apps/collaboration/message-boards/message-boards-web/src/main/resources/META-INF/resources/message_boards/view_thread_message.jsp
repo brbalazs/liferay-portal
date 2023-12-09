@@ -479,7 +479,7 @@ if (message.isAnonymous()) {
 									icon="<%= assetRenderer.getIconCssClass() %>"
 									label="<%= true %>"
 									markupView="lexicon"
-									message="<%= sb.toString() %>"
+									message="<%= HtmlUtil.escape(sb.toString()) %>"
 									method="get"
 									url="<%= PortletFileRepositoryUtil.getDownloadPortletFileEntryURL(themeDisplay, fileEntry, StringPool.BLANK) %>"
 								/>

@@ -370,7 +370,7 @@ if (portletTitleBasedNavigation) {
 
 		var selectedFileNameContainer = A.one('#<portlet:namespace />selectedFileNameContainer');
 
-		var TPL_INPUT = '<input id="<portlet:namespace />selectedFileName{id}" name="<portlet:namespace />selectedFileName" type="hidden" value="{value}" />';
+		var TPL_INPUT = '<input id="<portlet:namespace />selectedFileName{id}" name="<portlet:namespace />selectedFileName" type="hidden" value="${Liferay.Util.escapeHTML(value)}" />';
 
 		var values = A.all('input[name=<portlet:namespace />selectUploadedFile]:checked').val();
 
