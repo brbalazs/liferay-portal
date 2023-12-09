@@ -142,6 +142,8 @@ services:
         ports:
             - "5008:5005"
             - "8084:8080"
+        volumes:
+            - storage:/storage
     osbasahredis:
         build: ./devtools/osb-asah-redis
         container_name: osbasahredis
