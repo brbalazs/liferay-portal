@@ -5,6 +5,7 @@
 
 package com.liferay.portal.xmlrpc;
 
+import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Tuple;
@@ -12,6 +13,7 @@ import com.liferay.portal.kernel.xmlrpc.Fault;
 import com.liferay.portal.kernel.xmlrpc.Response;
 import com.liferay.portal.kernel.xmlrpc.Success;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
+import com.liferay.portal.util.PropsValues;
 
 import java.io.IOException;
 
@@ -79,7 +81,7 @@ public class XmlRpcParserTest {
 
 	@Test
 	public void testMethodParser() throws Exception {
-		Tuple tuple = XmlRpcParser.parseMethod(_PARAMETERIZED_METHOD)_1;
+		Tuple tuple = XmlRpcParser.parseMethod(_PARAMETERIZED_METHOD_1);
 
 		String methodName = (String)tuple.getObject(0);
 		Object[] arguments = (Object[])tuple.getObject(1);
@@ -104,10 +106,10 @@ public class XmlRpcParserTest {
 
 	@Test
 	public void testParseMethodWithLimitation() throws Exception {
-		try (SafeCloseable safeCloseable =
-				PropsValuesTestUtil.swapWithSafeCloseable(
-					"XML_RPC_MAX_PARAMETERS", 3)) {
+		Object originalValue = ReflectionTestUtil.getAndSetFieldValue(
+			PropsValues.class, "XML_RPC_MAX_PARAMETERS", 3);
 
+		try {
 			Tuple parameterizedMethodTuple = XmlRpcParser.parseMethod(
 				_PARAMETERIZED_METHOD_1);
 
@@ -129,6 +131,10 @@ public class XmlRpcParserTest {
 				Assert.assertEquals(
 					"Too many XML-RPC parameters", throwable.getMessage());
 			}
+		}
+		finally {
+			ReflectionTestUtil.setFieldValue(
+				PropsValues.class, "XML_RPC_MAX_PARAMETERS", originalValue);
 		}
 	}
 
