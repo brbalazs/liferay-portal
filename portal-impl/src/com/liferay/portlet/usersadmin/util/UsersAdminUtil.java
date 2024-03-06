@@ -78,6 +78,7 @@ import com.liferay.portal.kernel.util.comparator.OrganizationNameComparator;
 import com.liferay.portal.kernel.util.comparator.OrganizationTypeComparator;
 import com.liferay.portal.kernel.util.comparator.RoleDescriptionComparator;
 import com.liferay.portal.kernel.util.comparator.RoleNameComparator;
+import com.liferay.portal.kernel.util.comparator.RoleTitleComparator;
 import com.liferay.portal.kernel.util.comparator.RoleTypeComparator;
 import com.liferay.portal.kernel.util.comparator.UserEmailAddressComparator;
 import com.liferay.portal.kernel.util.comparator.UserFirstNameComparator;
@@ -1053,6 +1054,9 @@ public class UsersAdminUtil {
 		}
 		else if (orderByCol.equals("description")) {
 			orderByComparator = new RoleDescriptionComparator(orderByAsc);
+		}
+		else if (orderByCol.equals("title")) {
+			orderByComparator = new RoleTitleComparator(orderByAsc);
 		}
 		else if (orderByCol.equals("type")) {
 			orderByComparator = new RoleTypeComparator(orderByAsc);
