@@ -27,15 +27,7 @@ function CountryRegionDynamicSelect({
 		{
 			select: countrySelect,
 			selectData(callback) {
-				getCountries((countries) => {
-					const countryJP = countries.find(
-						(country) => country.a2 === 'JP'
-					);
-
-					japanCountryId = countryJP.countryId;
-
-					callback(countries);
-				});
+				getCountries(callback);
 			},
 			selectDesc: 'nameCurrentValue',
 			selectId: 'countryId',
@@ -46,28 +38,23 @@ function CountryRegionDynamicSelect({
 			select: regionSelect,
 			selectData(callback, selectKey) {
 				getRegions((regions) => {
-					if (
-						selectKey === japanCountryId &&
-						Liferay.ThemeDisplay.getLanguageId() === 'ja_JP'
-					) {
-						regions.sort((region1, region2) => {
-							if (
-								Number(region1.regionCode) >
-								Number(region2.regionCode)
-							) {
-								return 1;
-							}
+					regions.sort((region1, region2) => {
+						if (
+							Number(region1.regionCode) >
+							Number(region2.regionCode)
+						) {
+							return 1;
+						}
 
-							if (
-								Number(region1.regionCode) <
-								Number(region2.regionCode)
-							) {
-								return -1;
-							}
+						if (
+							Number(region1.regionCode) <
+							Number(region2.regionCode)
+						) {
+							return -1;
+						}
 
-							return 0;
-						});
-					}
+						return 0;
+					});
 
 					callback(regions);
 				}, selectKey);
