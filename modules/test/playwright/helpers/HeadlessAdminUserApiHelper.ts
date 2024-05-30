@@ -57,6 +57,7 @@ type TUserAccount = {
 	givenName?: string;
 	id?: string;
 	name?: string;
+	password?: string;
 };
 
 export class HeadlessAdminUserApiHelper {
@@ -139,6 +140,12 @@ export class HeadlessAdminUserApiHelper {
 		);
 	}
 
+	async deleteUserAccount(userAccountId: number) {
+		return this.apiHelpers.delete(
+			`${this.apiHelpers.baseUrl}${this.basePath}/user-accounts/${userAccountId}`
+		);
+	}
+
 	async getSiteByFriendlyUrlPath(friendlyUrlPath: string) {
 		return this.apiHelpers.get(
 			`${this.apiHelpers.baseUrl}${this.basePath}/sites/by-friendly-url-path/${friendlyUrlPath}`
@@ -214,6 +221,16 @@ export class HeadlessAdminUserApiHelper {
 		);
 	}
 
+	async postRoleByExternalReferenceCodeUserAccountAssociation(
+		roleExternalReferenceCode: string,
+		userAccountId: string
+	) {
+		return this.apiHelpers.postResponse(
+			`${this.apiHelpers.baseUrl}${this.basePath}roles/by-external-reference-code/${roleExternalReferenceCode}/association/user-account/${userAccountId}`,
+			{data: {}, failOnStatusCode: true}
+		);
+	}
+
 	async postRoleUserAccountAssociation(
 		roleId: number,
 		userAccountId: number
@@ -284,6 +301,7 @@ export class HeadlessAdminUserApiHelper {
 					emailAddress: 'User' + randomNumber + '@liferay.com',
 					familyName: 'User' + randomNumber,
 					givenName: 'User' + randomNumber,
+					password: 'test',
 					...(userAccount || {}),
 				},
 				failOnStatusCode: true,
