@@ -7,7 +7,9 @@ package com.liferay.commerce.internal.object.deployer;
 
 import com.liferay.account.model.AccountEntry;
 import com.liferay.commerce.constants.CommerceDefinitionTermConstants;
+import com.liferay.commerce.internal.notification.term.contributor.CommerceOrderAddressNotificationTermContributor;
 import com.liferay.commerce.internal.notification.term.contributor.SalesAgentNotificationTermContributor;
+import com.liferay.commerce.internal.notification.term.evaluator.CommerceOrderAddressNotificationTermEvaluator;
 import com.liferay.commerce.internal.notification.term.evaluator.SalesAgentNotificationTermEvaluator;
 import com.liferay.commerce.internal.notification.type.ObjectDefinitionCommerceNotificationType;
 import com.liferay.commerce.internal.order.term.contributor.ObjectCommerceDefinitionTermContributor;
@@ -69,6 +71,22 @@ public class ObjectDefinitionDeployerImpl implements ObjectDefinitionDeployer {
 				_bundleContext.registerService(
 					NotificationTermContributor.class,
 					new SalesAgentNotificationTermContributor(),
+					HashMapDictionaryBuilder.<String, Object>put(
+						"class.name", objectDefinition.getClassName()
+					).build()),
+				_bundleContext.registerService(
+					NotificationTermEvaluator.class,
+					new CommerceOrderAddressNotificationTermEvaluator(
+						_accountEntryModelResourcePermission,
+						_commerceOrderLocalService, objectDefinition,
+						_permissionCheckerFactory, _roleLocalService,
+						_userLocalService),
+					HashMapDictionaryBuilder.<String, Object>put(
+						"class.name", objectDefinition.getClassName()
+					).build()),
+				_bundleContext.registerService(
+					NotificationTermContributor.class,
+					new CommerceOrderAddressNotificationTermContributor(),
 					HashMapDictionaryBuilder.<String, Object>put(
 						"class.name", objectDefinition.getClassName()
 					).build()));
