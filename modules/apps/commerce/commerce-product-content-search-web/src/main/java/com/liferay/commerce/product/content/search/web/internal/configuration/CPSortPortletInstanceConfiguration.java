@@ -1,0 +1,33 @@
+/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+package com.liferay.commerce.product.content.search.web.internal.configuration;
+
+import aQute.bnd.annotation.metatype.Meta;
+import com.liferay.commerce.product.constants.CPField;
+import com.liferay.commerce.product.content.search.web.internal.constants.CPSearchResultsConstants;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Sort;
+import com.liferay.portal.kernel.search.SortFactoryUtil;
+
+/**
+ * @author Balazs Breier
+ */
+@ExtendedObjectClassDefinition(
+	category = "catalog",
+	scope = ExtendedObjectClassDefinition.Scope.PORTLET_INSTANCE
+)
+@Meta.OCD(
+	id = "com.liferay.commerce.product.content.search.web.internal.configuration.CPSortPortletInstanceConfiguration",
+	localization = "content/Language",
+	name = "commerce-product-sort-portlet-instance-configuration-name"
+)
+public interface CPSortPortletInstanceConfiguration {
+
+	@Meta.AD(name = "select-default-sorting", required = false)
+	public String selectDefaultSorting();
+}

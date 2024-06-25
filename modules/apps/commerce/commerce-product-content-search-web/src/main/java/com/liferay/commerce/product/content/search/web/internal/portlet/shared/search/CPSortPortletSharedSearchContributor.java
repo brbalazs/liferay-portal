@@ -7,9 +7,18 @@ package com.liferay.commerce.product.content.search.web.internal.portlet.shared.
 
 import com.liferay.commerce.product.constants.CPField;
 import com.liferay.commerce.product.constants.CPPortletKeys;
+import com.liferay.commerce.product.content.search.web.internal.configuration.CPSearchResultsPortletInstanceConfiguration;
+import com.liferay.commerce.product.content.search.web.internal.configuration.CPSortPortletInstanceConfiguration;
+import com.liferay.commerce.product.content.search.web.internal.constants.CPSearchResultsConstants;
+import com.liferay.commerce.product.content.search.web.internal.display.context.CPSearchResultsDisplayContext;
+import com.liferay.commerce.product.content.search.web.internal.display.context.CPSortDisplayContext;
+import com.liferay.commerce.product.display.context.helper.CPRequestHelper;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.configuration.module.configuration.ConfigurationProviderUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
@@ -18,6 +27,7 @@ import com.liferay.portal.kernel.search.SortFactoryUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchContributor;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchSettings;
@@ -61,11 +71,37 @@ public class CPSortPortletSharedSearchContributor
 
 		String portletId = ParamUtil.getString(httpServletRequest, "p_p_id");
 
+		CPSortPortletInstanceConfiguration _cpSortPortletInstanceConfiguration;
+//		CPSortDisplayContext cpSortDisplayContext = null;
+//		try {
+//			cpSortDisplayContext = new CPSortDisplayContext(
+//				ConfigurationProviderUtil.getConfigurationProvider(),
+//				httpServletRequest);
+//		}
+//		catch (ConfigurationException e) {
+//			throw new RuntimeException(e);
+//		}
+
+		try {
+			_cpSortPortletInstanceConfiguration =
+				ConfigurationProviderUtil.getPortletInstanceConfiguration(
+					CPSortPortletInstanceConfiguration.class,
+					themeDisplay);
+		}
+		catch (
+			ConfigurationException e) {
+			throw new RuntimeException(e);
+		}
+
 		String orderByCol = ParamUtil.getString(
 			httpServletRequest,
 			StringBundler.concat(
 				StringPool.UNDERLINE, portletId, StringPool.UNDERLINE,
 				SearchContainer.DEFAULT_ORDER_BY_COL_PARAM));
+
+		if (!Validator.isBlank(_cpSortPortletInstanceConfiguration.selectDefaultSorting())) {
+			orderByCol = _cpSortPortletInstanceConfiguration.selectDefaultSorting();
+		}
 
 		if (orderByCol.equals("price-low-to-high")) {
 			searchContext.setSorts(
