@@ -6,13 +6,14 @@
 import {Locator, Page} from '@playwright/test';
 
 export class CommerceThemeMiniumPage {
+	readonly catalogLink: Locator;
 	readonly page: Page;
 	readonly stickerUserNav: Locator;
 	readonly myProfileItemMenu: Locator;
 
 	constructor(page: Page) {
 		this.page = page;
-
+		this.catalogLink = page.getByRole('link', {name: 'Catalog'});
 		this.stickerUserNav = page.locator('.sticker').first();
 		this.myProfileItemMenu = page.getByRole('link', {name: 'My Profile'});
 	}
