@@ -15,20 +15,28 @@ import com.liferay.commerce.product.content.search.web.internal.display.context.
 import com.liferay.commerce.product.display.context.helper.CPRequestHelper;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.configuration.module.configuration.ConfigurationProvider;
 import com.liferay.portal.configuration.module.configuration.ConfigurationProviderUtil;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.PortletPreferences;
 import com.liferay.portal.kernel.module.configuration.ConfigurationException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.SortFactoryUtil;
+import com.liferay.portal.kernel.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PortletKeys;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.impl.LayoutImpl;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchContributor;
 import com.liferay.portal.search.web.portlet.shared.search.PortletSharedSearchSettings;
 
@@ -38,6 +46,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+
+import java.util.List;
 
 /**
  * @author Shuyang Zhou
@@ -71,36 +81,45 @@ public class CPSortPortletSharedSearchContributor
 
 		String portletId = ParamUtil.getString(httpServletRequest, "p_p_id");
 
-		CPSortPortletInstanceConfiguration _cpSortPortletInstanceConfiguration;
-//		CPSortDisplayContext cpSortDisplayContext = null;
-//		try {
-//			cpSortDisplayContext = new CPSortDisplayContext(
-//				ConfigurationProviderUtil.getConfigurationProvider(),
-//				httpServletRequest);
-//		}
-//		catch (ConfigurationException e) {
-//			throw new RuntimeException(e);
-//		}
-
-		try {
-			_cpSortPortletInstanceConfiguration =
-				ConfigurationProviderUtil.getPortletInstanceConfiguration(
-					CPSortPortletInstanceConfiguration.class,
-					themeDisplay);
-		}
-		catch (
-			ConfigurationException e) {
-			throw new RuntimeException(e);
-		}
-
 		String orderByCol = ParamUtil.getString(
 			httpServletRequest,
 			StringBundler.concat(
 				StringPool.UNDERLINE, portletId, StringPool.UNDERLINE,
 				SearchContainer.DEFAULT_ORDER_BY_COL_PARAM));
 
-		if (!Validator.isBlank(_cpSortPortletInstanceConfiguration.selectDefaultSorting())) {
-			orderByCol = _cpSortPortletInstanceConfiguration.selectDefaultSorting();
+		if (Validator.isNull(orderByCol)) {
+			List<PortletPreferences> portletPreferences =
+				PortletPreferencesLocalServiceUtil.getPortletPreferences(
+					PortletKeys.PREFS_OWNER_ID_DEFAULT,
+					PortletKeys.PREFS_OWNER_TYPE_LAYOUT,
+					themeDisplay.getPlid());
+
+			for (PortletPreferences portletPreference : portletPreferences) {
+				if (!StringUtil.containsIgnoreCase(portletPreference.getPortletId(), CPPortletKeys.CP_SORT, StringPool.BLANK)) {
+					continue;
+				}
+
+				try {
+					CPSortPortletInstanceConfiguration
+						_cpSortPortletInstanceConfiguration =
+						_configurationProvider.getPortletInstanceConfiguration(
+							CPSortPortletInstanceConfiguration.class,
+							themeDisplay.getLayout(),
+							portletPreference.getPortletId());
+
+					if (!Validator.isBlank(
+						_cpSortPortletInstanceConfiguration.selectDefaultSorting())) {
+						orderByCol =
+							_cpSortPortletInstanceConfiguration.selectDefaultSorting();
+
+						break;
+					}
+				}catch (Exception exception) {
+					if (_log.isDebugEnabled()) {
+						_log.debug(exception);
+					}
+				}
+			}
 		}
 
 		if (orderByCol.equals("price-low-to-high")) {
@@ -127,6 +146,12 @@ public class CPSortPortletSharedSearchContributor
 			searchContext.setSorts(SortFactoryUtil.getDefaultSorts());
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		CPSortPortletSharedSearchContributor.class);
+
+	@Reference
+	private ConfigurationProvider _configurationProvider;
 
 	@Reference
 	private Portal _portal;
