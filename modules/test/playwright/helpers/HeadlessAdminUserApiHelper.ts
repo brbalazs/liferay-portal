@@ -78,6 +78,15 @@ export class HeadlessAdminUserApiHelper {
 		);
 	}
 
+	async assignAccountToOrganization(
+		accountId: number,
+		organizationId: string
+	) {
+		return this.apiHelpers.post(
+			`${this.apiHelpers.baseUrl}${this.basePath}/accounts/${accountId}/organizations/${organizationId}`
+		);
+	}
+
 	async assignUserToAccountByEmailAddress(
 		accountId: number,
 		emails: string[]
@@ -137,12 +146,6 @@ export class HeadlessAdminUserApiHelper {
 	) {
 		return this.apiHelpers.delete(
 			`${this.apiHelpers.baseUrl}${this.basePath}/roles/${roleId}/association/user-account/${userAccountId}`
-		);
-	}
-
-	async deleteUserAccount(userAccountId: number) {
-		return this.apiHelpers.delete(
-			`${this.apiHelpers.baseUrl}${this.basePath}/user-accounts/${userAccountId}`
 		);
 	}
 
