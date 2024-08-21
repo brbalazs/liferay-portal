@@ -176,6 +176,7 @@ public abstract class BaseShipmentResourceTestCase {
 
 		shipment.setCarrier(regex);
 		shipment.setExternalReferenceCode(regex);
+		shipment.setOrderExternalReferenceCode(regex);
 		shipment.setShippingOptionName(regex);
 		shipment.setTrackingNumber(regex);
 		shipment.setTrackingURL(regex);
@@ -189,6 +190,7 @@ public abstract class BaseShipmentResourceTestCase {
 
 		Assert.assertEquals(regex, shipment.getCarrier());
 		Assert.assertEquals(regex, shipment.getExternalReferenceCode());
+		Assert.assertEquals(regex, shipment.getOrderExternalReferenceCode());
 		Assert.assertEquals(regex, shipment.getShippingOptionName());
 		Assert.assertEquals(regex, shipment.getTrackingNumber());
 		Assert.assertEquals(regex, shipment.getTrackingURL());
@@ -1344,6 +1346,16 @@ public abstract class BaseShipmentResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"orderExternalReferenceCode", additionalAssertFieldName)) {
+
+				if (shipment.getOrderExternalReferenceCode() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("orderId", additionalAssertFieldName)) {
 				if (shipment.getOrderId() == null) {
 					valid = false;
@@ -1640,6 +1652,19 @@ public abstract class BaseShipmentResourceTestCase {
 				if (!Objects.deepEquals(
 						shipment1.getModifiedDate(),
 						shipment2.getModifiedDate())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"orderExternalReferenceCode", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						shipment1.getOrderExternalReferenceCode(),
+						shipment2.getOrderExternalReferenceCode())) {
 
 					return false;
 				}
@@ -2081,6 +2106,52 @@ public abstract class BaseShipmentResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("orderExternalReferenceCode")) {
+			Object object = shipment.getOrderExternalReferenceCode();
+
+			String value = String.valueOf(object);
+
+			if (operator.equals("contains")) {
+				sb = new StringBundler();
+
+				sb.append("contains(");
+				sb.append(entityFieldName);
+				sb.append(",'");
+
+				if ((object != null) && (value.length() > 2)) {
+					sb.append(value.substring(1, value.length() - 1));
+				}
+				else {
+					sb.append(value);
+				}
+
+				sb.append("')");
+			}
+			else if (operator.equals("startswith")) {
+				sb = new StringBundler();
+
+				sb.append("startswith(");
+				sb.append(entityFieldName);
+				sb.append(",'");
+
+				if ((object != null) && (value.length() > 1)) {
+					sb.append(value.substring(0, value.length() - 1));
+				}
+				else {
+					sb.append(value);
+				}
+
+				sb.append("')");
+			}
+			else {
+				sb.append("'");
+				sb.append(value);
+				sb.append("'");
+			}
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("orderId")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -2379,6 +2450,8 @@ public abstract class BaseShipmentResourceTestCase {
 					RandomTestUtil.randomString());
 				id = RandomTestUtil.randomLong();
 				modifiedDate = RandomTestUtil.nextDate();
+				orderExternalReferenceCode = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				orderId = RandomTestUtil.randomLong();
 				shippingAddressId = RandomTestUtil.randomLong();
 				shippingDate = RandomTestUtil.nextDate();
