@@ -23,6 +23,7 @@ export class CommerceLayoutsPage {
 	readonly closeProductMenuButton: Locator;
 	readonly configureMenuItem: Locator;
 	readonly createPageMenuItem: Locator;
+	readonly createPublicPageMenuItem: Locator;
 	readonly defaultDisplayPageTemplateIcon: Locator;
 	readonly defineCustomThemeCheckbox: Locator;
 	readonly deleteLayoutModal: Locator;
@@ -113,6 +114,12 @@ export class CommerceLayoutsPage {
 			.getByRole('menuitem', {
 				exact: true,
 				name: 'Page',
+			});
+		this.createPublicPageMenuItem = page
+			.getByTestId('dropdownMenu')
+			.getByRole('menuitem', {
+				exact: true,
+				name: 'Public Page',
 			});
 		this.defaultDisplayPageTemplateIcon = page
 			.getByTestId('row')
@@ -403,7 +410,14 @@ export class CommerceLayoutsPage {
 
 	async createWidgetPage(pageName: string) {
 		await this.addPageButton.first().click();
-		await this.createPageMenuItem.click();
+
+		if (await this.createPageMenuItem.isVisible()) {
+			await this.createPageMenuItem.click();
+		}
+		else {
+			await this.createPublicPageMenuItem.click();
+		}
+
 		await this.widgetPageTemplateButton.click();
 		await this.addPageNameInput.waitFor({
 			state: 'attached',
