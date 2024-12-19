@@ -36,6 +36,7 @@ export const searchTableRowByValue = async function (
 
 export class AccountsPage {
 	readonly accountGroupsTab: Locator;
+	readonly accountRolesTab: Locator;
 	readonly accountsTable: Locator;
 	readonly accountsTableRow: (
 		colPosition: number,
@@ -45,6 +46,7 @@ export class AccountsPage {
 	readonly accountsTableRowLink: (name: string) => Promise<Locator>;
 	readonly applicationsMenuPage: ApplicationsMenuPage;
 	readonly channelDefaultsTab: Locator;
+	readonly detailsTab: Locator;
 	readonly newButton: Locator;
 	readonly organizationAssignmentFrame: FrameLocator;
 	readonly organizationsTab: Locator;
@@ -56,8 +58,14 @@ export class AccountsPage {
 		this.accountGroupsTab = page.getByRole('link', {
 			name: 'Account Groups',
 		});
+		this.accountRolesTab = page.getByRole('link', {
+			name: 'Roles',
+		});
 		this.channelDefaultsTab = page.getByRole('link', {
 			name: 'Channel Defaults',
+		});
+		this.detailsTab = page.getByRole('link', {
+			name: 'Details',
 		});
 		this.newButton = page
 			.getByTestId('creationMenuNewButton')
