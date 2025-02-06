@@ -7,6 +7,7 @@ import {Page, expect, mergeTests} from '@playwright/test';
 import {createReadStream} from 'fs';
 import path from 'node:path';
 
+import {applicationsMenuPageTest} from '../../fixtures/applicationsMenuPageTest';
 import {contactsCenterPagesTest} from '../../fixtures/contactsCenterPagesTest';
 import {dataApiHelpersTest} from '../../fixtures/dataApiHelpersTest';
 import {featureFlagsTest} from '../../fixtures/featureFlagsTest';
@@ -20,6 +21,7 @@ import performLogin, {performLogout, userData} from '../../utils/performLogin';
 import {PORTLET_URLS} from '../../utils/portletUrls';
 import getBasicWebContentStructureId from '../../utils/structured-content/getBasicWebContentStructureId';
 import {blogsPagesTest} from '../blogs-web/fixtures/blogsPagesTest';
+import {journalPagesTest} from "../journal-web/fixtures/journalPagesTest";
 
 export const test = mergeTests(
 	contactsCenterPagesTest,
@@ -33,6 +35,7 @@ export const test = mergeTests(
 );
 
 export const testAdmin = mergeTests(
+	applicationsMenuPageTest,
 	blogsPagesTest,
 	contactsCenterPagesTest,
 	dataApiHelpersTest,
@@ -40,6 +43,7 @@ export const testAdmin = mergeTests(
 		'LPD-35013': {enabled: true},
 		'LPS-178052': {enabled: true},
 	}),
+	journalPagesTest,
 	loginTest(),
 	productMenuPageTest,
 	siteStagingPageTest,
@@ -315,7 +319,7 @@ testAdmin.describe('LPD-27068 Refactor of GDPR#CanAnonymizeAllEntries', () => {
 });
 
 testAdmin(
-	'LPD-31206 - Can delete a single staged and live blogs entry',
+	'LPD-31206 Can delete a single staged and live blogs entry',
 	async ({
 		apiHelpers,
 		blogsPage,
@@ -441,5 +445,249 @@ testAdmin(
 		await expect(blogsPage.blogName(blog1NameLive)).toHaveCount(1);
 		await expect(blogsPage.blogName(blog2NameLive)).toHaveCount(0);
 		await expect(blogsPage.blogName(blog3Name)).toHaveCount(1);
+	}
+);
+
+testAdmin(
+	'LPD-32063 Can anonymize a single staged and live web content entry',
+	async ({
+			   apiHelpers,
+			   applicationsMenuPage,
+			   journalPage,
+			   journalEditArticlePage,
+			   page,
+			   personalDataErasurePage,
+			   productMenuPage,
+			   siteStagingPage,
+			   usersAndOrganizationsPage,
+		   }) => {
+		testAdmin.setTimeout(180000);
+
+		page.on('dialog', (dialog) => {
+			dialog.accept();
+		});
+
+		const userAccount =
+			await apiHelpers.headlessAdminUser.postUserAccount();
+
+		userData[userAccount.alternateName] = {
+			name: userAccount.givenName,
+			password: 'test',
+			surname: userAccount.familyName,
+		};
+
+		const role =
+			await apiHelpers.headlessAdminUser.getRoleByName('Administrator');
+
+		await apiHelpers.headlessAdminUser.postRoleByExternalReferenceCodeUserAccountAssociation(
+			role.externalReferenceCode,
+			userAccount.id
+		);
+
+		const site = await apiHelpers.headlessSite.createSite({
+			name: 'site' + getRandomInt(),
+		});
+
+		apiHelpers.data.push({id: site.id, type: 'site'});
+
+		const layout = await apiHelpers.headlessDelivery.createSitePage({
+			siteId: site.id,
+			title: 'page' + getRandomInt(),
+		});
+
+		// const blog1NameStaging = 'Blog1 Staging';
+		// const blog2NameStaging = 'Blog2 Staging';
+		// const blog3Name = 'Blog3';
+		//
+		// const blog1 = await apiHelpers.headlessDelivery.postBlog(site.id, {
+		// 	headline: blog1NameStaging,
+		// });
+		// const blog2 = await apiHelpers.headlessDelivery.postBlog(site.id, {
+		// 	headline: blog2NameStaging,
+		// });
+		// await apiHelpers.headlessDelivery.postBlog(site.id, {
+		// 	headline: blog3Name,
+		// });
+		await performLogout(page);
+		await performLogin(page, userAccount.alternateName);
+
+		const webContent1NameStaging = 'WContent1 Staging';
+		const webContent2NameStaging = 'WContent2 Staging';
+		const webContent3Name = 'WContent3';
+
+		// const contentStructureId =
+		// 	await getBasicWebContentStructureId(apiHelpers);
+		//
+		// const folder = await apiHelpers.jsonWebServicesJournal.addFolder({
+		// 	groupId: site.id,
+		// });
+
+		// const webContent1 = await apiHelpers.jsonWebServicesJournal.addWebContent({
+		// 	titleMap: {en_US: webContent1NameStaging},
+		// 	ddmStructureId: contentStructureId,
+		// 	groupId: site.id,
+		// });
+		//
+		// const webContent2 = await apiHelpers.jsonWebServicesJournal.addWebContent({
+		// 	titleMap: {en_US: webContent2NameStaging},
+		// 	ddmStructureId: contentStructureId,
+		// 	groupId: site.id,
+		// });
+		//
+		// await apiHelpers.jsonWebServicesJournal.addWebContent({
+		// 	titleMap: {en_US: webContent3Name},
+		// 	ddmStructureId: contentStructureId,
+		// 	groupId: site.id,
+		// });
+
+		// await page.goto(`/group/${site.name}${layout.friendlyUrlPath}`);
+		// await applicationsMenuPage.goToSite(site.name);
+		// await productMenuPage.openProductMenuButton.click();
+		// await productMenuPage.goToWebContent();
+		await page.goto(`/group/${site.name}${PORTLET_URLS.journal}`);
+		await journalPage.goToCreateArticle();
+
+		// await journalEditArticlePage.titleInput.fill(webContent1NameStaging);
+		// await journalEditArticlePage.friendlyURLInput.fill('web-content-1');
+		await journalEditArticlePage.createAndPublishBasicArticle(webContent1NameStaging);
+		await page.waitForTimeout(3000);
+
+		await journalPage.goToCreateArticle();
+		await journalEditArticlePage.createAndPublishBasicArticle(webContent2NameStaging);
+
+		await page.waitForTimeout(1000);
+
+		// await productMenuPage.openProductMenuButton.click();
+		// await productMenuPage.publishingButton.click();
+		// await productMenuPage.stagingMenuItem.click();
+		await page.goto(`/group/${site.name}${PORTLET_URLS.staging}`);
+
+		await siteStagingPage.localStagingCheckbox.check();
+		await siteStagingPage.webContentCheckbox.check();
+		await siteStagingPage.saveButton.click();
+
+		await page.waitForTimeout(8000);
+
+		await performLogout(page);
+		await performLogin(page, 'test');
+
+		const webContent1NameLive = 'WContent1 Live';
+		const webContent2NameLive = 'WContent2 Live';
+
+		// await productMenuPage.goToWebContent();
+		// await journalPage.gotoStaging(site.friendlyUrlPath);
+		// await journalPage.stagingLink.click();
+		// await page.goto(`/group/${site.name}${layout.friendlyUrlPath}`);
+		// await page.waitForTimeout(10000);
+		// await page.waitForLoadState('networkidle');
+		// await page.reload();
+		// await page.goto(`/group/${site.name}${layout.friendlyUrlPath}`);
+		// await productMenuPage.openProductMenuButton.click();
+		// await journalPage.stagingLink.click();
+		// await productMenuPage.goToWebContent();
+		await page.goto(`/group/${site.name}-staging${PORTLET_URLS.journal}`);
+
+		// await productMenuPage.openProductMenuButton.click();
+		// await journalPage.stagingLink.click();
+		// await productMenuPage.contentAndDataButton.click();
+		// await page.waitForTimeout(2000);
+		// await productMenuPage.webContentButton.click();
+
+		await journalPage.articleLink(webContent1NameStaging).click();
+
+		// await journalEditArticlePage.publishButton.waitFor({state: 'attached'});
+		// await page.waitForLoadState('networkidle');
+		await expect(journalEditArticlePage.titleInput).toBeVisible();
+
+		await journalEditArticlePage.titleInput.fill(webContent1NameLive);
+		await journalEditArticlePage.friendlyURLInput.fill(getRandomString());
+		// await journalEditArticlePage.friendlyURLInput.clear();
+		// await journalEditArticlePage.saveAsDraftButton.click();
+		await journalEditArticlePage.selectAndConfirmPublishButton.click();
+		await journalEditArticlePage.publishMenuItem.click();
+
+		await page.waitForLoadState('networkidle');
+
+		// await journalPage.gotoStaging(site.friendlyUrlPath);
+		// await journalPage.stagingLink.click();
+		// await page.goto(`/group/${site.name}-staging${PORTLET_URLS.journal}`);
+
+		// await journalPage.goto(site.friendlyUrlPath);
+		// await page.waitForLoadState('networkidle');
+		// await waitForAlert(page, `${webContent1NameStaging} was updated successfully.`);
+
+		await journalPage.articleLink(webContent2NameStaging).click();
+
+		// await journalEditArticlePage.publishButton.waitFor({state: 'attached'});
+		// await page.waitForLoadState('networkidle');
+		await expect(journalEditArticlePage.titleInput).toBeVisible();
+
+		await journalEditArticlePage.titleInput.fill(webContent2NameLive);
+		await journalEditArticlePage.friendlyURLInput.fill('web-content-2-live');
+		// await journalEditArticlePage.friendlyURLInput.clear();
+		// await journalEditArticlePage.saveAsDraftButton.click();
+		await journalEditArticlePage.selectAndConfirmPublishButton.click();
+		await journalEditArticlePage.publishMenuItem.click();
+
+		await page.waitForLoadState('networkidle');
+		// await waitForAlert(page, `${webContent2NameStaging} was updated successfully.`);
+		// await page.waitForTimeout(3000);
+
+		await journalPage.optionsButton.click();
+		await journalPage.stagingMenuItem.click();
+
+		await journalPage.stagingFramePublishToLiveButton.click();
+
+		await performLogout(page);
+		await performLogin(page, 'test');
+
+		await usersAndOrganizationsPage.goToUsers(false);
+		await (
+			await usersAndOrganizationsPage.usersTableRowActions(
+				userAccount.alternateName
+			)
+		).click();
+
+		await usersAndOrganizationsPage.deletePersonalDataMenuItem.click();
+
+		await expect(
+			personalDataErasurePage.selectAllItemsOnPageCheckbox
+		).toBeVisible();
+
+		await personalDataErasurePage.blogCountLink('8').click();
+
+		await page.waitForTimeout(1000);
+
+		await (
+			await personalDataErasurePage.userAssociatedDataTableRowCheckBox(
+				webContent1NameStaging
+			)
+		).check();
+		await (
+			await personalDataErasurePage.userAssociatedDataTableRowCheckBox(
+				webContent2NameLive
+			)
+		).check();
+
+		await personalDataErasurePage.actionsButton.click();
+		await personalDataErasurePage.menuItemDelete.click();
+
+		await expect(
+			personalDataErasurePage.selectAllItemsOnPageCheckbox
+		).toBeVisible();
+
+		await page.goto(`/group/${site.name}-staging${PORTLET_URLS.journal}`);
+
+		await expect(journalPage.articleLink(webContent1NameStaging)).toHaveCount(0);
+		await expect(journalPage.articleLink(webContent2NameStaging)).toHaveCount(1);
+		await expect(journalPage.articleLink(webContent3Name)).toHaveCount(1);
+
+		await page.goto(`/group/${site.name}${PORTLET_URLS.journal}`);
+
+		await expect(journalPage.articleLink(webContent1NameLive)).toHaveCount(1);
+		await expect(journalPage.articleLink(webContent2NameLive)).toHaveCount(0);
+		await expect(journalPage.articleLink(webContent3Name)).toHaveCount(1);
+
+		await page.waitForTimeout(1000);
 	}
 );

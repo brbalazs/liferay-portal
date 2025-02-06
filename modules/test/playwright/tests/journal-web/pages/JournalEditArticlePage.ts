@@ -28,7 +28,9 @@ export class JournalEditArticlePage {
 	readonly propertiesTab: Locator;
 	readonly publishDropdown: Locator;
 	readonly publishButton: Locator;
+	readonly publishMenuItem: Locator;
 	readonly redoButton: Locator;
+	readonly saveAsDraftButton: Locator;
 	readonly selectButton: Locator;
 	readonly selectAndConfirmPublishButton: Locator;
 	readonly titleInput: Locator;
@@ -64,7 +66,11 @@ export class JournalEditArticlePage {
 		this.publishButton = page.locator(
 			'#_com_liferay_journal_web_portlet_JournalPortlet_publishButton'
 		);
+		this.publishMenuItem = page.getByRole('menuitem', {name: 'Publish'});
 		this.redoButton = page.getByTitle('Redo', {exact: true});
+		this.saveAsDraftButton = page.getByRole('button', {
+			name: 'Save as Draft',
+		});
 		this.selectAndConfirmPublishButton = page.getByLabel(
 			'Select and Confirm Publish Settings'
 		);

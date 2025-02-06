@@ -11,45 +11,65 @@ import {PORTLET_URLS} from '../../../utils/portletUrls';
 import {waitForAlert} from '../../../utils/waitForAlert';
 
 export class JournalPage {
-	readonly page: Page;
-
+	readonly articleLink: (title: string) => Locator;
+	readonly articleContentTextBox: Locator;
+	readonly articleTitleInput: Locator;
 	readonly createBasicWebContentLink: Locator;
 	readonly newButton: Locator;
+	readonly optionsButton: Locator;
+	readonly page: Page;
 	readonly permissionsFrameLocator: FrameLocator;
 	readonly publishButton: Locator;
+	readonly stagingFrame: FrameLocator;
+	readonly stagingFramePublishToLiveButton: Locator;
+	readonly stagingLink: Locator;
+	readonly stagingMenuItem: Locator;
 	readonly tagFrameLocator: FrameLocator;
 	readonly templatesLink: Locator;
-	readonly articleTitleInput: Locator;
-	readonly articleContentTextBox: Locator;
 
 	constructor(page: Page) {
-		this.page = page;
-
-		this.createBasicWebContentLink = this.page.getByRole('menuitem', {
+		this.articleLink = (title: string) => page.getByText(`${title}`);
+		this.articleContentTextBox = page
+			.getByLabel('Content')
+			.getByRole('textbox')
+			.frameLocator('iframe')
+			.locator('.html-editor');
+		this.articleTitleInput = page.locator(
+			'.article-content-title .input-group-item input'
+		);
+		this.createBasicWebContentLink = page.getByRole('menuitem', {
 			name: 'Basic Web Content',
 		});
 		this.newButton = page.locator(
 			'button[data-qa-id="creationMenuNewButton"].d-md-flex.d-none'
 		);
+		this.optionsButton = page.getByRole('button', {name: 'Options'});
+		this.page = page;
 		this.permissionsFrameLocator = page.frameLocator(
 			'iframe[title="Permissions"]'
 		);
+		this.publishButton = page.getByRole('button', {name: 'Publish'});
+		this.stagingFrame = page.frameLocator('iframe[title="Staging"]');
+		this.stagingFramePublishToLiveButton = this.stagingFrame.getByRole('button', {
+			name: 'Publish to Live',
+		});
+		this.stagingLink = page.getByTestId('staging');
+		this.stagingMenuItem = page.getByRole('menuitem', {
+			name: 'Staging',
+		});
 		this.tagFrameLocator = page.frameLocator('iframe[title="Tags"]');
 		this.templatesLink = page.getByRole('link', {name: 'Templates'});
-		this.publishButton = page.getByRole('button', {name: 'Publish'});
-		this.articleTitleInput = page.locator(
-			'.article-content-title .input-group-item input'
-		);
-		this.articleContentTextBox = this.page
-			.getByLabel('Content')
-			.getByRole('textbox')
-			.frameLocator('iframe')
-			.locator('.html-editor');
 	}
 
 	async goto(siteUrl?: Site['friendlyUrlPath']) {
 		await this.page.goto(
 			`/group${siteUrl || '/guest'}${PORTLET_URLS.journal}`
+		);
+	}
+
+	async gotoStaging(siteUrl?: Site['friendlyUrlPath']) {
+		await this.page.goto(
+			`/group${siteUrl}-staging${PORTLET_URLS.journal}`
 		);
 	}
 

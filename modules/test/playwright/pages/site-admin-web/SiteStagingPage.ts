@@ -11,6 +11,7 @@ export class SiteStagingPage {
 	readonly page: Page;
 	readonly publishToLiveButton: Locator;
 	readonly saveButton: Locator;
+	readonly webContentCheckbox: Locator;
 
 	constructor(page: Page) {
 		this.blogsCheckbox = page.getByTestId(
@@ -22,5 +23,8 @@ export class SiteStagingPage {
 			name: 'Publish to Live',
 		});
 		this.saveButton = page.getByRole('button', {name: 'Save'});
+		this.webContentCheckbox = page.getByTestId(
+			'staged--staged-portlet_com_liferay_journal_web_portlet_JournalPortlet--'
+		);
 	}
 }

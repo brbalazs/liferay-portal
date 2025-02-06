@@ -129,6 +129,64 @@ export class JSONWebServicesJournalApiHelper {
 		);
 	}
 
+	async updateWebContent(webContent?: TWebContent): Promise<TWebContent> {
+		const urlSearchParams = new URLSearchParams();
+
+		webContent = {
+			articleId: '0',
+			content: getRandomString(),
+			ddmStructureId: 0,
+			ddmTemplateKey: 'BASIC-WEB-CONTENT',
+			descriptionMap: {en_US: getRandomString()},
+			folderId: 0,
+			groupId: 0,
+			serviceContext: {},
+			titleMap: {en_US: getRandomString()},
+			...(webContent || {}),
+		};
+
+		urlSearchParams.append(
+			'content',
+			`<root>
+				<dynamic-element field-reference="content" index-type="text" name="content" type="rich_text">
+				<dynamic-content><![CDATA[<p>${webContent.content}</p>]]></dynamic-content>
+				</dynamic-element>
+				</root>`
+		);
+
+		urlSearchParams.append(
+			'descriptionMap',
+			JSON.stringify(webContent.descriptionMap)
+		);
+
+		urlSearchParams.append(
+			'ddmStructureId',
+			String(webContent.ddmStructureId)
+		);
+
+		urlSearchParams.append('ddmTemplateKey', webContent.ddmTemplateKey);
+		urlSearchParams.append(
+			'externalReferenceCode',
+			webContent.externalReferenceCode
+		);
+		urlSearchParams.append('folderId', String(webContent.folderId));
+		urlSearchParams.append('groupId', String(webContent.groupId));
+		urlSearchParams.append('titleMap', JSON.stringify(webContent.titleMap));
+		urlSearchParams.append(
+			'serviceContext',
+			JSON.stringify(webContent.serviceContext)
+		);
+
+		return this.apiHelpers.post(
+			`${liferayConfig.environment.baseUrl}${this.basePath}/update-article-default-values`,
+			{
+				data: urlSearchParams.toString(),
+				failOnStatusCode: true,
+				headers: await this.apiHelpers.getJSONWebServicesHeaders(),
+			}
+		);
+	}
+
 	async expireArticle(siteId: string, articleId: string): Promise<void> {
 		const urlSearchParams = new URLSearchParams();
 
