@@ -219,4 +219,20 @@ export class JSONWebServicesJournalApiHelper {
 			}
 		);
 	}
+
+	async getArticleByUrlTitle(siteId: string, urlTitle: string): Promise<TWebContent> {
+		const urlSearchParams = new URLSearchParams();
+
+		urlSearchParams.append('groupId', siteId);
+		urlSearchParams.append('urlTitle', urlTitle);
+
+		return this.apiHelpers.post(
+			`${liferayConfig.environment.baseUrl}${this.basePath}/get-article-by-url-title`,
+			{
+				data: urlSearchParams.toString(),
+				failOnStatusCode: false,
+				headers: await this.apiHelpers.getJSONWebServicesHeaders(),
+			}
+		);
+	}
 }

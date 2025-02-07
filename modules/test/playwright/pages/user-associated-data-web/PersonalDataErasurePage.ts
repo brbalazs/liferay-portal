@@ -50,7 +50,9 @@ export class PersonalDataErasurePage {
 		);
 		this.userAssociatedDataTable = page.locator(
 			'#_com_liferay_user_associated_data_web_portlet_UserAssociatedData_uadEntities_com_liferay_blogs_uad'
-		);
+		).or(page.locator(
+			'#_com_liferay_user_associated_data_web_portlet_UserAssociatedData_uadEntities_com_liferay_journal_uad'
+		));
 		this.userAssociatedDataTableRow = async (
 			colPosition: number,
 			value: string,
@@ -64,14 +66,14 @@ export class PersonalDataErasurePage {
 			);
 		};
 		this.userAssociatedDataTableRowCheckBox = async (name: string) => {
-			const accountsTableRow = await this.userAssociatedDataTableRow(
+			const userAssociatedDataTableRow = await this.userAssociatedDataTableRow(
 				1,
 				name,
 				true
 			);
 
-			if (accountsTableRow && accountsTableRow.row) {
-				return accountsTableRow.row.getByTitle('Select');
+			if (userAssociatedDataTableRow && userAssociatedDataTableRow.row) {
+				return userAssociatedDataTableRow.row.getByTitle('Select');
 			}
 
 			throw new Error(`Cannot locate account row with name ${name}`);
