@@ -38,7 +38,6 @@ import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.InfrastructureUtil;
-import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.spring.hibernate.DialectDetector;
@@ -116,6 +115,50 @@ public class DBPartitionUtil {
 		}
 
 		return true;
+	}
+
+	public static boolean extractCompany(long companyId)
+		throws PortalException {
+
+		if (DBPartition.isPartitionEnabled() ||
+			(companyId == _defaultCompanyId)) {
+
+			return false;
+		}
+
+		try (SafeCloseable safeCloseable =
+				CompanyThreadLocal.setCompanyIdWithSafeCloseable(
+					_defaultCompanyId)) {
+
+			_extractCompany(companyId);
+		}
+
+		return true;
+	}
+
+	public static void extractConfiguration(
+			long companyId, String configurationId, String dictionaryString)
+		throws SQLException {
+
+		DataSource dataSource = InfrastructureUtil.getDataSource();
+
+		Connection connection = CurrentConnectionUtil.getConnection(dataSource);
+
+		if (connection == null) {
+			connection = dataSource.getConnection();
+		}
+
+		try (PreparedStatement preparedStatement = connection.prepareStatement(
+				StringBundler.concat(
+					"insert into ", _getExtractedPartitionName(companyId),
+					".Configuration_ (configurationId, dictionary",
+					") values (?, ?)"))) {
+
+			preparedStatement.setString(1, configurationId);
+			preparedStatement.setString(2, dictionaryString);
+
+			preparedStatement.executeUpdate();
+		}
 	}
 
 	public static boolean extractDBPartition(long companyId)
@@ -209,8 +252,13 @@ public class DBPartitionUtil {
 	public static Map<String, String> getConfigurations(long companyId)
 		throws SQLException {
 
-		Connection connection = CurrentConnectionUtil.getConnection(
-			InfrastructureUtil.getDataSource());
+		DataSource dataSource = InfrastructureUtil.getDataSource();
+
+		Connection connection = CurrentConnectionUtil.getConnection(dataSource);
+
+		if (connection == null) {
+			connection = dataSource.getConnection();
+		}
 
 		try (PreparedStatement preparedStatement = connection.prepareStatement(
 				StringBundler.concat(
@@ -345,26 +393,11 @@ public class DBPartitionUtil {
 			return dataSource;
 		}
 
-		DB db = DBManagerUtil.getDB(
-			DBManagerUtil.getDBType(DialectDetector.getDialect(dataSource)),
+		_initializeDBPartitionDB(
+			DBManagerUtil.getDB(
+				DBManagerUtil.getDBType(DialectDetector.getDialect(dataSource)),
+				dataSource),
 			dataSource);
-
-		if (!db.isSupportsDBPartition()) {
-			throw new Error(
-				"Database partitioning is not supported for " + db.getDBType());
-		}
-
-		if (db.getDBType() == DBType.MYSQL) {
-			_dbPartitionDB = new DBPartitionMySQLDB();
-		}
-		else if (db.getDBType() == DBType.POSTGRESQL) {
-			_dbPartitionDB = new DBPartitionPostgreSQLDB();
-		}
-
-		try (Connection connection = dataSource.getConnection()) {
-			_defaultPartitionName = _dbPartitionDB.getDefaultPartitionName(
-				connection);
-		}
 
 		return new DataSourceWrapper(dataSource) {
 
@@ -396,8 +429,6 @@ public class DBPartitionUtil {
 
 			preparedStatement.executeUpdate();
 
-			List<Long> companyIds = ListUtil.fromArray(
-				PortalInstancePool.getCompanyIds());
 			DBInspector dbInspector = new DBInspector(connection);
 
 			DatabaseMetaData databaseMetaData = connection.getMetaData();
@@ -412,7 +443,7 @@ public class DBPartitionUtil {
 				while (resultSet.next()) {
 					String tableName = resultSet.getString("TABLE_NAME");
 
-					if (dbInspector.isObjectTable(companyIds, tableName)) {
+					if (dbInspector.isObjectTable(tableName)) {
 						continue;
 					}
 
@@ -799,6 +830,104 @@ public class DBPartitionUtil {
 		}
 	}
 
+	private static void _extractCompany(long companyId) throws PortalException {
+		DataSource dataSource = InfrastructureUtil.getDataSource();
+
+		Connection connection = CurrentConnectionUtil.getConnection(dataSource);
+
+		if (_dbPartitionDB == null) {
+			DB db = DBManagerUtil.getDB();
+
+			try {
+				_initializeDBPartitionDB(db, dataSource);
+			}
+			catch (Throwable throwable) {
+				if (throwable instanceof Error) {
+					throw new PortalException(
+						"Extraction of companies is not supported for " +
+							db.getDBType());
+				}
+
+				throw new PortalException(throwable);
+			}
+		}
+
+		String extractedPartitionName = _getExtractedPartitionName(companyId);
+
+		try {
+			try (PreparedStatement preparedStatement =
+					connection.prepareStatement(
+						_dbPartitionDB.getCreatePartitionSQL(
+							connection, extractedPartitionName))) {
+
+				preparedStatement.executeUpdate();
+
+				DatabaseMetaData databaseMetaData = connection.getMetaData();
+
+				DBInspector dbInspector = new DBInspector(connection);
+
+				try (ResultSet resultSet = databaseMetaData.getTables(
+						_dbPartitionDB.getCatalog(
+							connection, _defaultPartitionName),
+						_dbPartitionDB.getSchema(
+							connection, _defaultPartitionName),
+						null, new String[] {"TABLE"});
+					Statement statement = connection.createStatement()) {
+
+					while (resultSet.next()) {
+						String tableName = resultSet.getString("TABLE_NAME");
+
+						if (StringUtil.equalsIgnoreCase(
+								tableName, "Configuration_")) {
+
+							statement.executeUpdate(
+								_dbPartitionDB.getCreateTableSQL(
+									connection, _defaultPartitionName,
+									extractedPartitionName, tableName));
+
+							continue;
+						}
+
+						if (dbInspector.isObjectTable(
+								List.of(companyId), tableName)) {
+
+							continue;
+						}
+
+						_extractTable(
+							companyId, connection, tableName, statement,
+							dbInspector, false);
+
+						if (StringUtil.equalsIgnoreCase(
+								tableName, "DLFileEntryType")) {
+
+							_moveData(
+								_defaultPartitionName, extractedPartitionName,
+								tableName,
+								_getColumnNames(
+									connection, _defaultPartitionName,
+									tableName),
+								statement, " where companyId = 0", false);
+						}
+					}
+				}
+			}
+		}
+		catch (Exception exception) {
+			try (Statement statement = connection.createStatement()) {
+				statement.executeUpdate(
+					_dbPartitionDB.getDropPartitionSQL(extractedPartitionName));
+			}
+			catch (SQLException sqlException) {
+				throw new PortalException(
+					"Unable to roll back company extraction", sqlException);
+			}
+
+			throw new PortalException(
+				"Extraction of company was rolled back", exception);
+		}
+	}
+
 	private static void _extractDBPartition(long companyId)
 		throws PortalException {
 
@@ -1158,6 +1287,27 @@ public class DBPartitionUtil {
 		}
 
 		return " where trigger_name like '%@" + companyId + "'";
+	}
+
+	private static void _initializeDBPartitionDB(DB db, DataSource dataSource)
+		throws SQLException {
+
+		if (!db.isSupportsDBPartition()) {
+			throw new Error(
+				"Database partitioning is not supported for " + db.getDBType());
+		}
+
+		if (db.getDBType() == DBType.MYSQL) {
+			_dbPartitionDB = new DBPartitionMySQLDB();
+		}
+		else if (db.getDBType() == DBType.POSTGRESQL) {
+			_dbPartitionDB = new DBPartitionPostgreSQLDB();
+		}
+
+		try (Connection connection = dataSource.getConnection()) {
+			_defaultPartitionName = _dbPartitionDB.getDefaultPartitionName(
+				connection);
+		}
 	}
 
 	private static void _insertDBPartition(long companyId)

@@ -895,11 +895,11 @@ public class CompanyLocalServiceTest {
 	}
 
 	@Test
-	public void testExtractDBPartitionCompany() {
+	public void testExtractCompany() {
 		Assume.assumeFalse(DBPartition.isPartitionEnabled());
 
 		try {
-			_companyLocalService.extractDBPartitionCompany(1L);
+			_companyLocalService.extractCompany(1L);
 
 			Assert.fail();
 		}
@@ -910,22 +910,15 @@ public class CompanyLocalServiceTest {
 	}
 
 	@Test
-	public void testExtractDBPartitionCompanyDefaultCompany() {
+	public void testExtractCompanyDefaultCompany() {
 		try {
-			_companyLocalService.extractDBPartitionCompany(
+			_companyLocalService.extractCompany(
 				PortalInstancePool.getDefaultCompanyId());
 
 			Assert.fail();
 		}
 		catch (Exception exception) {
-			if (DBPartition.isPartitionEnabled()) {
-				Assert.assertTrue(
-					exception instanceof RequiredCompanyException);
-			}
-			else {
-				Assert.assertTrue(
-					exception instanceof UnsupportedOperationException);
-			}
+			Assert.assertTrue(exception instanceof RequiredCompanyException);
 		}
 	}
 

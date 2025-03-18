@@ -14,6 +14,7 @@ import com.liferay.sharing.security.permission.SharingPermission;
 import com.liferay.sharing.service.base.SharingEntryServiceBaseImpl;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import org.osgi.service.component.annotations.Component;
@@ -59,8 +60,8 @@ public class SharingEntryServiceImpl extends SharingEntryServiceBaseImpl {
 	 */
 	@Override
 	public SharingEntry addOrUpdateSharingEntry(
-			long toUserId, long classNameId, long classPK, long groupId,
-			boolean shareable,
+			String externalReferenceCode, long toUserId, long classNameId,
+			long classPK, long groupId, boolean shareable,
 			Collection<SharingEntryAction> sharingEntryActions,
 			Date expirationDate, ServiceContext serviceContext)
 		throws PortalException {
@@ -70,8 +71,8 @@ public class SharingEntryServiceImpl extends SharingEntryServiceBaseImpl {
 
 		if (sharingEntry == null) {
 			return sharingEntryService.addSharingEntry(
-				toUserId, classNameId, classPK, groupId, shareable,
-				sharingEntryActions, expirationDate, serviceContext);
+				externalReferenceCode, toUserId, classNameId, classPK, groupId,
+				shareable, sharingEntryActions, expirationDate, serviceContext);
 		}
 
 		return sharingEntryService.updateSharingEntry(
@@ -101,8 +102,8 @@ public class SharingEntryServiceImpl extends SharingEntryServiceBaseImpl {
 	 */
 	@Override
 	public SharingEntry addSharingEntry(
-			long toUserId, long classNameId, long classPK, long groupId,
-			boolean shareable,
+			String externalReferenceCode, long toUserId, long classNameId,
+			long classPK, long groupId, boolean shareable,
 			Collection<SharingEntryAction> sharingEntryActions,
 			Date expirationDate, ServiceContext serviceContext)
 		throws PortalException {
@@ -112,8 +113,9 @@ public class SharingEntryServiceImpl extends SharingEntryServiceBaseImpl {
 			sharingEntryActions);
 
 		return sharingEntryLocalService.addSharingEntry(
-			getUserId(), toUserId, classNameId, classPK, groupId, shareable,
-			sharingEntryActions, expirationDate, serviceContext);
+			externalReferenceCode, getUserId(), toUserId, classNameId, classPK,
+			groupId, shareable, sharingEntryActions, expirationDate,
+			serviceContext);
 	}
 
 	@Override
@@ -129,6 +131,58 @@ public class SharingEntryServiceImpl extends SharingEntryServiceBaseImpl {
 			sharingEntry.getClassPK(), sharingEntry.getGroupId());
 
 		return sharingEntryLocalService.deleteSharingEntry(sharingEntry);
+	}
+
+	@Override
+	public SharingEntry deleteSharingEntryByExternalReferenceCode(
+			String externalReferenceCode, long groupId)
+		throws PortalException {
+
+		SharingEntry sharingEntry =
+			sharingEntryLocalService.getSharingEntryByExternalReferenceCode(
+				externalReferenceCode, groupId);
+
+		sharingPermission.checkManageCollaboratorsPermission(
+			getPermissionChecker(), sharingEntry.getClassNameId(),
+			sharingEntry.getClassPK(), sharingEntry.getGroupId());
+
+		return sharingEntryLocalService.deleteSharingEntry(sharingEntry);
+	}
+
+	@Override
+	public SharingEntry fetchSharingEntryByExternalReferenceCode(
+			String externalReferenceCode, long groupId)
+		throws PortalException {
+
+		SharingEntry sharingEntry =
+			sharingEntryLocalService.fetchSharingEntryByExternalReferenceCode(
+				externalReferenceCode, groupId);
+
+		if (sharingEntry != null) {
+			sharingPermission.check(
+				getPermissionChecker(), sharingEntry.getClassNameId(),
+				sharingEntry.getClassPK(), groupId,
+				Collections.singletonList(SharingEntryAction.VIEW));
+		}
+
+		return sharingEntry;
+	}
+
+	@Override
+	public SharingEntry getSharingEntryByExternalReferenceCode(
+			String externalReferenceCode, long groupId)
+		throws PortalException {
+
+		SharingEntry sharingEntry =
+			sharingEntryLocalService.getSharingEntryByExternalReferenceCode(
+				externalReferenceCode, groupId);
+
+		sharingPermission.check(
+			getPermissionChecker(), sharingEntry.getClassNameId(),
+			sharingEntry.getClassPK(), groupId,
+			Collections.singletonList(SharingEntryAction.VIEW));
+
+		return sharingEntry;
 	}
 
 	/**
