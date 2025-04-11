@@ -27,4 +27,5 @@ export function attachModalToHTMLElement({
 		});
 }
 
+export {default as AddressSubtypeListAutoComplete} from './checkout_step/AddressSubtypeListAutocomplete';
 export {default as DeliveryGroupFDSPropsTransformer} from './props_transformers/DeliveryGroupFDSPropsTransformer';
