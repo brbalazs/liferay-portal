@@ -33,6 +33,7 @@ export class RolesPage {
 	readonly roleAssigneesPage: RoleAssigneesPage;
 	readonly roleCell: (value: string, exact?: boolean) => Locator;
 	readonly rolePage: RolePage;
+	readonly rolesLink: (name: string) => Locator;
 	readonly roleUserGroupSelectorPage: RoleUserGroupSelectorPage;
 	readonly rolesTable: DataTablePage;
 	readonly siteRolesLink: Locator;
@@ -92,6 +93,11 @@ export class RolesPage {
 				name: value,
 			});
 		this.rolePage = new RolePage(page);
+		this.rolesLink = (name) =>
+			page.getByRole('link', {
+				exact: true,
+				name: `${name} Roles`,
+			});
 		this.roleUserGroupSelectorPage = new RoleUserGroupSelectorPage(page);
 		this.rolesTable = new DataTablePage(
 			page,

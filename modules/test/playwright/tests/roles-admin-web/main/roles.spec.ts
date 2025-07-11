@@ -2112,3 +2112,66 @@ test(
 		}
 	}
 );
+
+test(
+	'Can duplicate all types of roles',
+	{tag: ['@LPD-60260']},
+	async ({page, rolePage, rolesPage}) => {
+		page.on('dialog', (dialog) => dialog.accept());
+
+		const duplicateRole = async (roleName: string, roleType: string) => {
+			await expect(async () => {
+				await rolesPage.rolesLink(roleType).click();
+
+				await expect(rolesPage.rolesTable.searchInput).toBeEnabled({
+					timeout: 1000,
+				});
+
+				await (await rolesPage.rolesTable.rowActions(roleName)).click();
+			}).toPass();
+
+			await rolesPage.duplicateMenuItem.click();
+
+			await expect(
+				rolesPage.duplicateFrameNewRoleNameInput
+			).toBeEnabled();
+
+			const duplicateRoleName = `${roleType}${getRandomInt()}`;
+
+			await expect(async () => {
+				await rolesPage.duplicateFrameNewRoleNameInput.fill(
+					duplicateRoleName
+				);
+
+				await expect(
+					rolesPage.duplicateFrameNewRoleNameInput
+				).toHaveValue(duplicateRoleName, {timeout: 500});
+			}).toPass();
+
+			await rolesPage.duplicateFrameSaveButton.click();
+
+			await expect(rolePage.keyInput).toHaveValue(duplicateRoleName);
+
+			await rolePage.backButton.click();
+
+			await expect(
+				rolesPage.rolesTable.cell(duplicateRoleName)
+			).toBeVisible();
+
+			await (
+				await rolesPage.rolesTable.rowActions(duplicateRoleName)
+			).click();
+			await rolesPage.deleteButton.click();
+		};
+
+		await rolesPage.goto();
+
+		await rolesPage.rolesTable.changeView('Table');
+
+		await duplicateRole('Guest', 'Regular');
+		await duplicateRole('Site Member', 'Site');
+		await duplicateRole('Organization Administrator', 'Organization');
+		await duplicateRole('Asset Library Member', 'Asset Library');
+		await duplicateRole('Account Administrator', 'Account');
+	}
+);
