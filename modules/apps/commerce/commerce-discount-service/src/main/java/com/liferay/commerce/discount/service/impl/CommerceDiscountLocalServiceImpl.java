@@ -1072,20 +1072,6 @@ public class CommerceDiscountLocalServiceImpl
 			commerceDiscountId);
 	}
 
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommerceDiscount incrementCommerceDiscountNumberOfUse(
-			long commerceDiscountId)
-		throws PortalException {
-
-		CommerceDiscount commerceDiscount =
-			commerceDiscountPersistence.findByPrimaryKey(commerceDiscountId);
-
-		commerceDiscount.setNumberOfUse(commerceDiscount.getNumberOfUse() + 1);
-
-		return commerceDiscountPersistence.update(commerceDiscount);
-	}
-
 	@Override
 	public List<CommerceDiscount> searchByCommercePricingClassId(
 		long commercePricingClassId, String title, int start, int end) {
@@ -1341,6 +1327,20 @@ public class CommerceDiscountLocalServiceImpl
 
 		return commerceDiscountLocalService.updateCommerceDiscount(
 			commerceDiscount);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceDiscount updateCommerceDiscountNumberOfUse(
+			long commerceDiscountId)
+		throws PortalException {
+
+		CommerceDiscount commerceDiscount =
+			commerceDiscountPersistence.findByPrimaryKey(commerceDiscountId);
+
+		commerceDiscount.setNumberOfUse(commerceDiscount.getNumberOfUse() + 1);
+
+		return commerceDiscountPersistence.update(commerceDiscount);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
