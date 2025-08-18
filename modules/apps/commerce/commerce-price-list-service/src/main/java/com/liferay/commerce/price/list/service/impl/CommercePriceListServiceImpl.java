@@ -305,7 +305,7 @@ public class CommercePriceListServiceImpl
 		_commercePriceListModelResourcePermission.check(
 			getPermissionChecker(), commercePriceListId, ActionKeys.UPDATE);
 
-		commercePriceListLocalService.setCatalogBasePriceList(
+		commercePriceListLocalService.updateCatalogBasePriceList(
 			groupId, commercePriceListId, type);
 	}
 
