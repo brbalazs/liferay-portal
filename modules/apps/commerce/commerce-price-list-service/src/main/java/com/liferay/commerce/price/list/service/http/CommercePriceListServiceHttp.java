@@ -680,15 +680,16 @@ public class CommercePriceListServiceHttp {
 		}
 	}
 
-	public static void setCatalogBasePriceList(
+	public static void updateCatalogBasePriceList(
 			HttpPrincipal httpPrincipal, long groupId, long commercePriceListId,
 			String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CommercePriceListServiceUtil.class, "setCatalogBasePriceList",
-				_setCatalogBasePriceListParameterTypes14);
+				CommercePriceListServiceUtil.class,
+				"updateCatalogBasePriceList",
+				_updateCatalogBasePriceListParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, groupId, commercePriceListId, type);
@@ -935,8 +936,10 @@ public class CommercePriceListServiceHttp {
 		_searchCommercePriceListsCountParameterTypes13 = new Class[] {
 			long.class, String.class, int.class
 		};
-	private static final Class<?>[] _setCatalogBasePriceListParameterTypes14 =
-		new Class[] {long.class, long.class, String.class};
+	private static final Class<?>[]
+		_updateCatalogBasePriceListParameterTypes14 = new Class[] {
+			long.class, long.class, String.class
+		};
 	private static final Class<?>[] _updateCommercePriceListParameterTypes15 =
 		new Class[] {
 			long.class, String.class, boolean.class, long.class, String.class,

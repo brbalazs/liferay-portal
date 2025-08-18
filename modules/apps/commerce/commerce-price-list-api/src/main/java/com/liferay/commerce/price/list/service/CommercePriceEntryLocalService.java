@@ -122,8 +122,6 @@ public interface CommercePriceEntryLocalService
 			ServiceContext serviceContext)
 		throws PortalException;
 
-	public void checkCommercePriceEntries() throws PortalException;
-
 	/**
 	 * Creates a new commerce price entry with the primary key. Does not add the commerce price entry to the database.
 	 *
@@ -421,15 +419,7 @@ public interface CommercePriceEntryLocalService
 			long companyId, long commercePriceListId, String keywords)
 		throws PortalException;
 
-	@Indexable(type = IndexableType.REINDEX)
-	public CommercePriceEntry setHasTierPrice(
-			long commercePriceEntryId, boolean hasTierPrice)
-		throws PortalException;
-
-	public CommercePriceEntry setHasTierPrice(
-			long commercePriceEntryId, boolean hasTierPrice,
-			boolean bulkPricing)
-		throws PortalException;
+	public void updateCommercePriceEntries() throws PortalException;
 
 	/**
 	 * Updates the commerce price entry in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
@@ -462,6 +452,16 @@ public interface CommercePriceEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CommercePriceEntry updateExternalReferenceCode(
 			String externalReferenceCode, CommercePriceEntry commercePriceEntry)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommercePriceEntry updateHasTierPrice(
+			long commercePriceEntryId, boolean hasTierPrice)
+		throws PortalException;
+
+	public CommercePriceEntry updateHasTierPrice(
+			long commercePriceEntryId, boolean hasTierPrice,
+			boolean bulkPricing)
 		throws PortalException;
 
 	public CommercePriceEntry updatePricingInfo(

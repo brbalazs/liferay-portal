@@ -123,10 +123,6 @@ public class CommercePriceEntryLocalServiceUtil {
 			skuExternalReferenceCode, unitOfMeasureKey, serviceContext);
 	}
 
-	public static void checkCommercePriceEntries() throws PortalException {
-		getService().checkCommercePriceEntries();
-	}
-
 	/**
 	 * Creates a new commerce price entry with the primary key. Does not add the commerce price entry to the database.
 	 *
@@ -541,20 +537,8 @@ public class CommercePriceEntryLocalServiceUtil {
 			companyId, commercePriceListId, keywords);
 	}
 
-	public static CommercePriceEntry setHasTierPrice(
-			long commercePriceEntryId, boolean hasTierPrice)
-		throws PortalException {
-
-		return getService().setHasTierPrice(commercePriceEntryId, hasTierPrice);
-	}
-
-	public static CommercePriceEntry setHasTierPrice(
-			long commercePriceEntryId, boolean hasTierPrice,
-			boolean bulkPricing)
-		throws PortalException {
-
-		return getService().setHasTierPrice(
-			commercePriceEntryId, hasTierPrice, bulkPricing);
+	public static void updateCommercePriceEntries() throws PortalException {
+		getService().updateCommercePriceEntries();
 	}
 
 	/**
@@ -605,6 +589,23 @@ public class CommercePriceEntryLocalServiceUtil {
 
 		return getService().updateExternalReferenceCode(
 			externalReferenceCode, commercePriceEntry);
+	}
+
+	public static CommercePriceEntry updateHasTierPrice(
+			long commercePriceEntryId, boolean hasTierPrice)
+		throws PortalException {
+
+		return getService().updateHasTierPrice(
+			commercePriceEntryId, hasTierPrice);
+	}
+
+	public static CommercePriceEntry updateHasTierPrice(
+			long commercePriceEntryId, boolean hasTierPrice,
+			boolean bulkPricing)
+		throws PortalException {
+
+		return getService().updateHasTierPrice(
+			commercePriceEntryId, hasTierPrice, bulkPricing);
 	}
 
 	public static CommercePriceEntry updatePricingInfo(

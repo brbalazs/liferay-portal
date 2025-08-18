@@ -138,7 +138,7 @@ public interface CommercePriceListService extends BaseService {
 			long companyId, String keywords, int status)
 		throws PortalException;
 
-	public void setCatalogBasePriceList(
+	public void updateCatalogBasePriceList(
 			long groupId, long commercePriceListId, String type)
 		throws PortalException;
 

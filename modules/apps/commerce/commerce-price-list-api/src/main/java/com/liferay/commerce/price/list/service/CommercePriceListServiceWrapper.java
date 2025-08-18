@@ -197,11 +197,11 @@ public class CommercePriceListServiceWrapper
 	}
 
 	@Override
-	public void setCatalogBasePriceList(
+	public void updateCatalogBasePriceList(
 			long groupId, long commercePriceListId, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		_commercePriceListService.setCatalogBasePriceList(
+		_commercePriceListService.updateCatalogBasePriceList(
 			groupId, commercePriceListId, type);
 	}
 

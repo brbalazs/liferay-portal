@@ -113,8 +113,6 @@ public interface CommercePriceListLocalService
 			boolean neverExpire, ServiceContext serviceContext)
 		throws PortalException;
 
-	public void checkCommercePriceLists() throws PortalException;
-
 	public void cleanPriceListCache();
 
 	/**
@@ -644,11 +642,11 @@ public interface CommercePriceListLocalService
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
-	public CommercePriceList setCatalogBasePriceList(
+	public CommercePriceList updateCatalogBasePriceList(
 			long commercePriceListId, boolean catalogBasePriceList)
 		throws PortalException;
 
-	public void setCatalogBasePriceList(
+	public void updateCatalogBasePriceList(
 			long groupId, long commercePriceListId, String type)
 		throws PortalException;
 
@@ -694,6 +692,8 @@ public interface CommercePriceListLocalService
 			long companyId, String oldCommerceCurrencyCode,
 			String newCommerceCurrencyCode)
 		throws PortalException;
+
+	public void updateCommercePriceLists() throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommercePriceList updateExternalReferenceCode(
