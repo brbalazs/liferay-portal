@@ -897,14 +897,6 @@ public class CommerceDiscountLocalServiceUtil {
 			commerceDiscountId);
 	}
 
-	public static CommerceDiscount incrementCommerceDiscountNumberOfUse(
-			long commerceDiscountId)
-		throws PortalException {
-
-		return getService().incrementCommerceDiscountNumberOfUse(
-			commerceDiscountId);
-	}
-
 	public static List<CommerceDiscount> searchByCommercePricingClassId(
 		long commercePricingClassId, String title, int start, int end) {
 
@@ -1043,6 +1035,14 @@ public class CommerceDiscountLocalServiceUtil {
 
 		return getService().updateCommerceDiscountExternalReferenceCode(
 			externalReferenceCode, commerceDiscountId);
+	}
+
+	public static CommerceDiscount updateCommerceDiscountNumberOfUse(
+			long commerceDiscountId)
+		throws PortalException {
+
+		return getService().updateCommerceDiscountNumberOfUse(
+			commerceDiscountId);
 	}
 
 	public static CommerceDiscount updateStatus(

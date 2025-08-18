@@ -1029,15 +1029,6 @@ public class CommerceDiscountLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.discount.model.CommerceDiscount
-			incrementCommerceDiscountNumberOfUse(long commerceDiscountId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceDiscountLocalService.
-			incrementCommerceDiscountNumberOfUse(commerceDiscountId);
-	}
-
-	@Override
 	public java.util.List<com.liferay.commerce.discount.model.CommerceDiscount>
 		searchByCommercePricingClassId(
 			long commercePricingClassId, String title, int start, int end) {
@@ -1200,6 +1191,15 @@ public class CommerceDiscountLocalServiceWrapper
 		return _commerceDiscountLocalService.
 			updateCommerceDiscountExternalReferenceCode(
 				externalReferenceCode, commerceDiscountId);
+	}
+
+	@Override
+	public com.liferay.commerce.discount.model.CommerceDiscount
+			updateCommerceDiscountNumberOfUse(long commerceDiscountId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceDiscountLocalService.updateCommerceDiscountNumberOfUse(
+			commerceDiscountId);
 	}
 
 	@Override

@@ -628,11 +628,6 @@ public interface CommerceDiscountLocalService
 		long commerceAccountId, long[] commerceAccountGroupIds,
 		long commerceChannelId, long commerceDiscountId);
 
-	@Indexable(type = IndexableType.REINDEX)
-	public CommerceDiscount incrementCommerceDiscountNumberOfUse(
-			long commerceDiscountId)
-		throws PortalException;
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceDiscount> searchByCommercePricingClassId(
 		long commercePricingClassId, String title, int start, int end);
@@ -720,6 +715,11 @@ public interface CommerceDiscountLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceDiscount updateCommerceDiscountExternalReferenceCode(
 			String externalReferenceCode, long commerceDiscountId)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceDiscount updateCommerceDiscountNumberOfUse(
+			long commerceDiscountId)
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
