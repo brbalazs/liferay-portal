@@ -109,13 +109,6 @@ public class CommercePriceListLocalServiceWrapper
 	}
 
 	@Override
-	public void checkCommercePriceLists()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_commercePriceListLocalService.checkCommercePriceLists();
-	}
-
-	@Override
 	public void cleanPriceListCache() {
 		_commercePriceListLocalService.cleanPriceListCache();
 	}
@@ -978,20 +971,20 @@ public class CommercePriceListLocalServiceWrapper
 	}
 
 	@Override
-	public CommercePriceList setCatalogBasePriceList(
+	public CommercePriceList updateCatalogBasePriceList(
 			long commercePriceListId, boolean catalogBasePriceList)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _commercePriceListLocalService.setCatalogBasePriceList(
+		return _commercePriceListLocalService.updateCatalogBasePriceList(
 			commercePriceListId, catalogBasePriceList);
 	}
 
 	@Override
-	public void setCatalogBasePriceList(
+	public void updateCatalogBasePriceList(
 			long groupId, long commercePriceListId, String type)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		_commercePriceListLocalService.setCatalogBasePriceList(
+		_commercePriceListLocalService.updateCatalogBasePriceList(
 			groupId, commercePriceListId, type);
 	}
 
@@ -1064,6 +1057,13 @@ public class CommercePriceListLocalServiceWrapper
 
 		_commercePriceListLocalService.updateCommercePriceListCurrencies(
 			companyId, oldCommerceCurrencyCode, newCommerceCurrencyCode);
+	}
+
+	@Override
+	public void updateCommercePriceLists()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commercePriceListLocalService.updateCommercePriceLists();
 	}
 
 	@Override

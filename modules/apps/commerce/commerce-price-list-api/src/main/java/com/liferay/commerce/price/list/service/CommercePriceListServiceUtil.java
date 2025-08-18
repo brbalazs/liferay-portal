@@ -180,11 +180,11 @@ public class CommercePriceListServiceUtil {
 			companyId, keywords, status);
 	}
 
-	public static void setCatalogBasePriceList(
+	public static void updateCatalogBasePriceList(
 			long groupId, long commercePriceListId, String type)
 		throws PortalException {
 
-		getService().setCatalogBasePriceList(
+		getService().updateCatalogBasePriceList(
 			groupId, commercePriceListId, type);
 	}
 

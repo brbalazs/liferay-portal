@@ -122,13 +122,6 @@ public class CommercePriceEntryLocalServiceWrapper
 			skuExternalReferenceCode, unitOfMeasureKey, serviceContext);
 	}
 
-	@Override
-	public void checkCommercePriceEntries()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_commercePriceEntryLocalService.checkCommercePriceEntries();
-	}
-
 	/**
 	 * Creates a new commerce price entry with the primary key. Does not add the commerce price entry to the database.
 	 *
@@ -612,22 +605,10 @@ public class CommercePriceEntryLocalServiceWrapper
 	}
 
 	@Override
-	public CommercePriceEntry setHasTierPrice(
-			long commercePriceEntryId, boolean hasTierPrice)
+	public void updateCommercePriceEntries()
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _commercePriceEntryLocalService.setHasTierPrice(
-			commercePriceEntryId, hasTierPrice);
-	}
-
-	@Override
-	public CommercePriceEntry setHasTierPrice(
-			long commercePriceEntryId, boolean hasTierPrice,
-			boolean bulkPricing)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commercePriceEntryLocalService.setHasTierPrice(
-			commercePriceEntryId, hasTierPrice, bulkPricing);
+		_commercePriceEntryLocalService.updateCommercePriceEntries();
 	}
 
 	/**
@@ -682,6 +663,25 @@ public class CommercePriceEntryLocalServiceWrapper
 
 		return _commercePriceEntryLocalService.updateExternalReferenceCode(
 			externalReferenceCode, commercePriceEntry);
+	}
+
+	@Override
+	public CommercePriceEntry updateHasTierPrice(
+			long commercePriceEntryId, boolean hasTierPrice)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceEntryLocalService.updateHasTierPrice(
+			commercePriceEntryId, hasTierPrice);
+	}
+
+	@Override
+	public CommercePriceEntry updateHasTierPrice(
+			long commercePriceEntryId, boolean hasTierPrice,
+			boolean bulkPricing)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commercePriceEntryLocalService.updateHasTierPrice(
+			commercePriceEntryId, hasTierPrice, bulkPricing);
 	}
 
 	@Override

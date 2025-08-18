@@ -108,10 +108,6 @@ public class CommercePriceListLocalServiceUtil {
 			serviceContext);
 	}
 
-	public static void checkCommercePriceLists() throws PortalException {
-		getService().checkCommercePriceLists();
-	}
-
 	public static void cleanPriceListCache() {
 		getService().cleanPriceListCache();
 	}
@@ -867,19 +863,19 @@ public class CommercePriceListLocalServiceUtil {
 			companyId, groupIds, keywords, status);
 	}
 
-	public static CommercePriceList setCatalogBasePriceList(
+	public static CommercePriceList updateCatalogBasePriceList(
 			long commercePriceListId, boolean catalogBasePriceList)
 		throws PortalException {
 
-		return getService().setCatalogBasePriceList(
+		return getService().updateCatalogBasePriceList(
 			commercePriceListId, catalogBasePriceList);
 	}
 
-	public static void setCatalogBasePriceList(
+	public static void updateCatalogBasePriceList(
 			long groupId, long commercePriceListId, String type)
 		throws PortalException {
 
-		getService().setCatalogBasePriceList(
+		getService().updateCatalogBasePriceList(
 			groupId, commercePriceListId, type);
 	}
 
@@ -947,6 +943,10 @@ public class CommercePriceListLocalServiceUtil {
 
 		getService().updateCommercePriceListCurrencies(
 			companyId, oldCommerceCurrencyCode, newCommerceCurrencyCode);
+	}
+
+	public static void updateCommercePriceLists() throws PortalException {
+		getService().updateCommercePriceLists();
 	}
 
 	public static CommercePriceList updateExternalReferenceCode(
