@@ -311,12 +311,6 @@ public class CommercePriceEntryLocalServiceImpl
 	}
 
 	@Override
-	public void checkCommercePriceEntries() throws PortalException {
-		_checkCommercePriceEntriesByDisplayDate();
-		_checkCommercePriceEntriesByExpirationDate();
-	}
-
-	@Override
 	public void deleteCommercePriceEntries(long commercePriceListId)
 		throws PortalException {
 
@@ -613,36 +607,10 @@ public class CommercePriceEntryLocalServiceImpl
 		return _searchCommercePriceEntriesCount(searchContext);
 	}
 
-	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public CommercePriceEntry setHasTierPrice(
-			long commercePriceEntryId, boolean hasTierPrice)
-		throws PortalException {
-
-		CommercePriceEntry commercePriceEntry =
-			commercePriceEntryPersistence.findByPrimaryKey(
-				commercePriceEntryId);
-
-		commercePriceEntry.setBulkPricing(true);
-		commercePriceEntry.setHasTierPrice(hasTierPrice);
-
-		return commercePriceEntryPersistence.update(commercePriceEntry);
-	}
-
-	@Override
-	public CommercePriceEntry setHasTierPrice(
-			long commercePriceEntryId, boolean hasTierPrice,
-			boolean bulkPricing)
-		throws PortalException {
-
-		CommercePriceEntry commercePriceEntry =
-			commercePriceEntryPersistence.findByPrimaryKey(
-				commercePriceEntryId);
-
-		commercePriceEntry.setBulkPricing(bulkPricing);
-		commercePriceEntry.setHasTierPrice(hasTierPrice);
-
-		return commercePriceEntryPersistence.update(commercePriceEntry);
+	public void updateCommercePriceEntries() throws PortalException {
+		_updateCommercePriceEntriesByDisplayDate();
+		_updateCommercePriceEntriesByExpirationDate();
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -750,6 +718,38 @@ public class CommercePriceEntryLocalServiceImpl
 		return commercePriceEntryPersistence.update(commercePriceEntry);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommercePriceEntry updateHasTierPrice(
+			long commercePriceEntryId, boolean hasTierPrice)
+		throws PortalException {
+
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryPersistence.findByPrimaryKey(
+				commercePriceEntryId);
+
+		commercePriceEntry.setBulkPricing(true);
+		commercePriceEntry.setHasTierPrice(hasTierPrice);
+
+		return commercePriceEntryPersistence.update(commercePriceEntry);
+	}
+
+	@Override
+	public CommercePriceEntry updateHasTierPrice(
+			long commercePriceEntryId, boolean hasTierPrice,
+			boolean bulkPricing)
+		throws PortalException {
+
+		CommercePriceEntry commercePriceEntry =
+			commercePriceEntryPersistence.findByPrimaryKey(
+				commercePriceEntryId);
+
+		commercePriceEntry.setBulkPricing(bulkPricing);
+		commercePriceEntry.setHasTierPrice(hasTierPrice);
+
+		return commercePriceEntryPersistence.update(commercePriceEntry);
+	}
+
 	@Override
 	public CommercePriceEntry updatePricingInfo(
 			long commercePriceEntryId, boolean bulkPricing, BigDecimal price,
@@ -851,70 +851,6 @@ public class CommercePriceEntryLocalServiceImpl
 		queryConfig.setScoreEnabled(false);
 
 		return searchContext;
-	}
-
-	private void _checkCommercePriceEntriesByDisplayDate()
-		throws PortalException {
-
-		List<CommercePriceEntry> commercePriceEntries =
-			commercePriceEntryPersistence.findByLtD_S(
-				new Date(), WorkflowConstants.STATUS_SCHEDULED);
-
-		for (CommercePriceEntry commercePriceEntry : commercePriceEntries) {
-			long userId = _portal.getValidUserId(
-				commercePriceEntry.getCompanyId(),
-				commercePriceEntry.getUserId());
-
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setCommand(Constants.UPDATE);
-
-			CommercePriceList commercePriceList =
-				commercePriceEntry.getCommercePriceList();
-
-			serviceContext.setScopeGroupId(commercePriceList.getGroupId());
-
-			commercePriceEntryLocalService.updateStatus(
-				userId, commercePriceEntry.getCommercePriceEntryId(),
-				WorkflowConstants.STATUS_APPROVED, serviceContext,
-				new HashMap<String, Serializable>());
-		}
-	}
-
-	private void _checkCommercePriceEntriesByExpirationDate()
-		throws PortalException {
-
-		List<CommercePriceEntry> commercePriceEntries =
-			commercePriceEntryPersistence.findByLtE_S(
-				new Date(), WorkflowConstants.STATUS_APPROVED);
-
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				"Expiring " + commercePriceEntries.size() +
-					" commerce price entries");
-		}
-
-		if ((commercePriceEntries != null) && !commercePriceEntries.isEmpty()) {
-			for (CommercePriceEntry commercePriceEntry : commercePriceEntries) {
-				long userId = _portal.getValidUserId(
-					commercePriceEntry.getCompanyId(),
-					commercePriceEntry.getUserId());
-
-				ServiceContext serviceContext = new ServiceContext();
-
-				serviceContext.setCommand(Constants.UPDATE);
-
-				CommercePriceList commercePriceList =
-					commercePriceEntry.getCommercePriceList();
-
-				serviceContext.setScopeGroupId(commercePriceList.getGroupId());
-
-				commercePriceEntryLocalService.updateStatus(
-					userId, commercePriceEntry.getCommercePriceEntryId(),
-					WorkflowConstants.STATUS_EXPIRED, serviceContext,
-					new HashMap<String, Serializable>());
-			}
-		}
 	}
 
 	private List<CommercePriceEntry> _getCommercePriceEntries(Hits hits)
@@ -1109,6 +1045,70 @@ public class CommercePriceEntryLocalServiceImpl
 			CommercePriceEntry.class.getName(),
 			commercePriceEntry.getCommercePriceEntryId(), commercePriceEntry,
 			serviceContext, workflowContext);
+	}
+
+	private void _updateCommercePriceEntriesByDisplayDate()
+		throws PortalException {
+
+		List<CommercePriceEntry> commercePriceEntries =
+			commercePriceEntryPersistence.findByLtD_S(
+				new Date(), WorkflowConstants.STATUS_SCHEDULED);
+
+		for (CommercePriceEntry commercePriceEntry : commercePriceEntries) {
+			long userId = _portal.getValidUserId(
+				commercePriceEntry.getCompanyId(),
+				commercePriceEntry.getUserId());
+
+			ServiceContext serviceContext = new ServiceContext();
+
+			serviceContext.setCommand(Constants.UPDATE);
+
+			CommercePriceList commercePriceList =
+				commercePriceEntry.getCommercePriceList();
+
+			serviceContext.setScopeGroupId(commercePriceList.getGroupId());
+
+			commercePriceEntryLocalService.updateStatus(
+				userId, commercePriceEntry.getCommercePriceEntryId(),
+				WorkflowConstants.STATUS_APPROVED, serviceContext,
+				new HashMap<String, Serializable>());
+		}
+	}
+
+	private void _updateCommercePriceEntriesByExpirationDate()
+		throws PortalException {
+
+		List<CommercePriceEntry> commercePriceEntries =
+			commercePriceEntryPersistence.findByLtE_S(
+				new Date(), WorkflowConstants.STATUS_APPROVED);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				"Expiring " + commercePriceEntries.size() +
+					" commerce price entries");
+		}
+
+		if ((commercePriceEntries != null) && !commercePriceEntries.isEmpty()) {
+			for (CommercePriceEntry commercePriceEntry : commercePriceEntries) {
+				long userId = _portal.getValidUserId(
+					commercePriceEntry.getCompanyId(),
+					commercePriceEntry.getUserId());
+
+				ServiceContext serviceContext = new ServiceContext();
+
+				serviceContext.setCommand(Constants.UPDATE);
+
+				CommercePriceList commercePriceList =
+					commercePriceEntry.getCommercePriceList();
+
+				serviceContext.setScopeGroupId(commercePriceList.getGroupId());
+
+				commercePriceEntryLocalService.updateStatus(
+					userId, commercePriceEntry.getCommercePriceEntryId(),
+					WorkflowConstants.STATUS_EXPIRED, serviceContext,
+					new HashMap<String, Serializable>());
+			}
+		}
 	}
 
 	private void _validatePrice(
