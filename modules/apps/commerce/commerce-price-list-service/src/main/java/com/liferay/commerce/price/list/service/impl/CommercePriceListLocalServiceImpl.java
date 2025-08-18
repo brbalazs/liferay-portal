@@ -297,12 +297,6 @@ public class CommercePriceListLocalServiceImpl
 	}
 
 	@Override
-	public void checkCommercePriceLists() throws PortalException {
-		_checkCommercePriceListsByDisplayDate();
-		_checkCommercePriceListsByExpirationDate();
-	}
-
-	@Override
 	public void cleanPriceListCache() {
 		_portalCache.removeAll();
 	}
@@ -1146,7 +1140,7 @@ public class CommercePriceListLocalServiceImpl
 
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public CommercePriceList setCatalogBasePriceList(
+	public CommercePriceList updateCatalogBasePriceList(
 			long commercePriceListId, boolean catalogBasePriceList)
 		throws PortalException {
 
@@ -1159,7 +1153,7 @@ public class CommercePriceListLocalServiceImpl
 	}
 
 	@Override
-	public void setCatalogBasePriceList(
+	public void updateCatalogBasePriceList(
 			long groupId, long commercePriceListId, String type)
 		throws PortalException {
 
@@ -1167,11 +1161,11 @@ public class CommercePriceListLocalServiceImpl
 			commercePriceListPersistence.fetchByG_C_T(groupId, true, type);
 
 		if (baseCommercePriceList != null) {
-			commercePriceListLocalService.setCatalogBasePriceList(
+			commercePriceListLocalService.updateCatalogBasePriceList(
 				baseCommercePriceList.getCommercePriceListId(), false);
 		}
 
-		commercePriceListLocalService.setCatalogBasePriceList(
+		commercePriceListLocalService.updateCatalogBasePriceList(
 			commercePriceListId, true);
 	}
 
@@ -1292,6 +1286,12 @@ public class CommercePriceListLocalServiceImpl
 
 			_reindex(commercePriceList.getCommercePriceListId());
 		}
+	}
+
+	@Override
+	public void updateCommercePriceLists() throws PortalException {
+		_updateCommercePriceListsByDisplayDate();
+		_updateCommercePriceListsByExpirationDate();
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -1434,64 +1434,6 @@ public class CommercePriceListLocalServiceImpl
 		queryConfig.setScoreEnabled(false);
 
 		return searchContext;
-	}
-
-	private void _checkCommercePriceListsByDisplayDate()
-		throws PortalException {
-
-		List<CommercePriceList> commercePriceLists =
-			commercePriceListPersistence.findByLtD_S(
-				new Date(), WorkflowConstants.STATUS_SCHEDULED);
-
-		for (CommercePriceList commercePriceList : commercePriceLists) {
-			long userId = _portal.getValidUserId(
-				commercePriceList.getCompanyId(),
-				commercePriceList.getUserId());
-
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setCommand(Constants.UPDATE);
-			serviceContext.setScopeGroupId(commercePriceList.getGroupId());
-
-			commercePriceListLocalService.updateStatus(
-				userId, commercePriceList.getCommercePriceListId(),
-				WorkflowConstants.STATUS_APPROVED, serviceContext,
-				new HashMap<String, Serializable>());
-		}
-	}
-
-	private void _checkCommercePriceListsByExpirationDate()
-		throws PortalException {
-
-		List<CommercePriceList> commercePriceLists =
-			commercePriceListFinder.findByExpirationDate(
-				new Date(),
-				new QueryDefinition<CommercePriceList>(
-					WorkflowConstants.STATUS_APPROVED));
-
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				"Expiring " + commercePriceLists.size() +
-					" commerce price lists");
-		}
-
-		if ((commercePriceLists != null) && !commercePriceLists.isEmpty()) {
-			for (CommercePriceList commercePriceList : commercePriceLists) {
-				long userId = _portal.getValidUserId(
-					commercePriceList.getCompanyId(),
-					commercePriceList.getUserId());
-
-				ServiceContext serviceContext = new ServiceContext();
-
-				serviceContext.setCommand(Constants.UPDATE);
-				serviceContext.setScopeGroupId(commercePriceList.getGroupId());
-
-				commercePriceListLocalService.updateStatus(
-					userId, commercePriceList.getCommercePriceListId(),
-					WorkflowConstants.STATUS_EXPIRED, serviceContext,
-					new HashMap<String, Serializable>());
-			}
-		}
 	}
 
 	private List<CommercePriceList> _getCommercePriceLists(Hits hits)
@@ -1843,6 +1785,64 @@ public class CommercePriceListLocalServiceImpl
 			userId, CommercePriceList.class.getName(),
 			commercePriceList.getCommercePriceListId(), commercePriceList,
 			serviceContext, workflowContext);
+	}
+
+	private void _updateCommercePriceListsByDisplayDate()
+		throws PortalException {
+
+		List<CommercePriceList> commercePriceLists =
+			commercePriceListPersistence.findByLtD_S(
+				new Date(), WorkflowConstants.STATUS_SCHEDULED);
+
+		for (CommercePriceList commercePriceList : commercePriceLists) {
+			long userId = _portal.getValidUserId(
+				commercePriceList.getCompanyId(),
+				commercePriceList.getUserId());
+
+			ServiceContext serviceContext = new ServiceContext();
+
+			serviceContext.setCommand(Constants.UPDATE);
+			serviceContext.setScopeGroupId(commercePriceList.getGroupId());
+
+			commercePriceListLocalService.updateStatus(
+				userId, commercePriceList.getCommercePriceListId(),
+				WorkflowConstants.STATUS_APPROVED, serviceContext,
+				new HashMap<String, Serializable>());
+		}
+	}
+
+	private void _updateCommercePriceListsByExpirationDate()
+		throws PortalException {
+
+		List<CommercePriceList> commercePriceLists =
+			commercePriceListFinder.findByExpirationDate(
+				new Date(),
+				new QueryDefinition<CommercePriceList>(
+					WorkflowConstants.STATUS_APPROVED));
+
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				"Expiring " + commercePriceLists.size() +
+					" commerce price lists");
+		}
+
+		if ((commercePriceLists != null) && !commercePriceLists.isEmpty()) {
+			for (CommercePriceList commercePriceList : commercePriceLists) {
+				long userId = _portal.getValidUserId(
+					commercePriceList.getCompanyId(),
+					commercePriceList.getUserId());
+
+				ServiceContext serviceContext = new ServiceContext();
+
+				serviceContext.setCommand(Constants.UPDATE);
+				serviceContext.setScopeGroupId(commercePriceList.getGroupId());
+
+				commercePriceListLocalService.updateStatus(
+					userId, commercePriceList.getCommercePriceListId(),
+					WorkflowConstants.STATUS_EXPIRED, serviceContext,
+					new HashMap<String, Serializable>());
+			}
+		}
 	}
 
 	private void _validate(
