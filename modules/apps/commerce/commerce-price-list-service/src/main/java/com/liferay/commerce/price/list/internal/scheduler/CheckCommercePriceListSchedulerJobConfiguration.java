@@ -31,7 +31,7 @@ public class CheckCommercePriceListSchedulerJobConfiguration
 
 	@Override
 	public UnsafeRunnable<Exception> getJobExecutorUnsafeRunnable() {
-		return _commercePriceListLocalService::checkCommercePriceLists;
+		return _commercePriceListLocalService::updateCommercePriceLists;
 	}
 
 	@Override

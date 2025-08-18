@@ -158,7 +158,7 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 		long baseCommercePriceListId = ParamUtil.getLong(
 			actionRequest, "baseCommercePriceListId");
 
-		_commercePriceListService.setCatalogBasePriceList(
+		_commercePriceListService.updateCatalogBasePriceList(
 			commerceCatalog.getGroupId(), baseCommercePriceListId,
 			CommercePriceListConstants.TYPE_PRICE_LIST);
 
@@ -167,7 +167,7 @@ public class EditCommerceCatalogMVCActionCommand extends BaseMVCActionCommand {
 		long basePromotionCommercePriceListId = ParamUtil.getLong(
 			actionRequest, "basePromotionCommercePriceListId");
 
-		_commercePriceListService.setCatalogBasePriceList(
+		_commercePriceListService.updateCatalogBasePriceList(
 			commerceCatalog.getGroupId(), basePromotionCommercePriceListId,
 			CommercePriceListConstants.TYPE_PROMOTION);
 	}

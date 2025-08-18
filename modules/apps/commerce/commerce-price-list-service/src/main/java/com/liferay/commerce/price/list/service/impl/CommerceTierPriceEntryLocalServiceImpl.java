@@ -192,7 +192,7 @@ public class CommerceTierPriceEntryLocalServiceImpl
 
 		// Commerce price entry
 
-		_commercePriceEntryLocalService.setHasTierPrice(
+		_commercePriceEntryLocalService.updateHasTierPrice(
 			commercePriceEntryId, true, bulkPricing);
 
 		return _startWorkflowInstance(
@@ -482,7 +482,7 @@ public class CommerceTierPriceEntryLocalServiceImpl
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 		if (commerceTierPriceEntries.isEmpty()) {
-			_commercePriceEntryLocalService.setHasTierPrice(
+			_commercePriceEntryLocalService.updateHasTierPrice(
 				commerceTierPriceEntry.getCommercePriceEntryId(), false);
 		}
 
@@ -675,7 +675,7 @@ public class CommerceTierPriceEntryLocalServiceImpl
 
 		// Commerce price entry
 
-		_commercePriceEntryLocalService.setHasTierPrice(
+		_commercePriceEntryLocalService.updateHasTierPrice(
 			commerceTierPriceEntry.getCommercePriceEntryId(), true,
 			bulkPricing);
 
