@@ -96,6 +96,16 @@ public class CPInstanceLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<CPInstance> addCPInstances(
+			long cpDefinitionId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpInstanceLocalService.addCPInstances(
+			cpDefinitionId, serviceContext);
+	}
+
+	@Override
 	public CPInstance addOrUpdateCPInstance(
 			String externalReferenceCode, long cpDefinitionId, long groupId,
 			String sku, String gtin, String manufacturerPartNumber,
@@ -138,30 +148,6 @@ public class CPInstanceLocalServiceWrapper
 			replacementCPInstanceUuid, replacementCProductId,
 			discontinuedDateMonth, discontinuedDateDay, discontinuedDateYear,
 			serviceContext);
-	}
-
-	@Override
-	public java.util.List<CPInstance> buildCPInstances(
-			long cpDefinitionId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _cpInstanceLocalService.buildCPInstances(
-			cpDefinitionId, serviceContext);
-	}
-
-	@Override
-	public void checkCPInstances(long cpDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_cpInstanceLocalService.checkCPInstances(cpDefinitionId);
-	}
-
-	@Override
-	public void checkCPInstancesByDisplayDate(long cpDefinitionId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_cpInstanceLocalService.checkCPInstancesByDisplayDate(cpDefinitionId);
 	}
 
 	/**
@@ -794,6 +780,20 @@ public class CPInstanceLocalServiceWrapper
 			replacementCPInstanceUuid, replacementCProductId,
 			discontinuedDateMonth, discontinuedDateDay, discontinuedDateYear,
 			serviceContext);
+	}
+
+	@Override
+	public void updateCPInstances(long cpDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_cpInstanceLocalService.updateCPInstances(cpDefinitionId);
+	}
+
+	@Override
+	public void updateCPInstancesByDisplayDate(long cpDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_cpInstanceLocalService.updateCPInstancesByDisplayDate(cpDefinitionId);
 	}
 
 	@Override

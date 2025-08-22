@@ -160,12 +160,12 @@ public interface CPDefinitionService extends BaseService {
 			ServiceContext serviceContext)
 		throws PortalException;
 
-	public CPDefinition cloneCPDefinition(
-			long cpDefinitionId, long groupId, ServiceContext serviceContext)
+	public CPDefinition copyCPDefinition(
+			long sourceCPDefinitionId, long groupId, int status)
 		throws PortalException;
 
 	public CPDefinition copyCPDefinition(
-			long sourceCPDefinitionId, long groupId, int status)
+			long cpDefinitionId, long groupId, ServiceContext serviceContext)
 		throws PortalException;
 
 	public void deleteAssetCategoryCPDefinition(

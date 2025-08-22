@@ -78,6 +78,10 @@ public interface CPInstanceService extends BaseService {
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public List<CPInstance> addCPInstances(
+			long cpDefinitionId, ServiceContext serviceContext)
+		throws PortalException;
+
 	public CPInstance addOrUpdateCPInstance(
 			String externalReferenceCode, long cpDefinitionId, long groupId,
 			String sku, String gtin, String manufacturerPartNumber,
@@ -100,10 +104,6 @@ public interface CPInstanceService extends BaseService {
 			long replacementCProductId, int discontinuedDateMonth,
 			int discontinuedDateDay, int discontinuedDateYear,
 			ServiceContext serviceContext)
-		throws PortalException;
-
-	public List<CPInstance> buildCPInstances(
-			long cpDefinitionId, ServiceContext serviceContext)
 		throws PortalException;
 
 	public void deleteCPInstance(long cpInstanceId) throws PortalException;

@@ -94,6 +94,16 @@ public class CPDefinitionOptionValueRelLocalServiceWrapper
 				serviceContext);
 	}
 
+	@Override
+	public void addCPDefinitionOptionValueRels(
+			long cpDefinitionOptionRelId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_cpDefinitionOptionValueRelLocalService.addCPDefinitionOptionValueRels(
+			cpDefinitionOptionRelId, serviceContext);
+	}
+
 	/**
 	 * Creates a new cp definition option value rel with the primary key. Does not add the cp definition option value rel to the database.
 	 *
@@ -578,16 +588,6 @@ public class CPDefinitionOptionValueRelLocalServiceWrapper
 
 		return _cpDefinitionOptionValueRelLocalService.
 			hasPreselectedCPDefinitionOptionValueRel(cpDefinitionOptionRelId);
-	}
-
-	@Override
-	public void importCPDefinitionOptionRels(
-			long cpDefinitionOptionRelId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_cpDefinitionOptionValueRelLocalService.importCPDefinitionOptionRels(
-			cpDefinitionOptionRelId, serviceContext);
 	}
 
 	@Override

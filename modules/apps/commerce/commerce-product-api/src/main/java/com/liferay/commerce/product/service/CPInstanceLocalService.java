@@ -112,6 +112,10 @@ public interface CPInstanceLocalService
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public List<CPInstance> addCPInstances(
+			long cpDefinitionId, ServiceContext serviceContext)
+		throws PortalException;
+
 	public CPInstance addOrUpdateCPInstance(
 			String externalReferenceCode, long cpDefinitionId, long groupId,
 			String sku, String gtin, String manufacturerPartNumber,
@@ -134,15 +138,6 @@ public interface CPInstanceLocalService
 			long replacementCProductId, int discontinuedDateMonth,
 			int discontinuedDateDay, int discontinuedDateYear,
 			ServiceContext serviceContext)
-		throws PortalException;
-
-	public List<CPInstance> buildCPInstances(
-			long cpDefinitionId, ServiceContext serviceContext)
-		throws PortalException;
-
-	public void checkCPInstances(long cpDefinitionId) throws PortalException;
-
-	public void checkCPInstancesByDisplayDate(long cpDefinitionId)
 		throws PortalException;
 
 	/**
@@ -541,6 +536,11 @@ public interface CPInstanceLocalService
 			long replacementCProductId, int discontinuedDateMonth,
 			int discontinuedDateDay, int discontinuedDateYear,
 			ServiceContext serviceContext)
+		throws PortalException;
+
+	public void updateCPInstances(long cpDefinitionId) throws PortalException;
+
+	public void updateCPInstancesByDisplayDate(long cpDefinitionId)
 		throws PortalException;
 
 	public CPInstance updateExternalReferenceCode(

@@ -263,14 +263,6 @@ public class CPOptionLocalServiceUtil {
 		return getService().fetchCPOptionByUuidAndCompanyId(uuid, companyId);
 	}
 
-	public static List<CPOption> findCPOptionByCompanyId(
-		long companyId, int start, int end,
-		OrderByComparator<CPOption> orderByComparator) {
-
-		return getService().findCPOptionByCompanyId(
-			companyId, start, end, orderByComparator);
-	}
-
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -292,6 +284,14 @@ public class CPOptionLocalServiceUtil {
 		throws PortalException {
 
 		return getService().getCPOption(companyId, key);
+	}
+
+	public static List<CPOption> getCPOptionByCompanyId(
+		long companyId, int start, int end,
+		OrderByComparator<CPOption> orderByComparator) {
+
+		return getService().getCPOptionByCompanyId(
+			companyId, start, end, orderByComparator);
 	}
 
 	public static CPOption getCPOptionByExternalReferenceCode(

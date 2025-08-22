@@ -195,20 +195,18 @@ public interface CPDefinitionLocalService
 			ServiceContext serviceContext)
 		throws PortalException;
 
-	public void checkCPDefinitions() throws PortalException;
-
-	@Indexable(type = IndexableType.REINDEX)
-	public CPDefinition cloneCPDefinition(
-			long userId, long cpDefinitionId, long groupId,
-			ServiceContext serviceContext)
-		throws PortalException;
-
 	public CPDefinition copyCPDefinition(long sourceCPDefinitionId)
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CPDefinition copyCPDefinition(
 			long sourceCPDefinitionId, long groupId, int status)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CPDefinition copyCPDefinition(
+			long userId, long cpDefinitionId, long groupId,
+			ServiceContext serviceContext)
 		throws PortalException;
 
 	/**
@@ -700,6 +698,8 @@ public interface CPDefinitionLocalService
 			Map<String, String> metaDescriptionMap,
 			Map<String, String> metaKeywordsMap)
 		throws PortalException;
+
+	public void updateCPDefinitions() throws PortalException;
 
 	public void updateCPDefinitionsByCPTaxCategoryId(long cpTaxCategoryId)
 		throws PortalException;

@@ -76,6 +76,16 @@ public class CPInstanceServiceWrapper
 	}
 
 	@Override
+	public java.util.List<CPInstance> addCPInstances(
+			long cpDefinitionId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpInstanceService.addCPInstances(
+			cpDefinitionId, serviceContext);
+	}
+
+	@Override
 	public CPInstance addOrUpdateCPInstance(
 			String externalReferenceCode, long cpDefinitionId, long groupId,
 			String sku, String gtin, String manufacturerPartNumber,
@@ -118,16 +128,6 @@ public class CPInstanceServiceWrapper
 			replacementCPInstanceUuid, replacementCProductId,
 			discontinuedDateMonth, discontinuedDateDay, discontinuedDateYear,
 			serviceContext);
-	}
-
-	@Override
-	public java.util.List<CPInstance> buildCPInstances(
-			long cpDefinitionId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _cpInstanceService.buildCPInstances(
-			cpDefinitionId, serviceContext);
 	}
 
 	@Override

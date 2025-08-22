@@ -101,18 +101,6 @@ public class CPAttachmentFileEntryLocalServiceUtil {
 			serviceContext);
 	}
 
-	public static void checkCPAttachmentFileEntries() throws PortalException {
-		getService().checkCPAttachmentFileEntries();
-	}
-
-	public static void checkCPAttachmentFileEntriesByDisplayDate(
-			long classNameId, long classPK)
-		throws PortalException {
-
-		getService().checkCPAttachmentFileEntriesByDisplayDate(
-			classNameId, classPK);
-	}
-
 	/**
 	 * Creates a new cp attachment file entry with the primary key. Does not add the cp attachment file entry to the database.
 	 *
@@ -527,6 +515,18 @@ public class CPAttachmentFileEntryLocalServiceUtil {
 		getService().updateAsset(
 			userId, cpAttachmentFileEntry, assetCategoryIds, assetTagNames,
 			assetLinkEntryIds, priority);
+	}
+
+	public static void updateCPAttachmentFileEntries() throws PortalException {
+		getService().updateCPAttachmentFileEntries();
+	}
+
+	public static void updateCPAttachmentFileEntriesByDisplayDate(
+			long classNameId, long classPK)
+		throws PortalException {
+
+		getService().updateCPAttachmentFileEntriesByDisplayDate(
+			classNameId, classPK);
 	}
 
 	/**

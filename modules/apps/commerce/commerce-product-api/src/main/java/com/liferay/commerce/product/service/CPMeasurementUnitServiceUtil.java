@@ -162,13 +162,6 @@ public class CPMeasurementUnitServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static CPMeasurementUnit setPrimary(
-			long cpMeasurementUnitId, boolean primary)
-		throws PortalException {
-
-		return getService().setPrimary(cpMeasurementUnitId, primary);
-	}
-
 	public static CPMeasurementUnit updateCPMeasurementUnit(
 			String externalReferenceCode, long cpMeasurementUnitId,
 			Map<java.util.Locale, String> nameMap, String key, double rate,
@@ -179,6 +172,13 @@ public class CPMeasurementUnitServiceUtil {
 		return getService().updateCPMeasurementUnit(
 			externalReferenceCode, cpMeasurementUnitId, nameMap, key, rate,
 			primary, priority, type, serviceContext);
+	}
+
+	public static CPMeasurementUnit updatePrimary(
+			long cpMeasurementUnitId, boolean primary)
+		throws PortalException {
+
+		return getService().updatePrimary(cpMeasurementUnitId, primary);
 	}
 
 	public static CPMeasurementUnitService getService() {

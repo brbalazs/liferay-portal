@@ -88,6 +88,15 @@ public class CPDefinitionOptionValueRelLocalServiceUtil {
 			cpDefinitionOptionRelId, key, nameMap, priority, serviceContext);
 	}
 
+	public static void addCPDefinitionOptionValueRels(
+			long cpDefinitionOptionRelId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		getService().addCPDefinitionOptionValueRels(
+			cpDefinitionOptionRelId, serviceContext);
+	}
+
 	/**
 	 * Creates a new cp definition option value rel with the primary key. Does not add the cp definition option value rel to the database.
 	 *
@@ -502,15 +511,6 @@ public class CPDefinitionOptionValueRelLocalServiceUtil {
 
 		return getService().hasPreselectedCPDefinitionOptionValueRel(
 			cpDefinitionOptionRelId);
-	}
-
-	public static void importCPDefinitionOptionRels(
-			long cpDefinitionOptionRelId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		getService().importCPDefinitionOptionRels(
-			cpDefinitionOptionRelId, serviceContext);
 	}
 
 	public static CPDefinitionOptionValueRel

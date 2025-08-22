@@ -234,9 +234,6 @@ public interface CPTaxCategoryLocalService
 	public CPTaxCategory fetchCPTaxCategoryByUuidAndCompanyId(
 		String uuid, long companyId);
 
-	public List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
-		long companyId, String keyword, int start, int end);
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
@@ -261,6 +258,10 @@ public interface CPTaxCategoryLocalService
 	public List<CPTaxCategory> getCPTaxCategories(
 		long companyId, int start, int end,
 		OrderByComparator<CPTaxCategory> orderByComparator);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPTaxCategory> getCPTaxCategoriesByCompanyId(
+		long companyId, String keyword, int start, int end);
 
 	/**
 	 * Returns the number of cp tax categories.

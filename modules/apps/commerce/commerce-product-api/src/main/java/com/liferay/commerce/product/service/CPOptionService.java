@@ -77,13 +77,14 @@ public interface CPOptionService extends BaseService {
 			String externalReferenceCode, long companyId)
 		throws PortalException;
 
-	public List<CPOption> findCPOptionByCompanyId(
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CPOption getCPOption(long cpOptionId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPOption> getCPOptionByCompanyId(
 			long companyId, int start, int end,
 			OrderByComparator<CPOption> orderByComparator)
 		throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CPOption getCPOption(long cpOptionId) throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.

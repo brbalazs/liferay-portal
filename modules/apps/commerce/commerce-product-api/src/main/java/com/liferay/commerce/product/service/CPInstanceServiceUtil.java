@@ -80,6 +80,14 @@ public class CPInstanceServiceUtil {
 			serviceContext);
 	}
 
+	public static List<CPInstance> addCPInstances(
+			long cpDefinitionId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addCPInstances(cpDefinitionId, serviceContext);
+	}
+
 	public static CPInstance addOrUpdateCPInstance(
 			String externalReferenceCode, long cpDefinitionId, long groupId,
 			String sku, String gtin, String manufacturerPartNumber,
@@ -122,14 +130,6 @@ public class CPInstanceServiceUtil {
 			replacementCPInstanceUuid, replacementCProductId,
 			discontinuedDateMonth, discontinuedDateDay, discontinuedDateYear,
 			serviceContext);
-	}
-
-	public static List<CPInstance> buildCPInstances(
-			long cpDefinitionId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		return getService().buildCPInstances(cpDefinitionId, serviceContext);
 	}
 
 	public static void deleteCPInstance(long cpInstanceId)

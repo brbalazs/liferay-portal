@@ -391,10 +391,6 @@ public interface CPMeasurementUnitLocalService
 	public void importDefaultValues(ServiceContext serviceContext)
 		throws PortalException;
 
-	public CPMeasurementUnit setPrimary(
-			long cpMeasurementUnitId, boolean primary)
-		throws PortalException;
-
 	/**
 	 * Updates the cp measurement unit in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -414,6 +410,10 @@ public interface CPMeasurementUnitLocalService
 			Map<Locale, String> nameMap, String key, double rate,
 			boolean primary, double priority, int type,
 			ServiceContext serviceContext)
+		throws PortalException;
+
+	public CPMeasurementUnit updatePrimary(
+			long cpMeasurementUnitId, boolean primary)
 		throws PortalException;
 
 	@Override

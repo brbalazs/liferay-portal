@@ -187,15 +187,6 @@ public class CPMeasurementUnitServiceWrapper
 	}
 
 	@Override
-	public CPMeasurementUnit setPrimary(
-			long cpMeasurementUnitId, boolean primary)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _cpMeasurementUnitService.setPrimary(
-			cpMeasurementUnitId, primary);
-	}
-
-	@Override
 	public CPMeasurementUnit updateCPMeasurementUnit(
 			String externalReferenceCode, long cpMeasurementUnitId,
 			java.util.Map<java.util.Locale, String> nameMap, String key,
@@ -206,6 +197,15 @@ public class CPMeasurementUnitServiceWrapper
 		return _cpMeasurementUnitService.updateCPMeasurementUnit(
 			externalReferenceCode, cpMeasurementUnitId, nameMap, key, rate,
 			primary, priority, type, serviceContext);
+	}
+
+	@Override
+	public CPMeasurementUnit updatePrimary(
+			long cpMeasurementUnitId, boolean primary)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpMeasurementUnitService.updatePrimary(
+			cpMeasurementUnitId, primary);
 	}
 
 	@Override

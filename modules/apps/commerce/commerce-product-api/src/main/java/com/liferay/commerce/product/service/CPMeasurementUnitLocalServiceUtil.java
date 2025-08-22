@@ -477,13 +477,6 @@ public class CPMeasurementUnitLocalServiceUtil {
 		getService().importDefaultValues(serviceContext);
 	}
 
-	public static CPMeasurementUnit setPrimary(
-			long cpMeasurementUnitId, boolean primary)
-		throws PortalException {
-
-		return getService().setPrimary(cpMeasurementUnitId, primary);
-	}
-
 	/**
 	 * Updates the cp measurement unit in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -510,6 +503,13 @@ public class CPMeasurementUnitLocalServiceUtil {
 		return getService().updateCPMeasurementUnit(
 			externalReferenceCode, cpMeasurementUnitId, nameMap, key, rate,
 			primary, priority, type, serviceContext);
+	}
+
+	public static CPMeasurementUnit updatePrimary(
+			long cpMeasurementUnitId, boolean primary)
+		throws PortalException {
+
+		return getService().updatePrimary(cpMeasurementUnitId, primary);
 	}
 
 	public static CPMeasurementUnitLocalService getService() {

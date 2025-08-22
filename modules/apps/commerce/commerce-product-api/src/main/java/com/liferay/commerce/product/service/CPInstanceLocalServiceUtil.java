@@ -100,6 +100,14 @@ public class CPInstanceLocalServiceUtil {
 			serviceContext);
 	}
 
+	public static List<CPInstance> addCPInstances(
+			long cpDefinitionId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().addCPInstances(cpDefinitionId, serviceContext);
+	}
+
 	public static CPInstance addOrUpdateCPInstance(
 			String externalReferenceCode, long cpDefinitionId, long groupId,
 			String sku, String gtin, String manufacturerPartNumber,
@@ -142,26 +150,6 @@ public class CPInstanceLocalServiceUtil {
 			replacementCPInstanceUuid, replacementCProductId,
 			discontinuedDateMonth, discontinuedDateDay, discontinuedDateYear,
 			serviceContext);
-	}
-
-	public static List<CPInstance> buildCPInstances(
-			long cpDefinitionId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		return getService().buildCPInstances(cpDefinitionId, serviceContext);
-	}
-
-	public static void checkCPInstances(long cpDefinitionId)
-		throws PortalException {
-
-		getService().checkCPInstances(cpDefinitionId);
-	}
-
-	public static void checkCPInstancesByDisplayDate(long cpDefinitionId)
-		throws PortalException {
-
-		getService().checkCPInstancesByDisplayDate(cpDefinitionId);
 	}
 
 	/**
@@ -720,6 +708,18 @@ public class CPInstanceLocalServiceUtil {
 			replacementCPInstanceUuid, replacementCProductId,
 			discontinuedDateMonth, discontinuedDateDay, discontinuedDateYear,
 			serviceContext);
+	}
+
+	public static void updateCPInstances(long cpDefinitionId)
+		throws PortalException {
+
+		getService().updateCPInstances(cpDefinitionId);
+	}
+
+	public static void updateCPInstancesByDisplayDate(long cpDefinitionId)
+		throws PortalException {
+
+		getService().updateCPInstancesByDisplayDate(cpDefinitionId);
 	}
 
 	public static CPInstance updateExternalReferenceCode(

@@ -83,17 +83,17 @@ public class CPOptionServiceUtil {
 			externalReferenceCode, companyId);
 	}
 
-	public static List<CPOption> findCPOptionByCompanyId(
+	public static CPOption getCPOption(long cpOptionId) throws PortalException {
+		return getService().getCPOption(cpOptionId);
+	}
+
+	public static List<CPOption> getCPOptionByCompanyId(
 			long companyId, int start, int end,
 			OrderByComparator<CPOption> orderByComparator)
 		throws PortalException {
 
-		return getService().findCPOptionByCompanyId(
+		return getService().getCPOptionByCompanyId(
 			companyId, start, end, orderByComparator);
-	}
-
-	public static CPOption getCPOption(long cpOptionId) throws PortalException {
-		return getService().getCPOption(cpOptionId);
 	}
 
 	/**

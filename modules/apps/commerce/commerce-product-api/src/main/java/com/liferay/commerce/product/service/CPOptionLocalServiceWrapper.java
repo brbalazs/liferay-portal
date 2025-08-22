@@ -290,16 +290,6 @@ public class CPOptionLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<CPOption> findCPOptionByCompanyId(
-		long companyId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<CPOption>
-			orderByComparator) {
-
-		return _cpOptionLocalService.findCPOptionByCompanyId(
-			companyId, start, end, orderByComparator);
-	}
-
-	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -325,6 +315,16 @@ public class CPOptionLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _cpOptionLocalService.getCPOption(companyId, key);
+	}
+
+	@Override
+	public java.util.List<CPOption> getCPOptionByCompanyId(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<CPOption>
+			orderByComparator) {
+
+		return _cpOptionLocalService.getCPOptionByCompanyId(
+			companyId, start, end, orderByComparator);
 	}
 
 	@Override

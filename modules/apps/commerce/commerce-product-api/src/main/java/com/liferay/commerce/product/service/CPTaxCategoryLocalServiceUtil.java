@@ -246,13 +246,6 @@ public class CPTaxCategoryLocalServiceUtil {
 			uuid, companyId);
 	}
 
-	public static List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
-		long companyId, String keyword, int start, int end) {
-
-		return getService().findCPTaxCategoriesByCompanyId(
-			companyId, keyword, start, end);
-	}
-
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -284,6 +277,13 @@ public class CPTaxCategoryLocalServiceUtil {
 
 		return getService().getCPTaxCategories(
 			companyId, start, end, orderByComparator);
+	}
+
+	public static List<CPTaxCategory> getCPTaxCategoriesByCompanyId(
+		long companyId, String keyword, int start, int end) {
+
+		return getService().getCPTaxCategoriesByCompanyId(
+			companyId, keyword, start, end);
 	}
 
 	/**

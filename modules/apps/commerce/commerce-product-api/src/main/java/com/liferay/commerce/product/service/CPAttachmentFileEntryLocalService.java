@@ -108,12 +108,6 @@ public interface CPAttachmentFileEntryLocalService
 			int type, ServiceContext serviceContext)
 		throws PortalException;
 
-	public void checkCPAttachmentFileEntries() throws PortalException;
-
-	public void checkCPAttachmentFileEntriesByDisplayDate(
-			long classNameId, long classPK)
-		throws PortalException;
-
 	/**
 	 * Creates a new cp attachment file entry with the primary key. Does not add the cp attachment file entry to the database.
 	 *
@@ -424,6 +418,12 @@ public interface CPAttachmentFileEntryLocalService
 			long userId, CPAttachmentFileEntry cpAttachmentFileEntry,
 			long[] assetCategoryIds, String[] assetTagNames,
 			long[] assetLinkEntryIds, Double priority)
+		throws PortalException;
+
+	public void updateCPAttachmentFileEntries() throws PortalException;
+
+	public void updateCPAttachmentFileEntriesByDisplayDate(
+			long classNameId, long classPK)
 		throws PortalException;
 
 	/**

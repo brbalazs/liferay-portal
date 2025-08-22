@@ -234,19 +234,6 @@ public class CPDefinitionLocalServiceUtil {
 			maxSubscriptionCycles, status, serviceContext);
 	}
 
-	public static void checkCPDefinitions() throws PortalException {
-		getService().checkCPDefinitions();
-	}
-
-	public static CPDefinition cloneCPDefinition(
-			long userId, long cpDefinitionId, long groupId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		return getService().cloneCPDefinition(
-			userId, cpDefinitionId, groupId, serviceContext);
-	}
-
 	public static CPDefinition copyCPDefinition(long sourceCPDefinitionId)
 		throws PortalException {
 
@@ -259,6 +246,15 @@ public class CPDefinitionLocalServiceUtil {
 
 		return getService().copyCPDefinition(
 			sourceCPDefinitionId, groupId, status);
+	}
+
+	public static CPDefinition copyCPDefinition(
+			long userId, long cpDefinitionId, long groupId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().copyCPDefinition(
+			userId, cpDefinitionId, groupId, serviceContext);
 	}
 
 	/**
@@ -972,6 +968,10 @@ public class CPDefinitionLocalServiceUtil {
 		return getService().updateCPDefinitionLocalizations(
 			cpDefinition, nameMap, shortDescriptionMap, descriptionMap,
 			metaTitleMap, metaDescriptionMap, metaKeywordsMap);
+	}
+
+	public static void updateCPDefinitions() throws PortalException {
+		getService().updateCPDefinitions();
 	}
 
 	public static void updateCPDefinitionsByCPTaxCategoryId(

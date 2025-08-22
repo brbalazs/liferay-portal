@@ -56,15 +56,6 @@ public class CPTaxCategoryServiceWrapper
 	}
 
 	@Override
-	public java.util.List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
-			long companyId, String keyword, int start, int end)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _cpTaxCategoryService.findCPTaxCategoriesByCompanyId(
-			companyId, keyword, start, end);
-	}
-
-	@Override
 	public java.util.List<CPTaxCategory> getCPTaxCategories(long companyId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -80,6 +71,15 @@ public class CPTaxCategoryServiceWrapper
 
 		return _cpTaxCategoryService.getCPTaxCategories(
 			companyId, start, end, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<CPTaxCategory> getCPTaxCategoriesByCompanyId(
+			long companyId, String keyword, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpTaxCategoryService.getCPTaxCategoriesByCompanyId(
+			companyId, keyword, start, end);
 	}
 
 	@Override

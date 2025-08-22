@@ -234,23 +234,6 @@ public class CPDefinitionLocalServiceWrapper
 	}
 
 	@Override
-	public void checkCPDefinitions()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_cpDefinitionLocalService.checkCPDefinitions();
-	}
-
-	@Override
-	public CPDefinition cloneCPDefinition(
-			long userId, long cpDefinitionId, long groupId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _cpDefinitionLocalService.cloneCPDefinition(
-			userId, cpDefinitionId, groupId, serviceContext);
-	}
-
-	@Override
 	public CPDefinition copyCPDefinition(long sourceCPDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -264,6 +247,16 @@ public class CPDefinitionLocalServiceWrapper
 
 		return _cpDefinitionLocalService.copyCPDefinition(
 			sourceCPDefinitionId, groupId, status);
+	}
+
+	@Override
+	public CPDefinition copyCPDefinition(
+			long userId, long cpDefinitionId, long groupId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _cpDefinitionLocalService.copyCPDefinition(
+			userId, cpDefinitionId, groupId, serviceContext);
 	}
 
 	/**
@@ -1092,6 +1085,13 @@ public class CPDefinitionLocalServiceWrapper
 		return _cpDefinitionLocalService.updateCPDefinitionLocalizations(
 			cpDefinition, nameMap, shortDescriptionMap, descriptionMap,
 			metaTitleMap, metaDescriptionMap, metaKeywordsMap);
+	}
+
+	@Override
+	public void updateCPDefinitions()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_cpDefinitionLocalService.updateCPDefinitions();
 	}
 
 	@Override

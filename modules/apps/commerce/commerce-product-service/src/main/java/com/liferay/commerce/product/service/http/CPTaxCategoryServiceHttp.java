@@ -164,51 +164,6 @@ public class CPTaxCategoryServiceHttp {
 	}
 
 	public static java.util.List
-		<com.liferay.commerce.product.model.CPTaxCategory>
-				findCPTaxCategoriesByCompanyId(
-					HttpPrincipal httpPrincipal, long companyId, String keyword,
-					int start, int end)
-			throws com.liferay.portal.kernel.exception.PortalException {
-
-		try {
-			MethodKey methodKey = new MethodKey(
-				CPTaxCategoryServiceUtil.class,
-				"findCPTaxCategoriesByCompanyId",
-				_findCPTaxCategoriesByCompanyIdParameterTypes3);
-
-			MethodHandler methodHandler = new MethodHandler(
-				methodKey, companyId, keyword, start, end);
-
-			Object returnObj = null;
-
-			try {
-				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
-			}
-			catch (Exception exception) {
-				if (exception instanceof
-						com.liferay.portal.kernel.exception.PortalException) {
-
-					throw (com.liferay.portal.kernel.exception.PortalException)
-						exception;
-				}
-
-				throw new com.liferay.portal.kernel.exception.SystemException(
-					exception);
-			}
-
-			return (java.util.List
-				<com.liferay.commerce.product.model.CPTaxCategory>)returnObj;
-		}
-		catch (com.liferay.portal.kernel.exception.SystemException
-					systemException) {
-
-			_log.error(systemException, systemException);
-
-			throw systemException;
-		}
-	}
-
-	public static java.util.List
 		<com.liferay.commerce.product.model.CPTaxCategory> getCPTaxCategories(
 				HttpPrincipal httpPrincipal, long companyId)
 			throws com.liferay.portal.kernel.exception.PortalException {
@@ -216,7 +171,7 @@ public class CPTaxCategoryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CPTaxCategoryServiceUtil.class, "getCPTaxCategories",
-				_getCPTaxCategoriesParameterTypes4);
+				_getCPTaxCategoriesParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId);
@@ -261,10 +216,54 @@ public class CPTaxCategoryServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CPTaxCategoryServiceUtil.class, "getCPTaxCategories",
-				_getCPTaxCategoriesParameterTypes5);
+				_getCPTaxCategoriesParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, start, end, orderByComparator);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (java.util.List
+				<com.liferay.commerce.product.model.CPTaxCategory>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static java.util.List
+		<com.liferay.commerce.product.model.CPTaxCategory>
+				getCPTaxCategoriesByCompanyId(
+					HttpPrincipal httpPrincipal, long companyId, String keyword,
+					int start, int end)
+			throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				CPTaxCategoryServiceUtil.class, "getCPTaxCategoriesByCompanyId",
+				_getCPTaxCategoriesByCompanyIdParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, companyId, keyword, start, end);
 
 			Object returnObj = null;
 
@@ -479,16 +478,16 @@ public class CPTaxCategoryServiceHttp {
 		};
 	private static final Class<?>[] _deleteCPTaxCategoryParameterTypes2 =
 		new Class[] {long.class};
-	private static final Class<?>[]
-		_findCPTaxCategoriesByCompanyIdParameterTypes3 = new Class[] {
-			long.class, String.class, int.class, int.class
-		};
-	private static final Class<?>[] _getCPTaxCategoriesParameterTypes4 =
+	private static final Class<?>[] _getCPTaxCategoriesParameterTypes3 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getCPTaxCategoriesParameterTypes5 =
+	private static final Class<?>[] _getCPTaxCategoriesParameterTypes4 =
 		new Class[] {
 			long.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
+		};
+	private static final Class<?>[]
+		_getCPTaxCategoriesByCompanyIdParameterTypes5 = new Class[] {
+			long.class, String.class, int.class, int.class
 		};
 	private static final Class<?>[] _getCPTaxCategoriesCountParameterTypes6 =
 		new Class[] {long.class};

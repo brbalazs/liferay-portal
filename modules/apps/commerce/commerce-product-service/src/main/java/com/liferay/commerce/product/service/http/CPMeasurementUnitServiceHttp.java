@@ -739,18 +739,22 @@ public class CPMeasurementUnitServiceHttp {
 	}
 
 	public static com.liferay.commerce.product.model.CPMeasurementUnit
-			setPrimary(
-				HttpPrincipal httpPrincipal, long cpMeasurementUnitId,
-				boolean primary)
+			updateCPMeasurementUnit(
+				HttpPrincipal httpPrincipal, String externalReferenceCode,
+				long cpMeasurementUnitId,
+				java.util.Map<java.util.Locale, String> nameMap, String key,
+				double rate, boolean primary, double priority, int type,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CPMeasurementUnitServiceUtil.class, "setPrimary",
-				_setPrimaryParameterTypes16);
+				CPMeasurementUnitServiceUtil.class, "updateCPMeasurementUnit",
+				_updateCPMeasurementUnitParameterTypes16);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, cpMeasurementUnitId, primary);
+				methodKey, externalReferenceCode, cpMeasurementUnitId, nameMap,
+				key, rate, primary, priority, type, serviceContext);
 
 			Object returnObj = null;
 
@@ -782,22 +786,18 @@ public class CPMeasurementUnitServiceHttp {
 	}
 
 	public static com.liferay.commerce.product.model.CPMeasurementUnit
-			updateCPMeasurementUnit(
-				HttpPrincipal httpPrincipal, String externalReferenceCode,
-				long cpMeasurementUnitId,
-				java.util.Map<java.util.Locale, String> nameMap, String key,
-				double rate, boolean primary, double priority, int type,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+			updatePrimary(
+				HttpPrincipal httpPrincipal, long cpMeasurementUnitId,
+				boolean primary)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CPMeasurementUnitServiceUtil.class, "updateCPMeasurementUnit",
-				_updateCPMeasurementUnitParameterTypes17);
+				CPMeasurementUnitServiceUtil.class, "updatePrimary",
+				_updatePrimaryParameterTypes17);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, externalReferenceCode, cpMeasurementUnitId, nameMap,
-				key, rate, primary, priority, type, serviceContext);
+				methodKey, cpMeasurementUnitId, primary);
 
 			Object returnObj = null;
 
@@ -887,14 +887,13 @@ public class CPMeasurementUnitServiceHttp {
 		_getCPMeasurementUnitsCountParameterTypes15 = new Class[] {
 			long.class, int.class
 		};
-	private static final Class<?>[] _setPrimaryParameterTypes16 = new Class[] {
-		long.class, boolean.class
-	};
-	private static final Class<?>[] _updateCPMeasurementUnitParameterTypes17 =
+	private static final Class<?>[] _updateCPMeasurementUnitParameterTypes16 =
 		new Class[] {
 			String.class, long.class, java.util.Map.class, String.class,
 			double.class, boolean.class, double.class, int.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
+	private static final Class<?>[] _updatePrimaryParameterTypes17 =
+		new Class[] {long.class, boolean.class};
 
 }

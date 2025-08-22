@@ -365,18 +365,18 @@ public class CPDefinitionServiceHttp {
 	}
 
 	public static com.liferay.commerce.product.model.CPDefinition
-			cloneCPDefinition(
-				HttpPrincipal httpPrincipal, long cpDefinitionId, long groupId,
-				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+			copyCPDefinition(
+				HttpPrincipal httpPrincipal, long sourceCPDefinitionId,
+				long groupId, int status)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CPDefinitionServiceUtil.class, "cloneCPDefinition",
-				_cloneCPDefinitionParameterTypes4);
+				CPDefinitionServiceUtil.class, "copyCPDefinition",
+				_copyCPDefinitionParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, cpDefinitionId, groupId, serviceContext);
+				methodKey, sourceCPDefinitionId, groupId, status);
 
 			Object returnObj = null;
 
@@ -408,8 +408,8 @@ public class CPDefinitionServiceHttp {
 
 	public static com.liferay.commerce.product.model.CPDefinition
 			copyCPDefinition(
-				HttpPrincipal httpPrincipal, long sourceCPDefinitionId,
-				long groupId, int status)
+				HttpPrincipal httpPrincipal, long cpDefinitionId, long groupId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -418,7 +418,7 @@ public class CPDefinitionServiceHttp {
 				_copyCPDefinitionParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, sourceCPDefinitionId, groupId, status);
+				methodKey, cpDefinitionId, groupId, serviceContext);
 
 			Object returnObj = null;
 
@@ -1607,13 +1607,13 @@ public class CPDefinitionServiceHttp {
 			com.liferay.portal.kernel.util.UnicodeProperties.class, long.class,
 			int.class, com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _cloneCPDefinitionParameterTypes4 =
+	private static final Class<?>[] _copyCPDefinitionParameterTypes4 =
+		new Class[] {long.class, long.class, int.class};
+	private static final Class<?>[] _copyCPDefinitionParameterTypes5 =
 		new Class[] {
 			long.class, long.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
-	private static final Class<?>[] _copyCPDefinitionParameterTypes5 =
-		new Class[] {long.class, long.class, int.class};
 	private static final Class<?>[]
 		_deleteAssetCategoryCPDefinitionParameterTypes6 = new Class[] {
 			long.class, long.class,

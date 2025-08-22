@@ -55,14 +55,6 @@ public class CPTaxCategoryServiceUtil {
 		getService().deleteCPTaxCategory(cpTaxCategoryId);
 	}
 
-	public static List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
-			long companyId, String keyword, int start, int end)
-		throws PortalException {
-
-		return getService().findCPTaxCategoriesByCompanyId(
-			companyId, keyword, start, end);
-	}
-
 	public static List<CPTaxCategory> getCPTaxCategories(long companyId)
 		throws PortalException {
 
@@ -76,6 +68,14 @@ public class CPTaxCategoryServiceUtil {
 
 		return getService().getCPTaxCategories(
 			companyId, start, end, orderByComparator);
+	}
+
+	public static List<CPTaxCategory> getCPTaxCategoriesByCompanyId(
+			long companyId, String keyword, int start, int end)
+		throws PortalException {
+
+		return getService().getCPTaxCategoriesByCompanyId(
+			companyId, keyword, start, end);
 	}
 
 	public static int getCPTaxCategoriesCount(long companyId)

@@ -241,10 +241,6 @@ public interface CPOptionLocalService
 	public CPOption fetchCPOptionByUuidAndCompanyId(
 		String uuid, long companyId);
 
-	public List<CPOption> findCPOptionByCompanyId(
-		long companyId, int start, int end,
-		OrderByComparator<CPOption> orderByComparator);
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
@@ -261,6 +257,11 @@ public interface CPOptionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPOption getCPOption(long companyId, String key)
 		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CPOption> getCPOptionByCompanyId(
+		long companyId, int start, int end,
+		OrderByComparator<CPOption> orderByComparator);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public CPOption getCPOptionByExternalReferenceCode(

@@ -108,6 +108,10 @@ public interface CPDefinitionOptionValueRelLocalService
 			ServiceContext serviceContext)
 		throws PortalException;
 
+	public void addCPDefinitionOptionValueRels(
+			long cpDefinitionOptionRelId, ServiceContext serviceContext)
+		throws PortalException;
+
 	/**
 	 * Creates a new cp definition option value rel with the primary key. Does not add the cp definition option value rel to the database.
 	 *
@@ -411,10 +415,6 @@ public interface CPDefinitionOptionValueRelLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public boolean hasPreselectedCPDefinitionOptionValueRel(
 		long cpDefinitionOptionRelId);
-
-	public void importCPDefinitionOptionRels(
-			long cpDefinitionOptionRelId, ServiceContext serviceContext)
-		throws PortalException;
 
 	public CPDefinitionOptionValueRel resetCPInstanceCPDefinitionOptionValueRel(
 			long cpDefinitionOptionValueRelId)

@@ -216,21 +216,21 @@ public class CPDefinitionServiceUtil {
 			status, serviceContext);
 	}
 
-	public static CPDefinition cloneCPDefinition(
-			long cpDefinitionId, long groupId,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws PortalException {
-
-		return getService().cloneCPDefinition(
-			cpDefinitionId, groupId, serviceContext);
-	}
-
 	public static CPDefinition copyCPDefinition(
 			long sourceCPDefinitionId, long groupId, int status)
 		throws PortalException {
 
 		return getService().copyCPDefinition(
 			sourceCPDefinitionId, groupId, status);
+	}
+
+	public static CPDefinition copyCPDefinition(
+			long cpDefinitionId, long groupId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws PortalException {
+
+		return getService().copyCPDefinition(
+			cpDefinitionId, groupId, serviceContext);
 	}
 
 	public static void deleteAssetCategoryCPDefinition(
