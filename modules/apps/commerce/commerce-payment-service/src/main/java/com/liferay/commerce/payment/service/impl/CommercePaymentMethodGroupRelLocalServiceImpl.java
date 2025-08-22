@@ -329,7 +329,7 @@ public class CommercePaymentMethodGroupRelLocalServiceImpl
 	}
 
 	@Override
-	public CommercePaymentMethodGroupRel setActive(
+	public CommercePaymentMethodGroupRel updateActive(
 			long commercePaymentMethodGroupRelId, boolean active)
 		throws PortalException {
 

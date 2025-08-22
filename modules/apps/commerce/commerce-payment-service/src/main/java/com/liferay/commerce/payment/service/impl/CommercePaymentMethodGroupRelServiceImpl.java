@@ -331,7 +331,7 @@ public class CommercePaymentMethodGroupRelServiceImpl
 	}
 
 	@Override
-	public CommercePaymentMethodGroupRel setActive(
+	public CommercePaymentMethodGroupRel updateActive(
 			long commercePaymentMethodGroupRelId, boolean active)
 		throws PortalException {
 
@@ -344,7 +344,7 @@ public class CommercePaymentMethodGroupRelServiceImpl
 			_checkCommerceChannel(commercePaymentMethodGroupRel.getGroupId());
 		}
 
-		return commercePaymentMethodGroupRelLocalService.setActive(
+		return commercePaymentMethodGroupRelLocalService.updateActive(
 			commercePaymentMethodGroupRelId, active);
 	}
 
