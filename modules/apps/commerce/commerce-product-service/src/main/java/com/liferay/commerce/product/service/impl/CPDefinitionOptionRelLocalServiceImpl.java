@@ -193,8 +193,9 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				cpDefinitionOptionValueRelLocalService =
 					_cpDefinitionOptionValueRelLocalServiceSnapshot.get();
 
-			cpDefinitionOptionValueRelLocalService.importCPDefinitionOptionRels(
-				cpDefinitionOptionRelId, serviceContext);
+			cpDefinitionOptionValueRelLocalService.
+				addCPDefinitionOptionValueRels(
+					cpDefinitionOptionRelId, serviceContext);
 		}
 
 		// Commerce product instances
@@ -295,8 +296,9 @@ public class CPDefinitionOptionRelLocalServiceImpl
 				cpDefinitionOptionValueRelLocalService =
 					_cpDefinitionOptionValueRelLocalServiceSnapshot.get();
 
-			cpDefinitionOptionValueRelLocalService.importCPDefinitionOptionRels(
-				cpDefinitionOptionRelId, serviceContext);
+			cpDefinitionOptionValueRelLocalService.
+				addCPDefinitionOptionValueRels(
+					cpDefinitionOptionRelId, serviceContext);
 		}
 
 		// Commerce product instances

@@ -528,7 +528,7 @@ public class CommerceSiteInitializerImpl implements CommerceSiteInitializer {
 					}
 				});
 
-			_cpInstanceLocalService.buildCPInstances(
+			_cpInstanceLocalService.addCPInstances(
 				cpDefinition.getCPDefinitionId(), serviceContext);
 
 			JSONArray cpInstancePropertiesJSONArray =

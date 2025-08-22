@@ -31,7 +31,7 @@ public class CheckCPInstanceSchedulerJobConfiguration
 
 	@Override
 	public UnsafeRunnable<Exception> getJobExecutorUnsafeRunnable() {
-		return () -> _cpInstanceLocalService.checkCPInstances(0);
+		return () -> _cpInstanceLocalService.updateCPInstances(0);
 	}
 
 	@Override

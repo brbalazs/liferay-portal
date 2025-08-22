@@ -141,7 +141,7 @@ public class CPDefinitionOptionRelLocalServiceTest {
 		Assert.assertTrue(
 			"No approved instances", cpDefinitionApprovedCPInstances.isEmpty());
 
-		_cpInstanceLocalService.buildCPInstances(
+		_cpInstanceLocalService.addCPInstances(
 			cpDefinition.getCPDefinitionId(), _serviceContext);
 
 		cpDefinitionOptionRel = CPTestUtil.addCPDefinitionOptionRel(
@@ -169,7 +169,7 @@ public class CPDefinitionOptionRelLocalServiceTest {
 		Assert.assertTrue(
 			"No approved instances", cpDefinitionApprovedCPInstances.isEmpty());
 
-		_cpInstanceLocalService.buildCPInstances(
+		_cpInstanceLocalService.addCPInstances(
 			cpDefinition.getCPDefinitionId(), _serviceContext);
 
 		cpDefinitionApprovedCPInstances =
@@ -300,7 +300,7 @@ public class CPDefinitionOptionRelLocalServiceTest {
 
 		_cpDefinitionOptionRels.addAll(cpDefinitionOptionRels);
 
-		List<CPInstance> cpInstances = _cpInstanceLocalService.buildCPInstances(
+		List<CPInstance> cpInstances = _cpInstanceLocalService.addCPInstances(
 			cpDefinition.getCPDefinitionId(),
 			ServiceContextTestUtil.getServiceContext(
 				cpDefinition.getGroupId()));

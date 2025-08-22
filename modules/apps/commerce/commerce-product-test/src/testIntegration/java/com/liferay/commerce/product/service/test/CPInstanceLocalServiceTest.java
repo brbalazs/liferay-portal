@@ -104,7 +104,7 @@ public class CPInstanceLocalServiceTest {
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		_assertBuildCPInstancesSuccess(
+		_assertAddCPInstancesSuccess(
 			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
 			cpOptionsCount, cpOptionValuesCount);
 
@@ -152,7 +152,7 @@ public class CPInstanceLocalServiceTest {
 	}
 
 	@Test
-	public void testBuildCPInstances() throws Exception {
+	public void testAddCPInstances() throws Exception {
 		frutillaRule.scenario(
 			"Build all product SKU combinations"
 		).given(
@@ -173,7 +173,7 @@ public class CPInstanceLocalServiceTest {
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		_assertBuildCPInstancesSuccess(
+		_assertAddCPInstancesSuccess(
 			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(), 2,
 			3);
 	}
@@ -484,7 +484,7 @@ public class CPInstanceLocalServiceTest {
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		_assertBuildCPInstancesSuccess(
+		_assertAddCPInstancesSuccess(
 			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
 			cpOptionsCount, cpOptionValuesCount);
 
@@ -509,7 +509,7 @@ public class CPInstanceLocalServiceTest {
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		_assertBuildCPInstancesSuccess(
+		_assertAddCPInstancesSuccess(
 			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
 			cpOptionsCount, cpOptionValuesCount);
 
@@ -541,7 +541,7 @@ public class CPInstanceLocalServiceTest {
 
 		_assertApprovedCPInstancesCount(cpDefinition.getCPDefinitionId(), 0);
 
-		_cpInstanceLocalService.buildCPInstances(
+		_cpInstanceLocalService.addCPInstances(
 			cpDefinition.getCPDefinitionId(),
 			ServiceContextTestUtil.getServiceContext(
 				_commerceCatalog.getGroupId()));
@@ -579,7 +579,7 @@ public class CPInstanceLocalServiceTest {
 			_commerceCatalog.getGroupId(), SimpleCPTypeConstants.NAME, true,
 			true);
 
-		_assertBuildCPInstancesSuccess(
+		_assertAddCPInstancesSuccess(
 			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
 			cpOptionsCount, cpOptionValuesCount);
 
@@ -633,6 +633,22 @@ public class CPInstanceLocalServiceTest {
 			cpDefinitionOptionRelIdCPDefinitionOptionValueRelIds);
 	}
 
+	private void _assertAddCPInstancesSuccess(
+			long groupId, long cpDefinitionId, int cpOptionsCount,
+			int cpOptionValuesCount)
+		throws Exception {
+
+		CPTestUtil.addCPOption(
+			_commerceCatalog.getGroupId(), cpDefinitionId, cpOptionsCount,
+			cpOptionValuesCount);
+
+		_cpInstanceLocalService.addCPInstances(
+			cpDefinitionId, ServiceContextTestUtil.getServiceContext(groupId));
+
+		_assertApprovedCPInstancesCount(
+			cpDefinitionId, (int)Math.pow(cpOptionValuesCount, cpOptionsCount));
+	}
+
 	private void _assertApprovedCPInstancesCount(
 		long cpDefinitionId, int size) {
 
@@ -644,22 +660,6 @@ public class CPInstanceLocalServiceTest {
 		Assert.assertEquals(
 			"Product approved instances count", size,
 			approvedCPDefinitionInstances.size());
-	}
-
-	private void _assertBuildCPInstancesSuccess(
-			long groupId, long cpDefinitionId, int cpOptionsCount,
-			int cpOptionValuesCount)
-		throws Exception {
-
-		CPTestUtil.addCPOption(
-			_commerceCatalog.getGroupId(), cpDefinitionId, cpOptionsCount,
-			cpOptionValuesCount);
-
-		_cpInstanceLocalService.buildCPInstances(
-			cpDefinitionId, ServiceContextTestUtil.getServiceContext(groupId));
-
-		_assertApprovedCPInstancesCount(
-			cpDefinitionId, (int)Math.pow(cpOptionValuesCount, cpOptionsCount));
 	}
 
 	private void _assertDefaultCPInstance(long cpDefinitionId) {

@@ -31,7 +31,7 @@ public class CheckCPAttachmentFileEntrySchedulerJobConfiguration
 
 	@Override
 	public UnsafeRunnable<Exception> getJobExecutorUnsafeRunnable() {
-		return _cpAttachmentFileEntryLocalService::checkCPAttachmentFileEntries;
+		return _cpAttachmentFileEntryLocalService::updateCPAttachmentFileEntries;
 	}
 
 	@Override

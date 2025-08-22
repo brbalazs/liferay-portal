@@ -427,7 +427,7 @@ public class EditCPInstanceMVCActionCommand extends BaseMVCActionCommand {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			CPInstance.class.getName(), actionRequest);
 
-		List<CPInstance> cpInstances = _cpInstanceService.buildCPInstances(
+		List<CPInstance> cpInstances = _cpInstanceService.addCPInstances(
 			cpDefinitionId, serviceContext);
 
 		for (CPInstance cpInstance : cpInstances) {

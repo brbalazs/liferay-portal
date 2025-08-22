@@ -32,7 +32,7 @@ public class CheckCPDefinitionSchedulerJobConfiguration
 
 	@Override
 	public UnsafeRunnable<Exception> getJobExecutorUnsafeRunnable() {
-		return _cpDefinitionLocalService::checkCPDefinitions;
+		return _cpDefinitionLocalService::updateCPDefinitions;
 	}
 
 	@Override

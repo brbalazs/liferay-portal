@@ -117,7 +117,7 @@ public class EditCPMeasurementUnitMVCActionCommand
 
 		boolean primary = ParamUtil.getBoolean(actionRequest, "primary");
 
-		_cpMeasurementUnitService.setPrimary(cpMeasurementUnitId, primary);
+		_cpMeasurementUnitService.updatePrimary(cpMeasurementUnitId, primary);
 	}
 
 	private CPMeasurementUnit _updateCPMeasurementUnit(

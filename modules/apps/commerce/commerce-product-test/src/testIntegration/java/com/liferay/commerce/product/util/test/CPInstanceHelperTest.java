@@ -171,7 +171,7 @@ public class CPInstanceHelperTest {
 			_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
 			cpOptionsCount, cpOptionValuesCount);
 
-		_cpInstanceLocalService.buildCPInstances(
+		_cpInstanceLocalService.addCPInstances(
 			cpDefinition.getCPDefinitionId(),
 			ServiceContextTestUtil.getServiceContext(
 				cpDefinition.getGroupId()));

@@ -447,7 +447,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 				catalogId);
 		}
 
-		cpDefinition = _cpDefinitionService.cloneCPDefinition(
+		cpDefinition = _cpDefinitionService.copyCPDefinition(
 			cpDefinition.getCPDefinitionId(), commerceCatalog.getGroupId(),
 			_serviceContextHelper.getServiceContext(
 				commerceCatalog.getGroupId()));

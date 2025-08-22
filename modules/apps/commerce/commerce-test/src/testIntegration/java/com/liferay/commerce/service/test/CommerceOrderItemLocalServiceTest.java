@@ -1809,7 +1809,7 @@ public class CommerceOrderItemLocalServiceTest {
 				BigDecimal.valueOf(100), BigDecimal.ONE, true, true,
 				_serviceContext));
 
-		_cpInstanceLocalService.buildCPInstances(
+		_cpInstanceLocalService.addCPInstances(
 			bundleCPDefinition.getCPDefinitionId(), _serviceContext);
 
 		List<CPInstance> bundleCPInstances =
@@ -2145,7 +2145,7 @@ public class CommerceOrderItemLocalServiceTest {
 			long cpDefinitionId, String key)
 		throws Exception {
 
-		_cpInstanceLocalService.buildCPInstances(
+		_cpInstanceLocalService.addCPInstances(
 			cpDefinitionId, _serviceContext);
 
 		List<CPInstance> bundleCPDefinitionApprovedCPInstances =

@@ -784,7 +784,7 @@ public class CPTestUtil {
 	public static void buildCPInstances(CPDefinition cpDefinition)
 		throws PortalException {
 
-		CPInstanceLocalServiceUtil.buildCPInstances(
+		CPInstanceLocalServiceUtil.addCPInstances(
 			cpDefinition.getCPDefinitionId(),
 			ServiceContextTestUtil.getServiceContext(
 				cpDefinition.getGroupId()));

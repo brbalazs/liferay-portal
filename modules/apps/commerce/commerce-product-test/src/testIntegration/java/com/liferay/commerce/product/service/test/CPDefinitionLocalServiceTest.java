@@ -506,7 +506,7 @@ public class CPDefinitionLocalServiceTest {
 			WorkflowConstants.STATUS_APPROVED, cpInstance.getStatus());
 
 		CPDefinition duplicateCPDefinition =
-			_cpDefinitionLocalService.cloneCPDefinition(
+			_cpDefinitionLocalService.copyCPDefinition(
 				TestPropsValues.getUserId(), cpInstance.getCPDefinitionId(),
 				cpInstance.getGroupId(), _serviceContext);
 

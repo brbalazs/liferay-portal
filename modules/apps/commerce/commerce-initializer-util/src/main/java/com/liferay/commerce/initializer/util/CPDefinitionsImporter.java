@@ -513,7 +513,7 @@ public class CPDefinitionsImporter {
 		}
 		else {
 			try {
-				_cpInstanceLocalService.buildCPInstances(
+				_cpInstanceLocalService.addCPInstances(
 					cpDefinition.getCPDefinitionId(), serviceContext);
 			}
 			catch (NoSuchSkuContributorCPDefinitionOptionRelException

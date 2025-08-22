@@ -38,7 +38,7 @@ public class TaxCategoryResourceImpl extends BaseTaxCategoryResourceImpl {
 		List<TaxCategory> taxCategories = new ArrayList<>();
 
 		List<CPTaxCategory> cpTaxCategories =
-			_cpTaxCategoryService.findCPTaxCategoriesByCompanyId(
+			_cpTaxCategoryService.getCPTaxCategoriesByCompanyId(
 				contextCompany.getCompanyId(), search,
 				pagination.getStartPosition(), pagination.getEndPosition());
 
