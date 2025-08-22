@@ -99,6 +99,18 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 	}
 
 	@Override
+	public List<CPInstance> addCPInstances(
+			long cpDefinitionId, ServiceContext serviceContext)
+		throws PortalException {
+
+		_checkCommerceCatalogByCPDefinitionId(
+			cpDefinitionId, ActionKeys.UPDATE);
+
+		return cpInstanceLocalService.addCPInstances(
+			cpDefinitionId, serviceContext);
+	}
+
+	@Override
 	public CPInstance addOrUpdateCPInstance(
 			String externalReferenceCode, long cpDefinitionId, long groupId,
 			String sku, String gtin, String manufacturerPartNumber,
@@ -141,18 +153,6 @@ public class CPInstanceServiceImpl extends CPInstanceServiceBaseImpl {
 			replacementCPInstanceUuid, replacementCProductId,
 			discontinuedDateMonth, discontinuedDateDay, discontinuedDateYear,
 			serviceContext);
-	}
-
-	@Override
-	public List<CPInstance> buildCPInstances(
-			long cpDefinitionId, ServiceContext serviceContext)
-		throws PortalException {
-
-		_checkCommerceCatalogByCPDefinitionId(
-			cpDefinitionId, ActionKeys.UPDATE);
-
-		return cpInstanceLocalService.buildCPInstances(
-			cpDefinitionId, serviceContext);
 	}
 
 	@Override

@@ -74,19 +74,6 @@ public class CPTaxCategoryServiceImpl extends CPTaxCategoryServiceBaseImpl {
 	}
 
 	@Override
-	public List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
-			long companyId, String keyword, int start, int end)
-		throws PortalException {
-
-		_portletResourcePermission.check(
-			getPermissionChecker(), null,
-			CPActionKeys.VIEW_COMMERCE_PRODUCT_TAX_CATEGORIES);
-
-		return cpTaxCategoryLocalService.findCPTaxCategoriesByCompanyId(
-			companyId, keyword, start, end);
-	}
-
-	@Override
 	public List<CPTaxCategory> getCPTaxCategories(long companyId)
 		throws PortalException {
 
@@ -109,6 +96,19 @@ public class CPTaxCategoryServiceImpl extends CPTaxCategoryServiceBaseImpl {
 
 		return cpTaxCategoryLocalService.getCPTaxCategories(
 			companyId, start, end, orderByComparator);
+	}
+
+	@Override
+	public List<CPTaxCategory> getCPTaxCategoriesByCompanyId(
+			long companyId, String keyword, int start, int end)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), null,
+			CPActionKeys.VIEW_COMMERCE_PRODUCT_TAX_CATEGORIES);
+
+		return cpTaxCategoryLocalService.getCPTaxCategoriesByCompanyId(
+			companyId, keyword, start, end);
 	}
 
 	@Override

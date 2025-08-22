@@ -294,6 +294,38 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		return cpDefinitionOptionValueRel;
 	}
 
+	@Override
+	public void addCPDefinitionOptionValueRels(
+			long cpDefinitionOptionRelId, ServiceContext serviceContext)
+		throws PortalException {
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
+				cpDefinitionOptionRelId);
+
+		CPOption cpOption = _cpOptionLocalService.fetchCPOption(
+			cpDefinitionOptionRel.getCPOptionId());
+
+		if (cpOption == null) {
+			return;
+		}
+
+		List<CPOptionValue> cpOptionValues =
+			_cpOptionValueLocalService.getCPOptionValues(
+				cpOption.getCPOptionId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		Map<String, Serializable> expandoBridgeAttributes =
+			serviceContext.getExpandoBridgeAttributes();
+
+		try {
+			_addCPDefinitionOptionValueRel(
+				cpDefinitionOptionRelId, cpOptionValues, serviceContext);
+		}
+		finally {
+			serviceContext.setExpandoBridgeAttributes(expandoBridgeAttributes);
+		}
+	}
+
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -623,38 +655,6 @@ public class CPDefinitionOptionValueRelLocalServiceImpl
 		}
 
 		return true;
-	}
-
-	@Override
-	public void importCPDefinitionOptionRels(
-			long cpDefinitionOptionRelId, ServiceContext serviceContext)
-		throws PortalException {
-
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			_cpDefinitionOptionRelLocalService.getCPDefinitionOptionRel(
-				cpDefinitionOptionRelId);
-
-		CPOption cpOption = _cpOptionLocalService.fetchCPOption(
-			cpDefinitionOptionRel.getCPOptionId());
-
-		if (cpOption == null) {
-			return;
-		}
-
-		List<CPOptionValue> cpOptionValues =
-			_cpOptionValueLocalService.getCPOptionValues(
-				cpOption.getCPOptionId(), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-
-		Map<String, Serializable> expandoBridgeAttributes =
-			serviceContext.getExpandoBridgeAttributes();
-
-		try {
-			_addCPDefinitionOptionValueRel(
-				cpDefinitionOptionRelId, cpOptionValues, serviceContext);
-		}
-		finally {
-			serviceContext.setExpandoBridgeAttributes(expandoBridgeAttributes);
-		}
 	}
 
 	@Override

@@ -264,24 +264,6 @@ public class CPMeasurementUnitLocalServiceImpl
 	}
 
 	@Override
-	public CPMeasurementUnit setPrimary(
-			long cpMeasurementUnitId, boolean primary)
-		throws PortalException {
-
-		CPMeasurementUnit cpMeasurementUnit =
-			cpMeasurementUnitPersistence.findByPrimaryKey(cpMeasurementUnitId);
-
-		_validate(
-			cpMeasurementUnit.getExternalReferenceCode(), cpMeasurementUnitId,
-			cpMeasurementUnit.getCompanyId(), cpMeasurementUnit.getKey(),
-			primary, cpMeasurementUnit.getType());
-
-		cpMeasurementUnit.setPrimary(primary);
-
-		return cpMeasurementUnitPersistence.update(cpMeasurementUnit);
-	}
-
-	@Override
 	public CPMeasurementUnit updateCPMeasurementUnit(
 			String externalReferenceCode, long cpMeasurementUnitId,
 			Map<Locale, String> nameMap, String key, double rate,
@@ -310,6 +292,24 @@ public class CPMeasurementUnitLocalServiceImpl
 		cpMeasurementUnit.setPrimary(primary);
 		cpMeasurementUnit.setPriority(priority);
 		cpMeasurementUnit.setType(type);
+
+		return cpMeasurementUnitPersistence.update(cpMeasurementUnit);
+	}
+
+	@Override
+	public CPMeasurementUnit updatePrimary(
+			long cpMeasurementUnitId, boolean primary)
+		throws PortalException {
+
+		CPMeasurementUnit cpMeasurementUnit =
+			cpMeasurementUnitPersistence.findByPrimaryKey(cpMeasurementUnitId);
+
+		_validate(
+			cpMeasurementUnit.getExternalReferenceCode(), cpMeasurementUnitId,
+			cpMeasurementUnit.getCompanyId(), cpMeasurementUnit.getKey(),
+			primary, cpMeasurementUnit.getType());
+
+		cpMeasurementUnit.setPrimary(primary);
 
 		return cpMeasurementUnitPersistence.update(cpMeasurementUnit);
 	}

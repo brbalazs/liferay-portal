@@ -245,19 +245,6 @@ public class CPMeasurementUnitServiceImpl
 	}
 
 	@Override
-	public CPMeasurementUnit setPrimary(
-			long cpMeasurementUnitId, boolean primary)
-		throws PortalException {
-
-		_portletResourcePermission.check(
-			getPermissionChecker(), null,
-			CPActionKeys.MANAGE_COMMERCE_PRODUCT_MEASUREMENT_UNITS);
-
-		return cpMeasurementUnitLocalService.setPrimary(
-			cpMeasurementUnitId, primary);
-	}
-
-	@Override
 	public CPMeasurementUnit updateCPMeasurementUnit(
 			String externalReferenceCode, long cpMeasurementUnitId,
 			Map<Locale, String> nameMap, String key, double rate,
@@ -272,6 +259,19 @@ public class CPMeasurementUnitServiceImpl
 		return cpMeasurementUnitLocalService.updateCPMeasurementUnit(
 			externalReferenceCode, cpMeasurementUnitId, nameMap, key, rate,
 			primary, priority, type, serviceContext);
+	}
+
+	@Override
+	public CPMeasurementUnit updatePrimary(
+			long cpMeasurementUnitId, boolean primary)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), null,
+			CPActionKeys.MANAGE_COMMERCE_PRODUCT_MEASUREMENT_UNITS);
+
+		return cpMeasurementUnitLocalService.updatePrimary(
+			cpMeasurementUnitId, primary);
 	}
 
 	@Reference(

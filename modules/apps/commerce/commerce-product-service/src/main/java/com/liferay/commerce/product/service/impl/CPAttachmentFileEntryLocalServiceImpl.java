@@ -291,50 +291,6 @@ public class CPAttachmentFileEntryLocalServiceImpl
 	}
 
 	@Override
-	public void checkCPAttachmentFileEntries() throws PortalException {
-		_checkCPAttachmentFileEntriesByDisplayDate();
-		_checkCPAttachmentFileEntriesByExpirationDate();
-	}
-
-	@Override
-	public void checkCPAttachmentFileEntriesByDisplayDate(
-			long classNameId, long classPK)
-		throws PortalException {
-
-		List<CPAttachmentFileEntry> cpAttachmentFileEntries = null;
-
-		if (classPK > 0) {
-			cpAttachmentFileEntries =
-				cpAttachmentFileEntryPersistence.findByC_C_LtD_S(
-					classNameId, classPK, new Date(),
-					WorkflowConstants.STATUS_SCHEDULED);
-		}
-		else {
-			cpAttachmentFileEntries =
-				cpAttachmentFileEntryPersistence.findByLtD_S(
-					new Date(), WorkflowConstants.STATUS_SCHEDULED);
-		}
-
-		for (CPAttachmentFileEntry cpAttachmentFileEntry :
-				cpAttachmentFileEntries) {
-
-			long userId = _portal.getValidUserId(
-				cpAttachmentFileEntry.getCompanyId(),
-				cpAttachmentFileEntry.getUserId());
-
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setCommand(Constants.UPDATE);
-			serviceContext.setScopeGroupId(cpAttachmentFileEntry.getGroupId());
-
-			cpAttachmentFileEntryLocalService.updateStatus(
-				userId, cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
-				WorkflowConstants.STATUS_APPROVED, serviceContext,
-				new HashMap<String, Serializable>());
-		}
-	}
-
-	@Override
 	public void deleteCPAttachmentFileEntries(long fileEntryId)
 		throws PortalException {
 
@@ -692,6 +648,49 @@ public class CPAttachmentFileEntryLocalServiceImpl
 			AssetLinkConstants.TYPE_RELATED);
 	}
 
+	@Override
+	public void updateCPAttachmentFileEntries() throws PortalException {
+		_updateCPAttachmentFileEntriesByDisplayDate();
+		_updateCPAttachmentFileEntriesByExpirationDate();
+	}
+
+	public void updateCPAttachmentFileEntriesByDisplayDate(
+			long classNameId, long classPK)
+		throws PortalException {
+
+		List<CPAttachmentFileEntry> cpAttachmentFileEntries = null;
+
+		if (classPK > 0) {
+			cpAttachmentFileEntries =
+				cpAttachmentFileEntryPersistence.findByC_C_LtD_S(
+					classNameId, classPK, new Date(),
+					WorkflowConstants.STATUS_SCHEDULED);
+		}
+		else {
+			cpAttachmentFileEntries =
+				cpAttachmentFileEntryPersistence.findByLtD_S(
+					new Date(), WorkflowConstants.STATUS_SCHEDULED);
+		}
+
+		for (CPAttachmentFileEntry cpAttachmentFileEntry :
+				cpAttachmentFileEntries) {
+
+			long userId = _portal.getValidUserId(
+				cpAttachmentFileEntry.getCompanyId(),
+				cpAttachmentFileEntry.getUserId());
+
+			ServiceContext serviceContext = new ServiceContext();
+
+			serviceContext.setCommand(Constants.UPDATE);
+			serviceContext.setScopeGroupId(cpAttachmentFileEntry.getGroupId());
+
+			cpAttachmentFileEntryLocalService.updateStatus(
+				userId, cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
+				WorkflowConstants.STATUS_APPROVED, serviceContext,
+				new HashMap<String, Serializable>());
+		}
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CPAttachmentFileEntry updateCPAttachmentFileEntry(
@@ -871,50 +870,6 @@ public class CPAttachmentFileEntryLocalServiceImpl
 		return cpAttachmentFileEntry;
 	}
 
-	private void _checkCPAttachmentFileEntriesByDisplayDate()
-		throws PortalException {
-
-		checkCPAttachmentFileEntriesByDisplayDate(0, 0);
-	}
-
-	private void _checkCPAttachmentFileEntriesByExpirationDate()
-		throws PortalException {
-
-		List<CPAttachmentFileEntry> cpAttachmentFileEntries =
-			cpAttachmentFileEntryFinder.findByExpirationDate(
-				new Date(),
-				new QueryDefinition<>(WorkflowConstants.STATUS_APPROVED));
-
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				"Expiring " + cpAttachmentFileEntries.size() +
-					" commerce product attachment file entries");
-		}
-
-		if ((cpAttachmentFileEntries != null) &&
-			!cpAttachmentFileEntries.isEmpty()) {
-
-			for (CPAttachmentFileEntry cpAttachmentFileEntry :
-					cpAttachmentFileEntries) {
-
-				long userId = _portal.getValidUserId(
-					cpAttachmentFileEntry.getCompanyId(),
-					cpAttachmentFileEntry.getUserId());
-
-				ServiceContext serviceContext = new ServiceContext();
-
-				serviceContext.setCommand(Constants.UPDATE);
-				serviceContext.setScopeGroupId(
-					cpAttachmentFileEntry.getGroupId());
-
-				cpAttachmentFileEntryLocalService.updateStatus(
-					userId, cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
-					WorkflowConstants.STATUS_EXPIRED, serviceContext,
-					new HashMap<String, Serializable>());
-			}
-		}
-	}
-
 	private long _getFileEntryId(
 		FileEntry fileEntry, long userId, long groupId, String className,
 		long classPK, ServiceContext serviceContext) {
@@ -1050,6 +1005,50 @@ public class CPAttachmentFileEntryLocalServiceImpl
 			CPAttachmentFileEntry.class.getName(),
 			cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
 			cpAttachmentFileEntry, serviceContext, workflowContext);
+	}
+
+	private void _updateCPAttachmentFileEntriesByDisplayDate()
+		throws PortalException {
+
+		updateCPAttachmentFileEntriesByDisplayDate(0, 0);
+	}
+
+	private void _updateCPAttachmentFileEntriesByExpirationDate()
+		throws PortalException {
+
+		List<CPAttachmentFileEntry> cpAttachmentFileEntries =
+			cpAttachmentFileEntryFinder.findByExpirationDate(
+				new Date(),
+				new QueryDefinition<>(WorkflowConstants.STATUS_APPROVED));
+
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				"Expiring " + cpAttachmentFileEntries.size() +
+					" commerce product attachment file entries");
+		}
+
+		if ((cpAttachmentFileEntries != null) &&
+			!cpAttachmentFileEntries.isEmpty()) {
+
+			for (CPAttachmentFileEntry cpAttachmentFileEntry :
+					cpAttachmentFileEntries) {
+
+				long userId = _portal.getValidUserId(
+					cpAttachmentFileEntry.getCompanyId(),
+					cpAttachmentFileEntry.getUserId());
+
+				ServiceContext serviceContext = new ServiceContext();
+
+				serviceContext.setCommand(Constants.UPDATE);
+				serviceContext.setScopeGroupId(
+					cpAttachmentFileEntry.getGroupId());
+
+				cpAttachmentFileEntryLocalService.updateStatus(
+					userId, cpAttachmentFileEntry.getCPAttachmentFileEntryId(),
+					WorkflowConstants.STATUS_EXPIRED, serviceContext,
+					new HashMap<String, Serializable>());
+			}
+		}
 	}
 
 	private void _validate(

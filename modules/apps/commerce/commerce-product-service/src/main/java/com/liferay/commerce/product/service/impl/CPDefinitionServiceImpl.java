@@ -234,17 +234,6 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 	}
 
 	@Override
-	public CPDefinition cloneCPDefinition(
-			long cpDefinitionId, long groupId, ServiceContext serviceContext)
-		throws PortalException {
-
-		_checkCommerceCatalog(groupId, ActionKeys.UPDATE);
-
-		return cpDefinitionLocalService.cloneCPDefinition(
-			getUserId(), cpDefinitionId, groupId, serviceContext);
-	}
-
-	@Override
 	public CPDefinition copyCPDefinition(
 			long sourceCPDefinitionId, long groupId, int status)
 		throws PortalException {
@@ -253,6 +242,17 @@ public class CPDefinitionServiceImpl extends CPDefinitionServiceBaseImpl {
 
 		return cpDefinitionLocalService.copyCPDefinition(
 			sourceCPDefinitionId, groupId, status);
+	}
+
+	@Override
+	public CPDefinition copyCPDefinition(
+			long cpDefinitionId, long groupId, ServiceContext serviceContext)
+		throws PortalException {
+
+		_checkCommerceCatalog(groupId, ActionKeys.UPDATE);
+
+		return cpDefinitionLocalService.copyCPDefinition(
+			getUserId(), cpDefinitionId, groupId, serviceContext);
 	}
 
 	@Override

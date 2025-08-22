@@ -129,14 +129,6 @@ public class CPTaxCategoryLocalServiceImpl
 	}
 
 	@Override
-	public List<CPTaxCategory> findCPTaxCategoriesByCompanyId(
-		long companyId, String keyword, int start, int end) {
-
-		return cpTaxCategoryFinder.findCPTaxCategoriesByCompanyId(
-			companyId, keyword, start, end);
-	}
-
-	@Override
 	public List<CPTaxCategory> getCPTaxCategories(long companyId) {
 		return cpTaxCategoryPersistence.findByCompanyId(companyId);
 	}
@@ -148,6 +140,14 @@ public class CPTaxCategoryLocalServiceImpl
 
 		return cpTaxCategoryPersistence.findByCompanyId(
 			companyId, start, end, orderByComparator);
+	}
+
+	@Override
+	public List<CPTaxCategory> getCPTaxCategoriesByCompanyId(
+		long companyId, String keyword, int start, int end) {
+
+		return cpTaxCategoryFinder.findCPTaxCategoriesByCompanyId(
+			companyId, keyword, start, end);
 	}
 
 	@Override

@@ -201,19 +201,19 @@ public class CPOptionLocalServiceImpl extends CPOptionLocalServiceBaseImpl {
 	}
 
 	@Override
-	public List<CPOption> findCPOptionByCompanyId(
+	public CPOption getCPOption(long companyId, String key)
+		throws PortalException {
+
+		return cpOptionPersistence.findByC_K(companyId, key);
+	}
+
+	@Override
+	public List<CPOption> getCPOptionByCompanyId(
 		long companyId, int start, int end,
 		OrderByComparator<CPOption> orderByComparator) {
 
 		return cpOptionPersistence.filterFindByCompanyId(
 			companyId, start, end, orderByComparator);
-	}
-
-	@Override
-	public CPOption getCPOption(long companyId, String key)
-		throws PortalException {
-
-		return cpOptionPersistence.findByC_K(companyId, key);
 	}
 
 	@Override

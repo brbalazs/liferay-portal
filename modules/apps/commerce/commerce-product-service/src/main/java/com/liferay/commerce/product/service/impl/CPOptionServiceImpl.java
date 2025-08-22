@@ -135,21 +135,21 @@ public class CPOptionServiceImpl extends CPOptionServiceBaseImpl {
 	}
 
 	@Override
-	public List<CPOption> findCPOptionByCompanyId(
-			long companyId, int start, int end,
-			OrderByComparator<CPOption> orderByComparator)
-		throws PortalException {
-
-		return cpOptionLocalService.findCPOptionByCompanyId(
-			companyId, start, end, orderByComparator);
-	}
-
-	@Override
 	public CPOption getCPOption(long cpOptionId) throws PortalException {
 		_cpOptionModelResourcePermission.check(
 			getPermissionChecker(), cpOptionId, ActionKeys.VIEW);
 
 		return cpOptionLocalService.getCPOption(cpOptionId);
+	}
+
+	@Override
+	public List<CPOption> getCPOptionByCompanyId(
+			long companyId, int start, int end,
+			OrderByComparator<CPOption> orderByComparator)
+		throws PortalException {
+
+		return cpOptionLocalService.getCPOptionByCompanyId(
+			companyId, start, end, orderByComparator);
 	}
 
 	@Override
