@@ -134,7 +134,7 @@ public class CommerceShipmentItemLocalServiceImpl
 
 		// Commerce Order Item
 
-		_commerceOrderItemLocalService.incrementShippedQuantity(
+		_commerceOrderItemLocalService.updateShippedQuantity(
 			commerceShipmentItem.getCommerceOrderItemId(), quantity);
 
 		_reindexCommerceShipment(commerceShipmentItem.getCommerceShipmentId());
@@ -231,7 +231,7 @@ public class CommerceShipmentItemLocalServiceImpl
 
 		try {
 			commerceOrderItem =
-				_commerceOrderItemLocalService.incrementShippedQuantity(
+				_commerceOrderItemLocalService.updateShippedQuantity(
 					commerceShipmentItem.getCommerceOrderItemId(),
 					shippedQuantity.negate());
 
@@ -414,7 +414,7 @@ public class CommerceShipmentItemLocalServiceImpl
 
 		// Commerce order item
 
-		_commerceOrderItemLocalService.incrementShippedQuantity(
+		_commerceOrderItemLocalService.updateShippedQuantity(
 			commerceShipmentItem.getCommerceOrderItemId(), quantityDelta);
 
 		_reindexCommerceShipment(commerceShipmentItem.getCommerceShipmentId());

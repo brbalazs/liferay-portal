@@ -802,7 +802,7 @@ public class DefaultCommerceCheckoutStepHttpHelper
 						commerceShippingMethodId, shippingOptionKey,
 						commerceContext, _portal.getLocale(httpServletRequest));
 
-					return _commerceOrderLocalService.recalculatePrice(
+					return _commerceOrderLocalService.updatePrice(
 						commerceOrder.getCommerceOrderId(), commerceContext);
 				});
 

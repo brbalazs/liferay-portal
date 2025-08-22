@@ -311,7 +311,7 @@ public class CommerceOrderDiscountV2Test {
 			cpInstanceDiscount.getCPInstanceId(), BigDecimal.ONE,
 			commerceContext);
 
-		commerceOrder = _commerceOrderLocalService.applyCouponCode(
+		commerceOrder = _commerceOrderLocalService.updateCouponCode(
 			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
 
 		CommerceMoney totalCommerceMoney =
@@ -565,7 +565,7 @@ public class CommerceOrderDiscountV2Test {
 			cpInstancePlain.getCPInstanceId(), orderedQuantity,
 			commerceContext);
 
-		commerceOrder = _commerceOrderLocalService.applyCouponCode(
+		commerceOrder = _commerceOrderLocalService.updateCouponCode(
 			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
 
 		CommerceMoney totalCommerceMoney =

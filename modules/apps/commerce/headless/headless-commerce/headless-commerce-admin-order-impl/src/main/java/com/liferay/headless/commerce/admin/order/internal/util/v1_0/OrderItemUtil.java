@@ -96,7 +96,7 @@ public class OrderItemUtil {
 		}
 		else {
 			commerceOrderItem =
-				commerceOrderItemService.importCommerceOrderItem(
+				commerceOrderItemService.addOrUpdateCommerceOrderItem(
 					GetterUtil.getString(orderItem.getExternalReferenceCode()),
 					GetterUtil.getLong(orderItem.getId()),
 					commerceOrder.getCommerceOrderId(),
@@ -333,7 +333,7 @@ public class OrderItemUtil {
 			}
 
 			commerceOrderItem =
-				commerceOrderItemService.importCommerceOrderItem(
+				commerceOrderItemService.addOrUpdateCommerceOrderItem(
 					orderItem.getExternalReferenceCode(),
 					GetterUtil.getLong(orderItem.getId()),
 					commerceOrder.getCommerceOrderId(),

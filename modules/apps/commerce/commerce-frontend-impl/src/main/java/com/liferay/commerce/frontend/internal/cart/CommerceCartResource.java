@@ -109,7 +109,7 @@ public class CommerceCartResource {
 				commerceOrder.getCommerceOrderId(),
 				commerceOrder.getCompanyId());
 
-			_commerceOrderService.applyCouponCode(
+			_commerceOrderService.updateCouponCode(
 				commerceOrder.getCommerceOrderId(), couponCode,
 				commerceContext);
 
@@ -148,7 +148,7 @@ public class CommerceCartResource {
 				commerceOrder.getCommerceOrderId(),
 				commerceOrder.getCompanyId());
 
-			_commerceOrderService.applyCouponCode(
+			_commerceOrderService.updateCouponCode(
 				commerceOrder.getCommerceOrderId(), null, commerceContext);
 
 			coupon = new Coupon(StringPool.BLANK);

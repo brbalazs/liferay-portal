@@ -184,7 +184,7 @@ public class CommerceOrderGenerator {
 
 		// Recalculate Price
 
-		commerceOrder = _commerceOrderLocalService.recalculatePrice(
+		commerceOrder = _commerceOrderLocalService.updatePrice(
 			commerceOrder.getCommerceOrderId(), commerceContext);
 
 		CommerceAddress commerceAddress = commerceAddresses.get(0);

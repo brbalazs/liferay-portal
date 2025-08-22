@@ -141,7 +141,7 @@ public class CommerceSubscriptionEntryHelperImpl
 				_addShipment(commerceOrderItem);
 
 				_commerceSubscriptionEntryLocalService.
-					incrementCommerceDeliverySubscriptionEntryCycle(
+					updateCommerceDeliverySubscriptionEntryCycle(
 						commerceSubscriptionEntry.
 							getCommerceSubscriptionEntryId());
 			}
@@ -195,7 +195,7 @@ public class CommerceSubscriptionEntryHelperImpl
 					commerceSubscriptionEntry.getSubscriptionStatus())) {
 
 				_commerceSubscriptionEntryLocalService.
-					incrementCommerceSubscriptionEntryCycle(
+					updateCommerceSubscriptionEntryCycle(
 						commerceSubscriptionEntry.
 							getCommerceSubscriptionEntryId());
 			}

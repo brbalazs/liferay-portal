@@ -256,7 +256,7 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 
 					if (recalculatePrice) {
 						updatedCommerceOrder =
-							_commerceOrderLocalService.recalculatePrice(
+							_commerceOrderLocalService.updatePrice(
 								updatedCommerceOrder.getCommerceOrderId(),
 								commerceContext);
 					}
@@ -410,7 +410,7 @@ public class CommerceOrderEngineImpl implements CommerceOrderEngine {
 				return null;
 			});
 
-		commerceOrder = _commerceOrderLocalService.recalculatePrice(
+		commerceOrder = _commerceOrderLocalService.updatePrice(
 			commerceOrderId, commerceContext);
 
 		commerceOrder.setOrderDate(new Date());

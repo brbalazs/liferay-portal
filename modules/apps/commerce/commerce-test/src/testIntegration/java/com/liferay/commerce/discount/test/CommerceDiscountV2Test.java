@@ -1023,7 +1023,7 @@ public class CommerceDiscountV2Test {
 			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(),
 			BigDecimal.ONE, commerceContext);
 
-		commerceOrder = _commerceOrderLocalService.applyCouponCode(
+		commerceOrder = _commerceOrderLocalService.updateCouponCode(
 			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
 
 		commerceContext = new TestCommerceContext(

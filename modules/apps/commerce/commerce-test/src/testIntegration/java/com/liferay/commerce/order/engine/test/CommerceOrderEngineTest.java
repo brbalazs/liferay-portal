@@ -666,7 +666,7 @@ public class CommerceOrderEngineTest {
 					_commerceOrder.getCommerceOrderId(), 0, null,
 					BigDecimal.ZERO, _commerceContext);
 
-			_commerceOrder = _commerceOrderLocalService.recalculatePrice(
+			_commerceOrder = _commerceOrderLocalService.updatePrice(
 				_commerceOrder.getCommerceOrderId(), _commerceContext);
 
 			_commerceOrderEngine.checkoutCommerceOrder(

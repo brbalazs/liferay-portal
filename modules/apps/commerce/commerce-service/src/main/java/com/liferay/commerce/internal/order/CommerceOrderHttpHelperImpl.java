@@ -746,7 +746,7 @@ public class CommerceOrderHttpHelperImpl implements CommerceOrderHttpHelper {
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		commerceOrder = _commerceOrderLocalService.recalculatePrice(
+		commerceOrder = _commerceOrderLocalService.updatePrice(
 			commerceOrder.getCommerceOrderId(),
 			_getCommerceContext(httpServletRequest));
 

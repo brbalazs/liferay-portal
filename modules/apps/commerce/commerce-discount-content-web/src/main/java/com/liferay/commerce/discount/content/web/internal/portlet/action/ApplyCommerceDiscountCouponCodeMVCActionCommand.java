@@ -64,7 +64,7 @@ public class ApplyCommerceDiscountCouponCodeMVCActionCommand
 			hideDefaultErrorMessage(actionRequest);
 
 			try {
-				_commerceOrderService.applyCouponCode(
+				_commerceOrderService.updateCouponCode(
 					commerceOrder.getCommerceOrderId(), couponCode,
 					commerceContext);
 			}
@@ -82,7 +82,7 @@ public class ApplyCommerceDiscountCouponCodeMVCActionCommand
 			}
 		}
 		else if (cmd.equals(Constants.REMOVE)) {
-			_commerceOrderService.applyCouponCode(
+			_commerceOrderService.updateCouponCode(
 				commerceOrder.getCommerceOrderId(), null, commerceContext);
 		}
 

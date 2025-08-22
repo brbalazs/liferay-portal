@@ -398,7 +398,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		}
 
 		return _toCart(
-			_commerceOrderService.applyCouponCode(
+			_commerceOrderService.updateCouponCode(
 				commerceOrder.getCommerceOrderId(), couponCode.getCode(),
 				_commerceContextFactory.create(
 					commerceOrder.getCommerceAccountId(),
@@ -425,7 +425,7 @@ public class CartResourceImpl extends BaseCartResourceImpl {
 		}
 
 		return _toCart(
-			_commerceOrderService.applyCouponCode(
+			_commerceOrderService.updateCouponCode(
 				cartId, couponCode.getCode(),
 				_commerceContextFactory.create(
 					commerceOrder.getCommerceAccountId(),

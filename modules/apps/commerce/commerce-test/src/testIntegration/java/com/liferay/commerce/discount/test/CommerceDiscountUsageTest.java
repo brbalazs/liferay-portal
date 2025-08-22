@@ -219,7 +219,7 @@ public class CommerceDiscountUsageTest {
 			commerceOrder.getCommerceOrderId(), _cpInstance.getCPInstanceId(),
 			BigDecimal.ONE, commerceContext);
 
-		commerceOrder = _commerceOrderLocalService.applyCouponCode(
+		commerceOrder = _commerceOrderLocalService.updateCouponCode(
 			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
 
 		Assert.assertEquals(couponCode, commerceOrder.getCouponCode());
@@ -364,7 +364,7 @@ public class CommerceDiscountUsageTest {
 
 		Assert.assertEquals(0, commerceDiscountUsageCount);
 
-		commerceOrder = _commerceOrderLocalService.applyCouponCode(
+		commerceOrder = _commerceOrderLocalService.updateCouponCode(
 			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
 
 		_commerceOrders.add(commerceOrder);
@@ -450,7 +450,7 @@ public class CommerceDiscountUsageTest {
 			commerceOrder.getCommerceOrderId(), _cpInstance.getCPInstanceId(),
 			BigDecimal.ONE, commerceContext);
 
-		_commerceOrderLocalService.applyCouponCode(
+		_commerceOrderLocalService.updateCouponCode(
 			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
 	}
 
@@ -531,7 +531,7 @@ public class CommerceDiscountUsageTest {
 			commerceOrder.getCommerceOrderId(), cpInstance.getCPInstanceId(),
 			BigDecimal.ONE, commerceContext);
 
-		commerceOrder = _commerceOrderLocalService.applyCouponCode(
+		commerceOrder = _commerceOrderLocalService.updateCouponCode(
 			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
 
 		_commerceOrders.add(commerceOrder);
@@ -543,7 +543,7 @@ public class CommerceDiscountUsageTest {
 
 		Assert.assertEquals(0, commerceDiscountUsageCount);
 
-		_commerceOrderLocalService.applyCouponCode(
+		_commerceOrderLocalService.updateCouponCode(
 			commerceOrder.getCommerceOrderId(), null, commerceContext);
 
 		commerceDiscountUsageCount =
@@ -706,7 +706,7 @@ public class CommerceDiscountUsageTest {
 				commerceOrder.getCommerceOrderId(),
 				_cpInstance.getCPInstanceId(), BigDecimal.ONE, commerceContext);
 
-			commerceOrder = _commerceOrderLocalService.applyCouponCode(
+			commerceOrder = _commerceOrderLocalService.updateCouponCode(
 				commerceOrder.getCommerceOrderId(), couponCode,
 				commerceContext);
 
@@ -776,7 +776,7 @@ public class CommerceDiscountUsageTest {
 			commerceOrder.getCommerceOrderId(), _cpInstance.getCPInstanceId(),
 			BigDecimal.ONE, commerceContext);
 
-		commerceOrder = _commerceOrderLocalService.applyCouponCode(
+		commerceOrder = _commerceOrderLocalService.updateCouponCode(
 			commerceOrder.getCommerceOrderId(), couponCode, commerceContext);
 
 		BigDecimal actualPrice = BigDecimal.ZERO;

@@ -532,6 +532,75 @@ public class CommerceOrderItemLocalServiceTest {
 	}
 
 	@Test
+	public void testAddOrUpdateCommerceOrderItemV2() throws Exception {
+		_commerceInventoryWarehouse =
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouse(
+				ServiceContextTestUtil.getServiceContext(_group.getGroupId()));
+
+		CommerceTestUtil.addWarehouseCommerceChannelRel(
+			_commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
+			_commerceChannel.getCommerceChannelId());
+
+		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
+
+		_cpInstances.add(cpInstance);
+
+		_commerceInventoryWarehouseItems.add(
+			CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
+				_user.getUserId(), _commerceInventoryWarehouse,
+				BigDecimal.valueOf(2), cpInstance.getSku(), StringPool.BLANK));
+
+		CPDefinition cpDefinition = cpInstance.getCPDefinition();
+
+		CPOption cpOption = _cpOptionLocalService.addCPOption(
+			null, _user.getUserId(),
+			HashMapBuilder.put(
+				LocaleUtil.getSiteDefault(), "PCB Reference"
+			).build(),
+			RandomTestUtil.randomLocaleStringMap(), "text", false, false, false,
+			"pcb-reference", _serviceContext);
+
+		_cpOptions.add(cpOption);
+
+		CPDefinitionOptionRel cpDefinitionOptionRel =
+			CPTestUtil.addCPDefinitionOptionRel(
+				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
+				cpOption.getCPOptionId());
+
+		_cpDefinitionOptionRels.add(cpDefinitionOptionRel);
+
+		CommerceOrder commerceOrder =
+			_commerceOrderLocalService.addCommerceOrder(
+				_user.getUserId(), _commerceChannel.getGroupId(),
+				_accountEntry.getAccountEntryId(), _commerceCurrency.getCode(),
+				0);
+
+		_commerceOrders.add(commerceOrder);
+
+		String json = CPJSONUtil.toJSONArray(
+			JSONUtil.put(
+				"key", "pcb-reference"
+			).put(
+				"skuOptionKey", "pcb-reference"
+			).put(
+				"skuOptionName", "PCB Reference"
+			).put(
+				"value", new String[] {"PCB XYZ"}
+			).toString()
+		).toString();
+
+		CommerceOrderItem commerceOrderItem =
+			_commerceOrderItemLocalService.addOrUpdateCommerceOrderItem(
+				null, _user.getUserId(), 0, commerceOrder.getCommerceOrderId(),
+				cpInstance.getCPInstanceId(), null, json, BigDecimal.ONE,
+				BigDecimal.ONE, null, null, _serviceContext);
+
+		_commerceOrderItems.add(commerceOrderItem);
+
+		Assert.assertEquals(json, commerceOrderItem.getJson());
+	}
+
+	@Test
 	public void testAddProductBundleDynamicOptionLinkedToSKUAlreadyInOrder()
 		throws Exception {
 
@@ -1310,75 +1379,6 @@ public class CommerceOrderItemLocalServiceTest {
 		}
 	}
 
-	@Test
-	public void testImportCommerceOrderItem() throws Exception {
-		_commerceInventoryWarehouse =
-			CommerceInventoryTestUtil.addCommerceInventoryWarehouse(
-				ServiceContextTestUtil.getServiceContext(_group.getGroupId()));
-
-		CommerceTestUtil.addWarehouseCommerceChannelRel(
-			_commerceInventoryWarehouse.getCommerceInventoryWarehouseId(),
-			_commerceChannel.getCommerceChannelId());
-
-		CPInstance cpInstance = CPTestUtil.addCPInstance(_group.getGroupId());
-
-		_cpInstances.add(cpInstance);
-
-		_commerceInventoryWarehouseItems.add(
-			CommerceInventoryTestUtil.addCommerceInventoryWarehouseItem(
-				_user.getUserId(), _commerceInventoryWarehouse,
-				BigDecimal.valueOf(2), cpInstance.getSku(), StringPool.BLANK));
-
-		CPDefinition cpDefinition = cpInstance.getCPDefinition();
-
-		CPOption cpOption = _cpOptionLocalService.addCPOption(
-			null, _user.getUserId(),
-			HashMapBuilder.put(
-				LocaleUtil.getSiteDefault(), "PCB Reference"
-			).build(),
-			RandomTestUtil.randomLocaleStringMap(), "text", false, false, false,
-			"pcb-reference", _serviceContext);
-
-		_cpOptions.add(cpOption);
-
-		CPDefinitionOptionRel cpDefinitionOptionRel =
-			CPTestUtil.addCPDefinitionOptionRel(
-				_commerceCatalog.getGroupId(), cpDefinition.getCPDefinitionId(),
-				cpOption.getCPOptionId());
-
-		_cpDefinitionOptionRels.add(cpDefinitionOptionRel);
-
-		CommerceOrder commerceOrder =
-			_commerceOrderLocalService.addCommerceOrder(
-				_user.getUserId(), _commerceChannel.getGroupId(),
-				_accountEntry.getAccountEntryId(), _commerceCurrency.getCode(),
-				0);
-
-		_commerceOrders.add(commerceOrder);
-
-		String json = CPJSONUtil.toJSONArray(
-			JSONUtil.put(
-				"key", "pcb-reference"
-			).put(
-				"skuOptionKey", "pcb-reference"
-			).put(
-				"skuOptionName", "PCB Reference"
-			).put(
-				"value", new String[] {"PCB XYZ"}
-			).toString()
-		).toString();
-
-		CommerceOrderItem commerceOrderItem =
-			_commerceOrderItemLocalService.importCommerceOrderItem(
-				_user.getUserId(), null, 0, commerceOrder.getCommerceOrderId(),
-				cpInstance.getCPInstanceId(), null, json, BigDecimal.ONE,
-				BigDecimal.ONE, null, null, _serviceContext);
-
-		_commerceOrderItems.add(commerceOrderItem);
-
-		Assert.assertEquals(json, commerceOrderItem.getJson());
-	}
-
 	@Test(expected = ProductBundleException.class)
 	public void testUpdateChildOrderItemProductBundle() throws Exception {
 		frutillaRule.scenario(
@@ -2145,8 +2145,7 @@ public class CommerceOrderItemLocalServiceTest {
 			long cpDefinitionId, String key)
 		throws Exception {
 
-		_cpInstanceLocalService.addCPInstances(
-			cpDefinitionId, _serviceContext);
+		_cpInstanceLocalService.addCPInstances(cpDefinitionId, _serviceContext);
 
 		List<CPInstance> bundleCPDefinitionApprovedCPInstances =
 			_cpInstanceLocalService.getCPDefinitionApprovedCPInstances(
