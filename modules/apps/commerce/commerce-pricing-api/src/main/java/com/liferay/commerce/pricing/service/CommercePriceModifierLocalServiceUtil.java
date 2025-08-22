@@ -138,10 +138,6 @@ public class CommercePriceModifierLocalServiceUtil {
 			expirationDateMinute, neverExpire, serviceContext);
 	}
 
-	public static void checkCommercePriceModifiers() throws PortalException {
-		getService().checkCommercePriceModifiers();
-	}
-
 	/**
 	 * Creates a new commerce price modifier with the primary key. Does not add the commerce price modifier to the database.
 	 *
@@ -544,6 +540,10 @@ public class CommercePriceModifierLocalServiceUtil {
 			displayDateMinute, expirationDateMonth, expirationDateDay,
 			expirationDateYear, expirationDateHour, expirationDateMinute,
 			neverExpire, serviceContext);
+	}
+
+	public static void updateCommercePriceModifiers() throws PortalException {
+		getService().updateCommercePriceModifiers();
 	}
 
 	public static CommercePriceModifier updateStatus(
