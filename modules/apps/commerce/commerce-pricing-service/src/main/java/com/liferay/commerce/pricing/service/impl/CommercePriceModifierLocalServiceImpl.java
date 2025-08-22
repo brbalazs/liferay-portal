@@ -250,12 +250,6 @@ public class CommercePriceModifierLocalServiceImpl
 	}
 
 	@Override
-	public void checkCommercePriceModifiers() throws PortalException {
-		_checkCommercePriceModifiersByDisplayDate();
-		_checkCommercePriceModifiersByExpirationDate();
-	}
-
-	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public CommercePriceModifier deleteCommercePriceModifier(
 			CommercePriceModifier commercePriceModifier)
@@ -446,6 +440,12 @@ public class CommercePriceModifierLocalServiceImpl
 	}
 
 	@Override
+	public void updateCommercePriceModifiers() throws PortalException {
+		_updateCommercePriceModifiersByDisplayDate();
+		_updateCommercePriceModifiersByExpirationDate();
+	}
+
+	@Override
 	public CommercePriceModifier updateStatus(
 			long userId, long commercePriceModifierId, int status,
 			ServiceContext serviceContext,
@@ -496,69 +496,6 @@ public class CommercePriceModifierLocalServiceImpl
 		return commercePriceModifierPersistence.update(commercePriceModifier);
 	}
 
-	private void _checkCommercePriceModifiersByDisplayDate()
-		throws PortalException {
-
-		List<CommercePriceModifier> commercePriceModifiers =
-			commercePriceModifierPersistence.findByLtD_S(
-				new Date(), WorkflowConstants.STATUS_SCHEDULED);
-
-		for (CommercePriceModifier commercePriceModifier :
-				commercePriceModifiers) {
-
-			long userId = _portal.getValidUserId(
-				commercePriceModifier.getCompanyId(),
-				commercePriceModifier.getUserId());
-
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setCommand(Constants.UPDATE);
-			serviceContext.setScopeGroupId(commercePriceModifier.getGroupId());
-
-			commercePriceModifierLocalService.updateStatus(
-				userId, commercePriceModifier.getCommercePriceModifierId(),
-				WorkflowConstants.STATUS_APPROVED, serviceContext,
-				new HashMap<String, Serializable>());
-		}
-	}
-
-	private void _checkCommercePriceModifiersByExpirationDate()
-		throws PortalException {
-
-		List<CommercePriceModifier> commercePriceModifiers =
-			commercePriceModifierPersistence.findByLtE_S(
-				new Date(), WorkflowConstants.STATUS_APPROVED);
-
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				"Expiring " + commercePriceModifiers.size() +
-					" commerce price modifiers");
-		}
-
-		if ((commercePriceModifiers != null) &&
-			!commercePriceModifiers.isEmpty()) {
-
-			for (CommercePriceModifier commercePriceModifier :
-					commercePriceModifiers) {
-
-				long userId = _portal.getValidUserId(
-					commercePriceModifier.getCompanyId(),
-					commercePriceModifier.getUserId());
-
-				ServiceContext serviceContext = new ServiceContext();
-
-				serviceContext.setCommand(Constants.UPDATE);
-				serviceContext.setScopeGroupId(
-					commercePriceModifier.getGroupId());
-
-				commercePriceModifierLocalService.updateStatus(
-					userId, commercePriceModifier.getCommercePriceModifierId(),
-					WorkflowConstants.STATUS_EXPIRED, serviceContext,
-					new HashMap<String, Serializable>());
-			}
-		}
-	}
-
 	private long[] _getAssetCategoryIds(long cpDefinitionId) {
 		try {
 			AssetEntry assetEntry = _assetEntryLocalService.getEntry(
@@ -593,6 +530,69 @@ public class CommercePriceModifierLocalServiceImpl
 			CommercePriceModifier.class.getName(),
 			commercePriceModifier.getCommercePriceModifierId(),
 			commercePriceModifier, serviceContext, workflowContext);
+	}
+
+	private void _updateCommercePriceModifiersByDisplayDate()
+		throws PortalException {
+
+		List<CommercePriceModifier> commercePriceModifiers =
+			commercePriceModifierPersistence.findByLtD_S(
+				new Date(), WorkflowConstants.STATUS_SCHEDULED);
+
+		for (CommercePriceModifier commercePriceModifier :
+				commercePriceModifiers) {
+
+			long userId = _portal.getValidUserId(
+				commercePriceModifier.getCompanyId(),
+				commercePriceModifier.getUserId());
+
+			ServiceContext serviceContext = new ServiceContext();
+
+			serviceContext.setCommand(Constants.UPDATE);
+			serviceContext.setScopeGroupId(commercePriceModifier.getGroupId());
+
+			commercePriceModifierLocalService.updateStatus(
+				userId, commercePriceModifier.getCommercePriceModifierId(),
+				WorkflowConstants.STATUS_APPROVED, serviceContext,
+				new HashMap<String, Serializable>());
+		}
+	}
+
+	private void _updateCommercePriceModifiersByExpirationDate()
+		throws PortalException {
+
+		List<CommercePriceModifier> commercePriceModifiers =
+			commercePriceModifierPersistence.findByLtE_S(
+				new Date(), WorkflowConstants.STATUS_APPROVED);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				"Expiring " + commercePriceModifiers.size() +
+					" commerce price modifiers");
+		}
+
+		if ((commercePriceModifiers != null) &&
+			!commercePriceModifiers.isEmpty()) {
+
+			for (CommercePriceModifier commercePriceModifier :
+					commercePriceModifiers) {
+
+				long userId = _portal.getValidUserId(
+					commercePriceModifier.getCompanyId(),
+					commercePriceModifier.getUserId());
+
+				ServiceContext serviceContext = new ServiceContext();
+
+				serviceContext.setCommand(Constants.UPDATE);
+				serviceContext.setScopeGroupId(
+					commercePriceModifier.getGroupId());
+
+				commercePriceModifierLocalService.updateStatus(
+					userId, commercePriceModifier.getCommercePriceModifierId(),
+					WorkflowConstants.STATUS_EXPIRED, serviceContext,
+					new HashMap<String, Serializable>());
+			}
+		}
 	}
 
 	private void _validate(
