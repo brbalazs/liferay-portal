@@ -68,13 +68,6 @@ public class CommerceOrderTypeLocalServiceWrapper
 			expirationDateMinute, neverExpire, serviceContext);
 	}
 
-	@Override
-	public void checkCommerceOrderTypes()
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_commerceOrderTypeLocalService.checkCommerceOrderTypes();
-	}
-
 	/**
 	 * Creates a new commerce order type with the primary key. Does not add the commerce order type to the database.
 	 *
@@ -482,6 +475,13 @@ public class CommerceOrderTypeLocalServiceWrapper
 		return _commerceOrderTypeLocalService.
 			updateCommerceOrderTypeExternalReferenceCode(
 				externalReferenceCode, commerceOrderTypeId);
+	}
+
+	@Override
+	public void updateCommerceOrderTypes()
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commerceOrderTypeLocalService.updateCommerceOrderTypes();
 	}
 
 	@Override

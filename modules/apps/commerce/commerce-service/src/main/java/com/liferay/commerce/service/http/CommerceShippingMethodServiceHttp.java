@@ -686,15 +686,16 @@ public class CommerceShippingMethodServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.model.CommerceShippingMethod setActive(
-			HttpPrincipal httpPrincipal, long commerceShippingMethodId,
-			boolean active)
+	public static com.liferay.commerce.model.CommerceShippingMethod
+			updateActive(
+				HttpPrincipal httpPrincipal, long commerceShippingMethodId,
+				boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CommerceShippingMethodServiceUtil.class, "setActive",
-				_setActiveParameterTypes15);
+				CommerceShippingMethodServiceUtil.class, "updateActive",
+				_updateActiveParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceShippingMethodId, active);
@@ -880,9 +881,8 @@ public class CommerceShippingMethodServiceHttp {
 		_getCommerceShippingMethodsCountParameterTypes14 = new Class[] {
 			long.class
 		};
-	private static final Class<?>[] _setActiveParameterTypes15 = new Class[] {
-		long.class, boolean.class
-	};
+	private static final Class<?>[] _updateActiveParameterTypes15 =
+		new Class[] {long.class, boolean.class};
 	private static final Class<?>[]
 		_updateCommerceShippingMethodParameterTypes16 = new Class[] {
 			com.liferay.commerce.model.CommerceShippingMethod.class

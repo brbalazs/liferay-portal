@@ -130,16 +130,6 @@ public class CommerceOrderLocalServiceWrapper
 			commerceContext, serviceContext);
 	}
 
-	@Override
-	public com.liferay.commerce.model.CommerceOrder applyCouponCode(
-			long commerceOrderId, String couponCode,
-			com.liferay.commerce.context.CommerceContext commerceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderLocalService.applyCouponCode(
-			commerceOrderId, couponCode, commerceContext);
-	}
-
 	/**
 	 * Creates a new commerce order with the primary key. Does not add the commerce order to the database.
 	 *
@@ -750,16 +740,6 @@ public class CommerceOrderLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.model.CommerceOrder recalculatePrice(
-			long commerceOrderId,
-			com.liferay.commerce.context.CommerceContext commerceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderLocalService.recalculatePrice(
-			commerceOrderId, commerceContext);
-	}
-
-	@Override
 	public com.liferay.commerce.model.CommerceOrder reorderCommerceOrder(
 			long userId, long commerceOrderId,
 			com.liferay.commerce.context.CommerceContext commerceContext)
@@ -1172,6 +1152,16 @@ public class CommerceOrderLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.model.CommerceOrder updateCouponCode(
+			long commerceOrderId, String couponCode,
+			com.liferay.commerce.context.CommerceContext commerceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderLocalService.updateCouponCode(
+			commerceOrderId, couponCode, commerceContext);
+	}
+
+	@Override
 	public com.liferay.commerce.model.CommerceOrder updateInfo(
 			long commerceOrderId, String printedNote,
 			int requestedDeliveryDateMonth, int requestedDeliveryDateDay,
@@ -1217,6 +1207,16 @@ public class CommerceOrderLocalServiceWrapper
 
 		return _commerceOrderLocalService.updatePaymentStatusAndTransactionId(
 			userId, commerceOrderId, paymentStatus, transactionId);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceOrder updatePrice(
+			long commerceOrderId,
+			com.liferay.commerce.context.CommerceContext commerceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderLocalService.updatePrice(
+			commerceOrderId, commerceContext);
 	}
 
 	@Override

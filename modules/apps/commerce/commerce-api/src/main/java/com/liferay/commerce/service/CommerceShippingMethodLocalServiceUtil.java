@@ -394,11 +394,11 @@ public class CommerceShippingMethodLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static CommerceShippingMethod setActive(
+	public static CommerceShippingMethod updateActive(
 			long commerceShippingMethodId, boolean active)
 		throws PortalException {
 
-		return getService().setActive(commerceShippingMethodId, active);
+		return getService().updateActive(commerceShippingMethodId, active);
 	}
 
 	/**

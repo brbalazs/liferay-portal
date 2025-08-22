@@ -64,6 +64,15 @@ public interface CommerceOrderItemService extends BaseService {
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws PortalException;
 
+	public CommerceOrderItem addOrUpdateCommerceOrderItem(
+			String externalReferenceCode, long commerceOrderItemId,
+			long commerceOrderId, long cpInstanceId,
+			String cpMeasurementUnitKey, String json, BigDecimal quantity,
+			BigDecimal shippedQuantity,
+			BigDecimal unitOfMeasureIncrementalOrderQuantity,
+			String unitOfMeasureKey, ServiceContext serviceContext)
+		throws PortalException;
+
 	public int countSubscriptionCommerceOrderItems(long commerceOrderId)
 		throws PortalException;
 
@@ -160,15 +169,6 @@ public interface CommerceOrderItemService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<CommerceOrderItem> getSupplierCommerceOrderItems(
 			long customerCommerceOrderItemId, int start, int end)
-		throws PortalException;
-
-	public CommerceOrderItem importCommerceOrderItem(
-			String externalReferenceCode, long commerceOrderItemId,
-			long commerceOrderId, long cpInstanceId,
-			String cpMeasurementUnitKey, String json, BigDecimal quantity,
-			BigDecimal shippedQuantity,
-			BigDecimal unitOfMeasureIncrementalOrderQuantity,
-			String unitOfMeasureKey, ServiceContext serviceContext)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

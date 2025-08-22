@@ -386,15 +386,6 @@ public interface CommerceSubscriptionEntryLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public CommerceSubscriptionEntry
-			incrementCommerceDeliverySubscriptionEntryCycle(
-				long commerceSubscriptionEntryId)
-		throws PortalException;
-
-	public CommerceSubscriptionEntry incrementCommerceSubscriptionEntryCycle(
-			long commerceSubscriptionEntryId)
-		throws PortalException;
-
 	/**
 	 * @deprecated As of Athanasius (7.3.x)
 	 */
@@ -413,6 +404,11 @@ public interface CommerceSubscriptionEntryLocalService
 				long companyId, long[] groupIds, Long maxSubscriptionCycles,
 				Integer subscriptionStatus, String keywords, int start, int end,
 				Sort sort)
+		throws PortalException;
+
+	public CommerceSubscriptionEntry
+			updateCommerceDeliverySubscriptionEntryCycle(
+				long commerceSubscriptionEntryId)
 		throws PortalException;
 
 	/**
@@ -459,6 +455,10 @@ public interface CommerceSubscriptionEntryLocalService
 			int deliveryNextIterationDateDay, int deliveryNextIterationDateYear,
 			int deliveryNextIterationDateHour,
 			int deliveryNextIterationDateMinute)
+		throws PortalException;
+
+	public CommerceSubscriptionEntry updateCommerceSubscriptionEntryCycle(
+			long commerceSubscriptionEntryId)
 		throws PortalException;
 
 	/**

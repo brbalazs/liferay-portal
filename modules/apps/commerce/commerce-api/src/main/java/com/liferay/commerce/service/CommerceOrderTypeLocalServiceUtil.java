@@ -74,10 +74,6 @@ public class CommerceOrderTypeLocalServiceUtil {
 			expirationDateMinute, neverExpire, serviceContext);
 	}
 
-	public static void checkCommerceOrderTypes() throws PortalException {
-		getService().checkCommerceOrderTypes();
-	}
-
 	/**
 	 * Creates a new commerce order type with the primary key. Does not add the commerce order type to the database.
 	 *
@@ -429,6 +425,10 @@ public class CommerceOrderTypeLocalServiceUtil {
 
 		return getService().updateCommerceOrderTypeExternalReferenceCode(
 			externalReferenceCode, commerceOrderTypeId);
+	}
+
+	public static void updateCommerceOrderTypes() throws PortalException {
+		getService().updateCommerceOrderTypes();
 	}
 
 	public static CommerceOrderType updateStatus(

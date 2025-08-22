@@ -553,28 +553,6 @@ public class CommerceSubscriptionEntryLocalServiceWrapper
 			primaryKeyObj);
 	}
 
-	@Override
-	public com.liferay.commerce.model.CommerceSubscriptionEntry
-			incrementCommerceDeliverySubscriptionEntryCycle(
-				long commerceSubscriptionEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceSubscriptionEntryLocalService.
-			incrementCommerceDeliverySubscriptionEntryCycle(
-				commerceSubscriptionEntryId);
-	}
-
-	@Override
-	public com.liferay.commerce.model.CommerceSubscriptionEntry
-			incrementCommerceSubscriptionEntryCycle(
-				long commerceSubscriptionEntryId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceSubscriptionEntryLocalService.
-			incrementCommerceSubscriptionEntryCycle(
-				commerceSubscriptionEntryId);
-	}
-
 	/**
 	 * @deprecated As of Athanasius (7.3.x)
 	 */
@@ -607,6 +585,17 @@ public class CommerceSubscriptionEntryLocalServiceWrapper
 			searchCommerceSubscriptionEntries(
 				companyId, groupIds, maxSubscriptionCycles, subscriptionStatus,
 				keywords, start, end, sort);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceSubscriptionEntry
+			updateCommerceDeliverySubscriptionEntryCycle(
+				long commerceSubscriptionEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceSubscriptionEntryLocalService.
+			updateCommerceDeliverySubscriptionEntryCycle(
+				commerceSubscriptionEntryId);
 	}
 
 	/**
@@ -693,6 +682,16 @@ public class CommerceSubscriptionEntryLocalServiceWrapper
 				deliveryNextIterationDateMonth, deliveryNextIterationDateDay,
 				deliveryNextIterationDateYear, deliveryNextIterationDateHour,
 				deliveryNextIterationDateMinute);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceSubscriptionEntry
+			updateCommerceSubscriptionEntryCycle(
+				long commerceSubscriptionEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceSubscriptionEntryLocalService.
+			updateCommerceSubscriptionEntryCycle(commerceSubscriptionEntryId);
 	}
 
 	/**

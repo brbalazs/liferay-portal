@@ -110,16 +110,6 @@ public class CommerceOrderServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.model.CommerceOrder applyCouponCode(
-			long commerceOrderId, String couponCode,
-			com.liferay.commerce.context.CommerceContext commerceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderService.applyCouponCode(
-			commerceOrderId, couponCode, commerceContext);
-	}
-
-	@Override
 	public void deleteAttachmentFileEntry(
 			long attachmentFileEntryId, long commerceOrderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -687,6 +677,16 @@ public class CommerceOrderServiceWrapper
 		return _commerceOrderService.updateCommerceShippingMethod(
 			commerceOrderId, commerceShippingMethodId,
 			commerceShippingOptionName, commerceContext, locale);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceOrder updateCouponCode(
+			long commerceOrderId, String couponCode,
+			com.liferay.commerce.context.CommerceContext commerceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderService.updateCouponCode(
+			commerceOrderId, couponCode, commerceContext);
 	}
 
 	@Override

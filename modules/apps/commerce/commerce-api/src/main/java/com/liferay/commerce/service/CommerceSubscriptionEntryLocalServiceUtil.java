@@ -477,24 +477,6 @@ public class CommerceSubscriptionEntryLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static CommerceSubscriptionEntry
-			incrementCommerceDeliverySubscriptionEntryCycle(
-				long commerceSubscriptionEntryId)
-		throws PortalException {
-
-		return getService().incrementCommerceDeliverySubscriptionEntryCycle(
-			commerceSubscriptionEntryId);
-	}
-
-	public static CommerceSubscriptionEntry
-			incrementCommerceSubscriptionEntryCycle(
-				long commerceSubscriptionEntryId)
-		throws PortalException {
-
-		return getService().incrementCommerceSubscriptionEntryCycle(
-			commerceSubscriptionEntryId);
-	}
-
 	/**
 	 * @deprecated As of Athanasius (7.3.x)
 	 */
@@ -521,6 +503,15 @@ public class CommerceSubscriptionEntryLocalServiceUtil {
 		return getService().searchCommerceSubscriptionEntries(
 			companyId, groupIds, maxSubscriptionCycles, subscriptionStatus,
 			keywords, start, end, sort);
+	}
+
+	public static CommerceSubscriptionEntry
+			updateCommerceDeliverySubscriptionEntryCycle(
+				long commerceSubscriptionEntryId)
+		throws PortalException {
+
+		return getService().updateCommerceDeliverySubscriptionEntryCycle(
+			commerceSubscriptionEntryId);
 	}
 
 	/**
@@ -594,6 +585,15 @@ public class CommerceSubscriptionEntryLocalServiceUtil {
 			deliveryNextIterationDateMonth, deliveryNextIterationDateDay,
 			deliveryNextIterationDateYear, deliveryNextIterationDateHour,
 			deliveryNextIterationDateMinute);
+	}
+
+	public static CommerceSubscriptionEntry
+			updateCommerceSubscriptionEntryCycle(
+				long commerceSubscriptionEntryId)
+		throws PortalException {
+
+		return getService().updateCommerceSubscriptionEntryCycle(
+			commerceSubscriptionEntryId);
 	}
 
 	/**

@@ -132,7 +132,7 @@ public interface CommerceShippingMethodService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
-	public CommerceShippingMethod setActive(
+	public CommerceShippingMethod updateActive(
 			long commerceShippingMethodId, boolean active)
 		throws PortalException;
 

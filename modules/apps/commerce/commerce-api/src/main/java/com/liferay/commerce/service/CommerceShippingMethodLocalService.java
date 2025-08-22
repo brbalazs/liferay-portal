@@ -322,7 +322,7 @@ public interface CommerceShippingMethodLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public CommerceShippingMethod setActive(
+	public CommerceShippingMethod updateActive(
 			long commerceShippingMethodId, boolean active)
 		throws PortalException;
 

@@ -111,15 +111,6 @@ public class CommerceOrderServiceUtil {
 			commerceContext, serviceContext);
 	}
 
-	public static CommerceOrder applyCouponCode(
-			long commerceOrderId, String couponCode,
-			com.liferay.commerce.context.CommerceContext commerceContext)
-		throws PortalException {
-
-		return getService().applyCouponCode(
-			commerceOrderId, couponCode, commerceContext);
-	}
-
 	public static void deleteAttachmentFileEntry(
 			long attachmentFileEntryId, long commerceOrderId)
 		throws PortalException {
@@ -613,6 +604,15 @@ public class CommerceOrderServiceUtil {
 		return getService().updateCommerceShippingMethod(
 			commerceOrderId, commerceShippingMethodId,
 			commerceShippingOptionName, commerceContext, locale);
+	}
+
+	public static CommerceOrder updateCouponCode(
+			long commerceOrderId, String couponCode,
+			com.liferay.commerce.context.CommerceContext commerceContext)
+		throws PortalException {
+
+		return getService().updateCouponCode(
+			commerceOrderId, couponCode, commerceContext);
 	}
 
 	public static CommerceOrder updateInfo(

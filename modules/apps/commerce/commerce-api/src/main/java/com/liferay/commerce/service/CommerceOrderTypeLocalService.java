@@ -86,8 +86,6 @@ public interface CommerceOrderTypeLocalService
 			ServiceContext serviceContext)
 		throws PortalException;
 
-	public void checkCommerceOrderTypes() throws PortalException;
-
 	/**
 	 * Creates a new commerce order type with the primary key. Does not add the commerce order type to the database.
 	 *
@@ -352,6 +350,8 @@ public interface CommerceOrderTypeLocalService
 	public CommerceOrderType updateCommerceOrderTypeExternalReferenceCode(
 			String externalReferenceCode, long commerceOrderTypeId)
 		throws PortalException;
+
+	public void updateCommerceOrderTypes() throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrderType updateStatus(

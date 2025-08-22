@@ -196,11 +196,11 @@ public class CommerceShippingMethodServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.model.CommerceShippingMethod setActive(
+	public com.liferay.commerce.model.CommerceShippingMethod updateActive(
 			long commerceShippingMethodId, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _commerceShippingMethodService.setActive(
+		return _commerceShippingMethodService.updateActive(
 			commerceShippingMethodId, active);
 	}
 

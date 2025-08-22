@@ -131,9 +131,6 @@ public interface CommerceShipmentService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
-	public CommerceShipment reprocessCommerceShipment(long commerceShipmentId)
-		throws PortalException;
-
 	public CommerceShipment updateAddress(
 			String externalReferenceCode, long commerceShipmentId, String name,
 			String description, String street1, String street2, String street3,
@@ -148,6 +145,9 @@ public interface CommerceShipmentService extends BaseService {
 
 	public CommerceShipment updateCommerceShipment(
 			CommerceShipment commerceShipment)
+		throws PortalException;
+
+	public CommerceShipment updateCommerceShipment(long commerceShipmentId)
 		throws PortalException;
 
 	public CommerceShipment updateCommerceShipment(

@@ -58,6 +58,26 @@ public class CommerceOrderItemServiceWrapper
 	}
 
 	@Override
+	public com.liferay.commerce.model.CommerceOrderItem
+			addOrUpdateCommerceOrderItem(
+				String externalReferenceCode, long commerceOrderItemId,
+				long commerceOrderId, long cpInstanceId,
+				String cpMeasurementUnitKey, String json,
+				java.math.BigDecimal quantity,
+				java.math.BigDecimal shippedQuantity,
+				java.math.BigDecimal unitOfMeasureIncrementalOrderQuantity,
+				String unitOfMeasureKey,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceOrderItemService.addOrUpdateCommerceOrderItem(
+			externalReferenceCode, commerceOrderItemId, commerceOrderId,
+			cpInstanceId, cpMeasurementUnitKey, json, quantity, shippedQuantity,
+			unitOfMeasureIncrementalOrderQuantity, unitOfMeasureKey,
+			serviceContext);
+	}
+
+	@Override
 	public int countSubscriptionCommerceOrderItems(long commerceOrderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -253,24 +273,6 @@ public class CommerceOrderItemServiceWrapper
 
 		return _commerceOrderItemService.getSupplierCommerceOrderItems(
 			customerCommerceOrderItemId, start, end);
-	}
-
-	@Override
-	public com.liferay.commerce.model.CommerceOrderItem importCommerceOrderItem(
-			String externalReferenceCode, long commerceOrderItemId,
-			long commerceOrderId, long cpInstanceId,
-			String cpMeasurementUnitKey, String json,
-			java.math.BigDecimal quantity, java.math.BigDecimal shippedQuantity,
-			java.math.BigDecimal unitOfMeasureIncrementalOrderQuantity,
-			String unitOfMeasureKey,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceOrderItemService.importCommerceOrderItem(
-			externalReferenceCode, commerceOrderItemId, commerceOrderId,
-			cpInstanceId, cpMeasurementUnitKey, json, quantity, shippedQuantity,
-			unitOfMeasureIncrementalOrderQuantity, unitOfMeasureKey,
-			serviceContext);
 	}
 
 	@Override

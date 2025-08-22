@@ -132,15 +132,6 @@ public class CommerceOrderLocalServiceUtil {
 			commerceContext, serviceContext);
 	}
 
-	public static CommerceOrder applyCouponCode(
-			long commerceOrderId, String couponCode,
-			com.liferay.commerce.context.CommerceContext commerceContext)
-		throws PortalException {
-
-		return getService().applyCouponCode(
-			commerceOrderId, couponCode, commerceContext);
-	}
-
 	/**
 	 * Creates a new commerce order with the primary key. Does not add the commerce order to the database.
 	 *
@@ -655,14 +646,6 @@ public class CommerceOrderLocalServiceUtil {
 			serviceContext);
 	}
 
-	public static CommerceOrder recalculatePrice(
-			long commerceOrderId,
-			com.liferay.commerce.context.CommerceContext commerceContext)
-		throws PortalException {
-
-		return getService().recalculatePrice(commerceOrderId, commerceContext);
-	}
-
 	public static CommerceOrder reorderCommerceOrder(
 			long userId, long commerceOrderId,
 			com.liferay.commerce.context.CommerceContext commerceContext)
@@ -1045,6 +1028,15 @@ public class CommerceOrderLocalServiceUtil {
 			commerceShippingOptionName, commerceContext, locale);
 	}
 
+	public static CommerceOrder updateCouponCode(
+			long commerceOrderId, String couponCode,
+			com.liferay.commerce.context.CommerceContext commerceContext)
+		throws PortalException {
+
+		return getService().updateCouponCode(
+			commerceOrderId, couponCode, commerceContext);
+	}
+
 	public static CommerceOrder updateInfo(
 			long commerceOrderId, String printedNote,
 			int requestedDeliveryDateMonth, int requestedDeliveryDateDay,
@@ -1086,6 +1078,14 @@ public class CommerceOrderLocalServiceUtil {
 
 		return getService().updatePaymentStatusAndTransactionId(
 			userId, commerceOrderId, paymentStatus, transactionId);
+	}
+
+	public static CommerceOrder updatePrice(
+			long commerceOrderId,
+			com.liferay.commerce.context.CommerceContext commerceContext)
+		throws PortalException {
+
+		return getService().updatePrice(commerceOrderId, commerceContext);
 	}
 
 	public static CommerceOrder updatePrintedNote(

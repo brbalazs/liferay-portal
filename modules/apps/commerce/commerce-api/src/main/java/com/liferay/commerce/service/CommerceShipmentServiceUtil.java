@@ -174,13 +174,6 @@ public class CommerceShipmentServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static CommerceShipment reprocessCommerceShipment(
-			long commerceShipmentId)
-		throws PortalException {
-
-		return getService().reprocessCommerceShipment(commerceShipmentId);
-	}
-
 	public static CommerceShipment updateAddress(
 			String externalReferenceCode, long commerceShipmentId, String name,
 			String description, String street1, String street2, String street3,
@@ -210,6 +203,13 @@ public class CommerceShipmentServiceUtil {
 		throws PortalException {
 
 		return getService().updateCommerceShipment(commerceShipment);
+	}
+
+	public static CommerceShipment updateCommerceShipment(
+			long commerceShipmentId)
+		throws PortalException {
+
+		return getService().updateCommerceShipment(commerceShipmentId);
 	}
 
 	public static CommerceShipment updateCommerceShipment(

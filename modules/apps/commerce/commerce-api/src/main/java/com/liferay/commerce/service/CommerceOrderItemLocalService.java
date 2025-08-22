@@ -92,6 +92,16 @@ public interface CommerceOrderItemLocalService
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws PortalException;
 
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrderItem addOrUpdateCommerceOrderItem(
+			String externalReferenceCode, long userId, long commerceOrderItemId,
+			long commerceOrderId, long cpInstanceId,
+			String cpMeasurementUnitKey, String json, BigDecimal quantity,
+			BigDecimal shippedQuantity,
+			BigDecimal unitOfMeasureIncrementalOrderQuantity,
+			String unitOfMeasureKey, ServiceContext serviceContext)
+		throws PortalException;
+
 	public int countSubscriptionCommerceOrderItems(long commerceOrderId);
 
 	/**
@@ -453,20 +463,6 @@ public interface CommerceOrderItemLocalService
 	public List<CommerceOrderItem> getSupplierCommerceOrderItems(
 		long customerCommerceOrderItemId, int start, int end);
 
-	@Indexable(type = IndexableType.REINDEX)
-	public CommerceOrderItem importCommerceOrderItem(
-			long userId, String externalReferenceCode, long commerceOrderItemId,
-			long commerceOrderId, long cpInstanceId,
-			String cpMeasurementUnitKey, String json, BigDecimal quantity,
-			BigDecimal shippedQuantity,
-			BigDecimal unitOfMeasureIncrementalOrderQuantity,
-			String unitOfMeasureKey, ServiceContext serviceContext)
-		throws PortalException;
-
-	public CommerceOrderItem incrementShippedQuantity(
-			long commerceOrderItemId, BigDecimal shippedQuantity)
-		throws PortalException;
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommerceOrderItem> searchCommerceOrderItems(
 			long commerceOrderId, long parentCommerceOrderItemId,
@@ -615,6 +611,10 @@ public interface CommerceOrderItemLocalService
 
 	public CommerceOrderItem updateExternalReferenceCode(
 			long commerceOrderItemId, String externalReferenceCode)
+		throws PortalException;
+
+	public CommerceOrderItem updateShippedQuantity(
+			long commerceOrderItemId, BigDecimal shippedQuantity)
 		throws PortalException;
 
 }

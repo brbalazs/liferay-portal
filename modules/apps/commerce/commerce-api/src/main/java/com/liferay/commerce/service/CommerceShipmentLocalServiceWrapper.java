@@ -583,15 +583,6 @@ public class CommerceShipmentLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.model.CommerceShipment
-			reprocessCommerceShipment(long commerceShipmentId)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceShipmentLocalService.reprocessCommerceShipment(
-			commerceShipmentId);
-	}
-
-	@Override
 	public com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.commerce.model.CommerceShipment> searchCommerceShipments(
 				com.liferay.portal.kernel.search.SearchContext searchContext)
@@ -652,6 +643,15 @@ public class CommerceShipmentLocalServiceWrapper
 
 		return _commerceShipmentLocalService.updateCommerceShipment(
 			commerceShipment);
+	}
+
+	@Override
+	public com.liferay.commerce.model.CommerceShipment updateCommerceShipment(
+			long commerceShipmentId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceShipmentLocalService.updateCommerceShipment(
+			commerceShipmentId);
 	}
 
 	@Override

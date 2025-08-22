@@ -123,11 +123,6 @@ public interface CommerceOrderLocalService
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws PortalException;
 
-	public CommerceOrder applyCouponCode(
-			long commerceOrderId, String couponCode,
-			CommerceContext commerceContext)
-		throws PortalException;
-
 	/**
 	 * Creates a new commerce order with the primary key. Does not add the commerce order to the database.
 	 *
@@ -498,11 +493,6 @@ public interface CommerceOrderLocalService
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws PortalException;
 
-	@Indexable(type = IndexableType.REINDEX)
-	public CommerceOrder recalculatePrice(
-			long commerceOrderId, CommerceContext commerceContext)
-		throws PortalException;
-
 	public CommerceOrder reorderCommerceOrder(
 			long userId, long commerceOrderId, CommerceContext commerceContext)
 		throws PortalException;
@@ -722,6 +712,11 @@ public interface CommerceOrderLocalService
 			Locale locale)
 		throws PortalException;
 
+	public CommerceOrder updateCouponCode(
+			long commerceOrderId, String couponCode,
+			CommerceContext commerceContext)
+		throws PortalException;
+
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceOrder updateInfo(
 			long commerceOrderId, String printedNote,
@@ -746,6 +741,11 @@ public interface CommerceOrderLocalService
 	public CommerceOrder updatePaymentStatusAndTransactionId(
 			long userId, long commerceOrderId, int paymentStatus,
 			String transactionId)
+		throws PortalException;
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceOrder updatePrice(
+			long commerceOrderId, CommerceContext commerceContext)
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)

@@ -92,11 +92,6 @@ public interface CommerceOrderService extends BaseService {
 			CommerceContext commerceContext, ServiceContext serviceContext)
 		throws PortalException;
 
-	public CommerceOrder applyCouponCode(
-			long commerceOrderId, String couponCode,
-			CommerceContext commerceContext)
-		throws PortalException;
-
 	public void deleteAttachmentFileEntry(
 			long attachmentFileEntryId, long commerceOrderId)
 		throws PortalException;
@@ -384,6 +379,11 @@ public interface CommerceOrderService extends BaseService {
 			long commerceOrderId, long commerceShippingMethodId,
 			String commerceShippingOptionName, CommerceContext commerceContext,
 			Locale locale)
+		throws PortalException;
+
+	public CommerceOrder updateCouponCode(
+			long commerceOrderId, String couponCode,
+			CommerceContext commerceContext)
 		throws PortalException;
 
 	public CommerceOrder updateInfo(

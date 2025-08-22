@@ -495,13 +495,6 @@ public class CommerceShipmentLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static CommerceShipment reprocessCommerceShipment(
-			long commerceShipmentId)
-		throws PortalException {
-
-		return getService().reprocessCommerceShipment(commerceShipmentId);
-	}
-
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult
 		<CommerceShipment> searchCommerceShipments(
 				com.liferay.portal.kernel.search.SearchContext searchContext)
@@ -555,6 +548,13 @@ public class CommerceShipmentLocalServiceUtil {
 		CommerceShipment commerceShipment) {
 
 		return getService().updateCommerceShipment(commerceShipment);
+	}
+
+	public static CommerceShipment updateCommerceShipment(
+			long commerceShipmentId)
+		throws PortalException {
+
+		return getService().updateCommerceShipment(commerceShipmentId);
 	}
 
 	public static CommerceShipment updateCommerceShipment(
