@@ -137,7 +137,8 @@ public class CommerceTaxMethodServiceImpl
 	}
 
 	@Override
-	public CommerceTaxMethod setActive(long commerceTaxMethodId, boolean active)
+	public CommerceTaxMethod updateActive(
+			long commerceTaxMethodId, boolean active)
 		throws PortalException {
 
 		CommerceTaxMethod commerceTaxMethod =
@@ -148,7 +149,7 @@ public class CommerceTaxMethodServiceImpl
 			_checkCommerceChannel(commerceTaxMethod.getGroupId());
 		}
 
-		return commerceTaxMethodLocalService.setActive(
+		return commerceTaxMethodLocalService.updateActive(
 			commerceTaxMethodId, active);
 	}
 

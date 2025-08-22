@@ -116,7 +116,8 @@ public class CommerceTaxMethodLocalServiceImpl
 	}
 
 	@Override
-	public CommerceTaxMethod setActive(long commerceTaxMethodId, boolean active)
+	public CommerceTaxMethod updateActive(
+			long commerceTaxMethodId, boolean active)
 		throws PortalException {
 
 		CommerceTaxMethod commerceTaxMethod =
