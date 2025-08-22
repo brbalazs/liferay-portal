@@ -442,11 +442,12 @@ public class CommercePaymentMethodGroupRelLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static CommercePaymentMethodGroupRel setActive(
+	public static CommercePaymentMethodGroupRel updateActive(
 			long commercePaymentMethodGroupRelId, boolean active)
 		throws PortalException {
 
-		return getService().setActive(commercePaymentMethodGroupRelId, active);
+		return getService().updateActive(
+			commercePaymentMethodGroupRelId, active);
 	}
 
 	/**

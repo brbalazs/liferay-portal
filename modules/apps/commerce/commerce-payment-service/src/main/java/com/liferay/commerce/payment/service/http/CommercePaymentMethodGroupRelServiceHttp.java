@@ -919,15 +919,15 @@ public class CommercePaymentMethodGroupRelServiceHttp {
 
 	public static
 		com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel
-				setActive(
+				updateActive(
 					HttpPrincipal httpPrincipal,
 					long commercePaymentMethodGroupRelId, boolean active)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CommercePaymentMethodGroupRelServiceUtil.class, "setActive",
-				_setActiveParameterTypes20);
+				CommercePaymentMethodGroupRelServiceUtil.class, "updateActive",
+				_updateActiveParameterTypes20);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commercePaymentMethodGroupRelId, active);
@@ -1145,9 +1145,8 @@ public class CommercePaymentMethodGroupRelServiceHttp {
 		_getCommercePaymentMethodGroupRelsCountParameterTypes19 = new Class[] {
 			long.class, boolean.class
 		};
-	private static final Class<?>[] _setActiveParameterTypes20 = new Class[] {
-		long.class, boolean.class
-	};
+	private static final Class<?>[] _updateActiveParameterTypes20 =
+		new Class[] {long.class, boolean.class};
 	private static final Class<?>[]
 		_updateCommercePaymentMethodGroupRelParameterTypes21 = new Class[] {
 			com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel.

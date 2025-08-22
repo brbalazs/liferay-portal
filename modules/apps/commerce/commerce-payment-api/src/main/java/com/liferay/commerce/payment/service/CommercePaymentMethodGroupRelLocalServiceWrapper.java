@@ -523,10 +523,10 @@ public class CommercePaymentMethodGroupRelLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.payment.model.CommercePaymentMethodGroupRel
-			setActive(long commercePaymentMethodGroupRelId, boolean active)
+			updateActive(long commercePaymentMethodGroupRelId, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _commercePaymentMethodGroupRelLocalService.setActive(
+		return _commercePaymentMethodGroupRelLocalService.updateActive(
 			commercePaymentMethodGroupRelId, active);
 	}
 

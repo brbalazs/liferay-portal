@@ -344,7 +344,7 @@ public interface CommercePaymentMethodGroupRelLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public CommercePaymentMethodGroupRel setActive(
+	public CommercePaymentMethodGroupRel updateActive(
 			long commercePaymentMethodGroupRelId, boolean active)
 		throws PortalException;
 

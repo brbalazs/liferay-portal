@@ -163,7 +163,7 @@ public interface CommercePaymentMethodGroupRelService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
-	public CommercePaymentMethodGroupRel setActive(
+	public CommercePaymentMethodGroupRel updateActive(
 			long commercePaymentMethodGroupRelId, boolean active)
 		throws PortalException;
 
