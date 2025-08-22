@@ -107,11 +107,11 @@ public class CommerceTaxMethodServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
-	public static CommerceTaxMethod setActive(
+	public static CommerceTaxMethod updateActive(
 			long commerceTaxMethodId, boolean active)
 		throws PortalException {
 
-		return getService().setActive(commerceTaxMethodId, active);
+		return getService().updateActive(commerceTaxMethodId, active);
 	}
 
 	public static CommerceTaxMethod updateCommerceTaxMethod(

@@ -93,7 +93,8 @@ public interface CommerceTaxMethodService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
-	public CommerceTaxMethod setActive(long commerceTaxMethodId, boolean active)
+	public CommerceTaxMethod updateActive(
+			long commerceTaxMethodId, boolean active)
 		throws PortalException;
 
 	public CommerceTaxMethod updateCommerceTaxMethod(

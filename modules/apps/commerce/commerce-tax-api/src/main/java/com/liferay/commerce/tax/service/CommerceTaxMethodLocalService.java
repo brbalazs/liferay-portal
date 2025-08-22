@@ -282,7 +282,8 @@ public interface CommerceTaxMethodLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public CommerceTaxMethod setActive(long commerceTaxMethodId, boolean active)
+	public CommerceTaxMethod updateActive(
+			long commerceTaxMethodId, boolean active)
 		throws PortalException;
 
 	/**

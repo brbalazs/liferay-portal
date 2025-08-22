@@ -376,15 +376,15 @@ public class CommerceTaxMethodServiceHttp {
 		}
 	}
 
-	public static com.liferay.commerce.tax.model.CommerceTaxMethod setActive(
+	public static com.liferay.commerce.tax.model.CommerceTaxMethod updateActive(
 			HttpPrincipal httpPrincipal, long commerceTaxMethodId,
 			boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CommerceTaxMethodServiceUtil.class, "setActive",
-				_setActiveParameterTypes8);
+				CommerceTaxMethodServiceUtil.class, "updateActive",
+				_updateActiveParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceTaxMethodId, active);
@@ -531,7 +531,7 @@ public class CommerceTaxMethodServiceHttp {
 		new Class[] {long.class};
 	private static final Class<?>[] _getCommerceTaxMethodsParameterTypes7 =
 		new Class[] {long.class, boolean.class};
-	private static final Class<?>[] _setActiveParameterTypes8 = new Class[] {
+	private static final Class<?>[] _updateActiveParameterTypes8 = new Class[] {
 		long.class, boolean.class
 	};
 	private static final Class<?>[] _updateCommerceTaxMethodParameterTypes9 =

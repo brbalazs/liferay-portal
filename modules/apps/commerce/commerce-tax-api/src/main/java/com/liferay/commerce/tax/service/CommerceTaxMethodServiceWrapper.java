@@ -119,11 +119,12 @@ public class CommerceTaxMethodServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.tax.model.CommerceTaxMethod setActive(
+	public com.liferay.commerce.tax.model.CommerceTaxMethod updateActive(
 			long commerceTaxMethodId, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _commerceTaxMethodService.setActive(commerceTaxMethodId, active);
+		return _commerceTaxMethodService.updateActive(
+			commerceTaxMethodId, active);
 	}
 
 	@Override
