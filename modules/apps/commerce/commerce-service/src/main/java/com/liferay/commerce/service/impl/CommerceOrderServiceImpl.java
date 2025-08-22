@@ -159,19 +159,6 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 	}
 
 	@Override
-	public CommerceOrder applyCouponCode(
-			long commerceOrderId, String couponCode,
-			CommerceContext commerceContext)
-		throws PortalException {
-
-		_commerceOrderModelResourcePermission.check(
-			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
-
-		return commerceOrderLocalService.applyCouponCode(
-			commerceOrderId, couponCode, commerceContext);
-	}
-
-	@Override
 	public void deleteAttachmentFileEntry(
 			long attachmentFileEntryId, long commerceOrderId)
 		throws PortalException {
@@ -620,7 +607,7 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 		_commerceOrderModelResourcePermission.check(
 			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
 
-		return commerceOrderLocalService.recalculatePrice(
+		return commerceOrderLocalService.updatePrice(
 			commerceOrderId, commerceContext);
 	}
 
@@ -913,6 +900,19 @@ public class CommerceOrderServiceImpl extends CommerceOrderServiceBaseImpl {
 		return commerceOrderLocalService.updateCommerceShippingMethod(
 			commerceOrderId, commerceShippingMethodId,
 			commerceShippingOptionName, commerceContext, locale);
+	}
+
+	@Override
+	public CommerceOrder updateCouponCode(
+			long commerceOrderId, String couponCode,
+			CommerceContext commerceContext)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
+
+		return commerceOrderLocalService.updateCouponCode(
+			commerceOrderId, couponCode, commerceContext);
 	}
 
 	@Override

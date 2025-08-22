@@ -360,33 +360,6 @@ public class CommerceShipmentLocalServiceImpl
 			findCommerceShipmentStatusesByCommerceOrderId(commerceOrderId);
 	}
 
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommerceShipment reprocessCommerceShipment(long commerceShipmentId)
-		throws PortalException {
-
-		CommerceShipment commerceShipment =
-			commerceShipmentPersistence.findByPrimaryKey(commerceShipmentId);
-
-		if (commerceShipment.getStatus() ==
-				CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED) {
-
-			throw new CommerceShipmentStatusException();
-		}
-
-		commerceShipment.setStatus(
-			CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING);
-
-		if (ArrayUtil.contains(
-				messageShipmentStatuses,
-				CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING)) {
-
-			sendShipmentStatusMessage(commerceShipment);
-		}
-
-		return commerceShipmentPersistence.update(commerceShipment);
-	}
-
 	@Override
 	public BaseModelSearchResult<CommerceShipment> searchCommerceShipments(
 			SearchContext searchContext)
@@ -465,6 +438,33 @@ public class CommerceShipmentLocalServiceImpl
 		commerceShipment.setCarrier(carrier);
 		commerceShipment.setTrackingNumber(trackingNumber);
 		commerceShipment.setTrackingURL(trackingURL);
+
+		return commerceShipmentPersistence.update(commerceShipment);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceShipment updateCommerceShipment(long commerceShipmentId)
+		throws PortalException {
+
+		CommerceShipment commerceShipment =
+			commerceShipmentPersistence.findByPrimaryKey(commerceShipmentId);
+
+		if (commerceShipment.getStatus() ==
+				CommerceShipmentConstants.SHIPMENT_STATUS_DELIVERED) {
+
+			throw new CommerceShipmentStatusException();
+		}
+
+		commerceShipment.setStatus(
+			CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING);
+
+		if (ArrayUtil.contains(
+				messageShipmentStatuses,
+				CommerceShipmentConstants.SHIPMENT_STATUS_PROCESSING)) {
+
+			sendShipmentStatusMessage(commerceShipment);
+		}
 
 		return commerceShipmentPersistence.update(commerceShipment);
 	}

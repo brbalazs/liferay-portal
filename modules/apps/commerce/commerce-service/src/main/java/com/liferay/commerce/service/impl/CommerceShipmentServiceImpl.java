@@ -298,18 +298,6 @@ public class CommerceShipmentServiceImpl
 	}
 
 	@Override
-	public CommerceShipment reprocessCommerceShipment(long commerceShipmentId)
-		throws PortalException {
-
-		_portletResourcePermission.check(
-			getPermissionChecker(), null,
-			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
-
-		return commerceShipmentLocalService.reprocessCommerceShipment(
-			commerceShipmentId);
-	}
-
-	@Override
 	public CommerceShipment updateAddress(
 			String externalReferenceCode, long commerceShipmentId, String name,
 			String description, String street1, String street2, String street3,
@@ -353,6 +341,18 @@ public class CommerceShipmentServiceImpl
 
 		return commerceShipmentLocalService.updateCommerceShipment(
 			commerceShipment);
+	}
+
+	@Override
+	public CommerceShipment updateCommerceShipment(long commerceShipmentId)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), null,
+			CommerceActionKeys.MANAGE_COMMERCE_SHIPMENTS);
+
+		return commerceShipmentLocalService.updateCommerceShipment(
+			commerceShipmentId);
 	}
 
 	@Override

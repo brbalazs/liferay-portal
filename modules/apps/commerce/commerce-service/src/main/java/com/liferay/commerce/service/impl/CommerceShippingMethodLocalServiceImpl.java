@@ -267,7 +267,7 @@ public class CommerceShippingMethodLocalServiceImpl
 	}
 
 	@Override
-	public CommerceShippingMethod setActive(
+	public CommerceShippingMethod updateActive(
 			long commerceShippingMethodId, boolean active)
 		throws PortalException {
 

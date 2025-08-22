@@ -252,7 +252,7 @@ public class CommerceShippingMethodServiceImpl
 	}
 
 	@Override
-	public CommerceShippingMethod setActive(
+	public CommerceShippingMethod updateActive(
 			long commerceShippingMethodId, boolean active)
 		throws PortalException {
 
@@ -264,7 +264,7 @@ public class CommerceShippingMethodServiceImpl
 			_checkCommerceChannel(commerceShippingMethod.getGroupId());
 		}
 
-		return commerceShippingMethodLocalService.setActive(
+		return commerceShippingMethodLocalService.updateActive(
 			commerceShippingMethodId, active);
 	}
 

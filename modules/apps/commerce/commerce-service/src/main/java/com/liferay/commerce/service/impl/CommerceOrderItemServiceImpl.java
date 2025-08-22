@@ -87,6 +87,26 @@ public class CommerceOrderItemServiceImpl
 	}
 
 	@Override
+	public CommerceOrderItem addOrUpdateCommerceOrderItem(
+			String externalReferenceCode, long commerceOrderItemId,
+			long commerceOrderId, long cpInstanceId,
+			String cpMeasurementUnitKey, String json, BigDecimal quantity,
+			BigDecimal shippedQuantity,
+			BigDecimal unitOfMeasureIncrementalOrderQuantity,
+			String unitOfMeasureKey, ServiceContext serviceContext)
+		throws PortalException {
+
+		_commerceOrderModelResourcePermission.check(
+			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
+
+		return commerceOrderItemLocalService.addOrUpdateCommerceOrderItem(
+			externalReferenceCode, getUserId(), commerceOrderItemId,
+			commerceOrderId, cpInstanceId, cpMeasurementUnitKey, json, quantity,
+			shippedQuantity, unitOfMeasureIncrementalOrderQuantity,
+			unitOfMeasureKey, serviceContext);
+	}
+
+	@Override
 	public int countSubscriptionCommerceOrderItems(long commerceOrderId)
 		throws PortalException {
 
@@ -373,26 +393,6 @@ public class CommerceOrderItemServiceImpl
 		}
 
 		return Collections.emptyList();
-	}
-
-	@Override
-	public CommerceOrderItem importCommerceOrderItem(
-			String externalReferenceCode, long commerceOrderItemId,
-			long commerceOrderId, long cpInstanceId,
-			String cpMeasurementUnitKey, String json, BigDecimal quantity,
-			BigDecimal shippedQuantity,
-			BigDecimal unitOfMeasureIncrementalOrderQuantity,
-			String unitOfMeasureKey, ServiceContext serviceContext)
-		throws PortalException {
-
-		_commerceOrderModelResourcePermission.check(
-			getPermissionChecker(), commerceOrderId, ActionKeys.UPDATE);
-
-		return commerceOrderItemLocalService.importCommerceOrderItem(
-			getUserId(), externalReferenceCode, commerceOrderItemId,
-			commerceOrderId, cpInstanceId, cpMeasurementUnitKey, json, quantity,
-			shippedQuantity, unitOfMeasureIncrementalOrderQuantity,
-			unitOfMeasureKey, serviceContext);
 	}
 
 	@Override

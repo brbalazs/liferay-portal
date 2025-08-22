@@ -138,12 +138,6 @@ public class CommerceOrderTypeLocalServiceImpl
 			user.getUserId(), commerceOrderType, serviceContext);
 	}
 
-	@Override
-	public void checkCommerceOrderTypes() throws PortalException {
-		_checkCommerceOrderTypesByDisplayDate();
-		_checkCommerceOrderTypesByExpirationDate();
-	}
-
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
@@ -297,6 +291,12 @@ public class CommerceOrderTypeLocalServiceImpl
 		return commerceOrderTypePersistence.update(commerceOrderType);
 	}
 
+	@Override
+	public void updateCommerceOrderTypes() throws PortalException {
+		_updateCommerceOrderTypesByDisplayDate();
+		_updateCommerceOrderTypesByExpirationDate();
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceOrderType updateStatus(
@@ -348,58 +348,6 @@ public class CommerceOrderTypeLocalServiceImpl
 		commerceOrderType.setStatusDate(serviceContext.getModifiedDate(date));
 
 		return commerceOrderTypePersistence.update(commerceOrderType);
-	}
-
-	private void _checkCommerceOrderTypesByDisplayDate()
-		throws PortalException {
-
-		List<CommerceOrderType> commerceOrderTypes =
-			commerceOrderTypePersistence.findByLtD_S(
-				new Date(), WorkflowConstants.STATUS_SCHEDULED);
-
-		for (CommerceOrderType commerceOrderType : commerceOrderTypes) {
-			long userId = _portal.getValidUserId(
-				commerceOrderType.getCompanyId(),
-				commerceOrderType.getUserId());
-
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setCommand(Constants.UPDATE);
-
-			commerceOrderTypeLocalService.updateStatus(
-				userId, commerceOrderType.getCommerceOrderTypeId(),
-				WorkflowConstants.STATUS_APPROVED, serviceContext,
-				new HashMap<String, Serializable>());
-		}
-	}
-
-	private void _checkCommerceOrderTypesByExpirationDate()
-		throws PortalException {
-
-		List<CommerceOrderType> commerceOrderTypes =
-			commerceOrderTypePersistence.findByLtE_S(
-				new Date(), WorkflowConstants.STATUS_APPROVED);
-
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				"Expiring " + commerceOrderTypes.size() +
-					" commerce order types");
-		}
-
-		for (CommerceOrderType commerceOrderType : commerceOrderTypes) {
-			long userId = _portal.getValidUserId(
-				commerceOrderType.getCompanyId(),
-				commerceOrderType.getUserId());
-
-			ServiceContext serviceContext = new ServiceContext();
-
-			serviceContext.setCommand(Constants.UPDATE);
-
-			commerceOrderTypeLocalService.updateStatus(
-				userId, commerceOrderType.getCommerceOrderTypeId(),
-				WorkflowConstants.STATUS_EXPIRED, serviceContext,
-				new HashMap<String, Serializable>());
-		}
 	}
 
 	private GroupByStep _getGroupByStep(
@@ -468,6 +416,58 @@ public class CommerceOrderTypeLocalServiceImpl
 			CommerceOrderType.class.getName(),
 			commerceOrderType.getCommerceOrderTypeId(), commerceOrderType,
 			serviceContext, workflowContext);
+	}
+
+	private void _updateCommerceOrderTypesByDisplayDate()
+		throws PortalException {
+
+		List<CommerceOrderType> commerceOrderTypes =
+			commerceOrderTypePersistence.findByLtD_S(
+				new Date(), WorkflowConstants.STATUS_SCHEDULED);
+
+		for (CommerceOrderType commerceOrderType : commerceOrderTypes) {
+			long userId = _portal.getValidUserId(
+				commerceOrderType.getCompanyId(),
+				commerceOrderType.getUserId());
+
+			ServiceContext serviceContext = new ServiceContext();
+
+			serviceContext.setCommand(Constants.UPDATE);
+
+			commerceOrderTypeLocalService.updateStatus(
+				userId, commerceOrderType.getCommerceOrderTypeId(),
+				WorkflowConstants.STATUS_APPROVED, serviceContext,
+				new HashMap<String, Serializable>());
+		}
+	}
+
+	private void _updateCommerceOrderTypesByExpirationDate()
+		throws PortalException {
+
+		List<CommerceOrderType> commerceOrderTypes =
+			commerceOrderTypePersistence.findByLtE_S(
+				new Date(), WorkflowConstants.STATUS_APPROVED);
+
+		if (_log.isDebugEnabled()) {
+			_log.debug(
+				"Expiring " + commerceOrderTypes.size() +
+					" commerce order types");
+		}
+
+		for (CommerceOrderType commerceOrderType : commerceOrderTypes) {
+			long userId = _portal.getValidUserId(
+				commerceOrderType.getCompanyId(),
+				commerceOrderType.getUserId());
+
+			ServiceContext serviceContext = new ServiceContext();
+
+			serviceContext.setCommand(Constants.UPDATE);
+
+			commerceOrderTypeLocalService.updateStatus(
+				userId, commerceOrderType.getCommerceOrderTypeId(),
+				WorkflowConstants.STATUS_EXPIRED, serviceContext,
+				new HashMap<String, Serializable>());
+		}
 	}
 
 	private void _validate(Map<Locale, String> nameMap) throws PortalException {

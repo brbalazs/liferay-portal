@@ -267,7 +267,7 @@ public class CommerceOrderItemLocalServiceImpl
 
 		commerceOrderLocalService.updateCommerceOrder(commerceOrder);
 
-		commerceOrderLocalService.recalculatePrice(
+		commerceOrderLocalService.updatePrice(
 			commerceOrderItem.getCommerceOrderId(), commerceContext);
 
 		return commerceOrderItem;
@@ -318,6 +318,71 @@ public class CommerceOrderItemLocalServiceImpl
 		}
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public CommerceOrderItem addOrUpdateCommerceOrderItem(
+			String externalReferenceCode, long userId, long commerceOrderItemId,
+			long commerceOrderId, long cpInstanceId,
+			String cpMeasurementUnitKey, String json, BigDecimal quantity,
+			BigDecimal shippedQuantity,
+			BigDecimal unitOfMeasureIncrementalOrderQuantity,
+			String unitOfMeasureKey, ServiceContext serviceContext)
+		throws PortalException {
+
+		if (Validator.isBlank(json)) {
+			json = _getCPInstanceOptionValueRelsJSON(cpInstanceId);
+		}
+
+		CommerceOrderLocalService commerceOrderLocalService =
+			_commerceOrderLocalServiceSnapshot.get();
+
+		CommerceOrder commerceOrder =
+			commerceOrderLocalService.getCommerceOrder(commerceOrderId);
+
+		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
+			cpInstanceId);
+
+		User user = _userLocalService.getUser(userId);
+
+		_updateWorkflow(user.getUserId(), commerceOrder);
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemPersistence.fetchByPrimaryKey(commerceOrderItemId);
+
+		if ((commerceOrderItem == null) &&
+			!Validator.isBlank(externalReferenceCode)) {
+
+			commerceOrderItem = commerceOrderItemPersistence.fetchByERC_C(
+				externalReferenceCode, serviceContext.getCompanyId());
+		}
+
+		if (commerceOrderItem == null) {
+			commerceOrderItem = _createCommerceOrderItem(
+				commerceOrder.getGroupId(), user, commerceOrder, null,
+				cpInstance, 0, json, quantity, shippedQuantity,
+				unitOfMeasureIncrementalOrderQuantity, unitOfMeasureKey, false,
+				serviceContext);
+		}
+		else {
+			commerceOrderItem = _updateCommerceOrderItem(
+				commerceOrderItem, externalReferenceCode, user, commerceOrder,
+				cpInstance, json, quantity, shippedQuantity,
+				unitOfMeasureIncrementalOrderQuantity, unitOfMeasureKey,
+				serviceContext);
+		}
+
+		if (!Validator.isBlank(cpMeasurementUnitKey)) {
+			CPMeasurementUnit cpMeasurementUnit =
+				_cpMeasurementUnitLocalService.getCPMeasurementUnitByKey(
+					user.getCompanyId(), cpMeasurementUnitKey);
+
+			commerceOrderItem.setCPMeasurementUnitId(
+				cpMeasurementUnit.getCPMeasurementUnitId());
+		}
+
+		return commerceOrderItemPersistence.update(commerceOrderItem);
+	}
+
 	@Override
 	public int countSubscriptionCommerceOrderItems(long commerceOrderId) {
 		return commerceOrderItemPersistence.countByC_S(commerceOrderId, true);
@@ -357,7 +422,7 @@ public class CommerceOrderItemLocalServiceImpl
 				commerceContext);
 		}
 
-		commerceOrderLocalService.recalculatePrice(
+		commerceOrderLocalService.updatePrice(
 			commerceOrder.getCommerceOrderId(), commerceContext);
 
 		return commerceOrderItem;
@@ -668,91 +733,6 @@ public class CommerceOrderItemLocalServiceImpl
 
 		return commerceOrderItemPersistence.findByCustomerCommerceOrderItemId(
 			customerCommerceOrderItemId, start, end);
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommerceOrderItem importCommerceOrderItem(
-			long userId, String externalReferenceCode, long commerceOrderItemId,
-			long commerceOrderId, long cpInstanceId,
-			String cpMeasurementUnitKey, String json, BigDecimal quantity,
-			BigDecimal shippedQuantity,
-			BigDecimal unitOfMeasureIncrementalOrderQuantity,
-			String unitOfMeasureKey, ServiceContext serviceContext)
-		throws PortalException {
-
-		if (Validator.isBlank(json)) {
-			json = _getCPInstanceOptionValueRelsJSON(cpInstanceId);
-		}
-
-		CommerceOrderLocalService commerceOrderLocalService =
-			_commerceOrderLocalServiceSnapshot.get();
-
-		CommerceOrder commerceOrder =
-			commerceOrderLocalService.getCommerceOrder(commerceOrderId);
-
-		CPInstance cpInstance = _cpInstanceLocalService.getCPInstance(
-			cpInstanceId);
-
-		User user = _userLocalService.getUser(userId);
-
-		_updateWorkflow(user.getUserId(), commerceOrder);
-
-		CommerceOrderItem commerceOrderItem =
-			commerceOrderItemPersistence.fetchByPrimaryKey(commerceOrderItemId);
-
-		if ((commerceOrderItem == null) &&
-			!Validator.isBlank(externalReferenceCode)) {
-
-			commerceOrderItem = commerceOrderItemPersistence.fetchByERC_C(
-				externalReferenceCode, serviceContext.getCompanyId());
-		}
-
-		if (commerceOrderItem == null) {
-			commerceOrderItem = _createCommerceOrderItem(
-				commerceOrder.getGroupId(), user, commerceOrder, null,
-				cpInstance, 0, json, quantity, shippedQuantity,
-				unitOfMeasureIncrementalOrderQuantity, unitOfMeasureKey, false,
-				serviceContext);
-		}
-		else {
-			commerceOrderItem = _updateCommerceOrderItem(
-				commerceOrderItem, externalReferenceCode, user, commerceOrder,
-				cpInstance, json, quantity, shippedQuantity,
-				unitOfMeasureIncrementalOrderQuantity, unitOfMeasureKey,
-				serviceContext);
-		}
-
-		if (!Validator.isBlank(cpMeasurementUnitKey)) {
-			CPMeasurementUnit cpMeasurementUnit =
-				_cpMeasurementUnitLocalService.getCPMeasurementUnitByKey(
-					user.getCompanyId(), cpMeasurementUnitKey);
-
-			commerceOrderItem.setCPMeasurementUnitId(
-				cpMeasurementUnit.getCPMeasurementUnitId());
-		}
-
-		return commerceOrderItemPersistence.update(commerceOrderItem);
-	}
-
-	@Override
-	public CommerceOrderItem incrementShippedQuantity(
-			long commerceOrderItemId, BigDecimal shippedQuantity)
-		throws PortalException {
-
-		CommerceOrderItem commerceOrderItem =
-			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
-
-		shippedQuantity = shippedQuantity.add(
-			commerceOrderItem.getShippedQuantity());
-
-		if (BigDecimalUtil.lt(shippedQuantity, BigDecimal.ZERO)) {
-			shippedQuantity = BigDecimal.ZERO;
-		}
-
-		commerceOrderItem.setShippedQuantity(shippedQuantity);
-
-		return commerceOrderItemPersistence.update(commerceOrderItem);
 	}
 
 	@Override
@@ -1384,6 +1364,26 @@ public class CommerceOrderItemLocalServiceImpl
 				commerceOrderItemId);
 
 		commerceOrderItem.setExternalReferenceCode(externalReferenceCode);
+
+		return commerceOrderItemPersistence.update(commerceOrderItem);
+	}
+
+	@Override
+	public CommerceOrderItem updateShippedQuantity(
+			long commerceOrderItemId, BigDecimal shippedQuantity)
+		throws PortalException {
+
+		CommerceOrderItem commerceOrderItem =
+			commerceOrderItemPersistence.findByPrimaryKey(commerceOrderItemId);
+
+		shippedQuantity = shippedQuantity.add(
+			commerceOrderItem.getShippedQuantity());
+
+		if (BigDecimalUtil.lt(shippedQuantity, BigDecimal.ZERO)) {
+			shippedQuantity = BigDecimal.ZERO;
+		}
+
+		commerceOrderItem.setShippedQuantity(shippedQuantity);
 
 		return commerceOrderItemPersistence.update(commerceOrderItem);
 	}
@@ -2854,7 +2854,7 @@ public class CommerceOrderItemLocalServiceImpl
 			CommerceOrderLocalService commerceOrderLocalService =
 				_commerceOrderLocalServiceSnapshot.get();
 
-			commerceOrderLocalService.recalculatePrice(
+			commerceOrderLocalService.updatePrice(
 				commerceOrderItem.getCommerceOrderId(), commerceContext);
 		}
 
