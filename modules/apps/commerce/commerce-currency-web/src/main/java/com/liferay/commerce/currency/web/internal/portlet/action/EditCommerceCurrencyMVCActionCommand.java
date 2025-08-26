@@ -180,7 +180,7 @@ public class EditCommerceCurrencyMVCActionCommand extends BaseMVCActionCommand {
 		CommerceCurrency commerceCurrency =
 			_commerceCurrencyService.getCommerceCurrency(commerceCurrencyId);
 
-		_commerceCurrencyService.setActive(
+		_commerceCurrencyService.updateActive(
 			commerceCurrencyId, !commerceCurrency.isActive());
 	}
 
@@ -192,7 +192,7 @@ public class EditCommerceCurrencyMVCActionCommand extends BaseMVCActionCommand {
 
 		boolean primary = ParamUtil.getBoolean(actionRequest, "primary");
 
-		_commerceCurrencyService.setPrimary(commerceCurrencyId, primary);
+		_commerceCurrencyService.updatePrimary(commerceCurrencyId, primary);
 	}
 
 	private CommerceCurrency _updateCommerceCurrency(

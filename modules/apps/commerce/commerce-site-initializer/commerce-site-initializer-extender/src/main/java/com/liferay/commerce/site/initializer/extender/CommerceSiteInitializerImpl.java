@@ -818,7 +818,7 @@ public class CommerceSiteInitializerImpl implements CommerceSiteInitializer {
 
 		_commerceRoleHelper.checkCommerceAccountRoles(serviceContext);
 
-		_commerceCurrencyLocalService.importDefaultValues(true, serviceContext);
+		_commerceCurrencyLocalService.addDefaultCommerceCurrencies(true, serviceContext);
 
 		_cpMeasurementUnitLocalService.importDefaultValues(serviceContext);
 

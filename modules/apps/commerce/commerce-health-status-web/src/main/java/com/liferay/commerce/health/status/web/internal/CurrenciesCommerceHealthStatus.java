@@ -47,7 +47,7 @@ public class CurrenciesCommerceHealthStatus implements CommerceHealthStatus {
 			httpServletRequest);
 
 		try {
-			_commerceCurrencyLocalService.importDefaultValues(
+			_commerceCurrencyLocalService.addDefaultCommerceCurrencies(
 				true, serviceContext);
 		}
 		catch (Exception exception) {

@@ -309,7 +309,7 @@ public class MiniumSiteInitializer implements SiteInitializer {
 
 		group = _groupLocalService.updateGroup(group);
 
-		_commerceCurrencyLocalService.importDefaultValues(true, serviceContext);
+		_commerceCurrencyLocalService.addDefaultCommerceCurrencies(true, serviceContext);
 		_cpMeasurementUnitLocalService.importDefaultValues(serviceContext);
 
 		_commerceRoleHelper.checkCommerceAccountRoles(serviceContext);
