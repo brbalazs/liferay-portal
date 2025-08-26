@@ -149,7 +149,7 @@ public class EditCommerceInventoryWarehouseMVCActionCommand
 		}
 		else {
 			_commerceInventoryWarehouseItemService.
-				increaseCommerceInventoryWarehouseItemQuantity(
+				updateCommerceInventoryWarehouseItemQuantity(
 					commerceInventoryWarehouseItem.
 						getCommerceInventoryWarehouseItemId(),
 					quantity);

@@ -127,7 +127,7 @@ public class CommerceShippingOriginLocatorImpl
 
 				commerceInventoryWarehouse =
 					_commerceInventoryWarehouseLocalService.
-						geolocateCommerceInventoryWarehouse(
+						updateCommerceInventoryWarehouse(
 							commerceInventoryWarehouse.
 								getCommerceInventoryWarehouseId(),
 							coordinates[0], coordinates[1]);

@@ -32,7 +32,7 @@ public class CheckCommerceInventoryBookedQuantitySchedulerJobConfiguration
 	@Override
 	public UnsafeRunnable<Exception> getJobExecutorUnsafeRunnable() {
 		return _commerceInventoryBookedQuantityLocalService::
-			checkCommerceInventoryBookedQuantities;
+			deleteCommerceInventoryBookedQuantitiesByExpirationDate;
 	}
 
 	@Override

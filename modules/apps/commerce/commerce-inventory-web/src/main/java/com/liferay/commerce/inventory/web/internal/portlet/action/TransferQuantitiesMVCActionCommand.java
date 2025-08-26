@@ -74,7 +74,7 @@ public class TransferQuantitiesMVCActionCommand extends BaseMVCActionCommand {
 		long toCommerceInventoryWarehouseId = ParamUtil.getLong(
 			actionRequest, "toCommerceInventoryWarehouseId");
 
-		_commerceInventoryWarehouseItemService.moveQuantitiesBetweenWarehouses(
+		_commerceInventoryWarehouseItemService.updateQuantitiesBetweenWarehouses(
 			fromCommerceInventoryWarehouseId, toCommerceInventoryWarehouseId,
 			_commerceOrderItemQuantityFormatter.parse(
 				actionRequest, CommerceInventoryWarehouseItem.class.getName(),

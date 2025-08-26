@@ -72,7 +72,7 @@ public class CommerceOrderStatusMessageListener extends BaseMessageListener {
 			User currentUser = _userService.getCurrentUser();
 
 			_commerceInventoryBookedQuantityLocalService.
-				restockCommerceInventoryBookedQuantity(
+				updateCommerceInventoryBookedQuantity(
 					currentUser.getUserId(),
 					commerceOrderItem.getCommerceInventoryBookedQuantityId(),
 					HashMapBuilder.put(

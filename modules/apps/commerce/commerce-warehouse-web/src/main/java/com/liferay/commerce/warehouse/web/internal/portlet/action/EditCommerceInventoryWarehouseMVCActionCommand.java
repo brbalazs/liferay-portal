@@ -189,7 +189,7 @@ public class EditCommerceInventoryWarehouseMVCActionCommand
 
 		boolean active = ParamUtil.getBoolean(actionRequest, "active");
 
-		_commerceInventoryWarehouseService.setActive(
+		_commerceInventoryWarehouseService.updateActive(
 			commerceInventoryWarehouseId, active);
 	}
 

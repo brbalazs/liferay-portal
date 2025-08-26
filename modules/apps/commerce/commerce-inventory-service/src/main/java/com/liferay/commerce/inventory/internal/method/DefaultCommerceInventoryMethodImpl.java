@@ -61,7 +61,7 @@ public class DefaultCommerceInventoryMethodImpl
 
 		if (commerceInventoryBookedQuantityId > 0) {
 			_commerceInventoryBookedQuantityLocalService.
-				consumeCommerceInventoryBookedQuantity(
+				updateCommerceInventoryBookedQuantity(
 					commerceInventoryBookedQuantityId, quantity);
 		}
 
