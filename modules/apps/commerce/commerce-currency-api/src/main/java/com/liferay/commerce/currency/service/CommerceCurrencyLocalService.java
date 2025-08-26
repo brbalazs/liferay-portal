@@ -89,6 +89,10 @@ public interface CommerceCurrencyLocalService
 			double priority, boolean active)
 		throws PortalException;
 
+	public void addDefaultCommerceCurrencies(
+			boolean updateExchangeRate, ServiceContext serviceContext)
+		throws Exception;
+
 	/**
 	 * Creates a new commerce currency with the primary key. Does not add the commerce currency to the database.
 	 *
@@ -339,10 +343,6 @@ public interface CommerceCurrencyLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
-	public void importDefaultValues(
-			boolean updateExchangeRate, ServiceContext serviceContext)
-		throws Exception;
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommerceCurrency> searchCommerceCurrencies(
 			long companyId, String keywords,
@@ -350,11 +350,11 @@ public interface CommerceCurrencyLocalService
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
-	public CommerceCurrency setActive(long commerceCurrencyId, boolean active)
+	public CommerceCurrency updateActive(
+			long commerceCurrencyId, boolean active)
 		throws PortalException;
 
-	public CommerceCurrency setPrimary(long commerceCurrencyId, boolean primary)
-		throws PortalException;
+	public void updateAopProxy(Object aopProxy);
 
 	/**
 	 * Updates the commerce currency in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
@@ -388,5 +388,9 @@ public interface CommerceCurrencyLocalService
 		throws PortalException;
 
 	public void updateExchangeRates() throws PortalException;
+
+	public CommerceCurrency updatePrimary(
+			long commerceCurrencyId, boolean primary)
+		throws PortalException;
 
 }

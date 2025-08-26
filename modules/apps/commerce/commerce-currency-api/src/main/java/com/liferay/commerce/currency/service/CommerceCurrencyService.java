@@ -112,10 +112,8 @@ public interface CommerceCurrencyService extends BaseService {
 			LinkedHashMap<String, Object> params, int start, int end, Sort sort)
 		throws PortalException;
 
-	public CommerceCurrency setActive(long commerceCurrencyId, boolean active)
-		throws PortalException;
-
-	public CommerceCurrency setPrimary(long commerceCurrencyId, boolean primary)
+	public CommerceCurrency updateActive(
+			long commerceCurrencyId, boolean active)
 		throws PortalException;
 
 	public CommerceCurrency updateCommerceCurrency(
@@ -131,5 +129,9 @@ public interface CommerceCurrencyService extends BaseService {
 		throws PortalException;
 
 	public void updateExchangeRates() throws PortalException;
+
+	public CommerceCurrency updatePrimary(
+			long commerceCurrencyId, boolean primary)
+		throws PortalException;
 
 }

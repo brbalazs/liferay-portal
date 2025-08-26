@@ -130,18 +130,11 @@ public class CommerceCurrencyServiceUtil {
 			companyId, keywords, params, start, end, sort);
 	}
 
-	public static CommerceCurrency setActive(
+	public static CommerceCurrency updateActive(
 			long commerceCurrencyId, boolean active)
 		throws PortalException {
 
-		return getService().setActive(commerceCurrencyId, active);
-	}
-
-	public static CommerceCurrency setPrimary(
-			long commerceCurrencyId, boolean primary)
-		throws PortalException {
-
-		return getService().setPrimary(commerceCurrencyId, primary);
+		return getService().updateActive(commerceCurrencyId, active);
 	}
 
 	public static CommerceCurrency updateCommerceCurrency(
@@ -170,6 +163,13 @@ public class CommerceCurrencyServiceUtil {
 
 	public static void updateExchangeRates() throws PortalException {
 		getService().updateExchangeRates();
+	}
+
+	public static CommerceCurrency updatePrimary(
+			long commerceCurrencyId, boolean primary)
+		throws PortalException {
+
+		return getService().updatePrimary(commerceCurrencyId, primary);
 	}
 
 	public static CommerceCurrencyService getService() {

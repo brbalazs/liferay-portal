@@ -67,6 +67,16 @@ public class CommerceCurrencyLocalServiceWrapper
 			roundingMode, primary, priority, active);
 	}
 
+	@Override
+	public void addDefaultCommerceCurrencies(
+			boolean updateExchangeRate,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws Exception {
+
+		_commerceCurrencyLocalService.addDefaultCommerceCurrencies(
+			updateExchangeRate, serviceContext);
+	}
+
 	/**
 	 * Creates a new commerce currency with the primary key. Does not add the commerce currency to the database.
 	 *
@@ -474,16 +484,6 @@ public class CommerceCurrencyLocalServiceWrapper
 	}
 
 	@Override
-	public void importDefaultValues(
-			boolean updateExchangeRate,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws Exception {
-
-		_commerceCurrencyLocalService.importDefaultValues(
-			updateExchangeRate, serviceContext);
-	}
-
-	@Override
 	public com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.commerce.currency.model.CommerceCurrency>
 				searchCommerceCurrencies(
@@ -497,21 +497,17 @@ public class CommerceCurrencyLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.currency.model.CommerceCurrency setActive(
+	public com.liferay.commerce.currency.model.CommerceCurrency updateActive(
 			long commerceCurrencyId, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _commerceCurrencyLocalService.setActive(
+		return _commerceCurrencyLocalService.updateActive(
 			commerceCurrencyId, active);
 	}
 
 	@Override
-	public com.liferay.commerce.currency.model.CommerceCurrency setPrimary(
-			long commerceCurrencyId, boolean primary)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceCurrencyLocalService.setPrimary(
-			commerceCurrencyId, primary);
+	public void updateAopProxy(Object aopProxy) {
+		_commerceCurrencyLocalService.updateAopProxy(aopProxy);
 	}
 
 	/**
@@ -577,6 +573,15 @@ public class CommerceCurrencyLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_commerceCurrencyLocalService.updateExchangeRates();
+	}
+
+	@Override
+	public com.liferay.commerce.currency.model.CommerceCurrency updatePrimary(
+			long commerceCurrencyId, boolean primary)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceCurrencyLocalService.updatePrimary(
+			commerceCurrencyId, primary);
 	}
 
 	@Override

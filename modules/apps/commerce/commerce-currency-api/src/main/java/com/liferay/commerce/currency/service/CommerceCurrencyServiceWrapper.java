@@ -153,19 +153,12 @@ public class CommerceCurrencyServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.currency.model.CommerceCurrency setActive(
+	public com.liferay.commerce.currency.model.CommerceCurrency updateActive(
 			long commerceCurrencyId, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _commerceCurrencyService.setActive(commerceCurrencyId, active);
-	}
-
-	@Override
-	public com.liferay.commerce.currency.model.CommerceCurrency setPrimary(
-			long commerceCurrencyId, boolean primary)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceCurrencyService.setPrimary(commerceCurrencyId, primary);
+		return _commerceCurrencyService.updateActive(
+			commerceCurrencyId, active);
 	}
 
 	@Override
@@ -201,6 +194,15 @@ public class CommerceCurrencyServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		_commerceCurrencyService.updateExchangeRates();
+	}
+
+	@Override
+	public com.liferay.commerce.currency.model.CommerceCurrency updatePrimary(
+			long commerceCurrencyId, boolean primary)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceCurrencyService.updatePrimary(
+			commerceCurrencyId, primary);
 	}
 
 	@Override

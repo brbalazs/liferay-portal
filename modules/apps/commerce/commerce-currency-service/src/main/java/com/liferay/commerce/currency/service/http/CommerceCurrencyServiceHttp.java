@@ -522,15 +522,15 @@ public class CommerceCurrencyServiceHttp {
 	}
 
 	public static com.liferay.commerce.currency.model.CommerceCurrency
-			setActive(
+			updateActive(
 				HttpPrincipal httpPrincipal, long commerceCurrencyId,
 				boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CommerceCurrencyServiceUtil.class, "setActive",
-				_setActiveParameterTypes11);
+				CommerceCurrencyServiceUtil.class, "updateActive",
+				_updateActiveParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceCurrencyId, active);
@@ -565,15 +565,15 @@ public class CommerceCurrencyServiceHttp {
 	}
 
 	public static com.liferay.commerce.currency.model.CommerceCurrency
-			setPrimary(
+			updatePrimary(
 				HttpPrincipal httpPrincipal, long commerceCurrencyId,
 				boolean primary)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CommerceCurrencyServiceUtil.class, "setPrimary",
-				_setPrimaryParameterTypes12);
+				CommerceCurrencyServiceUtil.class, "updatePrimary",
+				_updatePrimaryParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceCurrencyId, primary);
@@ -770,12 +770,10 @@ public class CommerceCurrencyServiceHttp {
 			long.class, String.class, java.util.LinkedHashMap.class, int.class,
 			int.class, com.liferay.portal.kernel.search.Sort.class
 		};
-	private static final Class<?>[] _setActiveParameterTypes11 = new Class[] {
-		long.class, boolean.class
-	};
-	private static final Class<?>[] _setPrimaryParameterTypes12 = new Class[] {
-		long.class, boolean.class
-	};
+	private static final Class<?>[] _updateActiveParameterTypes11 =
+		new Class[] {long.class, boolean.class};
+	private static final Class<?>[] _updatePrimaryParameterTypes12 =
+		new Class[] {long.class, boolean.class};
 	private static final Class<?>[] _updateCommerceCurrencyParameterTypes13 =
 		new Class[] {
 			String.class, long.class, java.util.Map.class, String.class,

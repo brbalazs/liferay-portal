@@ -69,6 +69,15 @@ public class CommerceCurrencyLocalServiceUtil {
 			roundingMode, primary, priority, active);
 	}
 
+	public static void addDefaultCommerceCurrencies(
+			boolean updateExchangeRate,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws Exception {
+
+		getService().addDefaultCommerceCurrencies(
+			updateExchangeRate, serviceContext);
+	}
+
 	/**
 	 * Creates a new commerce currency with the primary key. Does not add the commerce currency to the database.
 	 *
@@ -404,14 +413,6 @@ public class CommerceCurrencyLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
-	public static void importDefaultValues(
-			boolean updateExchangeRate,
-			com.liferay.portal.kernel.service.ServiceContext serviceContext)
-		throws Exception {
-
-		getService().importDefaultValues(updateExchangeRate, serviceContext);
-	}
-
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult
 		<CommerceCurrency> searchCommerceCurrencies(
 				long companyId, String keywords,
@@ -423,18 +424,15 @@ public class CommerceCurrencyLocalServiceUtil {
 			companyId, keywords, params, start, end, sort);
 	}
 
-	public static CommerceCurrency setActive(
+	public static CommerceCurrency updateActive(
 			long commerceCurrencyId, boolean active)
 		throws PortalException {
 
-		return getService().setActive(commerceCurrencyId, active);
+		return getService().updateActive(commerceCurrencyId, active);
 	}
 
-	public static CommerceCurrency setPrimary(
-			long commerceCurrencyId, boolean primary)
-		throws PortalException {
-
-		return getService().setPrimary(commerceCurrencyId, primary);
+	public static void updateAopProxy(Object aopProxy) {
+		getService().updateAopProxy(aopProxy);
 	}
 
 	/**
@@ -487,6 +485,13 @@ public class CommerceCurrencyLocalServiceUtil {
 
 	public static void updateExchangeRates() throws PortalException {
 		getService().updateExchangeRates();
+	}
+
+	public static CommerceCurrency updatePrimary(
+			long commerceCurrencyId, boolean primary)
+		throws PortalException {
+
+		return getService().updatePrimary(commerceCurrencyId, primary);
 	}
 
 	public static CommerceCurrencyLocalService getService() {
