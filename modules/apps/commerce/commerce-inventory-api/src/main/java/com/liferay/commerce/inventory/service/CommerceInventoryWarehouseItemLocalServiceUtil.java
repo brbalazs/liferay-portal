@@ -523,27 +523,6 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 		return getService().getStockQuantity(companyId, sku, unitOfMeasureKey);
 	}
 
-	public static CommerceInventoryWarehouseItem
-			increaseCommerceInventoryWarehouseItemQuantity(
-				long userId, long commerceInventoryWarehouseItemId,
-				java.math.BigDecimal quantity)
-		throws PortalException {
-
-		return getService().increaseCommerceInventoryWarehouseItemQuantity(
-			userId, commerceInventoryWarehouseItemId, quantity);
-	}
-
-	public static void moveQuantitiesBetweenWarehouses(
-			long userId, long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, java.math.BigDecimal quantity,
-			String sku, String unitOfMeasureKey)
-		throws PortalException {
-
-		getService().moveQuantitiesBetweenWarehouses(
-			userId, fromCommerceInventoryWarehouseId,
-			toCommerceInventoryWarehouseId, quantity, sku, unitOfMeasureKey);
-	}
-
 	/**
 	 * Updates the commerce inventory warehouse item in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -584,6 +563,27 @@ public class CommerceInventoryWarehouseItemLocalServiceUtil {
 		return getService().updateCommerceInventoryWarehouseItem(
 			userId, commerceInventoryWarehouseItemId, mvccVersion, quantity,
 			unitOfMeasureKey);
+	}
+
+	public static CommerceInventoryWarehouseItem
+			updateCommerceInventoryWarehouseItemQuantity(
+				long userId, long commerceInventoryWarehouseItemId,
+				java.math.BigDecimal quantity)
+		throws PortalException {
+
+		return getService().updateCommerceInventoryWarehouseItemQuantity(
+			userId, commerceInventoryWarehouseItemId, quantity);
+	}
+
+	public static void updateQuantitiesBetweenWarehouses(
+			long userId, long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, java.math.BigDecimal quantity,
+			String sku, String unitOfMeasureKey)
+		throws PortalException {
+
+		getService().updateQuantitiesBetweenWarehouses(
+			userId, fromCommerceInventoryWarehouseId,
+			toCommerceInventoryWarehouseId, quantity, sku, unitOfMeasureKey);
 	}
 
 	public static CommerceInventoryWarehouseItemLocalService getService() {

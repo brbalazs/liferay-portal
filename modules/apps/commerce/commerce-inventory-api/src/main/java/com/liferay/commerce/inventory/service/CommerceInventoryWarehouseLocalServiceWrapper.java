@@ -290,18 +290,6 @@ public class CommerceInventoryWarehouseLocalServiceWrapper
 	}
 
 	@Override
-	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouse
-			geolocateCommerceInventoryWarehouse(
-				long commerceInventoryWarehouseId, double latitude,
-				double longitude)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceInventoryWarehouseLocalService.
-			geolocateCommerceInventoryWarehouse(
-				commerceInventoryWarehouseId, latitude, longitude);
-	}
-
-	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -550,10 +538,10 @@ public class CommerceInventoryWarehouseLocalServiceWrapper
 
 	@Override
 	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouse
-			setActive(long commerceInventoryWarehouseId, boolean active)
+			updateActive(long commerceInventoryWarehouseId, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _commerceInventoryWarehouseLocalService.setActive(
+		return _commerceInventoryWarehouseLocalService.updateActive(
 			commerceInventoryWarehouseId, active);
 	}
 
@@ -575,6 +563,18 @@ public class CommerceInventoryWarehouseLocalServiceWrapper
 
 		return _commerceInventoryWarehouseLocalService.
 			updateCommerceInventoryWarehouse(commerceInventoryWarehouse);
+	}
+
+	@Override
+	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouse
+			updateCommerceInventoryWarehouse(
+				long commerceInventoryWarehouseId, double latitude,
+				double longitude)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceInventoryWarehouseLocalService.
+			updateCommerceInventoryWarehouse(
+				commerceInventoryWarehouseId, latitude, longitude);
 	}
 
 	@Override

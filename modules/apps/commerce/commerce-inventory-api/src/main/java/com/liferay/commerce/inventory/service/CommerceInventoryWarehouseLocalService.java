@@ -233,12 +233,6 @@ public interface CommerceInventoryWarehouseLocalService
 		fetchCommerceInventoryWarehouseByUuidAndCompanyId(
 			String uuid, long companyId);
 
-	@Indexable(type = IndexableType.REINDEX)
-	public CommerceInventoryWarehouse geolocateCommerceInventoryWarehouse(
-			long commerceInventoryWarehouseId, double latitude,
-			double longitude)
-		throws PortalException;
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
@@ -371,7 +365,7 @@ public interface CommerceInventoryWarehouseLocalService
 		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
-	public CommerceInventoryWarehouse setActive(
+	public CommerceInventoryWarehouse updateActive(
 			long commerceInventoryWarehouseId, boolean active)
 		throws PortalException;
 
@@ -388,6 +382,12 @@ public interface CommerceInventoryWarehouseLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceInventoryWarehouse updateCommerceInventoryWarehouse(
 		CommerceInventoryWarehouse commerceInventoryWarehouse);
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceInventoryWarehouse updateCommerceInventoryWarehouse(
+			long commerceInventoryWarehouseId, double latitude,
+			double longitude)
+		throws PortalException;
 
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceInventoryWarehouse updateCommerceInventoryWarehouse(

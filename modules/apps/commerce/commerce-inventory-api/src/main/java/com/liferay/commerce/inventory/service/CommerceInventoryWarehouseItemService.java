@@ -157,17 +157,6 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 	public BigDecimal getStockQuantity(
 		long companyId, String sku, String unitOfMeasureKey);
 
-	public CommerceInventoryWarehouseItem
-			increaseCommerceInventoryWarehouseItemQuantity(
-				long commerceInventoryWarehouseItemId, BigDecimal quantity)
-		throws PortalException;
-
-	public void moveQuantitiesBetweenWarehouses(
-			long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, BigDecimal quantity,
-			String sku, String unitOfMeasureKey)
-		throws PortalException;
-
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long commerceInventoryWarehouseItemId, BigDecimal quantity,
 			BigDecimal reservedQuantity, long mvccVersion)
@@ -176,6 +165,17 @@ public interface CommerceInventoryWarehouseItemService extends BaseService {
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long commerceInventoryWarehouseItemId, long mvccVersion,
 			BigDecimal quantity, String unitOfMeasureKey)
+		throws PortalException;
+
+	public CommerceInventoryWarehouseItem
+			updateCommerceInventoryWarehouseItemQuantity(
+				long commerceInventoryWarehouseItemId, BigDecimal quantity)
+		throws PortalException;
+
+	public void updateQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, BigDecimal quantity,
+			String sku, String unitOfMeasureKey)
 		throws PortalException;
 
 }

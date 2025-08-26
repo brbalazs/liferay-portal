@@ -610,32 +610,6 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 			companyId, sku, unitOfMeasureKey);
 	}
 
-	@Override
-	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
-			increaseCommerceInventoryWarehouseItemQuantity(
-				long userId, long commerceInventoryWarehouseItemId,
-				java.math.BigDecimal quantity)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceInventoryWarehouseItemLocalService.
-			increaseCommerceInventoryWarehouseItemQuantity(
-				userId, commerceInventoryWarehouseItemId, quantity);
-	}
-
-	@Override
-	public void moveQuantitiesBetweenWarehouses(
-			long userId, long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, java.math.BigDecimal quantity,
-			String sku, String unitOfMeasureKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_commerceInventoryWarehouseItemLocalService.
-			moveQuantitiesBetweenWarehouses(
-				userId, fromCommerceInventoryWarehouseId,
-				toCommerceInventoryWarehouseId, quantity, sku,
-				unitOfMeasureKey);
-	}
-
 	/**
 	 * Updates the commerce inventory warehouse item in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -682,6 +656,32 @@ public class CommerceInventoryWarehouseItemLocalServiceWrapper
 		return _commerceInventoryWarehouseItemLocalService.
 			updateCommerceInventoryWarehouseItem(
 				userId, commerceInventoryWarehouseItemId, mvccVersion, quantity,
+				unitOfMeasureKey);
+	}
+
+	@Override
+	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
+			updateCommerceInventoryWarehouseItemQuantity(
+				long userId, long commerceInventoryWarehouseItemId,
+				java.math.BigDecimal quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceInventoryWarehouseItemLocalService.
+			updateCommerceInventoryWarehouseItemQuantity(
+				userId, commerceInventoryWarehouseItemId, quantity);
+	}
+
+	@Override
+	public void updateQuantitiesBetweenWarehouses(
+			long userId, long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, java.math.BigDecimal quantity,
+			String sku, String unitOfMeasureKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commerceInventoryWarehouseItemLocalService.
+			updateQuantitiesBetweenWarehouses(
+				userId, fromCommerceInventoryWarehouseId,
+				toCommerceInventoryWarehouseId, quantity, sku,
 				unitOfMeasureKey);
 	}
 

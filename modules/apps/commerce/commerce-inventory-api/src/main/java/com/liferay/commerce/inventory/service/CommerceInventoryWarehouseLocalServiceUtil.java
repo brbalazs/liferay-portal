@@ -257,16 +257,6 @@ public class CommerceInventoryWarehouseLocalServiceUtil {
 			uuid, companyId);
 	}
 
-	public static CommerceInventoryWarehouse
-			geolocateCommerceInventoryWarehouse(
-				long commerceInventoryWarehouseId, double latitude,
-				double longitude)
-		throws PortalException {
-
-		return getService().geolocateCommerceInventoryWarehouse(
-			commerceInventoryWarehouseId, latitude, longitude);
-	}
-
 	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
 
@@ -462,11 +452,11 @@ public class CommerceInventoryWarehouseLocalServiceUtil {
 			companyId, active, commerceCountryCode, keywords);
 	}
 
-	public static CommerceInventoryWarehouse setActive(
+	public static CommerceInventoryWarehouse updateActive(
 			long commerceInventoryWarehouseId, boolean active)
 		throws PortalException {
 
-		return getService().setActive(commerceInventoryWarehouseId, active);
+		return getService().updateActive(commerceInventoryWarehouseId, active);
 	}
 
 	/**
@@ -484,6 +474,15 @@ public class CommerceInventoryWarehouseLocalServiceUtil {
 
 		return getService().updateCommerceInventoryWarehouse(
 			commerceInventoryWarehouse);
+	}
+
+	public static CommerceInventoryWarehouse updateCommerceInventoryWarehouse(
+			long commerceInventoryWarehouseId, double latitude,
+			double longitude)
+		throws PortalException {
+
+		return getService().updateCommerceInventoryWarehouse(
+			commerceInventoryWarehouseId, latitude, longitude);
 	}
 
 	public static CommerceInventoryWarehouse updateCommerceInventoryWarehouse(

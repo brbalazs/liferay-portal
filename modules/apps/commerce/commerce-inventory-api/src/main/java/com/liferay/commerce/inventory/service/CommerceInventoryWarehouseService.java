@@ -133,7 +133,7 @@ public interface CommerceInventoryWarehouseService extends BaseService {
 			String keywords)
 		throws PortalException;
 
-	public CommerceInventoryWarehouse setActive(
+	public CommerceInventoryWarehouse updateActive(
 			long commerceInventoryWarehouseId, boolean active)
 		throws PortalException;
 

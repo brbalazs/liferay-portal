@@ -254,30 +254,6 @@ public class CommerceInventoryWarehouseItemServiceWrapper
 
 	@Override
 	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
-			increaseCommerceInventoryWarehouseItemQuantity(
-				long commerceInventoryWarehouseItemId,
-				java.math.BigDecimal quantity)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		return _commerceInventoryWarehouseItemService.
-			increaseCommerceInventoryWarehouseItemQuantity(
-				commerceInventoryWarehouseItemId, quantity);
-	}
-
-	@Override
-	public void moveQuantitiesBetweenWarehouses(
-			long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, java.math.BigDecimal quantity,
-			String sku, String unitOfMeasureKey)
-		throws com.liferay.portal.kernel.exception.PortalException {
-
-		_commerceInventoryWarehouseItemService.moveQuantitiesBetweenWarehouses(
-			fromCommerceInventoryWarehouseId, toCommerceInventoryWarehouseId,
-			quantity, sku, unitOfMeasureKey);
-	}
-
-	@Override
-	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
 			updateCommerceInventoryWarehouseItem(
 				long commerceInventoryWarehouseItemId,
 				java.math.BigDecimal quantity,
@@ -300,6 +276,32 @@ public class CommerceInventoryWarehouseItemServiceWrapper
 		return _commerceInventoryWarehouseItemService.
 			updateCommerceInventoryWarehouseItem(
 				commerceInventoryWarehouseItemId, mvccVersion, quantity,
+				unitOfMeasureKey);
+	}
+
+	@Override
+	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
+			updateCommerceInventoryWarehouseItemQuantity(
+				long commerceInventoryWarehouseItemId,
+				java.math.BigDecimal quantity)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _commerceInventoryWarehouseItemService.
+			updateCommerceInventoryWarehouseItemQuantity(
+				commerceInventoryWarehouseItemId, quantity);
+	}
+
+	@Override
+	public void updateQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, java.math.BigDecimal quantity,
+			String sku, String unitOfMeasureKey)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_commerceInventoryWarehouseItemService.
+			updateQuantitiesBetweenWarehouses(
+				fromCommerceInventoryWarehouseId,
+				toCommerceInventoryWarehouseId, quantity, sku,
 				unitOfMeasureKey);
 	}
 

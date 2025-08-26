@@ -391,22 +391,6 @@ public interface CommerceInventoryWarehouseItemLocalService
 	public BigDecimal getStockQuantity(
 		long companyId, String sku, String unitOfMeasureKey);
 
-	public CommerceInventoryWarehouseItem
-			increaseCommerceInventoryWarehouseItemQuantity(
-				long userId, long commerceInventoryWarehouseItemId,
-				BigDecimal quantity)
-		throws PortalException;
-
-	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
-	)
-	public void moveQuantitiesBetweenWarehouses(
-			long userId, long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, BigDecimal quantity,
-			String sku, String unitOfMeasureKey)
-		throws PortalException;
-
 	/**
 	 * Updates the commerce inventory warehouse item in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -429,6 +413,22 @@ public interface CommerceInventoryWarehouseItemLocalService
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long userId, long commerceInventoryWarehouseItemId,
 			long mvccVersion, BigDecimal quantity, String unitOfMeasureKey)
+		throws PortalException;
+
+	public CommerceInventoryWarehouseItem
+			updateCommerceInventoryWarehouseItemQuantity(
+				long userId, long commerceInventoryWarehouseItemId,
+				BigDecimal quantity)
+		throws PortalException;
+
+	@Transactional(
+		propagation = Propagation.REQUIRED, readOnly = false,
+		rollbackFor = Exception.class
+	)
+	public void updateQuantitiesBetweenWarehouses(
+			long userId, long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, BigDecimal quantity,
+			String sku, String unitOfMeasureKey)
 		throws PortalException;
 
 }

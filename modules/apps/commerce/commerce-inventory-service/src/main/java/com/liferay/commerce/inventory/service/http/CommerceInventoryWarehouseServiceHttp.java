@@ -691,15 +691,15 @@ public class CommerceInventoryWarehouseServiceHttp {
 
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouse
-				setActive(
+				updateActive(
 					HttpPrincipal httpPrincipal,
 					long commerceInventoryWarehouseId, boolean active)
 			throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
-				CommerceInventoryWarehouseServiceUtil.class, "setActive",
-				_setActiveParameterTypes14);
+				CommerceInventoryWarehouseServiceUtil.class, "updateActive",
+				_updateActiveParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceInventoryWarehouseId, active);
@@ -899,9 +899,8 @@ public class CommerceInventoryWarehouseServiceHttp {
 		_searchCommerceInventoryWarehousesCountParameterTypes13 = new Class[] {
 			long.class, Boolean.class, String.class, String.class
 		};
-	private static final Class<?>[] _setActiveParameterTypes14 = new Class[] {
-		long.class, boolean.class
-	};
+	private static final Class<?>[] _updateActiveParameterTypes14 =
+		new Class[] {long.class, boolean.class};
 	private static final Class<?>[]
 		_updateCommerceInventoryWarehouseParameterTypes15 = new Class[] {
 			long.class, java.util.Map.class, java.util.Map.class, boolean.class,

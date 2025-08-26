@@ -67,21 +67,6 @@ public class CommerceInventoryBookedQuantityLocalServiceUtil {
 			userId, expirationDate, quantity, sku, unitOfMeasureKey, context);
 	}
 
-	public static void checkCommerceInventoryBookedQuantities() {
-		getService().checkCommerceInventoryBookedQuantities();
-	}
-
-	public static CommerceInventoryBookedQuantity
-			consumeCommerceInventoryBookedQuantity(
-				long commerceInventoryBookedQuantityId,
-				java.math.BigDecimal quantity)
-		throws com.liferay.commerce.inventory.exception.
-			NoSuchInventoryBookedQuantityException {
-
-		return getService().consumeCommerceInventoryBookedQuantity(
-			commerceInventoryBookedQuantityId, quantity);
-	}
-
 	/**
 	 * Creates a new commerce inventory booked quantity with the primary key. Does not add the commerce inventory booked quantity to the database.
 	 *
@@ -104,6 +89,10 @@ public class CommerceInventoryBookedQuantityLocalServiceUtil {
 		throws PortalException {
 
 		return getService().createPersistedModel(primaryKeyObj);
+	}
+
+	public static void deleteCommerceInventoryBookedQuantitiesByExpirationDate() {
+		getService().deleteCommerceInventoryBookedQuantitiesByExpirationDate();
 	}
 
 	/**
@@ -396,16 +385,6 @@ public class CommerceInventoryBookedQuantityLocalServiceUtil {
 			sku, unitOfMeasureKey, context);
 	}
 
-	public static CommerceInventoryBookedQuantity
-			restockCommerceInventoryBookedQuantity(
-				long userId, long commerceInventoryBookedQuantityId,
-				Map<String, String> context)
-		throws PortalException {
-
-		return getService().restockCommerceInventoryBookedQuantity(
-			userId, commerceInventoryBookedQuantityId, context);
-	}
-
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult
 		<CommerceInventoryBookedQuantity>
 				searchCommerceInventoryBookedQuantities(
@@ -445,6 +424,17 @@ public class CommerceInventoryBookedQuantityLocalServiceUtil {
 
 	public static CommerceInventoryBookedQuantity
 			updateCommerceInventoryBookedQuantity(
+				long commerceInventoryBookedQuantityId,
+				java.math.BigDecimal quantity)
+		throws com.liferay.commerce.inventory.exception.
+			NoSuchInventoryBookedQuantityException {
+
+		return getService().updateCommerceInventoryBookedQuantity(
+			commerceInventoryBookedQuantityId, quantity);
+	}
+
+	public static CommerceInventoryBookedQuantity
+			updateCommerceInventoryBookedQuantity(
 				long userId, long commerceInventoryBookedQuantityId,
 				java.math.BigDecimal quantity, Map<String, String> context,
 				long mvccVersion)
@@ -453,6 +443,16 @@ public class CommerceInventoryBookedQuantityLocalServiceUtil {
 		return getService().updateCommerceInventoryBookedQuantity(
 			userId, commerceInventoryBookedQuantityId, quantity, context,
 			mvccVersion);
+	}
+
+	public static CommerceInventoryBookedQuantity
+			updateCommerceInventoryBookedQuantity(
+				long userId, long commerceInventoryBookedQuantityId,
+				Map<String, String> context)
+		throws PortalException {
+
+		return getService().updateCommerceInventoryBookedQuantity(
+			userId, commerceInventoryBookedQuantityId, context);
 	}
 
 	public static CommerceInventoryBookedQuantityLocalService getService() {

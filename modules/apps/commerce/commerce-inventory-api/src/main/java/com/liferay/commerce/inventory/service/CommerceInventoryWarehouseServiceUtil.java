@@ -175,11 +175,11 @@ public class CommerceInventoryWarehouseServiceUtil {
 			companyId, active, commerceCountryCode, keywords);
 	}
 
-	public static CommerceInventoryWarehouse setActive(
+	public static CommerceInventoryWarehouse updateActive(
 			long commerceInventoryWarehouseId, boolean active)
 		throws PortalException {
 
-		return getService().setActive(commerceInventoryWarehouseId, active);
+		return getService().updateActive(commerceInventoryWarehouseId, active);
 	}
 
 	public static CommerceInventoryWarehouse updateCommerceInventoryWarehouse(

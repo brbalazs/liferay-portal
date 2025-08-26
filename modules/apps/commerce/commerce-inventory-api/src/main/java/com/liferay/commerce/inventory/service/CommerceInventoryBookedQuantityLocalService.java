@@ -81,13 +81,6 @@ public interface CommerceInventoryBookedQuantityLocalService
 			String unitOfMeasureKey, Map<String, String> context)
 		throws PortalException;
 
-	public void checkCommerceInventoryBookedQuantities();
-
-	public CommerceInventoryBookedQuantity
-			consumeCommerceInventoryBookedQuantity(
-				long commerceInventoryBookedQuantityId, BigDecimal quantity)
-		throws NoSuchInventoryBookedQuantityException;
-
 	/**
 	 * Creates a new commerce inventory booked quantity with the primary key. Does not add the commerce inventory booked quantity to the database.
 	 *
@@ -104,6 +97,8 @@ public interface CommerceInventoryBookedQuantityLocalService
 	 */
 	public PersistedModel createPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
+
+	public void deleteCommerceInventoryBookedQuantitiesByExpirationDate();
 
 	/**
 	 * Deletes the commerce inventory booked quantity from the database. Also notifies the appropriate model listeners.
@@ -321,12 +316,6 @@ public interface CommerceInventoryBookedQuantityLocalService
 			String unitOfMeasureKey, Map<String, String> context)
 		throws PortalException;
 
-	public CommerceInventoryBookedQuantity
-			restockCommerceInventoryBookedQuantity(
-				long userId, long commerceInventoryBookedQuantityId,
-				Map<String, String> context)
-		throws PortalException;
-
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public BaseModelSearchResult<CommerceInventoryBookedQuantity>
 			searchCommerceInventoryBookedQuantities(SearchContext searchContext)
@@ -352,12 +341,23 @@ public interface CommerceInventoryBookedQuantityLocalService
 		updateCommerceInventoryBookedQuantity(
 			CommerceInventoryBookedQuantity commerceInventoryBookedQuantity);
 
+	public CommerceInventoryBookedQuantity
+			updateCommerceInventoryBookedQuantity(
+				long commerceInventoryBookedQuantityId, BigDecimal quantity)
+		throws NoSuchInventoryBookedQuantityException;
+
 	@Indexable(type = IndexableType.REINDEX)
 	public CommerceInventoryBookedQuantity
 			updateCommerceInventoryBookedQuantity(
 				long userId, long commerceInventoryBookedQuantityId,
 				BigDecimal quantity, Map<String, String> context,
 				long mvccVersion)
+		throws PortalException;
+
+	public CommerceInventoryBookedQuantity
+			updateCommerceInventoryBookedQuantity(
+				long userId, long commerceInventoryBookedQuantityId,
+				Map<String, String> context)
 		throws PortalException;
 
 }

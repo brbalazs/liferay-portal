@@ -216,27 +216,6 @@ public class CommerceInventoryWarehouseItemServiceUtil {
 	}
 
 	public static CommerceInventoryWarehouseItem
-			increaseCommerceInventoryWarehouseItemQuantity(
-				long commerceInventoryWarehouseItemId,
-				java.math.BigDecimal quantity)
-		throws PortalException {
-
-		return getService().increaseCommerceInventoryWarehouseItemQuantity(
-			commerceInventoryWarehouseItemId, quantity);
-	}
-
-	public static void moveQuantitiesBetweenWarehouses(
-			long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, java.math.BigDecimal quantity,
-			String sku, String unitOfMeasureKey)
-		throws PortalException {
-
-		getService().moveQuantitiesBetweenWarehouses(
-			fromCommerceInventoryWarehouseId, toCommerceInventoryWarehouseId,
-			quantity, sku, unitOfMeasureKey);
-	}
-
-	public static CommerceInventoryWarehouseItem
 			updateCommerceInventoryWarehouseItem(
 				long commerceInventoryWarehouseItemId,
 				java.math.BigDecimal quantity,
@@ -257,6 +236,27 @@ public class CommerceInventoryWarehouseItemServiceUtil {
 		return getService().updateCommerceInventoryWarehouseItem(
 			commerceInventoryWarehouseItemId, mvccVersion, quantity,
 			unitOfMeasureKey);
+	}
+
+	public static CommerceInventoryWarehouseItem
+			updateCommerceInventoryWarehouseItemQuantity(
+				long commerceInventoryWarehouseItemId,
+				java.math.BigDecimal quantity)
+		throws PortalException {
+
+		return getService().updateCommerceInventoryWarehouseItemQuantity(
+			commerceInventoryWarehouseItemId, quantity);
+	}
+
+	public static void updateQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, java.math.BigDecimal quantity,
+			String sku, String unitOfMeasureKey)
+		throws PortalException {
+
+		getService().updateQuantitiesBetweenWarehouses(
+			fromCommerceInventoryWarehouseId, toCommerceInventoryWarehouseId,
+			quantity, sku, unitOfMeasureKey);
 	}
 
 	public static CommerceInventoryWarehouseItemService getService() {

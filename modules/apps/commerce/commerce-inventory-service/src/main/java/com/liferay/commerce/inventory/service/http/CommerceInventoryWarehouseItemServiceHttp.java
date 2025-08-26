@@ -860,7 +860,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 
 	public static
 		com.liferay.commerce.inventory.model.CommerceInventoryWarehouseItem
-				increaseCommerceInventoryWarehouseItemQuantity(
+				updateCommerceInventoryWarehouseItemQuantity(
 					HttpPrincipal httpPrincipal,
 					long commerceInventoryWarehouseItemId,
 					java.math.BigDecimal quantity)
@@ -869,8 +869,8 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
-				"increaseCommerceInventoryWarehouseItemQuantity",
-				_increaseCommerceInventoryWarehouseItemQuantityParameterTypes19);
+				"updateCommerceInventoryWarehouseItemQuantity",
+				_updateCommerceInventoryWarehouseItemQuantityParameterTypes19);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, commerceInventoryWarehouseItemId, quantity);
@@ -904,7 +904,7 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 		}
 	}
 
-	public static void moveQuantitiesBetweenWarehouses(
+	public static void updateQuantitiesBetweenWarehouses(
 			HttpPrincipal httpPrincipal, long fromCommerceInventoryWarehouseId,
 			long toCommerceInventoryWarehouseId, java.math.BigDecimal quantity,
 			String sku, String unitOfMeasureKey)
@@ -913,8 +913,8 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				CommerceInventoryWarehouseItemServiceUtil.class,
-				"moveQuantitiesBetweenWarehouses",
-				_moveQuantitiesBetweenWarehousesParameterTypes20);
+				"updateQuantitiesBetweenWarehouses",
+				_updateQuantitiesBetweenWarehousesParameterTypes20);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, fromCommerceInventoryWarehouseId,
@@ -1122,10 +1122,10 @@ public class CommerceInventoryWarehouseItemServiceHttp {
 	private static final Class<?>[] _getStockQuantityParameterTypes18 =
 		new Class[] {long.class, String.class, String.class};
 	private static final Class<?>[]
-		_increaseCommerceInventoryWarehouseItemQuantityParameterTypes19 =
+		_updateCommerceInventoryWarehouseItemQuantityParameterTypes19 =
 			new Class[] {long.class, java.math.BigDecimal.class};
 	private static final Class<?>[]
-		_moveQuantitiesBetweenWarehousesParameterTypes20 = new Class[] {
+		_updateQuantitiesBetweenWarehousesParameterTypes20 = new Class[] {
 			long.class, long.class, java.math.BigDecimal.class, String.class,
 			String.class
 		};

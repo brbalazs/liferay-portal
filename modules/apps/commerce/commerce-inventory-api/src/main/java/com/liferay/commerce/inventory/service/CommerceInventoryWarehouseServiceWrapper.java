@@ -210,10 +210,10 @@ public class CommerceInventoryWarehouseServiceWrapper
 
 	@Override
 	public com.liferay.commerce.inventory.model.CommerceInventoryWarehouse
-			setActive(long commerceInventoryWarehouseId, boolean active)
+			updateActive(long commerceInventoryWarehouseId, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _commerceInventoryWarehouseService.setActive(
+		return _commerceInventoryWarehouseService.updateActive(
 			commerceInventoryWarehouseId, active);
 	}
 
