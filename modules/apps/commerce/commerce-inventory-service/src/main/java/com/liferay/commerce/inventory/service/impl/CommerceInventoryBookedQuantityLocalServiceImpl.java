@@ -99,43 +99,9 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 			commerceInventoryBookedQuantity);
 	}
 
-	@Override
-	public void checkCommerceInventoryBookedQuantities() {
+	public void deleteCommerceInventoryBookedQuantitiesByExpirationDate() {
 		commerceInventoryBookedQuantityPersistence.removeByLtExpirationDate(
 			new Date());
-	}
-
-	@Override
-	public CommerceInventoryBookedQuantity
-			consumeCommerceInventoryBookedQuantity(
-				long commerceInventoryBookedQuantityId, BigDecimal quantity)
-		throws NoSuchInventoryBookedQuantityException {
-
-		CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
-			commerceInventoryBookedQuantityPersistence.findByPrimaryKey(
-				commerceInventoryBookedQuantityId);
-
-		if (quantity == null) {
-			quantity = BigDecimal.ZERO;
-		}
-
-		BigDecimal commerceInventoryWarehouseItemQuantity =
-			commerceInventoryBookedQuantity.getQuantity();
-
-		if (BigDecimalUtil.lt(
-				quantity, commerceInventoryWarehouseItemQuantity)) {
-
-			BigDecimal newQuantity =
-				commerceInventoryWarehouseItemQuantity.subtract(quantity);
-
-			commerceInventoryBookedQuantity.setQuantity(newQuantity);
-
-			return commerceInventoryBookedQuantityPersistence.update(
-				commerceInventoryBookedQuantity);
-		}
-
-		return commerceInventoryBookedQuantityPersistence.remove(
-			commerceInventoryBookedQuantityId);
 	}
 
 	@Override
@@ -364,31 +330,6 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 	}
 
 	@Override
-	public CommerceInventoryBookedQuantity
-			restockCommerceInventoryBookedQuantity(
-				long userId, long commerceInventoryBookedQuantityId,
-				Map<String, String> context)
-		throws PortalException {
-
-		CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
-			commerceInventoryBookedQuantityPersistence.remove(
-				commerceInventoryBookedQuantityId);
-
-		CommerceInventoryAuditType commerceInventoryAuditType =
-			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
-				CommerceInventoryConstants.AUDIT_TYPE_RESTOCK_QUANTITY);
-
-		_commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			userId, commerceInventoryAuditType.getType(),
-			commerceInventoryAuditType.getLog(context),
-			commerceInventoryBookedQuantity.getQuantity(),
-			commerceInventoryBookedQuantity.getSku(),
-			commerceInventoryBookedQuantity.getUnitOfMeasureKey());
-
-		return commerceInventoryBookedQuantity;
-	}
-
-	@Override
 	public BaseModelSearchResult<CommerceInventoryBookedQuantity>
 			searchCommerceInventoryBookedQuantities(SearchContext searchContext)
 		throws PortalException {
@@ -426,6 +367,38 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 		return GetterUtil.getInteger(indexer.searchCount(searchContext));
 	}
 
+	public CommerceInventoryBookedQuantity
+			updateCommerceInventoryBookedQuantity(
+				long commerceInventoryBookedQuantityId, BigDecimal quantity)
+		throws NoSuchInventoryBookedQuantityException {
+
+		CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
+			commerceInventoryBookedQuantityPersistence.findByPrimaryKey(
+				commerceInventoryBookedQuantityId);
+
+		if (quantity == null) {
+			quantity = BigDecimal.ZERO;
+		}
+
+		BigDecimal commerceInventoryWarehouseItemQuantity =
+			commerceInventoryBookedQuantity.getQuantity();
+
+		if (BigDecimalUtil.lt(
+				quantity, commerceInventoryWarehouseItemQuantity)) {
+
+			BigDecimal newQuantity =
+				commerceInventoryWarehouseItemQuantity.subtract(quantity);
+
+			commerceInventoryBookedQuantity.setQuantity(newQuantity);
+
+			return commerceInventoryBookedQuantityPersistence.update(
+				commerceInventoryBookedQuantity);
+		}
+
+		return commerceInventoryBookedQuantityPersistence.remove(
+			commerceInventoryBookedQuantityId);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public CommerceInventoryBookedQuantity
@@ -459,6 +432,30 @@ public class CommerceInventoryBookedQuantityLocalServiceImpl
 		return commerceInventoryBookedQuantityLocalService.
 			updateCommerceInventoryBookedQuantity(
 				commerceInventoryBookedQuantity);
+	}
+
+	public CommerceInventoryBookedQuantity
+			updateCommerceInventoryBookedQuantity(
+				long userId, long commerceInventoryBookedQuantityId,
+				Map<String, String> context)
+		throws PortalException {
+
+		CommerceInventoryBookedQuantity commerceInventoryBookedQuantity =
+			commerceInventoryBookedQuantityPersistence.remove(
+				commerceInventoryBookedQuantityId);
+
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_RESTOCK_QUANTITY);
+
+		_commerceInventoryAuditLocalService.addCommerceInventoryAudit(
+			userId, commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(context),
+			commerceInventoryBookedQuantity.getQuantity(),
+			commerceInventoryBookedQuantity.getSku(),
+			commerceInventoryBookedQuantity.getUnitOfMeasureKey());
+
+		return commerceInventoryBookedQuantity;
 	}
 
 	private SearchContext _buildSearchContext(

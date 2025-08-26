@@ -176,24 +176,6 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 			deleteCommerceInventoryWarehouse(commerceInventoryWarehouse);
 	}
 
-	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommerceInventoryWarehouse geolocateCommerceInventoryWarehouse(
-			long commerceInventoryWarehouseId, double latitude,
-			double longitude)
-		throws PortalException {
-
-		CommerceInventoryWarehouse commerceInventoryWarehouse =
-			commerceInventoryWarehousePersistence.findByPrimaryKey(
-				commerceInventoryWarehouseId);
-
-		commerceInventoryWarehouse.setLatitude(latitude);
-		commerceInventoryWarehouse.setLongitude(longitude);
-
-		return commerceInventoryWarehousePersistence.update(
-			commerceInventoryWarehouse);
-	}
-
 	@Override
 	public List<CommerceInventoryWarehouse> getCommerceInventoryWarehouses(
 		long companyId) {
@@ -435,8 +417,7 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommerceInventoryWarehouse setActive(
+	public CommerceInventoryWarehouse updateActive(
 			long commerceInventoryWarehouseId, boolean active)
 		throws PortalException {
 
@@ -449,6 +430,23 @@ public class CommerceInventoryWarehouseLocalServiceImpl
 			commerceInventoryWarehouse.getLongitude());
 
 		commerceInventoryWarehouse.setActive(active);
+
+		return commerceInventoryWarehousePersistence.update(
+			commerceInventoryWarehouse);
+	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	public CommerceInventoryWarehouse updateCommerceInventoryWarehouse(
+			long commerceInventoryWarehouseId, double latitude,
+			double longitude)
+		throws PortalException {
+
+		CommerceInventoryWarehouse commerceInventoryWarehouse =
+			commerceInventoryWarehousePersistence.findByPrimaryKey(
+				commerceInventoryWarehouseId);
+
+		commerceInventoryWarehouse.setLatitude(latitude);
+		commerceInventoryWarehouse.setLongitude(longitude);
 
 		return commerceInventoryWarehousePersistence.update(
 			commerceInventoryWarehouse);

@@ -885,111 +885,6 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 	}
 
 	@Override
-	public CommerceInventoryWarehouseItem
-			increaseCommerceInventoryWarehouseItemQuantity(
-				long userId, long commerceInventoryWarehouseItemId,
-				BigDecimal quantity)
-		throws PortalException {
-
-		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
-			commerceInventoryWarehouseItemPersistence.findByPrimaryKey(
-				commerceInventoryWarehouseItemId);
-
-		quantity = quantity.add(commerceInventoryWarehouseItem.getQuantity());
-
-		commerceInventoryWarehouseItem.setQuantity(quantity);
-
-		commerceInventoryWarehouseItem =
-			commerceInventoryWarehouseItemPersistence.update(
-				commerceInventoryWarehouseItem);
-
-		CommerceInventoryAuditType commerceInventoryAuditType =
-			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
-				CommerceInventoryConstants.AUDIT_TYPE_INCREASE_QUANTITY);
-
-		_commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			userId, commerceInventoryAuditType.getType(),
-			commerceInventoryAuditType.getLog(null), quantity,
-			commerceInventoryWarehouseItem.getSku(),
-			commerceInventoryWarehouseItem.getUnitOfMeasureKey());
-
-		return commerceInventoryWarehouseItem;
-	}
-
-	@Override
-	@Transactional(
-		propagation = Propagation.REQUIRED, readOnly = false,
-		rollbackFor = Exception.class
-	)
-	public void moveQuantitiesBetweenWarehouses(
-			long userId, long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, BigDecimal quantity,
-			String sku, String unitOfMeasureKey)
-		throws PortalException {
-
-		CommerceInventoryWarehouseItem fromWarehouseItem =
-			commerceInventoryWarehouseItemPersistence.findByCIWI_S_U(
-				fromCommerceInventoryWarehouseId, sku, unitOfMeasureKey);
-
-		BigDecimal fromWarehouseItemQuantity = fromWarehouseItem.getQuantity();
-
-		if (quantity.compareTo(fromWarehouseItemQuantity) == 1) {
-			throw new PortalException("Quantity to transfer unavailable");
-		}
-
-		commerceInventoryWarehouseItemLocalService.
-			updateCommerceInventoryWarehouseItem(
-				userId, fromWarehouseItem.getCommerceInventoryWarehouseItemId(),
-				fromWarehouseItem.getMvccVersion(),
-				fromWarehouseItemQuantity.subtract(quantity),
-				fromWarehouseItem.getUnitOfMeasureKey());
-
-		CommerceInventoryWarehouseItem toWarehouseItem =
-			commerceInventoryWarehouseItemPersistence.findByCIWI_S_U(
-				toCommerceInventoryWarehouseId, sku, unitOfMeasureKey);
-
-		BigDecimal toWarehouseItemQuantity = toWarehouseItem.getQuantity();
-
-		commerceInventoryWarehouseItemLocalService.
-			updateCommerceInventoryWarehouseItem(
-				userId, toWarehouseItem.getCommerceInventoryWarehouseItemId(),
-				toWarehouseItem.getMvccVersion(),
-				toWarehouseItemQuantity.add(quantity),
-				toWarehouseItem.getUnitOfMeasureKey());
-
-		CommerceInventoryAuditType commerceInventoryAuditType =
-			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
-				CommerceInventoryConstants.AUDIT_TYPE_MOVE_QUANTITY);
-
-		_commerceInventoryAuditLocalService.addCommerceInventoryAudit(
-			userId, commerceInventoryAuditType.getType(),
-			commerceInventoryAuditType.getLog(
-				HashMapBuilder.put(
-					CommerceInventoryAuditTypeConstants.FROM,
-					() -> {
-						CommerceInventoryWarehouse
-							fromCommerceInventoryWarehouse =
-								fromWarehouseItem.
-									getCommerceInventoryWarehouse();
-
-						return String.valueOf(
-							fromCommerceInventoryWarehouse.getName());
-					}
-				).put(
-					CommerceInventoryAuditTypeConstants.TO,
-					() -> {
-						CommerceInventoryWarehouse
-							toCommerceInventoryWarehouse =
-								toWarehouseItem.getCommerceInventoryWarehouse();
-
-						return String.valueOf(
-							toCommerceInventoryWarehouse.getName());
-					}
-				).build()),
-			quantity, sku, unitOfMeasureKey);
-	}
-
-	@Override
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long userId, long commerceInventoryWarehouseItemId,
 			BigDecimal quantity, BigDecimal reservedQuantity, long mvccVersion)
@@ -1079,6 +974,109 @@ public class CommerceInventoryWarehouseItemLocalServiceImpl
 			commerceInventoryWarehouseItem.getUnitOfMeasureKey());
 
 		return commerceInventoryWarehouseItem;
+	}
+
+	public CommerceInventoryWarehouseItem
+			updateCommerceInventoryWarehouseItemQuantity(
+				long userId, long commerceInventoryWarehouseItemId,
+				BigDecimal quantity)
+		throws PortalException {
+
+		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.findByPrimaryKey(
+				commerceInventoryWarehouseItemId);
+
+		quantity = quantity.add(commerceInventoryWarehouseItem.getQuantity());
+
+		commerceInventoryWarehouseItem.setQuantity(quantity);
+
+		commerceInventoryWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.update(
+				commerceInventoryWarehouseItem);
+
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_INCREASE_QUANTITY);
+
+		_commerceInventoryAuditLocalService.addCommerceInventoryAudit(
+			userId, commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(null), quantity,
+			commerceInventoryWarehouseItem.getSku(),
+			commerceInventoryWarehouseItem.getUnitOfMeasureKey());
+
+		return commerceInventoryWarehouseItem;
+	}
+
+	@Transactional(
+		propagation = Propagation.REQUIRED, readOnly = false,
+		rollbackFor = Exception.class
+	)
+	public void updateQuantitiesBetweenWarehouses(
+			long userId, long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, BigDecimal quantity,
+			String sku, String unitOfMeasureKey)
+		throws PortalException {
+
+		CommerceInventoryWarehouseItem fromWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.findByCIWI_S_U(
+				fromCommerceInventoryWarehouseId, sku, unitOfMeasureKey);
+
+		BigDecimal fromWarehouseItemQuantity = fromWarehouseItem.getQuantity();
+
+		if (quantity.compareTo(fromWarehouseItemQuantity) == 1) {
+			throw new PortalException("Quantity to transfer unavailable");
+		}
+
+		commerceInventoryWarehouseItemLocalService.
+			updateCommerceInventoryWarehouseItem(
+				userId, fromWarehouseItem.getCommerceInventoryWarehouseItemId(),
+				fromWarehouseItem.getMvccVersion(),
+				fromWarehouseItemQuantity.subtract(quantity),
+				fromWarehouseItem.getUnitOfMeasureKey());
+
+		CommerceInventoryWarehouseItem toWarehouseItem =
+			commerceInventoryWarehouseItemPersistence.findByCIWI_S_U(
+				toCommerceInventoryWarehouseId, sku, unitOfMeasureKey);
+
+		BigDecimal toWarehouseItemQuantity = toWarehouseItem.getQuantity();
+
+		commerceInventoryWarehouseItemLocalService.
+			updateCommerceInventoryWarehouseItem(
+				userId, toWarehouseItem.getCommerceInventoryWarehouseItemId(),
+				toWarehouseItem.getMvccVersion(),
+				toWarehouseItemQuantity.add(quantity),
+				toWarehouseItem.getUnitOfMeasureKey());
+
+		CommerceInventoryAuditType commerceInventoryAuditType =
+			_commerceInventoryAuditTypeRegistry.getCommerceInventoryAuditType(
+				CommerceInventoryConstants.AUDIT_TYPE_MOVE_QUANTITY);
+
+		_commerceInventoryAuditLocalService.addCommerceInventoryAudit(
+			userId, commerceInventoryAuditType.getType(),
+			commerceInventoryAuditType.getLog(
+				HashMapBuilder.put(
+					CommerceInventoryAuditTypeConstants.FROM,
+					() -> {
+						CommerceInventoryWarehouse
+							fromCommerceInventoryWarehouse =
+								fromWarehouseItem.
+									getCommerceInventoryWarehouse();
+
+						return String.valueOf(
+							fromCommerceInventoryWarehouse.getName());
+					}
+				).put(
+					CommerceInventoryAuditTypeConstants.TO,
+					() -> {
+						CommerceInventoryWarehouse
+							toCommerceInventoryWarehouse =
+								toWarehouseItem.getCommerceInventoryWarehouse();
+
+						return String.valueOf(
+							toCommerceInventoryWarehouse.getName());
+					}
+				).build()),
+			quantity, sku, unitOfMeasureKey);
 	}
 
 	private BigDecimal _getBigDecimal(Comparable<?> comparable) {

@@ -125,7 +125,7 @@ public class CommerceInventoryWarehouseServiceImpl
 			ActionKeys.UPDATE);
 
 		return commerceInventoryWarehouseLocalService.
-			geolocateCommerceInventoryWarehouse(
+			updateCommerceInventoryWarehouse(
 				commerceInventoryWarehouseId, latitude, longitude);
 	}
 
@@ -274,8 +274,7 @@ public class CommerceInventoryWarehouseServiceImpl
 				companyId, active, commerceCountryCode, keywords);
 	}
 
-	@Override
-	public CommerceInventoryWarehouse setActive(
+	public CommerceInventoryWarehouse updateActive(
 			long commerceInventoryWarehouseId, boolean active)
 		throws PortalException {
 
@@ -283,7 +282,7 @@ public class CommerceInventoryWarehouseServiceImpl
 			getPermissionChecker(), commerceInventoryWarehouseId,
 			ActionKeys.UPDATE);
 
-		return commerceInventoryWarehouseLocalService.setActive(
+		return commerceInventoryWarehouseLocalService.updateActive(
 			commerceInventoryWarehouseId, active);
 	}
 

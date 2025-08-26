@@ -361,52 +361,6 @@ public class CommerceInventoryWarehouseItemServiceImpl
 	}
 
 	@Override
-	public CommerceInventoryWarehouseItem
-			increaseCommerceInventoryWarehouseItemQuantity(
-				long commerceInventoryWarehouseItemId, BigDecimal quantity)
-		throws PortalException {
-
-		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
-			commerceInventoryWarehouseItemLocalService.
-				fetchCommerceInventoryWarehouseItem(
-					commerceInventoryWarehouseItemId);
-
-		if (commerceInventoryWarehouseItem != null) {
-			_commerceInventoryWarehouseModelResourcePermission.check(
-				getPermissionChecker(),
-				commerceInventoryWarehouseItem.
-					getCommerceInventoryWarehouseId(),
-				ActionKeys.UPDATE);
-		}
-
-		return commerceInventoryWarehouseItemLocalService.
-			increaseCommerceInventoryWarehouseItemQuantity(
-				getUserId(), commerceInventoryWarehouseItemId, quantity);
-	}
-
-	@Override
-	public void moveQuantitiesBetweenWarehouses(
-			long fromCommerceInventoryWarehouseId,
-			long toCommerceInventoryWarehouseId, BigDecimal quantity,
-			String sku, String unitOfMeasureKey)
-		throws PortalException {
-
-		_commerceInventoryWarehouseModelResourcePermission.check(
-			getPermissionChecker(), fromCommerceInventoryWarehouseId,
-			ActionKeys.UPDATE);
-
-		_commerceInventoryWarehouseModelResourcePermission.check(
-			getPermissionChecker(), toCommerceInventoryWarehouseId,
-			ActionKeys.UPDATE);
-
-		commerceInventoryWarehouseItemLocalService.
-			moveQuantitiesBetweenWarehouses(
-				getUserId(), fromCommerceInventoryWarehouseId,
-				toCommerceInventoryWarehouseId, quantity, sku,
-				unitOfMeasureKey);
-	}
-
-	@Override
 	public CommerceInventoryWarehouseItem updateCommerceInventoryWarehouseItem(
 			long commerceInventoryWarehouseItemId, BigDecimal quantity,
 			BigDecimal reservedQuantity, long mvccVersion)
@@ -454,6 +408,50 @@ public class CommerceInventoryWarehouseItemServiceImpl
 			updateCommerceInventoryWarehouseItem(
 				getUserId(), commerceInventoryWarehouseItemId, mvccVersion,
 				quantity, unitOfMeasureKey);
+	}
+
+	public CommerceInventoryWarehouseItem
+			updateCommerceInventoryWarehouseItemQuantity(
+				long commerceInventoryWarehouseItemId, BigDecimal quantity)
+		throws PortalException {
+
+		CommerceInventoryWarehouseItem commerceInventoryWarehouseItem =
+			commerceInventoryWarehouseItemLocalService.
+				fetchCommerceInventoryWarehouseItem(
+					commerceInventoryWarehouseItemId);
+
+		if (commerceInventoryWarehouseItem != null) {
+			_commerceInventoryWarehouseModelResourcePermission.check(
+				getPermissionChecker(),
+				commerceInventoryWarehouseItem.
+					getCommerceInventoryWarehouseId(),
+				ActionKeys.UPDATE);
+		}
+
+		return commerceInventoryWarehouseItemLocalService.
+			updateCommerceInventoryWarehouseItemQuantity(
+				getUserId(), commerceInventoryWarehouseItemId, quantity);
+	}
+
+	public void updateQuantitiesBetweenWarehouses(
+			long fromCommerceInventoryWarehouseId,
+			long toCommerceInventoryWarehouseId, BigDecimal quantity,
+			String sku, String unitOfMeasureKey)
+		throws PortalException {
+
+		_commerceInventoryWarehouseModelResourcePermission.check(
+			getPermissionChecker(), fromCommerceInventoryWarehouseId,
+			ActionKeys.UPDATE);
+
+		_commerceInventoryWarehouseModelResourcePermission.check(
+			getPermissionChecker(), toCommerceInventoryWarehouseId,
+			ActionKeys.UPDATE);
+
+		commerceInventoryWarehouseItemLocalService.
+			updateQuantitiesBetweenWarehouses(
+				getUserId(), fromCommerceInventoryWarehouseId,
+				toCommerceInventoryWarehouseId, quantity, sku,
+				unitOfMeasureKey);
 	}
 
 	@Reference(
