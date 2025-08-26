@@ -162,6 +162,80 @@ public class CommerceCurrencyLocalServiceImpl
 		return commerceCurrencyPersistence.update(commerceCurrency);
 	}
 
+	public void addDefaultCommerceCurrencies(
+			boolean updateExchangeRate, ServiceContext serviceContext)
+		throws Exception {
+
+		Class<?> clazz = getClass();
+
+		String currenciesPath =
+			"com/liferay/commerce/currency/service/impl/dependencies" +
+				"/currencies.json";
+
+		String countriesJSON = StringUtil.read(
+			clazz.getClassLoader(), currenciesPath, false);
+
+		JSONArray jsonArray = _jsonFactory.createJSONArray(countriesJSON);
+
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+			String code = jsonObject.getString("code");
+
+			CommerceCurrency commerceCurrency =
+				commerceCurrencyPersistence.fetchByC_C(
+					serviceContext.getCompanyId(), code);
+
+			if (commerceCurrency == null) {
+				String externalReferenceCode = jsonObject.getString(
+					"externalReferenceCode");
+				boolean primary = jsonObject.getBoolean("primary");
+				double priority = jsonObject.getDouble("priority");
+				double rate = jsonObject.getDouble("rate");
+				String symbol = jsonObject.getString("symbol");
+
+				RoundingTypeConfiguration roundingTypeConfiguration =
+					_configurationProvider.getConfiguration(
+						RoundingTypeConfiguration.class,
+						new SystemSettingsLocator(
+							RoundingTypeConstants.SERVICE_NAME));
+
+				Map<Locale, String> nameMap = HashMapBuilder.put(
+					serviceContext.getLocale(), jsonObject.getString("name")
+				).build();
+
+				Map<Locale, String> formatPatternMap = HashMapBuilder.put(
+					serviceContext.getLocale(),
+					StringBundler.concat(
+						symbol, StringPool.SPACE,
+						CommerceCurrencyConstants.DECIMAL_FORMAT_PATTERN)
+				).build();
+
+				RoundingMode roundingMode =
+					roundingTypeConfiguration.roundingMode();
+
+				commerceCurrencyLocalService.addCommerceCurrency(
+					externalReferenceCode, serviceContext.getUserId(), code,
+					nameMap, symbol, BigDecimal.valueOf(rate), formatPatternMap,
+					roundingTypeConfiguration.maximumFractionDigits(),
+					roundingTypeConfiguration.minimumFractionDigits(),
+					roundingMode.name(), primary, priority, true);
+			}
+		}
+
+		if (updateExchangeRate) {
+			for (String exchangeRateProviderKey :
+					_exchangeRateProviderRegistry.
+						getExchangeRateProviderKeys()) {
+
+				_updateExchangeRates(
+					serviceContext.getCompanyId(), exchangeRateProviderKey);
+
+				break;
+			}
+		}
+	}
+
 	@Override
 	public void deleteCommerceCurrencies(long companyId) {
 		commerceCurrencyPersistence.removeByCompanyId(companyId);
@@ -242,81 +316,6 @@ public class CommerceCurrencyLocalServiceImpl
 	}
 
 	@Override
-	public void importDefaultValues(
-			boolean updateExchangeRate, ServiceContext serviceContext)
-		throws Exception {
-
-		Class<?> clazz = getClass();
-
-		String currenciesPath =
-			"com/liferay/commerce/currency/service/impl/dependencies" +
-				"/currencies.json";
-
-		String countriesJSON = StringUtil.read(
-			clazz.getClassLoader(), currenciesPath, false);
-
-		JSONArray jsonArray = _jsonFactory.createJSONArray(countriesJSON);
-
-		for (int i = 0; i < jsonArray.length(); i++) {
-			JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-			String code = jsonObject.getString("code");
-
-			CommerceCurrency commerceCurrency =
-				commerceCurrencyPersistence.fetchByC_C(
-					serviceContext.getCompanyId(), code);
-
-			if (commerceCurrency == null) {
-				String externalReferenceCode = jsonObject.getString(
-					"externalReferenceCode");
-				boolean primary = jsonObject.getBoolean("primary");
-				double priority = jsonObject.getDouble("priority");
-				double rate = jsonObject.getDouble("rate");
-				String symbol = jsonObject.getString("symbol");
-
-				RoundingTypeConfiguration roundingTypeConfiguration =
-					_configurationProvider.getConfiguration(
-						RoundingTypeConfiguration.class,
-						new SystemSettingsLocator(
-							RoundingTypeConstants.SERVICE_NAME));
-
-				Map<Locale, String> nameMap = HashMapBuilder.put(
-					serviceContext.getLocale(), jsonObject.getString("name")
-				).build();
-
-				Map<Locale, String> formatPatternMap = HashMapBuilder.put(
-					serviceContext.getLocale(),
-					StringBundler.concat(
-						symbol, StringPool.SPACE,
-						CommerceCurrencyConstants.DECIMAL_FORMAT_PATTERN)
-				).build();
-
-				RoundingMode roundingMode =
-					roundingTypeConfiguration.roundingMode();
-
-				commerceCurrencyLocalService.addCommerceCurrency(
-					externalReferenceCode, serviceContext.getUserId(), code,
-					nameMap, symbol, BigDecimal.valueOf(rate), formatPatternMap,
-					roundingTypeConfiguration.maximumFractionDigits(),
-					roundingTypeConfiguration.minimumFractionDigits(),
-					roundingMode.name(), primary, priority, true);
-			}
-		}
-
-		if (updateExchangeRate) {
-			for (String exchangeRateProviderKey :
-					_exchangeRateProviderRegistry.
-						getExchangeRateProviderKeys()) {
-
-				_updateExchangeRates(
-					serviceContext.getCompanyId(), exchangeRateProviderKey);
-
-				break;
-			}
-		}
-	}
-
-	@Override
 	public BaseModelSearchResult<CommerceCurrency> searchCommerceCurrencies(
 			long companyId, String keywords,
 			LinkedHashMap<String, Object> params, int start, int end, Sort sort)
@@ -355,8 +354,8 @@ public class CommerceCurrencyLocalServiceImpl
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
-	@Override
-	public CommerceCurrency setActive(long commerceCurrencyId, boolean active)
+	public CommerceCurrency updateActive(
+			long commerceCurrencyId, boolean active)
 		throws PortalException {
 
 		CommerceCurrency commerceCurrency =
@@ -367,8 +366,7 @@ public class CommerceCurrencyLocalServiceImpl
 		return commerceCurrencyPersistence.update(commerceCurrency);
 	}
 
-	@Override
-	public void setAopProxy(Object aopProxy) {
+	public void updateAopProxy(Object aopProxy) {
 		super.setAopProxy(aopProxy);
 
 		Bundle bundle = FrameworkUtil.getBundle(getClass());
@@ -380,23 +378,6 @@ public class CommerceCurrencyLocalServiceImpl
 			new PortalInstanceLifecycleListenerImpl(
 				commerceCurrencyLocalService),
 			null);
-	}
-
-	@Override
-	public CommerceCurrency setPrimary(long commerceCurrencyId, boolean primary)
-		throws PortalException {
-
-		CommerceCurrency commerceCurrency =
-			commerceCurrencyPersistence.findByPrimaryKey(commerceCurrencyId);
-
-		_validate(
-			commerceCurrencyId, commerceCurrency.getCompanyId(),
-			commerceCurrency.getCode(), commerceCurrency.getNameMap(),
-			commerceCurrency.getRate(), primary);
-
-		commerceCurrency.setPrimary(primary);
-
-		return commerceCurrencyPersistence.update(commerceCurrency);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)
@@ -532,6 +513,23 @@ public class CommerceCurrencyLocalServiceImpl
 				}
 			},
 			ArrayUtil.toLongArray(commerceCurrencyFinder.getCompanyIds()));
+	}
+
+	public CommerceCurrency updatePrimary(
+			long commerceCurrencyId, boolean primary)
+		throws PortalException {
+
+		CommerceCurrency commerceCurrency =
+			commerceCurrencyPersistence.findByPrimaryKey(commerceCurrencyId);
+
+		_validate(
+			commerceCurrencyId, commerceCurrency.getCompanyId(),
+			commerceCurrency.getCode(), commerceCurrency.getNameMap(),
+			commerceCurrency.getRate(), primary);
+
+		commerceCurrency.setPrimary(primary);
+
+		return commerceCurrencyPersistence.update(commerceCurrency);
 	}
 
 	@Deactivate

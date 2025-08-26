@@ -183,28 +183,16 @@ public class CommerceCurrencyServiceImpl
 			companyId, keywords, params, start, end, sort);
 	}
 
-	@Override
-	public CommerceCurrency setActive(long commerceCurrencyId, boolean active)
+	public CommerceCurrency updateActive(
+			long commerceCurrencyId, boolean active)
 		throws PortalException {
 
 		_portletResourcePermission.check(
 			getPermissionChecker(), null,
 			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
 
-		return commerceCurrencyLocalService.setActive(
+		return commerceCurrencyLocalService.updateActive(
 			commerceCurrencyId, active);
-	}
-
-	@Override
-	public CommerceCurrency setPrimary(long commerceCurrencyId, boolean primary)
-		throws PortalException {
-
-		_portletResourcePermission.check(
-			getPermissionChecker(), null,
-			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
-
-		return commerceCurrencyLocalService.setPrimary(
-			commerceCurrencyId, primary);
 	}
 
 	@Override
@@ -246,6 +234,18 @@ public class CommerceCurrencyServiceImpl
 			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
 
 		commerceCurrencyLocalService.updateExchangeRates();
+	}
+
+	public CommerceCurrency updatePrimary(
+			long commerceCurrencyId, boolean primary)
+		throws PortalException {
+
+		_portletResourcePermission.check(
+			getPermissionChecker(), null,
+			CommerceCurrencyActionKeys.MANAGE_COMMERCE_CURRENCIES);
+
+		return commerceCurrencyLocalService.updatePrimary(
+			commerceCurrencyId, primary);
 	}
 
 	@Reference(
