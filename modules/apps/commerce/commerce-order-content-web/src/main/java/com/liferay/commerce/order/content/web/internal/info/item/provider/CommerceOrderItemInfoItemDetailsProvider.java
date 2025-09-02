@@ -6,9 +6,11 @@
 package com.liferay.commerce.order.content.web.internal.info.item.provider;
 
 import com.liferay.commerce.model.CommerceOrderItem;
+import com.liferay.info.item.ClassPKInfoItemIdentifier;
+import com.liferay.info.item.ERCInfoItemIdentifier;
+import com.liferay.info.item.GroupKeyInfoItemIdentifier;
 import com.liferay.info.item.InfoItemClassDetails;
-import com.liferay.info.item.InfoItemDetails;
-import com.liferay.info.item.InfoItemReference;
+import com.liferay.info.item.provider.BaseInfoItemDetailsProvider;
 import com.liferay.info.item.provider.InfoItemDetailsProvider;
 
 import org.osgi.framework.Constants;
@@ -18,11 +20,14 @@ import org.osgi.service.component.annotations.Component;
  * @author Alessio Antonio Rendina
  */
 @Component(
-	property = Constants.SERVICE_RANKING + ":Integer=10",
+	property = {
+		Constants.SERVICE_RANKING + ":Integer=10",
+		"item.class.name=com.liferay.commerce.model.CommerceOrderItem"
+	},
 	service = InfoItemDetailsProvider.class
 )
 public class CommerceOrderItemInfoItemDetailsProvider
-	implements InfoItemDetailsProvider<CommerceOrderItem> {
+	extends BaseInfoItemDetailsProvider<CommerceOrderItem> {
 
 	@Override
 	public InfoItemClassDetails getInfoItemClassDetails() {
@@ -30,14 +35,38 @@ public class CommerceOrderItemInfoItemDetailsProvider
 	}
 
 	@Override
-	public InfoItemDetails getInfoItemDetails(
-		CommerceOrderItem commerceOrderItem) {
+	protected InfoItemIdentifierFactory<CommerceOrderItem>
+		getInfoItemIdentifierFactory() {
 
-		return new InfoItemDetails(
-			getInfoItemClassDetails(),
-			new InfoItemReference(
-				CommerceOrderItem.class.getName(),
-				commerceOrderItem.getCommerceOrderItemId()));
+		return new InfoItemIdentifierFactory<>() {
+
+			@Override
+			public ClassPKInfoItemIdentifier createClassPKInfoItemIdentifier(
+				CommerceOrderItem commerceOrderItem) {
+
+				return new ClassPKInfoItemIdentifier(
+					commerceOrderItem.getCommerceOrderId());
+			}
+
+			@Override
+			public ERCInfoItemIdentifier createERCInfoItemIdentifier(
+				String externalReferenceCode,
+				String scopeExternalReferenceCode) {
+
+				return new ERCInfoItemIdentifier(
+					externalReferenceCode, scopeExternalReferenceCode);
+			}
+
+			@Override
+			public GroupKeyInfoItemIdentifier createGroupKeyInfoItemIdentifier(
+				long groupId, CommerceOrderItem commerceOrderItem) {
+
+				return new GroupKeyInfoItemIdentifier(
+					commerceOrderItem.getGroupId(),
+					String.valueOf(commerceOrderItem.getCommerceOrderItemId()));
+			}
+
+		};
 	}
 
 }
