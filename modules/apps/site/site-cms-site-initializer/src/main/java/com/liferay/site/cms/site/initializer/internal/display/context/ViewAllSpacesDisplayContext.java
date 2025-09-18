@@ -219,10 +219,17 @@ public class ViewAllSpacesDisplayContext {
 								"L_BASIC_WEB_CONTENT",
 								_themeDisplay.getCompanyId());
 
+					List<String> guestUnsupportedActions =
+						ResourceActionsUtil.getResourceGuestUnsupportedActions(
+							null, objectDefinition.getClassName());
+
 					return TransformUtil.transformToArray(
 						ResourceActionsUtil.getResourceActions(
 							objectDefinition.getClassName()),
-						resourceAction -> HashMapBuilder.put(
+						resourceAction -> HashMapBuilder.<String, Object>put(
+							"guestUnsupported",
+							guestUnsupportedActions.contains(resourceAction)
+						).put(
 							"key", resourceAction
 						).put(
 							"label",
@@ -240,10 +247,17 @@ public class ViewAllSpacesDisplayContext {
 								"L_BASIC_DOCUMENT",
 								_themeDisplay.getCompanyId());
 
+					List<String> guestUnsupportedActions =
+						ResourceActionsUtil.getResourceGuestUnsupportedActions(
+							null, objectDefinition.getClassName());
+
 					return TransformUtil.transformToArray(
 						ResourceActionsUtil.getResourceActions(
 							objectDefinition.getClassName()),
-						resourceAction -> HashMapBuilder.put(
+						resourceAction -> HashMapBuilder.<String, Object>put(
+							"guestUnsupported",
+							guestUnsupportedActions.contains(resourceAction)
+						).put(
 							"key", resourceAction
 						).put(
 							"label",
@@ -254,17 +268,26 @@ public class ViewAllSpacesDisplayContext {
 				}
 			).put(
 				"OBJECT_ENTRY_FOLDERS",
-				() -> TransformUtil.transformToArray(
-					ResourceActionsUtil.getResourceActions(
-						ObjectEntryFolder.class.getName()),
-					resourceAction -> HashMapBuilder.put(
-						"key", resourceAction
-					).put(
-						"label",
-						ResourceActionsUtil.getAction(
-							_httpServletRequest, resourceAction)
-					).build(),
-					Map.class)
+				() -> {
+					List<String> guestUnsupportedActions =
+						ResourceActionsUtil.getResourceGuestUnsupportedActions(
+							null, ObjectEntryFolder.class.getName());
+
+					return TransformUtil.transformToArray(
+						ResourceActionsUtil.getResourceActions(
+							ObjectEntryFolder.class.getName()),
+						resourceAction -> HashMapBuilder.<String, Object>put(
+							"guestUnsupported",
+							guestUnsupportedActions.contains(resourceAction)
+						).put(
+							"key", resourceAction
+						).put(
+							"label",
+							ResourceActionsUtil.getAction(
+								_httpServletRequest, resourceAction)
+						).build(),
+						Map.class);
+				}
 			).build()
 		).put(
 			"roles",
