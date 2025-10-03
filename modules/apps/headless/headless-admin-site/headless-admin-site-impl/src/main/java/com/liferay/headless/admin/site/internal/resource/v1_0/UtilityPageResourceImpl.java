@@ -5,32 +5,50 @@
 
 package com.liferay.headless.admin.site.internal.resource.v1_0;
 
+import com.liferay.client.extension.type.manager.CETManager;
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
+import com.liferay.exportimport.vulcan.batch.engine.ExportImportVulcanBatchEngineTaskItemDelegate;
 import com.liferay.headless.admin.site.dto.v1_0.ContentPageSpecification;
 import com.liferay.headless.admin.site.dto.v1_0.PageSpecification;
 import com.liferay.headless.admin.site.dto.v1_0.UtilityPage;
+import com.liferay.headless.admin.site.dto.v1_0.UtilityPageSEOSettings;
+import com.liferay.headless.admin.site.dto.v1_0.UtilityPageSettings;
+import com.liferay.headless.admin.site.internal.odata.entity.v1_0.UtilityPageEntityModel;
+import com.liferay.headless.admin.site.internal.resource.v1_0.util.FileEntryUtil;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.GroupUtil;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.LayoutUtil;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.headless.admin.site.resource.v1_0.UtilityPageResource;
-import com.liferay.headless.common.spi.service.context.ServiceContextBuilder;
+import com.liferay.layout.admin.constants.LayoutAdminPortletKeys;
 import com.liferay.layout.utility.page.kernel.constants.LayoutUtilityPageEntryConstants;
 import com.liferay.layout.utility.page.model.LayoutUtilityPageEntry;
 import com.liferay.layout.utility.page.service.LayoutUtilityPageEntryService;
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.feature.flag.FeatureFlagManagerUtil;
 import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.LayoutConstants;
+import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
-import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.vulcan.aggregation.Aggregation;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
+import com.liferay.portal.vulcan.util.LocalizedMapUtil;
+import com.liferay.portal.vulcan.util.SearchUtil;
 
+import jakarta.ws.rs.core.MultivaluedMap;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
@@ -42,12 +60,15 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/utility-page.properties",
+	property = "export.import.vulcan.batch.engine.task.item.delegate=true",
 	scope = ServiceScope.PROTOTYPE, service = UtilityPageResource.class
 )
-public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
+public class UtilityPageResourceImpl
+	extends BaseUtilityPageResourceImpl
+	implements ExportImportVulcanBatchEngineTaskItemDelegate<UtilityPage> {
 
 	@Override
-	public void deleteSiteSiteByExternalReferenceCodeUtilityPage(
+	public void deleteSiteUtilityPage(
 			String siteExternalReferenceCode,
 			String utilityPageExternalReferenceCode)
 		throws Exception {
@@ -64,7 +85,77 @@ public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
 	}
 
 	@Override
-	public UtilityPage getSiteSiteByExternalReferenceCodeUtilityPage(
+	public EntityModel getEntityModel(MultivaluedMap multivaluedMap) {
+		return _entityModel;
+	}
+
+	@Override
+	public ExportImportDescriptor getExportImportDescriptor() {
+		return new ExportImportDescriptor() {
+
+			@Override
+			public String getItemClassName() {
+				return LayoutUtilityPageEntry.class.getName();
+			}
+
+			@Override
+			public String getLabel() {
+				return "utility-pages";
+			}
+
+			@Override
+			public List<String> getNestedFields() {
+				return List.of("friendlyUrlHistory", "pageSpecifications");
+			}
+
+			@Override
+			public String getPortletId() {
+				return LayoutAdminPortletKeys.GROUP_PAGES;
+			}
+
+			@Override
+			public Scope getScope() {
+				return Scope.SITE;
+			}
+
+			@Override
+			public boolean isActive(PortletDataContext portletDataContext) {
+				return FeatureFlagManagerUtil.isEnabled("LPD-35443");
+			}
+
+		};
+	}
+
+	@Override
+	public ContentPageSpecification postSiteUtilityPagePageSpecification(
+			String siteExternalReferenceCode,
+			String utilityPageExternalReferenceCode,
+			ContentPageSpecification contentPageSpecification)
+		throws Exception {
+
+		if (!FeatureFlagManagerUtil.isEnabled("LPD-35443")) {
+			throw new UnsupportedOperationException();
+		}
+
+		LayoutUtilityPageEntry layoutUtilityPageEntry =
+			_layoutUtilityPageEntryService.
+				getLayoutUtilityPageEntryByExternalReferenceCode(
+					utilityPageExternalReferenceCode,
+					GroupUtil.getGroupId(
+						false, contextCompany.getCompanyId(),
+						siteExternalReferenceCode));
+
+		return (ContentPageSpecification)_pageSpecificationDTOConverter.toDTO(
+			LayoutUtil.addDraftToLayout(
+				_cetManager, contentPageSpecification,
+				_layoutLocalService.getLayout(layoutUtilityPageEntry.getPlid()),
+				ServiceContextUtil.createServiceContext(
+					layoutUtilityPageEntry.getGroupId(),
+					contextHttpServletRequest, contextUser.getUserId())));
+	}
+
+	@Override
+	protected UtilityPage doGetSiteUtilityPage(
 			String siteExternalReferenceCode,
 			String utilityPageExternalReferenceCode)
 		throws Exception {
@@ -83,7 +174,7 @@ public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
 	}
 
 	@Override
-	public Page<UtilityPage> getSiteSiteByExternalReferenceCodeUtilityPagesPage(
+	protected Page<UtilityPage> doGetSiteUtilityPagesPage(
 			String siteExternalReferenceCode, String search,
 			Aggregation aggregation, Filter filter, Pagination pagination,
 			Sort[] sorts)
@@ -93,19 +184,28 @@ public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
 			throw new UnsupportedOperationException();
 		}
 
-		return Page.of(
-			transform(
-				_layoutUtilityPageEntryService.getLayoutUtilityPageEntries(
-					GroupUtil.getGroupId(
-						true, contextCompany.getCompanyId(),
-						siteExternalReferenceCode),
-					QueryUtil.ALL_POS, QueryUtil.ALL_POS, null),
-				layoutUtilityPageEntry -> _utilityPageDTOConverter.toDTO(
-					layoutUtilityPageEntry)));
+		long groupId = GroupUtil.getGroupId(
+			true, contextCompany.getCompanyId(), siteExternalReferenceCode);
+
+		return SearchUtil.search(
+			Collections.emptyMap(),
+			booleanQuery -> {
+			},
+			filter, LayoutUtilityPageEntry.class.getName(), search, pagination,
+			queryConfig -> queryConfig.setSelectedFieldNames(
+				Field.ENTRY_CLASS_PK),
+			searchContext -> {
+				searchContext.setCompanyId(contextCompany.getCompanyId());
+				searchContext.setGroupIds(new long[] {groupId});
+			},
+			sorts,
+			document -> _utilityPageDTOConverter.toDTO(
+				_layoutUtilityPageEntryService.fetchLayoutUtilityPageEntry(
+					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))));
 	}
 
 	@Override
-	public UtilityPage postSiteSiteByExternalReferenceCodeUtilityPage(
+	protected UtilityPage doPostSiteUtilityPage(
 			String siteExternalReferenceCode, UtilityPage utilityPage)
 		throws Exception {
 
@@ -121,36 +221,7 @@ public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
 	}
 
 	@Override
-	public ContentPageSpecification
-			postSiteSiteByExternalReferenceCodeUtilityPagePageSpecification(
-				String siteExternalReferenceCode,
-				String utilityPageExternalReferenceCode,
-				ContentPageSpecification contentPageSpecification)
-		throws Exception {
-
-		if (!FeatureFlagManagerUtil.isEnabled("LPD-35443")) {
-			throw new UnsupportedOperationException();
-		}
-
-		LayoutUtilityPageEntry layoutUtilityPageEntry =
-			_layoutUtilityPageEntryService.
-				getLayoutUtilityPageEntryByExternalReferenceCode(
-					utilityPageExternalReferenceCode,
-					GroupUtil.getGroupId(
-						false, contextCompany.getCompanyId(),
-						siteExternalReferenceCode));
-
-		return (ContentPageSpecification)_pageSpecificationDTOConverter.toDTO(
-			LayoutUtil.addDraftToLayout(
-				contentPageSpecification,
-				_layoutLocalService.getLayout(layoutUtilityPageEntry.getPlid()),
-				ServiceContextUtil.createServiceContext(
-					layoutUtilityPageEntry.getGroupId(),
-					contextHttpServletRequest, contextUser.getUserId())));
-	}
-
-	@Override
-	public UtilityPage putSiteSiteByExternalReferenceCodeUtilityPage(
+	protected UtilityPage doPutSiteUtilityPage(
 			String siteExternalReferenceCode,
 			String utilityPageExternalReferenceCode, UtilityPage utilityPage)
 		throws Exception {
@@ -171,25 +242,64 @@ public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
 			return _addLayoutUtilityPageEntry(groupId, utilityPage);
 		}
 
-		if (Validator.isNotNull(utilityPage.getMarkedAsDefault())) {
-			if (GetterUtil.getBoolean(utilityPage.getMarkedAsDefault()) &&
-				!layoutUtilityPageEntry.isDefaultLayoutUtilityPageEntry()) {
+		_validateUtilityPage(utilityPage);
 
-				layoutUtilityPageEntry =
-					_layoutUtilityPageEntryService.
-						setDefaultLayoutUtilityPageEntry(
-							layoutUtilityPageEntry.
-								getLayoutUtilityPageEntryId());
-			}
-			else if (!GetterUtil.getBoolean(utilityPage.getMarkedAsDefault()) &&
-					 layoutUtilityPageEntry.isDefaultLayoutUtilityPageEntry()) {
+		Layout layout = _layoutLocalService.getLayout(
+			layoutUtilityPageEntry.getPlid());
 
-				layoutUtilityPageEntry =
-					_layoutUtilityPageEntryService.
-						unsetDefaultLayoutUtilityPageEntry(
-							layoutUtilityPageEntry.
-								getLayoutUtilityPageEntryId());
-			}
+		Map<Locale, String> titleMap = Collections.singletonMap(
+			_portal.getSiteDefaultLocale(groupId), utilityPage.getName());
+		Map<Locale, String> descriptionMap = Collections.emptyMap();
+
+		UtilityPageSettings utilityPageSettings =
+			utilityPage.getUtilityPageSettings();
+
+		if ((utilityPageSettings != null) &&
+			(utilityPageSettings.getSeoSettings() != null)) {
+
+			UtilityPageSEOSettings utilityPageSEOSettings =
+				utilityPageSettings.getSeoSettings();
+
+			titleMap = LocalizedMapUtil.getLocalizedMap(
+				utilityPageSEOSettings.getHtmlTitle_i18n());
+			descriptionMap = LocalizedMapUtil.getLocalizedMap(
+				utilityPageSEOSettings.getDescription_i18n());
+		}
+
+		LayoutUtil.updateContentLayout(
+			_cetManager, layout, layout.getNameMap(), titleMap, descriptionMap,
+			layout.getRobotsMap(),
+			LocalizedMapUtil.getLocalizedMap(
+				utilityPage.getFriendlyUrlPath_i18n()),
+			utilityPage.getPageSpecifications(),
+			_getServiceContext(groupId, utilityPage));
+
+		if (GetterUtil.getBoolean(utilityPage.getMarkedAsDefault()) &&
+			!layoutUtilityPageEntry.isDefaultLayoutUtilityPageEntry()) {
+
+			layoutUtilityPageEntry =
+				_layoutUtilityPageEntryService.setDefaultLayoutUtilityPageEntry(
+					layoutUtilityPageEntry.getLayoutUtilityPageEntryId());
+		}
+		else if (!GetterUtil.getBoolean(utilityPage.getMarkedAsDefault()) &&
+				 layoutUtilityPageEntry.isDefaultLayoutUtilityPageEntry()) {
+
+			layoutUtilityPageEntry =
+				_layoutUtilityPageEntryService.
+					unsetDefaultLayoutUtilityPageEntry(
+						layoutUtilityPageEntry.getLayoutUtilityPageEntryId());
+		}
+
+		long previewFileEntryId = FileEntryUtil.getPreviewFileEntryId(
+			groupId, utilityPage.getThumbnail());
+
+		if (previewFileEntryId !=
+				layoutUtilityPageEntry.getPreviewFileEntryId()) {
+
+			layoutUtilityPageEntry =
+				_layoutUtilityPageEntryService.updateLayoutUtilityPageEntry(
+					layoutUtilityPageEntry.getLayoutUtilityPageEntryId(),
+					previewFileEntryId);
 		}
 
 		return _utilityPageDTOConverter.toDTO(
@@ -198,24 +308,113 @@ public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
 				utilityPage.getName()));
 	}
 
+	@Override
+	protected Long getPermissionCheckerResourceId(
+			String groupExternalReferenceCode, String externalReferenceCode)
+		throws Exception {
+
+		LayoutUtilityPageEntry layoutUtilityPageEntry =
+			_layoutUtilityPageEntryService.
+				getLayoutUtilityPageEntryByExternalReferenceCode(
+					externalReferenceCode,
+					getPermissionCheckerGroupId(groupExternalReferenceCode));
+
+		return layoutUtilityPageEntry.getPrimaryKey();
+	}
+
+	@Override
+	protected String getPermissionCheckerResourceName(
+			String groupExternalReferenceCode, String externalReferenceCode)
+		throws Exception {
+
+		return LayoutUtilityPageEntry.class.getName();
+	}
+
+	@Override
+	protected void preparePatch(
+		UtilityPage utilityPage, UtilityPage existingUtilityPage) {
+
+		if (utilityPage.getPageSpecifications() != null) {
+			existingUtilityPage.setPageSpecifications(
+				utilityPage::getPageSpecifications);
+		}
+
+		if (utilityPage.getThumbnail() != null) {
+			existingUtilityPage.setThumbnail(utilityPage::getThumbnail);
+		}
+
+		if (utilityPage.getUtilityPageSettings() != null) {
+			existingUtilityPage.setUtilityPageSettings(
+				utilityPage::getUtilityPageSettings);
+		}
+	}
+
 	private UtilityPage _addLayoutUtilityPageEntry(
 			long groupId, UtilityPage utilityPage)
 		throws Exception {
 
+		ServiceContext serviceContext = _getServiceContext(
+			groupId, utilityPage);
+
 		return _utilityPageDTOConverter.toDTO(
 			_layoutUtilityPageEntryService.addLayoutUtilityPageEntry(
-				utilityPage.getExternalReferenceCode(), groupId, 0L, 0L,
+				utilityPage.getExternalReferenceCode(), groupId,
+				_getLayoutPlid(groupId, utilityPage, serviceContext),
+				FileEntryUtil.getPreviewFileEntryId(
+					groupId, utilityPage.getThumbnail()),
 				utilityPage.getMarkedAsDefault(), utilityPage.getName(),
-				_getType(utilityPage.getType()), 0L,
-				_getServiceContext(groupId, utilityPage)));
+				_getType(utilityPage.getType()), 0L, serviceContext));
+	}
+
+	private long _getLayoutPlid(
+			long groupId, UtilityPage utilityPage,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		_validateUtilityPage(utilityPage);
+
+		Map<Locale, String> nameMap = Collections.singletonMap(
+			_portal.getSiteDefaultLocale(groupId), utilityPage.getName());
+
+		Map<Locale, String> titleMap = nameMap;
+
+		Map<Locale, String> descriptionMap = Collections.emptyMap();
+
+		UtilityPageSettings utilityPageSettings =
+			utilityPage.getUtilityPageSettings();
+
+		if ((utilityPageSettings != null) &&
+			(utilityPageSettings.getSeoSettings() != null)) {
+
+			UtilityPageSEOSettings utilityPageSEOSettings =
+				utilityPageSettings.getSeoSettings();
+
+			titleMap = LocalizedMapUtil.getLocalizedMap(
+				utilityPageSEOSettings.getHtmlTitle_i18n());
+			descriptionMap = LocalizedMapUtil.getLocalizedMap(
+				utilityPageSEOSettings.getDescription_i18n());
+		}
+
+		serviceContext.setAttribute(
+			"layout.instanceable.allowed", Boolean.TRUE);
+
+		Layout layout = LayoutUtil.addContentLayout(
+			_cetManager, groupId, utilityPage.getPageSpecifications(),
+			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID, false, nameMap, titleMap,
+			descriptionMap, null, LayoutConstants.TYPE_UTILITY, null, true,
+			true,
+			LocalizedMapUtil.getLocalizedMap(
+				utilityPage.getFriendlyUrlPath_i18n()),
+			WorkflowConstants.STATUS_DRAFT, serviceContext);
+
+		return layout.getPlid();
 	}
 
 	private ServiceContext _getServiceContext(
 		long groupId, UtilityPage utilityPage) {
 
-		ServiceContext serviceContext = ServiceContextBuilder.create(
-			groupId, contextHttpServletRequest, null
-		).build();
+		ServiceContext serviceContext = ServiceContextUtil.createServiceContext(
+			groupId, contextHttpServletRequest, contextUser.getUserId());
 
 		serviceContext.setCreateDate(utilityPage.getDateCreated());
 		serviceContext.setModifiedDate(utilityPage.getDateModified());
@@ -232,6 +431,22 @@ public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
 		throw new UnsupportedOperationException();
 	}
 
+	private void _validateUtilityPage(UtilityPage utilityPage) {
+		if (ArrayUtil.isEmpty(utilityPage.getPageSpecifications())) {
+			return;
+		}
+
+		for (PageSpecification pageSpecification :
+				utilityPage.getPageSpecifications()) {
+
+			if (pageSpecification.getCustomFields() != null) {
+				throw new UnsupportedOperationException();
+			}
+		}
+	}
+
+	private static final EntityModel _entityModel =
+		new UtilityPageEntityModel();
 	private static final Map<UtilityPage.Type, String>
 		_externalToInternalValuesMap = HashMapBuilder.put(
 			UtilityPage.Type.COOKIE_POLICY,
@@ -258,6 +473,9 @@ public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
 		).build();
 
 	@Reference
+	private CETManager _cetManager;
+
+	@Reference
 	private LayoutLocalService _layoutLocalService;
 
 	@Reference
@@ -268,6 +486,9 @@ public class UtilityPageResourceImpl extends BaseUtilityPageResourceImpl {
 	)
 	private DTOConverter<Layout, PageSpecification>
 		_pageSpecificationDTOConverter;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference(
 		target = "(component.name=com.liferay.headless.admin.site.internal.dto.v1_0.converter.UtilityPageDTOConverter)"

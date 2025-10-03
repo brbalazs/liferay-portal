@@ -32,13 +32,17 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -54,10 +58,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -196,16 +196,17 @@ public abstract class BaseTermResourceTestCase {
 		assertValid(getTerm);
 	}
 
+	protected Term
+			testGetPlacedOrderByExternalReferenceCodeDeliveryTerm_addTerm()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	protected String
 			testGetPlacedOrderByExternalReferenceCodeDeliveryTerm_getExternalReferenceCode(
 				Term term)
-		throws Exception {
-
-		return term.getExternalReferenceCode();
-	}
-
-	protected Term
-			testGetPlacedOrderByExternalReferenceCodeDeliveryTerm_addTerm()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -274,7 +275,8 @@ public abstract class BaseTermResourceTestCase {
 				Term term)
 		throws Exception {
 
-		return term.getExternalReferenceCode();
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -329,7 +331,7 @@ public abstract class BaseTermResourceTestCase {
 			testGraphQLGetPlacedOrderByExternalReferenceCodeDeliveryTerm_addTerm()
 		throws Exception {
 
-		return testGraphQLTerm_addTerm();
+		return testGraphQLPlacedOrderTerm_addTerm();
 	}
 
 	@Test
@@ -348,16 +350,17 @@ public abstract class BaseTermResourceTestCase {
 		assertValid(getTerm);
 	}
 
+	protected Term
+			testGetPlacedOrderByExternalReferenceCodePaymentTerm_addTerm()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	protected String
 			testGetPlacedOrderByExternalReferenceCodePaymentTerm_getExternalReferenceCode(
 				Term term)
-		throws Exception {
-
-		return term.getExternalReferenceCode();
-	}
-
-	protected Term
-			testGetPlacedOrderByExternalReferenceCodePaymentTerm_addTerm()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -426,7 +429,8 @@ public abstract class BaseTermResourceTestCase {
 				Term term)
 		throws Exception {
 
-		return term.getExternalReferenceCode();
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -481,7 +485,7 @@ public abstract class BaseTermResourceTestCase {
 			testGraphQLGetPlacedOrderByExternalReferenceCodePaymentTerm_addTerm()
 		throws Exception {
 
-		return testGraphQLTerm_addTerm();
+		return testGraphQLPlacedOrderTerm_addTerm();
 	}
 
 	@Test
@@ -495,14 +499,14 @@ public abstract class BaseTermResourceTestCase {
 		assertValid(getTerm);
 	}
 
-	protected Long testGetPlacedOrderDeliveryTerm_getPlacedOrderId()
-		throws Exception {
-
+	protected Term testGetPlacedOrderDeliveryTerm_addTerm() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Term testGetPlacedOrderDeliveryTerm_addTerm() throws Exception {
+	protected Long testGetPlacedOrderDeliveryTerm_getPlacedOrderId()
+		throws Exception {
+
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -611,7 +615,7 @@ public abstract class BaseTermResourceTestCase {
 	protected Term testGraphQLGetPlacedOrderDeliveryTerm_addTerm()
 		throws Exception {
 
-		return testGraphQLTerm_addTerm();
+		return testGraphQLPlacedOrderTerm_addTerm();
 	}
 
 	@Test
@@ -625,14 +629,14 @@ public abstract class BaseTermResourceTestCase {
 		assertValid(getTerm);
 	}
 
-	protected Long testGetPlacedOrderPaymentTerm_getPlacedOrderId()
-		throws Exception {
-
+	protected Term testGetPlacedOrderPaymentTerm_addTerm() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Term testGetPlacedOrderPaymentTerm_addTerm() throws Exception {
+	protected Long testGetPlacedOrderPaymentTerm_getPlacedOrderId()
+		throws Exception {
+
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -741,10 +745,10 @@ public abstract class BaseTermResourceTestCase {
 	protected Term testGraphQLGetPlacedOrderPaymentTerm_addTerm()
 		throws Exception {
 
-		return testGraphQLTerm_addTerm();
+		return testGraphQLPlacedOrderTerm_addTerm();
 	}
 
-	protected Term testGraphQLTerm_addTerm() throws Exception {
+	protected Term testGraphQLPlacedOrderTerm_addTerm() throws Exception {
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
@@ -899,6 +903,10 @@ public abstract class BaseTermResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

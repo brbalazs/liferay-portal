@@ -9,13 +9,13 @@ import com.liferay.headless.asset.library.client.dto.v1_0.MimeTypeLimit;
 import com.liferay.headless.asset.library.client.dto.v1_0.Settings;
 import com.liferay.headless.asset.library.client.json.BaseJSONParser;
 
+import jakarta.annotation.Generated;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-
-import javax.annotation.Generated;
 
 /**
  * @author Roberto Díaz
@@ -135,6 +135,26 @@ public class SettingsSerDes {
 			sb.append(settings.getSharingEnabled());
 		}
 
+		if (settings.getTrashEnabled() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"trashEnabled\": ");
+
+			sb.append(settings.getTrashEnabled());
+		}
+
+		if (settings.getTrashEntriesMaxAge() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"trashEntriesMaxAge\": ");
+
+			sb.append(settings.getTrashEntriesMaxAge());
+		}
+
 		if (settings.getUseCustomLanguages() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -213,6 +233,22 @@ public class SettingsSerDes {
 				"sharingEnabled", String.valueOf(settings.getSharingEnabled()));
 		}
 
+		if (settings.getTrashEnabled() == null) {
+			map.put("trashEnabled", null);
+		}
+		else {
+			map.put("trashEnabled", String.valueOf(settings.getTrashEnabled()));
+		}
+
+		if (settings.getTrashEntriesMaxAge() == null) {
+			map.put("trashEntriesMaxAge", null);
+		}
+		else {
+			map.put(
+				"trashEntriesMaxAge",
+				String.valueOf(settings.getTrashEntriesMaxAge()));
+		}
+
 		if (settings.getUseCustomLanguages() == null) {
 			map.put("useCustomLanguages", null);
 		}
@@ -257,6 +293,14 @@ public class SettingsSerDes {
 				return false;
 			}
 			else if (Objects.equals(jsonParserFieldName, "sharingEnabled")) {
+				return false;
+			}
+			else if (Objects.equals(jsonParserFieldName, "trashEnabled")) {
+				return false;
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "trashEntriesMaxAge")) {
+
 				return false;
 			}
 			else if (Objects.equals(
@@ -316,6 +360,19 @@ public class SettingsSerDes {
 			else if (Objects.equals(jsonParserFieldName, "sharingEnabled")) {
 				if (jsonParserFieldValue != null) {
 					settings.setSharingEnabled((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "trashEnabled")) {
+				if (jsonParserFieldValue != null) {
+					settings.setTrashEnabled((Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "trashEntriesMaxAge")) {
+
+				if (jsonParserFieldValue != null) {
+					settings.setTrashEntriesMaxAge(
+						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(

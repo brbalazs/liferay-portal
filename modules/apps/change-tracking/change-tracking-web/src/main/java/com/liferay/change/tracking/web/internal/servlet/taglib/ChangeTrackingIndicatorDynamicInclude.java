@@ -65,22 +65,22 @@ import com.liferay.portal.template.react.renderer.ComponentDescriptor;
 import com.liferay.portal.template.react.renderer.ReactRenderer;
 import com.liferay.taglib.util.HtmlTopTag;
 
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.ResourceURL;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspException;
+
 import java.io.IOException;
 import java.io.Writer;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-import javax.portlet.ResourceURL;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspException;
 
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -105,6 +105,15 @@ public class ChangeTrackingIndicatorDynamicInclude extends BaseDynamicInclude {
 		ThemeDisplay themeDisplay =
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
+
+		Group scopeGroup = themeDisplay.getScopeGroup();
+
+		if (FeatureFlagManagerUtil.isEnabled(
+				themeDisplay.getCompanyId(), "LPD-17564") &&
+			scopeGroup.isCMS() && CTCollectionThreadLocal.isProductionMode()) {
+
+			return;
+		}
 
 		User user = themeDisplay.getUser();
 
@@ -159,9 +168,9 @@ public class ChangeTrackingIndicatorDynamicInclude extends BaseDynamicInclude {
 				});
 
 			writer.write(
-				"<div class=\"change-tracking-indicator\"><div>" +
-					"<button class=\"change-tracking-indicator-button\">" +
-						"<span className=\"change-tracking-indicator-title\">");
+				"<div class=\"change-tracking-indicator\"><div><button " +
+					"class=\"change-tracking-indicator-button\"><span " +
+						"className=\"change-tracking-indicator-title\">");
 
 			CTCollection ctCollection = null;
 
@@ -309,13 +318,42 @@ public class ChangeTrackingIndicatorDynamicInclude extends BaseDynamicInclude {
 
 		long ctCollectionId = CTConstants.CT_COLLECTION_ID_PRODUCTION;
 
+		Group scopeGroup = themeDisplay.getScopeGroup();
+
+		boolean cms =
+			FeatureFlagManagerUtil.isEnabled(
+				themeDisplay.getCompanyId(), "LPD-17564") &&
+			scopeGroup.isCMS();
+
 		if (ctCollection != null) {
 			ctCollectionId = ctCollection.getCtCollectionId();
 
 			data.put("iconClass", "change-tracking-indicator-icon-publication");
 			data.put("iconName", "radio-button");
 
-			if (productionOnlyApplication) {
+			if (cms && !CTCollectionThreadLocal.isProductionMode()) {
+				data.put("cms", true);
+				data.put(
+					"title",
+					StringBundler.concat(
+						ctCollection.getName(), " (",
+						_language.get(
+							themeDisplay.getLocale(),
+							"do-not-make-cms-changes-inside-a-publication"),
+						")"));
+				data.put(
+					"warningBody",
+					_language.get(
+						themeDisplay.getLocale(), "publication-cms-warning"));
+				data.put("warningButton", true);
+				data.put(
+					"warningHeader",
+					_language.get(
+						themeDisplay.getLocale(),
+						"do-not-make-cms-changes-inside-a-publication"));
+				data.put("warningLearnLink", null);
+			}
+			else if (productionOnlyApplication) {
 				data.put(
 					"title",
 					StringBundler.concat(
@@ -412,7 +450,7 @@ public class ChangeTrackingIndicatorDynamicInclude extends BaseDynamicInclude {
 				}
 			}
 			else {
-				if (!sandboxOnlyEnabled ||
+				if (cms || !sandboxOnlyEnabled ||
 					PortletPermissionUtil.contains(
 						themeDisplay.getPermissionChecker(),
 						CTPortletKeys.PUBLICATIONS,
@@ -427,11 +465,17 @@ public class ChangeTrackingIndicatorDynamicInclude extends BaseDynamicInclude {
 						"checkoutDropdownItem",
 						JSONUtil.put(
 							"confirmationMessage",
-							_language.get(
-								themeDisplay.getLocale(),
-								"any-changes-made-in-production-will-" +
-									"immediately-be-live.-continue-to-" +
-										"production")
+							() -> {
+								if (cms) {
+									return null;
+								}
+
+								return _language.get(
+									themeDisplay.getLocale(),
+									"any-changes-made-in-production-will-" +
+										"immediately-be-live.-continue-to-" +
+											"production");
+							}
 						).put(
 							"href", checkoutURL.toString()
 						).put(

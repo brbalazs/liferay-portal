@@ -31,10 +31,16 @@ export class PendingOrdersPage extends CommerceDNDTablePage {
 		strictEqual?: boolean
 	) => Promise<{column: Locator; row: Locator}>;
 	readonly orderItemsTableRowLink: (productName: string) => Promise<Locator>;
+	readonly orderType: Locator;
+
+	readonly orderId: Locator;
+
 	readonly page: Page;
 	readonly pageLabel: Locator;
 	readonly pageTitle: Locator;
 	readonly panelList: Locator;
+	readonly questionsAndAnswersLink: Locator;
+	readonly questionAndAnswersText: Locator;
 	readonly skuLink: (sku: string) => Locator;
 	readonly viewButton: Locator;
 
@@ -58,7 +64,7 @@ export class PendingOrdersPage extends CommerceDNDTablePage {
 			name: 'Edit',
 		});
 		this.errorMessageCloseButton = page.getByRole('button', {
-			name: 'close',
+			name: 'Close',
 		});
 		this.layoutsPage = new CommerceLayoutsPage(page);
 		this.orderCell = (orderId) => page.getByRole('cell', {name: orderId});
@@ -105,6 +111,16 @@ export class PendingOrdersPage extends CommerceDNDTablePage {
 				`Cannot locate order item row with productName ${productName}`
 			);
 		};
+		this.orderType = page
+			.locator('dl')
+			.filter({hasText: 'Order Type'})
+			.locator('dd');
+
+		this.orderId = page
+			.locator('dl')
+			.filter({hasText: 'Order ID'})
+			.locator('dd');
+
 		this.page = page;
 		this.pageLabel = page
 			.getByTestId('layoutHref')
@@ -115,6 +131,12 @@ export class PendingOrdersPage extends CommerceDNDTablePage {
 		this.panelList = page
 			.getByTestId('specificationFacetPanel')
 			.getByRole('button');
+		this.questionsAndAnswersLink = page.getByRole('link', {
+			name: 'Questions and Answers',
+		});
+		this.questionAndAnswersText = page
+			.locator('dt')
+			.filter({hasText: 'Questions and Answers'});
 		this.skuLink = (sku) => page.getByRole('link', {name: sku});
 		this.viewButton = page.getByLabel('View');
 	}

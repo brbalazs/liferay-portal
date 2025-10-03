@@ -40,6 +40,8 @@ import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.model.UnlocalizedValue;
 import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
+import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
+import com.liferay.dynamic.data.mapping.util.HttpServletRequestThreadLocal;
 import com.liferay.dynamic.data.mapping.util.NumericDDMFormFieldUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -55,6 +57,8 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -463,6 +467,17 @@ public class DDMFormEvaluatorHelper {
 		return getFieldPropertyResponse.getValue();
 	}
 
+	private Locale _getLocale() {
+		HttpServletRequest httpServletRequest =
+			HttpServletRequestThreadLocal.getHttpServletRequest();
+
+		if (httpServletRequest != null) {
+			return httpServletRequest.getLocale();
+		}
+
+		return _ddmFormEvaluatorEvaluateRequest.getLocale();
+	}
+
 	private Set<String> _getNonevaluableDDMFormFieldNames() {
 		if (_ddmFormLayout == null) {
 			return Collections.emptySet();
@@ -577,7 +592,9 @@ public class DDMFormEvaluatorHelper {
 			String valueString = value.getString(
 				_ddmFormEvaluatorEvaluateRequest.getLocale());
 
-			if (Validator.isNull(valueString)) {
+			if (Objects.equals(valueString, "[]") ||
+				Validator.isNull(valueString)) {
+
 				return true;
 			}
 
@@ -595,6 +612,8 @@ public class DDMFormEvaluatorHelper {
 			DDMFormFieldValue localizedObjectFieldDDMFormFieldValue =
 				new DDMFormFieldValue();
 
+			localizedObjectFieldDDMFormFieldValue.setDDMFormValues(
+				new DDMFormValues(ddmFormField.getDDMForm()));
 			localizedObjectFieldDDMFormFieldValue.setName(
 				ddmFormFieldValue.getName());
 
@@ -639,7 +658,7 @@ public class DDMFormEvaluatorHelper {
 		DDMFormEvaluatorFieldContextKey ddmFormFieldContextKey) {
 
 		return _isBooleanPropertyValue(
-			ddmFormFieldContextKey, "nativeField", true);
+			ddmFormFieldContextKey, "nativeField", false);
 	}
 
 	private boolean _isFieldReadOnly(
@@ -821,11 +840,16 @@ public class DDMFormEvaluatorHelper {
 	}
 
 	private void _resetInvisibleFieldValue() {
+		if ((_ddmFormEvaluatorEvaluateRequest.getDDMFormInstanceId() == 0) ||
+			!_ddmFormEvaluatorEvaluateRequest.isEditingFieldValue() ||
+			!_ddmFormEvaluatorEvaluateRequest.isViewMode()) {
+
+			return;
+		}
+
 		_ddmFormFieldsPropertyChanges.forEach(
 			(ddmFormFieldContextKey, ddmFormFieldProperties) -> {
-				if (_ddmFormEvaluatorEvaluateRequest.isViewMode() &&
-					_ddmFormEvaluatorEvaluateRequest.isEditingFieldValue() &&
-					!_isFieldNative(ddmFormFieldContextKey) &&
+				if (!_isFieldNative(ddmFormFieldContextKey) &&
 					!_isFieldVisible(ddmFormFieldContextKey)) {
 
 					ddmFormFieldProperties.put("value", StringPool.BLANK);
@@ -903,8 +927,7 @@ public class DDMFormEvaluatorHelper {
 				}
 
 				String requiredErrorMessage = LanguageUtil.get(
-					_ddmFormEvaluatorEvaluateRequest.getLocale(),
-					"this-field-is-required");
+					_getLocale(), "this-field-is-required");
 
 				DDMFormField ddmFormField = _ddmFormFieldsMap.get(
 					ddmFormEvaluatorFieldContextKey.getName());
@@ -1081,8 +1104,7 @@ public class DDMFormEvaluatorHelper {
 
 			if (Validator.isNull(errorMessage)) {
 				errorMessage = LanguageUtil.get(
-					_ddmFormEvaluatorEvaluateRequest.getLocale(),
-					"this-field-is-invalid");
+					_getLocale(), "this-field-is-invalid");
 			}
 
 			builder.withParameter("errorMessage", errorMessage);
@@ -1117,8 +1139,7 @@ public class DDMFormEvaluatorHelper {
 				_setFieldAsInvalid(
 					ddmFormEvaluatorFieldContextKey,
 					LanguageUtil.get(
-						_ddmFormEvaluatorEvaluateRequest.getLocale(),
-						"input-format-is-not-satisfied"));
+						_getLocale(), "input-format-is-not-satisfied"));
 			}
 		}
 	}
@@ -1145,8 +1166,7 @@ public class DDMFormEvaluatorHelper {
 				_setFieldAsInvalid(
 					ddmFormEvaluatorFieldContextKey,
 					LanguageUtil.get(
-						_ddmFormEvaluatorEvaluateRequest.getLocale(),
-						"the-field-value-is-invalid"));
+						_getLocale(), "the-field-value-is-invalid"));
 			}
 		}
 	}

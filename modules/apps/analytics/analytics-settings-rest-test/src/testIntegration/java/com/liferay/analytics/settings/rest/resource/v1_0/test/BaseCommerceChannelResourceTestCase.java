@@ -36,14 +36,18 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -59,10 +63,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -189,7 +189,7 @@ public abstract class BaseCommerceChannelResourceTestCase {
 	public void testGetCommerceChannelsPage() throws Exception {
 		Page<CommerceChannel> page =
 			commerceChannelResource.getCommerceChannelsPage(
-				RandomTestUtil.randomString(), Pagination.of(1, 10), null);
+				null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 
@@ -224,11 +224,11 @@ public abstract class BaseCommerceChannelResourceTestCase {
 
 	@Test
 	public void testGetCommerceChannelsPageWithPagination() throws Exception {
-		Page<CommerceChannel> commerceChannelPage =
+		Page<CommerceChannel> commerceChannelsPage =
 			commerceChannelResource.getCommerceChannelsPage(null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			commerceChannelPage.getTotalCount());
+			commerceChannelsPage.getTotalCount());
 
 		CommerceChannel commerceChannel1 =
 			testGetCommerceChannelsPage_addCommerceChannel(
@@ -466,87 +466,6 @@ public abstract class BaseCommerceChannelResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	@Test
-	public void testGraphQLGetCommerceChannelsPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"commerceChannels",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 10);
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
-		// No namespace
-
-		JSONObject commerceChannelsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/commerceChannels");
-
-		long totalCount = commerceChannelsJSONObject.getLong("totalCount");
-
-		CommerceChannel commerceChannel1 =
-			testGraphQLGetCommerceChannelsPage_addCommerceChannel();
-		CommerceChannel commerceChannel2 =
-			testGraphQLGetCommerceChannelsPage_addCommerceChannel();
-
-		commerceChannelsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/commerceChannels");
-
-		Assert.assertEquals(
-			totalCount + 2, commerceChannelsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			commerceChannel1,
-			Arrays.asList(
-				CommerceChannelSerDes.toDTOs(
-					commerceChannelsJSONObject.getString("items"))));
-		assertContains(
-			commerceChannel2,
-			Arrays.asList(
-				CommerceChannelSerDes.toDTOs(
-					commerceChannelsJSONObject.getString("items"))));
-
-		// Using the namespace analyticsSettings_v1_0
-
-		commerceChannelsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(
-				new GraphQLField("analyticsSettings_v1_0", graphQLField)),
-			"JSONObject/data", "JSONObject/analyticsSettings_v1_0",
-			"JSONObject/commerceChannels");
-
-		Assert.assertEquals(
-			totalCount + 2, commerceChannelsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			commerceChannel1,
-			Arrays.asList(
-				CommerceChannelSerDes.toDTOs(
-					commerceChannelsJSONObject.getString("items"))));
-		assertContains(
-			commerceChannel2,
-			Arrays.asList(
-				CommerceChannelSerDes.toDTOs(
-					commerceChannelsJSONObject.getString("items"))));
-	}
-
-	protected CommerceChannel
-			testGraphQLGetCommerceChannelsPage_addCommerceChannel()
-		throws Exception {
-
-		return testGraphQLCommerceChannel_addCommerceChannel();
-	}
-
-	protected CommerceChannel testGraphQLCommerceChannel_addCommerceChannel()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
 	protected void assertContains(
 		CommerceChannel commerceChannel,
 		List<CommerceChannel> commerceChannels) {
@@ -713,6 +632,8 @@ public abstract class BaseCommerceChannelResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

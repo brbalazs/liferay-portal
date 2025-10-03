@@ -13,12 +13,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.oauth2.provider.scope.ScopeChecker;
 import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -34,9 +38,11 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -45,7 +51,6 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
@@ -57,6 +62,16 @@ import com.liferay.search.experiences.rest.client.pagination.Page;
 import com.liferay.search.experiences.rest.client.pagination.Pagination;
 import com.liferay.search.experiences.rest.client.resource.v1_0.SXPBlueprintResource;
 import com.liferay.search.experiences.rest.client.serdes.v1_0.SXPBlueprintSerDes;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -75,16 +90,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -131,6 +137,16 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 			testCompany.getCompanyId());
 
 		sxpBlueprintResource = SXPBlueprintResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		importTaskResource = ImportTaskResource.builder(
 		).authentication(
 			_testCompanyAdminUser.getEmailAddress(),
 			PropsValues.DEFAULT_ADMIN_PASSWORD
@@ -197,6 +213,8 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 
 		SXPBlueprint sxpBlueprint = randomSXPBlueprint();
 
+		sxpBlueprint.setCollectionProviderSubtypeName(regex);
+		sxpBlueprint.setCollectionProviderTypeName(regex);
 		sxpBlueprint.setDescription(regex);
 		sxpBlueprint.setExternalReferenceCode(regex);
 		sxpBlueprint.setSchemaVersion(regex);
@@ -210,593 +228,16 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 
 		sxpBlueprint = SXPBlueprintSerDes.toDTO(json);
 
+		Assert.assertEquals(
+			regex, sxpBlueprint.getCollectionProviderSubtypeName());
+		Assert.assertEquals(
+			regex, sxpBlueprint.getCollectionProviderTypeName());
 		Assert.assertEquals(regex, sxpBlueprint.getDescription());
 		Assert.assertEquals(regex, sxpBlueprint.getExternalReferenceCode());
 		Assert.assertEquals(regex, sxpBlueprint.getSchemaVersion());
 		Assert.assertEquals(regex, sxpBlueprint.getTitle());
 		Assert.assertEquals(regex, sxpBlueprint.getUserName());
 		Assert.assertEquals(regex, sxpBlueprint.getVersion());
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPage() throws Exception {
-		Page<SXPBlueprint> page = sxpBlueprintResource.getSXPBlueprintsPage(
-			null, null, Pagination.of(1, 10), null);
-
-		long totalCount = page.getTotalCount();
-
-		SXPBlueprint sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(
-			randomSXPBlueprint());
-
-		SXPBlueprint sxpBlueprint2 = testGetSXPBlueprintsPage_addSXPBlueprint(
-			randomSXPBlueprint());
-
-		page = sxpBlueprintResource.getSXPBlueprintsPage(
-			null, null, Pagination.of(1, 10), null);
-
-		Assert.assertEquals(totalCount + 2, page.getTotalCount());
-
-		assertContains(sxpBlueprint1, (List<SXPBlueprint>)page.getItems());
-		assertContains(sxpBlueprint2, (List<SXPBlueprint>)page.getItems());
-		assertValid(page, testGetSXPBlueprintsPage_getExpectedActions());
-
-		sxpBlueprintResource.deleteSXPBlueprint(sxpBlueprint1.getId());
-
-		sxpBlueprintResource.deleteSXPBlueprint(sxpBlueprint2.getId());
-	}
-
-	protected Map<String, Map<String, String>>
-			testGetSXPBlueprintsPage_getExpectedActions()
-		throws Exception {
-
-		Map<String, Map<String, String>> expectedActions = new HashMap<>();
-
-		return expectedActions;
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithFilterDateTimeEquals()
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(
-			EntityField.Type.DATE_TIME);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		SXPBlueprint sxpBlueprint1 = randomSXPBlueprint();
-
-		sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(sxpBlueprint1);
-
-		for (EntityField entityField : entityFields) {
-			Page<SXPBlueprint> page = sxpBlueprintResource.getSXPBlueprintsPage(
-				null, getFilterString(entityField, "between", sxpBlueprint1),
-				Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(sxpBlueprint1),
-				(List<SXPBlueprint>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithFilterDoubleEquals()
-		throws Exception {
-
-		testGetSXPBlueprintsPageWithFilter("eq", EntityField.Type.DOUBLE);
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithFilterStringContains()
-		throws Exception {
-
-		testGetSXPBlueprintsPageWithFilter("contains", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithFilterStringEquals()
-		throws Exception {
-
-		testGetSXPBlueprintsPageWithFilter("eq", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithFilterStringStartsWith()
-		throws Exception {
-
-		testGetSXPBlueprintsPageWithFilter(
-			"startswith", EntityField.Type.STRING);
-	}
-
-	protected void testGetSXPBlueprintsPageWithFilter(
-			String operator, EntityField.Type type)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		SXPBlueprint sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(
-			randomSXPBlueprint());
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		SXPBlueprint sxpBlueprint2 = testGetSXPBlueprintsPage_addSXPBlueprint(
-			randomSXPBlueprint());
-
-		for (EntityField entityField : entityFields) {
-			Page<SXPBlueprint> page = sxpBlueprintResource.getSXPBlueprintsPage(
-				null, getFilterString(entityField, operator, sxpBlueprint1),
-				Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(sxpBlueprint1),
-				(List<SXPBlueprint>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithPagination() throws Exception {
-		Page<SXPBlueprint> sxpBlueprintPage =
-			sxpBlueprintResource.getSXPBlueprintsPage(null, null, null, null);
-
-		int totalCount = GetterUtil.getInteger(
-			sxpBlueprintPage.getTotalCount());
-
-		SXPBlueprint sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(
-			randomSXPBlueprint());
-
-		SXPBlueprint sxpBlueprint2 = testGetSXPBlueprintsPage_addSXPBlueprint(
-			randomSXPBlueprint());
-
-		SXPBlueprint sxpBlueprint3 = testGetSXPBlueprintsPage_addSXPBlueprint(
-			randomSXPBlueprint());
-
-		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
-
-		int pageSizeLimit = 500;
-
-		if (totalCount >= (pageSizeLimit - 2)) {
-			Page<SXPBlueprint> page1 =
-				sxpBlueprintResource.getSXPBlueprintsPage(
-					null, null,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
-
-			assertContains(sxpBlueprint1, (List<SXPBlueprint>)page1.getItems());
-
-			Page<SXPBlueprint> page2 =
-				sxpBlueprintResource.getSXPBlueprintsPage(
-					null, null,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			assertContains(sxpBlueprint2, (List<SXPBlueprint>)page2.getItems());
-
-			Page<SXPBlueprint> page3 =
-				sxpBlueprintResource.getSXPBlueprintsPage(
-					null, null,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			assertContains(sxpBlueprint3, (List<SXPBlueprint>)page3.getItems());
-		}
-		else {
-			Page<SXPBlueprint> page1 =
-				sxpBlueprintResource.getSXPBlueprintsPage(
-					null, null, Pagination.of(1, totalCount + 2), null);
-
-			List<SXPBlueprint> sxpBlueprints1 =
-				(List<SXPBlueprint>)page1.getItems();
-
-			Assert.assertEquals(
-				sxpBlueprints1.toString(), totalCount + 2,
-				sxpBlueprints1.size());
-
-			Page<SXPBlueprint> page2 =
-				sxpBlueprintResource.getSXPBlueprintsPage(
-					null, null, Pagination.of(2, totalCount + 2), null);
-
-			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
-
-			List<SXPBlueprint> sxpBlueprints2 =
-				(List<SXPBlueprint>)page2.getItems();
-
-			Assert.assertEquals(
-				sxpBlueprints2.toString(), 1, sxpBlueprints2.size());
-
-			Page<SXPBlueprint> page3 =
-				sxpBlueprintResource.getSXPBlueprintsPage(
-					null, null, Pagination.of(1, (int)totalCount + 3), null);
-
-			assertContains(sxpBlueprint1, (List<SXPBlueprint>)page3.getItems());
-			assertContains(sxpBlueprint2, (List<SXPBlueprint>)page3.getItems());
-			assertContains(sxpBlueprint3, (List<SXPBlueprint>)page3.getItems());
-		}
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithSortDateTime() throws Exception {
-		testGetSXPBlueprintsPageWithSort(
-			EntityField.Type.DATE_TIME,
-			(entityField, sxpBlueprint1, sxpBlueprint2) -> {
-				BeanTestUtil.setProperty(
-					sxpBlueprint1, entityField.getName(),
-					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
-			});
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithSortDouble() throws Exception {
-		testGetSXPBlueprintsPageWithSort(
-			EntityField.Type.DOUBLE,
-			(entityField, sxpBlueprint1, sxpBlueprint2) -> {
-				BeanTestUtil.setProperty(
-					sxpBlueprint1, entityField.getName(), 0.1);
-				BeanTestUtil.setProperty(
-					sxpBlueprint2, entityField.getName(), 0.5);
-			});
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithSortInteger() throws Exception {
-		testGetSXPBlueprintsPageWithSort(
-			EntityField.Type.INTEGER,
-			(entityField, sxpBlueprint1, sxpBlueprint2) -> {
-				BeanTestUtil.setProperty(
-					sxpBlueprint1, entityField.getName(), 0);
-				BeanTestUtil.setProperty(
-					sxpBlueprint2, entityField.getName(), 1);
-			});
-	}
-
-	@Test
-	public void testGetSXPBlueprintsPageWithSortString() throws Exception {
-		testGetSXPBlueprintsPageWithSort(
-			EntityField.Type.STRING,
-			(entityField, sxpBlueprint1, sxpBlueprint2) -> {
-				Class<?> clazz = sxpBlueprint1.getClass();
-
-				String entityFieldName = entityField.getName();
-
-				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
-
-				Class<?> returnType = method.getReturnType();
-
-				if (returnType.isAssignableFrom(Map.class)) {
-					BeanTestUtil.setProperty(
-						sxpBlueprint1, entityFieldName,
-						Collections.singletonMap("Aaa", "Aaa"));
-					BeanTestUtil.setProperty(
-						sxpBlueprint2, entityFieldName,
-						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanTestUtil.setProperty(
-						sxpBlueprint1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanTestUtil.setProperty(
-						sxpBlueprint2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-				}
-				else {
-					BeanTestUtil.setProperty(
-						sxpBlueprint1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-					BeanTestUtil.setProperty(
-						sxpBlueprint2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-				}
-			});
-	}
-
-	protected void testGetSXPBlueprintsPageWithSort(
-			EntityField.Type type,
-			UnsafeTriConsumer
-				<EntityField, SXPBlueprint, SXPBlueprint, Exception>
-					unsafeTriConsumer)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		SXPBlueprint sxpBlueprint1 = randomSXPBlueprint();
-		SXPBlueprint sxpBlueprint2 = randomSXPBlueprint();
-
-		for (EntityField entityField : entityFields) {
-			unsafeTriConsumer.accept(entityField, sxpBlueprint1, sxpBlueprint2);
-		}
-
-		sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(sxpBlueprint1);
-
-		sxpBlueprint2 = testGetSXPBlueprintsPage_addSXPBlueprint(sxpBlueprint2);
-
-		Page<SXPBlueprint> page = sxpBlueprintResource.getSXPBlueprintsPage(
-			null, null, null, null);
-
-		for (EntityField entityField : entityFields) {
-			Page<SXPBlueprint> ascPage =
-				sxpBlueprintResource.getSXPBlueprintsPage(
-					null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
-					entityField.getName() + ":asc");
-
-			assertContains(
-				sxpBlueprint1, (List<SXPBlueprint>)ascPage.getItems());
-			assertContains(
-				sxpBlueprint2, (List<SXPBlueprint>)ascPage.getItems());
-
-			Page<SXPBlueprint> descPage =
-				sxpBlueprintResource.getSXPBlueprintsPage(
-					null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
-					entityField.getName() + ":desc");
-
-			assertContains(
-				sxpBlueprint2, (List<SXPBlueprint>)descPage.getItems());
-			assertContains(
-				sxpBlueprint1, (List<SXPBlueprint>)descPage.getItems());
-		}
-	}
-
-	protected SXPBlueprint testGetSXPBlueprintsPage_addSXPBlueprint(
-			SXPBlueprint sxpBlueprint)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPostSXPBlueprint() throws Exception {
-		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
-
-		SXPBlueprint postSXPBlueprint = testPostSXPBlueprint_addSXPBlueprint(
-			randomSXPBlueprint);
-
-		assertEquals(randomSXPBlueprint, postSXPBlueprint);
-		assertValid(postSXPBlueprint);
-	}
-
-	protected SXPBlueprint testPostSXPBlueprint_addSXPBlueprint(
-			SXPBlueprint sxpBlueprint)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGetSXPBlueprintByExternalReferenceCode() throws Exception {
-		SXPBlueprint postSXPBlueprint =
-			testGetSXPBlueprintByExternalReferenceCode_addSXPBlueprint();
-
-		SXPBlueprint getSXPBlueprint =
-			sxpBlueprintResource.getSXPBlueprintByExternalReferenceCode(
-				postSXPBlueprint.getExternalReferenceCode());
-
-		assertEquals(postSXPBlueprint, getSXPBlueprint);
-		assertValid(getSXPBlueprint);
-	}
-
-	protected SXPBlueprint
-			testGetSXPBlueprintByExternalReferenceCode_addSXPBlueprint()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetSXPBlueprintByExternalReferenceCode()
-		throws Exception {
-
-		SXPBlueprint sxpBlueprint =
-			testGraphQLGetSXPBlueprintByExternalReferenceCode_addSXPBlueprint();
-
-		// No namespace
-
-		Assert.assertTrue(
-			equals(
-				sxpBlueprint,
-				SXPBlueprintSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"sXPBlueprintByExternalReferenceCode",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"externalReferenceCode",
-											"\"" +
-												sxpBlueprint.
-													getExternalReferenceCode() +
-														"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/sXPBlueprintByExternalReferenceCode"))));
-
-		// Using the namespace searchExperiences_v1_0
-
-		Assert.assertTrue(
-			equals(
-				sxpBlueprint,
-				SXPBlueprintSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"searchExperiences_v1_0",
-								new GraphQLField(
-									"sXPBlueprintByExternalReferenceCode",
-									new HashMap<String, Object>() {
-										{
-											put(
-												"externalReferenceCode",
-												"\"" +
-													sxpBlueprint.
-														getExternalReferenceCode() +
-															"\"");
-										}
-									},
-									getGraphQLFields()))),
-						"JSONObject/data", "JSONObject/searchExperiences_v1_0",
-						"Object/sXPBlueprintByExternalReferenceCode"))));
-	}
-
-	@Test
-	public void testGraphQLGetSXPBlueprintByExternalReferenceCodeNotFound()
-		throws Exception {
-
-		String irrelevantExternalReferenceCode =
-			"\"" + RandomTestUtil.randomString() + "\"";
-
-		// No namespace
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"sXPBlueprintByExternalReferenceCode",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-
-		// Using the namespace searchExperiences_v1_0
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"searchExperiences_v1_0",
-						new GraphQLField(
-							"sXPBlueprintByExternalReferenceCode",
-							new HashMap<String, Object>() {
-								{
-									put(
-										"externalReferenceCode",
-										irrelevantExternalReferenceCode);
-								}
-							},
-							getGraphQLFields()))),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected SXPBlueprint
-			testGraphQLGetSXPBlueprintByExternalReferenceCode_addSXPBlueprint()
-		throws Exception {
-
-		return testGraphQLSXPBlueprint_addSXPBlueprint();
-	}
-
-	@Test
-	public void testPutSXPBlueprintByExternalReferenceCode() throws Exception {
-		SXPBlueprint postSXPBlueprint =
-			testPutSXPBlueprintByExternalReferenceCode_addSXPBlueprint();
-
-		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
-
-		SXPBlueprint putSXPBlueprint =
-			sxpBlueprintResource.putSXPBlueprintByExternalReferenceCode(
-				postSXPBlueprint.getExternalReferenceCode(),
-				randomSXPBlueprint);
-
-		assertEquals(randomSXPBlueprint, putSXPBlueprint);
-		assertValid(putSXPBlueprint);
-
-		SXPBlueprint getSXPBlueprint =
-			sxpBlueprintResource.getSXPBlueprintByExternalReferenceCode(
-				putSXPBlueprint.getExternalReferenceCode());
-
-		assertEquals(randomSXPBlueprint, getSXPBlueprint);
-		assertValid(getSXPBlueprint);
-
-		SXPBlueprint newSXPBlueprint =
-			testPutSXPBlueprintByExternalReferenceCode_createSXPBlueprint();
-
-		putSXPBlueprint =
-			sxpBlueprintResource.putSXPBlueprintByExternalReferenceCode(
-				newSXPBlueprint.getExternalReferenceCode(), newSXPBlueprint);
-
-		assertEquals(newSXPBlueprint, putSXPBlueprint);
-		assertValid(putSXPBlueprint);
-
-		getSXPBlueprint =
-			sxpBlueprintResource.getSXPBlueprintByExternalReferenceCode(
-				putSXPBlueprint.getExternalReferenceCode());
-
-		assertEquals(newSXPBlueprint, getSXPBlueprint);
-
-		Assert.assertEquals(
-			newSXPBlueprint.getExternalReferenceCode(),
-			putSXPBlueprint.getExternalReferenceCode());
-	}
-
-	protected SXPBlueprint
-			testPutSXPBlueprintByExternalReferenceCode_createSXPBlueprint()
-		throws Exception {
-
-		return randomSXPBlueprint();
-	}
-
-	protected SXPBlueprint
-			testPutSXPBlueprintByExternalReferenceCode_addSXPBlueprint()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPostSXPBlueprintValidate() throws Exception {
-		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
-
-		SXPBlueprint postSXPBlueprint =
-			testPostSXPBlueprintValidate_addSXPBlueprint(randomSXPBlueprint);
-
-		assertEquals(randomSXPBlueprint, postSXPBlueprint);
-		assertValid(postSXPBlueprint);
-	}
-
-	protected SXPBlueprint testPostSXPBlueprintValidate_addSXPBlueprint(
-			SXPBlueprint sxpBlueprint)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
 	}
 
 	@Test
@@ -813,7 +254,6 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 			404,
 			sxpBlueprintResource.getSXPBlueprintHttpResponse(
 				sxpBlueprint.getId()));
-
 		assertHttpResponseStatusCode(
 			404, sxpBlueprintResource.getSXPBlueprintHttpResponse(0L));
 	}
@@ -854,7 +294,7 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 							put("sxpBlueprintId", sxpBlueprint1.getId());
 						}
 					},
-					new GraphQLField("id"))),
+					getGraphQLFields())),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray1.length() > 0);
@@ -892,7 +332,7 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 								put("sxpBlueprintId", sxpBlueprint2.getId());
 							}
 						},
-						new GraphQLField("id")))),
+						getGraphQLFields()))),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray2.length() > 0);
@@ -902,6 +342,47 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 		throws Exception {
 
 		return testGraphQLSXPBlueprint_addSXPBlueprint();
+	}
+
+	@Test
+	public void testDeleteSXPBlueprintBatch() throws Exception {
+		SXPBlueprint sxpBlueprint1 =
+			testDeleteSXPBlueprintBatch_addSXPBlueprint();
+
+		testDeleteSXPBlueprintBatch_deleteSXPBlueprint(
+			202, null, sxpBlueprint1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			sxpBlueprintResource.getSXPBlueprintHttpResponse(
+				sxpBlueprint1.getId()));
+	}
+
+	protected SXPBlueprint testDeleteSXPBlueprintBatch_addSXPBlueprint()
+		throws Exception {
+
+		return testDeleteSXPBlueprint_addSXPBlueprint();
+	}
+
+	protected void testDeleteSXPBlueprintBatch_deleteSXPBlueprint(
+			int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			sxpBlueprintResource.deleteSXPBlueprintBatchHttpResponse(
+				null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
 	}
 
 	@Test
@@ -1210,6 +691,565 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 	}
 
 	@Test
+	public void testGetSXPBlueprintByExternalReferenceCode() throws Exception {
+		SXPBlueprint postSXPBlueprint =
+			testGetSXPBlueprintByExternalReferenceCode_addSXPBlueprint();
+
+		SXPBlueprint getSXPBlueprint =
+			sxpBlueprintResource.getSXPBlueprintByExternalReferenceCode(
+				postSXPBlueprint.getExternalReferenceCode());
+
+		assertEquals(postSXPBlueprint, getSXPBlueprint);
+		assertValid(getSXPBlueprint);
+	}
+
+	protected SXPBlueprint
+			testGetSXPBlueprintByExternalReferenceCode_addSXPBlueprint()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetSXPBlueprintByExternalReferenceCode()
+		throws Exception {
+
+		SXPBlueprint sxpBlueprint =
+			testGraphQLGetSXPBlueprintByExternalReferenceCode_addSXPBlueprint();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				sxpBlueprint,
+				SXPBlueprintSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"sXPBlueprintByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											"\"" +
+												sxpBlueprint.
+													getExternalReferenceCode() +
+														"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/sXPBlueprintByExternalReferenceCode"))));
+
+		// Using the namespace searchExperiences_v1_0
+
+		Assert.assertTrue(
+			equals(
+				sxpBlueprint,
+				SXPBlueprintSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"searchExperiences_v1_0",
+								new GraphQLField(
+									"sXPBlueprintByExternalReferenceCode",
+									new HashMap<String, Object>() {
+										{
+											put(
+												"externalReferenceCode",
+												"\"" +
+													sxpBlueprint.
+														getExternalReferenceCode() +
+															"\"");
+										}
+									},
+									getGraphQLFields()))),
+						"JSONObject/data", "JSONObject/searchExperiences_v1_0",
+						"Object/sXPBlueprintByExternalReferenceCode"))));
+	}
+
+	@Test
+	public void testGraphQLGetSXPBlueprintByExternalReferenceCodeNotFound()
+		throws Exception {
+
+		String irrelevantExternalReferenceCode =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"sXPBlueprintByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									irrelevantExternalReferenceCode);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace searchExperiences_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"searchExperiences_v1_0",
+						new GraphQLField(
+							"sXPBlueprintByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"externalReferenceCode",
+										irrelevantExternalReferenceCode);
+								}
+							},
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected SXPBlueprint
+			testGraphQLGetSXPBlueprintByExternalReferenceCode_addSXPBlueprint()
+		throws Exception {
+
+		return testGraphQLSXPBlueprint_addSXPBlueprint();
+	}
+
+	@Test
+	public void testGetSXPBlueprintExport() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPage() throws Exception {
+		Page<SXPBlueprint> page = sxpBlueprintResource.getSXPBlueprintsPage(
+			null, null, Pagination.of(1, 10), null);
+
+		long totalCount = page.getTotalCount();
+
+		SXPBlueprint sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(
+			randomSXPBlueprint());
+
+		SXPBlueprint sxpBlueprint2 = testGetSXPBlueprintsPage_addSXPBlueprint(
+			randomSXPBlueprint());
+
+		page = sxpBlueprintResource.getSXPBlueprintsPage(
+			null, null, Pagination.of(1, 10), null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(sxpBlueprint1, (List<SXPBlueprint>)page.getItems());
+		assertContains(sxpBlueprint2, (List<SXPBlueprint>)page.getItems());
+		assertValid(page, testGetSXPBlueprintsPage_getExpectedActions());
+
+		sxpBlueprintResource.deleteSXPBlueprint(sxpBlueprint1.getId());
+
+		sxpBlueprintResource.deleteSXPBlueprint(sxpBlueprint2.getId());
+	}
+
+	protected Map<String, Map<String, String>>
+			testGetSXPBlueprintsPage_getExpectedActions()
+		throws Exception {
+
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
+
+		return expectedActions;
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		SXPBlueprint sxpBlueprint1 = randomSXPBlueprint();
+
+		sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(sxpBlueprint1);
+
+		for (EntityField entityField : entityFields) {
+			Page<SXPBlueprint> page = sxpBlueprintResource.getSXPBlueprintsPage(
+				null, getFilterString(entityField, "between", sxpBlueprint1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(sxpBlueprint1),
+				(List<SXPBlueprint>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithFilterDoubleEquals()
+		throws Exception {
+
+		testGetSXPBlueprintsPageWithFilter("eq", EntityField.Type.DOUBLE);
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithFilterStringContains()
+		throws Exception {
+
+		testGetSXPBlueprintsPageWithFilter("contains", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithFilterStringEquals()
+		throws Exception {
+
+		testGetSXPBlueprintsPageWithFilter("eq", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithFilterStringStartsWith()
+		throws Exception {
+
+		testGetSXPBlueprintsPageWithFilter(
+			"startswith", EntityField.Type.STRING);
+	}
+
+	protected void testGetSXPBlueprintsPageWithFilter(
+			String operator, EntityField.Type type)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		SXPBlueprint sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(
+			randomSXPBlueprint());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		SXPBlueprint sxpBlueprint2 = testGetSXPBlueprintsPage_addSXPBlueprint(
+			randomSXPBlueprint());
+
+		for (EntityField entityField : entityFields) {
+			Page<SXPBlueprint> page = sxpBlueprintResource.getSXPBlueprintsPage(
+				null, getFilterString(entityField, operator, sxpBlueprint1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(sxpBlueprint1),
+				(List<SXPBlueprint>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithPagination() throws Exception {
+		Page<SXPBlueprint> sxpBlueprintsPage =
+			sxpBlueprintResource.getSXPBlueprintsPage(null, null, null, null);
+
+		int totalCount = GetterUtil.getInteger(
+			sxpBlueprintsPage.getTotalCount());
+
+		SXPBlueprint sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(
+			randomSXPBlueprint());
+
+		SXPBlueprint sxpBlueprint2 = testGetSXPBlueprintsPage_addSXPBlueprint(
+			randomSXPBlueprint());
+
+		SXPBlueprint sxpBlueprint3 = testGetSXPBlueprintsPage_addSXPBlueprint(
+			randomSXPBlueprint());
+
+		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
+
+		int pageSizeLimit = 500;
+
+		if (totalCount >= (pageSizeLimit - 2)) {
+			Page<SXPBlueprint> page1 =
+				sxpBlueprintResource.getSXPBlueprintsPage(
+					null, null,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
+
+			assertContains(sxpBlueprint1, (List<SXPBlueprint>)page1.getItems());
+
+			Page<SXPBlueprint> page2 =
+				sxpBlueprintResource.getSXPBlueprintsPage(
+					null, null,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			assertContains(sxpBlueprint2, (List<SXPBlueprint>)page2.getItems());
+
+			Page<SXPBlueprint> page3 =
+				sxpBlueprintResource.getSXPBlueprintsPage(
+					null, null,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			assertContains(sxpBlueprint3, (List<SXPBlueprint>)page3.getItems());
+		}
+		else {
+			Page<SXPBlueprint> page1 =
+				sxpBlueprintResource.getSXPBlueprintsPage(
+					null, null, Pagination.of(1, totalCount + 2), null);
+
+			List<SXPBlueprint> sxpBlueprints1 =
+				(List<SXPBlueprint>)page1.getItems();
+
+			Assert.assertEquals(
+				sxpBlueprints1.toString(), totalCount + 2,
+				sxpBlueprints1.size());
+
+			Page<SXPBlueprint> page2 =
+				sxpBlueprintResource.getSXPBlueprintsPage(
+					null, null, Pagination.of(2, totalCount + 2), null);
+
+			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+			List<SXPBlueprint> sxpBlueprints2 =
+				(List<SXPBlueprint>)page2.getItems();
+
+			Assert.assertEquals(
+				sxpBlueprints2.toString(), 1, sxpBlueprints2.size());
+
+			Page<SXPBlueprint> page3 =
+				sxpBlueprintResource.getSXPBlueprintsPage(
+					null, null, Pagination.of(1, (int)totalCount + 3), null);
+
+			assertContains(sxpBlueprint1, (List<SXPBlueprint>)page3.getItems());
+			assertContains(sxpBlueprint2, (List<SXPBlueprint>)page3.getItems());
+			assertContains(sxpBlueprint3, (List<SXPBlueprint>)page3.getItems());
+		}
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithSortDateTime() throws Exception {
+		testGetSXPBlueprintsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, sxpBlueprint1, sxpBlueprint2) -> {
+				BeanTestUtil.setProperty(
+					sxpBlueprint1, entityField.getName(),
+					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
+			});
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithSortDouble() throws Exception {
+		testGetSXPBlueprintsPageWithSort(
+			EntityField.Type.DOUBLE,
+			(entityField, sxpBlueprint1, sxpBlueprint2) -> {
+				BeanTestUtil.setProperty(
+					sxpBlueprint1, entityField.getName(), 0.1);
+				BeanTestUtil.setProperty(
+					sxpBlueprint2, entityField.getName(), 0.5);
+			});
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithSortInteger() throws Exception {
+		testGetSXPBlueprintsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, sxpBlueprint1, sxpBlueprint2) -> {
+				BeanTestUtil.setProperty(
+					sxpBlueprint1, entityField.getName(), 0);
+				BeanTestUtil.setProperty(
+					sxpBlueprint2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetSXPBlueprintsPageWithSortString() throws Exception {
+		testGetSXPBlueprintsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, sxpBlueprint1, sxpBlueprint2) -> {
+				Class<?> clazz = sxpBlueprint1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanTestUtil.setProperty(
+						sxpBlueprint1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanTestUtil.setProperty(
+						sxpBlueprint2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanTestUtil.setProperty(
+						sxpBlueprint1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanTestUtil.setProperty(
+						sxpBlueprint2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanTestUtil.setProperty(
+						sxpBlueprint1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanTestUtil.setProperty(
+						sxpBlueprint2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetSXPBlueprintsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, SXPBlueprint, SXPBlueprint, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		SXPBlueprint sxpBlueprint1 = randomSXPBlueprint();
+		SXPBlueprint sxpBlueprint2 = randomSXPBlueprint();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, sxpBlueprint1, sxpBlueprint2);
+		}
+
+		sxpBlueprint1 = testGetSXPBlueprintsPage_addSXPBlueprint(sxpBlueprint1);
+
+		sxpBlueprint2 = testGetSXPBlueprintsPage_addSXPBlueprint(sxpBlueprint2);
+
+		Page<SXPBlueprint> page = sxpBlueprintResource.getSXPBlueprintsPage(
+			null, null, null, null);
+
+		for (EntityField entityField : entityFields) {
+			Page<SXPBlueprint> ascPage =
+				sxpBlueprintResource.getSXPBlueprintsPage(
+					null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
+					entityField.getName() + ":asc");
+
+			assertContains(
+				sxpBlueprint1, (List<SXPBlueprint>)ascPage.getItems());
+			assertContains(
+				sxpBlueprint2, (List<SXPBlueprint>)ascPage.getItems());
+
+			Page<SXPBlueprint> descPage =
+				sxpBlueprintResource.getSXPBlueprintsPage(
+					null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
+					entityField.getName() + ":desc");
+
+			assertContains(
+				sxpBlueprint2, (List<SXPBlueprint>)descPage.getItems());
+			assertContains(
+				sxpBlueprint1, (List<SXPBlueprint>)descPage.getItems());
+		}
+	}
+
+	protected SXPBlueprint testGetSXPBlueprintsPage_addSXPBlueprint(
+			SXPBlueprint sxpBlueprint)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetSXPBlueprintsPage() throws Exception {
+		GraphQLField graphQLField = new GraphQLField(
+			"sXPBlueprints",
+			new HashMap<String, Object>() {
+				{
+					put("search", null);
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		// No namespace
+
+		JSONObject sXPBlueprintsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/sXPBlueprints");
+
+		long totalCount = sXPBlueprintsJSONObject.getLong("totalCount");
+
+		SXPBlueprint sxpBlueprint1 = testGraphQLSXPBlueprint_addSXPBlueprint(
+			randomSXPBlueprint());
+
+		SXPBlueprint sxpBlueprint2 = testGraphQLSXPBlueprint_addSXPBlueprint(
+			randomSXPBlueprint());
+
+		sXPBlueprintsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/sXPBlueprints");
+
+		Assert.assertEquals(
+			totalCount + 2, sXPBlueprintsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			sxpBlueprint1,
+			Arrays.asList(
+				SXPBlueprintSerDes.toDTOs(
+					sXPBlueprintsJSONObject.getString("items"))));
+		assertContains(
+			sxpBlueprint2,
+			Arrays.asList(
+				SXPBlueprintSerDes.toDTOs(
+					sXPBlueprintsJSONObject.getString("items"))));
+
+		// Using the namespace searchExperiences_v1_0
+
+		sXPBlueprintsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField("searchExperiences_v1_0", graphQLField)),
+			"JSONObject/data", "JSONObject/searchExperiences_v1_0",
+			"JSONObject/sXPBlueprints");
+
+		Assert.assertEquals(
+			totalCount + 2, sXPBlueprintsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			sxpBlueprint1,
+			Arrays.asList(
+				SXPBlueprintSerDes.toDTOs(
+					sXPBlueprintsJSONObject.getString("items"))));
+		assertContains(
+			sxpBlueprint2,
+			Arrays.asList(
+				SXPBlueprintSerDes.toDTOs(
+					sXPBlueprintsJSONObject.getString("items"))));
+	}
+
+	@Test
 	public void testPatchSXPBlueprint() throws Exception {
 		SXPBlueprint postSXPBlueprint = testPatchSXPBlueprint_addSXPBlueprint();
 
@@ -1239,6 +1279,93 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 	}
 
 	@Test
+	public void testPostSXPBlueprint() throws Exception {
+		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
+
+		SXPBlueprint postSXPBlueprint = testPostSXPBlueprint_addSXPBlueprint(
+			randomSXPBlueprint);
+
+		assertEquals(randomSXPBlueprint, postSXPBlueprint);
+		assertValid(postSXPBlueprint);
+	}
+
+	protected SXPBlueprint testPostSXPBlueprint_addSXPBlueprint(
+			SXPBlueprint sxpBlueprint)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostSXPBlueprint() throws Exception {
+		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
+
+		SXPBlueprint sxpBlueprint = testGraphQLSXPBlueprint_addSXPBlueprint(
+			randomSXPBlueprint);
+
+		Assert.assertTrue(equals(randomSXPBlueprint, sxpBlueprint));
+	}
+
+	@Test
+	public void testPostSXPBlueprintCopy() throws Exception {
+		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
+
+		SXPBlueprint postSXPBlueprint =
+			testPostSXPBlueprintCopy_addSXPBlueprint(randomSXPBlueprint);
+
+		assertEquals(randomSXPBlueprint, postSXPBlueprint);
+		assertValid(postSXPBlueprint);
+	}
+
+	protected SXPBlueprint testPostSXPBlueprintCopy_addSXPBlueprint(
+			SXPBlueprint sxpBlueprint)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostSXPBlueprintCopy() throws Exception {
+		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
+
+		SXPBlueprint sxpBlueprint = testGraphQLSXPBlueprint_addSXPBlueprint(
+			randomSXPBlueprint);
+
+		Assert.assertTrue(equals(randomSXPBlueprint, sxpBlueprint));
+	}
+
+	@Test
+	public void testPostSXPBlueprintValidate() throws Exception {
+		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
+
+		SXPBlueprint postSXPBlueprint =
+			testPostSXPBlueprintValidate_addSXPBlueprint(randomSXPBlueprint);
+
+		assertEquals(randomSXPBlueprint, postSXPBlueprint);
+		assertValid(postSXPBlueprint);
+	}
+
+	protected SXPBlueprint testPostSXPBlueprintValidate_addSXPBlueprint(
+			SXPBlueprint sxpBlueprint)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostSXPBlueprintValidate() throws Exception {
+		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
+
+		SXPBlueprint sxpBlueprint = testGraphQLSXPBlueprint_addSXPBlueprint(
+			randomSXPBlueprint);
+
+		Assert.assertTrue(equals(randomSXPBlueprint, sxpBlueprint));
+	}
+
+	@Test
 	public void testPutSXPBlueprint() throws Exception {
 		SXPBlueprint postSXPBlueprint = testPutSXPBlueprint_addSXPBlueprint();
 
@@ -1265,27 +1392,116 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 	}
 
 	@Test
-	public void testPostSXPBlueprintCopy() throws Exception {
+	public void testPutSXPBlueprintByExternalReferenceCode() throws Exception {
+		SXPBlueprint postSXPBlueprint =
+			testPutSXPBlueprintByExternalReferenceCode_addSXPBlueprint();
+
 		SXPBlueprint randomSXPBlueprint = randomSXPBlueprint();
 
-		SXPBlueprint postSXPBlueprint =
-			testPostSXPBlueprintCopy_addSXPBlueprint(randomSXPBlueprint);
+		SXPBlueprint putSXPBlueprint =
+			sxpBlueprintResource.putSXPBlueprintByExternalReferenceCode(
+				postSXPBlueprint.getExternalReferenceCode(),
+				randomSXPBlueprint);
 
-		assertEquals(randomSXPBlueprint, postSXPBlueprint);
-		assertValid(postSXPBlueprint);
+		assertEquals(randomSXPBlueprint, putSXPBlueprint);
+		assertValid(putSXPBlueprint);
+
+		SXPBlueprint getSXPBlueprint =
+			sxpBlueprintResource.getSXPBlueprintByExternalReferenceCode(
+				putSXPBlueprint.getExternalReferenceCode());
+
+		assertEquals(randomSXPBlueprint, getSXPBlueprint);
+		assertValid(getSXPBlueprint);
+
+		SXPBlueprint newSXPBlueprint =
+			testPutSXPBlueprintByExternalReferenceCode_createSXPBlueprint();
+
+		putSXPBlueprint =
+			sxpBlueprintResource.putSXPBlueprintByExternalReferenceCode(
+				newSXPBlueprint.getExternalReferenceCode(), newSXPBlueprint);
+
+		assertEquals(newSXPBlueprint, putSXPBlueprint);
+		assertValid(putSXPBlueprint);
+
+		getSXPBlueprint =
+			sxpBlueprintResource.getSXPBlueprintByExternalReferenceCode(
+				putSXPBlueprint.getExternalReferenceCode());
+
+		assertEquals(newSXPBlueprint, getSXPBlueprint);
+
+		Assert.assertEquals(
+			newSXPBlueprint.getExternalReferenceCode(),
+			putSXPBlueprint.getExternalReferenceCode());
 	}
 
-	protected SXPBlueprint testPostSXPBlueprintCopy_addSXPBlueprint(
-			SXPBlueprint sxpBlueprint)
+	protected SXPBlueprint
+			testPutSXPBlueprintByExternalReferenceCode_addSXPBlueprint()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
+	protected SXPBlueprint
+			testPutSXPBlueprintByExternalReferenceCode_createSXPBlueprint()
+		throws Exception {
+
+		return randomSXPBlueprint();
+	}
+
 	@Test
-	public void testGetSXPBlueprintExport() throws Exception {
-		Assert.assertTrue(false);
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		SXPBlueprint sxpBlueprint1 =
+			testBatchEngineDeleteImportTask_addSXPBlueprint();
+
+		testBatchEngineDeleteImportTask_deleteSXPBlueprint(
+			200, null, sxpBlueprint1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			sxpBlueprintResource.getSXPBlueprintHttpResponse(
+				sxpBlueprint1.getId()));
+	}
+
+	protected SXPBlueprint testBatchEngineDeleteImportTask_addSXPBlueprint()
+		throws Exception {
+
+		return testDeleteSXPBlueprint_addSXPBlueprint();
+	}
+
+	protected void testBatchEngineDeleteImportTask_deleteSXPBlueprint(
+			int expectedStatusCode, String externalReferenceCode, Long id,
+			String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.search.experiences.rest.dto.v1_0.SXPBlueprint",
+				null, null, null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
 	}
 
 	@Rule
@@ -1294,8 +1510,116 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 	protected SXPBlueprint testGraphQLSXPBlueprint_addSXPBlueprint()
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return testGraphQLSXPBlueprint_addSXPBlueprint(randomSXPBlueprint());
+	}
+
+	protected SXPBlueprint testGraphQLSXPBlueprint_addSXPBlueprint(
+			SXPBlueprint sxpBlueprint)
+		throws Exception {
+
+		JSONDeserializer<SXPBlueprint> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field :
+				getDeclaredFields(SXPBlueprint.class)) {
+
+			if (getGraphQLValue(field.get(sxpBlueprint)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(sxpBlueprint)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createSXPBlueprint",
+						new HashMap<String, Object>() {
+							{
+								put("sxpBlueprint", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createSXPBlueprint"),
+			SXPBlueprint.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(
@@ -1378,6 +1702,27 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 
 			if (Objects.equals("actions", additionalAssertFieldName)) {
 				if (sxpBlueprint.getActions() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"collectionProviderSubtypeName",
+					additionalAssertFieldName)) {
+
+				if (sxpBlueprint.getCollectionProviderSubtypeName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"collectionProviderTypeName", additionalAssertFieldName)) {
+
+				if (sxpBlueprint.getCollectionProviderTypeName() == null) {
 					valid = false;
 				}
 
@@ -1540,6 +1885,10 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
 
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
+
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
 					com.liferay.search.experiences.rest.dto.v1_0.SXPBlueprint.
@@ -1605,6 +1954,33 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 				if (!equals(
 						(Map)sxpBlueprint1.getActions(),
 						(Map)sxpBlueprint2.getActions())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"collectionProviderSubtypeName",
+					additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						sxpBlueprint1.getCollectionProviderSubtypeName(),
+						sxpBlueprint2.getCollectionProviderSubtypeName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"collectionProviderTypeName", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						sxpBlueprint1.getCollectionProviderTypeName(),
+						sxpBlueprint2.getCollectionProviderTypeName())) {
 
 					return false;
 				}
@@ -1865,6 +2241,98 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 		if (entityFieldName.equals("actions")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("collectionProviderSubtypeName")) {
+			Object object = sxpBlueprint.getCollectionProviderSubtypeName();
+
+			String value = String.valueOf(object);
+
+			if (operator.equals("contains")) {
+				sb = new StringBundler();
+
+				sb.append("contains(");
+				sb.append(entityFieldName);
+				sb.append(",'");
+
+				if ((object != null) && (value.length() > 2)) {
+					sb.append(value.substring(1, value.length() - 1));
+				}
+				else {
+					sb.append(value);
+				}
+
+				sb.append("')");
+			}
+			else if (operator.equals("startswith")) {
+				sb = new StringBundler();
+
+				sb.append("startswith(");
+				sb.append(entityFieldName);
+				sb.append(",'");
+
+				if ((object != null) && (value.length() > 1)) {
+					sb.append(value.substring(0, value.length() - 1));
+				}
+				else {
+					sb.append(value);
+				}
+
+				sb.append("')");
+			}
+			else {
+				sb.append("'");
+				sb.append(value);
+				sb.append("'");
+			}
+
+			return sb.toString();
+		}
+
+		if (entityFieldName.equals("collectionProviderTypeName")) {
+			Object object = sxpBlueprint.getCollectionProviderTypeName();
+
+			String value = String.valueOf(object);
+
+			if (operator.equals("contains")) {
+				sb = new StringBundler();
+
+				sb.append("contains(");
+				sb.append(entityFieldName);
+				sb.append(",'");
+
+				if ((object != null) && (value.length() > 2)) {
+					sb.append(value.substring(1, value.length() - 1));
+				}
+				else {
+					sb.append(value);
+				}
+
+				sb.append("')");
+			}
+			else if (operator.equals("startswith")) {
+				sb = new StringBundler();
+
+				sb.append("startswith(");
+				sb.append(entityFieldName);
+				sb.append(",'");
+
+				if ((object != null) && (value.length() > 1)) {
+					sb.append(value.substring(0, value.length() - 1));
+				}
+				else {
+					sb.append(value);
+				}
+
+				sb.append("')");
+			}
+			else {
+				sb.append("'");
+				sb.append(value);
+				sb.append("'");
+			}
+
+			return sb.toString();
 		}
 
 		if (entityFieldName.equals("configuration")) {
@@ -2271,6 +2739,10 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 	protected SXPBlueprint randomSXPBlueprint() throws Exception {
 		return new SXPBlueprint() {
 			{
+				collectionProviderSubtypeName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
+				collectionProviderTypeName = StringUtil.toLowerCase(
+					RandomTestUtil.randomString());
 				createDate = RandomTestUtil.nextDate();
 				description = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
@@ -2298,7 +2770,30 @@ public abstract class BaseSXPBlueprintResourceTestCase {
 		return randomSXPBlueprint();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected SXPBlueprintResource sxpBlueprintResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

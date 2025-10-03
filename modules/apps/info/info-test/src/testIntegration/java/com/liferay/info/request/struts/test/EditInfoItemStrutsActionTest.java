@@ -8,6 +8,7 @@ package com.liferay.info.request.struts.test;
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
+import com.liferay.info.exception.InfoFormValidationException;
 import com.liferay.info.field.InfoField;
 import com.liferay.info.form.InfoForm;
 import com.liferay.info.item.InfoItemServiceRegistry;
@@ -17,6 +18,7 @@ import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalService;
 import com.liferay.layout.page.template.service.LayoutPageTemplateStructureLocalService;
 import com.liferay.layout.page.template.test.util.DisplayPageTemplateTestUtil;
+import com.liferay.layout.test.util.LayoutFriendlyURLRandomizerBumper;
 import com.liferay.layout.util.structure.LayoutStructure;
 import com.liferay.layout.util.structure.LayoutStructureItem;
 import com.liferay.list.type.entry.util.ListTypeEntryUtil;
@@ -48,6 +50,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.events.EventsProcessorUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.InfoFormException;
+import com.liferay.portal.kernel.feature.flag.FeatureFlagManagerUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
@@ -81,6 +84,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.ProgressTracker;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TextExtractor;
@@ -91,12 +95,11 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.test.log.LogCapture;
 import com.liferay.portal.test.log.LogEntry;
 import com.liferay.portal.test.log.LoggerTestUtil;
-import com.liferay.portal.test.rule.FeatureFlags;
+import com.liferay.portal.test.rule.FeatureFlag;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.upload.test.util.UploadTestUtil;
 import com.liferay.portal.util.PortalImpl;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.util.LocalizedMapUtil;
 import com.liferay.segments.service.SegmentsExperienceLocalService;
 
@@ -150,7 +153,7 @@ public class EditInfoItemStrutsActionTest {
 
 		UserTestUtil.setUser(_user);
 
-		_objectDefinition = _addObjectDefinition();
+		_objectDefinition = _addObjectDefinition(false);
 
 		_classNameId = String.valueOf(
 			_portal.getClassNameId(_objectDefinition.getClassName()));
@@ -158,12 +161,168 @@ public class EditInfoItemStrutsActionTest {
 		_layout = _addLayout();
 	}
 
+	@FeatureFlag("LPD-21926")
+	@Test
+	@TestInfo("LPD-50584")
+	public void testAddAndUpdateInfoItemFriendlyURL() throws Exception {
+		_objectDefinitionLocalService.deleteObjectDefinition(
+			_objectDefinition.getObjectDefinitionId());
+
+		_objectDefinition = _addObjectDefinition(true);
+
+		_classNameId = String.valueOf(
+			_portal.getClassNameId(_objectDefinition.getClassName()));
+
+		_layout = _addLayout();
+
+		ObjectEntry objectEntry = _testAddInfoItem(
+			null, null, null, null, null, null, null,
+			StringUtil.toLowerCase(
+				StringUtil.removeSubstring(
+					RandomTestUtil.randomString(
+						LayoutFriendlyURLRandomizerBumper.INSTANCE),
+					StringPool.SLASH)),
+			null, null, null, null, null, null,
+			WorkflowConstants.STATUS_APPROVED);
+
+		MockHttpServletResponse mockHttpServletResponse =
+			new MockHttpServletResponse();
+
+		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
+
+		PipingServletResponse pipingServletResponse = new PipingServletResponse(
+			mockHttpServletResponse, unsyncStringWriter);
+
+		String friendlyURL = StringUtil.toLowerCase(
+			StringUtil.removeSubstring(
+				RandomTestUtil.randomString(
+					LayoutFriendlyURLRandomizerBumper.INSTANCE),
+				StringPool.SLASH));
+
+		UploadPortletRequest uploadPortletRequest = _getUploadPortletRequest(
+			RandomTestUtil.randomString(), null, null, null,
+			objectEntry.getObjectEntryId(), null, null, null, null, null,
+			friendlyURL, null, null, null, null, null, null, null,
+			WorkflowConstants.STATUS_APPROVED, null);
+
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
+
+		_editInfoItemStrutsAction.execute(
+			uploadPortletRequest, pipingServletResponse);
+
+		objectEntry = _objectEntryLocalService.fetchObjectEntry(
+			objectEntry.getObjectEntryId());
+
+		Assert.assertEquals(
+			friendlyURL,
+			objectEntry.getURLTitle(_objectDefinition.getDefaultLocale()));
+	}
+
+	@FeatureFlag("LPD-17564")
+	@Test
+	public void testAddAndUpdateInfoItemWithEnableObjectEntrySchedule()
+		throws Exception {
+
+		_objectDefinition.setEnableObjectEntrySchedule(true);
+
+		_objectDefinition =
+			_objectDefinitionLocalService.updateObjectDefinition(
+				_objectDefinition);
+
+		_objectDefinitionLocalService.deployObjectDefinition(_objectDefinition);
+
+		InfoFormValidationException.InvalidExpirationDate
+			invalidExpirationDate =
+				(InfoFormValidationException.InvalidExpirationDate)_execute(
+					HashMapBuilder.<String, List<String>>put(
+						"ObjectEntry_expirationDate",
+						Collections.singletonList("2020-03-01T11:11")
+					).build());
+
+		Assert.assertEquals(
+			"Expiration date must be a future date.",
+			invalidExpirationDate.getLocalizedMessage(LocaleUtil.US));
+
+		String externalReferenceCode = RandomTestUtil.randomString();
+
+		_execute(
+			HashMapBuilder.<String, List<String>>put(
+				"ObjectEntry_displayDate",
+				Collections.singletonList("2020-03-01T11:11")
+			).put(
+				"ObjectEntry_expirationDate",
+				Collections.singletonList("2999-03-01T11:11")
+			).put(
+				"ObjectEntry_externalReferenceCode",
+				Collections.singletonList(externalReferenceCode)
+			).put(
+				"ObjectEntry_reviewDate",
+				Collections.singletonList("2021-03-01T11:11")
+			).build());
+
+		ObjectEntry objectEntry = _objectEntryLocalService.fetchObjectEntry(
+			externalReferenceCode, 0,
+			_objectDefinition.getObjectDefinitionId());
+
+		Assert.assertEquals(
+			DateUtil.parseDate(
+				"yyyy-MM-dd'T'HH:mm", "2020-03-01T11:11", LocaleUtil.US),
+			objectEntry.getDisplayDate());
+		Assert.assertEquals(
+			DateUtil.parseDate(
+				"yyyy-MM-dd'T'HH:mm", "2999-03-01T11:11", LocaleUtil.US),
+			objectEntry.getExpirationDate());
+		Assert.assertEquals(
+			DateUtil.parseDate(
+				"yyyy-MM-dd'T'HH:mm", "2021-03-01T11:11", LocaleUtil.US),
+			objectEntry.getReviewDate());
+
+		externalReferenceCode = RandomTestUtil.randomString();
+
+		_execute(
+			HashMapBuilder.put(
+				"classPK",
+				Collections.singletonList(
+					String.valueOf(objectEntry.getObjectEntryId()))
+			).put(
+				"ObjectEntry_displayDate",
+				Collections.singletonList("2022-03-01T11:11")
+			).put(
+				"ObjectEntry_expirationDate",
+				Collections.singletonList("3000-03-01T11:11")
+			).put(
+				"ObjectEntry_externalReferenceCode",
+				Collections.singletonList(externalReferenceCode)
+			).put(
+				"ObjectEntry_reviewDate",
+				Collections.singletonList("2023-03-01T11:11")
+			).build());
+
+		objectEntry = _objectEntryLocalService.fetchObjectEntry(
+			objectEntry.getObjectEntryId());
+
+		Assert.assertEquals(
+			DateUtil.parseDate(
+				"yyyy-MM-dd'T'HH:mm", "2022-03-01T11:11", LocaleUtil.US),
+			objectEntry.getDisplayDate());
+		Assert.assertEquals(
+			DateUtil.parseDate(
+				"yyyy-MM-dd'T'HH:mm", "3000-03-01T11:11", LocaleUtil.US),
+			objectEntry.getExpirationDate());
+		Assert.assertEquals(
+			externalReferenceCode, objectEntry.getExternalReferenceCode());
+		Assert.assertEquals(
+			DateUtil.parseDate(
+				"yyyy-MM-dd'T'HH:mm", "2023-03-01T11:11", LocaleUtil.US),
+			objectEntry.getReviewDate());
+	}
+
 	@Test
 	public void testAddInfoItemAttachment() throws Exception {
 		_testAddInfoItem(
 			RandomTestUtil.randomString(), null, null, null, null, null, null,
-			null, null, null, null, WorkflowConstants.STATUS_APPROVED, null,
-			null);
+			null, null, null, null, null, null, null,
+			WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Test
@@ -183,8 +342,8 @@ public class EditInfoItemStrutsActionTest {
 
 		_testAddInfoItem(
 			RandomTestUtil.randomString(), null, null, null, null, null, null,
-			null, null, null, null, WorkflowConstants.STATUS_APPROVED, null,
-			null);
+			null, null, null, null, null, null, null,
+			WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Test
@@ -220,9 +379,9 @@ public class EditInfoItemStrutsActionTest {
 
 		UploadPortletRequest uploadPortletRequest = _getUploadPortletRequest(
 			null, null, null, null, 0, null, null, null, null, null, null, null,
-			"invalid", null, 0, null, null);
+			null, null, "invalid", null, null, null, 0, null);
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest, pipingServletResponse);
@@ -255,34 +414,32 @@ public class EditInfoItemStrutsActionTest {
 	public void testAddInfoItemMaxValues() throws Exception {
 		_testAddInfoItem(
 			null, null, "99999999999999.9999999999999999", null,
-			"9999999999999998", "999999999", "9007199254740991",
-			WorkflowConstants.STATUS_APPROVED, RandomTestUtil.randomString(),
-			null);
+			"9999999999999998", "999999999", "9007199254740991", null,
+			WorkflowConstants.STATUS_APPROVED, RandomTestUtil.randomString());
 	}
 
 	@Test
 	public void testAddInfoItemMinValues() throws Exception {
 		_testAddInfoItem(
 			null, null, "-99999999999999.9999999999999999", null,
-			"-9999999999999998", "-999999999", "-9007199254740991",
-			WorkflowConstants.STATUS_APPROVED, RandomTestUtil.randomString(),
-			null);
+			"-9999999999999998", "-999999999", "-9007199254740991", null,
+			WorkflowConstants.STATUS_APPROVED, RandomTestUtil.randomString());
 	}
 
 	@Test
 	public void testAddInfoItemRoundedBigDecimalTooLong() throws Exception {
 		_testAddInfoItem(
-			null, null, "99999999999999.99999999999999991",
-			"99999999999999.9999999999999999", null, null, null, null, null,
-			null, null, WorkflowConstants.STATUS_APPROVED, null, null);
+			null, null, "99999999999999.9999999999999999",
+			"99999999999999.99999999999999991", null, null, null, null, null,
+			null, null, null, null, null, WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Test
 	public void testAddInfoItemRoundedDoubleTooLong() throws Exception {
 		_testAddInfoItem(
-			null, null, null, null, null, "999.99999999999991",
-			"999.9999999999999", null, null, null, null,
-			WorkflowConstants.STATUS_APPROVED, null, null);
+			null, null, null, null, null, "999.9999999999999",
+			"999.99999999999991", null, null, null, null, null, null, null,
+			WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Test
@@ -310,25 +467,25 @@ public class EditInfoItemStrutsActionTest {
 		Assert.assertNotNull(infoField);
 
 		_testAddInfoItem(
-			null, null, null, null, infoField.getUniqueId(), null, null,
-			"123456", "123456", null, null, WorkflowConstants.STATUS_APPROVED,
-			null, null);
+			null, null, null, null, infoField.getUniqueId(), null, null, null,
+			"123456", "123456", null, null, null, null,
+			WorkflowConstants.STATUS_APPROVED);
 	}
 
-	@FeatureFlags("LPS-187754")
+	@FeatureFlag("LPS-187754")
 	@Test
 	public void testAddInfoItemWithDraftStatus() throws Exception {
 		_testAddInfoItem(
 			null, null, null, null, null, null, null, null, null, null, null,
-			WorkflowConstants.STATUS_DRAFT, null, null);
+			null, null, null, WorkflowConstants.STATUS_DRAFT);
 	}
 
 	@Test
 	public void testAddInfoItemWithEmbeddedSuccessMessage() throws Exception {
 		_testAddInfoItem(
 			null, "http://localhost:8080/home", null, null, null, null, null,
-			"123456", "123456", null, null, WorkflowConstants.STATUS_APPROVED,
-			null, null);
+			null, "123456", "123456", null, null, null, null,
+			WorkflowConstants.STATUS_APPROVED);
 	}
 
 	@Test
@@ -343,11 +500,11 @@ public class EditInfoItemStrutsActionTest {
 
 		UploadPortletRequest uploadPortletRequest = _getUploadPortletRequest(
 			null, null, StringPool.BLANK, StringPool.BLANK, 0, StringPool.BLANK,
-			StringPool.BLANK, null, StringPool.BLANK, StringPool.BLANK,
-			StringPool.BLANK, null, StringPool.BLANK, StringPool.BLANK, 0,
-			StringPool.BLANK, null);
+			StringPool.BLANK, null, StringPool.BLANK, null, null,
+			StringPool.BLANK, StringPool.BLANK, null, StringPool.BLANK, null,
+			StringPool.BLANK, null, 0, StringPool.BLANK);
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest, pipingServletResponse);
@@ -367,11 +524,12 @@ public class EditInfoItemStrutsActionTest {
 	@Test
 	public void testAddInfoItemWithPageSuccessMessage() throws Exception {
 		_testAddInfoItem(
-			null, null, null, null, null, null, null, "123456", "123456", null,
-			null, WorkflowConstants.STATUS_APPROVED, null,
-			"http://localhost:8080/home");
+			null, null, null, null, null, null, null, null, "123456", "123456",
+			null, null, "http://localhost:8080/home", null,
+			WorkflowConstants.STATUS_APPROVED);
 	}
 
+	@FeatureFlag("LPD-17564")
 	@Test
 	public void testUpdateInfoItem() throws Exception {
 		MockHttpServletResponse mockHttpServletResponse =
@@ -388,12 +546,13 @@ public class EditInfoItemStrutsActionTest {
 		UploadPortletRequest uploadPortletRequest = _getUploadPortletRequest(
 			RandomTestUtil.randomString(), null,
 			"-99999999999999.9999999999999999", Boolean.TRUE.toString(), 0,
-			"2023-03-01", "2023-03-01T11:08", null, "-999.9999999999999",
-			"-123456", "-9007199254740991",
+			"2023-03-01T11:08", "2023-03-01", null, "-999.9999999999999",
+			"2999-03-01T11:11", null, "-123456", "-9007199254740991",
 			Arrays.asList(listTypeEntry1.getKey(), listTypeEntry2.getKey()),
-			listTypeEntry1.getKey(), "<p>TITLE</p>", 0, null, null);
+			listTypeEntry1.getKey(), "2100-03-01T11:11", "<p>TITLE</p>", null,
+			0, null);
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest, pipingServletResponse);
@@ -412,23 +571,35 @@ public class EditInfoItemStrutsActionTest {
 
 		ObjectEntry objectEntry = objectEntries.get(0);
 
+		Assert.assertEquals(
+			DateUtil.parseDate(
+				"yyyy-MM-dd'T'HH:mm", "2999-03-01T11:11", LocaleUtil.US),
+			objectEntry.getExpirationDate());
+		Assert.assertEquals(
+			DateUtil.parseDate(
+				"yyyy-MM-dd'T'HH:mm", "2100-03-01T11:11", LocaleUtil.US),
+			objectEntry.getReviewDate());
+
 		ListTypeEntry listTypeEntry3 = _listTypeEntries.get(2);
 
 		uploadPortletRequest = _getUploadPortletRequest(
 			"file", null, "99999999999999.9999999999999999",
 			Boolean.FALSE.toString(), objectEntry.getObjectEntryId(),
-			"2020-03-01", "2023-03-01T11:11", null, "999.9999999999999",
-			"123456", "9007199254740991",
+			"2023-03-01T11:11", "2020-03-01", null, "999.9999999999999", null,
+			null, "123456", "9007199254740991",
 			Arrays.asList(listTypeEntry2.getKey(), listTypeEntry3.getKey()),
-			listTypeEntry2.getKey(), "<p>SUBTITLE</p>", 0, null, null);
+			listTypeEntry2.getKey(), null, "<p>SUBTITLE</p>", null, 0, null);
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest, pipingServletResponse);
 
 		objectEntry = _objectEntryLocalService.fetchObjectEntry(
 			objectEntry.getObjectEntryId());
+
+		Assert.assertNull(objectEntry.getExpirationDate());
+		Assert.assertNull(objectEntry.getReviewDate());
 
 		Map<String, Serializable> values = objectEntry.getValues();
 
@@ -524,7 +695,7 @@ public class EditInfoItemStrutsActionTest {
 		MockHttpServletResponse mockHttpServletResponse =
 			new MockHttpServletResponse();
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest,
@@ -539,7 +710,8 @@ public class EditInfoItemStrutsActionTest {
 		ObjectEntry objectEntry = objectEntries.get(0);
 
 		regularParameters.put(
-			"checkboxNames", Collections.singletonList("myBoolean"));
+			"checkboxNames",
+			Collections.singletonList("ObjectField_myBoolean"));
 		regularParameters.put(
 			"classNameId", Collections.singletonList(_classNameId));
 		regularParameters.put(
@@ -555,7 +727,7 @@ public class EditInfoItemStrutsActionTest {
 				mockMultipartHttpServletRequest, null, regularParameters),
 			null, RandomTestUtil.randomString());
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest,
@@ -585,11 +757,11 @@ public class EditInfoItemStrutsActionTest {
 
 		UploadPortletRequest uploadPortletRequest = _getUploadPortletRequest(
 			null, null, "-99999999999999.9999999999999999",
-			Boolean.TRUE.toString(), 0, "2023-03-01", "2023-03-01T11:08", null,
-			"-999.9999999999999", "-123456", "-9007199254740991", null,
-			listTypeEntry.getKey(), "<p>TITLE</p>", 0, null, null);
+			Boolean.TRUE.toString(), 0, "2023-03-01T11:08", "2023-03-01", null,
+			"-999.9999999999999", null, null, "-123456", "-9007199254740991",
+			null, listTypeEntry.getKey(), null, "<p>TITLE</p>", null, 0, null);
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest, pipingServletResponse);
@@ -611,10 +783,11 @@ public class EditInfoItemStrutsActionTest {
 		uploadPortletRequest = _getUploadPortletRequest(
 			null, null, StringPool.BLANK, StringPool.BLANK,
 			objectEntry.getObjectEntryId(), StringPool.BLANK, StringPool.BLANK,
-			null, StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, null,
-			StringPool.BLANK, StringPool.BLANK, 0, StringPool.BLANK, null);
+			null, StringPool.BLANK, null, null, StringPool.BLANK,
+			StringPool.BLANK, null, StringPool.BLANK, null, StringPool.BLANK,
+			null, 0, StringPool.BLANK);
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest, pipingServletResponse);
@@ -669,7 +842,7 @@ public class EditInfoItemStrutsActionTest {
 		MockHttpServletResponse mockHttpServletResponse =
 			new MockHttpServletResponse();
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		try (LogCapture logCapture = LoggerTestUtil.configureLog4JLogger(
 				PortalImpl.class.getName(), LoggerTestUtil.WARN)) {
@@ -732,13 +905,17 @@ public class EditInfoItemStrutsActionTest {
 
 		_layoutPageTemplateStructureLocalService.
 			updateLayoutPageTemplateStructureData(
-				_group.getGroupId(), layout.getPlid(),
-				_defaultSegmentsExperienceId, layoutStructure.toString());
+				TestPropsValues.getUserId(), _group.getGroupId(),
+				layout.getPlid(), _defaultSegmentsExperienceId,
+				layoutStructure.toString());
 
 		return layout;
 	}
 
-	private ObjectDefinition _addObjectDefinition() throws Exception {
+	private ObjectDefinition _addObjectDefinition(
+			boolean enableFriendlyURLCustomization)
+		throws Exception {
+
 		_listTypeEntries.add(
 			ListTypeEntryUtil.createListTypeEntry(
 				RandomTestUtil.randomString(),
@@ -832,14 +1009,18 @@ public class EditInfoItemStrutsActionTest {
 
 		ObjectDefinition objectDefinition =
 			_objectDefinitionLocalService.addCustomObjectDefinition(
-				_user.getUserId(), 0, null, false, false, true, false, true,
+				_user.getUserId(), 0, null, false, true,
+				enableFriendlyURLCustomization, true,
+				FeatureFlagManagerUtil.isEnabled(
+					TestPropsValues.getCompanyId(), "LPD-21926"),
+				true, false, false, false, null,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
 				ObjectDefinitionTestUtil.getRandomName(), null,
 				"control_panel.sites",
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
 				true, ObjectDefinitionConstants.SCOPE_COMPANY,
 				ObjectDefinitionConstants.STORAGE_TYPE_DEFAULT,
-				Collections.emptyList(), objectFields);
+				Collections.emptyList(), objectFields, Collections.emptyList());
 
 		ObjectField objectField = ObjectFieldUtil.addCustomObjectField(
 			new TextObjectFieldBuilder(
@@ -955,6 +1136,64 @@ public class EditInfoItemStrutsActionTest {
 		return objectFieldSetting;
 	}
 
+	private Object _execute(Map<String, List<String>> regularParameters)
+		throws Exception {
+
+		MockMultipartHttpServletRequest mockMultipartHttpServletRequest =
+			new MockMultipartHttpServletRequest();
+
+		mockMultipartHttpServletRequest.addHeader(
+			HttpHeaders.REFERER, "http://localhost:8080/error");
+		mockMultipartHttpServletRequest.setContentType(
+			"multipart/form-data;boundary=" + System.currentTimeMillis());
+
+		UploadPortletRequest uploadPortletRequest =
+			UploadTestUtil.createUploadPortletRequest(
+				UploadTestUtil.createUploadServletRequest(
+					mockMultipartHttpServletRequest, null,
+					HashMapBuilder.<String, List<String>>put(
+						"classNameId", Collections.singletonList(_classNameId)
+					).put(
+						"formItemId", Collections.singletonList(_formItemId)
+					).put(
+						"groupId",
+						Collections.singletonList(
+							String.valueOf(_group.getGroupId()))
+					).put(
+						"myBoolean",
+						Collections.singletonList(Boolean.TRUE.toString())
+					).put(
+						"p_l_id",
+						Collections.singletonList(
+							String.valueOf(_layout.getPlid()))
+					).put(
+						"p_l_mode", Collections.singletonList(Constants.VIEW)
+					).put(
+						"plid",
+						Collections.singletonList(
+							String.valueOf(_layout.getPlid()))
+					).put(
+						"segmentsExperienceId",
+						Collections.singletonList(
+							String.valueOf(_defaultSegmentsExperienceId))
+					).putAll(
+						regularParameters
+					).build()),
+				null, RandomTestUtil.randomString());
+
+		MockHttpServletResponse mockHttpServletResponse =
+			new MockHttpServletResponse();
+
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
+
+		_editInfoItemStrutsAction.execute(
+			uploadPortletRequest,
+			new PipingServletResponse(
+				mockHttpServletResponse, new UnsyncStringWriter()));
+
+		return SessionErrors.get(uploadPortletRequest, _formItemId);
+	}
+
 	private MockMultipartHttpServletRequest _getMultipartHttpServletRequest(
 		byte[] bytes, String fileNameParameter) {
 
@@ -979,12 +1218,13 @@ public class EditInfoItemStrutsActionTest {
 
 	private UploadPortletRequest _getUploadPortletRequest(
 			String attachmentValue, String backURL, String bigDecimalValueInput,
-			String booleanValueInput, long classPK, String dateValueInput,
-			String dateTimeValueInput, String displayPage,
-			String doubleValueInput, String integerValueInput,
+			String booleanValueInput, long classPK, String dateTimeValueInput,
+			String dateValueInput, String displayPage, String doubleValueInput,
+			String expirationDate, String friendlyURL, String integerValueInput,
 			String longValueInput, List<String> multiselectPicklistValueInput,
-			String picklistValueInput, String richTextValueInput, int status,
-			String stringValue, String redirect)
+			String picklistValueInput, String reviewDate,
+			String richTextValueInput, String redirect, int status,
+			String stringValue)
 		throws Exception {
 
 		MockMultipartHttpServletRequest mockMultipartHttpServletRequest =
@@ -999,11 +1239,12 @@ public class EditInfoItemStrutsActionTest {
 			byte[] bytes = attachmentValue.getBytes(StandardCharsets.UTF_8);
 
 			fileParameters = HashMapBuilder.put(
-				"myAttachment", new FileItem[] {_createFileItem(bytes)}
+				"ObjectField_myAttachment",
+				new FileItem[] {_createFileItem(bytes)}
 			).build();
 
 			mockMultipartHttpServletRequest = _getMultipartHttpServletRequest(
-				bytes, "myAttachment");
+				bytes, "ObjectField_myAttachment");
 		}
 
 		mockMultipartHttpServletRequest.addHeader(
@@ -1051,7 +1292,19 @@ public class EditInfoItemStrutsActionTest {
 					Collections.singletonList(
 						String.valueOf(_group.getGroupId()))
 				).put(
-					"myBoolean",
+					"ObjectEntry_expirationDate",
+					Collections.singletonList(expirationDate)
+				).put(
+					"ObjectEntry_objectEntryFriendlyURL",
+					() -> {
+						if (friendlyURL == null) {
+							return null;
+						}
+
+						return Collections.singletonList(friendlyURL);
+					}
+				).put(
+					"ObjectField_myBoolean",
 					() -> {
 						if (booleanValueInput == null) {
 							return null;
@@ -1060,7 +1313,7 @@ public class EditInfoItemStrutsActionTest {
 						return Collections.singletonList(booleanValueInput);
 					}
 				).put(
-					"myDate",
+					"ObjectField_myDate",
 					() -> {
 						if (dateValueInput != null) {
 							return Collections.singletonList(dateValueInput);
@@ -1069,7 +1322,7 @@ public class EditInfoItemStrutsActionTest {
 						return null;
 					}
 				).put(
-					"myDateTime",
+					"ObjectField_myDateTime",
 					() -> {
 						if (dateTimeValueInput == null) {
 							return null;
@@ -1078,7 +1331,7 @@ public class EditInfoItemStrutsActionTest {
 						return Collections.singletonList(dateTimeValueInput);
 					}
 				).put(
-					"myDecimal",
+					"ObjectField_myDecimal",
 					() -> {
 						if (doubleValueInput == null) {
 							return null;
@@ -1087,7 +1340,7 @@ public class EditInfoItemStrutsActionTest {
 						return Collections.singletonList(doubleValueInput);
 					}
 				).put(
-					"myInteger",
+					"ObjectField_myInteger",
 					() -> {
 						if (integerValueInput == null) {
 							return null;
@@ -1096,7 +1349,7 @@ public class EditInfoItemStrutsActionTest {
 						return Collections.singletonList(integerValueInput);
 					}
 				).put(
-					"myLongInteger",
+					"ObjectField_myLongInteger",
 					() -> {
 						if (longValueInput == null) {
 							return null;
@@ -1105,7 +1358,7 @@ public class EditInfoItemStrutsActionTest {
 						return Collections.singletonList(longValueInput);
 					}
 				).put(
-					"myMultiselectPicklist",
+					"ObjectField_myMultiselectPicklist",
 					() -> {
 						if (multiselectPicklistValueInput == null) {
 							return null;
@@ -1114,7 +1367,7 @@ public class EditInfoItemStrutsActionTest {
 						return multiselectPicklistValueInput;
 					}
 				).put(
-					"myPicklist",
+					"ObjectField_myPicklist",
 					() -> {
 						if (picklistValueInput == null) {
 							return null;
@@ -1123,7 +1376,7 @@ public class EditInfoItemStrutsActionTest {
 						return Collections.singletonList(picklistValueInput);
 					}
 				).put(
-					"myPrecisionDecimal",
+					"ObjectField_myPrecisionDecimal",
 					() -> {
 						if (bigDecimalValueInput == null) {
 							return null;
@@ -1132,7 +1385,7 @@ public class EditInfoItemStrutsActionTest {
 						return Collections.singletonList(bigDecimalValueInput);
 					}
 				).put(
-					"myRichText",
+					"ObjectField_myRichText",
 					() -> {
 						if (richTextValueInput == null) {
 							return null;
@@ -1141,7 +1394,20 @@ public class EditInfoItemStrutsActionTest {
 						return Collections.singletonList(richTextValueInput);
 					}
 				).put(
-					"myText", Collections.singletonList(stringValue)
+					"ObjectField_myText", Collections.singletonList(stringValue)
+				).put(
+					"ObjectEntry_objectEntryFriendlyURL_" +
+						_objectDefinition.getDefaultLanguageId(),
+					() -> {
+						if (friendlyURL == null) {
+							return null;
+						}
+
+						return Collections.singletonList(friendlyURL);
+					}
+				).put(
+					"ObjectEntry_reviewDate",
+					Collections.singletonList(reviewDate)
 				).put(
 					"p_l_id",
 					Collections.singletonList(String.valueOf(_layout.getPlid()))
@@ -1170,8 +1436,8 @@ public class EditInfoItemStrutsActionTest {
 	}
 
 	private void _processEvents(
-			UploadPortletRequest uploadPortletRequest,
-			MockHttpServletResponse mockHttpServletResponse, User user)
+			MockHttpServletResponse mockHttpServletResponse,
+			UploadPortletRequest uploadPortletRequest, User user)
 		throws Exception {
 
 		uploadPortletRequest.setAttribute(
@@ -1187,22 +1453,23 @@ public class EditInfoItemStrutsActionTest {
 	private void _testAddInfoItem(
 			String attachmentValue, String backURL, String bigDecimalValue,
 			String displayPage, String doubleValue, String integerValue,
-			String longValue, int status, String stringValue, String redirect)
+			String longValue, String redirect, int status, String stringValue)
 		throws Exception {
 
 		_testAddInfoItem(
 			attachmentValue, backURL, bigDecimalValue, bigDecimalValue,
-			displayPage, doubleValue, doubleValue, integerValue, integerValue,
-			longValue, longValue, status, stringValue, redirect);
+			displayPage, doubleValue, doubleValue, null, integerValue,
+			integerValue, longValue, longValue, redirect, stringValue, status);
 	}
 
-	private void _testAddInfoItem(
-			String attachmentValue, String backURL, String bigDecimalValueInput,
-			String bigDecimalValueExpected, String displayPage,
-			String doubleValueInput, String doubleValueExpected,
-			String integerValueInput, String integerValueExpected,
-			String longValueInput, String longValueExpected, int status,
-			String stringValue, String redirect)
+	private ObjectEntry _testAddInfoItem(
+			String attachmentValue, String backURL,
+			String bigDecimalValueExpected, String bigDecimalValueInput,
+			String displayPage, String doubleValueExpected,
+			String doubleValueInput, String friendlyURL,
+			String integerValueExpected, String integerValueInput,
+			String longValueExpected, String longValueInput, String redirect,
+			String stringValue, int status)
 		throws Exception {
 
 		MockHttpServletResponse mockHttpServletResponse =
@@ -1215,10 +1482,11 @@ public class EditInfoItemStrutsActionTest {
 
 		UploadPortletRequest uploadPortletRequest = _getUploadPortletRequest(
 			attachmentValue, backURL, bigDecimalValueInput, null, 0, null, null,
-			displayPage, doubleValueInput, integerValueInput, longValueInput,
-			null, null, null, status, stringValue, redirect);
+			displayPage, doubleValueInput, null, friendlyURL, integerValueInput,
+			longValueInput, null, null, null, null, redirect, status,
+			stringValue);
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest, pipingServletResponse);
@@ -1275,6 +1543,12 @@ public class EditInfoItemStrutsActionTest {
 				decimalFormat.format(values.get("myDecimal")));
 		}
 
+		if (friendlyURL != null) {
+			Assert.assertEquals(
+				friendlyURL,
+				objectEntry.getURLTitle(_objectDefinition.getDefaultLocale()));
+		}
+
 		if (integerValueInput != null) {
 			Assert.assertEquals(
 				integerValueExpected, String.valueOf(values.get("myInteger")));
@@ -1299,6 +1573,8 @@ public class EditInfoItemStrutsActionTest {
 			Assert.assertEquals(
 				redirect, pipingServletResponse.getHeader("Location"));
 		}
+
+		return objectEntry;
 	}
 
 	private void _testAddInfoItemWithInvalidData(
@@ -1316,9 +1592,10 @@ public class EditInfoItemStrutsActionTest {
 
 		UploadPortletRequest uploadPortletRequest = _getUploadPortletRequest(
 			null, null, bigDecimalValueInput, null, 0, null, null, null, null,
-			integerValueInput, longValueInput, null, null, null, 0, null, null);
+			null, null, integerValueInput, longValueInput, null, null, null,
+			null, null, 0, null);
 
-		_processEvents(uploadPortletRequest, mockHttpServletResponse, _user);
+		_processEvents(mockHttpServletResponse, uploadPortletRequest, _user);
 
 		_editInfoItemStrutsAction.execute(
 			uploadPortletRequest, pipingServletResponse);

@@ -32,13 +32,17 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -54,10 +58,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -187,15 +187,15 @@ public abstract class BaseTermResourceTestCase {
 		assertValid(getTerm);
 	}
 
-	protected Long
-			testGetPaymentMethodGroupRelTermTerm_getPaymentMethodGroupRelTermId()
+	protected Term testGetPaymentMethodGroupRelTermTerm_addTerm()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Term testGetPaymentMethodGroupRelTermTerm_addTerm()
+	protected Long
+			testGetPaymentMethodGroupRelTermTerm_getPaymentMethodGroupRelTermId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -325,15 +325,15 @@ public abstract class BaseTermResourceTestCase {
 		assertValid(getTerm);
 	}
 
-	protected Long
-			testGetShippingFixedOptionTermTerm_getShippingFixedOptionTermId()
+	protected Term testGetShippingFixedOptionTermTerm_addTerm()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Term testGetShippingFixedOptionTermTerm_addTerm()
+	protected Long
+			testGetShippingFixedOptionTermTerm_getShippingFixedOptionTermId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -588,6 +588,8 @@ public abstract class BaseTermResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

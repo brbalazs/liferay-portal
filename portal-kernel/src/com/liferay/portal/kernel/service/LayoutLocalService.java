@@ -578,6 +578,9 @@ public interface LayoutLocalService
 	public Layout fetchDraftLayout(long plid);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Map<Layout, Layout> fetchDraftLayouts(List<Layout> layouts);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Layout fetchFirstLayout(
 		long groupId, boolean privateLayout, long parentLayoutId);
 
@@ -1161,6 +1164,12 @@ public interface LayoutLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public long getNextLayoutId(long groupId, boolean privateLayout);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Layout getOrAddEmptyLayout(
+			String externalReferenceCode, long userId, long groupId,
+			ServiceContext serviceContext)
+		throws Exception;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -1453,6 +1462,10 @@ public interface LayoutLocalService
 			String colorSchemeId, long styleBookEntryId, String css,
 			long faviconFileEntryId, long masterLayoutPlid)
 		throws PortalException;
+
+	public void updateLayoutContent(
+			String data, Layout layout, long segmentsExperienceId)
+		throws Exception;
 
 	/**
 	 * Updates the look and feel of the layout.

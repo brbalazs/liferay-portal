@@ -110,7 +110,7 @@ const TextAndImages: React.FC<BlockTypeProps<TextImageBlock>> = ({
 					acceptFileTypes={ACCEPT_FILE_TYPES}
 					buttonText={i18n.translate('select-a-file')}
 					description={i18n.translate(
-						'only-gif-jpg-png-are-allowed-ax-file-size-is-5mb'
+						'only-gif-jpg-jpeg-png-are-allowed-max-file-size-is-5mb'
 					)}
 					disabled={content?.files?.length === MAX_IMAGE_QUANTITY}
 					maxFiles={MAX_IMAGE_QUANTITY}
@@ -162,7 +162,7 @@ const TextAndImages: React.FC<BlockTypeProps<TextImageBlock>> = ({
 					status="info"
 				>
 					<ClayModal.Header>
-						{i18n.translate('maximum-number-of-upload-reached')}
+						{i18n.translate('maximum-number-of-uploads-reached')}
 					</ClayModal.Header>
 					<ClayModal.Body className="pb-8">
 						{i18n.sub(

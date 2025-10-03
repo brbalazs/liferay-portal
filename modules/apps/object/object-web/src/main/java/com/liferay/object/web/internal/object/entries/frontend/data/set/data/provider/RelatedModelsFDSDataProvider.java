@@ -24,9 +24,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.util.ParamUtil;
 
-import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -78,9 +78,9 @@ public class RelatedModelsFDSDataProvider
 
 		return TransformUtil.transform(
 			(List<ObjectEntry>)objectRelatedModelsProvider.getRelatedModels(
-				groupId, objectRelationshipId, objectEntryId,
+				groupId, objectRelationshipId, null, false, objectEntryId,
 				fdsKeywords.getKeywords(), fdsPagination.getStartPosition(),
-				fdsPagination.getEndPosition()),
+				fdsPagination.getEndPosition(), null),
 			objectEntry -> new RelatedModel(
 				objectDefinition.getClassName(), objectEntry.getObjectEntryId(),
 				objectEntry.getTitleValue(), false));
@@ -116,7 +116,8 @@ public class RelatedModelsFDSDataProvider
 
 		return objectRelatedModelsProvider.getRelatedModelsCount(
 			objectScopeProvider.getGroupId(httpServletRequest),
-			objectRelationshipId, objectEntryId, fdsKeywords.getKeywords());
+			objectRelationshipId, null, objectEntryId,
+			fdsKeywords.getKeywords());
 	}
 
 	@Reference

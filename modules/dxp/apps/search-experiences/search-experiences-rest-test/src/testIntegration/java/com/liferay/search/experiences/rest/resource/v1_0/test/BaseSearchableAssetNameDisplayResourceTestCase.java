@@ -27,12 +27,12 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.search.experiences.rest.client.dto.v1_0.Field;
 import com.liferay.search.experiences.rest.client.dto.v1_0.SearchableAssetNameDisplay;
@@ -40,6 +40,10 @@ import com.liferay.search.experiences.rest.client.http.HttpInvoker;
 import com.liferay.search.experiences.rest.client.pagination.Page;
 import com.liferay.search.experiences.rest.client.resource.v1_0.SearchableAssetNameDisplayResource;
 import com.liferay.search.experiences.rest.client.serdes.v1_0.SearchableAssetNameDisplaySerDes;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -55,10 +59,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -284,6 +284,11 @@ public abstract class BaseSearchableAssetNameDisplayResourceTestCase {
 		return null;
 	}
 
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
+	}
+
 	protected void assertContains(
 		SearchableAssetNameDisplay searchableAssetNameDisplay,
 		List<SearchableAssetNameDisplay> searchableAssetNameDisplays) {
@@ -393,6 +398,14 @@ public abstract class BaseSearchableAssetNameDisplayResourceTestCase {
 
 			if (Objects.equals("displayName", additionalAssertFieldName)) {
 				if (searchableAssetNameDisplay.getDisplayName() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("hasSubtype", additionalAssertFieldName)) {
+				if (searchableAssetNameDisplay.getHasSubtype() == null) {
 					valid = false;
 				}
 
@@ -535,6 +548,17 @@ public abstract class BaseSearchableAssetNameDisplayResourceTestCase {
 				if (!Objects.deepEquals(
 						searchableAssetNameDisplay1.getDisplayName(),
 						searchableAssetNameDisplay2.getDisplayName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("hasSubtype", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						searchableAssetNameDisplay1.getHasSubtype(),
+						searchableAssetNameDisplay2.getHasSubtype())) {
 
 					return false;
 				}
@@ -744,6 +768,11 @@ public abstract class BaseSearchableAssetNameDisplayResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("hasSubtype")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
 		throw new IllegalArgumentException(
 			"Invalid entity field " + entityFieldName);
 	}
@@ -795,6 +824,7 @@ public abstract class BaseSearchableAssetNameDisplayResourceTestCase {
 					RandomTestUtil.randomString());
 				displayName = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+				hasSubtype = RandomTestUtil.randomBoolean();
 			}
 		};
 	}

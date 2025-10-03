@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.headless.commerce.admin.order.client.dto.v1_0.Term;
 import com.liferay.headless.commerce.admin.order.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.order.client.pagination.Page;
@@ -25,6 +28,7 @@ import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -40,9 +44,11 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -51,11 +57,20 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -74,16 +89,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -130,6 +136,16 @@ public abstract class BaseTermResourceTestCase {
 			testCompany.getCompanyId());
 
 		termResource = TermResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		importTaskResource = ImportTaskResource.builder(
 		).authentication(
 			_testCompanyAdminUser.getEmailAddress(),
 			PropsValues.DEFAULT_ADMIN_PASSWORD
@@ -216,624 +232,6 @@ public abstract class BaseTermResourceTestCase {
 	}
 
 	@Test
-	public void testGetTermsPage() throws Exception {
-		Page<Term> page = termResource.getTermsPage(
-			null, null, Pagination.of(1, 10), null);
-
-		long totalCount = page.getTotalCount();
-
-		Term term1 = testGetTermsPage_addTerm(randomTerm());
-
-		Term term2 = testGetTermsPage_addTerm(randomTerm());
-
-		page = termResource.getTermsPage(
-			null, null, Pagination.of(1, 10), null);
-
-		Assert.assertEquals(totalCount + 2, page.getTotalCount());
-
-		assertContains(term1, (List<Term>)page.getItems());
-		assertContains(term2, (List<Term>)page.getItems());
-		assertValid(page, testGetTermsPage_getExpectedActions());
-
-		termResource.deleteTerm(term1.getId());
-
-		termResource.deleteTerm(term2.getId());
-	}
-
-	protected Map<String, Map<String, String>>
-			testGetTermsPage_getExpectedActions()
-		throws Exception {
-
-		Map<String, Map<String, String>> expectedActions = new HashMap<>();
-
-		return expectedActions;
-	}
-
-	@Test
-	public void testGetTermsPageWithFilterDateTimeEquals() throws Exception {
-		List<EntityField> entityFields = getEntityFields(
-			EntityField.Type.DATE_TIME);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		Term term1 = randomTerm();
-
-		term1 = testGetTermsPage_addTerm(term1);
-
-		for (EntityField entityField : entityFields) {
-			Page<Term> page = termResource.getTermsPage(
-				null, getFilterString(entityField, "between", term1),
-				Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(term1), (List<Term>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetTermsPageWithFilterDoubleEquals() throws Exception {
-		testGetTermsPageWithFilter("eq", EntityField.Type.DOUBLE);
-	}
-
-	@Test
-	public void testGetTermsPageWithFilterStringContains() throws Exception {
-		testGetTermsPageWithFilter("contains", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetTermsPageWithFilterStringEquals() throws Exception {
-		testGetTermsPageWithFilter("eq", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetTermsPageWithFilterStringStartsWith() throws Exception {
-		testGetTermsPageWithFilter("startswith", EntityField.Type.STRING);
-	}
-
-	protected void testGetTermsPageWithFilter(
-			String operator, EntityField.Type type)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		Term term1 = testGetTermsPage_addTerm(randomTerm());
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Term term2 = testGetTermsPage_addTerm(randomTerm());
-
-		for (EntityField entityField : entityFields) {
-			Page<Term> page = termResource.getTermsPage(
-				null, getFilterString(entityField, operator, term1),
-				Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(term1), (List<Term>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetTermsPageWithPagination() throws Exception {
-		Page<Term> termPage = termResource.getTermsPage(null, null, null, null);
-
-		int totalCount = GetterUtil.getInteger(termPage.getTotalCount());
-
-		Term term1 = testGetTermsPage_addTerm(randomTerm());
-
-		Term term2 = testGetTermsPage_addTerm(randomTerm());
-
-		Term term3 = testGetTermsPage_addTerm(randomTerm());
-
-		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
-
-		int pageSizeLimit = 500;
-
-		if (totalCount >= (pageSizeLimit - 2)) {
-			Page<Term> page1 = termResource.getTermsPage(
-				null, null,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
-					pageSizeLimit),
-				null);
-
-			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
-
-			assertContains(term1, (List<Term>)page1.getItems());
-
-			Page<Term> page2 = termResource.getTermsPage(
-				null, null,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
-					pageSizeLimit),
-				null);
-
-			assertContains(term2, (List<Term>)page2.getItems());
-
-			Page<Term> page3 = termResource.getTermsPage(
-				null, null,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
-					pageSizeLimit),
-				null);
-
-			assertContains(term3, (List<Term>)page3.getItems());
-		}
-		else {
-			Page<Term> page1 = termResource.getTermsPage(
-				null, null, Pagination.of(1, totalCount + 2), null);
-
-			List<Term> terms1 = (List<Term>)page1.getItems();
-
-			Assert.assertEquals(
-				terms1.toString(), totalCount + 2, terms1.size());
-
-			Page<Term> page2 = termResource.getTermsPage(
-				null, null, Pagination.of(2, totalCount + 2), null);
-
-			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
-
-			List<Term> terms2 = (List<Term>)page2.getItems();
-
-			Assert.assertEquals(terms2.toString(), 1, terms2.size());
-
-			Page<Term> page3 = termResource.getTermsPage(
-				null, null, Pagination.of(1, (int)totalCount + 3), null);
-
-			assertContains(term1, (List<Term>)page3.getItems());
-			assertContains(term2, (List<Term>)page3.getItems());
-			assertContains(term3, (List<Term>)page3.getItems());
-		}
-	}
-
-	@Test
-	public void testGetTermsPageWithSortDateTime() throws Exception {
-		testGetTermsPageWithSort(
-			EntityField.Type.DATE_TIME,
-			(entityField, term1, term2) -> {
-				BeanTestUtil.setProperty(
-					term1, entityField.getName(),
-					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
-			});
-	}
-
-	@Test
-	public void testGetTermsPageWithSortDouble() throws Exception {
-		testGetTermsPageWithSort(
-			EntityField.Type.DOUBLE,
-			(entityField, term1, term2) -> {
-				BeanTestUtil.setProperty(term1, entityField.getName(), 0.1);
-				BeanTestUtil.setProperty(term2, entityField.getName(), 0.5);
-			});
-	}
-
-	@Test
-	public void testGetTermsPageWithSortInteger() throws Exception {
-		testGetTermsPageWithSort(
-			EntityField.Type.INTEGER,
-			(entityField, term1, term2) -> {
-				BeanTestUtil.setProperty(term1, entityField.getName(), 0);
-				BeanTestUtil.setProperty(term2, entityField.getName(), 1);
-			});
-	}
-
-	@Test
-	public void testGetTermsPageWithSortString() throws Exception {
-		testGetTermsPageWithSort(
-			EntityField.Type.STRING,
-			(entityField, term1, term2) -> {
-				Class<?> clazz = term1.getClass();
-
-				String entityFieldName = entityField.getName();
-
-				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
-
-				Class<?> returnType = method.getReturnType();
-
-				if (returnType.isAssignableFrom(Map.class)) {
-					BeanTestUtil.setProperty(
-						term1, entityFieldName,
-						Collections.singletonMap("Aaa", "Aaa"));
-					BeanTestUtil.setProperty(
-						term2, entityFieldName,
-						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanTestUtil.setProperty(
-						term1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanTestUtil.setProperty(
-						term2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-				}
-				else {
-					BeanTestUtil.setProperty(
-						term1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-					BeanTestUtil.setProperty(
-						term2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-				}
-			});
-	}
-
-	protected void testGetTermsPageWithSort(
-			EntityField.Type type,
-			UnsafeTriConsumer<EntityField, Term, Term, Exception>
-				unsafeTriConsumer)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		Term term1 = randomTerm();
-		Term term2 = randomTerm();
-
-		for (EntityField entityField : entityFields) {
-			unsafeTriConsumer.accept(entityField, term1, term2);
-		}
-
-		term1 = testGetTermsPage_addTerm(term1);
-
-		term2 = testGetTermsPage_addTerm(term2);
-
-		Page<Term> page = termResource.getTermsPage(null, null, null, null);
-
-		for (EntityField entityField : entityFields) {
-			Page<Term> ascPage = termResource.getTermsPage(
-				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
-				entityField.getName() + ":asc");
-
-			assertContains(term1, (List<Term>)ascPage.getItems());
-			assertContains(term2, (List<Term>)ascPage.getItems());
-
-			Page<Term> descPage = termResource.getTermsPage(
-				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
-				entityField.getName() + ":desc");
-
-			assertContains(term2, (List<Term>)descPage.getItems());
-			assertContains(term1, (List<Term>)descPage.getItems());
-		}
-	}
-
-	protected Term testGetTermsPage_addTerm(Term term) throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetTermsPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"terms",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 10);
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
-		// No namespace
-
-		JSONObject termsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/terms");
-
-		long totalCount = termsJSONObject.getLong("totalCount");
-
-		Term term1 = testGraphQLGetTermsPage_addTerm();
-		Term term2 = testGraphQLGetTermsPage_addTerm();
-
-		termsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/terms");
-
-		Assert.assertEquals(
-			totalCount + 2, termsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			term1,
-			Arrays.asList(
-				TermSerDes.toDTOs(termsJSONObject.getString("items"))));
-		assertContains(
-			term2,
-			Arrays.asList(
-				TermSerDes.toDTOs(termsJSONObject.getString("items"))));
-
-		// Using the namespace headlessCommerceAdminOrder_v1_0
-
-		termsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"headlessCommerceAdminOrder_v1_0", graphQLField)),
-			"JSONObject/data", "JSONObject/headlessCommerceAdminOrder_v1_0",
-			"JSONObject/terms");
-
-		Assert.assertEquals(
-			totalCount + 2, termsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			term1,
-			Arrays.asList(
-				TermSerDes.toDTOs(termsJSONObject.getString("items"))));
-		assertContains(
-			term2,
-			Arrays.asList(
-				TermSerDes.toDTOs(termsJSONObject.getString("items"))));
-	}
-
-	protected Term testGraphQLGetTermsPage_addTerm() throws Exception {
-		return testGraphQLTerm_addTerm();
-	}
-
-	@Test
-	public void testPostTerm() throws Exception {
-		Term randomTerm = randomTerm();
-
-		Term postTerm = testPostTerm_addTerm(randomTerm);
-
-		assertEquals(randomTerm, postTerm);
-		assertValid(postTerm);
-	}
-
-	protected Term testPostTerm_addTerm(Term term) throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testDeleteTermByExternalReferenceCode() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Term term = testDeleteTermByExternalReferenceCode_addTerm();
-
-		assertHttpResponseStatusCode(
-			204,
-			termResource.deleteTermByExternalReferenceCodeHttpResponse(
-				term.getExternalReferenceCode()));
-
-		assertHttpResponseStatusCode(
-			404,
-			termResource.getTermByExternalReferenceCodeHttpResponse(
-				term.getExternalReferenceCode()));
-
-		assertHttpResponseStatusCode(
-			404,
-			termResource.getTermByExternalReferenceCodeHttpResponse(
-				term.getExternalReferenceCode()));
-	}
-
-	protected Term testDeleteTermByExternalReferenceCode_addTerm()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGetTermByExternalReferenceCode() throws Exception {
-		Term postTerm = testGetTermByExternalReferenceCode_addTerm();
-
-		Term getTerm = termResource.getTermByExternalReferenceCode(
-			postTerm.getExternalReferenceCode());
-
-		assertEquals(postTerm, getTerm);
-		assertValid(getTerm);
-	}
-
-	protected Term testGetTermByExternalReferenceCode_addTerm()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetTermByExternalReferenceCode() throws Exception {
-		Term term = testGraphQLGetTermByExternalReferenceCode_addTerm();
-
-		// No namespace
-
-		Assert.assertTrue(
-			equals(
-				term,
-				TermSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"termByExternalReferenceCode",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"externalReferenceCode",
-											"\"" +
-												term.
-													getExternalReferenceCode() +
-														"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/termByExternalReferenceCode"))));
-
-		// Using the namespace headlessCommerceAdminOrder_v1_0
-
-		Assert.assertTrue(
-			equals(
-				term,
-				TermSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"headlessCommerceAdminOrder_v1_0",
-								new GraphQLField(
-									"termByExternalReferenceCode",
-									new HashMap<String, Object>() {
-										{
-											put(
-												"externalReferenceCode",
-												"\"" +
-													term.
-														getExternalReferenceCode() +
-															"\"");
-										}
-									},
-									getGraphQLFields()))),
-						"JSONObject/data",
-						"JSONObject/headlessCommerceAdminOrder_v1_0",
-						"Object/termByExternalReferenceCode"))));
-	}
-
-	@Test
-	public void testGraphQLGetTermByExternalReferenceCodeNotFound()
-		throws Exception {
-
-		String irrelevantExternalReferenceCode =
-			"\"" + RandomTestUtil.randomString() + "\"";
-
-		// No namespace
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"termByExternalReferenceCode",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-
-		// Using the namespace headlessCommerceAdminOrder_v1_0
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"headlessCommerceAdminOrder_v1_0",
-						new GraphQLField(
-							"termByExternalReferenceCode",
-							new HashMap<String, Object>() {
-								{
-									put(
-										"externalReferenceCode",
-										irrelevantExternalReferenceCode);
-								}
-							},
-							getGraphQLFields()))),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected Term testGraphQLGetTermByExternalReferenceCode_addTerm()
-		throws Exception {
-
-		return testGraphQLTerm_addTerm();
-	}
-
-	@Test
-	public void testPatchTermByExternalReferenceCode() throws Exception {
-		Term postTerm = testPatchTermByExternalReferenceCode_addTerm();
-
-		Term randomPatchTerm = randomPatchTerm();
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Term patchTerm = termResource.patchTermByExternalReferenceCode(
-			postTerm.getExternalReferenceCode(), randomPatchTerm);
-
-		Term expectedPatchTerm = postTerm.clone();
-
-		BeanTestUtil.copyProperties(randomPatchTerm, expectedPatchTerm);
-
-		Term getTerm = termResource.getTermByExternalReferenceCode(
-			patchTerm.getExternalReferenceCode());
-
-		assertEquals(expectedPatchTerm, getTerm);
-		assertValid(getTerm);
-	}
-
-	protected Term testPatchTermByExternalReferenceCode_addTerm()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPutTermByExternalReferenceCode() throws Exception {
-		Term postTerm = testPutTermByExternalReferenceCode_addTerm();
-
-		Term randomTerm = randomTerm();
-
-		Term putTerm = termResource.putTermByExternalReferenceCode(
-			postTerm.getExternalReferenceCode(), randomTerm);
-
-		assertEquals(randomTerm, putTerm);
-		assertValid(putTerm);
-
-		Term getTerm = termResource.getTermByExternalReferenceCode(
-			putTerm.getExternalReferenceCode());
-
-		assertEquals(randomTerm, getTerm);
-		assertValid(getTerm);
-
-		Term newTerm = testPutTermByExternalReferenceCode_createTerm();
-
-		putTerm = termResource.putTermByExternalReferenceCode(
-			newTerm.getExternalReferenceCode(), newTerm);
-
-		assertEquals(newTerm, putTerm);
-		assertValid(putTerm);
-
-		getTerm = termResource.getTermByExternalReferenceCode(
-			putTerm.getExternalReferenceCode());
-
-		assertEquals(newTerm, getTerm);
-
-		Assert.assertEquals(
-			newTerm.getExternalReferenceCode(),
-			putTerm.getExternalReferenceCode());
-	}
-
-	protected Term testPutTermByExternalReferenceCode_createTerm()
-		throws Exception {
-
-		return randomTerm();
-	}
-
-	protected Term testPutTermByExternalReferenceCode_addTerm()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
 	public void testDeleteTerm() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		Term term = testDeleteTerm_addTerm();
@@ -843,9 +241,7 @@ public abstract class BaseTermResourceTestCase {
 
 		assertHttpResponseStatusCode(
 			404, termResource.getTermHttpResponse(term.getId()));
-
-		assertHttpResponseStatusCode(
-			404, termResource.getTermHttpResponse(term.getId()));
+		assertHttpResponseStatusCode(404, termResource.getTermHttpResponse(0L));
 	}
 
 	protected Term testDeleteTerm_addTerm() throws Exception {
@@ -881,7 +277,7 @@ public abstract class BaseTermResourceTestCase {
 							put("id", term1.getId());
 						}
 					},
-					new GraphQLField("id"))),
+					getGraphQLFields())),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray1.length() > 0);
@@ -916,13 +312,186 @@ public abstract class BaseTermResourceTestCase {
 								put("id", term2.getId());
 							}
 						},
-						new GraphQLField("id")))),
+						getGraphQLFields()))),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray2.length() > 0);
 	}
 
 	protected Term testGraphQLDeleteTerm_addTerm() throws Exception {
+		return testGraphQLTerm_addTerm();
+	}
+
+	@Test
+	public void testDeleteTermBatch() throws Exception {
+		Term term1 = testDeleteTermBatch_addTerm();
+
+		testDeleteTermBatch_deleteTerm(
+			202, term1.getExternalReferenceCode(), null);
+
+		assertHttpResponseStatusCode(
+			404, termResource.getTermHttpResponse(term1.getId()));
+
+		term1 = testDeleteTermBatch_addTerm();
+
+		testDeleteTermBatch_deleteTerm(202, null, term1.getId());
+
+		assertHttpResponseStatusCode(
+			404, termResource.getTermHttpResponse(term1.getId()));
+
+		term1 = testDeleteTermBatch_addTerm();
+		Term term2 = testDeleteTermBatch_addTerm();
+
+		testDeleteTermBatch_deleteTerm(
+			202, term2.getExternalReferenceCode(), term1.getId());
+
+		assertHttpResponseStatusCode(
+			404, termResource.getTermHttpResponse(term1.getId()));
+		assertHttpResponseStatusCode(
+			200, termResource.getTermHttpResponse(term2.getId()));
+
+		testDeleteTermBatch_deleteTerm(
+			202, term2.getExternalReferenceCode(), term1.getId());
+
+		assertHttpResponseStatusCode(
+			404, termResource.getTermHttpResponse(term2.getId()));
+	}
+
+	protected Term testDeleteTermBatch_addTerm() throws Exception {
+		return testDeleteTerm_addTerm();
+	}
+
+	protected void testDeleteTermBatch_deleteTerm(
+			int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			termResource.deleteTermBatchHttpResponse(
+				null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+	}
+
+	@Test
+	public void testDeleteTermByExternalReferenceCode() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Term term = testDeleteTermByExternalReferenceCode_addTerm();
+
+		assertHttpResponseStatusCode(
+			204,
+			termResource.deleteTermByExternalReferenceCodeHttpResponse(
+				term.getExternalReferenceCode()));
+
+		assertHttpResponseStatusCode(
+			404,
+			termResource.getTermByExternalReferenceCodeHttpResponse(
+				term.getExternalReferenceCode()));
+		assertHttpResponseStatusCode(
+			404, termResource.getTermByExternalReferenceCodeHttpResponse("-"));
+	}
+
+	protected Term testDeleteTermByExternalReferenceCode_addTerm()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLDeleteTermByExternalReferenceCode()
+		throws Exception {
+
+		// No namespace
+
+		Term term1 = testGraphQLDeleteTermByExternalReferenceCode_addTerm();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteTermByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									"\"" + term1.getExternalReferenceCode() +
+										"\"");
+							}
+						})),
+				"JSONObject/data", "Object/deleteTermByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"termByExternalReferenceCode",
+					new HashMap<String, Object>() {
+						{
+							put(
+								"externalReferenceCode",
+								"\"" + term1.getExternalReferenceCode() + "\"");
+						}
+					},
+					getGraphQLFields())),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray1.length() > 0);
+
+		// Using the namespace headlessCommerceAdminOrder_v1_0
+
+		Term term2 = testGraphQLDeleteTermByExternalReferenceCode_addTerm();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"headlessCommerceAdminOrder_v1_0",
+						new GraphQLField(
+							"deleteTermByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"externalReferenceCode",
+										"\"" +
+											term2.getExternalReferenceCode() +
+												"\"");
+								}
+							}))),
+				"JSONObject/data", "JSONObject/headlessCommerceAdminOrder_v1_0",
+				"Object/deleteTermByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessCommerceAdminOrder_v1_0",
+					new GraphQLField(
+						"termByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									"\"" + term2.getExternalReferenceCode() +
+										"\"");
+							}
+						},
+						getGraphQLFields()))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray2.length() > 0);
+	}
+
+	protected Term testGraphQLDeleteTermByExternalReferenceCode_addTerm()
+		throws Exception {
+
 		return testGraphQLTerm_addTerm();
 	}
 
@@ -1219,6 +788,503 @@ public abstract class BaseTermResourceTestCase {
 	}
 
 	@Test
+	public void testGetTermByExternalReferenceCode() throws Exception {
+		Term postTerm = testGetTermByExternalReferenceCode_addTerm();
+
+		Term getTerm = termResource.getTermByExternalReferenceCode(
+			postTerm.getExternalReferenceCode());
+
+		assertEquals(postTerm, getTerm);
+		assertValid(getTerm);
+	}
+
+	protected Term testGetTermByExternalReferenceCode_addTerm()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetTermByExternalReferenceCode() throws Exception {
+		Term term = testGraphQLGetTermByExternalReferenceCode_addTerm();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				term,
+				TermSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"termByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											"\"" +
+												term.
+													getExternalReferenceCode() +
+														"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/termByExternalReferenceCode"))));
+
+		// Using the namespace headlessCommerceAdminOrder_v1_0
+
+		Assert.assertTrue(
+			equals(
+				term,
+				TermSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"headlessCommerceAdminOrder_v1_0",
+								new GraphQLField(
+									"termByExternalReferenceCode",
+									new HashMap<String, Object>() {
+										{
+											put(
+												"externalReferenceCode",
+												"\"" +
+													term.
+														getExternalReferenceCode() +
+															"\"");
+										}
+									},
+									getGraphQLFields()))),
+						"JSONObject/data",
+						"JSONObject/headlessCommerceAdminOrder_v1_0",
+						"Object/termByExternalReferenceCode"))));
+	}
+
+	@Test
+	public void testGraphQLGetTermByExternalReferenceCodeNotFound()
+		throws Exception {
+
+		String irrelevantExternalReferenceCode =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"termByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									irrelevantExternalReferenceCode);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace headlessCommerceAdminOrder_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"headlessCommerceAdminOrder_v1_0",
+						new GraphQLField(
+							"termByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"externalReferenceCode",
+										irrelevantExternalReferenceCode);
+								}
+							},
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected Term testGraphQLGetTermByExternalReferenceCode_addTerm()
+		throws Exception {
+
+		return testGraphQLTerm_addTerm();
+	}
+
+	@Test
+	public void testGetTermsPage() throws Exception {
+		Page<Term> page = termResource.getTermsPage(
+			null, null, Pagination.of(1, 10), null);
+
+		long totalCount = page.getTotalCount();
+
+		Term term1 = testGetTermsPage_addTerm(randomTerm());
+
+		Term term2 = testGetTermsPage_addTerm(randomTerm());
+
+		page = termResource.getTermsPage(
+			null, null, Pagination.of(1, 10), null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(term1, (List<Term>)page.getItems());
+		assertContains(term2, (List<Term>)page.getItems());
+		assertValid(page, testGetTermsPage_getExpectedActions());
+
+		termResource.deleteTerm(term1.getId());
+
+		termResource.deleteTerm(term2.getId());
+	}
+
+	protected Map<String, Map<String, String>>
+			testGetTermsPage_getExpectedActions()
+		throws Exception {
+
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
+
+		return expectedActions;
+	}
+
+	@Test
+	public void testGetTermsPageWithFilterDateTimeEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Term term1 = randomTerm();
+
+		term1 = testGetTermsPage_addTerm(term1);
+
+		for (EntityField entityField : entityFields) {
+			Page<Term> page = termResource.getTermsPage(
+				null, getFilterString(entityField, "between", term1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(term1), (List<Term>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetTermsPageWithFilterDoubleEquals() throws Exception {
+		testGetTermsPageWithFilter("eq", EntityField.Type.DOUBLE);
+	}
+
+	@Test
+	public void testGetTermsPageWithFilterStringContains() throws Exception {
+		testGetTermsPageWithFilter("contains", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetTermsPageWithFilterStringEquals() throws Exception {
+		testGetTermsPageWithFilter("eq", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetTermsPageWithFilterStringStartsWith() throws Exception {
+		testGetTermsPageWithFilter("startswith", EntityField.Type.STRING);
+	}
+
+	protected void testGetTermsPageWithFilter(
+			String operator, EntityField.Type type)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Term term1 = testGetTermsPage_addTerm(randomTerm());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Term term2 = testGetTermsPage_addTerm(randomTerm());
+
+		for (EntityField entityField : entityFields) {
+			Page<Term> page = termResource.getTermsPage(
+				null, getFilterString(entityField, operator, term1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(term1), (List<Term>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetTermsPageWithPagination() throws Exception {
+		Page<Term> termsPage = termResource.getTermsPage(
+			null, null, null, null);
+
+		int totalCount = GetterUtil.getInteger(termsPage.getTotalCount());
+
+		Term term1 = testGetTermsPage_addTerm(randomTerm());
+
+		Term term2 = testGetTermsPage_addTerm(randomTerm());
+
+		Term term3 = testGetTermsPage_addTerm(randomTerm());
+
+		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
+
+		int pageSizeLimit = 500;
+
+		if (totalCount >= (pageSizeLimit - 2)) {
+			Page<Term> page1 = termResource.getTermsPage(
+				null, null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
+					pageSizeLimit),
+				null);
+
+			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
+
+			assertContains(term1, (List<Term>)page1.getItems());
+
+			Page<Term> page2 = termResource.getTermsPage(
+				null, null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
+					pageSizeLimit),
+				null);
+
+			assertContains(term2, (List<Term>)page2.getItems());
+
+			Page<Term> page3 = termResource.getTermsPage(
+				null, null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
+					pageSizeLimit),
+				null);
+
+			assertContains(term3, (List<Term>)page3.getItems());
+		}
+		else {
+			Page<Term> page1 = termResource.getTermsPage(
+				null, null, Pagination.of(1, totalCount + 2), null);
+
+			List<Term> terms1 = (List<Term>)page1.getItems();
+
+			Assert.assertEquals(
+				terms1.toString(), totalCount + 2, terms1.size());
+
+			Page<Term> page2 = termResource.getTermsPage(
+				null, null, Pagination.of(2, totalCount + 2), null);
+
+			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+			List<Term> terms2 = (List<Term>)page2.getItems();
+
+			Assert.assertEquals(terms2.toString(), 1, terms2.size());
+
+			Page<Term> page3 = termResource.getTermsPage(
+				null, null, Pagination.of(1, (int)totalCount + 3), null);
+
+			assertContains(term1, (List<Term>)page3.getItems());
+			assertContains(term2, (List<Term>)page3.getItems());
+			assertContains(term3, (List<Term>)page3.getItems());
+		}
+	}
+
+	@Test
+	public void testGetTermsPageWithSortDateTime() throws Exception {
+		testGetTermsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, term1, term2) -> {
+				BeanTestUtil.setProperty(
+					term1, entityField.getName(),
+					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
+			});
+	}
+
+	@Test
+	public void testGetTermsPageWithSortDouble() throws Exception {
+		testGetTermsPageWithSort(
+			EntityField.Type.DOUBLE,
+			(entityField, term1, term2) -> {
+				BeanTestUtil.setProperty(term1, entityField.getName(), 0.1);
+				BeanTestUtil.setProperty(term2, entityField.getName(), 0.5);
+			});
+	}
+
+	@Test
+	public void testGetTermsPageWithSortInteger() throws Exception {
+		testGetTermsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, term1, term2) -> {
+				BeanTestUtil.setProperty(term1, entityField.getName(), 0);
+				BeanTestUtil.setProperty(term2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetTermsPageWithSortString() throws Exception {
+		testGetTermsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, term1, term2) -> {
+				Class<?> clazz = term1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanTestUtil.setProperty(
+						term1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanTestUtil.setProperty(
+						term2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanTestUtil.setProperty(
+						term1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanTestUtil.setProperty(
+						term2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanTestUtil.setProperty(
+						term1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanTestUtil.setProperty(
+						term2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetTermsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, Term, Term, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Term term1 = randomTerm();
+		Term term2 = randomTerm();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, term1, term2);
+		}
+
+		term1 = testGetTermsPage_addTerm(term1);
+
+		term2 = testGetTermsPage_addTerm(term2);
+
+		Page<Term> page = termResource.getTermsPage(null, null, null, null);
+
+		for (EntityField entityField : entityFields) {
+			Page<Term> ascPage = termResource.getTermsPage(
+				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
+				entityField.getName() + ":asc");
+
+			assertContains(term1, (List<Term>)ascPage.getItems());
+			assertContains(term2, (List<Term>)ascPage.getItems());
+
+			Page<Term> descPage = termResource.getTermsPage(
+				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
+				entityField.getName() + ":desc");
+
+			assertContains(term2, (List<Term>)descPage.getItems());
+			assertContains(term1, (List<Term>)descPage.getItems());
+		}
+	}
+
+	protected Term testGetTermsPage_addTerm(Term term) throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetTermsPage() throws Exception {
+		GraphQLField graphQLField = new GraphQLField(
+			"terms",
+			new HashMap<String, Object>() {
+				{
+					put("search", null);
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		// No namespace
+
+		JSONObject termsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/terms");
+
+		long totalCount = termsJSONObject.getLong("totalCount");
+
+		Term term1 = testGraphQLTerm_addTerm(randomTerm());
+
+		Term term2 = testGraphQLTerm_addTerm(randomTerm());
+
+		termsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/terms");
+
+		Assert.assertEquals(
+			totalCount + 2, termsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			term1,
+			Arrays.asList(
+				TermSerDes.toDTOs(termsJSONObject.getString("items"))));
+		assertContains(
+			term2,
+			Arrays.asList(
+				TermSerDes.toDTOs(termsJSONObject.getString("items"))));
+
+		// Using the namespace headlessCommerceAdminOrder_v1_0
+
+		termsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessCommerceAdminOrder_v1_0", graphQLField)),
+			"JSONObject/data", "JSONObject/headlessCommerceAdminOrder_v1_0",
+			"JSONObject/terms");
+
+		Assert.assertEquals(
+			totalCount + 2, termsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			term1,
+			Arrays.asList(
+				TermSerDes.toDTOs(termsJSONObject.getString("items"))));
+		assertContains(
+			term2,
+			Arrays.asList(
+				TermSerDes.toDTOs(termsJSONObject.getString("items"))));
+	}
+
+	@Test
 	public void testPatchTerm() throws Exception {
 		Term postTerm = testPatchTerm_addTerm();
 
@@ -1243,12 +1309,290 @@ public abstract class BaseTermResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testPatchTermByExternalReferenceCode() throws Exception {
+		Term postTerm = testPatchTermByExternalReferenceCode_addTerm();
+
+		Term randomPatchTerm = randomPatchTerm();
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Term patchTerm = termResource.patchTermByExternalReferenceCode(
+			postTerm.getExternalReferenceCode(), randomPatchTerm);
+
+		Term expectedPatchTerm = postTerm.clone();
+
+		BeanTestUtil.copyProperties(randomPatchTerm, expectedPatchTerm);
+
+		Term getTerm = termResource.getTermByExternalReferenceCode(
+			patchTerm.getExternalReferenceCode());
+
+		assertEquals(expectedPatchTerm, getTerm);
+		assertValid(getTerm);
+	}
+
+	protected Term testPatchTermByExternalReferenceCode_addTerm()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPostTerm() throws Exception {
+		Term randomTerm = randomTerm();
+
+		Term postTerm = testPostTerm_addTerm(randomTerm);
+
+		assertEquals(randomTerm, postTerm);
+		assertValid(postTerm);
+	}
+
+	protected Term testPostTerm_addTerm(Term term) throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostTerm() throws Exception {
+		Term randomTerm = randomTerm();
+
+		Term term = testGraphQLTerm_addTerm(randomTerm);
+
+		Assert.assertTrue(equals(randomTerm, term));
+	}
+
+	@Test
+	public void testPutTermByExternalReferenceCode() throws Exception {
+		Term postTerm = testPutTermByExternalReferenceCode_addTerm();
+
+		Term randomTerm = randomTerm();
+
+		Term putTerm = termResource.putTermByExternalReferenceCode(
+			postTerm.getExternalReferenceCode(), randomTerm);
+
+		assertEquals(randomTerm, putTerm);
+		assertValid(putTerm);
+
+		Term getTerm = termResource.getTermByExternalReferenceCode(
+			putTerm.getExternalReferenceCode());
+
+		assertEquals(randomTerm, getTerm);
+		assertValid(getTerm);
+
+		Term newTerm = testPutTermByExternalReferenceCode_createTerm();
+
+		putTerm = termResource.putTermByExternalReferenceCode(
+			newTerm.getExternalReferenceCode(), newTerm);
+
+		assertEquals(newTerm, putTerm);
+		assertValid(putTerm);
+
+		getTerm = termResource.getTermByExternalReferenceCode(
+			putTerm.getExternalReferenceCode());
+
+		assertEquals(newTerm, getTerm);
+
+		Assert.assertEquals(
+			newTerm.getExternalReferenceCode(),
+			putTerm.getExternalReferenceCode());
+	}
+
+	protected Term testPutTermByExternalReferenceCode_addTerm()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Term testPutTermByExternalReferenceCode_createTerm()
+		throws Exception {
+
+		return randomTerm();
+	}
+
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Term term1 = testBatchEngineDeleteImportTask_addTerm();
+
+		testBatchEngineDeleteImportTask_deleteTerm(
+			200, term1.getExternalReferenceCode(), null);
+
+		assertHttpResponseStatusCode(
+			404, termResource.getTermHttpResponse(term1.getId()));
+
+		term1 = testBatchEngineDeleteImportTask_addTerm();
+
+		testBatchEngineDeleteImportTask_deleteTerm(200, null, term1.getId());
+
+		assertHttpResponseStatusCode(
+			404, termResource.getTermHttpResponse(term1.getId()));
+
+		term1 = testBatchEngineDeleteImportTask_addTerm();
+		Term term2 = testBatchEngineDeleteImportTask_addTerm();
+
+		testBatchEngineDeleteImportTask_deleteTerm(
+			200, term2.getExternalReferenceCode(), term1.getId());
+
+		assertHttpResponseStatusCode(
+			404, termResource.getTermHttpResponse(term1.getId()));
+		assertHttpResponseStatusCode(
+			200, termResource.getTermHttpResponse(term2.getId()));
+
+		testBatchEngineDeleteImportTask_deleteTerm(
+			200, term2.getExternalReferenceCode(), term1.getId());
+
+		assertHttpResponseStatusCode(
+			404, termResource.getTermHttpResponse(term2.getId()));
+	}
+
+	protected Term testBatchEngineDeleteImportTask_addTerm() throws Exception {
+		return testDeleteTerm_addTerm();
+	}
+
+	protected void testBatchEngineDeleteImportTask_deleteTerm(
+			int expectedStatusCode, String externalReferenceCode, Long id,
+			String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.headless.commerce.admin.order.dto.v1_0.Term", null,
+				null, null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected Term testGraphQLTerm_addTerm() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return testGraphQLTerm_addTerm(randomTerm());
+	}
+
+	protected Term testGraphQLTerm_addTerm(Term term) throws Exception {
+		JSONDeserializer<Term> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field : getDeclaredFields(Term.class)) {
+			if (getGraphQLValue(field.get(term)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(term)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createTerm",
+						new HashMap<String, Object>() {
+							{
+								put("term", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createTerm"),
+			Term.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(Term term, List<Term> terms) {
@@ -1507,6 +1851,10 @@ public abstract class BaseTermResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -2276,7 +2624,30 @@ public abstract class BaseTermResourceTestCase {
 		return randomTerm();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected TermResource termResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

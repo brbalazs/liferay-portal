@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
+export {default as CreateAccount} from './account-selector-cta/account/CreateAccount';
+export {default as CreateOrder} from './account-selector-cta/order/CreateOrder';
+
 /**
  * Base components exposure to Liferay module dynamic load-up
  */
@@ -39,6 +42,7 @@ export {default as ProductOptionNumeric} from './product_options/ProductOptionNu
 export {default as ProductOptionRadio} from './product_options/ProductOptionRadio';
 export {default as ProductOptionSelect} from './product_options/ProductOptionSelect';
 export {default as ProductOptionText} from './product_options/ProductOptionText';
+export {default as ProductOptionUpload} from './product_options/ProductOptionUpload';
 export {default as QuantitySelectorComponent} from './quantity_selector/QuantitySelector';
 export {default as QuantitySelector} from './quantity_selector/entry';
 export {default as RequestQuote} from './request_quote/entry';

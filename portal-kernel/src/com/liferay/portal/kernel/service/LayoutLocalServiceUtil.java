@@ -636,6 +636,10 @@ public class LayoutLocalServiceUtil {
 		return getService().fetchDraftLayout(plid);
 	}
 
+	public static Map<Layout, Layout> fetchDraftLayouts(List<Layout> layouts) {
+		return getService().fetchDraftLayouts(layouts);
+	}
+
 	public static Layout fetchFirstLayout(
 		long groupId, boolean privateLayout, long parentLayoutId) {
 
@@ -1391,6 +1395,15 @@ public class LayoutLocalServiceUtil {
 		return getService().getNextLayoutId(groupId, privateLayout);
 	}
 
+	public static Layout getOrAddEmptyLayout(
+			String externalReferenceCode, long userId, long groupId,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		return getService().getOrAddEmptyLayout(
+			externalReferenceCode, userId, groupId, serviceContext);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -1782,6 +1795,13 @@ public class LayoutLocalServiceUtil {
 			groupId, privateLayout, layoutId, typeSettings, iconBytes, themeId,
 			colorSchemeId, styleBookEntryId, css, faviconFileEntryId,
 			masterLayoutPlid);
+	}
+
+	public static void updateLayoutContent(
+			String data, Layout layout, long segmentsExperienceId)
+		throws Exception {
+
+		getService().updateLayoutContent(data, layout, segmentsExperienceId);
 	}
 
 	/**

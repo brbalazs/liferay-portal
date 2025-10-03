@@ -9,20 +9,23 @@ import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.object.constants.ObjectDefinitionConstants;
 import com.liferay.object.field.builder.TextObjectFieldBuilder;
 import com.liferay.object.model.ObjectDefinition;
+import com.liferay.object.service.ObjectDefinitionLocalService;
 import com.liferay.object.test.util.ObjectDefinitionTestUtil;
 import com.liferay.petra.lang.SafeCloseable;
+import com.liferay.portal.kernel.dao.db.DB;
 import com.liferay.portal.kernel.dao.db.DBManagerUtil;
-import com.liferay.portal.kernel.dao.db.DBType;
 import com.liferay.portal.kernel.db.partition.DBPartition;
-import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.instance.PortalInstancePool;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.AssumeTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
-import com.liferay.portal.kernel.test.util.CompanyTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
+import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
@@ -48,18 +51,59 @@ public class ObjectDefinitionLocalServiceDBPartitionTest {
 			new AssumeTestRule("assume"), new LiferayIntegrationTestRule());
 
 	public static void assume() {
-		DBType dbType = DBManagerUtil.getDBType();
-
-		Assume.assumeTrue(
-			(dbType == DBType.MYSQL) || (dbType == DBType.POSTGRESQL));
-
 		Assume.assumeTrue(DBPartition.isPartitionEnabled());
+
+		DB db = DBManagerUtil.getDB();
+
+		Assume.assumeTrue(db.isSupportsDBPartition());
+	}
+
+	@Test
+	public void testGetClassName() throws Exception {
+		ObjectDefinition objectDefinition1 = null;
+		ObjectDefinition objectDefinition2 = null;
+
+		try (SafeCloseable safeCloseable =
+				CompanyThreadLocal.setCompanyIdWithSafeCloseable(
+					TestPropsValues.getCompanyId())) {
+
+			objectDefinition1 =
+				ObjectDefinitionTestUtil.publishObjectDefinition();
+		}
+
+		try (SafeCloseable safeCloseable =
+				CompanyThreadLocal.setCompanyIdWithSafeCloseable(
+					PortalInstancePool.getDefaultCompanyId())) {
+
+			User user = UserTestUtil.getAdminUser(
+				PortalInstancePool.getDefaultCompanyId());
+
+			objectDefinition2 =
+				_objectDefinitionLocalService.addCustomObjectDefinition(
+					user.getUserId(), 0, objectDefinition1.getClassName(),
+					false, true, false, true, false, false, true, true, true,
+					null, RandomTestUtil.randomLocaleStringMap(),
+					objectDefinition1.getShortName(), null, null,
+					RandomTestUtil.randomLocaleStringMap(), true,
+					ObjectDefinitionConstants.SCOPE_COMPANY,
+					ObjectDefinitionConstants.STORAGE_TYPE_DEFAULT,
+					Collections.emptyList(),
+					Collections.singletonList(
+						new TextObjectFieldBuilder(
+						).labelMap(
+							RandomTestUtil.randomLocaleStringMap()
+						).name(
+							StringUtil.randomId()
+						).build()),
+					Collections.emptyList());
+		}
+
+		Assert.assertNotEquals(
+			objectDefinition1.getClassName(), objectDefinition2.getClassName());
 	}
 
 	@Test
 	public void testPublishObjectDefinition() throws Exception {
-		_company = CompanyTestUtil.addCompany();
-
 		_objectDefinition = null;
 
 		try (SafeCloseable safeCloseable =
@@ -82,7 +126,7 @@ public class ObjectDefinitionLocalServiceDBPartitionTest {
 		_assertResourceActionsCount(
 			TestPropsValues.getCompanyId(), _objectDefinition, 4);
 		_assertResourceActionsCount(
-			_company.getCompanyId(), _objectDefinition, 0);
+			PortalInstancePool.getDefaultCompanyId(), _objectDefinition, 0);
 	}
 
 	private void _assertResourceActionsCount(
@@ -100,10 +144,10 @@ public class ObjectDefinitionLocalServiceDBPartitionTest {
 	}
 
 	@DeleteAfterTestRun
-	private Company _company;
-
-	@DeleteAfterTestRun
 	private ObjectDefinition _objectDefinition;
+
+	@Inject
+	private ObjectDefinitionLocalService _objectDefinitionLocalService;
 
 	@Inject
 	private ResourceActionLocalService _resourceActionLocalService;

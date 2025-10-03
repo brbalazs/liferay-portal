@@ -22,6 +22,7 @@ import com.liferay.document.library.kernel.exception.FileSizeException;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFileEntryConstants;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
+import com.liferay.document.library.kernel.service.DLAppServiceUtil;
 import com.liferay.document.library.test.util.BaseDLAppTestCase;
 import com.liferay.document.library.workflow.WorkflowHandlerInvocationCounter;
 import com.liferay.petra.lang.SafeCloseable;
@@ -42,16 +43,18 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
+import com.liferay.portal.kernel.upload.configuration.UploadServletRequestConfigurationProviderUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
+import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.HashMapDictionaryBuilder;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.security.permission.DoAsUserThread;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.asset.util.AssetVocabularySettingsHelper;
 
 import java.io.File;
@@ -154,6 +157,22 @@ public class DLAppServiceWhenAddingAFileEntryTest extends BaseDLAppTestCase {
 	}
 
 	@Test
+	public void testFileEntryShouldSaveCorrectMimeTypeForGPXExtension()
+		throws Exception {
+
+		String fileName = "test.gpx";
+
+		FileEntry fileEntry = dlAppService.addFileEntry(
+			null, group.getGroupId(), parentFolder.getFolderId(), fileName,
+			ContentTypes.APPLICATION_OCTET_STREAM, fileName, StringPool.BLANK,
+			StringPool.BLANK, StringPool.BLANK,
+			FileUtil.getBytes(getClass(), _TEST_GPX), null, null, null,
+			ServiceContextTestUtil.getServiceContext(group.getGroupId()));
+
+		Assert.assertEquals("application/gpx+xml", fileEntry.getMimeType());
+	}
+
+	@Test
 	public void testFileEntryShouldSaveDisplayDate() throws Exception {
 		Date displayDate = new Date();
 
@@ -194,6 +213,21 @@ public class DLAppServiceWhenAddingAFileEntryTest extends BaseDLAppTestCase {
 		Assert.assertNull(fileEntry.getDisplayDate());
 		Assert.assertNull(fileEntry.getExpirationDate());
 		Assert.assertEquals(reviewDate, fileEntry.getReviewDate());
+	}
+
+	@Test
+	public void testGetMaxSizeWithPadding() throws Exception {
+		String fileName = "test.pdf";
+		int maxSize =
+			(int)UploadServletRequestConfigurationProviderUtil.getMaxSize();
+
+		FileEntry fileEntry = DLAppServiceUtil.addFileEntry(
+			null, group.getGroupId(), parentFolder.getFolderId(), fileName,
+			ContentTypes.APPLICATION_OCTET_STREAM, fileName, StringPool.BLANK,
+			StringPool.BLANK, StringPool.BLANK, new byte[maxSize], null, null,
+			null, ServiceContextTestUtil.getServiceContext(group.getGroupId()));
+
+		Assert.assertNotNull(fileEntry);
 	}
 
 	@Test
@@ -501,6 +535,9 @@ public class DLAppServiceWhenAddingAFileEntryTest extends BaseDLAppTestCase {
 			StringPool.BLANK, StringPool.BLANK, null, 0, null, null, null,
 			ServiceContextTestUtil.getServiceContext(group.getGroupId()));
 	}
+
+	private static final String _TEST_GPX =
+		"/com/liferay/document/library/dependencies/test.gpx";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DLAppServiceWhenAddingAFileEntryTest.class);

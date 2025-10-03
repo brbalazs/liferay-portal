@@ -52,6 +52,13 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.TimeZoneThreadLocal;
 import com.liferay.portal.kernel.util.Validator;
 
+import jakarta.portlet.PortletPreferences;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletURL;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.Serializable;
 
 import java.util.HashMap;
@@ -61,13 +68,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.TimeZone;
-
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Provides general configuration methods for the portal, providing access to
@@ -190,8 +190,15 @@ public class ThemeDisplay
 			return _clayCSSURL;
 		}
 
-		return PortalUtil.getStaticResourceURL(
-			getRequest(), getPathThemeCss() + "/clay.css");
+		if (Validator.isNotNull(_defaultClayCSSURL)) {
+			_clayCSSURL = _defaultClayCSSURL;
+		}
+		else {
+			_clayCSSURL = PortalUtil.getStaticResourceURL(
+				getRequest(), getPathThemeCss() + "/clay.css");
+		}
+
+		return _clayCSSURL;
 	}
 
 	public ColorScheme getColorScheme() {
@@ -557,8 +564,15 @@ public class ThemeDisplay
 			return _mainCSSURL;
 		}
 
-		return PortalUtil.getStaticResourceURL(
-			getRequest(), getPathThemeCss() + "/main.css");
+		if (Validator.isNotNull(_defaultMainCSSURL)) {
+			_mainCSSURL = _defaultMainCSSURL;
+		}
+		else {
+			_mainCSSURL = PortalUtil.getStaticResourceURL(
+				getRequest(), getPathThemeCss() + "/main.css");
+		}
+
+		return _mainCSSURL;
 	}
 
 	public String getMainJSURL() {
@@ -566,8 +580,15 @@ public class ThemeDisplay
 			return _mainJSURL;
 		}
 
-		return PortalUtil.getStaticResourceURL(
-			getRequest(), getPathThemeJavaScript() + "/main.js");
+		if (Validator.isNotNull(_defaultMainJSURL)) {
+			_mainJSURL = _defaultMainJSURL;
+		}
+		else {
+			_mainJSURL = PortalUtil.getStaticResourceURL(
+				getRequest(), getPathThemeJavaScript() + "/main.js");
+		}
+
+		return _mainJSURL;
 	}
 
 	public List<NavItem> getNavItems() throws PortalException {
@@ -581,10 +602,6 @@ public class ThemeDisplay
 
 	public String getPathApplet() {
 		return _pathApplet;
-	}
-
-	public String getPathCms() {
-		return _pathCms;
 	}
 
 	/**
@@ -1368,6 +1385,18 @@ public class ThemeDisplay
 		_contact = contact;
 	}
 
+	public void setDefaultClayCSSURL(String defaultClayCSSURL) {
+		_defaultClayCSSURL = defaultClayCSSURL;
+	}
+
+	public void setDefaultMainCSSURL(String defaultMainCSSURL) {
+		_defaultMainCSSURL = defaultMainCSSURL;
+	}
+
+	public void setDefaultMainJSURL(String defaultMainJSURL) {
+		_defaultMainJSURL = defaultMainJSURL;
+	}
+
 	public void setDevice(Device device) {
 		_device = device;
 	}
@@ -1566,10 +1595,6 @@ public class ThemeDisplay
 
 	public void setPathApplet(String pathApplet) {
 		_pathApplet = pathApplet;
-	}
-
-	public void setPathCms(String pathCms) {
-		_pathCms = pathCms;
 	}
 
 	public void setPathColorSchemeImages(String pathColorSchemeImages) {
@@ -2004,6 +2029,9 @@ public class ThemeDisplay
 	private Contact _contact;
 	private Group _controlPanelGroup;
 	private Layout _controlPanelLayout;
+	private String _defaultClayCSSURL;
+	private String _defaultMainCSSURL;
+	private String _defaultMainJSURL;
 	private Device _device;
 	private long _doAsGroupId;
 	private String _doAsUserId = StringPool.BLANK;
@@ -2038,7 +2066,6 @@ public class ThemeDisplay
 	private String _mainJSURL;
 	private List<NavItem> _navItems;
 	private String _pathApplet = StringPool.BLANK;
-	private String _pathCms = StringPool.BLANK;
 	private String _pathColorSchemeImages = StringPool.BLANK;
 	private String _pathContext = StringPool.BLANK;
 	private String _pathControlPanelSpritemap = StringPool.BLANK;

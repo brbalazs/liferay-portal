@@ -17,6 +17,7 @@ import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
@@ -38,6 +39,11 @@ public interface SystemObjectDefinitionManager {
 
 	public long addBaseModel(User user, Map<String, Object> values)
 		throws Exception;
+
+	public void checkModelResourcePermission(
+			long objectDefinitionId, PermissionChecker permissionChecker,
+			long primaryKey, String actionId)
+		throws PortalException;
 
 	public BaseModel<?> deleteBaseModel(BaseModel<?> baseModel)
 		throws PortalException;
@@ -66,6 +72,10 @@ public interface SystemObjectDefinitionManager {
 
 	public Map<Locale, String> getLabelMap();
 
+	public default Table getLocalizationTable() {
+		return null;
+	}
+
 	public Class<?> getModelClass();
 
 	public String getModelClassName();
@@ -77,6 +87,14 @@ public interface SystemObjectDefinitionManager {
 	}
 
 	public List<ObjectField> getObjectFields();
+
+	public default BaseModel<?> getOrAddEmptyBaseModel(
+			String externalReferenceCode, User user)
+		throws PortalException {
+
+		return getBaseModelByExternalReferenceCode(
+			externalReferenceCode, user.getCompanyId());
+	}
 
 	public default Page<?> getPage(
 			User user, String search, Filter filter, Pagination pagination,
@@ -166,6 +184,10 @@ public interface SystemObjectDefinitionManager {
 	}
 
 	public int getVersion();
+
+	public default boolean isEnableLocalization() {
+		return false;
+	}
 
 	public void updateBaseModel(
 			long primaryKey, User user, Map<String, Object> values)

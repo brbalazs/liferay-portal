@@ -39,8 +39,17 @@ import com.liferay.portal.kernel.util.EscapableObject;
 import com.liferay.portal.kernel.util.HashMapDictionary;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.util.PropsValues;
+
+import jakarta.mail.internet.InternetAddress;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
@@ -49,15 +58,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import javax.mail.internet.InternetAddress;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
@@ -172,11 +172,7 @@ public class TimeBasedOTPBrowserSetupMFAChecker
 
 		HttpSession httpSession = originalHttpServletRequest.getSession(false);
 
-		if (_isVerified(httpSession, userId)) {
-			return true;
-		}
-
-		return false;
+		return _isVerified(httpSession, userId);
 	}
 
 	@Override

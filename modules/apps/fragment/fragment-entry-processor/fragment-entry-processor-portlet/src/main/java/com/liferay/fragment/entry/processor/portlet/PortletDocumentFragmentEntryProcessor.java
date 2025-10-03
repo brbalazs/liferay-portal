@@ -25,10 +25,10 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portlet.exportimport.staging.StagingAdvicesThreadLocal;
 
+import jakarta.portlet.PortletPreferences;
+
 import java.util.Arrays;
 import java.util.Map;
-
-import javax.portlet.PortletPreferences;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -55,8 +55,9 @@ public class PortletDocumentFragmentEntryProcessor
 
 		String html = fragmentEntryLink.getHtml();
 
-		if (!html.contains("lfr-widget-") &&
-			!html.contains("@liferay_portlet")) {
+		if (fragmentEntryProcessorContext.isDisablePortletRender() ||
+			(!html.contains("lfr-widget-") &&
+			 !html.contains("@liferay_portlet"))) {
 
 			return;
 		}

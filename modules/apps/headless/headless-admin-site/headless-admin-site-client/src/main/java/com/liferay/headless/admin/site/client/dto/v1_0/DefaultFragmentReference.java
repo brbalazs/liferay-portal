@@ -8,18 +8,19 @@ package com.liferay.headless.admin.site.client.dto.v1_0;
 import com.liferay.headless.admin.site.client.function.UnsafeSupplier;
 import com.liferay.headless.admin.site.client.serdes.v1_0.DefaultFragmentReferenceSerDes;
 
+import jakarta.annotation.Generated;
+
 import java.io.Serializable;
 
 import java.util.Objects;
-
-import javax.annotation.Generated;
 
 /**
  * @author Rubén Pulido
  * @generated
  */
 @Generated("")
-public class DefaultFragmentReference implements Cloneable, Serializable {
+public class DefaultFragmentReference
+	extends FragmentReference implements Cloneable, Serializable {
 
 	public static DefaultFragmentReference toDTO(String json) {
 		return DefaultFragmentReferenceSerDes.toDTO(json);

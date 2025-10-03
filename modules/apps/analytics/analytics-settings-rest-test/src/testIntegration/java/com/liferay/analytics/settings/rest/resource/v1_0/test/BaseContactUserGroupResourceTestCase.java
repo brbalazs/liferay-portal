@@ -36,14 +36,18 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -59,10 +63,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -185,7 +185,7 @@ public abstract class BaseContactUserGroupResourceTestCase {
 	public void testGetContactUserGroupsPage() throws Exception {
 		Page<ContactUserGroup> page =
 			contactUserGroupResource.getContactUserGroupsPage(
-				RandomTestUtil.randomString(), Pagination.of(1, 10), null);
+				null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 
@@ -220,11 +220,11 @@ public abstract class BaseContactUserGroupResourceTestCase {
 
 	@Test
 	public void testGetContactUserGroupsPageWithPagination() throws Exception {
-		Page<ContactUserGroup> contactUserGroupPage =
+		Page<ContactUserGroup> contactUserGroupsPage =
 			contactUserGroupResource.getContactUserGroupsPage(null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			contactUserGroupPage.getTotalCount());
+			contactUserGroupsPage.getTotalCount());
 
 		ContactUserGroup contactUserGroup1 =
 			testGetContactUserGroupsPage_addContactUserGroup(
@@ -464,87 +464,6 @@ public abstract class BaseContactUserGroupResourceTestCase {
 			"This method needs to be implemented");
 	}
 
-	@Test
-	public void testGraphQLGetContactUserGroupsPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"contactUserGroups",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 10);
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
-		// No namespace
-
-		JSONObject contactUserGroupsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/contactUserGroups");
-
-		long totalCount = contactUserGroupsJSONObject.getLong("totalCount");
-
-		ContactUserGroup contactUserGroup1 =
-			testGraphQLGetContactUserGroupsPage_addContactUserGroup();
-		ContactUserGroup contactUserGroup2 =
-			testGraphQLGetContactUserGroupsPage_addContactUserGroup();
-
-		contactUserGroupsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/contactUserGroups");
-
-		Assert.assertEquals(
-			totalCount + 2, contactUserGroupsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			contactUserGroup1,
-			Arrays.asList(
-				ContactUserGroupSerDes.toDTOs(
-					contactUserGroupsJSONObject.getString("items"))));
-		assertContains(
-			contactUserGroup2,
-			Arrays.asList(
-				ContactUserGroupSerDes.toDTOs(
-					contactUserGroupsJSONObject.getString("items"))));
-
-		// Using the namespace analyticsSettings_v1_0
-
-		contactUserGroupsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(
-				new GraphQLField("analyticsSettings_v1_0", graphQLField)),
-			"JSONObject/data", "JSONObject/analyticsSettings_v1_0",
-			"JSONObject/contactUserGroups");
-
-		Assert.assertEquals(
-			totalCount + 2, contactUserGroupsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			contactUserGroup1,
-			Arrays.asList(
-				ContactUserGroupSerDes.toDTOs(
-					contactUserGroupsJSONObject.getString("items"))));
-		assertContains(
-			contactUserGroup2,
-			Arrays.asList(
-				ContactUserGroupSerDes.toDTOs(
-					contactUserGroupsJSONObject.getString("items"))));
-	}
-
-	protected ContactUserGroup
-			testGraphQLGetContactUserGroupsPage_addContactUserGroup()
-		throws Exception {
-
-		return testGraphQLContactUserGroup_addContactUserGroup();
-	}
-
-	protected ContactUserGroup testGraphQLContactUserGroup_addContactUserGroup()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
 	protected void assertContains(
 		ContactUserGroup contactUserGroup,
 		List<ContactUserGroup> contactUserGroups) {
@@ -706,6 +625,8 @@ public abstract class BaseContactUserGroupResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

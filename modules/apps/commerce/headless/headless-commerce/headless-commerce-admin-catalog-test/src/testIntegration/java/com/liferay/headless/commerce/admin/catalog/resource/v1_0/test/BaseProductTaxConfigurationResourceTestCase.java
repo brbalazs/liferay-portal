@@ -32,13 +32,17 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -54,10 +58,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -200,16 +200,16 @@ public abstract class BaseProductTaxConfigurationResourceTestCase {
 		assertValid(getProductTaxConfiguration);
 	}
 
-	protected String
-			testGetProductByExternalReferenceCodeTaxConfiguration_getExternalReferenceCode()
+	protected ProductTaxConfiguration
+			testGetProductByExternalReferenceCodeTaxConfiguration_addProductTaxConfiguration()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected ProductTaxConfiguration
-			testGetProductByExternalReferenceCodeTaxConfiguration_addProductTaxConfiguration()
+	protected String
+			testGetProductByExternalReferenceCodeTaxConfiguration_getExternalReferenceCode()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -333,14 +333,7 @@ public abstract class BaseProductTaxConfigurationResourceTestCase {
 			testGraphQLGetProductByExternalReferenceCodeTaxConfiguration_addProductTaxConfiguration()
 		throws Exception {
 
-		return testGraphQLProductTaxConfiguration_addProductTaxConfiguration();
-	}
-
-	@Test
-	public void testPatchProductByExternalReferenceCodeTaxConfiguration()
-		throws Exception {
-
-		Assert.assertTrue(false);
+		return testGraphQLProductProductTaxConfiguration_addProductTaxConfiguration();
 	}
 
 	@Test
@@ -357,15 +350,16 @@ public abstract class BaseProductTaxConfigurationResourceTestCase {
 		assertValid(getProductTaxConfiguration);
 	}
 
-	protected Long testGetProductIdTaxConfiguration_getId(
-			ProductTaxConfiguration productTaxConfiguration)
-		throws Exception {
-
-		return productTaxConfiguration.getId();
-	}
-
 	protected ProductTaxConfiguration
 			testGetProductIdTaxConfiguration_addProductTaxConfiguration()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetProductIdTaxConfiguration_getId(
+			ProductTaxConfiguration productTaxConfiguration)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -429,7 +423,8 @@ public abstract class BaseProductTaxConfigurationResourceTestCase {
 			ProductTaxConfiguration productTaxConfiguration)
 		throws Exception {
 
-		return productTaxConfiguration.getId();
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -479,7 +474,14 @@ public abstract class BaseProductTaxConfigurationResourceTestCase {
 			testGraphQLGetProductIdTaxConfiguration_addProductTaxConfiguration()
 		throws Exception {
 
-		return testGraphQLProductTaxConfiguration_addProductTaxConfiguration();
+		return testGraphQLProductProductTaxConfiguration_addProductTaxConfiguration();
+	}
+
+	@Test
+	public void testPatchProductByExternalReferenceCodeTaxConfiguration()
+		throws Exception {
+
+		Assert.assertTrue(false);
 	}
 
 	@Test
@@ -488,7 +490,7 @@ public abstract class BaseProductTaxConfigurationResourceTestCase {
 	}
 
 	protected ProductTaxConfiguration
-			testGraphQLProductTaxConfiguration_addProductTaxConfiguration()
+			testGraphQLProductProductTaxConfiguration_addProductTaxConfiguration()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -667,6 +669,8 @@ public abstract class BaseProductTaxConfigurationResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

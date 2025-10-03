@@ -6,16 +6,9 @@
 package com.liferay.site.cms.site.initializer.internal.fragment.renderer;
 
 import com.liferay.fragment.renderer.FragmentRenderer;
-import com.liferay.portal.kernel.feature.flag.FeatureFlagManagerUtil;
-import com.liferay.portal.kernel.model.Group;
-import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.service.GroupLocalService;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
-import com.liferay.portal.kernel.util.WebKeys;
 
-import java.util.Objects;
-
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Reference;
 
@@ -26,26 +19,7 @@ public abstract class BaseSectionFragmentRenderer implements FragmentRenderer {
 
 	@Override
 	public boolean isSelectable(HttpServletRequest httpServletRequest) {
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		if (!FeatureFlagManagerUtil.isEnabled(
-				themeDisplay.getCompanyId(), "LPD-17564")) {
-
-			return false;
-		}
-
-		Group group = groupLocalService.fetchGroup(
-			themeDisplay.getScopeGroupId());
-
-		if ((group == null) ||
-			!Objects.equals(group.getGroupKey(), GroupConstants.CMS)) {
-
-			return false;
-		}
-
-		return true;
+		return false;
 	}
 
 	@Reference

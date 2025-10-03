@@ -31,7 +31,7 @@ String ppid = ParamUtil.getString(request, "p_p_id");
 		<liferay-layout:render-state-max-layout-structure />
 	</c:when>
 	<c:when test="<%= layout.getMasterLayoutPlid() > 0 %>">
-		<div>
+		<div id="master-layout-wrapper">
 			<liferay-layout:render-fragment-layout
 				showPreview="<%= true %>"
 			/>

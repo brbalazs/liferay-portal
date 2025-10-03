@@ -5,10 +5,12 @@
 
 import useSWR, {SWRConfiguration} from 'swr';
 
-import {PRODUCT_IMAGE_FALLBACK_CATEGORIES} from '../enums/Product';
+import MarketplaceDeliveryOrder from '../entity/MarketplaceDeliveryOrder';
+import {MarketplaceDeliveryProduct} from '../entity/MarketplaceDeliveryProduct';
+import {ProductImageFallbackCategories} from '../enums/Product';
 import {Liferay} from '../liferay/liferay';
-import HeadlessCommerceDeliveryCatalogImpl from '../services/rest/HeadlessCommerceDeliveryCatalog';
-import HeadlessCommerceDeliveryOrderImpl from '../services/rest/HeadlessCommerceDeliveryOrder';
+import HeadlessCommerceDeliveryCatalog from '../services/rest/HeadlessCommerceDeliveryCatalog';
+import HeadlessCommerceDeliveryOrder from '../services/rest/HeadlessCommerceDeliveryOrder';
 import {
 	getProductFallback,
 	getProductImageFallback,
@@ -22,11 +24,11 @@ const useGetProductByOrderId = (
 		`/placed-order/${orderId}`,
 		async () => {
 			const placedOrder =
-				await HeadlessCommerceDeliveryOrderImpl.getPlacedOrder(orderId);
+				await HeadlessCommerceDeliveryOrder.getPlacedOrder(orderId);
 
 			if (placedOrder.placedOrderBillingAddressId > 0) {
 				placedOrder.placedOrderBillingAddress =
-					await HeadlessCommerceDeliveryOrderImpl.getPlacedOrderBillingAddress(
+					await HeadlessCommerceDeliveryOrder.getPlacedOrderBillingAddress(
 						orderId
 					);
 			}
@@ -34,7 +36,7 @@ const useGetProductByOrderId = (
 			let product;
 
 			try {
-				product = await HeadlessCommerceDeliveryCatalogImpl.getProduct(
+				product = await HeadlessCommerceDeliveryCatalog.getProduct(
 					Liferay.CommerceContext.commerceChannelId,
 					placedOrder.placedOrderItems[0].productId,
 					new URLSearchParams({
@@ -53,11 +55,17 @@ const useGetProductByOrderId = (
 				product = getProductFallback();
 				placedOrder.placedOrderItems[0].thumbnail =
 					getProductImageFallback(
-						PRODUCT_IMAGE_FALLBACK_CATEGORIES.PRODUCT_IMAGE
+						ProductImageFallbackCategories.PRODUCT_IMAGE
 					);
 			}
 
 			return {
+				marketplaceDeliveryOrder: new MarketplaceDeliveryOrder(
+					placedOrder
+				),
+				marketplaceDeliveryProduct: new MarketplaceDeliveryProduct(
+					product
+				),
 				placedOrder,
 				product,
 			};

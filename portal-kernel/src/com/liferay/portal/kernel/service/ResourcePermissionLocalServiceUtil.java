@@ -489,12 +489,6 @@ public class ResourcePermissionLocalServiceUtil {
 		return getService().getIndexableActionableDynamicQuery();
 	}
 
-	public static Map<String, List<ResourcePermission>>
-		getIndividualPortletResourcePermissions(long companyId) {
-
-		return getService().getIndividualPortletResourcePermissions(companyId);
-	}
-
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -563,6 +557,12 @@ public class ResourcePermissionLocalServiceUtil {
 		int start, int end) {
 
 		return getService().getResourcePermissions(start, end);
+	}
+
+	public static List<ResourcePermission> getResourcePermissions(
+		long companyId, String name, int scope) {
+
+		return getService().getResourcePermissions(companyId, name, scope);
 	}
 
 	public static List<ResourcePermission> getResourcePermissions(

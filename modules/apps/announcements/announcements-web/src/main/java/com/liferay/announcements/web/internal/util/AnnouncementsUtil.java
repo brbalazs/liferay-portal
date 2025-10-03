@@ -74,7 +74,7 @@ public class AnnouncementsUtil {
 
 		// Organization announcements
 
-		UserBag userBag = UserBagFactoryUtil.create(userId);
+		UserBag userBag = UserBagFactoryUtil.create(user);
 
 		long[] organizationIds = userBag.getUserOrgIds();
 
@@ -260,9 +260,9 @@ public class AnnouncementsUtil {
 		return false;
 	}
 
-	public static String toJSON(List<String> stringList) {
+	public static String toJSON(List<String> content) {
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
-			TransformUtil.transform(stringList, HtmlUtil::escape));
+			TransformUtil.transform(content, HtmlUtil::escape));
 
 		return jsonArray.toString();
 	}

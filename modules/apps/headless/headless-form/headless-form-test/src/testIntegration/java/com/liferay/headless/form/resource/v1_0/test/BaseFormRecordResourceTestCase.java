@@ -23,6 +23,7 @@ import com.liferay.oauth2.provider.scope.ScopeChecker;
 import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -38,9 +39,11 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -48,11 +51,20 @@ import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -71,16 +83,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -198,6 +201,373 @@ public abstract class BaseFormRecordResourceTestCase {
 		Assert.assertFalse(json.contains(regex));
 
 		formRecord = FormRecordSerDes.toDTO(json);
+	}
+
+	@Test
+	public void testGetFormFormRecordByLatestDraft() throws Exception {
+		FormRecord postFormRecord =
+			testGetFormFormRecordByLatestDraft_addFormRecord();
+
+		FormRecord getFormRecord =
+			formRecordResource.getFormFormRecordByLatestDraft(
+				testGetFormFormRecordByLatestDraft_getFormId(postFormRecord));
+
+		assertEquals(postFormRecord, getFormRecord);
+		assertValid(getFormRecord);
+	}
+
+	protected FormRecord testGetFormFormRecordByLatestDraft_addFormRecord()
+		throws Exception {
+
+		return testPostFormFormRecord_addFormRecord(randomFormRecord());
+	}
+
+	protected Long testGetFormFormRecordByLatestDraft_getFormId(
+			FormRecord formRecord)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetFormFormRecordByLatestDraft() throws Exception {
+		FormRecord formRecord =
+			testGraphQLGetFormFormRecordByLatestDraft_addFormRecord();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				formRecord,
+				FormRecordSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"formFormRecordByLatestDraft",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"formId",
+											testGraphQLGetFormFormRecordByLatestDraft_getFormId(
+												formRecord));
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/formFormRecordByLatestDraft"))));
+
+		// Using the namespace headlessForm_v1_0
+
+		Assert.assertTrue(
+			equals(
+				formRecord,
+				FormRecordSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"headlessForm_v1_0",
+								new GraphQLField(
+									"formFormRecordByLatestDraft",
+									new HashMap<String, Object>() {
+										{
+											put(
+												"formId",
+												testGraphQLGetFormFormRecordByLatestDraft_getFormId(
+													formRecord));
+										}
+									},
+									getGraphQLFields()))),
+						"JSONObject/data", "JSONObject/headlessForm_v1_0",
+						"Object/formFormRecordByLatestDraft"))));
+	}
+
+	protected Long testGraphQLGetFormFormRecordByLatestDraft_getFormId(
+			FormRecord formRecord)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetFormFormRecordByLatestDraftNotFound()
+		throws Exception {
+
+		Long irrelevantFormId = RandomTestUtil.randomLong();
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"formFormRecordByLatestDraft",
+						new HashMap<String, Object>() {
+							{
+								put("formId", irrelevantFormId);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace headlessForm_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"headlessForm_v1_0",
+						new GraphQLField(
+							"formFormRecordByLatestDraft",
+							new HashMap<String, Object>() {
+								{
+									put("formId", irrelevantFormId);
+								}
+							},
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected FormRecord
+			testGraphQLGetFormFormRecordByLatestDraft_addFormRecord()
+		throws Exception {
+
+		return testGraphQLFormRecord_addFormRecord();
+	}
+
+	@Test
+	public void testGetFormFormRecordsPage() throws Exception {
+		Long formId = testGetFormFormRecordsPage_getFormId();
+		Long irrelevantFormId =
+			testGetFormFormRecordsPage_getIrrelevantFormId();
+
+		Page<FormRecord> page = formRecordResource.getFormFormRecordsPage(
+			formId, Pagination.of(1, 10));
+
+		long totalCount = page.getTotalCount();
+
+		if (irrelevantFormId != null) {
+			FormRecord irrelevantFormRecord =
+				testGetFormFormRecordsPage_addFormRecord(
+					irrelevantFormId, randomIrrelevantFormRecord());
+
+			page = formRecordResource.getFormFormRecordsPage(
+				irrelevantFormId, Pagination.of(1, (int)totalCount + 1));
+
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
+
+			assertContains(
+				irrelevantFormRecord, (List<FormRecord>)page.getItems());
+			assertValid(
+				page,
+				testGetFormFormRecordsPage_getExpectedActions(
+					irrelevantFormId));
+		}
+
+		FormRecord formRecord1 = testGetFormFormRecordsPage_addFormRecord(
+			formId, randomFormRecord());
+
+		FormRecord formRecord2 = testGetFormFormRecordsPage_addFormRecord(
+			formId, randomFormRecord());
+
+		page = formRecordResource.getFormFormRecordsPage(
+			formId, Pagination.of(1, 10));
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(formRecord1, (List<FormRecord>)page.getItems());
+		assertContains(formRecord2, (List<FormRecord>)page.getItems());
+		assertValid(
+			page, testGetFormFormRecordsPage_getExpectedActions(formId));
+	}
+
+	protected Map<String, Map<String, String>>
+			testGetFormFormRecordsPage_getExpectedActions(Long formId)
+		throws Exception {
+
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
+
+		Map createBatchAction = new HashMap<>();
+		createBatchAction.put("method", "POST");
+		createBatchAction.put(
+			"href",
+			"http://localhost:8080/o/headless-form/v1.0/forms/{formId}/form-records/batch".
+				replace("{formId}", String.valueOf(formId)));
+
+		expectedActions.put("createBatch", createBatchAction);
+
+		return expectedActions;
+	}
+
+	@Test
+	public void testGetFormFormRecordsPageWithPagination() throws Exception {
+		Long formId = testGetFormFormRecordsPage_getFormId();
+
+		Page<FormRecord> formRecordsPage =
+			formRecordResource.getFormFormRecordsPage(formId, null);
+
+		int totalCount = GetterUtil.getInteger(formRecordsPage.getTotalCount());
+
+		FormRecord formRecord1 = testGetFormFormRecordsPage_addFormRecord(
+			formId, randomFormRecord());
+
+		FormRecord formRecord2 = testGetFormFormRecordsPage_addFormRecord(
+			formId, randomFormRecord());
+
+		FormRecord formRecord3 = testGetFormFormRecordsPage_addFormRecord(
+			formId, randomFormRecord());
+
+		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
+
+		int pageSizeLimit = 500;
+
+		if (totalCount >= (pageSizeLimit - 2)) {
+			Page<FormRecord> page1 = formRecordResource.getFormFormRecordsPage(
+				formId,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
+					pageSizeLimit));
+
+			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
+
+			assertContains(formRecord1, (List<FormRecord>)page1.getItems());
+
+			Page<FormRecord> page2 = formRecordResource.getFormFormRecordsPage(
+				formId,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
+					pageSizeLimit));
+
+			assertContains(formRecord2, (List<FormRecord>)page2.getItems());
+
+			Page<FormRecord> page3 = formRecordResource.getFormFormRecordsPage(
+				formId,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
+					pageSizeLimit));
+
+			assertContains(formRecord3, (List<FormRecord>)page3.getItems());
+		}
+		else {
+			Page<FormRecord> page1 = formRecordResource.getFormFormRecordsPage(
+				formId, Pagination.of(1, totalCount + 2));
+
+			List<FormRecord> formRecords1 = (List<FormRecord>)page1.getItems();
+
+			Assert.assertEquals(
+				formRecords1.toString(), totalCount + 2, formRecords1.size());
+
+			Page<FormRecord> page2 = formRecordResource.getFormFormRecordsPage(
+				formId, Pagination.of(2, totalCount + 2));
+
+			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+			List<FormRecord> formRecords2 = (List<FormRecord>)page2.getItems();
+
+			Assert.assertEquals(
+				formRecords2.toString(), 1, formRecords2.size());
+
+			Page<FormRecord> page3 = formRecordResource.getFormFormRecordsPage(
+				formId, Pagination.of(1, (int)totalCount + 3));
+
+			assertContains(formRecord1, (List<FormRecord>)page3.getItems());
+			assertContains(formRecord2, (List<FormRecord>)page3.getItems());
+			assertContains(formRecord3, (List<FormRecord>)page3.getItems());
+		}
+	}
+
+	protected FormRecord testGetFormFormRecordsPage_addFormRecord(
+			Long formId, FormRecord formRecord)
+		throws Exception {
+
+		return formRecordResource.postFormFormRecord(formId, formRecord);
+	}
+
+	protected Long testGetFormFormRecordsPage_getFormId() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetFormFormRecordsPage_getIrrelevantFormId()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testGraphQLGetFormFormRecordsPage() throws Exception {
+		Long formId = testGetFormFormRecordsPage_getFormId();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"formFormRecords",
+			new HashMap<String, Object>() {
+				{
+					put("formId", formId);
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		// No namespace
+
+		JSONObject formFormRecordsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/formFormRecords");
+
+		long totalCount = formFormRecordsJSONObject.getLong("totalCount");
+
+		FormRecord formRecord1 = testGraphQLFormFormRecord_addFormRecord(
+			formId, randomFormRecord());
+
+		FormRecord formRecord2 = testGraphQLFormFormRecord_addFormRecord(
+			formId, randomFormRecord());
+
+		formFormRecordsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/formFormRecords");
+
+		Assert.assertEquals(
+			totalCount + 2, formFormRecordsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			formRecord1,
+			Arrays.asList(
+				FormRecordSerDes.toDTOs(
+					formFormRecordsJSONObject.getString("items"))));
+		assertContains(
+			formRecord2,
+			Arrays.asList(
+				FormRecordSerDes.toDTOs(
+					formFormRecordsJSONObject.getString("items"))));
+
+		// Using the namespace headlessForm_v1_0
+
+		formFormRecordsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField("headlessForm_v1_0", graphQLField)),
+			"JSONObject/data", "JSONObject/headlessForm_v1_0",
+			"JSONObject/formFormRecords");
+
+		Assert.assertEquals(
+			totalCount + 2, formFormRecordsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			formRecord1,
+			Arrays.asList(
+				FormRecordSerDes.toDTOs(
+					formFormRecordsJSONObject.getString("items"))));
+		assertContains(
+			formRecord2,
+			Arrays.asList(
+				FormRecordSerDes.toDTOs(
+					formFormRecordsJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -497,6 +867,44 @@ public abstract class BaseFormRecordResourceTestCase {
 	}
 
 	@Test
+	public void testPostFormFormRecord() throws Exception {
+		FormRecord randomFormRecord = randomFormRecord();
+
+		FormRecord postFormRecord = testPostFormFormRecord_addFormRecord(
+			randomFormRecord);
+
+		assertEquals(randomFormRecord, postFormRecord);
+		assertValid(postFormRecord);
+	}
+
+	protected FormRecord testPostFormFormRecord_addFormRecord(
+			FormRecord formRecord)
+		throws Exception {
+
+		return formRecordResource.postFormFormRecord(
+			testGetFormFormRecordsPage_getFormId(), formRecord);
+	}
+
+	@Test
+	public void testGraphQLPostFormFormRecord() throws Exception {
+		FormRecord randomFormRecord = randomFormRecord();
+
+		FormRecord formRecord = testGraphQLFormFormRecord_addFormRecord(
+			testGraphQLPostFormFormRecord_getFormId(randomFormRecord),
+			randomFormRecord);
+
+		Assert.assertTrue(equals(randomFormRecord, formRecord));
+	}
+
+	protected Long testGraphQLPostFormFormRecord_getFormId(
+			FormRecord formRecord)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testPutFormRecord() throws Exception {
 		FormRecord postFormRecord = testPutFormRecord_addFormRecord();
 
@@ -521,317 +929,8 @@ public abstract class BaseFormRecordResourceTestCase {
 	}
 
 	@Test
-	public void testGetFormFormRecordsPage() throws Exception {
-		Long formId = testGetFormFormRecordsPage_getFormId();
-		Long irrelevantFormId =
-			testGetFormFormRecordsPage_getIrrelevantFormId();
-
-		Page<FormRecord> page = formRecordResource.getFormFormRecordsPage(
-			formId, Pagination.of(1, 10));
-
-		long totalCount = page.getTotalCount();
-
-		if (irrelevantFormId != null) {
-			FormRecord irrelevantFormRecord =
-				testGetFormFormRecordsPage_addFormRecord(
-					irrelevantFormId, randomIrrelevantFormRecord());
-
-			page = formRecordResource.getFormFormRecordsPage(
-				irrelevantFormId, Pagination.of(1, (int)totalCount + 1));
-
-			Assert.assertEquals(totalCount + 1, page.getTotalCount());
-
-			assertContains(
-				irrelevantFormRecord, (List<FormRecord>)page.getItems());
-			assertValid(
-				page,
-				testGetFormFormRecordsPage_getExpectedActions(
-					irrelevantFormId));
-		}
-
-		FormRecord formRecord1 = testGetFormFormRecordsPage_addFormRecord(
-			formId, randomFormRecord());
-
-		FormRecord formRecord2 = testGetFormFormRecordsPage_addFormRecord(
-			formId, randomFormRecord());
-
-		page = formRecordResource.getFormFormRecordsPage(
-			formId, Pagination.of(1, 10));
-
-		Assert.assertEquals(totalCount + 2, page.getTotalCount());
-
-		assertContains(formRecord1, (List<FormRecord>)page.getItems());
-		assertContains(formRecord2, (List<FormRecord>)page.getItems());
-		assertValid(
-			page, testGetFormFormRecordsPage_getExpectedActions(formId));
-	}
-
-	protected Map<String, Map<String, String>>
-			testGetFormFormRecordsPage_getExpectedActions(Long formId)
-		throws Exception {
-
-		Map<String, Map<String, String>> expectedActions = new HashMap<>();
-
-		Map createBatchAction = new HashMap<>();
-		createBatchAction.put("method", "POST");
-		createBatchAction.put(
-			"href",
-			"http://localhost:8080/o/headless-form/v1.0/forms/{formId}/form-records/batch".
-				replace("{formId}", String.valueOf(formId)));
-
-		expectedActions.put("createBatch", createBatchAction);
-
-		return expectedActions;
-	}
-
-	@Test
-	public void testGetFormFormRecordsPageWithPagination() throws Exception {
-		Long formId = testGetFormFormRecordsPage_getFormId();
-
-		Page<FormRecord> formRecordPage =
-			formRecordResource.getFormFormRecordsPage(formId, null);
-
-		int totalCount = GetterUtil.getInteger(formRecordPage.getTotalCount());
-
-		FormRecord formRecord1 = testGetFormFormRecordsPage_addFormRecord(
-			formId, randomFormRecord());
-
-		FormRecord formRecord2 = testGetFormFormRecordsPage_addFormRecord(
-			formId, randomFormRecord());
-
-		FormRecord formRecord3 = testGetFormFormRecordsPage_addFormRecord(
-			formId, randomFormRecord());
-
-		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
-
-		int pageSizeLimit = 500;
-
-		if (totalCount >= (pageSizeLimit - 2)) {
-			Page<FormRecord> page1 = formRecordResource.getFormFormRecordsPage(
-				formId,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
-					pageSizeLimit));
-
-			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
-
-			assertContains(formRecord1, (List<FormRecord>)page1.getItems());
-
-			Page<FormRecord> page2 = formRecordResource.getFormFormRecordsPage(
-				formId,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
-					pageSizeLimit));
-
-			assertContains(formRecord2, (List<FormRecord>)page2.getItems());
-
-			Page<FormRecord> page3 = formRecordResource.getFormFormRecordsPage(
-				formId,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
-					pageSizeLimit));
-
-			assertContains(formRecord3, (List<FormRecord>)page3.getItems());
-		}
-		else {
-			Page<FormRecord> page1 = formRecordResource.getFormFormRecordsPage(
-				formId, Pagination.of(1, totalCount + 2));
-
-			List<FormRecord> formRecords1 = (List<FormRecord>)page1.getItems();
-
-			Assert.assertEquals(
-				formRecords1.toString(), totalCount + 2, formRecords1.size());
-
-			Page<FormRecord> page2 = formRecordResource.getFormFormRecordsPage(
-				formId, Pagination.of(2, totalCount + 2));
-
-			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
-
-			List<FormRecord> formRecords2 = (List<FormRecord>)page2.getItems();
-
-			Assert.assertEquals(
-				formRecords2.toString(), 1, formRecords2.size());
-
-			Page<FormRecord> page3 = formRecordResource.getFormFormRecordsPage(
-				formId, Pagination.of(1, (int)totalCount + 3));
-
-			assertContains(formRecord1, (List<FormRecord>)page3.getItems());
-			assertContains(formRecord2, (List<FormRecord>)page3.getItems());
-			assertContains(formRecord3, (List<FormRecord>)page3.getItems());
-		}
-	}
-
-	protected FormRecord testGetFormFormRecordsPage_addFormRecord(
-			Long formId, FormRecord formRecord)
-		throws Exception {
-
-		return formRecordResource.postFormFormRecord(formId, formRecord);
-	}
-
-	protected Long testGetFormFormRecordsPage_getFormId() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected Long testGetFormFormRecordsPage_getIrrelevantFormId()
-		throws Exception {
-
-		return null;
-	}
-
-	@Test
-	public void testPostFormFormRecord() throws Exception {
-		FormRecord randomFormRecord = randomFormRecord();
-
-		FormRecord postFormRecord = testPostFormFormRecord_addFormRecord(
-			randomFormRecord);
-
-		assertEquals(randomFormRecord, postFormRecord);
-		assertValid(postFormRecord);
-	}
-
-	protected FormRecord testPostFormFormRecord_addFormRecord(
-			FormRecord formRecord)
-		throws Exception {
-
-		return formRecordResource.postFormFormRecord(
-			testGetFormFormRecordsPage_getFormId(), formRecord);
-	}
-
-	@Test
-	public void testGetFormFormRecordByLatestDraft() throws Exception {
-		FormRecord postFormRecord =
-			testGetFormFormRecordByLatestDraft_addFormRecord();
-
-		FormRecord getFormRecord =
-			formRecordResource.getFormFormRecordByLatestDraft(
-				testGetFormFormRecordByLatestDraft_getFormId(postFormRecord));
-
-		assertEquals(postFormRecord, getFormRecord);
-		assertValid(getFormRecord);
-	}
-
-	protected Long testGetFormFormRecordByLatestDraft_getFormId(
-			FormRecord formRecord)
-		throws Exception {
-
-		return formRecord.getFormId();
-	}
-
-	protected FormRecord testGetFormFormRecordByLatestDraft_addFormRecord()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetFormFormRecordByLatestDraft() throws Exception {
-		FormRecord formRecord =
-			testGraphQLGetFormFormRecordByLatestDraft_addFormRecord();
-
-		// No namespace
-
-		Assert.assertTrue(
-			equals(
-				formRecord,
-				FormRecordSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"formFormRecordByLatestDraft",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"formId",
-											testGraphQLGetFormFormRecordByLatestDraft_getFormId(
-												formRecord));
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/formFormRecordByLatestDraft"))));
-
-		// Using the namespace headlessForm_v1_0
-
-		Assert.assertTrue(
-			equals(
-				formRecord,
-				FormRecordSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"headlessForm_v1_0",
-								new GraphQLField(
-									"formFormRecordByLatestDraft",
-									new HashMap<String, Object>() {
-										{
-											put(
-												"formId",
-												testGraphQLGetFormFormRecordByLatestDraft_getFormId(
-													formRecord));
-										}
-									},
-									getGraphQLFields()))),
-						"JSONObject/data", "JSONObject/headlessForm_v1_0",
-						"Object/formFormRecordByLatestDraft"))));
-	}
-
-	protected Long testGraphQLGetFormFormRecordByLatestDraft_getFormId(
-			FormRecord formRecord)
-		throws Exception {
-
-		return formRecord.getFormId();
-	}
-
-	@Test
-	public void testGraphQLGetFormFormRecordByLatestDraftNotFound()
-		throws Exception {
-
-		Long irrelevantFormId = RandomTestUtil.randomLong();
-
-		// No namespace
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"formFormRecordByLatestDraft",
-						new HashMap<String, Object>() {
-							{
-								put("formId", irrelevantFormId);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-
-		// Using the namespace headlessForm_v1_0
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"headlessForm_v1_0",
-						new GraphQLField(
-							"formFormRecordByLatestDraft",
-							new HashMap<String, Object>() {
-								{
-									put("formId", irrelevantFormId);
-								}
-							},
-							getGraphQLFields()))),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected FormRecord
-			testGraphQLGetFormFormRecordByLatestDraft_addFormRecord()
-		throws Exception {
-
-		return testGraphQLFormRecord_addFormRecord();
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	protected FormRecord testGraphQLFormRecord_addFormRecord()
@@ -839,6 +938,128 @@ public abstract class BaseFormRecordResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected FormRecord testGraphQLFormFormRecord_addFormRecord()
+		throws Exception {
+
+		return testGraphQLFormFormRecord_addFormRecord(
+			testGraphQLFormFormRecord_getFormId(), randomFormRecord());
+	}
+
+	protected Long testGraphQLFormFormRecord_getFormId() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected FormRecord testGraphQLFormFormRecord_addFormRecord(
+			Long formId, FormRecord formRecord)
+		throws Exception {
+
+		JSONDeserializer<FormRecord> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field :
+				getDeclaredFields(FormRecord.class)) {
+
+			if (getGraphQLValue(field.get(formRecord)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(formRecord)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createFormFormRecord",
+						new HashMap<String, Object>() {
+							{
+								put("formId", formId);
+								put("formRecord", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createFormFormRecord"),
+			FormRecord.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(
@@ -1023,6 +1244,8 @@ public abstract class BaseFormRecordResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

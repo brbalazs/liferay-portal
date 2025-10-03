@@ -18,29 +18,31 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.JavaConstants;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.template.react.renderer.ComponentDescriptor;
 import com.liferay.portal.template.react.renderer.ReactRenderer;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.taglib.util.AttributesTagSupport;
+
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletURL;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.jsp.JspException;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.PageContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletURL;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
 
 /**
  * @author Marko Cikos
@@ -89,6 +91,10 @@ public class BaseDisplayTag extends AttributesTagSupport {
 		return _additionalProps;
 	}
 
+	public List<Object> getDefaultSelectedItems() {
+		return _defaultSelectedItems;
+	}
+
 	public Map<String, Object> getEmptyState() {
 		return _emptyState;
 	}
@@ -110,7 +116,7 @@ public class BaseDisplayTag extends AttributesTagSupport {
 
 		PortletResponse portletResponse =
 			(PortletResponse)httpServletRequest.getAttribute(
-				JavaConstants.JAVAX_PORTLET_RESPONSE);
+				JavaConstants.JAKARTA_PORTLET_RESPONSE);
 
 		if (portletResponse != null) {
 			_namespace = portletResponse.getNamespace();
@@ -131,16 +137,16 @@ public class BaseDisplayTag extends AttributesTagSupport {
 		return _randomNamespace;
 	}
 
-	public List<Object> getSelectedItems() {
-		return _selectedItems;
-	}
-
 	public boolean getUniformActionsDisplay() {
 		return _uniformActionsDisplay;
 	}
 
 	public void setAdditionalProps(Map<String, Object> additionalProps) {
 		_additionalProps = additionalProps;
+	}
+
+	public void setDefaultSelectedItems(List<Object> defaultSelectedItems) {
+		_defaultSelectedItems = defaultSelectedItems;
 	}
 
 	public void setEmptyState(Map<String, Object> emptyState) {
@@ -192,16 +198,13 @@ public class BaseDisplayTag extends AttributesTagSupport {
 		_randomNamespace = randomNamespace;
 	}
 
-	public void setSelectedItems(List<Object> selectedItems) {
-		_selectedItems = selectedItems;
-	}
-
 	public void setUniformActionsDisplay(boolean uniformActionsDisplay) {
 		_uniformActionsDisplay = uniformActionsDisplay;
 	}
 
 	protected void cleanUp() {
 		_additionalProps = null;
+		_defaultSelectedItems = null;
 		_emptyState = null;
 		_fdsPaginationEntries = null;
 		_id = null;
@@ -212,7 +215,6 @@ public class BaseDisplayTag extends AttributesTagSupport {
 		_propsTransformer = null;
 		_propsTransformerServletContext = null;
 		_randomNamespace = null;
-		_selectedItems = null;
 		_uniformActionsDisplay = false;
 		_viewsJSONArray = null;
 		fdsSerializer = null;
@@ -249,6 +251,8 @@ public class BaseDisplayTag extends AttributesTagSupport {
 		).put(
 			"customViews", _getCustomViews()
 		).put(
+			"defaultSelectedItems", _defaultSelectedItems
+		).put(
 			"emptyState", _emptyState
 		).put(
 			"namespace", getNamespace()
@@ -261,8 +265,6 @@ public class BaseDisplayTag extends AttributesTagSupport {
 			).put(
 				"initialPageNumber", _pageNumber
 			).build()
-		).put(
-			"selectedItems", _selectedItems
 		).put(
 			"uniformActionsDisplay", getUniformActionsDisplay()
 		).put(
@@ -293,7 +295,15 @@ public class BaseDisplayTag extends AttributesTagSupport {
 			}
 		}
 
-		if (FeatureFlagManagerUtil.isEnabled("LPD-37531")) {
+		HttpServletRequest httpServletRequest = getRequest();
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
+
+		if (FeatureFlagManagerUtil.isEnabled(
+				themeDisplay.getCompanyId(), "LPS-164563")) {
+
 			FDSRenderer fdsRenderer = ServicesProvider.getFDSRenderer();
 
 			fdsRenderer.render(
@@ -342,6 +352,7 @@ public class BaseDisplayTag extends AttributesTagSupport {
 	private static final Log _log = LogFactoryUtil.getLog(BaseDisplayTag.class);
 
 	private Map<String, Object> _additionalProps;
+	private List<Object> _defaultSelectedItems;
 	private Map<String, Object> _emptyState;
 	private List<FDSPaginationEntry> _fdsPaginationEntries;
 	private String _id;
@@ -352,7 +363,6 @@ public class BaseDisplayTag extends AttributesTagSupport {
 	private String _propsTransformer;
 	private ServletContext _propsTransformerServletContext;
 	private String _randomNamespace;
-	private List<Object> _selectedItems;
 	private boolean _uniformActionsDisplay;
 	private JSONArray _viewsJSONArray;
 

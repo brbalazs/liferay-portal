@@ -19,12 +19,16 @@ import com.liferay.headless.admin.list.type.client.pagination.Page;
 import com.liferay.headless.admin.list.type.client.pagination.Pagination;
 import com.liferay.headless.admin.list.type.client.resource.v1_0.ListTypeDefinitionResource;
 import com.liferay.headless.admin.list.type.client.serdes.v1_0.ListTypeDefinitionSerDes;
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.oauth2.provider.scope.ScopeChecker;
 import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -40,9 +44,11 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -51,11 +57,20 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -74,16 +89,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -130,6 +136,16 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 			testCompany.getCompanyId());
 
 		listTypeDefinitionResource = ListTypeDefinitionResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		importTaskResource = ImportTaskResource.builder(
 		).authentication(
 			_testCompanyAdminUser.getEmailAddress(),
 			PropsValues.DEFAULT_ADMIN_PASSWORD
@@ -214,718 +230,6 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 	}
 
 	@Test
-	public void testGetListTypeDefinitionsPage() throws Exception {
-		Page<ListTypeDefinition> page =
-			listTypeDefinitionResource.getListTypeDefinitionsPage(
-				null, null, null, Pagination.of(1, 10), null);
-
-		long totalCount = page.getTotalCount();
-
-		ListTypeDefinition listTypeDefinition1 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				randomListTypeDefinition());
-
-		ListTypeDefinition listTypeDefinition2 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				randomListTypeDefinition());
-
-		page = listTypeDefinitionResource.getListTypeDefinitionsPage(
-			null, null, null, Pagination.of(1, 10), null);
-
-		Assert.assertEquals(totalCount + 2, page.getTotalCount());
-
-		assertContains(
-			listTypeDefinition1, (List<ListTypeDefinition>)page.getItems());
-		assertContains(
-			listTypeDefinition2, (List<ListTypeDefinition>)page.getItems());
-		assertValid(page, testGetListTypeDefinitionsPage_getExpectedActions());
-
-		listTypeDefinitionResource.deleteListTypeDefinition(
-			listTypeDefinition1.getId());
-
-		listTypeDefinitionResource.deleteListTypeDefinition(
-			listTypeDefinition2.getId());
-	}
-
-	protected Map<String, Map<String, String>>
-			testGetListTypeDefinitionsPage_getExpectedActions()
-		throws Exception {
-
-		Map<String, Map<String, String>> expectedActions = new HashMap<>();
-
-		return expectedActions;
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithFilterDateTimeEquals()
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(
-			EntityField.Type.DATE_TIME);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		ListTypeDefinition listTypeDefinition1 = randomListTypeDefinition();
-
-		listTypeDefinition1 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				listTypeDefinition1);
-
-		for (EntityField entityField : entityFields) {
-			Page<ListTypeDefinition> page =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null,
-					getFilterString(
-						entityField, "between", listTypeDefinition1),
-					Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(listTypeDefinition1),
-				(List<ListTypeDefinition>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithFilterDoubleEquals()
-		throws Exception {
-
-		testGetListTypeDefinitionsPageWithFilter("eq", EntityField.Type.DOUBLE);
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithFilterStringContains()
-		throws Exception {
-
-		testGetListTypeDefinitionsPageWithFilter(
-			"contains", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithFilterStringEquals()
-		throws Exception {
-
-		testGetListTypeDefinitionsPageWithFilter("eq", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithFilterStringStartsWith()
-		throws Exception {
-
-		testGetListTypeDefinitionsPageWithFilter(
-			"startswith", EntityField.Type.STRING);
-	}
-
-	protected void testGetListTypeDefinitionsPageWithFilter(
-			String operator, EntityField.Type type)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		ListTypeDefinition listTypeDefinition1 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				randomListTypeDefinition());
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		ListTypeDefinition listTypeDefinition2 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				randomListTypeDefinition());
-
-		for (EntityField entityField : entityFields) {
-			Page<ListTypeDefinition> page =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null,
-					getFilterString(entityField, operator, listTypeDefinition1),
-					Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(listTypeDefinition1),
-				(List<ListTypeDefinition>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithPagination()
-		throws Exception {
-
-		Page<ListTypeDefinition> listTypeDefinitionPage =
-			listTypeDefinitionResource.getListTypeDefinitionsPage(
-				null, null, null, null, null);
-
-		int totalCount = GetterUtil.getInteger(
-			listTypeDefinitionPage.getTotalCount());
-
-		ListTypeDefinition listTypeDefinition1 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				randomListTypeDefinition());
-
-		ListTypeDefinition listTypeDefinition2 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				randomListTypeDefinition());
-
-		ListTypeDefinition listTypeDefinition3 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				randomListTypeDefinition());
-
-		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
-
-		int pageSizeLimit = 500;
-
-		if (totalCount >= (pageSizeLimit - 2)) {
-			Page<ListTypeDefinition> page1 =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null, null,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
-
-			assertContains(
-				listTypeDefinition1,
-				(List<ListTypeDefinition>)page1.getItems());
-
-			Page<ListTypeDefinition> page2 =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null, null,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			assertContains(
-				listTypeDefinition2,
-				(List<ListTypeDefinition>)page2.getItems());
-
-			Page<ListTypeDefinition> page3 =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null, null,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			assertContains(
-				listTypeDefinition3,
-				(List<ListTypeDefinition>)page3.getItems());
-		}
-		else {
-			Page<ListTypeDefinition> page1 =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null, null, Pagination.of(1, totalCount + 2), null);
-
-			List<ListTypeDefinition> listTypeDefinitions1 =
-				(List<ListTypeDefinition>)page1.getItems();
-
-			Assert.assertEquals(
-				listTypeDefinitions1.toString(), totalCount + 2,
-				listTypeDefinitions1.size());
-
-			Page<ListTypeDefinition> page2 =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null, null, Pagination.of(2, totalCount + 2), null);
-
-			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
-
-			List<ListTypeDefinition> listTypeDefinitions2 =
-				(List<ListTypeDefinition>)page2.getItems();
-
-			Assert.assertEquals(
-				listTypeDefinitions2.toString(), 1,
-				listTypeDefinitions2.size());
-
-			Page<ListTypeDefinition> page3 =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null, null, Pagination.of(1, (int)totalCount + 3),
-					null);
-
-			assertContains(
-				listTypeDefinition1,
-				(List<ListTypeDefinition>)page3.getItems());
-			assertContains(
-				listTypeDefinition2,
-				(List<ListTypeDefinition>)page3.getItems());
-			assertContains(
-				listTypeDefinition3,
-				(List<ListTypeDefinition>)page3.getItems());
-		}
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithSortDateTime()
-		throws Exception {
-
-		testGetListTypeDefinitionsPageWithSort(
-			EntityField.Type.DATE_TIME,
-			(entityField, listTypeDefinition1, listTypeDefinition2) -> {
-				BeanTestUtil.setProperty(
-					listTypeDefinition1, entityField.getName(),
-					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
-			});
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithSortDouble()
-		throws Exception {
-
-		testGetListTypeDefinitionsPageWithSort(
-			EntityField.Type.DOUBLE,
-			(entityField, listTypeDefinition1, listTypeDefinition2) -> {
-				BeanTestUtil.setProperty(
-					listTypeDefinition1, entityField.getName(), 0.1);
-				BeanTestUtil.setProperty(
-					listTypeDefinition2, entityField.getName(), 0.5);
-			});
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithSortInteger()
-		throws Exception {
-
-		testGetListTypeDefinitionsPageWithSort(
-			EntityField.Type.INTEGER,
-			(entityField, listTypeDefinition1, listTypeDefinition2) -> {
-				BeanTestUtil.setProperty(
-					listTypeDefinition1, entityField.getName(), 0);
-				BeanTestUtil.setProperty(
-					listTypeDefinition2, entityField.getName(), 1);
-			});
-	}
-
-	@Test
-	public void testGetListTypeDefinitionsPageWithSortString()
-		throws Exception {
-
-		testGetListTypeDefinitionsPageWithSort(
-			EntityField.Type.STRING,
-			(entityField, listTypeDefinition1, listTypeDefinition2) -> {
-				Class<?> clazz = listTypeDefinition1.getClass();
-
-				String entityFieldName = entityField.getName();
-
-				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
-
-				Class<?> returnType = method.getReturnType();
-
-				if (returnType.isAssignableFrom(Map.class)) {
-					BeanTestUtil.setProperty(
-						listTypeDefinition1, entityFieldName,
-						Collections.singletonMap("Aaa", "Aaa"));
-					BeanTestUtil.setProperty(
-						listTypeDefinition2, entityFieldName,
-						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanTestUtil.setProperty(
-						listTypeDefinition1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanTestUtil.setProperty(
-						listTypeDefinition2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-				}
-				else {
-					BeanTestUtil.setProperty(
-						listTypeDefinition1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-					BeanTestUtil.setProperty(
-						listTypeDefinition2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-				}
-			});
-	}
-
-	protected void testGetListTypeDefinitionsPageWithSort(
-			EntityField.Type type,
-			UnsafeTriConsumer
-				<EntityField, ListTypeDefinition, ListTypeDefinition, Exception>
-					unsafeTriConsumer)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		ListTypeDefinition listTypeDefinition1 = randomListTypeDefinition();
-		ListTypeDefinition listTypeDefinition2 = randomListTypeDefinition();
-
-		for (EntityField entityField : entityFields) {
-			unsafeTriConsumer.accept(
-				entityField, listTypeDefinition1, listTypeDefinition2);
-		}
-
-		listTypeDefinition1 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				listTypeDefinition1);
-
-		listTypeDefinition2 =
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				listTypeDefinition2);
-
-		Page<ListTypeDefinition> page =
-			listTypeDefinitionResource.getListTypeDefinitionsPage(
-				null, null, null, null, null);
-
-		for (EntityField entityField : entityFields) {
-			Page<ListTypeDefinition> ascPage =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null, null,
-					Pagination.of(1, (int)page.getTotalCount() + 1),
-					entityField.getName() + ":asc");
-
-			assertContains(
-				listTypeDefinition1,
-				(List<ListTypeDefinition>)ascPage.getItems());
-			assertContains(
-				listTypeDefinition2,
-				(List<ListTypeDefinition>)ascPage.getItems());
-
-			Page<ListTypeDefinition> descPage =
-				listTypeDefinitionResource.getListTypeDefinitionsPage(
-					null, null, null,
-					Pagination.of(1, (int)page.getTotalCount() + 1),
-					entityField.getName() + ":desc");
-
-			assertContains(
-				listTypeDefinition2,
-				(List<ListTypeDefinition>)descPage.getItems());
-			assertContains(
-				listTypeDefinition1,
-				(List<ListTypeDefinition>)descPage.getItems());
-		}
-	}
-
-	protected ListTypeDefinition
-			testGetListTypeDefinitionsPage_addListTypeDefinition(
-				ListTypeDefinition listTypeDefinition)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetListTypeDefinitionsPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"listTypeDefinitions",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 10);
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
-		// No namespace
-
-		JSONObject listTypeDefinitionsJSONObject =
-			JSONUtil.getValueAsJSONObject(
-				invokeGraphQLQuery(graphQLField), "JSONObject/data",
-				"JSONObject/listTypeDefinitions");
-
-		long totalCount = listTypeDefinitionsJSONObject.getLong("totalCount");
-
-		ListTypeDefinition listTypeDefinition1 =
-			testGraphQLGetListTypeDefinitionsPage_addListTypeDefinition();
-		ListTypeDefinition listTypeDefinition2 =
-			testGraphQLGetListTypeDefinitionsPage_addListTypeDefinition();
-
-		listTypeDefinitionsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/listTypeDefinitions");
-
-		Assert.assertEquals(
-			totalCount + 2,
-			listTypeDefinitionsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			listTypeDefinition1,
-			Arrays.asList(
-				ListTypeDefinitionSerDes.toDTOs(
-					listTypeDefinitionsJSONObject.getString("items"))));
-		assertContains(
-			listTypeDefinition2,
-			Arrays.asList(
-				ListTypeDefinitionSerDes.toDTOs(
-					listTypeDefinitionsJSONObject.getString("items"))));
-
-		// Using the namespace headlessAdminListType_v1_0
-
-		listTypeDefinitionsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(
-				new GraphQLField("headlessAdminListType_v1_0", graphQLField)),
-			"JSONObject/data", "JSONObject/headlessAdminListType_v1_0",
-			"JSONObject/listTypeDefinitions");
-
-		Assert.assertEquals(
-			totalCount + 2,
-			listTypeDefinitionsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			listTypeDefinition1,
-			Arrays.asList(
-				ListTypeDefinitionSerDes.toDTOs(
-					listTypeDefinitionsJSONObject.getString("items"))));
-		assertContains(
-			listTypeDefinition2,
-			Arrays.asList(
-				ListTypeDefinitionSerDes.toDTOs(
-					listTypeDefinitionsJSONObject.getString("items"))));
-	}
-
-	protected ListTypeDefinition
-			testGraphQLGetListTypeDefinitionsPage_addListTypeDefinition()
-		throws Exception {
-
-		return testGraphQLListTypeDefinition_addListTypeDefinition();
-	}
-
-	@Test
-	public void testPostListTypeDefinition() throws Exception {
-		ListTypeDefinition randomListTypeDefinition =
-			randomListTypeDefinition();
-
-		ListTypeDefinition postListTypeDefinition =
-			testPostListTypeDefinition_addListTypeDefinition(
-				randomListTypeDefinition);
-
-		assertEquals(randomListTypeDefinition, postListTypeDefinition);
-		assertValid(postListTypeDefinition);
-	}
-
-	protected ListTypeDefinition
-			testPostListTypeDefinition_addListTypeDefinition(
-				ListTypeDefinition listTypeDefinition)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGetListTypeDefinitionByExternalReferenceCode()
-		throws Exception {
-
-		ListTypeDefinition postListTypeDefinition =
-			testGetListTypeDefinitionByExternalReferenceCode_addListTypeDefinition();
-
-		ListTypeDefinition getListTypeDefinition =
-			listTypeDefinitionResource.
-				getListTypeDefinitionByExternalReferenceCode(
-					postListTypeDefinition.getExternalReferenceCode());
-
-		assertEquals(postListTypeDefinition, getListTypeDefinition);
-		assertValid(getListTypeDefinition);
-	}
-
-	protected ListTypeDefinition
-			testGetListTypeDefinitionByExternalReferenceCode_addListTypeDefinition()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetListTypeDefinitionByExternalReferenceCode()
-		throws Exception {
-
-		ListTypeDefinition listTypeDefinition =
-			testGraphQLGetListTypeDefinitionByExternalReferenceCode_addListTypeDefinition();
-
-		// No namespace
-
-		Assert.assertTrue(
-			equals(
-				listTypeDefinition,
-				ListTypeDefinitionSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"listTypeDefinitionByExternalReferenceCode",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"externalReferenceCode",
-											"\"" +
-												listTypeDefinition.
-													getExternalReferenceCode() +
-														"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/listTypeDefinitionByExternalReferenceCode"))));
-
-		// Using the namespace headlessAdminListType_v1_0
-
-		Assert.assertTrue(
-			equals(
-				listTypeDefinition,
-				ListTypeDefinitionSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"headlessAdminListType_v1_0",
-								new GraphQLField(
-									"listTypeDefinitionByExternalReferenceCode",
-									new HashMap<String, Object>() {
-										{
-											put(
-												"externalReferenceCode",
-												"\"" +
-													listTypeDefinition.
-														getExternalReferenceCode() +
-															"\"");
-										}
-									},
-									getGraphQLFields()))),
-						"JSONObject/data",
-						"JSONObject/headlessAdminListType_v1_0",
-						"Object/listTypeDefinitionByExternalReferenceCode"))));
-	}
-
-	@Test
-	public void testGraphQLGetListTypeDefinitionByExternalReferenceCodeNotFound()
-		throws Exception {
-
-		String irrelevantExternalReferenceCode =
-			"\"" + RandomTestUtil.randomString() + "\"";
-
-		// No namespace
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"listTypeDefinitionByExternalReferenceCode",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-
-		// Using the namespace headlessAdminListType_v1_0
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"headlessAdminListType_v1_0",
-						new GraphQLField(
-							"listTypeDefinitionByExternalReferenceCode",
-							new HashMap<String, Object>() {
-								{
-									put(
-										"externalReferenceCode",
-										irrelevantExternalReferenceCode);
-								}
-							},
-							getGraphQLFields()))),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected ListTypeDefinition
-			testGraphQLGetListTypeDefinitionByExternalReferenceCode_addListTypeDefinition()
-		throws Exception {
-
-		return testGraphQLListTypeDefinition_addListTypeDefinition();
-	}
-
-	@Test
-	public void testPutListTypeDefinitionByExternalReferenceCode()
-		throws Exception {
-
-		ListTypeDefinition postListTypeDefinition =
-			testPutListTypeDefinitionByExternalReferenceCode_addListTypeDefinition();
-
-		ListTypeDefinition randomListTypeDefinition =
-			randomListTypeDefinition();
-
-		ListTypeDefinition putListTypeDefinition =
-			listTypeDefinitionResource.
-				putListTypeDefinitionByExternalReferenceCode(
-					postListTypeDefinition.getExternalReferenceCode(),
-					randomListTypeDefinition);
-
-		assertEquals(randomListTypeDefinition, putListTypeDefinition);
-		assertValid(putListTypeDefinition);
-
-		ListTypeDefinition getListTypeDefinition =
-			listTypeDefinitionResource.
-				getListTypeDefinitionByExternalReferenceCode(
-					putListTypeDefinition.getExternalReferenceCode());
-
-		assertEquals(randomListTypeDefinition, getListTypeDefinition);
-		assertValid(getListTypeDefinition);
-
-		ListTypeDefinition newListTypeDefinition =
-			testPutListTypeDefinitionByExternalReferenceCode_createListTypeDefinition();
-
-		putListTypeDefinition =
-			listTypeDefinitionResource.
-				putListTypeDefinitionByExternalReferenceCode(
-					newListTypeDefinition.getExternalReferenceCode(),
-					newListTypeDefinition);
-
-		assertEquals(newListTypeDefinition, putListTypeDefinition);
-		assertValid(putListTypeDefinition);
-
-		getListTypeDefinition =
-			listTypeDefinitionResource.
-				getListTypeDefinitionByExternalReferenceCode(
-					putListTypeDefinition.getExternalReferenceCode());
-
-		assertEquals(newListTypeDefinition, getListTypeDefinition);
-
-		Assert.assertEquals(
-			newListTypeDefinition.getExternalReferenceCode(),
-			putListTypeDefinition.getExternalReferenceCode());
-	}
-
-	protected ListTypeDefinition
-			testPutListTypeDefinitionByExternalReferenceCode_createListTypeDefinition()
-		throws Exception {
-
-		return randomListTypeDefinition();
-	}
-
-	protected ListTypeDefinition
-			testPutListTypeDefinitionByExternalReferenceCode_addListTypeDefinition()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
 	public void testDeleteListTypeDefinition() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		ListTypeDefinition listTypeDefinition =
@@ -940,7 +244,6 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 			404,
 			listTypeDefinitionResource.getListTypeDefinitionHttpResponse(
 				listTypeDefinition.getId()));
-
 		assertHttpResponseStatusCode(
 			404,
 			listTypeDefinitionResource.getListTypeDefinitionHttpResponse(0L));
@@ -987,7 +290,7 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 								listTypeDefinition1.getId());
 						}
 					},
-					new GraphQLField("id"))),
+					getGraphQLFields())),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray1.length() > 0);
@@ -1027,7 +330,7 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 									listTypeDefinition2.getId());
 							}
 						},
-						new GraphQLField("id")))),
+						getGraphQLFields()))),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray2.length() > 0);
@@ -1038,6 +341,49 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 		throws Exception {
 
 		return testGraphQLListTypeDefinition_addListTypeDefinition();
+	}
+
+	@Test
+	public void testDeleteListTypeDefinitionBatch() throws Exception {
+		ListTypeDefinition listTypeDefinition1 =
+			testDeleteListTypeDefinitionBatch_addListTypeDefinition();
+
+		testDeleteListTypeDefinitionBatch_deleteListTypeDefinition(
+			202, null, listTypeDefinition1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			listTypeDefinitionResource.getListTypeDefinitionHttpResponse(
+				listTypeDefinition1.getId()));
+	}
+
+	protected ListTypeDefinition
+			testDeleteListTypeDefinitionBatch_addListTypeDefinition()
+		throws Exception {
+
+		return testDeleteListTypeDefinition_addListTypeDefinition();
+	}
+
+	protected void testDeleteListTypeDefinitionBatch_deleteListTypeDefinition(
+			int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			listTypeDefinitionResource.
+				deleteListTypeDefinitionBatchHttpResponse(
+					null,
+					JSONUtil.putAll(
+						JSONUtil.put(
+							"externalReferenceCode", () -> externalReferenceCode
+						).put(
+							"id", () -> id
+						)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
 	}
 
 	@Test
@@ -1357,6 +703,627 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 	}
 
 	@Test
+	public void testGetListTypeDefinitionByExternalReferenceCode()
+		throws Exception {
+
+		ListTypeDefinition postListTypeDefinition =
+			testGetListTypeDefinitionByExternalReferenceCode_addListTypeDefinition();
+
+		ListTypeDefinition getListTypeDefinition =
+			listTypeDefinitionResource.
+				getListTypeDefinitionByExternalReferenceCode(
+					postListTypeDefinition.getExternalReferenceCode());
+
+		assertEquals(postListTypeDefinition, getListTypeDefinition);
+		assertValid(getListTypeDefinition);
+	}
+
+	protected ListTypeDefinition
+			testGetListTypeDefinitionByExternalReferenceCode_addListTypeDefinition()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetListTypeDefinitionByExternalReferenceCode()
+		throws Exception {
+
+		ListTypeDefinition listTypeDefinition =
+			testGraphQLGetListTypeDefinitionByExternalReferenceCode_addListTypeDefinition();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				listTypeDefinition,
+				ListTypeDefinitionSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"listTypeDefinitionByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											"\"" +
+												listTypeDefinition.
+													getExternalReferenceCode() +
+														"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/listTypeDefinitionByExternalReferenceCode"))));
+
+		// Using the namespace headlessAdminListType_v1_0
+
+		Assert.assertTrue(
+			equals(
+				listTypeDefinition,
+				ListTypeDefinitionSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"headlessAdminListType_v1_0",
+								new GraphQLField(
+									"listTypeDefinitionByExternalReferenceCode",
+									new HashMap<String, Object>() {
+										{
+											put(
+												"externalReferenceCode",
+												"\"" +
+													listTypeDefinition.
+														getExternalReferenceCode() +
+															"\"");
+										}
+									},
+									getGraphQLFields()))),
+						"JSONObject/data",
+						"JSONObject/headlessAdminListType_v1_0",
+						"Object/listTypeDefinitionByExternalReferenceCode"))));
+	}
+
+	@Test
+	public void testGraphQLGetListTypeDefinitionByExternalReferenceCodeNotFound()
+		throws Exception {
+
+		String irrelevantExternalReferenceCode =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"listTypeDefinitionByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									irrelevantExternalReferenceCode);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace headlessAdminListType_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"headlessAdminListType_v1_0",
+						new GraphQLField(
+							"listTypeDefinitionByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"externalReferenceCode",
+										irrelevantExternalReferenceCode);
+								}
+							},
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected ListTypeDefinition
+			testGraphQLGetListTypeDefinitionByExternalReferenceCode_addListTypeDefinition()
+		throws Exception {
+
+		return testGraphQLListTypeDefinition_addListTypeDefinition();
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPage() throws Exception {
+		Page<ListTypeDefinition> page =
+			listTypeDefinitionResource.getListTypeDefinitionsPage(
+				null, null, null, Pagination.of(1, 10), null);
+
+		long totalCount = page.getTotalCount();
+
+		ListTypeDefinition listTypeDefinition1 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				randomListTypeDefinition());
+
+		ListTypeDefinition listTypeDefinition2 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				randomListTypeDefinition());
+
+		page = listTypeDefinitionResource.getListTypeDefinitionsPage(
+			null, null, null, Pagination.of(1, 10), null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(
+			listTypeDefinition1, (List<ListTypeDefinition>)page.getItems());
+		assertContains(
+			listTypeDefinition2, (List<ListTypeDefinition>)page.getItems());
+		assertValid(page, testGetListTypeDefinitionsPage_getExpectedActions());
+
+		listTypeDefinitionResource.deleteListTypeDefinition(
+			listTypeDefinition1.getId());
+
+		listTypeDefinitionResource.deleteListTypeDefinition(
+			listTypeDefinition2.getId());
+	}
+
+	protected Map<String, Map<String, String>>
+			testGetListTypeDefinitionsPage_getExpectedActions()
+		throws Exception {
+
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
+
+		return expectedActions;
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		ListTypeDefinition listTypeDefinition1 = randomListTypeDefinition();
+
+		listTypeDefinition1 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				listTypeDefinition1);
+
+		for (EntityField entityField : entityFields) {
+			Page<ListTypeDefinition> page =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null,
+					getFilterString(
+						entityField, "between", listTypeDefinition1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(listTypeDefinition1),
+				(List<ListTypeDefinition>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithFilterDoubleEquals()
+		throws Exception {
+
+		testGetListTypeDefinitionsPageWithFilter("eq", EntityField.Type.DOUBLE);
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithFilterStringContains()
+		throws Exception {
+
+		testGetListTypeDefinitionsPageWithFilter(
+			"contains", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithFilterStringEquals()
+		throws Exception {
+
+		testGetListTypeDefinitionsPageWithFilter("eq", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithFilterStringStartsWith()
+		throws Exception {
+
+		testGetListTypeDefinitionsPageWithFilter(
+			"startswith", EntityField.Type.STRING);
+	}
+
+	protected void testGetListTypeDefinitionsPageWithFilter(
+			String operator, EntityField.Type type)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		ListTypeDefinition listTypeDefinition1 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				randomListTypeDefinition());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ListTypeDefinition listTypeDefinition2 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				randomListTypeDefinition());
+
+		for (EntityField entityField : entityFields) {
+			Page<ListTypeDefinition> page =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null,
+					getFilterString(entityField, operator, listTypeDefinition1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(listTypeDefinition1),
+				(List<ListTypeDefinition>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithPagination()
+		throws Exception {
+
+		Page<ListTypeDefinition> listTypeDefinitionsPage =
+			listTypeDefinitionResource.getListTypeDefinitionsPage(
+				null, null, null, null, null);
+
+		int totalCount = GetterUtil.getInteger(
+			listTypeDefinitionsPage.getTotalCount());
+
+		ListTypeDefinition listTypeDefinition1 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				randomListTypeDefinition());
+
+		ListTypeDefinition listTypeDefinition2 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				randomListTypeDefinition());
+
+		ListTypeDefinition listTypeDefinition3 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				randomListTypeDefinition());
+
+		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
+
+		int pageSizeLimit = 500;
+
+		if (totalCount >= (pageSizeLimit - 2)) {
+			Page<ListTypeDefinition> page1 =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null, null,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
+
+			assertContains(
+				listTypeDefinition1,
+				(List<ListTypeDefinition>)page1.getItems());
+
+			Page<ListTypeDefinition> page2 =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null, null,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			assertContains(
+				listTypeDefinition2,
+				(List<ListTypeDefinition>)page2.getItems());
+
+			Page<ListTypeDefinition> page3 =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null, null,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			assertContains(
+				listTypeDefinition3,
+				(List<ListTypeDefinition>)page3.getItems());
+		}
+		else {
+			Page<ListTypeDefinition> page1 =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null, null, Pagination.of(1, totalCount + 2), null);
+
+			List<ListTypeDefinition> listTypeDefinitions1 =
+				(List<ListTypeDefinition>)page1.getItems();
+
+			Assert.assertEquals(
+				listTypeDefinitions1.toString(), totalCount + 2,
+				listTypeDefinitions1.size());
+
+			Page<ListTypeDefinition> page2 =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null, null, Pagination.of(2, totalCount + 2), null);
+
+			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+			List<ListTypeDefinition> listTypeDefinitions2 =
+				(List<ListTypeDefinition>)page2.getItems();
+
+			Assert.assertEquals(
+				listTypeDefinitions2.toString(), 1,
+				listTypeDefinitions2.size());
+
+			Page<ListTypeDefinition> page3 =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null, null, Pagination.of(1, (int)totalCount + 3),
+					null);
+
+			assertContains(
+				listTypeDefinition1,
+				(List<ListTypeDefinition>)page3.getItems());
+			assertContains(
+				listTypeDefinition2,
+				(List<ListTypeDefinition>)page3.getItems());
+			assertContains(
+				listTypeDefinition3,
+				(List<ListTypeDefinition>)page3.getItems());
+		}
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithSortDateTime()
+		throws Exception {
+
+		testGetListTypeDefinitionsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, listTypeDefinition1, listTypeDefinition2) -> {
+				BeanTestUtil.setProperty(
+					listTypeDefinition1, entityField.getName(),
+					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
+			});
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithSortDouble()
+		throws Exception {
+
+		testGetListTypeDefinitionsPageWithSort(
+			EntityField.Type.DOUBLE,
+			(entityField, listTypeDefinition1, listTypeDefinition2) -> {
+				BeanTestUtil.setProperty(
+					listTypeDefinition1, entityField.getName(), 0.1);
+				BeanTestUtil.setProperty(
+					listTypeDefinition2, entityField.getName(), 0.5);
+			});
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithSortInteger()
+		throws Exception {
+
+		testGetListTypeDefinitionsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, listTypeDefinition1, listTypeDefinition2) -> {
+				BeanTestUtil.setProperty(
+					listTypeDefinition1, entityField.getName(), 0);
+				BeanTestUtil.setProperty(
+					listTypeDefinition2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetListTypeDefinitionsPageWithSortString()
+		throws Exception {
+
+		testGetListTypeDefinitionsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, listTypeDefinition1, listTypeDefinition2) -> {
+				Class<?> clazz = listTypeDefinition1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanTestUtil.setProperty(
+						listTypeDefinition1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanTestUtil.setProperty(
+						listTypeDefinition2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanTestUtil.setProperty(
+						listTypeDefinition1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanTestUtil.setProperty(
+						listTypeDefinition2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanTestUtil.setProperty(
+						listTypeDefinition1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanTestUtil.setProperty(
+						listTypeDefinition2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetListTypeDefinitionsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, ListTypeDefinition, ListTypeDefinition, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		ListTypeDefinition listTypeDefinition1 = randomListTypeDefinition();
+		ListTypeDefinition listTypeDefinition2 = randomListTypeDefinition();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, listTypeDefinition1, listTypeDefinition2);
+		}
+
+		listTypeDefinition1 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				listTypeDefinition1);
+
+		listTypeDefinition2 =
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				listTypeDefinition2);
+
+		Page<ListTypeDefinition> page =
+			listTypeDefinitionResource.getListTypeDefinitionsPage(
+				null, null, null, null, null);
+
+		for (EntityField entityField : entityFields) {
+			Page<ListTypeDefinition> ascPage =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null, null,
+					Pagination.of(1, (int)page.getTotalCount() + 1),
+					entityField.getName() + ":asc");
+
+			assertContains(
+				listTypeDefinition1,
+				(List<ListTypeDefinition>)ascPage.getItems());
+			assertContains(
+				listTypeDefinition2,
+				(List<ListTypeDefinition>)ascPage.getItems());
+
+			Page<ListTypeDefinition> descPage =
+				listTypeDefinitionResource.getListTypeDefinitionsPage(
+					null, null, null,
+					Pagination.of(1, (int)page.getTotalCount() + 1),
+					entityField.getName() + ":desc");
+
+			assertContains(
+				listTypeDefinition2,
+				(List<ListTypeDefinition>)descPage.getItems());
+			assertContains(
+				listTypeDefinition1,
+				(List<ListTypeDefinition>)descPage.getItems());
+		}
+	}
+
+	protected ListTypeDefinition
+			testGetListTypeDefinitionsPage_addListTypeDefinition(
+				ListTypeDefinition listTypeDefinition)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetListTypeDefinitionsPage() throws Exception {
+		GraphQLField graphQLField = new GraphQLField(
+			"listTypeDefinitions",
+			new HashMap<String, Object>() {
+				{
+					put("search", null);
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		// No namespace
+
+		JSONObject listTypeDefinitionsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/listTypeDefinitions");
+
+		long totalCount = listTypeDefinitionsJSONObject.getLong("totalCount");
+
+		ListTypeDefinition listTypeDefinition1 =
+			testGraphQLListTypeDefinition_addListTypeDefinition(
+				randomListTypeDefinition());
+
+		ListTypeDefinition listTypeDefinition2 =
+			testGraphQLListTypeDefinition_addListTypeDefinition(
+				randomListTypeDefinition());
+
+		listTypeDefinitionsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/listTypeDefinitions");
+
+		Assert.assertEquals(
+			totalCount + 2,
+			listTypeDefinitionsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			listTypeDefinition1,
+			Arrays.asList(
+				ListTypeDefinitionSerDes.toDTOs(
+					listTypeDefinitionsJSONObject.getString("items"))));
+		assertContains(
+			listTypeDefinition2,
+			Arrays.asList(
+				ListTypeDefinitionSerDes.toDTOs(
+					listTypeDefinitionsJSONObject.getString("items"))));
+
+		// Using the namespace headlessAdminListType_v1_0
+
+		listTypeDefinitionsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField("headlessAdminListType_v1_0", graphQLField)),
+			"JSONObject/data", "JSONObject/headlessAdminListType_v1_0",
+			"JSONObject/listTypeDefinitions");
+
+		Assert.assertEquals(
+			totalCount + 2,
+			listTypeDefinitionsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			listTypeDefinition1,
+			Arrays.asList(
+				ListTypeDefinitionSerDes.toDTOs(
+					listTypeDefinitionsJSONObject.getString("items"))));
+		assertContains(
+			listTypeDefinition2,
+			Arrays.asList(
+				ListTypeDefinitionSerDes.toDTOs(
+					listTypeDefinitionsJSONObject.getString("items"))));
+	}
+
+	@Test
 	public void testPatchListTypeDefinition() throws Exception {
 		ListTypeDefinition postListTypeDefinition =
 			testPatchListTypeDefinition_addListTypeDefinition();
@@ -1392,6 +1359,40 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 	}
 
 	@Test
+	public void testPostListTypeDefinition() throws Exception {
+		ListTypeDefinition randomListTypeDefinition =
+			randomListTypeDefinition();
+
+		ListTypeDefinition postListTypeDefinition =
+			testPostListTypeDefinition_addListTypeDefinition(
+				randomListTypeDefinition);
+
+		assertEquals(randomListTypeDefinition, postListTypeDefinition);
+		assertValid(postListTypeDefinition);
+	}
+
+	protected ListTypeDefinition
+			testPostListTypeDefinition_addListTypeDefinition(
+				ListTypeDefinition listTypeDefinition)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostListTypeDefinition() throws Exception {
+		ListTypeDefinition randomListTypeDefinition =
+			randomListTypeDefinition();
+
+		ListTypeDefinition listTypeDefinition =
+			testGraphQLListTypeDefinition_addListTypeDefinition(
+				randomListTypeDefinition);
+
+		Assert.assertTrue(equals(randomListTypeDefinition, listTypeDefinition));
+	}
+
+	@Test
 	public void testPutListTypeDefinition() throws Exception {
 		ListTypeDefinition postListTypeDefinition =
 			testPutListTypeDefinition_addListTypeDefinition();
@@ -1422,6 +1423,128 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testPutListTypeDefinitionByExternalReferenceCode()
+		throws Exception {
+
+		ListTypeDefinition postListTypeDefinition =
+			testPutListTypeDefinitionByExternalReferenceCode_addListTypeDefinition();
+
+		ListTypeDefinition randomListTypeDefinition =
+			randomListTypeDefinition();
+
+		ListTypeDefinition putListTypeDefinition =
+			listTypeDefinitionResource.
+				putListTypeDefinitionByExternalReferenceCode(
+					postListTypeDefinition.getExternalReferenceCode(),
+					randomListTypeDefinition);
+
+		assertEquals(randomListTypeDefinition, putListTypeDefinition);
+		assertValid(putListTypeDefinition);
+
+		ListTypeDefinition getListTypeDefinition =
+			listTypeDefinitionResource.
+				getListTypeDefinitionByExternalReferenceCode(
+					putListTypeDefinition.getExternalReferenceCode());
+
+		assertEquals(randomListTypeDefinition, getListTypeDefinition);
+		assertValid(getListTypeDefinition);
+
+		ListTypeDefinition newListTypeDefinition =
+			testPutListTypeDefinitionByExternalReferenceCode_createListTypeDefinition();
+
+		putListTypeDefinition =
+			listTypeDefinitionResource.
+				putListTypeDefinitionByExternalReferenceCode(
+					newListTypeDefinition.getExternalReferenceCode(),
+					newListTypeDefinition);
+
+		assertEquals(newListTypeDefinition, putListTypeDefinition);
+		assertValid(putListTypeDefinition);
+
+		getListTypeDefinition =
+			listTypeDefinitionResource.
+				getListTypeDefinitionByExternalReferenceCode(
+					putListTypeDefinition.getExternalReferenceCode());
+
+		assertEquals(newListTypeDefinition, getListTypeDefinition);
+
+		Assert.assertEquals(
+			newListTypeDefinition.getExternalReferenceCode(),
+			putListTypeDefinition.getExternalReferenceCode());
+	}
+
+	protected ListTypeDefinition
+			testPutListTypeDefinitionByExternalReferenceCode_addListTypeDefinition()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected ListTypeDefinition
+			testPutListTypeDefinitionByExternalReferenceCode_createListTypeDefinition()
+		throws Exception {
+
+		return randomListTypeDefinition();
+	}
+
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		ListTypeDefinition listTypeDefinition1 =
+			testBatchEngineDeleteImportTask_addListTypeDefinition();
+
+		testBatchEngineDeleteImportTask_deleteListTypeDefinition(
+			200, null, listTypeDefinition1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			listTypeDefinitionResource.getListTypeDefinitionHttpResponse(
+				listTypeDefinition1.getId()));
+	}
+
+	protected ListTypeDefinition
+			testBatchEngineDeleteImportTask_addListTypeDefinition()
+		throws Exception {
+
+		return testDeleteListTypeDefinition_addListTypeDefinition();
+	}
+
+	protected void testBatchEngineDeleteImportTask_deleteListTypeDefinition(
+			int expectedStatusCode, String externalReferenceCode, Long id,
+			String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.headless.admin.list.type.dto.v1_0.ListTypeDefinition",
+				null, null, null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
@@ -1429,8 +1552,118 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 			testGraphQLListTypeDefinition_addListTypeDefinition()
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return testGraphQLListTypeDefinition_addListTypeDefinition(
+			randomListTypeDefinition());
+	}
+
+	protected ListTypeDefinition
+			testGraphQLListTypeDefinition_addListTypeDefinition(
+				ListTypeDefinition listTypeDefinition)
+		throws Exception {
+
+		JSONDeserializer<ListTypeDefinition> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field :
+				getDeclaredFields(ListTypeDefinition.class)) {
+
+			if (getGraphQLValue(field.get(listTypeDefinition)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(listTypeDefinition)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createListTypeDefinition",
+						new HashMap<String, Object>() {
+							{
+								put("listTypeDefinition", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createListTypeDefinition"),
+			ListTypeDefinition.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(
@@ -1651,6 +1884,10 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -2230,7 +2467,30 @@ public abstract class BaseListTypeDefinitionResourceTestCase {
 		return randomListTypeDefinition();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected ListTypeDefinitionResource listTypeDefinitionResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

@@ -32,13 +32,17 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -54,10 +58,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -210,16 +210,16 @@ public abstract class BaseProductVirtualSettingsResourceTestCase {
 		assertValid(getProductVirtualSettings);
 	}
 
-	protected String
-			testGetProductByExternalReferenceCodeProductVirtualSettings_getExternalReferenceCode()
+	protected ProductVirtualSettings
+			testGetProductByExternalReferenceCodeProductVirtualSettings_addProductVirtualSettings()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected ProductVirtualSettings
-			testGetProductByExternalReferenceCodeProductVirtualSettings_addProductVirtualSettings()
+	protected String
+			testGetProductByExternalReferenceCodeProductVirtualSettings_getExternalReferenceCode()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -343,7 +343,7 @@ public abstract class BaseProductVirtualSettingsResourceTestCase {
 			testGraphQLGetProductByExternalReferenceCodeProductVirtualSettings_addProductVirtualSettings()
 		throws Exception {
 
-		return testGraphQLProductVirtualSettings_addProductVirtualSettings();
+		return testGraphQLProductProductVirtualSettings_addProductVirtualSettings();
 	}
 
 	@Test
@@ -360,15 +360,16 @@ public abstract class BaseProductVirtualSettingsResourceTestCase {
 		assertValid(getProductVirtualSettings);
 	}
 
-	protected Long testGetProductIdProductVirtualSettings_getId(
-			ProductVirtualSettings productVirtualSettings)
-		throws Exception {
-
-		return productVirtualSettings.getId();
-	}
-
 	protected ProductVirtualSettings
 			testGetProductIdProductVirtualSettings_addProductVirtualSettings()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long testGetProductIdProductVirtualSettings_getId(
+			ProductVirtualSettings productVirtualSettings)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -434,7 +435,8 @@ public abstract class BaseProductVirtualSettingsResourceTestCase {
 			ProductVirtualSettings productVirtualSettings)
 		throws Exception {
 
-		return productVirtualSettings.getId();
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -484,11 +486,11 @@ public abstract class BaseProductVirtualSettingsResourceTestCase {
 			testGraphQLGetProductIdProductVirtualSettings_addProductVirtualSettings()
 		throws Exception {
 
-		return testGraphQLProductVirtualSettings_addProductVirtualSettings();
+		return testGraphQLProductProductVirtualSettings_addProductVirtualSettings();
 	}
 
 	protected ProductVirtualSettings
-			testGraphQLProductVirtualSettings_addProductVirtualSettings()
+			testGraphQLProductProductVirtualSettings_addProductVirtualSettings()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -784,6 +786,8 @@ public abstract class BaseProductVirtualSettingsResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

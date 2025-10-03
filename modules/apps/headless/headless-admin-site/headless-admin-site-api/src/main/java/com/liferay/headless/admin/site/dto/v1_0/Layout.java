@@ -19,6 +19,12 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
+import jakarta.annotation.Generated;
+
+import jakarta.validation.Valid;
+
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.io.Serializable;
 
 import java.util.Iterator;
@@ -27,18 +33,14 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import javax.annotation.Generated;
-
-import javax.validation.Valid;
-
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * @author Rubén Pulido
  * @generated
  */
 @Generated("")
-@GraphQLName(description = "The page form's layout.", value = "Layout")
+@GraphQLName(
+	description = "the container page element's layout.", value = "Layout"
+)
 @JsonFilter("Liferay.Vulcan")
 @XmlRootElement(name = "Layout")
 public class Layout implements Serializable {
@@ -266,9 +268,7 @@ public class Layout implements Serializable {
 	@JsonIgnore
 	private Supplier<Justify> _justifySupplier;
 
-	@io.swagger.v3.oas.annotations.media.Schema(
-		description = "The width's type (fixed or fluid)."
-	)
+	@io.swagger.v3.oas.annotations.media.Schema
 	@JsonGetter("widthType")
 	@Valid
 	public WidthType getWidthType() {
@@ -315,7 +315,7 @@ public class Layout implements Serializable {
 		};
 	}
 
-	@GraphQLField(description = "The width's type (fixed or fluid).")
+	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected WidthType widthType;
 

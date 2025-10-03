@@ -6,13 +6,42 @@
 import {Liferay} from '../../liferay/liferay';
 import fetcher from '../fetcher';
 
-class HeadlessAdminTaxonomy {
-	async getTaxonomyVocabularies() {
+export default class HeadlessAdminTaxonomy {
+	static async getTaxonomyVocabularies() {
 		return fetcher(
 			`/o/headless-admin-taxonomy/v1.0/sites/${Liferay.ThemeDisplay.getCompanyGroupId()}/taxonomy-vocabularies`
 		);
 	}
-	async getTaxonomyCategories(
+
+	static async getSiteTaxonomyVocabulariesWithCategories() {
+		const response = await fetcher.post<{
+			data: {taxonomyVocabularies: APIResponse<TaxonomyVocabulary>};
+		}>('/o/graphql', {
+			query: `{
+				taxonomyVocabularies: siteTaxonomyVocabularies(siteKey: "${Liferay.ThemeDisplay.getScopeGroupId()}") {
+					items {
+						id
+						name
+						taxonomyCategories {
+							items {
+								externalReferenceCode
+								id
+								name
+							}
+						}
+					}
+					lastPage
+					page
+					pageSize
+					totalCount
+				}
+			}`,
+		});
+
+		return response.data.taxonomyVocabularies;
+	}
+
+	static async getTaxonomyCategories(
 		vocabularyId: number,
 		searchParams = new URLSearchParams()
 	) {
@@ -21,7 +50,3 @@ class HeadlessAdminTaxonomy {
 		);
 	}
 }
-
-const HeadlessAdminTaxonomyImpl = new HeadlessAdminTaxonomy();
-
-export default HeadlessAdminTaxonomyImpl;

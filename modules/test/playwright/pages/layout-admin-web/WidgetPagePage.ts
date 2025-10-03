@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-import {Locator, Page} from '@playwright/test';
+import {Locator, Page, expect} from '@playwright/test';
 
+import {clickAndExpectToBeVisible} from '../../utils/clickAndExpectToBeVisible';
 import {waitForAlert} from '../../utils/waitForAlert';
 
 export class WidgetPagePage {
@@ -12,6 +13,7 @@ export class WidgetPagePage {
 
 	readonly addButton: Locator;
 	readonly contentTab: Locator;
+	readonly searchForm: Locator;
 	readonly toggleControlsButton: Locator;
 	readonly widgetsTab: Locator;
 
@@ -27,6 +29,7 @@ export class WidgetPagePage {
 		this.contentTab = page.getByText('Content', {
 			exact: true,
 		});
+		this.searchForm = this.page.getByRole('textbox', {name: 'Search Form'});
 		this.toggleControlsButton = page
 			.locator('.control-menu-nav-item')
 			.getByRole('button', {
@@ -58,11 +61,14 @@ export class WidgetPagePage {
 	async addPortlet(portletName: string, category: string = undefined) {
 		await this.openAddPanel();
 
-		await this.widgetsTab.click();
+		await clickAndExpectToBeVisible({
+			target: this.page.getByLabel('Widgets', {exact: true}),
+			trigger: this.widgetsTab,
+		});
 
-		await this.page
-			.getByRole('textbox', {name: 'Search Form'})
-			.fill(portletName);
+		await this.searchForm.fill(portletName);
+
+		let item: Locator;
 
 		if (category) {
 			const categoryPanel = this.page.locator(
@@ -74,25 +80,38 @@ export class WidgetPagePage {
 				}
 			);
 
-			categoryPanel
+			item = categoryPanel
 				.locator('.panel-body')
-				.filter({hasText: portletName})
-				.getByRole('button', {name: 'Add Content'})
-				.click();
+				.locator('.sidebar-body__add-panel__tab-item', {
+					hasText: portletName,
+				})
+				.first();
 		}
 		else {
-			await this.page
-				.locator('.sidebar-body__add-panel__tab-item')
-				.filter({hasText: portletName})
-				.getByRole('button', {name: 'Add Content'})
-				.first()
-				.click();
+			item = this.page
+				.locator('.sidebar-body__add-panel__tab-item', {
+					hasText: portletName,
+				})
+				.first();
 		}
 
-		await waitForAlert(
-			this.page,
-			'Success:The application was added to the page.'
-		);
+		await expect(async () => {
+			if ((await item.getAttribute('class')).includes('disabled')) {
+				return;
+			}
+
+			const addButton = item
+				.getByRole('button', {name: 'Add Content'})
+				.first();
+
+			await addButton.click({timeout: 1000});
+
+			await waitForAlert(
+				this.page,
+				'Success:The application was added to the page.',
+				{timeout: 3000}
+			);
+		}).toPass();
 	}
 
 	async clickOnAction(portletName: string, action: string) {
@@ -166,7 +185,11 @@ export class WidgetPagePage {
 		);
 
 		if (!isOpen) {
-			await this.addButton.click();
+			await clickAndExpectToBeVisible({
+				target: this.searchForm,
+				timeout: 2000,
+				trigger: this.addButton,
+			});
 		}
 	}
 
@@ -188,7 +211,7 @@ export class WidgetPagePage {
 
 		await this.page
 			.locator('.modal-header')
-			.getByLabel('close', {exact: true})
+			.getByLabel('Close', {exact: true})
 			.click();
 	}
 

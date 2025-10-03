@@ -34,13 +34,17 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -56,10 +60,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -254,12 +254,12 @@ public abstract class BaseLinkedProductResourceTestCase {
 		Long channelId = testGetChannelProductLinkedProductsPage_getChannelId();
 		Long productId = testGetChannelProductLinkedProductsPage_getProductId();
 
-		Page<LinkedProduct> linkedProductPage =
+		Page<LinkedProduct> linkedProductsPage =
 			linkedProductResource.getChannelProductLinkedProductsPage(
 				channelId, productId, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			linkedProductPage.getTotalCount());
+			linkedProductsPage.getTotalCount());
 
 		LinkedProduct linkedProduct1 =
 			testGetChannelProductLinkedProductsPage_addLinkedProduct(
@@ -385,6 +385,11 @@ public abstract class BaseLinkedProductResourceTestCase {
 		throws Exception {
 
 		return null;
+	}
+
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	protected void assertContains(

@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.oauth2.provider.scope.ScopeChecker;
 import com.liferay.object.admin.rest.client.dto.v1_0.ObjectRelationship;
 import com.liferay.object.admin.rest.client.http.HttpInvoker;
@@ -25,6 +28,7 @@ import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -40,9 +44,11 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -51,11 +57,20 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -74,16 +89,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -130,6 +136,16 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 			testCompany.getCompanyId());
 
 		objectRelationshipResource = ObjectRelationshipResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		importTaskResource = ImportTaskResource.builder(
 		).authentication(
 			_testCompanyAdminUser.getEmailAddress(),
 			PropsValues.DEFAULT_ADMIN_PASSWORD
@@ -226,6 +242,163 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 			regex, objectRelationship.getObjectDefinitionScope2());
 		Assert.assertEquals(
 			regex, objectRelationship.getParameterObjectFieldName());
+	}
+
+	@Test
+	public void testDeleteObjectRelationship() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ObjectRelationship objectRelationship =
+			testDeleteObjectRelationship_addObjectRelationship();
+
+		assertHttpResponseStatusCode(
+			204,
+			objectRelationshipResource.deleteObjectRelationshipHttpResponse(
+				objectRelationship.getId()));
+
+		assertHttpResponseStatusCode(
+			404,
+			objectRelationshipResource.getObjectRelationshipHttpResponse(
+				objectRelationship.getId()));
+		assertHttpResponseStatusCode(
+			404,
+			objectRelationshipResource.getObjectRelationshipHttpResponse(0L));
+	}
+
+	protected ObjectRelationship
+			testDeleteObjectRelationship_addObjectRelationship()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLDeleteObjectRelationship() throws Exception {
+
+		// No namespace
+
+		ObjectRelationship objectRelationship1 =
+			testGraphQLDeleteObjectRelationship_addObjectRelationship();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteObjectRelationship",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"objectRelationshipId",
+									objectRelationship1.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteObjectRelationship"));
+
+		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"objectRelationship",
+					new HashMap<String, Object>() {
+						{
+							put(
+								"objectRelationshipId",
+								objectRelationship1.getId());
+						}
+					},
+					getGraphQLFields())),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray1.length() > 0);
+
+		// Using the namespace objectAdmin_v1_0
+
+		ObjectRelationship objectRelationship2 =
+			testGraphQLDeleteObjectRelationship_addObjectRelationship();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"objectAdmin_v1_0",
+						new GraphQLField(
+							"deleteObjectRelationship",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"objectRelationshipId",
+										objectRelationship2.getId());
+								}
+							}))),
+				"JSONObject/data", "JSONObject/objectAdmin_v1_0",
+				"Object/deleteObjectRelationship"));
+
+		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"objectAdmin_v1_0",
+					new GraphQLField(
+						"objectRelationship",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"objectRelationshipId",
+									objectRelationship2.getId());
+							}
+						},
+						getGraphQLFields()))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray2.length() > 0);
+	}
+
+	protected ObjectRelationship
+			testGraphQLDeleteObjectRelationship_addObjectRelationship()
+		throws Exception {
+
+		return testGraphQLObjectRelationship_addObjectRelationship();
+	}
+
+	@Test
+	public void testDeleteObjectRelationshipBatch() throws Exception {
+		ObjectRelationship objectRelationship1 =
+			testDeleteObjectRelationshipBatch_addObjectRelationship();
+
+		testDeleteObjectRelationshipBatch_deleteObjectRelationship(
+			202, null, objectRelationship1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			objectRelationshipResource.getObjectRelationshipHttpResponse(
+				objectRelationship1.getId()));
+	}
+
+	protected ObjectRelationship
+			testDeleteObjectRelationshipBatch_addObjectRelationship()
+		throws Exception {
+
+		return testDeleteObjectRelationship_addObjectRelationship();
+	}
+
+	protected void testDeleteObjectRelationshipBatch_deleteObjectRelationship(
+			int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			objectRelationshipResource.
+				deleteObjectRelationshipBatchHttpResponse(
+					null,
+					JSONUtil.putAll(
+						JSONUtil.put(
+							"externalReferenceCode", () -> externalReferenceCode
+						).put(
+							"id", () -> id
+						)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
 	}
 
 	@Test
@@ -422,13 +595,13 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 		String externalReferenceCode =
 			testGetObjectDefinitionByExternalReferenceCodeObjectRelationshipsPage_getExternalReferenceCode();
 
-		Page<ObjectRelationship> objectRelationshipPage =
+		Page<ObjectRelationship> objectRelationshipsPage =
 			objectRelationshipResource.
 				getObjectDefinitionByExternalReferenceCodeObjectRelationshipsPage(
 					externalReferenceCode, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			objectRelationshipPage.getTotalCount());
+			objectRelationshipsPage.getTotalCount());
 
 		ObjectRelationship objectRelationship1 =
 			testGetObjectDefinitionByExternalReferenceCodeObjectRelationshipsPage_addObjectRelationship(
@@ -724,22 +897,101 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 	}
 
 	@Test
-	public void testPostObjectDefinitionByExternalReferenceCodeObjectRelationship()
+	public void testGraphQLGetObjectDefinitionByExternalReferenceCodeObjectRelationshipsPage()
 		throws Exception {
 
-		ObjectRelationship randomObjectRelationship =
-			randomObjectRelationship();
+		String externalReferenceCode =
+			testGetObjectDefinitionByExternalReferenceCodeObjectRelationshipsPage_getExternalReferenceCode();
 
-		ObjectRelationship postObjectRelationship =
-			testPostObjectDefinitionByExternalReferenceCodeObjectRelationship_addObjectRelationship(
-				randomObjectRelationship);
+		GraphQLField graphQLField = new GraphQLField(
+			"objectDefinitionByExternalReferenceCodeObjectRelationships",
+			new HashMap<String, Object>() {
+				{
+					put(
+						"externalReferenceCode",
+						"\"" + externalReferenceCode + "\"");
+					put("search", null);
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		assertEquals(randomObjectRelationship, postObjectRelationship);
-		assertValid(postObjectRelationship);
+		// No namespace
+
+		JSONObject
+			objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject =
+				JSONUtil.getValueAsJSONObject(
+					invokeGraphQLQuery(graphQLField), "JSONObject/data",
+					"JSONObject/objectDefinitionByExternalReferenceCodeObjectRelationships");
+
+		long totalCount =
+			objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject.
+				getLong("totalCount");
+
+		ObjectRelationship objectRelationship1 =
+			testGraphQLGetObjectDefinitionByExternalReferenceCodeObjectRelationshipsPageObjectDefinitionObjectRelationship_addObjectRelationship(
+				externalReferenceCode, randomObjectRelationship());
+
+		ObjectRelationship objectRelationship2 =
+			testGraphQLGetObjectDefinitionByExternalReferenceCodeObjectRelationshipsPageObjectDefinitionObjectRelationship_addObjectRelationship(
+				externalReferenceCode, randomObjectRelationship());
+
+		objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/objectDefinitionByExternalReferenceCodeObjectRelationships");
+
+		Assert.assertEquals(
+			totalCount + 2,
+			objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject.
+				getLong("totalCount"));
+
+		assertContains(
+			objectRelationship1,
+			Arrays.asList(
+				ObjectRelationshipSerDes.toDTOs(
+					objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject.
+						getString("items"))));
+		assertContains(
+			objectRelationship2,
+			Arrays.asList(
+				ObjectRelationshipSerDes.toDTOs(
+					objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject.
+						getString("items"))));
+
+		// Using the namespace objectAdmin_v1_0
+
+		objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(
+					new GraphQLField("objectAdmin_v1_0", graphQLField)),
+				"JSONObject/data", "JSONObject/objectAdmin_v1_0",
+				"JSONObject/objectDefinitionByExternalReferenceCodeObjectRelationships");
+
+		Assert.assertEquals(
+			totalCount + 2,
+			objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject.
+				getLong("totalCount"));
+
+		assertContains(
+			objectRelationship1,
+			Arrays.asList(
+				ObjectRelationshipSerDes.toDTOs(
+					objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject.
+						getString("items"))));
+		assertContains(
+			objectRelationship2,
+			Arrays.asList(
+				ObjectRelationshipSerDes.toDTOs(
+					objectDefinitionByExternalReferenceCodeObjectRelationshipsJSONObject.
+						getString("items"))));
 	}
 
 	protected ObjectRelationship
-			testPostObjectDefinitionByExternalReferenceCodeObjectRelationship_addObjectRelationship(
+			testGraphQLGetObjectDefinitionByExternalReferenceCodeObjectRelationshipsPageObjectDefinitionObjectRelationship_addObjectRelationship(
+				String externalReferenceCode,
 				ObjectRelationship objectRelationship)
 		throws Exception {
 
@@ -949,13 +1201,13 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 		Long objectDefinitionId =
 			testGetObjectDefinitionObjectRelationshipsPage_getObjectDefinitionId();
 
-		Page<ObjectRelationship> objectRelationshipPage =
+		Page<ObjectRelationship> objectRelationshipsPage =
 			objectRelationshipResource.
 				getObjectDefinitionObjectRelationshipsPage(
 					objectDefinitionId, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			objectRelationshipPage.getTotalCount());
+			objectRelationshipsPage.getTotalCount());
 
 		ObjectRelationship objectRelationship1 =
 			testGetObjectDefinitionObjectRelationshipsPage_addObjectRelationship(
@@ -1250,214 +1502,92 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 	}
 
 	@Test
-	public void testPostObjectDefinitionObjectRelationship() throws Exception {
-		ObjectRelationship randomObjectRelationship =
-			randomObjectRelationship();
-
-		ObjectRelationship postObjectRelationship =
-			testPostObjectDefinitionObjectRelationship_addObjectRelationship(
-				randomObjectRelationship);
-
-		assertEquals(randomObjectRelationship, postObjectRelationship);
-		assertValid(postObjectRelationship);
-	}
-
-	protected ObjectRelationship
-			testPostObjectDefinitionObjectRelationship_addObjectRelationship(
-				ObjectRelationship objectRelationship)
+	public void testGraphQLGetObjectDefinitionObjectRelationshipsPage()
 		throws Exception {
 
-		return objectRelationshipResource.
-			postObjectDefinitionObjectRelationship(
-				testGetObjectDefinitionObjectRelationshipsPage_getObjectDefinitionId(),
-				objectRelationship);
-	}
+		Long objectDefinitionId =
+			testGetObjectDefinitionObjectRelationshipsPage_getObjectDefinitionId();
 
-	@Test
-	public void testPutObjectRelationshipByExternalReferenceCode()
-		throws Exception {
-
-		ObjectRelationship postObjectRelationship =
-			testPutObjectRelationshipByExternalReferenceCode_addObjectRelationship();
-
-		ObjectRelationship randomObjectRelationship =
-			randomObjectRelationship();
-
-		ObjectRelationship putObjectRelationship =
-			objectRelationshipResource.
-				putObjectRelationshipByExternalReferenceCode(
-					postObjectRelationship.getExternalReferenceCode(),
-					randomObjectRelationship);
-
-		assertEquals(randomObjectRelationship, putObjectRelationship);
-		assertValid(putObjectRelationship);
-
-		ObjectRelationship getObjectRelationship =
-			testPutObjectRelationshipByExternalReferenceCode_getObjectRelationship(
-				putObjectRelationship.getExternalReferenceCode());
-
-		assertEquals(randomObjectRelationship, getObjectRelationship);
-		assertValid(getObjectRelationship);
-
-		ObjectRelationship newObjectRelationship =
-			testPutObjectRelationshipByExternalReferenceCode_createObjectRelationship();
-
-		putObjectRelationship =
-			objectRelationshipResource.
-				putObjectRelationshipByExternalReferenceCode(
-					newObjectRelationship.getExternalReferenceCode(),
-					newObjectRelationship);
-
-		assertEquals(newObjectRelationship, putObjectRelationship);
-		assertValid(putObjectRelationship);
-
-		getObjectRelationship =
-			testPutObjectRelationshipByExternalReferenceCode_getObjectRelationship(
-				putObjectRelationship.getExternalReferenceCode());
-
-		assertEquals(newObjectRelationship, getObjectRelationship);
-
-		Assert.assertEquals(
-			newObjectRelationship.getExternalReferenceCode(),
-			putObjectRelationship.getExternalReferenceCode());
-	}
-
-	protected ObjectRelationship
-		testPutObjectRelationshipByExternalReferenceCode_getObjectRelationship(
-			String externalReferenceCode) {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected ObjectRelationship
-			testPutObjectRelationshipByExternalReferenceCode_createObjectRelationship()
-		throws Exception {
-
-		return randomObjectRelationship();
-	}
-
-	protected ObjectRelationship
-			testPutObjectRelationshipByExternalReferenceCode_addObjectRelationship()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testDeleteObjectRelationship() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		ObjectRelationship objectRelationship =
-			testDeleteObjectRelationship_addObjectRelationship();
-
-		assertHttpResponseStatusCode(
-			204,
-			objectRelationshipResource.deleteObjectRelationshipHttpResponse(
-				objectRelationship.getId()));
-
-		assertHttpResponseStatusCode(
-			404,
-			objectRelationshipResource.getObjectRelationshipHttpResponse(
-				objectRelationship.getId()));
-
-		assertHttpResponseStatusCode(
-			404,
-			objectRelationshipResource.getObjectRelationshipHttpResponse(0L));
-	}
-
-	protected ObjectRelationship
-			testDeleteObjectRelationship_addObjectRelationship()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLDeleteObjectRelationship() throws Exception {
+		GraphQLField graphQLField = new GraphQLField(
+			"objectDefinitionObjectRelationships",
+			new HashMap<String, Object>() {
+				{
+					put("objectDefinitionId", objectDefinitionId);
+					put("search", null);
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
 		// No namespace
 
+		JSONObject objectDefinitionObjectRelationshipsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/objectDefinitionObjectRelationships");
+
+		long totalCount = objectDefinitionObjectRelationshipsJSONObject.getLong(
+			"totalCount");
+
 		ObjectRelationship objectRelationship1 =
-			testGraphQLDeleteObjectRelationship_addObjectRelationship();
+			testGraphQLObjectDefinitionObjectRelationship_addObjectRelationship(
+				objectDefinitionId, randomObjectRelationship());
 
-		Assert.assertTrue(
-			JSONUtil.getValueAsBoolean(
-				invokeGraphQLMutation(
-					new GraphQLField(
-						"deleteObjectRelationship",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"objectRelationshipId",
-									objectRelationship1.getId());
-							}
-						})),
-				"JSONObject/data", "Object/deleteObjectRelationship"));
+		ObjectRelationship objectRelationship2 =
+			testGraphQLObjectDefinitionObjectRelationship_addObjectRelationship(
+				objectDefinitionId, randomObjectRelationship());
 
-		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"objectRelationship",
-					new HashMap<String, Object>() {
-						{
-							put(
-								"objectRelationshipId",
-								objectRelationship1.getId());
-						}
-					},
-					new GraphQLField("id"))),
-			"JSONArray/errors");
+		objectDefinitionObjectRelationshipsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/objectDefinitionObjectRelationships");
 
-		Assert.assertTrue(errorsJSONArray1.length() > 0);
+		Assert.assertEquals(
+			totalCount + 2,
+			objectDefinitionObjectRelationshipsJSONObject.getLong(
+				"totalCount"));
+
+		assertContains(
+			objectRelationship1,
+			Arrays.asList(
+				ObjectRelationshipSerDes.toDTOs(
+					objectDefinitionObjectRelationshipsJSONObject.getString(
+						"items"))));
+		assertContains(
+			objectRelationship2,
+			Arrays.asList(
+				ObjectRelationshipSerDes.toDTOs(
+					objectDefinitionObjectRelationshipsJSONObject.getString(
+						"items"))));
 
 		// Using the namespace objectAdmin_v1_0
 
-		ObjectRelationship objectRelationship2 =
-			testGraphQLDeleteObjectRelationship_addObjectRelationship();
-
-		Assert.assertTrue(
-			JSONUtil.getValueAsBoolean(
-				invokeGraphQLMutation(
-					new GraphQLField(
-						"objectAdmin_v1_0",
-						new GraphQLField(
-							"deleteObjectRelationship",
-							new HashMap<String, Object>() {
-								{
-									put(
-										"objectRelationshipId",
-										objectRelationship2.getId());
-								}
-							}))),
+		objectDefinitionObjectRelationshipsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(
+					new GraphQLField("objectAdmin_v1_0", graphQLField)),
 				"JSONObject/data", "JSONObject/objectAdmin_v1_0",
-				"Object/deleteObjectRelationship"));
+				"JSONObject/objectDefinitionObjectRelationships");
 
-		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"objectAdmin_v1_0",
-					new GraphQLField(
-						"objectRelationship",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"objectRelationshipId",
-									objectRelationship2.getId());
-							}
-						},
-						new GraphQLField("id")))),
-			"JSONArray/errors");
+		Assert.assertEquals(
+			totalCount + 2,
+			objectDefinitionObjectRelationshipsJSONObject.getLong(
+				"totalCount"));
 
-		Assert.assertTrue(errorsJSONArray2.length() > 0);
-	}
-
-	protected ObjectRelationship
-			testGraphQLDeleteObjectRelationship_addObjectRelationship()
-		throws Exception {
-
-		return testGraphQLObjectRelationship_addObjectRelationship();
+		assertContains(
+			objectRelationship1,
+			Arrays.asList(
+				ObjectRelationshipSerDes.toDTOs(
+					objectDefinitionObjectRelationshipsJSONObject.getString(
+						"items"))));
+		assertContains(
+			objectRelationship2,
+			Arrays.asList(
+				ObjectRelationshipSerDes.toDTOs(
+					objectDefinitionObjectRelationshipsJSONObject.getString(
+						"items"))));
 	}
 
 	@Test
@@ -1776,6 +1906,100 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 	}
 
 	@Test
+	public void testPostObjectDefinitionByExternalReferenceCodeObjectRelationship()
+		throws Exception {
+
+		ObjectRelationship randomObjectRelationship =
+			randomObjectRelationship();
+
+		ObjectRelationship postObjectRelationship =
+			testPostObjectDefinitionByExternalReferenceCodeObjectRelationship_addObjectRelationship(
+				randomObjectRelationship);
+
+		assertEquals(randomObjectRelationship, postObjectRelationship);
+		assertValid(postObjectRelationship);
+	}
+
+	protected ObjectRelationship
+			testPostObjectDefinitionByExternalReferenceCodeObjectRelationship_addObjectRelationship(
+				ObjectRelationship objectRelationship)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostObjectDefinitionByExternalReferenceCodeObjectRelationship()
+		throws Exception {
+
+		ObjectRelationship randomObjectRelationship =
+			randomObjectRelationship();
+
+		ObjectRelationship objectRelationship =
+			testGraphQLObjectDefinitionObjectRelationship_addObjectRelationship(
+				testGraphQLPostObjectDefinitionByExternalReferenceCodeObjectRelationship_getObjectDefinitionId(),
+				randomObjectRelationship);
+
+		Assert.assertTrue(equals(randomObjectRelationship, objectRelationship));
+	}
+
+	protected Long
+			testGraphQLPostObjectDefinitionByExternalReferenceCodeObjectRelationship_getObjectDefinitionId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPostObjectDefinitionObjectRelationship() throws Exception {
+		ObjectRelationship randomObjectRelationship =
+			randomObjectRelationship();
+
+		ObjectRelationship postObjectRelationship =
+			testPostObjectDefinitionObjectRelationship_addObjectRelationship(
+				randomObjectRelationship);
+
+		assertEquals(randomObjectRelationship, postObjectRelationship);
+		assertValid(postObjectRelationship);
+	}
+
+	protected ObjectRelationship
+			testPostObjectDefinitionObjectRelationship_addObjectRelationship(
+				ObjectRelationship objectRelationship)
+		throws Exception {
+
+		return objectRelationshipResource.
+			postObjectDefinitionObjectRelationship(
+				testGetObjectDefinitionObjectRelationshipsPage_getObjectDefinitionId(),
+				objectRelationship);
+	}
+
+	@Test
+	public void testGraphQLPostObjectDefinitionObjectRelationship()
+		throws Exception {
+
+		ObjectRelationship randomObjectRelationship =
+			randomObjectRelationship();
+
+		ObjectRelationship objectRelationship =
+			testGraphQLObjectDefinitionObjectRelationship_addObjectRelationship(
+				testGraphQLPostObjectDefinitionObjectRelationship_getObjectDefinitionId(),
+				randomObjectRelationship);
+
+		Assert.assertTrue(equals(randomObjectRelationship, objectRelationship));
+	}
+
+	protected Long
+			testGraphQLPostObjectDefinitionObjectRelationship_getObjectDefinitionId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testPutObjectRelationship() throws Exception {
 		ObjectRelationship postObjectRelationship =
 			testPutObjectRelationship_addObjectRelationship();
@@ -1806,6 +2030,134 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testPutObjectRelationshipByExternalReferenceCode()
+		throws Exception {
+
+		ObjectRelationship postObjectRelationship =
+			testPutObjectRelationshipByExternalReferenceCode_addObjectRelationship();
+
+		ObjectRelationship randomObjectRelationship =
+			randomObjectRelationship();
+
+		ObjectRelationship putObjectRelationship =
+			objectRelationshipResource.
+				putObjectRelationshipByExternalReferenceCode(
+					postObjectRelationship.getExternalReferenceCode(),
+					randomObjectRelationship);
+
+		assertEquals(randomObjectRelationship, putObjectRelationship);
+		assertValid(putObjectRelationship);
+
+		ObjectRelationship getObjectRelationship =
+			testPutObjectRelationshipByExternalReferenceCode_getObjectRelationship(
+				putObjectRelationship.getExternalReferenceCode());
+
+		assertEquals(randomObjectRelationship, getObjectRelationship);
+		assertValid(getObjectRelationship);
+
+		ObjectRelationship newObjectRelationship =
+			testPutObjectRelationshipByExternalReferenceCode_createObjectRelationship();
+
+		putObjectRelationship =
+			objectRelationshipResource.
+				putObjectRelationshipByExternalReferenceCode(
+					newObjectRelationship.getExternalReferenceCode(),
+					newObjectRelationship);
+
+		assertEquals(newObjectRelationship, putObjectRelationship);
+		assertValid(putObjectRelationship);
+
+		getObjectRelationship =
+			testPutObjectRelationshipByExternalReferenceCode_getObjectRelationship(
+				putObjectRelationship.getExternalReferenceCode());
+
+		assertEquals(newObjectRelationship, getObjectRelationship);
+
+		Assert.assertEquals(
+			newObjectRelationship.getExternalReferenceCode(),
+			putObjectRelationship.getExternalReferenceCode());
+	}
+
+	protected ObjectRelationship
+		testPutObjectRelationshipByExternalReferenceCode_getObjectRelationship(
+			String externalReferenceCode) {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected ObjectRelationship
+			testPutObjectRelationshipByExternalReferenceCode_addObjectRelationship()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected ObjectRelationship
+			testPutObjectRelationshipByExternalReferenceCode_createObjectRelationship()
+		throws Exception {
+
+		return randomObjectRelationship();
+	}
+
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		ObjectRelationship objectRelationship1 =
+			testBatchEngineDeleteImportTask_addObjectRelationship();
+
+		testBatchEngineDeleteImportTask_deleteObjectRelationship(
+			200, null, objectRelationship1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			objectRelationshipResource.getObjectRelationshipHttpResponse(
+				objectRelationship1.getId()));
+	}
+
+	protected ObjectRelationship
+			testBatchEngineDeleteImportTask_addObjectRelationship()
+		throws Exception {
+
+		return testDeleteObjectRelationship_addObjectRelationship();
+	}
+
+	protected void testBatchEngineDeleteImportTask_deleteObjectRelationship(
+			int expectedStatusCode, String externalReferenceCode, Long id,
+			String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.object.admin.rest.dto.v1_0.ObjectRelationship",
+				null, null, null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
@@ -1815,6 +2167,135 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected ObjectRelationship
+			testGraphQLObjectDefinitionObjectRelationship_addObjectRelationship()
+		throws Exception {
+
+		return testGraphQLObjectDefinitionObjectRelationship_addObjectRelationship(
+			testGraphQLObjectDefinitionObjectRelationship_getObjectDefinitionId(),
+			randomObjectRelationship());
+	}
+
+	protected Long
+			testGraphQLObjectDefinitionObjectRelationship_getObjectDefinitionId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected ObjectRelationship
+			testGraphQLObjectDefinitionObjectRelationship_addObjectRelationship(
+				Long objectDefinitionId, ObjectRelationship objectRelationship)
+		throws Exception {
+
+		JSONDeserializer<ObjectRelationship> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field :
+				getDeclaredFields(ObjectRelationship.class)) {
+
+			if (getGraphQLValue(field.get(objectRelationship)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(objectRelationship)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createObjectDefinitionObjectRelationship",
+						new HashMap<String, Object>() {
+							{
+								put("objectDefinitionId", objectDefinitionId);
+								put("objectRelationship", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data",
+				"JSONObject/createObjectDefinitionObjectRelationship"),
+			ObjectRelationship.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(
@@ -2157,6 +2638,10 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -3067,7 +3552,30 @@ public abstract class BaseObjectRelationshipResourceTestCase {
 		return randomObjectRelationship();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected ObjectRelationshipResource objectRelationshipResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

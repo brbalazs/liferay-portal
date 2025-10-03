@@ -5,18 +5,27 @@
 
 package com.liferay.scim.rest.internal.resource.v1_0;
 
+import com.liferay.counter.kernel.service.CounterLocalService;
 import com.liferay.expando.kernel.service.ExpandoColumnLocalService;
 import com.liferay.expando.kernel.service.ExpandoTableLocalService;
 import com.liferay.expando.kernel.service.ExpandoValueLocalService;
 import com.liferay.portal.kernel.search.filter.Filter;
+import com.liferay.portal.kernel.service.AddressLocalService;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.CompanyLocalService;
+import com.liferay.portal.kernel.service.ContactLocalService;
+import com.liferay.portal.kernel.service.CountryLocalService;
+import com.liferay.portal.kernel.service.EmailAddressLocalService;
+import com.liferay.portal.kernel.service.ListTypeLocalService;
+import com.liferay.portal.kernel.service.PhoneLocalService;
+import com.liferay.portal.kernel.service.RegionLocalService;
 import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserGroupService;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.service.UserService;
-import com.liferay.portal.kernel.util.MapUtil;
+import com.liferay.portal.kernel.service.WebsiteLocalService;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.search.query.Queries;
 import com.liferay.portal.search.searcher.SearchRequestBuilderFactory;
 import com.liferay.portal.search.searcher.Searcher;
 import com.liferay.scim.rest.dto.v1_0.Group;
@@ -26,9 +35,7 @@ import com.liferay.scim.rest.internal.manager.UserManagerImpl;
 import com.liferay.scim.rest.internal.util.ScimUtil;
 import com.liferay.scim.rest.resource.v1_0.GroupResource;
 
-import java.util.Map;
-
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 import org.osgi.service.cm.ConfigurationAdmin;
 import org.osgi.service.component.annotations.Activate;
@@ -37,7 +44,6 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import org.wso2.charon3.core.extensions.UserManager;
-import org.wso2.charon3.core.protocol.SCIMResponse;
 import org.wso2.charon3.core.protocol.endpoints.GroupResourceManager;
 
 /**
@@ -51,14 +57,15 @@ public class GroupResourceImpl extends BaseGroupResourceImpl {
 
 	@Override
 	public Response deleteV2Group(String id) throws Exception {
-		return _buildResponse(_groupResourceManager.delete(id, _userManager));
+		return ScimUtil.buildResponse(
+			_groupResourceManager.delete(id, _userManager));
 	}
 
 	@Override
 	public Object getV2GroupById(String id, String excludedAttributes)
 		throws Exception {
 
-		return _buildResponse(
+		return ScimUtil.buildResponse(
 			_groupResourceManager.get(
 				id, _userManager, null, excludedAttributes));
 	}
@@ -69,7 +76,7 @@ public class GroupResourceImpl extends BaseGroupResourceImpl {
 			Filter filter)
 		throws Exception {
 
-		return _buildResponse(
+		return ScimUtil.buildResponse(
 			_groupResourceManager.listWithGET(
 				_userManager,
 				ParamUtil.getString(contextHttpServletRequest, "filter", null),
@@ -78,21 +85,21 @@ public class GroupResourceImpl extends BaseGroupResourceImpl {
 
 	@Override
 	public Response patchV2Group(String id, PatchOp patchOp) throws Exception {
-		return _buildResponse(
+		return ScimUtil.buildResponse(
 			_groupResourceManager.updateWithPATCH(
 				id, ScimUtil.transformGroupPatchOp(patchOp), _userManager));
 	}
 
 	@Override
 	public Response postV2Group(Group group) throws Exception {
-		return _buildResponse(
+		return ScimUtil.buildResponse(
 			_groupResourceManager.create(
 				group.toString(), _userManager, null, null));
 	}
 
 	@Override
 	public Response putV2Group(String id, Group group) throws Exception {
-		return _buildResponse(
+		return ScimUtil.buildResponse(
 			_groupResourceManager.updateWithPUT(
 				id, group.toString(), _userManager, null, null));
 	}
@@ -100,34 +107,22 @@ public class GroupResourceImpl extends BaseGroupResourceImpl {
 	@Activate
 	protected void activate() {
 		_userManager = new UserManagerImpl(
-			_classNameLocalService, _companyLocalService, _configurationAdmin,
+			_addressLocalService, _classNameLocalService, _companyLocalService,
+			_configurationAdmin, _contactLocalService, _counterLocalService,
+			_countryLocalService, _emailAddressLocalService,
 			_expandoColumnLocalService, _expandoTableLocalService,
-			_expandoValueLocalService, _searcher, _searchRequestBuilderFactory,
-			_userGroupLocalService, _userGroupService, _userLocalService,
-			_userService);
-	}
-
-	private Response _buildResponse(SCIMResponse scimResponse) {
-		Response.ResponseBuilder responseBuilder = Response.status(
-			scimResponse.getResponseStatus());
-
-		if (scimResponse.getResponseMessage() != null) {
-			responseBuilder.entity(scimResponse.getResponseMessage());
-		}
-
-		Map<String, String> map = scimResponse.getHeaderParamMap();
-
-		if (MapUtil.isNotEmpty(map)) {
-			for (Map.Entry<String, String> entry : map.entrySet()) {
-				responseBuilder.header(entry.getKey(), entry.getValue());
-			}
-		}
-
-		return responseBuilder.build();
+			_expandoValueLocalService, _listTypeLocalService,
+			_phoneLocalService, _queries, _regionLocalService, _searcher,
+			_searchRequestBuilderFactory, _userGroupLocalService,
+			_userGroupService, _userLocalService, _userService,
+			_websiteLocalService);
 	}
 
 	private static final GroupResourceManager _groupResourceManager =
 		new GroupResourceManagerImpl();
+
+	@Reference
+	private AddressLocalService _addressLocalService;
 
 	@Reference
 	private ClassNameLocalService _classNameLocalService;
@@ -139,6 +134,18 @@ public class GroupResourceImpl extends BaseGroupResourceImpl {
 	private ConfigurationAdmin _configurationAdmin;
 
 	@Reference
+	private ContactLocalService _contactLocalService;
+
+	@Reference
+	private CounterLocalService _counterLocalService;
+
+	@Reference
+	private CountryLocalService _countryLocalService;
+
+	@Reference
+	private EmailAddressLocalService _emailAddressLocalService;
+
+	@Reference
 	private ExpandoColumnLocalService _expandoColumnLocalService;
 
 	@Reference
@@ -146,6 +153,18 @@ public class GroupResourceImpl extends BaseGroupResourceImpl {
 
 	@Reference
 	private ExpandoValueLocalService _expandoValueLocalService;
+
+	@Reference
+	private ListTypeLocalService _listTypeLocalService;
+
+	@Reference
+	private PhoneLocalService _phoneLocalService;
+
+	@Reference
+	private Queries _queries;
+
+	@Reference
+	private RegionLocalService _regionLocalService;
 
 	@Reference
 	private Searcher _searcher;
@@ -166,5 +185,8 @@ public class GroupResourceImpl extends BaseGroupResourceImpl {
 
 	@Reference
 	private UserService _userService;
+
+	@Reference
+	private WebsiteLocalService _websiteLocalService;
 
 }

@@ -32,13 +32,17 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -54,10 +58,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -175,6 +175,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 		billingAddress.setStreet1(regex);
 		billingAddress.setStreet2(regex);
 		billingAddress.setStreet3(regex);
+		billingAddress.setSubtype(regex);
 		billingAddress.setVatNumber(regex);
 		billingAddress.setZip(regex);
 
@@ -194,6 +195,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 		Assert.assertEquals(regex, billingAddress.getStreet1());
 		Assert.assertEquals(regex, billingAddress.getStreet2());
 		Assert.assertEquals(regex, billingAddress.getStreet3());
+		Assert.assertEquals(regex, billingAddress.getSubtype());
 		Assert.assertEquals(regex, billingAddress.getVatNumber());
 		Assert.assertEquals(regex, billingAddress.getZip());
 	}
@@ -215,16 +217,17 @@ public abstract class BaseBillingAddressResourceTestCase {
 		assertValid(getBillingAddress);
 	}
 
+	protected BillingAddress
+			testGetOrderByExternalReferenceCodeBillingAddress_addBillingAddress()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	protected String
 			testGetOrderByExternalReferenceCodeBillingAddress_getExternalReferenceCode(
 				BillingAddress billingAddress)
-		throws Exception {
-
-		return billingAddress.getExternalReferenceCode();
-	}
-
-	protected BillingAddress
-			testGetOrderByExternalReferenceCodeBillingAddress_addBillingAddress()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -293,7 +296,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 				BillingAddress billingAddress)
 		throws Exception {
 
-		return billingAddress.getExternalReferenceCode();
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -348,14 +352,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 			testGraphQLGetOrderByExternalReferenceCodeBillingAddress_addBillingAddress()
 		throws Exception {
 
-		return testGraphQLBillingAddress_addBillingAddress();
-	}
-
-	@Test
-	public void testPatchOrderByExternalReferenceCodeBillingAddress()
-		throws Exception {
-
-		Assert.assertTrue(false);
+		return testGraphQLOrderBillingAddress_addBillingAddress();
 	}
 
 	@Test
@@ -371,14 +368,15 @@ public abstract class BaseBillingAddressResourceTestCase {
 		assertValid(getBillingAddress);
 	}
 
-	protected Long testGetOrderIdBillingAddress_getId(
-			BillingAddress billingAddress)
+	protected BillingAddress testGetOrderIdBillingAddress_addBillingAddress()
 		throws Exception {
 
-		return billingAddress.getId();
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
-	protected BillingAddress testGetOrderIdBillingAddress_addBillingAddress()
+	protected Long testGetOrderIdBillingAddress_getId(
+			BillingAddress billingAddress)
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -441,7 +439,8 @@ public abstract class BaseBillingAddressResourceTestCase {
 			BillingAddress billingAddress)
 		throws Exception {
 
-		return billingAddress.getId();
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -489,7 +488,14 @@ public abstract class BaseBillingAddressResourceTestCase {
 			testGraphQLGetOrderIdBillingAddress_addBillingAddress()
 		throws Exception {
 
-		return testGraphQLBillingAddress_addBillingAddress();
+		return testGraphQLOrderBillingAddress_addBillingAddress();
+	}
+
+	@Test
+	public void testPatchOrderByExternalReferenceCodeBillingAddress()
+		throws Exception {
+
+		Assert.assertTrue(false);
 	}
 
 	@Test
@@ -497,7 +503,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 		Assert.assertTrue(false);
 	}
 
-	protected BillingAddress testGraphQLBillingAddress_addBillingAddress()
+	protected BillingAddress testGraphQLOrderBillingAddress_addBillingAddress()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -682,6 +688,14 @@ public abstract class BaseBillingAddressResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("subtype", additionalAssertFieldName)) {
+				if (billingAddress.getSubtype() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("vatNumber", additionalAssertFieldName)) {
 				if (billingAddress.getVatNumber() == null) {
 					valid = false;
@@ -755,6 +769,10 @@ public abstract class BaseBillingAddressResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -952,6 +970,17 @@ public abstract class BaseBillingAddressResourceTestCase {
 				if (!Objects.deepEquals(
 						billingAddress1.getStreet3(),
 						billingAddress2.getStreet3())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("subtype", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						billingAddress1.getSubtype(),
+						billingAddress2.getSubtype())) {
 
 					return false;
 				}
@@ -1565,6 +1594,52 @@ public abstract class BaseBillingAddressResourceTestCase {
 			return sb.toString();
 		}
 
+		if (entityFieldName.equals("subtype")) {
+			Object object = billingAddress.getSubtype();
+
+			String value = String.valueOf(object);
+
+			if (operator.equals("contains")) {
+				sb = new StringBundler();
+
+				sb.append("contains(");
+				sb.append(entityFieldName);
+				sb.append(",'");
+
+				if ((object != null) && (value.length() > 2)) {
+					sb.append(value.substring(1, value.length() - 1));
+				}
+				else {
+					sb.append(value);
+				}
+
+				sb.append("')");
+			}
+			else if (operator.equals("startswith")) {
+				sb = new StringBundler();
+
+				sb.append("startswith(");
+				sb.append(entityFieldName);
+				sb.append(",'");
+
+				if ((object != null) && (value.length() > 1)) {
+					sb.append(value.substring(0, value.length() - 1));
+				}
+				else {
+					sb.append(value);
+				}
+
+				sb.append("')");
+			}
+			else {
+				sb.append("'");
+				sb.append(value);
+				sb.append("'");
+			}
+
+			return sb.toString();
+		}
+
 		if (entityFieldName.equals("vatNumber")) {
 			Object object = billingAddress.getVatNumber();
 
@@ -1720,6 +1795,7 @@ public abstract class BaseBillingAddressResourceTestCase {
 				street1 = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				street2 = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				street3 = StringUtil.toLowerCase(RandomTestUtil.randomString());
+				subtype = StringUtil.toLowerCase(RandomTestUtil.randomString());
 				vatNumber = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				zip = StringUtil.toLowerCase(RandomTestUtil.randomString());

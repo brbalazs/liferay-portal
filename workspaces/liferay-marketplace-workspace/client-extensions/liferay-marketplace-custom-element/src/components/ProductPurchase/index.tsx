@@ -10,8 +10,10 @@ import Body from './Body';
 import Feedback from './Feedback';
 import Footer from './Footer';
 import Header, {ProductPurchaseHeaderAccount as HeaderAccount} from './Header';
+import Price from './Price';
 import Shell from './Shell';
 import Steps from './Steps';
+import CircleSteps from './Steps/CircleSteps';
 
 import './index.scss';
 
@@ -21,10 +23,12 @@ type ProductPurchaseProps = {
 
 type ProductPurchaseChildrens = {
 	Body: typeof Body;
+	CircleSteps: typeof CircleSteps;
 	Feedback: typeof Feedback;
 	Footer: typeof Footer;
 	Header: typeof Header;
 	HeaderAccount: typeof HeaderAccount;
+	Price: typeof Price;
 	Shell: typeof Shell;
 	Steps: typeof Steps;
 };
@@ -34,17 +38,19 @@ const ProductPurchase: React.FC<ProductPurchaseProps> &
 	<div
 		{...props}
 		className={classNames('container', className)}
-		style={{width: 630}}
+		style={{width: 684}}
 	>
 		{children}
 	</div>
 );
 
 ProductPurchase.Body = Body;
+ProductPurchase.CircleSteps = CircleSteps;
 ProductPurchase.Feedback = Feedback;
 ProductPurchase.Footer = Footer;
 ProductPurchase.Header = Header;
 ProductPurchase.HeaderAccount = HeaderAccount;
+ProductPurchase.Price = Price;
 ProductPurchase.Shell = Shell;
 ProductPurchase.Steps = Steps;
 

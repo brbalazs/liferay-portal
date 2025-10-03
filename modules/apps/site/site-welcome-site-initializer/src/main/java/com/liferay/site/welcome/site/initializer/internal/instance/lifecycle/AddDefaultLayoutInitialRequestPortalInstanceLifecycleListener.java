@@ -52,24 +52,24 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortletKeys;
 import com.liferay.portal.kernel.util.PrefsProps;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.RenderRequestFactory;
 import com.liferay.portlet.RenderResponseFactory;
 import com.liferay.site.initializer.SiteInitializer;
 import com.liferay.site.initializer.SiteInitializerRegistry;
 
+import jakarta.portlet.PortletConfig;
+import jakarta.portlet.PortletMode;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.WindowState;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.List;
 import java.util.Objects;
-
-import javax.portlet.PortletConfig;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletRequest;
-import javax.portlet.WindowState;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
@@ -261,7 +261,7 @@ public class AddDefaultLayoutInitialRequestPortalInstanceLifecycleListener
 
 		PortletRequest portletRequest =
 			(PortletRequest)httpServletRequest.getAttribute(
-				JavaConstants.JAVAX_PORTLET_REQUEST);
+				JavaConstants.JAKARTA_PORTLET_REQUEST);
 
 		if (portletRequest != null) {
 			return serviceContext;
@@ -287,9 +287,9 @@ public class AddDefaultLayoutInitialRequestPortalInstanceLifecycleListener
 					themeDisplay.getPlid());
 
 			httpServletRequest.setAttribute(
-				JavaConstants.JAVAX_PORTLET_REQUEST, liferayRenderRequest);
+				JavaConstants.JAKARTA_PORTLET_REQUEST, liferayRenderRequest);
 			httpServletRequest.setAttribute(
-				JavaConstants.JAVAX_PORTLET_RESPONSE,
+				JavaConstants.JAKARTA_PORTLET_RESPONSE,
 				RenderResponseFactory.create(
 					new DummyHttpServletResponse(), liferayRenderRequest));
 		}

@@ -5,10 +5,11 @@
 
 package com.liferay.headless.commerce.admin.order.client.serdes.v1_0;
 
-import com.liferay.headless.commerce.admin.order.client.dto.v1_0.CustomField;
 import com.liferay.headless.commerce.admin.order.client.dto.v1_0.Order;
 import com.liferay.headless.commerce.admin.order.client.dto.v1_0.OrderItem;
 import com.liferay.headless.commerce.admin.order.client.json.BaseJSONParser;
+
+import jakarta.annotation.Generated;
 
 import java.math.BigDecimal;
 
@@ -20,8 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-
-import javax.annotation.Generated;
 
 /**
  * @author Alessio Antonio Rendina
@@ -108,6 +107,20 @@ public class OrderSerDes {
 			sb.append("\"");
 
 			sb.append(_escape(order.getAdvanceStatus()));
+
+			sb.append("\"");
+		}
+
+		if (order.getAuthor() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"author\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(order.getAuthor()));
 
 			sb.append("\"");
 		}
@@ -267,17 +280,7 @@ public class OrderSerDes {
 
 			sb.append("\"customFields\": ");
 
-			sb.append("[");
-
-			for (int i = 0; i < order.getCustomFields().length; i++) {
-				sb.append(String.valueOf(order.getCustomFields()[i]));
-
-				if ((i + 1) < order.getCustomFields().length) {
-					sb.append(", ");
-				}
-			}
-
-			sb.append("]");
+			sb.append(_toJSON(order.getCustomFields()));
 		}
 
 		if (order.getDeliveryTermDescription() != null) {
@@ -1415,6 +1418,13 @@ public class OrderSerDes {
 			map.put("advanceStatus", String.valueOf(order.getAdvanceStatus()));
 		}
 
+		if (order.getAuthor() == null) {
+			map.put("author", null);
+		}
+		else {
+			map.put("author", String.valueOf(order.getAuthor()));
+		}
+
 		if (order.getBillingAddress() == null) {
 			map.put("billingAddress", null);
 		}
@@ -2366,6 +2376,9 @@ public class OrderSerDes {
 			else if (Objects.equals(jsonParserFieldName, "advanceStatus")) {
 				return false;
 			}
+			else if (Objects.equals(jsonParserFieldName, "author")) {
+				return false;
+			}
 			else if (Objects.equals(jsonParserFieldName, "billingAddress")) {
 				return false;
 			}
@@ -2412,7 +2425,7 @@ public class OrderSerDes {
 				return false;
 			}
 			else if (Objects.equals(jsonParserFieldName, "customFields")) {
-				return false;
+				return true;
 			}
 			else if (Objects.equals(
 						jsonParserFieldName, "deliveryTermDescription")) {
@@ -2889,6 +2902,11 @@ public class OrderSerDes {
 					order.setAdvanceStatus((String)jsonParserFieldValue);
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "author")) {
+				if (jsonParserFieldValue != null) {
+					order.setAuthor((String)jsonParserFieldValue);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "billingAddress")) {
 				if (jsonParserFieldValue != null) {
 					order.setBillingAddress(
@@ -2969,18 +2987,7 @@ public class OrderSerDes {
 			}
 			else if (Objects.equals(jsonParserFieldName, "customFields")) {
 				if (jsonParserFieldValue != null) {
-					Object[] jsonParserFieldValues =
-						(Object[])jsonParserFieldValue;
-
-					CustomField[] customFieldsArray =
-						new CustomField[jsonParserFieldValues.length];
-
-					for (int i = 0; i < customFieldsArray.length; i++) {
-						customFieldsArray[i] = CustomFieldSerDes.toDTO(
-							(String)jsonParserFieldValues[i]);
-					}
-
-					order.setCustomFields(customFieldsArray);
+					order.setCustomFields((Map<String, ?>)jsonParserFieldValue);
 				}
 			}
 			else if (Objects.equals(

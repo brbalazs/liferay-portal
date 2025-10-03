@@ -14,11 +14,11 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.url.builder.AbsolutePortalURLBuilder;
 import com.liferay.portal.url.builder.AbsolutePortalURLBuilderFactory;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -59,8 +59,9 @@ public class ProductNavigationControlMenuTopHeadDynamicInclude
 				httpServletRequest);
 
 		sb.append(
-			absolutePortalURLBuilder.forBundleStylesheet(
-				_bundle, "/product_navigation_control_menu.css"
+			absolutePortalURLBuilder.forWebContextStylesheet(
+				"product-navigation-control-menu-theme-contributor",
+				"/product_navigation_control_menu.css"
 			).build());
 
 		sb.append(StringPool.QUOTE);

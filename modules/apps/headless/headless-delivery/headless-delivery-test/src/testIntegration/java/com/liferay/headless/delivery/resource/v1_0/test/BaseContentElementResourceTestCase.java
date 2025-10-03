@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.depot.constants.DepotConstants;
 import com.liferay.depot.model.DepotEntry;
 import com.liferay.depot.service.DepotEntryLocalServiceUtil;
 import com.liferay.headless.delivery.client.dto.v1_0.ContentElement;
@@ -40,6 +41,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -47,8 +49,11 @@ import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -64,10 +69,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -103,16 +104,28 @@ public abstract class BaseContentElementResourceTestCase {
 		testCompany = CompanyLocalServiceUtil.getCompany(
 			testGroup.getCompanyId());
 
-		testDepotEntry = DepotEntryLocalServiceUtil.addDepotEntry(
+		irrelevantDepotEntry = DepotEntryLocalServiceUtil.addDepotEntry(
 			Collections.singletonMap(
 				LocaleUtil.getDefault(), RandomTestUtil.randomString()),
-			null,
+			null, DepotConstants.TYPE_ASSET_LIBRARY,
 			new ServiceContext() {
 				{
-					setCompanyId(testGroup.getCompanyId());
+					setCompanyId(testCompany.getCompanyId());
 					setUserId(TestPropsValues.getUserId());
 				}
 			});
+		irrelevantDepotEntryGroup = irrelevantDepotEntry.getGroup();
+		testDepotEntry = DepotEntryLocalServiceUtil.addDepotEntry(
+			Collections.singletonMap(
+				LocaleUtil.getDefault(), RandomTestUtil.randomString()),
+			null, DepotConstants.TYPE_ASSET_LIBRARY,
+			new ServiceContext() {
+				{
+					setCompanyId(testCompany.getCompanyId());
+					setUserId(TestPropsValues.getUserId());
+				}
+			});
+		testDepotEntryGroup = testDepotEntry.getGroup();
 
 		_contentElementResource.setContextCompany(testCompany);
 
@@ -370,12 +383,12 @@ public abstract class BaseContentElementResourceTestCase {
 		Long assetLibraryId =
 			testGetAssetLibraryContentElementsPage_getAssetLibraryId();
 
-		Page<ContentElement> contentElementPage =
+		Page<ContentElement> contentElementsPage =
 			contentElementResource.getAssetLibraryContentElementsPage(
 				assetLibraryId, null, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			contentElementPage.getTotalCount());
+			contentElementsPage.getTotalCount());
 
 		ContentElement contentElement1 =
 			testGetAssetLibraryContentElementsPage_addContentElement(
@@ -643,7 +656,7 @@ public abstract class BaseContentElementResourceTestCase {
 			testGetAssetLibraryContentElementsPage_getIrrelevantAssetLibraryId()
 		throws Exception {
 
-		return null;
+		return irrelevantDepotEntry.getDepotEntryId();
 	}
 
 	@Test
@@ -807,12 +820,12 @@ public abstract class BaseContentElementResourceTestCase {
 
 		Long siteId = testGetSiteContentElementsPage_getSiteId();
 
-		Page<ContentElement> contentElementPage =
+		Page<ContentElement> contentElementsPage =
 			contentElementResource.getSiteContentElementsPage(
 				siteId, null, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			contentElementPage.getTotalCount());
+			contentElementsPage.getTotalCount());
 
 		ContentElement contentElement1 =
 			testGetSiteContentElementsPage_addContentElement(
@@ -1077,92 +1090,12 @@ public abstract class BaseContentElementResourceTestCase {
 	}
 
 	@Test
-	public void testGraphQLGetSiteContentElementsPage() throws Exception {
-		Long siteId = testGetSiteContentElementsPage_getSiteId();
-
-		GraphQLField graphQLField = new GraphQLField(
-			"contentElements",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 10);
-
-					put("siteKey", "\"" + siteId + "\"");
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
-		// No namespace
-
-		JSONObject contentElementsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/contentElements");
-
-		long totalCount = contentElementsJSONObject.getLong("totalCount");
-
-		ContentElement contentElement1 =
-			testGraphQLGetSiteContentElementsPage_addContentElement();
-		ContentElement contentElement2 =
-			testGraphQLGetSiteContentElementsPage_addContentElement();
-
-		contentElementsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/contentElements");
-
-		Assert.assertEquals(
-			totalCount + 2, contentElementsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			contentElement1,
-			Arrays.asList(
-				ContentElementSerDes.toDTOs(
-					contentElementsJSONObject.getString("items"))));
-		assertContains(
-			contentElement2,
-			Arrays.asList(
-				ContentElementSerDes.toDTOs(
-					contentElementsJSONObject.getString("items"))));
-
-		// Using the namespace headlessDelivery_v1_0
-
-		contentElementsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(
-				new GraphQLField("headlessDelivery_v1_0", graphQLField)),
-			"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
-			"JSONObject/contentElements");
-
-		Assert.assertEquals(
-			totalCount + 2, contentElementsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			contentElement1,
-			Arrays.asList(
-				ContentElementSerDes.toDTOs(
-					contentElementsJSONObject.getString("items"))));
-		assertContains(
-			contentElement2,
-			Arrays.asList(
-				ContentElementSerDes.toDTOs(
-					contentElementsJSONObject.getString("items"))));
-	}
-
-	protected ContentElement
-			testGraphQLGetSiteContentElementsPage_addContentElement()
-		throws Exception {
-
-		return testGraphQLContentElement_addContentElement();
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
-
-	protected ContentElement testGraphQLContentElement_addContentElement()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
 
 	protected void assertContains(
 		ContentElement contentElement, List<ContentElement> contentElements) {
@@ -1333,6 +1266,8 @@ public abstract class BaseContentElementResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -1730,7 +1665,10 @@ public abstract class BaseContentElementResourceTestCase {
 	protected ContentElementResource contentElementResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
+	protected DepotEntry irrelevantDepotEntry;
+	protected com.liferay.portal.kernel.model.Group irrelevantDepotEntryGroup;
 	protected DepotEntry testDepotEntry;
+	protected com.liferay.portal.kernel.model.Group testDepotEntryGroup;
 	protected com.liferay.portal.kernel.model.Group testGroup;
 
 	protected static class BeanTestUtil {

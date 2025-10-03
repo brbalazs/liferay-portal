@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.depot.constants.DepotConstants;
 import com.liferay.depot.model.DepotEntry;
 import com.liferay.depot.service.DepotEntryLocalServiceUtil;
 import com.liferay.headless.delivery.client.dto.v1_0.ContentStructure;
@@ -50,6 +51,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -58,11 +60,20 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -81,16 +92,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -131,16 +132,28 @@ public abstract class BaseContentStructureResourceTestCase {
 		testCompany = CompanyLocalServiceUtil.getCompany(
 			testGroup.getCompanyId());
 
-		testDepotEntry = DepotEntryLocalServiceUtil.addDepotEntry(
+		irrelevantDepotEntry = DepotEntryLocalServiceUtil.addDepotEntry(
 			Collections.singletonMap(
 				LocaleUtil.getDefault(), RandomTestUtil.randomString()),
-			null,
+			null, DepotConstants.TYPE_ASSET_LIBRARY,
 			new ServiceContext() {
 				{
-					setCompanyId(testGroup.getCompanyId());
+					setCompanyId(testCompany.getCompanyId());
 					setUserId(TestPropsValues.getUserId());
 				}
 			});
+		irrelevantDepotEntryGroup = irrelevantDepotEntry.getGroup();
+		testDepotEntry = DepotEntryLocalServiceUtil.addDepotEntry(
+			Collections.singletonMap(
+				LocaleUtil.getDefault(), RandomTestUtil.randomString()),
+			null, DepotConstants.TYPE_ASSET_LIBRARY,
+			new ServiceContext() {
+				{
+					setCompanyId(testCompany.getCompanyId());
+					setUserId(TestPropsValues.getUserId());
+				}
+			});
+		testDepotEntryGroup = testDepotEntry.getGroup();
 
 		_contentStructureResource.setContextCompany(testCompany);
 
@@ -227,6 +240,30 @@ public abstract class BaseContentStructureResourceTestCase {
 		Assert.assertEquals(regex, contentStructure.getAssetLibraryKey());
 		Assert.assertEquals(regex, contentStructure.getDescription());
 		Assert.assertEquals(regex, contentStructure.getName());
+	}
+
+	@Test
+	public void testGetAssetLibraryContentStructurePermissionsPage()
+		throws Exception {
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ContentStructure postContentStructure =
+			testGetAssetLibraryContentStructurePermissionsPage_addContentStructure();
+
+		Page<Permission> page =
+			contentStructureResource.
+				getAssetLibraryContentStructurePermissionsPage(
+					testDepotEntry.getDepotEntryId(), RoleConstants.GUEST);
+
+		Assert.assertNotNull(page);
+	}
+
+	protected ContentStructure
+			testGetAssetLibraryContentStructurePermissionsPage_addContentStructure()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
@@ -404,12 +441,12 @@ public abstract class BaseContentStructureResourceTestCase {
 		Long assetLibraryId =
 			testGetAssetLibraryContentStructuresPage_getAssetLibraryId();
 
-		Page<ContentStructure> contentStructurePage =
+		Page<ContentStructure> contentStructuresPage =
 			contentStructureResource.getAssetLibraryContentStructuresPage(
 				assetLibraryId, null, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			contentStructurePage.getTotalCount());
+			contentStructuresPage.getTotalCount());
 
 		ContentStructure contentStructure1 =
 			testGetAssetLibraryContentStructuresPage_addContentStructure(
@@ -677,76 +714,7 @@ public abstract class BaseContentStructureResourceTestCase {
 			testGetAssetLibraryContentStructuresPage_getIrrelevantAssetLibraryId()
 		throws Exception {
 
-		return null;
-	}
-
-	@Test
-	public void testGetAssetLibraryContentStructurePermissionsPage()
-		throws Exception {
-
-		Page<Permission> page =
-			contentStructureResource.
-				getAssetLibraryContentStructurePermissionsPage(
-					testDepotEntry.getDepotEntryId(), RoleConstants.GUEST);
-
-		Assert.assertNotNull(page);
-	}
-
-	protected ContentStructure
-			testGetAssetLibraryContentStructurePermissionsPage_addContentStructure()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPutAssetLibraryContentStructurePermissionsPage()
-		throws Exception {
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		ContentStructure contentStructure =
-			testPutAssetLibraryContentStructurePermissionsPage_addContentStructure();
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		com.liferay.portal.kernel.model.Role role = RoleTestUtil.addRole(
-			RoleConstants.TYPE_REGULAR);
-
-		assertHttpResponseStatusCode(
-			200,
-			contentStructureResource.
-				putAssetLibraryContentStructurePermissionsPageHttpResponse(
-					testDepotEntry.getDepotEntryId(),
-					new Permission[] {
-						new Permission() {
-							{
-								setActionIds(new String[] {"PERMISSIONS"});
-								setRoleName(role.getName());
-							}
-						}
-					}));
-
-		assertHttpResponseStatusCode(
-			404,
-			contentStructureResource.
-				putAssetLibraryContentStructurePermissionsPageHttpResponse(
-					testDepotEntry.getDepotEntryId(),
-					new Permission[] {
-						new Permission() {
-							{
-								setActionIds(new String[] {"-"});
-								setRoleName("-");
-							}
-						}
-					}));
-	}
-
-	protected ContentStructure
-			testPutAssetLibraryContentStructurePermissionsPage_addContentStructure()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return irrelevantDepotEntry.getDepotEntryId();
 	}
 
 	@Test
@@ -1064,6 +1032,7 @@ public abstract class BaseContentStructureResourceTestCase {
 
 	@Test
 	public void testGetContentStructurePermissionsPage() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
 		ContentStructure postContentStructure =
 			testGetContentStructurePermissionsPage_addContentStructure();
 
@@ -1083,46 +1052,20 @@ public abstract class BaseContentStructureResourceTestCase {
 	}
 
 	@Test
-	public void testPutContentStructurePermissionsPage() throws Exception {
+	public void testGetSiteContentStructurePermissionsPage() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
-		ContentStructure contentStructure =
-			testPutContentStructurePermissionsPage_addContentStructure();
+		ContentStructure postContentStructure =
+			testGetSiteContentStructurePermissionsPage_addContentStructure();
 
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		com.liferay.portal.kernel.model.Role role = RoleTestUtil.addRole(
-			RoleConstants.TYPE_REGULAR);
+		Page<Permission> page =
+			contentStructureResource.getSiteContentStructurePermissionsPage(
+				testGroup.getGroupId(), RoleConstants.GUEST);
 
-		assertHttpResponseStatusCode(
-			200,
-			contentStructureResource.
-				putContentStructurePermissionsPageHttpResponse(
-					contentStructure.getId(),
-					new Permission[] {
-						new Permission() {
-							{
-								setActionIds(new String[] {"VIEW"});
-								setRoleName(role.getName());
-							}
-						}
-					}));
-
-		assertHttpResponseStatusCode(
-			404,
-			contentStructureResource.
-				putContentStructurePermissionsPageHttpResponse(
-					0L,
-					new Permission[] {
-						new Permission() {
-							{
-								setActionIds(new String[] {"-"});
-								setRoleName("-");
-							}
-						}
-					}));
+		Assert.assertNotNull(page);
 	}
 
 	protected ContentStructure
-			testPutContentStructurePermissionsPage_addContentStructure()
+			testGetSiteContentStructurePermissionsPage_addContentStructure()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -1295,12 +1238,12 @@ public abstract class BaseContentStructureResourceTestCase {
 
 		Long siteId = testGetSiteContentStructuresPage_getSiteId();
 
-		Page<ContentStructure> contentStructurePage =
+		Page<ContentStructure> contentStructuresPage =
 			contentStructureResource.getSiteContentStructuresPage(
 				siteId, null, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			contentStructurePage.getTotalCount());
+			contentStructuresPage.getTotalCount());
 
 		ContentStructure contentStructure1 =
 			testGetSiteContentStructuresPage_addContentStructure(
@@ -1570,94 +1513,95 @@ public abstract class BaseContentStructureResourceTestCase {
 	}
 
 	@Test
-	public void testGraphQLGetSiteContentStructuresPage() throws Exception {
-		Long siteId = testGetSiteContentStructuresPage_getSiteId();
+	public void testPutAssetLibraryContentStructurePermissionsPage()
+		throws Exception {
 
-		GraphQLField graphQLField = new GraphQLField(
-			"contentStructures",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 10);
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ContentStructure contentStructure =
+			testPutAssetLibraryContentStructurePermissionsPage_addContentStructure();
 
-					put("siteKey", "\"" + siteId + "\"");
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		com.liferay.portal.kernel.model.Role role = RoleTestUtil.addRole(
+			RoleConstants.TYPE_REGULAR);
 
-		// No namespace
+		assertHttpResponseStatusCode(
+			200,
+			contentStructureResource.
+				putAssetLibraryContentStructurePermissionsPageHttpResponse(
+					testDepotEntry.getDepotEntryId(),
+					new Permission[] {
+						new Permission() {
+							{
+								setActionIds(new String[] {"PERMISSIONS"});
+								setRoleName(role.getName());
+							}
+						}
+					}));
 
-		JSONObject contentStructuresJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/contentStructures");
-
-		long totalCount = contentStructuresJSONObject.getLong("totalCount");
-
-		ContentStructure contentStructure1 =
-			testGraphQLGetSiteContentStructuresPage_addContentStructure();
-		ContentStructure contentStructure2 =
-			testGraphQLGetSiteContentStructuresPage_addContentStructure();
-
-		contentStructuresJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/contentStructures");
-
-		Assert.assertEquals(
-			totalCount + 2, contentStructuresJSONObject.getLong("totalCount"));
-
-		assertContains(
-			contentStructure1,
-			Arrays.asList(
-				ContentStructureSerDes.toDTOs(
-					contentStructuresJSONObject.getString("items"))));
-		assertContains(
-			contentStructure2,
-			Arrays.asList(
-				ContentStructureSerDes.toDTOs(
-					contentStructuresJSONObject.getString("items"))));
-
-		// Using the namespace headlessDelivery_v1_0
-
-		contentStructuresJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(
-				new GraphQLField("headlessDelivery_v1_0", graphQLField)),
-			"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
-			"JSONObject/contentStructures");
-
-		Assert.assertEquals(
-			totalCount + 2, contentStructuresJSONObject.getLong("totalCount"));
-
-		assertContains(
-			contentStructure1,
-			Arrays.asList(
-				ContentStructureSerDes.toDTOs(
-					contentStructuresJSONObject.getString("items"))));
-		assertContains(
-			contentStructure2,
-			Arrays.asList(
-				ContentStructureSerDes.toDTOs(
-					contentStructuresJSONObject.getString("items"))));
+		assertHttpResponseStatusCode(
+			404,
+			contentStructureResource.
+				putAssetLibraryContentStructurePermissionsPageHttpResponse(
+					testDepotEntry.getDepotEntryId(),
+					new Permission[] {
+						new Permission() {
+							{
+								setActionIds(new String[] {"-"});
+								setRoleName("-");
+							}
+						}
+					}));
 	}
 
 	protected ContentStructure
-			testGraphQLGetSiteContentStructuresPage_addContentStructure()
+			testPutAssetLibraryContentStructurePermissionsPage_addContentStructure()
 		throws Exception {
 
-		return testGraphQLContentStructure_addContentStructure();
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGetSiteContentStructurePermissionsPage() throws Exception {
-		Page<Permission> page =
-			contentStructureResource.getSiteContentStructurePermissionsPage(
-				testGroup.getGroupId(), RoleConstants.GUEST);
+	public void testPutContentStructurePermissionsPage() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ContentStructure contentStructure =
+			testPutContentStructurePermissionsPage_addContentStructure();
 
-		Assert.assertNotNull(page);
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		com.liferay.portal.kernel.model.Role role = RoleTestUtil.addRole(
+			RoleConstants.TYPE_REGULAR);
+
+		assertHttpResponseStatusCode(
+			200,
+			contentStructureResource.
+				putContentStructurePermissionsPageHttpResponse(
+					contentStructure.getId(),
+					new Permission[] {
+						new Permission() {
+							{
+								setActionIds(new String[] {"VIEW"});
+								setRoleName(role.getName());
+							}
+						}
+					}));
+
+		assertHttpResponseStatusCode(
+			404,
+			contentStructureResource.
+				putContentStructurePermissionsPageHttpResponse(
+					0L,
+					new Permission[] {
+						new Permission() {
+							{
+								setActionIds(new String[] {"-"});
+								setRoleName("-");
+							}
+						}
+					}));
 	}
 
 	protected ContentStructure
-			testGetSiteContentStructurePermissionsPage_addContentStructure()
+			testPutContentStructurePermissionsPage_addContentStructure()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -1678,7 +1622,7 @@ public abstract class BaseContentStructureResourceTestCase {
 			200,
 			contentStructureResource.
 				putSiteContentStructurePermissionsPageHttpResponse(
-					contentStructure.getSiteId(),
+					testGroup.getGroupId(),
 					new Permission[] {
 						new Permission() {
 							{
@@ -1692,7 +1636,7 @@ public abstract class BaseContentStructureResourceTestCase {
 			404,
 			contentStructureResource.
 				putSiteContentStructurePermissionsPageHttpResponse(
-					contentStructure.getSiteId(),
+					testGroup.getGroupId(),
 					new Permission[] {
 						new Permission() {
 							{
@@ -1709,6 +1653,11 @@ public abstract class BaseContentStructureResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	@Rule
@@ -1813,10 +1762,9 @@ public abstract class BaseContentStructureResourceTestCase {
 			valid = false;
 		}
 
-		com.liferay.portal.kernel.model.Group group = testDepotEntry.getGroup();
-
 		if (!Objects.equals(
-				contentStructure.getAssetLibraryKey(), group.getGroupKey()) &&
+				contentStructure.getAssetLibraryKey(),
+				testDepotEntryGroup.getGroupKey()) &&
 			!Objects.equals(
 				contentStructure.getSiteId(), testGroup.getGroupId())) {
 
@@ -1952,6 +1900,8 @@ public abstract class BaseContentStructureResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		graphQLFields.add(new GraphQLField("siteId"));
 
@@ -2514,8 +2464,8 @@ public abstract class BaseContentStructureResourceTestCase {
 	protected ContentStructure randomContentStructure() throws Exception {
 		return new ContentStructure() {
 			{
-				assetLibraryKey = StringUtil.toLowerCase(
-					RandomTestUtil.randomString());
+				assetLibraryKey = String.valueOf(
+					testDepotEntry.getDepotEntryId());
 				dateCreated = RandomTestUtil.nextDate();
 				dateModified = RandomTestUtil.nextDate();
 				description = StringUtil.toLowerCase(
@@ -2533,6 +2483,9 @@ public abstract class BaseContentStructureResourceTestCase {
 		ContentStructure randomIrrelevantContentStructure =
 			randomContentStructure();
 
+		randomIrrelevantContentStructure.setAssetLibraryKey(
+			String.valueOf(irrelevantDepotEntry.getDepotEntryId()));
+
 		randomIrrelevantContentStructure.setSiteId(
 			irrelevantGroup.getGroupId());
 
@@ -2546,7 +2499,10 @@ public abstract class BaseContentStructureResourceTestCase {
 	protected ContentStructureResource contentStructureResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
+	protected DepotEntry irrelevantDepotEntry;
+	protected com.liferay.portal.kernel.model.Group irrelevantDepotEntryGroup;
 	protected DepotEntry testDepotEntry;
+	protected com.liferay.portal.kernel.model.Group testDepotEntryGroup;
 	protected com.liferay.portal.kernel.model.Group testGroup;
 
 	protected static class BeanTestUtil {

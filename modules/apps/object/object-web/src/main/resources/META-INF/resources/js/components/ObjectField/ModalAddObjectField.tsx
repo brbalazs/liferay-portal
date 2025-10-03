@@ -95,6 +95,7 @@ export function ModalAddObjectField({
 	const {errors, handleChange, handleSubmit, setValues, values} =
 		useObjectFieldForm({
 			initialValues,
+			objectFields: objectDefinition?.objectFields,
 			onSubmit,
 		});
 
@@ -172,6 +173,7 @@ export function ModalAddObjectField({
 
 							<Input
 								error={errors.label}
+								id="modal-add-object-field__label-input"
 								label={Liferay.Language.get('label')}
 								name="label"
 								onChange={({target: {value}}) => {
@@ -201,7 +203,11 @@ export function ModalAddObjectField({
 									<div className="lfr-objects__modal-add-object-field-enable-translations-toggle">
 										<Toggle
 											disabled={
-												!objectDefinition?.enableLocalization
+												!objectDefinition?.enableLocalization ||
+												(!Liferay.FeatureFlags[
+													'LPD-32050'
+												] &&
+													values.required)
 											}
 											label={Liferay.Language.get(
 												'enable-entry-translations'
@@ -210,9 +216,6 @@ export function ModalAddObjectField({
 											onToggle={(localized) =>
 												setValues({
 													localized,
-													required:
-														!localized &&
-														values.required,
 												})
 											}
 											toggled={values.localized}

@@ -5,6 +5,7 @@
 
 package com.liferay.portal.service.impl;
 
+import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.User;
@@ -23,16 +24,15 @@ import com.liferay.portal.kernel.service.permission.UserPermissionUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.comparator.UserGroupIdComparator;
 import com.liferay.portal.security.membershippolicy.UserGroupMembershipPolicyUtil;
 import com.liferay.portal.service.base.UserGroupServiceBaseImpl;
 import com.liferay.portal.service.permission.UserGroupPermissionUtil;
 import com.liferay.portal.service.persistence.constants.UserGroupFinderConstants;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.usersadmin.util.UsersAdminUtil;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -550,18 +550,18 @@ public class UserGroupServiceImpl extends UserGroupServiceBaseImpl {
 	protected List<UserGroup> filterUserGroups(List<UserGroup> userGroups)
 		throws PortalException {
 
-		List<UserGroup> filteredGroups = new ArrayList<>();
+		return TransformUtil.transform(
+			userGroups,
+			userGroup -> {
+				if (UserGroupPermissionUtil.contains(
+						getPermissionChecker(), userGroup.getUserGroupId(),
+						ActionKeys.VIEW)) {
 
-		for (UserGroup userGroup : userGroups) {
-			if (UserGroupPermissionUtil.contains(
-					getPermissionChecker(), userGroup.getUserGroupId(),
-					ActionKeys.VIEW)) {
+					return userGroup;
+				}
 
-				filteredGroups.add(userGroup);
-			}
-		}
-
-		return filteredGroups;
+				return null;
+			});
 	}
 
 	/**

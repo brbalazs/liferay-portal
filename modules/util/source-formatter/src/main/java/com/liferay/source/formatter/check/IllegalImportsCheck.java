@@ -96,11 +96,11 @@ public class IllegalImportsCheck extends BaseFileCheck {
 		}
 
 		if (isPortalSource() && absolutePath.contains("/portal-kernel/") &&
-			content.contains("import javax.servlet.jsp.")) {
+			content.contains("import jakarta.servlet.jsp.")) {
 
 			addMessage(
 				fileName,
-				"Never import javax.servlet.jsp.* from portal-kernel, see " +
+				"Never import jakarta.servlet.jsp.* from portal-kernel, see " +
 					"LPS-47682");
 		}
 
@@ -173,7 +173,7 @@ public class IllegalImportsCheck extends BaseFileCheck {
 					"org.slf4j.Logger");
 		}
 
-		if (!absolutePath.contains("/modules/etl/") &&
+		if (!absolutePath.contains("/modules/integrations/") &&
 			!absolutePath.contains("/modules/sdk/")) {
 
 			if (isAttributeValue(_AVOID_OPTIONAL_KEY, absolutePath) &&

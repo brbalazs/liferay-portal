@@ -4,7 +4,7 @@
 		"node-scripts": "./bin.js"
 	},
 	"com.liferay": {
-		"sha256": "2e79ebc28c82601fb316ed70573bab5ab8606afd07b6b1667d296c190b96c2bf"
+		"sha256": "35eb4297f0582256cf4a33a35e7084b37e34233d56fe57b6b49de75e3e23577d"
 	},
 	"dependencies": {
 		"@babel/preset-env": "7.24.7",
@@ -52,6 +52,7 @@
 		"react-test-renderer-16.12.0": "npm:react-test-renderer@16.12.0",
 		"regenerator-runtime": "0.11.1",
 		"resolve": "^1.19.0",
+		"rtlcss": "^4.3.0",
 		"sass": "1.77.5",
 		"sonda": "^0.7.1",
 		"stylelint": "13.2.0",
@@ -59,7 +60,10 @@
 		"typescript": "4.4.2",
 		"unzipper": "^0.11.6"
 	},
-	"exports": "./index.js",
+	"exports": {
+		".": "./index.js",
+		"./theme": "./exports/theme.js"
+	},
 	"name": "@liferay/node-scripts",
 	"scripts": {
 		"checkFormat": "node-scripts format:self --check",

@@ -42,6 +42,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -50,11 +51,20 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -73,16 +83,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -338,12 +338,12 @@ public abstract class BaseUserNotificationResourceTestCase {
 	public void testGetMyUserNotificationsPageWithPagination()
 		throws Exception {
 
-		Page<UserNotification> userNotificationPage =
+		Page<UserNotification> userNotificationsPage =
 			userNotificationResource.getMyUserNotificationsPage(
 				null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			userNotificationPage.getTotalCount());
+			userNotificationsPage.getTotalCount());
 
 		UserNotification userNotification1 =
 			testGetMyUserNotificationsPage_addUserNotification(
@@ -765,12 +765,12 @@ public abstract class BaseUserNotificationResourceTestCase {
 		Long userAccountId =
 			testGetUserAccountUserNotificationsPage_getUserAccountId();
 
-		Page<UserNotification> userNotificationPage =
+		Page<UserNotification> userNotificationsPage =
 			userNotificationResource.getUserAccountUserNotificationsPage(
 				userAccountId, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			userNotificationPage.getTotalCount());
+			userNotificationsPage.getTotalCount());
 
 		UserNotification userNotification1 =
 			testGetUserAccountUserNotificationsPage_addUserNotification(
@@ -1403,6 +1403,11 @@ public abstract class BaseUserNotificationResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
@@ -1594,6 +1599,8 @@ public abstract class BaseUserNotificationResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

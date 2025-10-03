@@ -5,7 +5,7 @@
 
 import {Cookie, Page, expect} from '@playwright/test';
 
-import {ApiHelpers, getHeader} from '../helpers/ApiHelpers';
+import {getHeader} from '../helpers/ApiHelpers';
 import {liferayConfig} from '../liferay.config';
 
 export type LoginScreenName =
@@ -36,6 +36,14 @@ export const userData = {
 		surname: 'Test',
 	},
 };
+
+interface LoginOptions {
+	domain?: string;
+	loginUrl?: string;
+	page: Page;
+	rememberMe?: boolean;
+	screenName: LoginScreenName | string;
+}
 
 async function performLogin(
 	page: Page,
@@ -84,12 +92,13 @@ async function performLogin(
 	return await page.context().cookies();
 }
 
-export async function performLoginViaApi(
-	page: Page,
-	screenName: LoginScreenName | string,
+export async function performLoginViaApi({
 	domain = '@liferay.com',
-	rememberMe = true
-) {
+	loginUrl = liferayConfig.environment.baseUrl,
+	page,
+	rememberMe = true,
+	screenName,
+}: LoginOptions) {
 	const {password} = userData[screenName || 'test'];
 
 	const params = new URLSearchParams({
@@ -99,26 +108,30 @@ export async function performLoginViaApi(
 	});
 
 	try {
-		await page.goto('/');
+		await page.goto(loginUrl);
 
-		const url = `${liferayConfig.environment.baseUrl}/c/portal/login`;
+		const url = `${loginUrl}/c/portal/login`;
 
-		await page.request.post(url, {
-			data: params.toString(),
-			headers: await getHeader(page, 'application/x-www-form-urlencoded'),
-		});
+		await expect
+			.poll(async () => {
+				const response = await page.request.post(url, {
+					data: params.toString(),
+					headers: await getHeader(
+						page,
+						'application/x-www-form-urlencoded'
+					),
+				});
 
-		await page.goto('/');
+				return response.status();
+			})
+			.toBe(200);
 
-		const apiHelpers = new ApiHelpers(page);
-
-		const {alternateName} =
-			await apiHelpers.headlessAdminUser.getMyUserAccount();
-
-		expect(alternateName).toBe(screenName);
+		await page.goto(loginUrl);
 	}
-	catch {
-		throw new Error('Login via API failed');
+	catch (error) {
+		error.message = `Login via API failed\n\n${error.message}`;
+
+		throw error;
 	}
 
 	return await page.context().cookies();

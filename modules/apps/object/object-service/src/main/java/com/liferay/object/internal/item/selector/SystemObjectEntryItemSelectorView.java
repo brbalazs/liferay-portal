@@ -22,7 +22,9 @@ import com.liferay.object.related.models.ObjectRelatedModelsProvider;
 import com.liferay.object.related.models.ObjectRelatedModelsProviderRegistry;
 import com.liferay.object.service.ObjectDefinitionLocalService;
 import com.liferay.object.service.ObjectFieldLocalService;
+import com.liferay.object.system.SystemObjectDefinitionManager;
 import com.liferay.object.system.SystemObjectDefinitionManagerRegistry;
+import com.liferay.petra.sql.dsl.Column;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
@@ -42,6 +44,14 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterRegistry;
 
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletURL;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -50,14 +60,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Gabriel Albuquerque
@@ -209,13 +211,24 @@ public class SystemObjectEntryItemSelectorView
 
 		@Override
 		public String getPayload() {
+			Map<String, Object> modelAttributes =
+				_baseModel.getModelAttributes();
+
+			SystemObjectDefinitionManager systemObjectDefinitionManager =
+				_systemObjectDefinitionManagerRegistry.
+					getSystemObjectDefinitionManager(
+						_objectDefinition.getName());
+
+			Column<?, Long> primaryKeyColumn =
+				systemObjectDefinitionManager.getPrimaryKeyColumn();
+
 			return JSONUtil.put(
 				"className", _objectDefinition.getClassName()
 			).put(
 				"classNameId",
 				_portal.getClassNameId(_objectDefinition.getClassName())
 			).put(
-				"classPK", _baseModel.getPrimaryKeyObj()
+				"classPK", modelAttributes.get(primaryKeyColumn.getName())
 			).put(
 				"title",
 				StringBundler.concat(
@@ -320,7 +333,7 @@ public class SystemObjectEntryItemSelectorView
 			_userLocalService = userLocalService;
 
 			_portletRequest = (PortletRequest)httpServletRequest.getAttribute(
-				JavaConstants.JAVAX_PORTLET_REQUEST);
+				JavaConstants.JAKARTA_PORTLET_REQUEST);
 			_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 		}

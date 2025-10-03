@@ -6,13 +6,15 @@
 package com.liferay.headless.admin.site.internal.resource.v1_0.layout.structure.item.importer;
 
 import com.liferay.headless.admin.site.dto.v1_0.PageElement;
-import com.liferay.headless.admin.site.dto.v1_0.PageRowDefinition;
+import com.liferay.headless.admin.site.dto.v1_0.RowPageElementDefinition;
 import com.liferay.headless.admin.site.internal.resource.v1_0.layout.structure.item.importer.context.LayoutStructureItemImporterContext;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.LayoutStructureUtil;
 import com.liferay.layout.util.constants.LayoutDataItemTypeConstants;
+import com.liferay.layout.util.constants.StyledLayoutStructureConstants;
 import com.liferay.layout.util.structure.LayoutStructure;
 import com.liferay.layout.util.structure.LayoutStructureItem;
 import com.liferay.layout.util.structure.RowStyledLayoutStructureItem;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 
 /**
@@ -38,28 +40,36 @@ public class RowLayoutStructureItemImporter
 						pageElement, layoutStructure),
 					pageElement.getPosition());
 
-		PageRowDefinition pageRowDefinition =
-			(PageRowDefinition)pageElement.getDefinition();
+		RowPageElementDefinition rowPageElementDefinition =
+			(RowPageElementDefinition)pageElement.getPageElementDefinition();
 
-		if (pageRowDefinition == null) {
+		if (rowPageElementDefinition == null) {
 			return rowStyledLayoutStructureItem;
 		}
 
 		rowStyledLayoutStructureItem.setCssClasses(
-			SetUtil.fromArray(pageRowDefinition.getCssClasses()));
+			SetUtil.fromArray(rowPageElementDefinition.getCssClasses()));
 		rowStyledLayoutStructureItem.setCustomCSS(
-			pageRowDefinition.getCustomCSS());
-		rowStyledLayoutStructureItem.setGutters(pageRowDefinition.getGutters());
-		rowStyledLayoutStructureItem.setIndexed(pageRowDefinition.getIndexed());
-		rowStyledLayoutStructureItem.setName(pageRowDefinition.getName());
-		rowStyledLayoutStructureItem.setNumberOfColumns(
-			pageRowDefinition.getNumberOfColumns());
+			rowPageElementDefinition.getCustomCSS());
+		rowStyledLayoutStructureItem.setGutters(
+			GetterUtil.getBoolean(
+				rowPageElementDefinition.getGutters(), Boolean.TRUE));
+		rowStyledLayoutStructureItem.setIndexed(
+			GetterUtil.getBoolean(
+				rowPageElementDefinition.getIndexed(), Boolean.TRUE));
 		rowStyledLayoutStructureItem.setModulesPerRow(
-			pageRowDefinition.getModulesPerRow());
+			GetterUtil.getInteger(rowPageElementDefinition.getModulesPerRow()));
+		rowStyledLayoutStructureItem.setName(
+			rowPageElementDefinition.getName());
+		rowStyledLayoutStructureItem.setNumberOfColumns(
+			GetterUtil.getInteger(
+				rowPageElementDefinition.getNumberOfColumns()));
 		rowStyledLayoutStructureItem.setReverseOrder(
-			pageRowDefinition.getReverseOrder());
+			GetterUtil.getBoolean(rowPageElementDefinition.getReverseOrder()));
 		rowStyledLayoutStructureItem.setVerticalAlignment(
-			pageRowDefinition.getVerticalAlignment());
+			GetterUtil.getString(
+				rowPageElementDefinition.getVerticalAlignment(),
+				StyledLayoutStructureConstants.VERTICAL_ALIGNMENT_TOP));
 
 		return rowStyledLayoutStructureItem;
 	}

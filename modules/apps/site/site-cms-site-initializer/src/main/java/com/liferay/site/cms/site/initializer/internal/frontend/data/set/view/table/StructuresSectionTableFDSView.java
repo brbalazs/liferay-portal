@@ -32,9 +32,11 @@ public class StructuresSectionTableFDSView extends BaseTableFDSView {
 			_fdsTableSchemaBuilderFactory.create();
 
 		return fdsTableSchemaBuilder.add(
-			"name", "name",
-			fdsTableSchemaField -> fdsTableSchemaField.setContentRenderer(
-				"nameTableCellRenderer"
+			"label", "label",
+			fdsTableSchemaField -> fdsTableSchemaField.setActionId(
+				"edit"
+			).setContentRenderer(
+				"actionLink"
 			).setSortable(
 				true
 			)
@@ -45,7 +47,7 @@ public class StructuresSectionTableFDSView extends BaseTableFDSView {
 		).add(
 			"scope", "space",
 			fdsTableSchemaField -> fdsTableSchemaField.setContentRenderer(
-				"spaceTableCellRenderer")
+				"structureScopeTableCellRenderer")
 		).add(
 			"creator.name", "author",
 			fdsTableSchemaField -> fdsTableSchemaField.setContentRenderer(

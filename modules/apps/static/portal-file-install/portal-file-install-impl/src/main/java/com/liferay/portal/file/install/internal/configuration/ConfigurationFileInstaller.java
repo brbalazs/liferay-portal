@@ -22,8 +22,8 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.HashMapDictionary;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.util.PropsValues;
 
 import java.io.File;
 
@@ -255,11 +255,7 @@ public class ConfigurationFileInstaller implements FileInstaller {
 			}
 		}
 
-		if (oldDictionary.isEmpty()) {
-			return true;
-		}
-
-		return false;
+		return oldDictionary.isEmpty();
 	}
 
 	private String _escapeFilterValue(String string) {

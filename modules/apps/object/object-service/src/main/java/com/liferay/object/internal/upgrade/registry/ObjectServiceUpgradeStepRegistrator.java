@@ -5,6 +5,7 @@
 
 package com.liferay.object.internal.upgrade.registry;
 
+import com.liferay.friendly.url.configuration.manager.FriendlyURLSeparatorConfigurationManager;
 import com.liferay.notification.service.NotificationTemplateLocalService;
 import com.liferay.object.constants.ObjectFieldConstants;
 import com.liferay.object.constants.ObjectFieldSettingConstants;
@@ -13,6 +14,7 @@ import com.liferay.object.internal.upgrade.v10_0_1.ObjectDefinitionPortletIdUpgr
 import com.liferay.object.internal.upgrade.v10_1_1.ObjectDefinitionStaleUserIdUpgradeProcess;
 import com.liferay.object.internal.upgrade.v10_1_1.ObjectFieldStaleUserIdUpgradeProcess;
 import com.liferay.object.internal.upgrade.v10_1_1.ObjectRelationshipStaleUserIdUpgradeProcess;
+import com.liferay.object.internal.upgrade.v10_23_0.ObjectEntryFolderPermissionUpgradeProcess;
 import com.liferay.object.internal.upgrade.v10_4_0.util.ObjectEntryFolderTable;
 import com.liferay.object.internal.upgrade.v10_5_0.ObjectEntryDefaultLanguageIdUpgradeProcess;
 import com.liferay.object.internal.upgrade.v10_8_0.util.ObjectDefinitionSettingTable;
@@ -36,13 +38,14 @@ import com.liferay.object.internal.upgrade.v3_27_0.ObjectActionUpgradeProcess;
 import com.liferay.object.internal.upgrade.v3_3_0.util.ObjectViewFilterColumnTable;
 import com.liferay.object.internal.upgrade.v3_9_0.ObjectLayoutBoxUpgradeProcess;
 import com.liferay.object.internal.upgrade.v6_0_0.util.ObjectValidationRuleSettingTable;
-import com.liferay.object.internal.upgrade.v8_8_2.SchemaUpgradeProcess;
 import com.liferay.object.internal.upgrade.v9_0_1.ObjectFolderUpgradeProcess;
 import com.liferay.object.model.impl.ObjectFieldSettingModelImpl;
+import com.liferay.object.system.SystemObjectDefinitionManagerRegistry;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.service.ResourceLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
@@ -439,7 +442,10 @@ public class ObjectServiceUpgradeStepRegistrator
 						NAME_OBJECT_DEFINITION_1_SHORT_NAME,
 					"' where name = 'ObjectDefinition1ShortName'")));
 
-		registry.register("8.8.1", "8.8.2", new SchemaUpgradeProcess());
+		registry.register(
+			"8.8.1", "8.8.2",
+			new com.liferay.object.internal.upgrade.v8_8_2.
+				SchemaUpgradeProcess());
 
 		registry.register("8.8.2", "8.8.3", new DummyUpgradeStep());
 
@@ -558,13 +564,112 @@ public class ObjectServiceUpgradeStepRegistrator
 		registry.register(
 			"10.8.0", "10.8.1",
 			new ObjectEntryAssetEntryTitleUpgradeProcess(
-				_classNameLocalService, _localization));
+				_classNameLocalService, _localization,
+				_systemObjectDefinitionManagerRegistry));
 
 		registry.register(
 			"10.8.1", "10.9.0", ObjectEntryVersionTable.create(),
 			UpgradeProcessFactory.addColumns("ObjectEntry", "version INTEGER"));
 
 		registry.register("10.9.0", "10.9.1", new ClassNameUpgradeProcess());
+
+		registry.register(
+			"10.9.1", "10.10.0",
+			UpgradeProcessFactory.addColumns(
+				"ObjectDefinition", "enableObjectEntryVersioning BOOLEAN"));
+
+		registry.register(
+			"10.10.0", "10.11.0",
+			UpgradeProcessFactory.addColumns(
+				"ObjectEntryVersion", "objectDefinitionId LONG"));
+
+		registry.register(
+			"10.11.0", "10.12.0",
+			UpgradeProcessFactory.addColumns(
+				"ObjectEntry", "expirationDate DATE null"));
+
+		registry.register(
+			"10.12.0", "10.13.0",
+			UpgradeProcessFactory.addColumns(
+				"ObjectEntryVersion", "expirationDate DATE null",
+				"statusByUserId LONG", "statusByUserName VARCHAR(75) null",
+				"statusDate DATE null"));
+
+		registry.register(
+			"10.13.0", "10.14.0",
+			UpgradeProcessFactory.addColumns(
+				"ObjectEntryFolder", "description STRING null"));
+
+		registry.register(
+			"10.14.0", "10.14.1",
+			UpgradeProcessFactory.alterColumnType(
+				"ObjectAction", "description", "STRING null"));
+
+		registry.register(
+			"10.14.1", "10.15.0",
+			new com.liferay.object.internal.upgrade.v10_15_0.
+				ObjectDefinitionUpgradeProcess(
+					_friendlyURLSeparatorConfigurationManager));
+
+		registry.register(
+			"10.15.0", "10.16.0",
+			UpgradeProcessFactory.addColumns(
+				"ObjectEntry", "displayDate DATE null",
+				"reviewDate DATE null"));
+
+		registry.register(
+			"10.16.0", "10.17.0",
+			UpgradeProcessFactory.addColumns(
+				"ObjectEntryVersion", "displayDate DATE null",
+				"reviewDate DATE null"));
+
+		registry.register(
+			"10.17.0", "10.18.0",
+			new com.liferay.object.internal.upgrade.v10_18_0.
+				ObjectFieldUpgradeProcess());
+
+		registry.register(
+			"10.18.0", "10.19.0",
+			new com.liferay.object.internal.upgrade.v10_19_0.
+				ObjectDefinitionUpgradeProcess());
+
+		registry.register(
+			"10.19.0", "10.20.0",
+			new com.liferay.object.internal.upgrade.v10_20_0.
+				ObjectFieldUpgradeProcess());
+
+		registry.register(
+			"10.20.0", "10.21.0",
+			UpgradeProcessFactory.addColumns(
+				"ObjectEntryFolder", "status INTEGER"),
+			UpgradeProcessFactory.runSQL(
+				"update ObjectEntryFolder set status = 0"));
+
+		registry.register(
+			"10.21.0", "10.22.0",
+			UpgradeProcessFactory.addColumns(
+				"ObjectDefinition", "enableObjectEntrySubscription BOOLEAN"));
+
+		registry.register(
+			"10.22.0", "10.22.1",
+			UpgradeProcessFactory.runSQL(
+				"update ObjectEntry set rootObjectEntryId = 0 where " +
+					"rootObjectEntryId is null"));
+
+		registry.register(
+			"10.22.1", "10.23.0",
+			new ObjectEntryFolderPermissionUpgradeProcess(
+				_resourceActionLocalService, _resourcePermissionLocalService));
+
+		registry.register(
+			"10.23.0", "10.24.0",
+			new com.liferay.object.internal.upgrade.v10_24_0.
+				ObjectDefinitionUpgradeProcess());
+
+		registry.register(
+			"10.24.0", "10.25.0",
+			new com.liferay.object.internal.upgrade.v10_25_0.
+				SchemaUpgradeProcess());
 	}
 
 	@Reference
@@ -572,6 +677,10 @@ public class ObjectServiceUpgradeStepRegistrator
 
 	@Reference
 	private CompanyLocalService _companyLocalService;
+
+	@Reference
+	private FriendlyURLSeparatorConfigurationManager
+		_friendlyURLSeparatorConfigurationManager;
 
 	@Reference
 	private GroupLocalService _groupLocalService;
@@ -583,6 +692,9 @@ public class ObjectServiceUpgradeStepRegistrator
 	private NotificationTemplateLocalService _notificationTemplateLocalService;
 
 	@Reference
+	private ResourceActionLocalService _resourceActionLocalService;
+
+	@Reference
 	private ResourceLocalService _resourceLocalService;
 
 	@Reference
@@ -590,6 +702,10 @@ public class ObjectServiceUpgradeStepRegistrator
 
 	@Reference
 	private RoleLocalService _roleLocalService;
+
+	@Reference
+	private SystemObjectDefinitionManagerRegistry
+		_systemObjectDefinitionManagerRegistry;
 
 	@Reference
 	private UserLocalService _userLocalService;

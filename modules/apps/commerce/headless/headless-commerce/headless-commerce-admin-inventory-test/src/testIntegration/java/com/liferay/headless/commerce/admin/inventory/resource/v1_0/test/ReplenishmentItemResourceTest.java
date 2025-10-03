@@ -35,6 +35,7 @@ import java.text.DateFormat;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -62,6 +63,43 @@ public class ReplenishmentItemResourceTest
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
 			testCompany.getCompanyId(), testGroup.getGroupId(),
 			_user.getUserId());
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		super.testBatchEngineDeleteImportTask();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testDeleteReplenishmentItemBatch() throws Exception {
+		super.testDeleteReplenishmentItemBatch();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLGetReplenishmentItemsPage() throws Exception {
+		super.testGraphQLGetReplenishmentItemsPage();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLGetWarehouseIdReplenishmentItemsPage()
+		throws Exception {
+
+		super.testGraphQLGetWarehouseIdReplenishmentItemsPage();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLPostReplenishmentItem() throws Exception {
+		super.testGraphQLPostReplenishmentItem();
 	}
 
 	@Override
@@ -233,6 +271,25 @@ public class ReplenishmentItemResourceTest
 						_dateFormat.format(RandomTestUtil.nextDate())),
 					BigDecimal.valueOf(RandomTestUtil.nextInt()),
 					testGetReplenishmentItemsPage_getSku(), StringPool.BLANK);
+
+		return _toReplenishmentItem(_commerceInventoryReplenishmentItem);
+	}
+
+	@Override
+	protected ReplenishmentItem
+			testGraphQLReplenishmentItem_addReplenishmentItem(
+				Long warehouseId, String sku,
+				ReplenishmentItem replenishmentItem)
+		throws Exception {
+
+		_commerceInventoryReplenishmentItem =
+			_commerceInventoryReplenishmentItemLocalService.
+				addCommerceInventoryReplenishmentItem(
+					replenishmentItem.getExternalReferenceCode(),
+					_user.getUserId(), replenishmentItem.getWarehouseId(),
+					replenishmentItem.getAvailabilityDate(),
+					replenishmentItem.getQuantity(), replenishmentItem.getSku(),
+					StringPool.BLANK);
 
 		return _toReplenishmentItem(_commerceInventoryReplenishmentItem);
 	}

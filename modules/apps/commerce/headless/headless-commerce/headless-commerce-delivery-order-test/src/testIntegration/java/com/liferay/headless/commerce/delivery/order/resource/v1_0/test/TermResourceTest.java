@@ -87,8 +87,8 @@ public class TermResourceTest extends BaseTermResourceTestCase {
 			_user.getUserId());
 
 		_accountEntry = _accountEntryLocalService.addAccountEntry(
-			_user.getUserId(), 0, RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), null,
+			StringPool.BLANK, _user.getUserId(), 0,
+			RandomTestUtil.randomString(), RandomTestUtil.randomString(), null,
 			RandomTestUtil.randomString() + "@liferay.com", null, null,
 			"business", 1, _serviceContext);
 
@@ -105,12 +105,12 @@ public class TermResourceTest extends BaseTermResourceTestCase {
 		_address = _addressLocalService.addAddress(
 			RandomTestUtil.randomString(), _user.getUserId(),
 			AccountEntry.class.getName(), _accountEntry.getAccountEntryId(),
+			_country.getCountryId(), 0, _region.getRegionId(),
+			RandomTestUtil.randomString(), RandomTestUtil.randomString(), false,
+			RandomTestUtil.randomString(), true, RandomTestUtil.randomString(),
+			RandomTestUtil.randomString(), RandomTestUtil.randomString(), null,
 			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), _region.getRegionId(),
-			_country.getCountryId(), 0, false, true,
-			RandomTestUtil.randomString(), _serviceContext);
+			_serviceContext);
 
 		_commerceCurrency = _commerceCurrencyLocalService.addCommerceCurrency(
 			null, _user.getUserId(), RandomTestUtil.randomString(),
@@ -191,30 +191,10 @@ public class TermResourceTest extends BaseTermResourceTestCase {
 	@Ignore
 	@Override
 	@Test
-	public void testGraphQLGetPlacedOrderByExternalReferenceCodeDeliveryTermNotFound()
-		throws Exception {
-
-		super.
-			testGraphQLGetPlacedOrderByExternalReferenceCodeDeliveryTermNotFound();
-	}
-
-	@Ignore
-	@Override
-	@Test
 	public void testGraphQLGetPlacedOrderByExternalReferenceCodePaymentTerm()
 		throws Exception {
 
 		super.testGraphQLGetPlacedOrderByExternalReferenceCodePaymentTerm();
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetPlacedOrderByExternalReferenceCodePaymentTermNotFound()
-		throws Exception {
-
-		super.
-			testGraphQLGetPlacedOrderByExternalReferenceCodePaymentTermNotFound();
 	}
 
 	@Ignore
@@ -227,26 +207,8 @@ public class TermResourceTest extends BaseTermResourceTestCase {
 	@Ignore
 	@Override
 	@Test
-	public void testGraphQLGetPlacedOrderDeliveryTermNotFound()
-		throws Exception {
-
-		super.testGraphQLGetPlacedOrderDeliveryTermNotFound();
-	}
-
-	@Ignore
-	@Override
-	@Test
 	public void testGraphQLGetPlacedOrderPaymentTerm() throws Exception {
 		super.testGraphQLGetPlacedOrderPaymentTerm();
-	}
-
-	@Ignore
-	@Override
-	@Test
-	public void testGraphQLGetPlacedOrderPaymentTermNotFound()
-		throws Exception {
-
-		super.testGraphQLGetPlacedOrderPaymentTermNotFound();
 	}
 
 	@Override

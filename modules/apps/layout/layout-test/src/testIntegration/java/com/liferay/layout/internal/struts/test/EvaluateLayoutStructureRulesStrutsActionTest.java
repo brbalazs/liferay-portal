@@ -53,17 +53,18 @@ import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
 import com.liferay.segments.service.SegmentsExperienceLocalService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -327,7 +328,11 @@ public class EvaluateLayoutStructureRulesStrutsActionTest {
 
 		for (InfoField<?> infoField :
 				ListUtil.filter(
-					infoForm.getAllInfoFields(), InfoField::isEditable)) {
+					infoForm.getAllInfoFields(),
+					infoField ->
+						infoField.isEditable() &&
+						!StringUtil.equals(
+							infoField.getName(), "externalReferenceCode"))) {
 
 			InfoFieldType infoFieldType = infoField.getInfoFieldType();
 
@@ -400,8 +405,9 @@ public class EvaluateLayoutStructureRulesStrutsActionTest {
 
 		_layoutPageTemplateStructureLocalService.
 			updateLayoutPageTemplateStructureData(
-				_group.getGroupId(), _draftLayout.getPlid(),
-				segmentsExperienceId, layoutStructure.toString());
+				TestPropsValues.getUserId(), _group.getGroupId(),
+				_draftLayout.getPlid(), segmentsExperienceId,
+				layoutStructure.toString());
 
 		return layoutStructureRule.getId();
 	}

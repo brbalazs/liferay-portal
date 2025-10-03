@@ -15,11 +15,12 @@ import com.liferay.portal.url.builder.AbsolutePortalURLBuilder;
 import com.liferay.portal.url.builder.AbsolutePortalURLBuilderFactory;
 import com.liferay.taglib.util.AttributesTagSupport;
 
-import java.util.Map;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.jsp.JspException;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
+import java.util.Dictionary;
+import java.util.Map;
 
 import org.osgi.framework.Bundle;
 
@@ -53,10 +54,15 @@ public class StylesheetTag extends AttributesTagSupport {
 		StringBundler sb = new StringBundler(5);
 
 		sb.append("<link href=\"");
+
+		Dictionary<String, String> headers = bundle.getHeaders(
+			StringPool.BLANK);
+
 		sb.append(
-			absolutePortalURLBuilder.forBundleStylesheet(
-				bundle, _css
+			absolutePortalURLBuilder.forWebContextStylesheet(
+				headers.get("Web-ContextPath"), _css
 			).build());
+
 		sb.append(StringPool.QUOTE);
 		sb.append(
 			ContentSecurityPolicyNonceProviderUtil.getNonceAttribute(

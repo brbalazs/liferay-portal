@@ -6,10 +6,12 @@
 package com.liferay.headless.asset.library.client.serdes.v1_0;
 
 import com.liferay.headless.asset.library.client.dto.v1_0.AssetLibrary;
-import com.liferay.headless.asset.library.client.dto.v1_0.Site;
+import com.liferay.headless.asset.library.client.dto.v1_0.ConnectedSite;
 import com.liferay.headless.asset.library.client.dto.v1_0.UserAccount;
 import com.liferay.headless.asset.library.client.dto.v1_0.UserGroup;
 import com.liferay.headless.asset.library.client.json.BaseJSONParser;
+
+import jakarta.annotation.Generated;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,8 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-
-import javax.annotation.Generated;
 
 /**
  * @author Roberto Díaz
@@ -54,6 +54,60 @@ public class AssetLibrarySerDes {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ssXX");
+
+		if (assetLibrary.getActions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"actions\": ");
+
+			sb.append(_toJSON(assetLibrary.getActions()));
+		}
+
+		if (assetLibrary.getAssetLibraryKey() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"assetLibraryKey\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(assetLibrary.getAssetLibraryKey()));
+
+			sb.append("\"");
+		}
+
+		if (assetLibrary.getConnectedSites() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"connectedSites\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < assetLibrary.getConnectedSites().length; i++) {
+				sb.append(String.valueOf(assetLibrary.getConnectedSites()[i]));
+
+				if ((i + 1) < assetLibrary.getConnectedSites().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
+		if (assetLibrary.getCreatorUserId() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"creatorUserId\": ");
+
+			sb.append(assetLibrary.getCreatorUserId());
+		}
 
 		if (assetLibrary.getDateCreated() != null) {
 			if (sb.length() > 1) {
@@ -157,6 +211,16 @@ public class AssetLibrarySerDes {
 			sb.append(_toJSON(assetLibrary.getName_i18n()));
 		}
 
+		if (assetLibrary.getNumberOfConnectedSites() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"numberOfConnectedSites\": ");
+
+			sb.append(assetLibrary.getNumberOfConnectedSites());
+		}
+
 		if (assetLibrary.getNumberOfUserAccounts() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -177,6 +241,26 @@ public class AssetLibrarySerDes {
 			sb.append(assetLibrary.getNumberOfUserGroups());
 		}
 
+		if (assetLibrary.getPermissions() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"permissions\": ");
+
+			sb.append("[");
+
+			for (int i = 0; i < assetLibrary.getPermissions().length; i++) {
+				sb.append(assetLibrary.getPermissions()[i]);
+
+				if ((i + 1) < assetLibrary.getPermissions().length) {
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		if (assetLibrary.getSettings() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -187,24 +271,28 @@ public class AssetLibrarySerDes {
 			sb.append(String.valueOf(assetLibrary.getSettings()));
 		}
 
-		if (assetLibrary.getSites() != null) {
+		if (assetLibrary.getSiteId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
 			}
 
-			sb.append("\"sites\": ");
+			sb.append("\"siteId\": ");
 
-			sb.append("[");
+			sb.append(assetLibrary.getSiteId());
+		}
 
-			for (int i = 0; i < assetLibrary.getSites().length; i++) {
-				sb.append(String.valueOf(assetLibrary.getSites()[i]));
-
-				if ((i + 1) < assetLibrary.getSites().length) {
-					sb.append(", ");
-				}
+		if (assetLibrary.getType() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
 			}
 
-			sb.append("]");
+			sb.append("\"type\": ");
+
+			sb.append("\"");
+
+			sb.append(assetLibrary.getType());
+
+			sb.append("\"");
 		}
 
 		if (assetLibrary.getUserAccounts() != null) {
@@ -268,6 +356,40 @@ public class AssetLibrarySerDes {
 
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ssXX");
+
+		if (assetLibrary.getActions() == null) {
+			map.put("actions", null);
+		}
+		else {
+			map.put("actions", String.valueOf(assetLibrary.getActions()));
+		}
+
+		if (assetLibrary.getAssetLibraryKey() == null) {
+			map.put("assetLibraryKey", null);
+		}
+		else {
+			map.put(
+				"assetLibraryKey",
+				String.valueOf(assetLibrary.getAssetLibraryKey()));
+		}
+
+		if (assetLibrary.getConnectedSites() == null) {
+			map.put("connectedSites", null);
+		}
+		else {
+			map.put(
+				"connectedSites",
+				String.valueOf(assetLibrary.getConnectedSites()));
+		}
+
+		if (assetLibrary.getCreatorUserId() == null) {
+			map.put("creatorUserId", null);
+		}
+		else {
+			map.put(
+				"creatorUserId",
+				String.valueOf(assetLibrary.getCreatorUserId()));
+		}
 
 		if (assetLibrary.getDateCreated() == null) {
 			map.put("dateCreated", null);
@@ -334,6 +456,15 @@ public class AssetLibrarySerDes {
 			map.put("name_i18n", String.valueOf(assetLibrary.getName_i18n()));
 		}
 
+		if (assetLibrary.getNumberOfConnectedSites() == null) {
+			map.put("numberOfConnectedSites", null);
+		}
+		else {
+			map.put(
+				"numberOfConnectedSites",
+				String.valueOf(assetLibrary.getNumberOfConnectedSites()));
+		}
+
 		if (assetLibrary.getNumberOfUserAccounts() == null) {
 			map.put("numberOfUserAccounts", null);
 		}
@@ -352,6 +483,14 @@ public class AssetLibrarySerDes {
 				String.valueOf(assetLibrary.getNumberOfUserGroups()));
 		}
 
+		if (assetLibrary.getPermissions() == null) {
+			map.put("permissions", null);
+		}
+		else {
+			map.put(
+				"permissions", String.valueOf(assetLibrary.getPermissions()));
+		}
+
 		if (assetLibrary.getSettings() == null) {
 			map.put("settings", null);
 		}
@@ -359,11 +498,18 @@ public class AssetLibrarySerDes {
 			map.put("settings", String.valueOf(assetLibrary.getSettings()));
 		}
 
-		if (assetLibrary.getSites() == null) {
-			map.put("sites", null);
+		if (assetLibrary.getSiteId() == null) {
+			map.put("siteId", null);
 		}
 		else {
-			map.put("sites", String.valueOf(assetLibrary.getSites()));
+			map.put("siteId", String.valueOf(assetLibrary.getSiteId()));
+		}
+
+		if (assetLibrary.getType() == null) {
+			map.put("type", null);
+		}
+		else {
+			map.put("type", String.valueOf(assetLibrary.getType()));
 		}
 
 		if (assetLibrary.getUserAccounts() == null) {
@@ -399,7 +545,19 @@ public class AssetLibrarySerDes {
 
 		@Override
 		protected boolean parseMaps(String jsonParserFieldName) {
-			if (Objects.equals(jsonParserFieldName, "dateCreated")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				return true;
+			}
+			else if (Objects.equals(jsonParserFieldName, "assetLibraryKey")) {
+				return false;
+			}
+			else if (Objects.equals(jsonParserFieldName, "connectedSites")) {
+				return false;
+			}
+			else if (Objects.equals(jsonParserFieldName, "creatorUserId")) {
+				return false;
+			}
+			else if (Objects.equals(jsonParserFieldName, "dateCreated")) {
 				return false;
 			}
 			else if (Objects.equals(jsonParserFieldName, "dateModified")) {
@@ -426,6 +584,11 @@ public class AssetLibrarySerDes {
 				return true;
 			}
 			else if (Objects.equals(
+						jsonParserFieldName, "numberOfConnectedSites")) {
+
+				return false;
+			}
+			else if (Objects.equals(
 						jsonParserFieldName, "numberOfUserAccounts")) {
 
 				return false;
@@ -435,10 +598,16 @@ public class AssetLibrarySerDes {
 
 				return false;
 			}
+			else if (Objects.equals(jsonParserFieldName, "permissions")) {
+				return false;
+			}
 			else if (Objects.equals(jsonParserFieldName, "settings")) {
 				return false;
 			}
-			else if (Objects.equals(jsonParserFieldName, "sites")) {
+			else if (Objects.equals(jsonParserFieldName, "siteId")) {
+				return false;
+			}
+			else if (Objects.equals(jsonParserFieldName, "type")) {
 				return false;
 			}
 			else if (Objects.equals(jsonParserFieldName, "userAccounts")) {
@@ -456,7 +625,41 @@ public class AssetLibrarySerDes {
 			AssetLibrary assetLibrary, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "dateCreated")) {
+			if (Objects.equals(jsonParserFieldName, "actions")) {
+				if (jsonParserFieldValue != null) {
+					assetLibrary.setActions(
+						(Map<String, Map<String, String>>)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "assetLibraryKey")) {
+				if (jsonParserFieldValue != null) {
+					assetLibrary.setAssetLibraryKey(
+						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "connectedSites")) {
+				if (jsonParserFieldValue != null) {
+					Object[] jsonParserFieldValues =
+						(Object[])jsonParserFieldValue;
+
+					ConnectedSite[] connectedSitesArray =
+						new ConnectedSite[jsonParserFieldValues.length];
+
+					for (int i = 0; i < connectedSitesArray.length; i++) {
+						connectedSitesArray[i] = ConnectedSiteSerDes.toDTO(
+							(String)jsonParserFieldValues[i]);
+					}
+
+					assetLibrary.setConnectedSites(connectedSitesArray);
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "creatorUserId")) {
+				if (jsonParserFieldValue != null) {
+					assetLibrary.setCreatorUserId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "dateCreated")) {
 				if (jsonParserFieldValue != null) {
 					assetLibrary.setDateCreated(
 						toDate((String)jsonParserFieldValue));
@@ -505,6 +708,14 @@ public class AssetLibrarySerDes {
 				}
 			}
 			else if (Objects.equals(
+						jsonParserFieldName, "numberOfConnectedSites")) {
+
+				if (jsonParserFieldValue != null) {
+					assetLibrary.setNumberOfConnectedSites(
+						Integer.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(
 						jsonParserFieldName, "numberOfUserAccounts")) {
 
 				if (jsonParserFieldValue != null) {
@@ -520,25 +731,42 @@ public class AssetLibrarySerDes {
 						Integer.valueOf((String)jsonParserFieldValue));
 				}
 			}
+			else if (Objects.equals(jsonParserFieldName, "permissions")) {
+				if (jsonParserFieldValue != null) {
+					Object[] jsonParserFieldValues =
+						(Object[])jsonParserFieldValue;
+
+					com.liferay.headless.asset.library.client.permission.
+						Permission[] permissionsArray = new
+						com.liferay.headless.asset.library.client.permission.
+							Permission[jsonParserFieldValues.length];
+
+					for (int i = 0; i < permissionsArray.length; i++) {
+						permissionsArray[i] =
+							com.liferay.headless.asset.library.client.
+								permission.Permission.toDTO(
+									(String)jsonParserFieldValues[i]);
+					}
+
+					assetLibrary.setPermissions(permissionsArray);
+				}
+			}
 			else if (Objects.equals(jsonParserFieldName, "settings")) {
 				if (jsonParserFieldValue != null) {
 					assetLibrary.setSettings(
 						SettingsSerDes.toDTO((String)jsonParserFieldValue));
 				}
 			}
-			else if (Objects.equals(jsonParserFieldName, "sites")) {
+			else if (Objects.equals(jsonParserFieldName, "siteId")) {
 				if (jsonParserFieldValue != null) {
-					Object[] jsonParserFieldValues =
-						(Object[])jsonParserFieldValue;
-
-					Site[] sitesArray = new Site[jsonParserFieldValues.length];
-
-					for (int i = 0; i < sitesArray.length; i++) {
-						sitesArray[i] = SiteSerDes.toDTO(
-							(String)jsonParserFieldValues[i]);
-					}
-
-					assetLibrary.setSites(sitesArray);
+					assetLibrary.setSiteId(
+						Long.valueOf((String)jsonParserFieldValue));
+				}
+			}
+			else if (Objects.equals(jsonParserFieldName, "type")) {
+				if (jsonParserFieldValue != null) {
+					assetLibrary.setType(
+						AssetLibrary.Type.create((String)jsonParserFieldValue));
 				}
 			}
 			else if (Objects.equals(jsonParserFieldName, "userAccounts")) {

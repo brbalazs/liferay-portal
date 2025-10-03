@@ -6,8 +6,10 @@
 package com.liferay.notification.internal.type.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.list.type.model.ListTypeDefinition;
 import com.liferay.notification.constants.NotificationConstants;
 import com.liferay.notification.constants.NotificationRecipientConstants;
+import com.liferay.notification.constants.NotificationRecipientSettingConstants;
 import com.liferay.notification.constants.NotificationTemplateConstants;
 import com.liferay.notification.context.NotificationContext;
 import com.liferay.notification.model.NotificationQueueEntry;
@@ -31,14 +33,19 @@ import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserConstants;
 import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.model.UserGroupRole;
+import com.liferay.portal.kernel.model.UserNotificationDeliveryConstants;
 import com.liferay.portal.kernel.model.role.RoleConstants;
+import com.liferay.portal.kernel.notifications.UserNotificationDefinition;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
+import com.liferay.portal.kernel.service.UserGroupLocalService;
 import com.liferay.portal.kernel.service.UserGroupRoleLocalService;
+import com.liferay.portal.kernel.service.UserNotificationDeliveryLocalService;
 import com.liferay.portal.kernel.service.UserNotificationEventLocalService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
@@ -50,6 +57,7 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.UnicodePropertiesBuilder;
+import com.liferay.portal.test.rule.FeatureFlag;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.vulcan.util.LocalizedMapUtil;
@@ -87,15 +95,51 @@ public class UserNotificationTypeTest extends BaseNotificationTypeTest {
 	}
 
 	@Test
+	public void testIsDeliver() throws Exception {
+		NotificationTemplate notificationTemplate =
+			notificationTemplateLocalService.addNotificationTemplate(
+				_createNotificationContext(
+					Arrays.asList(
+						NotificationRecipientSettingUtil.
+							createNotificationRecipientSetting(
+								"userScreenName", user1.getScreenName()),
+						NotificationRecipientSettingUtil.
+							createNotificationRecipientSetting(
+								"userScreenName", user2.getScreenName())),
+					NotificationRecipientConstants.TYPE_USER));
+
+		_userNotificationDeliveryLocalService.addUserNotificationDelivery(
+			user1.getUserId(), childObjectDefinition.getPortletId(),
+			_classNameLocalService.getClassNameId(
+				childObjectDefinition.getClassName()),
+			UserNotificationDefinition.NOTIFICATION_TYPE_UPDATE_ENTRY,
+			UserNotificationDeliveryConstants.TYPE_WEBSITE, false);
+		_userNotificationDeliveryLocalService.addUserNotificationDelivery(
+			user2.getUserId(), childObjectDefinition.getPortletId(),
+			_classNameLocalService.getClassNameId(
+				childObjectDefinition.getClassName()),
+			UserNotificationDefinition.NOTIFICATION_TYPE_UPDATE_ENTRY,
+			UserNotificationDeliveryConstants.TYPE_WEBSITE, true);
+
+		_executeNotificationObjectAction(
+			notificationTemplate, childObjectDefinition, group.getGroupKey(),
+			user2);
+
+		_assertNotificationQueueEntry(user2.getFullName());
+	}
+
+	@Test
 	public void testSendNotificationRecipientTypeRole() throws Exception {
 		_testSendNotification(
 			Arrays.asList(
 				NotificationRecipientSettingUtil.
 					createNotificationRecipientSetting(
-						"roleName", RoleConstants.ADMINISTRATOR),
+						NotificationRecipientSettingConstants.NAME_ROLE_NAME,
+						RoleConstants.ADMINISTRATOR),
 				NotificationRecipientSettingUtil.
 					createNotificationRecipientSetting(
-						"roleName", role.getName())),
+						NotificationRecipientSettingConstants.NAME_ROLE_NAME,
+						role.getName())),
 			NotificationRecipientConstants.TYPE_ROLE);
 	}
 
@@ -133,7 +177,9 @@ public class UserNotificationTypeTest extends BaseNotificationTypeTest {
 					Collections.singletonList(
 						NotificationRecipientSettingUtil.
 							createNotificationRecipientSetting(
-								"roleName", role.getName())),
+								NotificationRecipientSettingConstants.
+									NAME_ROLE_NAME,
+								role.getName())),
 					NotificationRecipientConstants.TYPE_ROLE)));
 
 		_assertNotificationQueueEntry(user.getFullName());
@@ -157,11 +203,93 @@ public class UserNotificationTypeTest extends BaseNotificationTypeTest {
 					Collections.singletonList(
 						NotificationRecipientSettingUtil.
 							createNotificationRecipientSetting(
-								"roleName", siteRole.getName())),
+								NotificationRecipientSettingConstants.
+									NAME_ROLE_NAME,
+								siteRole.getName())),
 					NotificationRecipientConstants.TYPE_ROLE)),
 			childObjectDefinition, group.getGroupKey(), user);
 
 		_assertNotificationQueueEntry(user.getFullName());
+	}
+
+	@FeatureFlag("LPD-6233")
+	@Test
+	public void testSendNotificationRecipientTypeTermAssignee()
+		throws Exception {
+
+		ObjectDefinition objectDefinition =
+			addObjectDefinitionWithNotificationTemplateObjectAction(
+				Collections.singletonList(
+					NotificationRecipientSettingUtil.
+						createNotificationRecipientSetting(
+							NotificationRecipientConstants.TYPE_TERM,
+							"[%OBJECT_ENTRY_ASSIGNEE%]")),
+				"[%OBJECT_ENTRY_ASSIGNEE%]",
+				NotificationConstants.TYPE_USER_NOTIFICATION);
+
+		Role role = RoleTestUtil.addRole(RoleConstants.TYPE_REGULAR);
+
+		addViewResourcePermission(objectDefinition, role);
+
+		User user1 = UserTestUtil.addUser();
+
+		_roleLocalService.addUserRole(user1.getUserId(), role.getRoleId());
+
+		objectEntryManager.addObjectEntry(
+			dtoConverterContext, objectDefinition,
+			new ObjectEntry() {
+				{
+					properties = HashMapBuilder.<String, Object>put(
+						"assignee",
+						HashMapBuilder.put(
+							"externalReferenceCode",
+							user1.getExternalReferenceCode()
+						).put(
+							"type", "User"
+						).build()
+					).build();
+				}
+			},
+			null);
+
+		Assert.assertEquals(
+			1,
+			_userNotificationEventLocalService.getUserNotificationEventsCount(
+				user1.getUserId()));
+		assertNotificationQueueEntrySubject(user1.getFullName());
+
+		User user2 = UserTestUtil.addUser();
+
+		_roleLocalService.addUserRole(user2.getUserId(), role.getRoleId());
+
+		objectEntryManager.addObjectEntry(
+			dtoConverterContext, objectDefinition,
+			new ObjectEntry() {
+				{
+					properties = HashMapBuilder.<String, Object>put(
+						"assignee",
+						HashMapBuilder.put(
+							"externalReferenceCode",
+							role.getExternalReferenceCode()
+						).put(
+							"type", "Role"
+						).build()
+					).build();
+				}
+			},
+			null);
+
+		Assert.assertEquals(
+			2,
+			_userNotificationEventLocalService.getUserNotificationEventsCount(
+				user1.getUserId()));
+		Assert.assertEquals(
+			1,
+			_userNotificationEventLocalService.getUserNotificationEventsCount(
+				user2.getUserId()));
+		assertNotificationQueueEntrySubject(role.getName());
+
+		objectDefinitionLocalService.deleteObjectDefinition(objectDefinition);
 	}
 
 	@Test
@@ -308,6 +436,54 @@ public class UserNotificationTypeTest extends BaseNotificationTypeTest {
 			NotificationRecipientConstants.TYPE_USER);
 	}
 
+	@FeatureFlag("LPD-50091")
+	@Test
+	public void testSendNotificationRecipientTypeUserGroup() throws Exception {
+		UserGroup userGroup1 = UserGroupTestUtil.addUserGroup();
+
+		_userGroupLocalService.addUserUserGroup(
+			user1.getUserId(), userGroup1.getUserGroupId());
+
+		UserGroup userGroup2 = UserGroupTestUtil.addUserGroup();
+
+		_userGroupLocalService.addUserUserGroup(
+			user1.getUserId(), userGroup2.getUserGroupId());
+		_userGroupLocalService.addUserUserGroup(
+			user2.getUserId(), userGroup2.getUserGroupId());
+
+		try {
+			_testSendNotification(
+				Arrays.asList(
+					NotificationRecipientSettingUtil.
+						createNotificationRecipientSetting(
+							"userGroupName", userGroup1.getName()),
+					NotificationRecipientSettingUtil.
+						createNotificationRecipientSetting(
+							"userGroupName", userGroup2.getName())),
+				NotificationRecipientConstants.TYPE_USER_GROUP);
+
+			Assert.assertEquals(
+				1,
+				_userNotificationEventLocalService.
+					getUserNotificationEventsCount(user1.getUserId()));
+			Assert.assertEquals(
+				1,
+				_userNotificationEventLocalService.
+					getUserNotificationEventsCount(user2.getUserId()));
+		}
+		finally {
+			_userGroupLocalService.setUserUserGroups(
+				user1.getUserId(), new long[0]);
+
+			_userGroupLocalService.deleteUserGroup(userGroup1);
+
+			_userGroupLocalService.setUserUserGroups(
+				user2.getUserId(), new long[0]);
+
+			_userGroupLocalService.deleteUserGroup(userGroup2);
+		}
+	}
+
 	private User _addSiteRoleUser(Group group, Role siteRole) throws Exception {
 		resourcePermissionLocalService.addResourcePermission(
 			TestPropsValues.getCompanyId(),
@@ -343,6 +519,11 @@ public class UserNotificationTypeTest extends BaseNotificationTypeTest {
 			ResourceConstants.SCOPE_COMPANY,
 			String.valueOf(TestPropsValues.getCompanyId()), role.getRoleId(),
 			ObjectActionKeys.ADD_OBJECT_ENTRY);
+		resourcePermissionLocalService.addResourcePermission(
+			TestPropsValues.getCompanyId(), ListTypeDefinition.class.getName(),
+			ResourceConstants.SCOPE_COMPANY,
+			String.valueOf(TestPropsValues.getCompanyId()), role.getRoleId(),
+			ActionKeys.VIEW);
 		resourcePermissionLocalService.setResourcePermissions(
 			TestPropsValues.getCompanyId(),
 			childObjectDefinition.getClassName(),
@@ -598,10 +779,20 @@ public class UserNotificationTypeTest extends BaseNotificationTypeTest {
 	}
 
 	@Inject
+	private ClassNameLocalService _classNameLocalService;
+
+	@Inject
 	private RoleLocalService _roleLocalService;
 
 	@Inject
+	private UserGroupLocalService _userGroupLocalService;
+
+	@Inject
 	private UserGroupRoleLocalService _userGroupRoleLocalService;
+
+	@Inject
+	private UserNotificationDeliveryLocalService
+		_userNotificationDeliveryLocalService;
 
 	@Inject
 	private UserNotificationEventLocalService

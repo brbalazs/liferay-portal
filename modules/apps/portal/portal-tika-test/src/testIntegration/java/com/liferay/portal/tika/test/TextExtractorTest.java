@@ -23,6 +23,8 @@ import com.liferay.portal.kernel.util.TextExtractor;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
+import jakarta.servlet.ServletContext;
+
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,8 +35,6 @@ import java.nio.charset.Charset;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.ServletContext;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -242,6 +242,13 @@ public class TextExtractorTest {
 
 		Assert.assertEquals(
 			expectedText.trim(), extractText("test-encoding-Shift_JIS.txt"));
+	}
+
+	@Test
+	public void testVsdx() {
+		String text = extractText("test.vsdx");
+
+		Assert.assertEquals("test\n\nThis is a test.\nNothing fancy.", text);
 	}
 
 	@Test

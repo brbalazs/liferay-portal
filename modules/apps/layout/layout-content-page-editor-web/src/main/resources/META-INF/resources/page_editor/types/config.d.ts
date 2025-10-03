@@ -26,6 +26,7 @@ export interface Config {
 		[key: string]: {
 			languageIcon: string;
 			languageLabel: string;
+			w3cLanguageId: string;
 		};
 	};
 
@@ -113,6 +114,8 @@ export interface Config {
 		subtypes: Array<{label: string; value: string}>;
 		value: string;
 	}>;
+	fragmentPortletNamespace: string;
+	fragmentsImportURL: string;
 	frontendTokens: {
 		[key: string]:
 			| {
@@ -157,8 +160,8 @@ export interface Config {
 	infoFieldItemSelectorURL: string;
 	infoItemPreviewSelectorURL: string;
 	infoItemSelectorURL: string;
+	isCMS: boolean;
 	isConversionDraft: boolean;
-	isMarketplaceButtonVisited: boolean;
 	isPrivateLayoutsEnabled: boolean;
 	layoutConversionWarningMessages: string[] | null;
 	layoutItemSelectorURL: String;
@@ -183,6 +186,7 @@ export interface Config {
 	portletNamespace: string;
 	publishURL: string;
 	redirectURL: string;
+	regenerateDisplayPageURL: string;
 	renderFragmentEntriesURL: string;
 	restoreCollectionDisplayConfigURL: string;
 	searchContainerPageMaxDelta: number;

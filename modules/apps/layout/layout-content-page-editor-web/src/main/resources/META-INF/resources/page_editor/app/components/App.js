@@ -24,6 +24,7 @@ import {
 } from '../contexts/KeyboardMovementContext';
 import {LayoutKeyboardContextProvider} from '../contexts/LayoutKeyboardContext';
 import {LocalConfigContextProvider} from '../contexts/LocalConfigContext';
+import {ObjectDataContextProvider} from '../contexts/ObjectDataContext';
 import {PortletContentContextProvider} from '../contexts/PortletContentContext';
 import {ShortcutContextProvider} from '../contexts/ShortcutContext';
 import {StoreContextProvider} from '../contexts/StoreContext';
@@ -42,6 +43,7 @@ import MultiSelectManager from './MultiSelectManager';
 import ShortcutManager from './ShortcutManager';
 import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
+import ExperienceCustomizerModal from './cms/ExperienceCustomizerModal';
 import KeyboardMovementManager from './keyboard_movement/KeyboardMovementManager';
 import KeyboardMovementPreview from './keyboard_movement/KeyboardMovementPreview';
 
@@ -52,6 +54,8 @@ export default function App({state}) {
 		<ClayIconSpriteContext.Provider value={getControlPanelSpritemap()}>
 			<StoreContextProvider initialState={initialState} reducer={reducer}>
 				<ConvertToPageTemplateModal />
+
+				<ExperienceCustomizerModal />
 
 				<ControlsProvider>
 					<CollectionActiveItemContextProvider>
@@ -83,15 +87,17 @@ export default function App({state}) {
 																	<CommonStylesManager />
 
 																	<StyleBookContextProvider>
-																		<Sidebar />
+																		<ObjectDataContextProvider>
+																			<Sidebar />
 
-																		<LayoutKeyboardContextProvider>
-																			<LayoutViewport />
-																		</LayoutKeyboardContextProvider>
+																			<LayoutKeyboardContextProvider>
+																				<LayoutViewport />
+																			</LayoutKeyboardContextProvider>
 
-																		<LayoutBreadcrumbs />
+																			<LayoutBreadcrumbs />
 
-																		<ItemConfigurationSidebar />
+																			<ItemConfigurationSidebar />
+																		</ObjectDataContextProvider>
 																	</StyleBookContextProvider>
 																</GlobalContextProvider>
 															</LocalConfigContextProvider>

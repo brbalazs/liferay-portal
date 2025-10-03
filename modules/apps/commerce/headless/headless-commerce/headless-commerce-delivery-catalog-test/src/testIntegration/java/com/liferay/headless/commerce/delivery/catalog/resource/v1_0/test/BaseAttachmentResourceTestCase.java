@@ -34,14 +34,18 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -57,10 +61,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -260,11 +260,11 @@ public abstract class BaseAttachmentResourceTestCase {
 		Long channelId = testGetChannelProductAttachmentsPage_getChannelId();
 		Long productId = testGetChannelProductAttachmentsPage_getProductId();
 
-		Page<Attachment> attachmentPage =
+		Page<Attachment> attachmentsPage =
 			attachmentResource.getChannelProductAttachmentsPage(
 				channelId, productId, null, null);
 
-		int totalCount = GetterUtil.getInteger(attachmentPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(attachmentsPage.getTotalCount());
 
 		Attachment attachment1 =
 			testGetChannelProductAttachmentsPage_addAttachment(
@@ -450,11 +450,11 @@ public abstract class BaseAttachmentResourceTestCase {
 		Long channelId = testGetChannelProductImagesPage_getChannelId();
 		Long productId = testGetChannelProductImagesPage_getProductId();
 
-		Page<Attachment> attachmentPage =
+		Page<Attachment> attachmentsPage =
 			attachmentResource.getChannelProductImagesPage(
 				channelId, productId, null, null);
 
-		int totalCount = GetterUtil.getInteger(attachmentPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(attachmentsPage.getTotalCount());
 
 		Attachment attachment1 = testGetChannelProductImagesPage_addAttachment(
 			channelId, productId, randomAttachment());
@@ -567,11 +567,9 @@ public abstract class BaseAttachmentResourceTestCase {
 		return null;
 	}
 
-	protected Attachment testGraphQLAttachment_addAttachment()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	protected void assertContains(
@@ -838,6 +836,10 @@ public abstract class BaseAttachmentResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

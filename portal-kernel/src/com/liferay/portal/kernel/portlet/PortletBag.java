@@ -23,14 +23,14 @@ import com.liferay.portal.kernel.xmlrpc.Method;
 import com.liferay.social.kernel.model.SocialActivityInterpreter;
 import com.liferay.social.kernel.model.SocialRequestInterpreter;
 
+import jakarta.portlet.Portlet;
+import jakarta.portlet.PreferencesValidator;
+
+import jakarta.servlet.ServletContext;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-import javax.portlet.Portlet;
-import javax.portlet.PreferencesValidator;
-
-import javax.servlet.ServletContext;
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -106,11 +106,11 @@ public interface PortletBag extends Cloneable {
 	public List<PortletConfigurationListener>
 		getPortletConfigurationListenerInstances();
 
-	public PortletDataHandler getPortletDataHandlerInstance();
+	public PortletDataHandler getPortletDataHandlerInstance(long companyId);
 
 	/**
 	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
-	 *             #getPortletDataHandlerInstance()}
+	 *             #getPortletDataHandlerInstance(long companyId)}
 	 */
 	@Deprecated
 	public List<PortletDataHandler> getPortletDataHandlerInstances();

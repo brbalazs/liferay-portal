@@ -5,14 +5,16 @@
 
 package com.liferay.frontend.data.set;
 
-import com.liferay.portal.util.PropsValues;
+import com.liferay.portal.kernel.util.PropsValues;
 
 /**
  * @author Daniel Sanz
  */
 public interface SystemFDSEntry {
 
-	public String getAdditionalAPIURLParameters();
+	public default String getAdditionalAPIURLParameters() {
+		return null;
+	}
 
 	public default int getDefaultItemsPerPage() {
 		return PropsValues.SEARCH_CONTAINER_PAGE_DEFAULT_DELTA;

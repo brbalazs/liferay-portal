@@ -54,6 +54,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -88,6 +89,14 @@ import com.liferay.segments.model.SegmentsExperienceTable;
 import com.liferay.segments.service.SegmentsEntryLocalService;
 import com.liferay.segments.service.SegmentsExperienceLocalService;
 
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.ResourceRequest;
+import jakarta.portlet.ResourceResponse;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.text.Format;
 
 import java.util.ArrayList;
@@ -99,14 +108,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletRequest;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -115,7 +116,7 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(
 	property = {
-		"javax.portlet.name=" + CTPortletKeys.PUBLICATIONS,
+		"jakarta.portlet.name=" + CTPortletKeys.PUBLICATIONS,
 		"mvc.command.name=/change_tracking/get_entry_render_data"
 	},
 	service = MVCResourceCommand.class
@@ -992,6 +993,16 @@ public class GetEntryRenderDataMVCResourceCommand
 
 		JSONArray jsonArray = _jsonFactory.createJSONArray();
 
+		long plid = ctEntry.getModelClassPK();
+
+		Layout layout = _layoutLocalService.fetchLayout(plid);
+
+		if ((layout != null) && (layout.isDenied() || layout.isPending())) {
+			layout = layout.fetchDraftLayout();
+
+			plid = layout.getPlid();
+		}
+
 		List<SegmentsExperience> segmentsExperiences = new ArrayList<>(
 			_segmentsExperienceLocalService.dslQuery(
 				DSLQueryFactoryUtil.select(
@@ -999,8 +1010,7 @@ public class GetEntryRenderDataMVCResourceCommand
 				).from(
 					SegmentsExperienceTable.INSTANCE
 				).where(
-					SegmentsExperienceTable.INSTANCE.plid.eq(
-						ctEntry.getModelClassPK())
+					SegmentsExperienceTable.INSTANCE.plid.eq(plid)
 				)));
 
 		if (segmentsExperiences.isEmpty()) {
@@ -1185,7 +1195,11 @@ public class GetEntryRenderDataMVCResourceCommand
 
 		long safeCloseableCTCollectionId = ctEntry.getCtCollectionId();
 
-		if (ctCollection.getStatus() != WorkflowConstants.STATUS_DRAFT) {
+		if ((ctCollection.getStatus() != WorkflowConstants.STATUS_DRAFT) &&
+			(ctCollection.getStatus() != WorkflowConstants.STATUS_EXPIRED) &&
+			(ctCollection.getStatus() != WorkflowConstants.STATUS_PENDING) &&
+			(ctCollection.getStatus() != WorkflowConstants.STATUS_SCHEDULED)) {
+
 			Map<String, Object> modelAttributes = model.getModelAttributes();
 
 			safeCloseableCTCollectionId = (long)modelAttributes.get(
@@ -1610,6 +1624,9 @@ public class GetEntryRenderDataMVCResourceCommand
 
 	@Reference
 	private Language _language;
+
+	@Reference
+	private LayoutLocalService _layoutLocalService;
 
 	@Reference
 	private Portal _portal;

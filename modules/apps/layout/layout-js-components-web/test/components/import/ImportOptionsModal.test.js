@@ -4,14 +4,15 @@
  */
 
 import '@testing-library/jest-dom/extend-expect';
-import {fireEvent, render} from '@testing-library/react';
+import {render, waitFor} from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 
-import {
-	ImportOptionsModal,
-	checkAccessibility,
-} from '../../../src/main/resources/META-INF/resources/js';
-import {ModalContent} from '../../../src/main/resources/META-INF/resources/js/components/import/ImportOptionsModal';
+import ImportOptionsModal, {
+	IMPORT_OPTIONS,
+	ModalContent,
+} from '../../../src/main/resources/META-INF/resources/js/components/import/ImportOptionsModal';
+import checkAccessibility from '../../__lib__/checkAccessibility';
 
 const renderComponent = async ({
 	onCloseModal = () => null,
@@ -23,14 +24,6 @@ const renderComponent = async ({
 };
 
 describe('ImportOptionsModal', () => {
-	afterAll(() => {
-		jest.useRealTimers();
-	});
-
-	beforeAll(() => {
-		jest.useFakeTimers();
-	});
-
 	it('renders text informing the user that some items already exist', async () => {
 		const {findByText} = await renderComponent();
 
@@ -68,23 +61,24 @@ describe('ImportOptionsModal', () => {
 		expect(cancelButton).toBeInTheDocument();
 		expect(importButton).toBeInTheDocument();
 
-		fireEvent.click(cancelButton);
-		fireEvent.click(importButton);
+		userEvent.click(cancelButton);
+		userEvent.click(importButton);
 
-		jest.advanceTimersByTime(1000);
-
-		expect(onCloseModal).toHaveBeenCalled();
-		expect(onImport).toHaveBeenCalled();
+		await waitFor(() => {
+			expect(onCloseModal).toHaveBeenCalled();
+			expect(onImport).toHaveBeenCalled();
+		});
 	});
 });
 
 describe('ImportOptionsModal Accessibility', () => {
-	it('checks accesibility of modal content', async () => {
+	it('checks accessibility of modal content', async () => {
 		const {container} = render(
 			<ModalContent
-				onClickImport={jest.fn()}
 				onClose={jest.fn()}
-				onRadioChange={jest.fn()}
+				onImport={jest.fn()}
+				onOptionChange={jest.fn()}
+				selectedOption={IMPORT_OPTIONS[0]}
 			/>
 		);
 

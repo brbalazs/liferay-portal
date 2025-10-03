@@ -8,8 +8,10 @@ package com.liferay.portal.workflow.kaleo.model.impl;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 import com.liferay.exportimport.kernel.lar.StagedModelType;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
+import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.exception.LocaleException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSON;
@@ -31,6 +33,8 @@ import com.liferay.portal.workflow.kaleo.model.KaleoDefinitionModel;
 
 import java.io.Serializable;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationHandler;
 
 import java.sql.Blob;
@@ -79,7 +83,8 @@ public class KaleoDefinitionModelImpl
 		{"modifiedDate", Types.TIMESTAMP}, {"name", Types.VARCHAR},
 		{"title", Types.VARCHAR}, {"description", Types.VARCHAR},
 		{"content", Types.CLOB}, {"scope", Types.VARCHAR},
-		{"version", Types.INTEGER}, {"active_", Types.BOOLEAN}
+		{"version", Types.INTEGER}, {"active_", Types.BOOLEAN},
+		{"status", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -104,10 +109,11 @@ public class KaleoDefinitionModelImpl
 		TABLE_COLUMNS_MAP.put("scope", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("version", Types.INTEGER);
 		TABLE_COLUMNS_MAP.put("active_", Types.BOOLEAN);
+		TABLE_COLUMNS_MAP.put("status", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table KaleoDefinition (mvccVersion LONG default 0 not null,ctCollectionId LONG default 0 not null,uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,kaleoDefinitionId LONG not null,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(200) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(200) null,title STRING null,description STRING null,content TEXT null,scope VARCHAR(75) null,version INTEGER,active_ BOOLEAN,primary key (kaleoDefinitionId, ctCollectionId))";
+		"create table KaleoDefinition (mvccVersion LONG default 0 not null,ctCollectionId LONG default 0 not null,uuid_ VARCHAR(75) null,externalReferenceCode VARCHAR(75) null,kaleoDefinitionId LONG not null,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(200) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(200) null,title STRING null,description STRING null,content TEXT null,scope VARCHAR(75) null,version INTEGER,active_ BOOLEAN,status INTEGER,primary key (kaleoDefinitionId, ctCollectionId))";
 
 	public static final String TABLE_SQL_DROP = "drop table KaleoDefinition";
 
@@ -312,6 +318,7 @@ public class KaleoDefinitionModelImpl
 			attributeGetterFunctions.put(
 				"version", KaleoDefinition::getVersion);
 			attributeGetterFunctions.put("active", KaleoDefinition::getActive);
+			attributeGetterFunctions.put("status", KaleoDefinition::getStatus);
 
 			_attributeGetterFunctions = Collections.unmodifiableMap(
 				attributeGetterFunctions);
@@ -395,6 +402,10 @@ public class KaleoDefinitionModelImpl
 				"active",
 				(BiConsumer<KaleoDefinition, Boolean>)
 					KaleoDefinition::setActive);
+			attributeSetterBiConsumers.put(
+				"status",
+				(BiConsumer<KaleoDefinition, Integer>)
+					KaleoDefinition::setStatus);
 
 			_attributeSetterBiConsumers = Collections.unmodifiableMap(
 				(Map)attributeSetterBiConsumers);
@@ -904,6 +915,21 @@ public class KaleoDefinitionModelImpl
 			this.<Boolean>getColumnOriginalValue("active_"));
 	}
 
+	@JSON
+	@Override
+	public int getStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		if (_columnOriginalValues == Collections.EMPTY_MAP) {
+			_setColumnOriginalValues();
+		}
+
+		_status = status;
+	}
+
 	public String getContentAsXML() {
 		return null;
 	}
@@ -1058,6 +1084,7 @@ public class KaleoDefinitionModelImpl
 		kaleoDefinitionImpl.setScope(getScope());
 		kaleoDefinitionImpl.setVersion(getVersion());
 		kaleoDefinitionImpl.setActive(isActive());
+		kaleoDefinitionImpl.setStatus(getStatus());
 
 		kaleoDefinitionImpl.resetOriginalValues();
 
@@ -1104,6 +1131,8 @@ public class KaleoDefinitionModelImpl
 			this.<Integer>getColumnOriginalValue("version"));
 		kaleoDefinitionImpl.setActive(
 			this.<Boolean>getColumnOriginalValue("active_"));
+		kaleoDefinitionImpl.setStatus(
+			this.<Integer>getColumnOriginalValue("status"));
 
 		return kaleoDefinitionImpl;
 	}
@@ -1294,9 +1323,18 @@ public class KaleoDefinitionModelImpl
 
 		kaleoDefinitionCacheModel.active = isActive();
 
-		setContentAsXML(null);
+		kaleoDefinitionCacheModel.status = getStatus();
 
-		kaleoDefinitionCacheModel._contentAsXML = getContentAsXML();
+		try {
+			setContentAsXML(null);
+
+			kaleoDefinitionCacheModel.contentAsXML =
+				(String)_contentAsXMLMethodHandle.invokeExact(
+					(KaleoDefinitionImpl)this);
+		}
+		catch (Throwable throwable) {
+			ReflectionUtil.throwException(throwable);
+		}
 
 		return kaleoDefinitionCacheModel;
 	}
@@ -1379,6 +1417,7 @@ public class KaleoDefinitionModelImpl
 	private String _scope;
 	private int _version;
 	private boolean _active;
+	private int _status;
 
 	public <T> T getColumnValue(String columnName) {
 		columnName = _attributeNames.getOrDefault(columnName, columnName);
@@ -1429,6 +1468,7 @@ public class KaleoDefinitionModelImpl
 		_columnOriginalValues.put("scope", _scope);
 		_columnOriginalValues.put("version", _version);
 		_columnOriginalValues.put("active_", _active);
+		_columnOriginalValues.put("status", _status);
 	}
 
 	private static final Map<String, String> _attributeNames;
@@ -1489,10 +1529,44 @@ public class KaleoDefinitionModelImpl
 
 		columnBitmasks.put("active_", 131072L);
 
+		columnBitmasks.put("status", 262144L);
+
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}
 
 	private long _columnBitmask;
+
+	protected static final BiConsumer<KaleoDefinition, String>
+		contentAsXMLUpdateEntityCacheBiConsumer =
+			(kaleoDefinition, contentAsXML) -> {
+				KaleoDefinitionCacheModel kaleoDefinitionCacheModel =
+					EntityCacheUtil.fetchCacheModel(
+						KaleoDefinitionImpl.class,
+						kaleoDefinition.getPrimaryKey(),
+						KaleoDefinitionCacheModel.class);
+
+				if ((kaleoDefinitionCacheModel != null) &&
+					(kaleoDefinitionCacheModel.getMvccVersion() ==
+						kaleoDefinition.getMvccVersion())) {
+
+					kaleoDefinitionCacheModel.contentAsXML = contentAsXML;
+				}
+			};
+
+	private static final MethodHandle _contentAsXMLMethodHandle;
+
+	static {
+		MethodHandles.Lookup lookup = ReflectionUtil.getImplLookup();
+
+		try {
+			_contentAsXMLMethodHandle = lookup.findGetter(
+				KaleoDefinitionImpl.class, "_contentAsXML", String.class);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new ExceptionInInitializerError(reflectiveOperationException);
+		}
+	}
+
 	private KaleoDefinition _escapedModel;
 
 }

@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -42,8 +43,11 @@ import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -59,10 +63,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -337,10 +337,10 @@ public abstract class BaseAccountResourceTestCase {
 	public void testGetChannelAccountsPageWithPagination() throws Exception {
 		Long channelId = testGetChannelAccountsPage_getChannelId();
 
-		Page<Account> accountPage = accountResource.getChannelAccountsPage(
+		Page<Account> accountsPage = accountResource.getChannelAccountsPage(
 			channelId, null, null, null, null);
 
-		int totalCount = GetterUtil.getInteger(accountPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(accountsPage.getTotalCount());
 
 		Account account1 = testGetChannelAccountsPage_addAccount(
 			channelId, randomAccount());
@@ -577,13 +577,13 @@ public abstract class BaseAccountResourceTestCase {
 			testGetChannelAccountsPage_getChannelId(), account);
 	}
 
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
-
-	protected Account testGraphQLAccount_addAccount() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
 
 	protected void assertContains(Account account, List<Account> accounts) {
 		boolean contains = false;
@@ -839,6 +839,10 @@ public abstract class BaseAccountResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

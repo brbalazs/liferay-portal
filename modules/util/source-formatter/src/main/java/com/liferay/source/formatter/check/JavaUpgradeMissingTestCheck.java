@@ -6,6 +6,7 @@
 package com.liferay.source.formatter.check;
 
 import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringUtil;
 import com.liferay.source.formatter.SourceFormatterArgs;
 import com.liferay.source.formatter.check.util.JavaSourceUtil;
 import com.liferay.source.formatter.check.util.SourceUtil;
@@ -35,7 +36,9 @@ public class JavaUpgradeMissingTestCheck extends BaseFileCheck {
 		String className = JavaSourceUtil.getClassName(fileName);
 
 		if (!absolutePath.contains("/upgrade/") ||
-			absolutePath.contains("-test/") || className.startsWith("Base") ||
+			absolutePath.contains("/test/") ||
+			absolutePath.contains("/testIntegration/") ||
+			className.startsWith("Base") ||
 			!isUpgradeProcess(absolutePath, content)) {
 
 			return content;
@@ -75,6 +78,12 @@ public class JavaUpgradeMissingTestCheck extends BaseFileCheck {
 		String expectedTestClassName = StringBundler.concat(
 			JavaSourceUtil.getPackageName(content), ".test.", className,
 			"Test");
+
+		expectedTestClassName = StringUtil.replace(
+			expectedTestClassName, "kernel.upgrade.data.cleanup.test",
+			"upgrade.data.cleanup.test");
+		expectedTestClassName = StringUtil.replace(
+			expectedTestClassName, "kernel.upgrade.test", "upgrade.test");
 
 		File file = JavaSourceUtil.getJavaFile(
 			expectedTestClassName, SourceUtil.getRootDirName(absolutePath),

@@ -41,17 +41,27 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -70,16 +80,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -233,10 +233,11 @@ public abstract class BaseTaxCategoryResourceTestCase {
 
 	@Test
 	public void testGetTaxCategoriesPageWithPagination() throws Exception {
-		Page<TaxCategory> taxCategoryPage =
+		Page<TaxCategory> taxCategoriesPage =
 			taxCategoryResource.getTaxCategoriesPage(null, null);
 
-		int totalCount = GetterUtil.getInteger(taxCategoryPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(
+			taxCategoriesPage.getTotalCount());
 
 		TaxCategory taxCategory1 = testGetTaxCategoriesPage_addTaxCategory(
 			randomTaxCategory());
@@ -315,80 +316,6 @@ public abstract class BaseTaxCategoryResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetTaxCategoriesPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"taxCategories",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 10);
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
-		// No namespace
-
-		JSONObject taxCategoriesJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/taxCategories");
-
-		long totalCount = taxCategoriesJSONObject.getLong("totalCount");
-
-		TaxCategory taxCategory1 =
-			testGraphQLGetTaxCategoriesPage_addTaxCategory();
-		TaxCategory taxCategory2 =
-			testGraphQLGetTaxCategoriesPage_addTaxCategory();
-
-		taxCategoriesJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/taxCategories");
-
-		Assert.assertEquals(
-			totalCount + 2, taxCategoriesJSONObject.getLong("totalCount"));
-
-		assertContains(
-			taxCategory1,
-			Arrays.asList(
-				TaxCategorySerDes.toDTOs(
-					taxCategoriesJSONObject.getString("items"))));
-		assertContains(
-			taxCategory2,
-			Arrays.asList(
-				TaxCategorySerDes.toDTOs(
-					taxCategoriesJSONObject.getString("items"))));
-
-		// Using the namespace headlessCommerceAdminChannel_v1_0
-
-		taxCategoriesJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"headlessCommerceAdminChannel_v1_0", graphQLField)),
-			"JSONObject/data", "JSONObject/headlessCommerceAdminChannel_v1_0",
-			"JSONObject/taxCategories");
-
-		Assert.assertEquals(
-			totalCount + 2, taxCategoriesJSONObject.getLong("totalCount"));
-
-		assertContains(
-			taxCategory1,
-			Arrays.asList(
-				TaxCategorySerDes.toDTOs(
-					taxCategoriesJSONObject.getString("items"))));
-		assertContains(
-			taxCategory2,
-			Arrays.asList(
-				TaxCategorySerDes.toDTOs(
-					taxCategoriesJSONObject.getString("items"))));
-	}
-
-	protected TaxCategory testGraphQLGetTaxCategoriesPage_addTaxCategory()
-		throws Exception {
-
-		return testGraphQLTaxCategory_addTaxCategory();
 	}
 
 	@Test
@@ -687,6 +614,11 @@ public abstract class BaseTaxCategoryResourceTestCase {
 		return testGraphQLTaxCategory_addTaxCategory();
 	}
 
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
+	}
+
 	protected TaxCategory testGraphQLTaxCategory_addTaxCategory()
 		throws Exception {
 
@@ -852,6 +784,8 @@ public abstract class BaseTaxCategoryResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

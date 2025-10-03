@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.headless.delivery.client.dto.v1_0.Field;
 import com.liferay.headless.delivery.client.dto.v1_0.MessageBoardAttachment;
 import com.liferay.headless.delivery.client.http.HttpInvoker;
@@ -24,6 +27,7 @@ import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -39,19 +43,30 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.io.File;
 
@@ -72,16 +87,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -128,6 +134,16 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 			testCompany.getCompanyId());
 
 		messageBoardAttachmentResource = MessageBoardAttachmentResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		importTaskResource = ImportTaskResource.builder(
 		).authentication(
 			_testCompanyAdminUser.getEmailAddress(),
 			PropsValues.DEFAULT_ADMIN_PASSWORD
@@ -240,7 +256,6 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 			messageBoardAttachmentResource.
 				getMessageBoardAttachmentHttpResponse(
 					messageBoardAttachment.getId()));
-
 		assertHttpResponseStatusCode(
 			404,
 			messageBoardAttachmentResource.
@@ -288,7 +303,7 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 								messageBoardAttachment1.getId());
 						}
 					},
-					new GraphQLField("id"))),
+					getGraphQLFields())),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray1.length() > 0);
@@ -328,7 +343,7 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 									messageBoardAttachment2.getId());
 							}
 						},
-						new GraphQLField("id")))),
+						getGraphQLFields()))),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray2.length() > 0);
@@ -339,6 +354,262 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 		throws Exception {
 
 		return testGraphQLMessageBoardAttachment_addMessageBoardAttachment();
+	}
+
+	@Test
+	public void testDeleteMessageBoardAttachmentBatch() throws Exception {
+		MessageBoardAttachment messageBoardAttachment1 =
+			testDeleteMessageBoardAttachmentBatch_addMessageBoardAttachment();
+
+		testDeleteMessageBoardAttachmentBatch_deleteMessageBoardAttachment(
+			202, null, messageBoardAttachment1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			messageBoardAttachmentResource.
+				getMessageBoardAttachmentHttpResponse(
+					messageBoardAttachment1.getId()));
+	}
+
+	protected MessageBoardAttachment
+			testDeleteMessageBoardAttachmentBatch_addMessageBoardAttachment()
+		throws Exception {
+
+		return testDeleteMessageBoardAttachment_addMessageBoardAttachment();
+	}
+
+	protected void
+			testDeleteMessageBoardAttachmentBatch_deleteMessageBoardAttachment(
+				int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			messageBoardAttachmentResource.
+				deleteMessageBoardAttachmentBatchHttpResponse(
+					null,
+					JSONUtil.putAll(
+						JSONUtil.put(
+							"externalReferenceCode", () -> externalReferenceCode
+						).put(
+							"id", () -> id
+						)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+	}
+
+	@Test
+	public void testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode()
+		throws Exception {
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		MessageBoardAttachment messageBoardAttachment =
+			testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment();
+
+		assertHttpResponseStatusCode(
+			204,
+			messageBoardAttachmentResource.
+				deleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCodeHttpResponse(
+					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId(),
+					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode(),
+					messageBoardAttachment.getExternalReferenceCode()));
+
+		assertHttpResponseStatusCode(
+			404,
+			messageBoardAttachmentResource.
+				getSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCodeHttpResponse(
+					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId(),
+					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode(),
+					messageBoardAttachment.getExternalReferenceCode()));
+		assertHttpResponseStatusCode(
+			404,
+			messageBoardAttachmentResource.
+				getSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCodeHttpResponse(
+					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId(),
+					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode(),
+					"-"));
+	}
+
+	protected MessageBoardAttachment
+			testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Long
+			testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId()
+		throws Exception {
+
+		return testGroup.getGroupId();
+	}
+
+	protected String
+			testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode()
+		throws Exception {
+
+		// No namespace
+
+		MessageBoardAttachment messageBoardAttachment1 =
+			testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"siteKey",
+									"\"" +
+										testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId() +
+											"\"");
+
+								put(
+									"messageBoardMessageExternalReferenceCode",
+									"\"" +
+										testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode() +
+											"\"");
+								put(
+									"externalReferenceCode",
+									"\"" +
+										messageBoardAttachment1.
+											getExternalReferenceCode() + "\"");
+							}
+						})),
+				"JSONObject/data",
+				"Object/deleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"messageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode",
+					new HashMap<String, Object>() {
+						{
+							put(
+								"siteKey",
+								"\"" +
+									testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId() +
+										"\"");
+
+							put(
+								"messageBoardMessageExternalReferenceCode",
+								"\"" +
+									testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode() +
+										"\"");
+							put(
+								"externalReferenceCode",
+								"\"" +
+									messageBoardAttachment1.
+										getExternalReferenceCode() + "\"");
+						}
+					},
+					getGraphQLFields())),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray1.length() > 0);
+
+		// Using the namespace headlessDelivery_v1_0
+
+		MessageBoardAttachment messageBoardAttachment2 =
+			testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"headlessDelivery_v1_0",
+						new GraphQLField(
+							"deleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"siteKey",
+										"\"" +
+											testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId() +
+												"\"");
+
+									put(
+										"messageBoardMessageExternalReferenceCode",
+										"\"" +
+											testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode() +
+												"\"");
+									put(
+										"externalReferenceCode",
+										"\"" +
+											messageBoardAttachment2.
+												getExternalReferenceCode() +
+													"\"");
+								}
+							}))),
+				"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
+				"Object/deleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessDelivery_v1_0",
+					new GraphQLField(
+						"messageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"siteKey",
+									"\"" +
+										testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId() +
+											"\"");
+
+								put(
+									"messageBoardMessageExternalReferenceCode",
+									"\"" +
+										testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode() +
+											"\"");
+								put(
+									"externalReferenceCode",
+									"\"" +
+										messageBoardAttachment2.
+											getExternalReferenceCode() + "\"");
+							}
+						},
+						getGraphQLFields()))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray2.length() > 0);
+	}
+
+	protected Long
+			testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId()
+		throws Exception {
+
+		return testGroup.getGroupId();
+	}
+
+	protected String
+			testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected MessageBoardAttachment
+			testGraphQLDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment()
+		throws Exception {
+
+		return testGraphQLSiteMessageBoardAttachment_addMessageBoardAttachment();
 	}
 
 	@Test
@@ -778,34 +1049,90 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 	}
 
 	@Test
-	public void testPostMessageBoardMessageMessageBoardAttachment()
+	public void testGraphQLGetMessageBoardMessageMessageBoardAttachmentsPage()
 		throws Exception {
 
-		MessageBoardAttachment randomMessageBoardAttachment =
-			randomMessageBoardAttachment();
+		Long messageBoardMessageId =
+			testGetMessageBoardMessageMessageBoardAttachmentsPage_getMessageBoardMessageId();
 
-		Map<String, File> multipartFiles = getMultipartFiles();
+		GraphQLField graphQLField = new GraphQLField(
+			"messageBoardMessageMessageBoardAttachments",
+			new HashMap<String, Object>() {
+				{
+					put("messageBoardMessageId", messageBoardMessageId);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		MessageBoardAttachment postMessageBoardAttachment =
-			testPostMessageBoardMessageMessageBoardAttachment_addMessageBoardAttachment(
-				randomMessageBoardAttachment, multipartFiles);
+		// No namespace
 
-		assertEquals(randomMessageBoardAttachment, postMessageBoardAttachment);
-		assertValid(postMessageBoardAttachment);
+		JSONObject messageBoardMessageMessageBoardAttachmentsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/messageBoardMessageMessageBoardAttachments");
 
-		assertValid(postMessageBoardAttachment, multipartFiles);
-	}
+		long totalCount =
+			messageBoardMessageMessageBoardAttachmentsJSONObject.getLong(
+				"totalCount");
 
-	protected MessageBoardAttachment
-			testPostMessageBoardMessageMessageBoardAttachment_addMessageBoardAttachment(
-				MessageBoardAttachment messageBoardAttachment,
-				Map<String, File> multipartFiles)
-		throws Exception {
+		MessageBoardAttachment messageBoardAttachment1 =
+			testGraphQLMessageBoardMessageMessageBoardAttachment_addMessageBoardAttachment(
+				messageBoardMessageId, randomMessageBoardAttachment());
 
-		return messageBoardAttachmentResource.
-			postMessageBoardMessageMessageBoardAttachment(
-				testGetMessageBoardMessageMessageBoardAttachmentsPage_getMessageBoardMessageId(),
-				messageBoardAttachment, multipartFiles);
+		MessageBoardAttachment messageBoardAttachment2 =
+			testGraphQLMessageBoardMessageMessageBoardAttachment_addMessageBoardAttachment(
+				messageBoardMessageId, randomMessageBoardAttachment());
+
+		messageBoardMessageMessageBoardAttachmentsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/messageBoardMessageMessageBoardAttachments");
+
+		Assert.assertEquals(
+			totalCount + 2,
+			messageBoardMessageMessageBoardAttachmentsJSONObject.getLong(
+				"totalCount"));
+
+		assertContains(
+			messageBoardAttachment1,
+			Arrays.asList(
+				MessageBoardAttachmentSerDes.toDTOs(
+					messageBoardMessageMessageBoardAttachmentsJSONObject.
+						getString("items"))));
+		assertContains(
+			messageBoardAttachment2,
+			Arrays.asList(
+				MessageBoardAttachmentSerDes.toDTOs(
+					messageBoardMessageMessageBoardAttachmentsJSONObject.
+						getString("items"))));
+
+		// Using the namespace headlessDelivery_v1_0
+
+		messageBoardMessageMessageBoardAttachmentsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(
+					new GraphQLField("headlessDelivery_v1_0", graphQLField)),
+				"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
+				"JSONObject/messageBoardMessageMessageBoardAttachments");
+
+		Assert.assertEquals(
+			totalCount + 2,
+			messageBoardMessageMessageBoardAttachmentsJSONObject.getLong(
+				"totalCount"));
+
+		assertContains(
+			messageBoardAttachment1,
+			Arrays.asList(
+				MessageBoardAttachmentSerDes.toDTOs(
+					messageBoardMessageMessageBoardAttachmentsJSONObject.
+						getString("items"))));
+		assertContains(
+			messageBoardAttachment2,
+			Arrays.asList(
+				MessageBoardAttachmentSerDes.toDTOs(
+					messageBoardMessageMessageBoardAttachmentsJSONObject.
+						getString("items"))));
 	}
 
 	@Test
@@ -928,91 +1255,90 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 	}
 
 	@Test
-	public void testPostMessageBoardThreadMessageBoardAttachment()
+	public void testGraphQLGetMessageBoardThreadMessageBoardAttachmentsPage()
 		throws Exception {
 
-		MessageBoardAttachment randomMessageBoardAttachment =
-			randomMessageBoardAttachment();
+		Long messageBoardThreadId =
+			testGetMessageBoardThreadMessageBoardAttachmentsPage_getMessageBoardThreadId();
 
-		Map<String, File> multipartFiles = getMultipartFiles();
+		GraphQLField graphQLField = new GraphQLField(
+			"messageBoardThreadMessageBoardAttachments",
+			new HashMap<String, Object>() {
+				{
+					put("messageBoardThreadId", messageBoardThreadId);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
 
-		MessageBoardAttachment postMessageBoardAttachment =
-			testPostMessageBoardThreadMessageBoardAttachment_addMessageBoardAttachment(
-				randomMessageBoardAttachment, multipartFiles);
+		// No namespace
 
-		assertEquals(randomMessageBoardAttachment, postMessageBoardAttachment);
-		assertValid(postMessageBoardAttachment);
+		JSONObject messageBoardThreadMessageBoardAttachmentsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/messageBoardThreadMessageBoardAttachments");
 
-		assertValid(postMessageBoardAttachment, multipartFiles);
-	}
+		long totalCount =
+			messageBoardThreadMessageBoardAttachmentsJSONObject.getLong(
+				"totalCount");
 
-	protected MessageBoardAttachment
-			testPostMessageBoardThreadMessageBoardAttachment_addMessageBoardAttachment(
-				MessageBoardAttachment messageBoardAttachment,
-				Map<String, File> multipartFiles)
-		throws Exception {
+		MessageBoardAttachment messageBoardAttachment1 =
+			testGraphQLMessageBoardThreadMessageBoardAttachment_addMessageBoardAttachment(
+				messageBoardThreadId, randomMessageBoardAttachment());
 
-		return messageBoardAttachmentResource.
-			postMessageBoardThreadMessageBoardAttachment(
-				testGetMessageBoardThreadMessageBoardAttachmentsPage_getMessageBoardThreadId(),
-				messageBoardAttachment, multipartFiles);
-	}
+		MessageBoardAttachment messageBoardAttachment2 =
+			testGraphQLMessageBoardThreadMessageBoardAttachment_addMessageBoardAttachment(
+				messageBoardThreadId, randomMessageBoardAttachment());
 
-	@Test
-	public void testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode()
-		throws Exception {
+		messageBoardThreadMessageBoardAttachmentsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/messageBoardThreadMessageBoardAttachments");
 
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		MessageBoardAttachment messageBoardAttachment =
-			testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment();
+		Assert.assertEquals(
+			totalCount + 2,
+			messageBoardThreadMessageBoardAttachmentsJSONObject.getLong(
+				"totalCount"));
 
-		assertHttpResponseStatusCode(
-			204,
-			messageBoardAttachmentResource.
-				deleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCodeHttpResponse(
-					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId(),
-					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode(),
-					messageBoardAttachment.getExternalReferenceCode()));
+		assertContains(
+			messageBoardAttachment1,
+			Arrays.asList(
+				MessageBoardAttachmentSerDes.toDTOs(
+					messageBoardThreadMessageBoardAttachmentsJSONObject.
+						getString("items"))));
+		assertContains(
+			messageBoardAttachment2,
+			Arrays.asList(
+				MessageBoardAttachmentSerDes.toDTOs(
+					messageBoardThreadMessageBoardAttachmentsJSONObject.
+						getString("items"))));
 
-		assertHttpResponseStatusCode(
-			404,
-			messageBoardAttachmentResource.
-				getSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCodeHttpResponse(
-					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId(),
-					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode(),
-					messageBoardAttachment.getExternalReferenceCode()));
+		// Using the namespace headlessDelivery_v1_0
 
-		assertHttpResponseStatusCode(
-			404,
-			messageBoardAttachmentResource.
-				getSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCodeHttpResponse(
-					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId(),
-					testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode(),
-					messageBoardAttachment.getExternalReferenceCode()));
-	}
+		messageBoardThreadMessageBoardAttachmentsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(
+					new GraphQLField("headlessDelivery_v1_0", graphQLField)),
+				"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
+				"JSONObject/messageBoardThreadMessageBoardAttachments");
 
-	protected Long
-			testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId()
-		throws Exception {
+		Assert.assertEquals(
+			totalCount + 2,
+			messageBoardThreadMessageBoardAttachmentsJSONObject.getLong(
+				"totalCount"));
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String
-			testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected MessageBoardAttachment
-			testDeleteSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		assertContains(
+			messageBoardAttachment1,
+			Arrays.asList(
+				MessageBoardAttachmentSerDes.toDTOs(
+					messageBoardThreadMessageBoardAttachmentsJSONObject.
+						getString("items"))));
+		assertContains(
+			messageBoardAttachment2,
+			Arrays.asList(
+				MessageBoardAttachmentSerDes.toDTOs(
+					messageBoardThreadMessageBoardAttachmentsJSONObject.
+						getString("items"))));
 	}
 
 	@Test
@@ -1033,24 +1359,23 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 		assertValid(getMessageBoardAttachment);
 	}
 
+	protected MessageBoardAttachment
+			testGetSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
 	protected Long
 			testGetSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId()
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return testGroup.getGroupId();
 	}
 
 	protected String
 			testGetSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected MessageBoardAttachment
-			testGetSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -1087,7 +1412,6 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 											"\"" +
 												testGraphQLGetSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode() +
 													"\"");
-
 										put(
 											"externalReferenceCode",
 											"\"" +
@@ -1125,7 +1449,6 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 												"\"" +
 													testGraphQLGetSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getMessageBoardMessageExternalReferenceCode() +
 														"\"");
-
 											put(
 												"externalReferenceCode",
 												"\"" +
@@ -1143,8 +1466,7 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 			testGraphQLGetSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_getSiteId()
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return testGroup.getGroupId();
 	}
 
 	protected String
@@ -1222,7 +1544,126 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 			testGraphQLGetSiteMessageBoardMessageByExternalReferenceCodeMessageBoardMessageExternalReferenceCodeMessageBoardAttachmentByExternalReferenceCode_addMessageBoardAttachment()
 		throws Exception {
 
-		return testGraphQLMessageBoardAttachment_addMessageBoardAttachment();
+		return testGraphQLSiteMessageBoardAttachment_addMessageBoardAttachment();
+	}
+
+	@Test
+	public void testPostMessageBoardMessageMessageBoardAttachment()
+		throws Exception {
+
+		MessageBoardAttachment randomMessageBoardAttachment =
+			randomMessageBoardAttachment();
+
+		Map<String, File> multipartFiles = getMultipartFiles();
+
+		MessageBoardAttachment postMessageBoardAttachment =
+			testPostMessageBoardMessageMessageBoardAttachment_addMessageBoardAttachment(
+				randomMessageBoardAttachment, multipartFiles);
+
+		assertEquals(randomMessageBoardAttachment, postMessageBoardAttachment);
+		assertValid(postMessageBoardAttachment);
+
+		assertValid(postMessageBoardAttachment, multipartFiles);
+	}
+
+	protected MessageBoardAttachment
+			testPostMessageBoardMessageMessageBoardAttachment_addMessageBoardAttachment(
+				MessageBoardAttachment messageBoardAttachment,
+				Map<String, File> multipartFiles)
+		throws Exception {
+
+		return messageBoardAttachmentResource.
+			postMessageBoardMessageMessageBoardAttachment(
+				testGetMessageBoardMessageMessageBoardAttachmentsPage_getMessageBoardMessageId(),
+				messageBoardAttachment, multipartFiles);
+	}
+
+	@Test
+	public void testPostMessageBoardThreadMessageBoardAttachment()
+		throws Exception {
+
+		MessageBoardAttachment randomMessageBoardAttachment =
+			randomMessageBoardAttachment();
+
+		Map<String, File> multipartFiles = getMultipartFiles();
+
+		MessageBoardAttachment postMessageBoardAttachment =
+			testPostMessageBoardThreadMessageBoardAttachment_addMessageBoardAttachment(
+				randomMessageBoardAttachment, multipartFiles);
+
+		assertEquals(randomMessageBoardAttachment, postMessageBoardAttachment);
+		assertValid(postMessageBoardAttachment);
+
+		assertValid(postMessageBoardAttachment, multipartFiles);
+	}
+
+	protected MessageBoardAttachment
+			testPostMessageBoardThreadMessageBoardAttachment_addMessageBoardAttachment(
+				MessageBoardAttachment messageBoardAttachment,
+				Map<String, File> multipartFiles)
+		throws Exception {
+
+		return messageBoardAttachmentResource.
+			postMessageBoardThreadMessageBoardAttachment(
+				testGetMessageBoardThreadMessageBoardAttachmentsPage_getMessageBoardThreadId(),
+				messageBoardAttachment, multipartFiles);
+	}
+
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		MessageBoardAttachment messageBoardAttachment1 =
+			testBatchEngineDeleteImportTask_addMessageBoardAttachment();
+
+		testBatchEngineDeleteImportTask_deleteMessageBoardAttachment(
+			200, null, messageBoardAttachment1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			messageBoardAttachmentResource.
+				getMessageBoardAttachmentHttpResponse(
+					messageBoardAttachment1.getId()));
+	}
+
+	protected MessageBoardAttachment
+			testBatchEngineDeleteImportTask_addMessageBoardAttachment()
+		throws Exception {
+
+		return testDeleteMessageBoardAttachment_addMessageBoardAttachment();
+	}
+
+	protected void testBatchEngineDeleteImportTask_deleteMessageBoardAttachment(
+			int expectedStatusCode, String externalReferenceCode, Long id,
+			String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.headless.delivery.dto.v1_0.MessageBoardAttachment",
+				null, null, null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
 	}
 
 	protected MessageBoardAttachment
@@ -1231,6 +1672,211 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	protected MessageBoardAttachment
+			testGraphQLSiteMessageBoardAttachment_addMessageBoardAttachment()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected MessageBoardAttachment
+			testGraphQLMessageBoardMessageMessageBoardAttachment_addMessageBoardAttachment()
+		throws Exception {
+
+		return testGraphQLMessageBoardMessageMessageBoardAttachment_addMessageBoardAttachment(
+			testGraphQLMessageBoardMessageMessageBoardAttachment_getMessageBoardMessageId(),
+			randomMessageBoardAttachment());
+	}
+
+	protected Long
+			testGraphQLMessageBoardMessageMessageBoardAttachment_getMessageBoardMessageId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected MessageBoardAttachment
+			testGraphQLMessageBoardMessageMessageBoardAttachment_addMessageBoardAttachment(
+				Long messageBoardMessageId,
+				MessageBoardAttachment messageBoardAttachment)
+		throws Exception {
+
+		JSONDeserializer<MessageBoardAttachment> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field :
+				getDeclaredFields(MessageBoardAttachment.class)) {
+
+			if (getGraphQLValue(field.get(messageBoardAttachment)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(messageBoardAttachment)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createMessageBoardMessageMessageBoardAttachment",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"messageBoardMessageId",
+									messageBoardMessageId);
+								put("messageBoardAttachment", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data",
+				"JSONObject/createMessageBoardMessageMessageBoardAttachment"),
+			MessageBoardAttachment.class);
+	}
+
+	protected MessageBoardAttachment
+			testGraphQLMessageBoardThreadMessageBoardAttachment_addMessageBoardAttachment()
+		throws Exception {
+
+		return testGraphQLMessageBoardThreadMessageBoardAttachment_addMessageBoardAttachment(
+			testGraphQLMessageBoardThreadMessageBoardAttachment_getMessageBoardThreadId(),
+			randomMessageBoardAttachment());
+	}
+
+	protected Long
+			testGraphQLMessageBoardThreadMessageBoardAttachment_getMessageBoardThreadId()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected MessageBoardAttachment
+			testGraphQLMessageBoardThreadMessageBoardAttachment_addMessageBoardAttachment(
+				Long messageBoardThreadId,
+				MessageBoardAttachment messageBoardAttachment)
+		throws Exception {
+
+		JSONDeserializer<MessageBoardAttachment> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field :
+				getDeclaredFields(MessageBoardAttachment.class)) {
+
+			if (getGraphQLValue(field.get(messageBoardAttachment)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(messageBoardAttachment)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createMessageBoardThreadMessageBoardAttachment",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"messageBoardThreadId",
+									messageBoardThreadId);
+								put("messageBoardAttachment", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data",
+				"JSONObject/createMessageBoardThreadMessageBoardAttachment"),
+			MessageBoardAttachment.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(
@@ -1462,6 +2108,10 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -2109,7 +2759,30 @@ public abstract class BaseMessageBoardAttachmentResourceTestCase {
 		return randomMessageBoardAttachment();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected MessageBoardAttachmentResource messageBoardAttachmentResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

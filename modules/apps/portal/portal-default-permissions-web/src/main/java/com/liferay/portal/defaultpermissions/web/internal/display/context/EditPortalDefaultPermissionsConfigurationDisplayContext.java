@@ -38,6 +38,13 @@ import com.liferay.roles.admin.role.type.contributor.provider.RoleTypeContributo
 import com.liferay.roles.admin.search.RoleSearch;
 import com.liferay.roles.admin.search.RoleSearchTerms;
 
+import jakarta.portlet.ActionRequest;
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletURL;
+import jakarta.portlet.RenderRequest;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,13 +53,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.portlet.ActionRequest;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Stefano Motta
@@ -408,10 +408,14 @@ public class EditPortalDefaultPermissionsConfigurationDisplayContext {
 			return _roleTypes;
 		}
 
-		_roleTypes = RoleConstants.TYPES_REGULAR_AND_SITE;
-
-		if ((_group != null) && _group.isDepot()) {
+		if ((_group == null) || _group.isControlPanel()) {
+			_roleTypes = _TYPES_DEPOT_AND_REGULAR_AND_SITE;
+		}
+		else if (_group.isDepot()) {
 			_roleTypes = _TYPES_DEPOT_AND_REGULAR;
+		}
+		else {
+			_roleTypes = RoleConstants.TYPES_REGULAR_AND_SITE;
 		}
 
 		if (ResourceActionsUtil.isPortalModelResource(getModelResource())) {
@@ -480,6 +484,11 @@ public class EditPortalDefaultPermissionsConfigurationDisplayContext {
 
 	private static final int[] _TYPES_DEPOT_AND_REGULAR = {
 		RoleConstants.TYPE_DEPOT, RoleConstants.TYPE_REGULAR
+	};
+
+	private static final int[] _TYPES_DEPOT_AND_REGULAR_AND_SITE = {
+		RoleConstants.TYPE_DEPOT, RoleConstants.TYPE_REGULAR,
+		RoleConstants.TYPE_SITE
 	};
 
 	private List<String> _actions;

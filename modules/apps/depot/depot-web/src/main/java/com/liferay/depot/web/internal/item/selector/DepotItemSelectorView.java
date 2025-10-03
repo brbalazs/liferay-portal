@@ -6,7 +6,7 @@
 package com.liferay.depot.web.internal.item.selector;
 
 import com.liferay.depot.web.internal.application.list.DepotPanelAppController;
-import com.liferay.depot.web.internal.util.DepotAdminGroupSearchProvider;
+import com.liferay.depot.web.internal.util.DepotEntryAdminSearchProvider;
 import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.ItemSelectorView;
 import com.liferay.item.selector.criteria.GroupItemSelectorReturnType;
@@ -27,21 +27,21 @@ import com.liferay.site.item.selector.display.context.SitesItemSelectorViewDispl
 import com.liferay.site.item.selector.renderer.SiteItemSelectorViewRenderer;
 import com.liferay.site.search.GroupSearch;
 
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletURL;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.io.IOException;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletURL;
-
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -117,7 +117,7 @@ public class DepotItemSelectorView
 				new UUIDItemSelectorReturnType()));
 
 	@Reference
-	private DepotAdminGroupSearchProvider _depotAdminGroupSearchProvider;
+	private DepotEntryAdminSearchProvider _depotEntryAdminSearchProvider;
 
 	@Reference
 	private DepotPanelAppController _depotPanelAppController;
@@ -162,9 +162,9 @@ public class DepotItemSelectorView
 		@Override
 		public GroupSearch getGroupSearch() {
 			try {
-				return _depotAdminGroupSearchProvider.getGroupSearch(
+				return _depotEntryAdminSearchProvider.getGroupSearch(
 					_groupItemSelectorCriterion, getPortletRequest(),
-					getPortletURL());
+					getPortletResponse(), getPortletURL());
 			}
 			catch (PortalException portalException) {
 				return ReflectionUtil.throwException(portalException);
@@ -179,13 +179,13 @@ public class DepotItemSelectorView
 		@Override
 		public PortletRequest getPortletRequest() {
 			return (PortletRequest)_httpServletRequest.getAttribute(
-				JavaConstants.JAVAX_PORTLET_REQUEST);
+				JavaConstants.JAKARTA_PORTLET_REQUEST);
 		}
 
 		@Override
 		public PortletResponse getPortletResponse() {
 			return (PortletResponse)_httpServletRequest.getAttribute(
-				JavaConstants.JAVAX_PORTLET_RESPONSE);
+				JavaConstants.JAKARTA_PORTLET_RESPONSE);
 		}
 
 		@Override

@@ -5,38 +5,27 @@
 
 package com.liferay.headless.admin.site.internal.resource.v1_0;
 
-import com.liferay.headless.admin.site.dto.v1_0.PageElement;
 import com.liferay.headless.admin.site.dto.v1_0.PageExperience;
-import com.liferay.headless.admin.site.internal.resource.v1_0.layout.structure.item.importer.LayoutStructureItemImporter;
-import com.liferay.headless.admin.site.internal.resource.v1_0.layout.structure.item.importer.context.LayoutStructureItemImporterContext;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.GroupUtil;
-import com.liferay.headless.admin.site.internal.resource.v1_0.util.LayoutStructureItemImporterUtil;
+import com.liferay.headless.admin.site.internal.resource.v1_0.util.SegmentsExperienceUtil;
+import com.liferay.headless.admin.site.internal.resource.v1_0.util.ServiceContextUtil;
 import com.liferay.headless.admin.site.resource.v1_0.PageExperienceResource;
-import com.liferay.headless.common.spi.service.context.ServiceContextBuilder;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructure;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructureRel;
 import com.liferay.layout.page.template.service.LayoutPageTemplateStructureLocalService;
 import com.liferay.layout.page.template.service.LayoutPageTemplateStructureRelLocalService;
-import com.liferay.layout.util.structure.LayoutStructure;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.feature.flag.FeatureFlagManagerUtil;
 import com.liferay.portal.kernel.model.Layout;
-import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.UnicodePropertiesBuilder;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.pagination.Page;
-import com.liferay.portal.vulcan.util.LocalizedMapUtil;
 import com.liferay.segments.exception.NoSuchExperienceException;
-import com.liferay.segments.model.SegmentsEntry;
 import com.liferay.segments.model.SegmentsExperience;
-import com.liferay.segments.service.SegmentsEntryLocalService;
 import com.liferay.segments.service.SegmentsExperienceService;
 
 import java.util.Collections;
-import java.util.Objects;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -52,14 +41,12 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class PageExperienceResourceImpl extends BasePageExperienceResourceImpl {
 
 	@Override
-	public void deleteSiteSiteByExternalReferenceCodePageExperience(
+	public void deleteSitePageExperience(
 			String siteExternalReferenceCode,
 			String pageExperienceExternalReferenceCode)
 		throws Exception {
 
-		if (!FeatureFlagManagerUtil.isEnabled("LPD-35443")) {
-			throw new UnsupportedOperationException();
-		}
+		FeatureFlagManagerUtil.checkEnabled("LPD-35443");
 
 		long groupId = GroupUtil.getGroupId(
 			false, contextCompany.getCompanyId(), siteExternalReferenceCode);
@@ -85,7 +72,7 @@ public class PageExperienceResourceImpl extends BasePageExperienceResourceImpl {
 	}
 
 	@Override
-	public PageExperience getSiteSiteByExternalReferenceCodePageExperience(
+	public PageExperience getSitePageExperience(
 			String siteExternalReferenceCode,
 			String pageExperienceExternalReferenceCode)
 		throws Exception {
@@ -104,10 +91,9 @@ public class PageExperienceResourceImpl extends BasePageExperienceResourceImpl {
 	}
 
 	@Override
-	public Page<PageExperience>
-			getSiteSiteByExternalReferenceCodePageSpecificationPageExperiencesPage(
-				String siteExternalReferenceCode,
-				String pageSpecificationExternalReferenceCode)
+	public Page<PageExperience> getSitePageSpecificationPageExperiencesPage(
+			String siteExternalReferenceCode,
+			String pageSpecificationExternalReferenceCode)
 		throws Exception {
 
 		if (!FeatureFlagManagerUtil.isEnabled("LPD-35443")) {
@@ -133,11 +119,10 @@ public class PageExperienceResourceImpl extends BasePageExperienceResourceImpl {
 	}
 
 	@Override
-	public PageExperience
-			postSiteSiteByExternalReferenceCodePageSpecificationPageExperience(
-				String siteExternalReferenceCode,
-				String pageSpecificationExternalReferenceCode,
-				PageExperience pageExperience)
+	public PageExperience postSitePageSpecificationPageExperience(
+			String siteExternalReferenceCode,
+			String pageSpecificationExternalReferenceCode,
+			PageExperience pageExperience)
 		throws Exception {
 
 		if (!FeatureFlagManagerUtil.isEnabled("LPD-35443")) {
@@ -159,7 +144,7 @@ public class PageExperienceResourceImpl extends BasePageExperienceResourceImpl {
 	}
 
 	@Override
-	public PageExperience putSiteSiteByExternalReferenceCodePageExperience(
+	public PageExperience putSitePageExperience(
 			String siteExternalReferenceCode,
 			String pageExperienceExternalReferenceCode,
 			PageExperience pageExperience)
@@ -200,15 +185,11 @@ public class PageExperienceResourceImpl extends BasePageExperienceResourceImpl {
 		}
 
 		return _toPageExperience(
-			_segmentsExperienceService.updateSegmentsExperience(
-				segmentsExperience.getSegmentsExperienceId(),
-				_getSegmentsEntryId(
-					groupId, pageExperience.getSegmentExternalReferenceCode()),
-				LocalizedMapUtil.getLocalizedMap(pageExperience.getName_i18n()),
-				true,
-				UnicodePropertiesBuilder.create(
-					true
-				).build()));
+			SegmentsExperienceUtil.updateSegmentsExperience(
+				layout, pageExperience, segmentsExperience,
+				ServiceContextUtil.createServiceContext(
+					groupId, contextHttpServletRequest,
+					contextUser.getUserId())));
 	}
 
 	@Override
@@ -221,27 +202,6 @@ public class PageExperienceResourceImpl extends BasePageExperienceResourceImpl {
 		}
 	}
 
-	private void _addLayoutStructureItem(
-			LayoutStructure layoutStructure,
-			LayoutStructureItemImporterContext
-				layoutStructureItemImporterContext,
-			PageElement pageElement)
-		throws Exception {
-
-		LayoutStructureItemImporter layoutStructureItemImporter =
-			LayoutStructureItemImporterUtil.getLayoutStructureItemImporter(
-				pageElement.getType());
-
-		layoutStructureItemImporter.addLayoutStructureItem(
-			layoutStructure, layoutStructureItemImporterContext, pageElement);
-
-		for (PageElement childPageElement : pageElement.getPageElements()) {
-			_addLayoutStructureItem(
-				layoutStructure, layoutStructureItemImporterContext,
-				childPageElement);
-		}
-	}
-
 	private PageExperience _addPageExperience(
 			long groupId, PageExperience pageExperience)
 		throws Exception {
@@ -250,73 +210,16 @@ public class PageExperienceResourceImpl extends BasePageExperienceResourceImpl {
 			pageExperience.getPageSpecificationExternalReferenceCode(),
 			groupId);
 
-		if ((layout == null) ||
-			!Objects.equals(layout.getType(), LayoutConstants.TYPE_CONTENT)) {
-
+		if (layout == null) {
 			throw new UnsupportedOperationException();
 		}
 
-		SegmentsExperience segmentsExperience =
-			_segmentsExperienceService.addSegmentsExperience(
-				pageExperience.getExternalReferenceCode(), layout.getGroupId(),
-				_getSegmentsEntryId(
-					layout.getGroupId(),
-					pageExperience.getSegmentExternalReferenceCode()),
-				pageExperience.getKey(), layout.getPlid(),
-				LocalizedMapUtil.getLocalizedMap(pageExperience.getName_i18n()),
-				GetterUtil.getInteger(pageExperience.getPriority()), true,
-				UnicodePropertiesBuilder.create(
-					true
-				).build(),
-				ServiceContextBuilder.create(
-					layout.getGroupId(), contextHttpServletRequest, null
-				).build());
-
-		LayoutStructure layoutStructure = new LayoutStructure();
-
-		layoutStructure.addRootLayoutStructureItem();
-
-		for (PageElement pageElement : pageExperience.getPageElements()) {
-			_addLayoutStructureItem(
-				layoutStructure,
-				new LayoutStructureItemImporterContext(
-					groupId, layout,
-					segmentsExperience.getSegmentsExperienceId(),
-					contextUser.getUserId()),
-				pageElement);
-		}
-
-		_layoutPageTemplateStructureLocalService.
-			updateLayoutPageTemplateStructureData(
-				layout.getGroupId(), layout.getPlid(),
-				layoutStructure.toString());
-
-		String data = layoutStructure.toString();
-
-		_layoutPageTemplateStructureLocalService.
-			updateLayoutPageTemplateStructureData(
-				groupId, layout.getPlid(),
-				segmentsExperience.getSegmentsExperienceId(), data);
-
-		return _toPageExperience(segmentsExperience);
-	}
-
-	private long _getSegmentsEntryId(
-		long groupId, String segmentExternalReferenceCode) {
-
-		if (Validator.isNull(segmentExternalReferenceCode)) {
-			return 0;
-		}
-
-		SegmentsEntry segmentsEntry =
-			_segmentsEntryLocalService.fetchSegmentsEntry(
-				groupId, segmentExternalReferenceCode);
-
-		if (segmentsEntry == null) {
-			throw new UnsupportedOperationException();
-		}
-
-		return segmentsEntry.getSegmentsEntryId();
+		return _toPageExperience(
+			SegmentsExperienceUtil.addSegmentsExperience(
+				layout, pageExperience,
+				ServiceContextUtil.createServiceContext(
+					groupId, contextHttpServletRequest,
+					contextUser.getUserId())));
 	}
 
 	private PageExperience _toPageExperience(
@@ -360,9 +263,6 @@ public class PageExperienceResourceImpl extends BasePageExperienceResourceImpl {
 	)
 	private DTOConverter<LayoutPageTemplateStructureRel, PageExperience>
 		_pageExperienceDTOConverter;
-
-	@Reference
-	private SegmentsEntryLocalService _segmentsEntryLocalService;
 
 	@Reference
 	private SegmentsExperienceService _segmentsExperienceService;

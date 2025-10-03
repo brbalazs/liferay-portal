@@ -15,16 +15,20 @@ import com.liferay.object.model.ObjectRelationship;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.constants.FriendlyURLResolverConstants;
 
-import java.util.Map;
+import jakarta.servlet.jsp.PageContext;
 
-import javax.servlet.jsp.PageContext;
+import java.util.Map;
 
 /**
  * @author Gabriel Albuquerque
  */
 public interface ObjectEntryDisplayContext {
 
+	public String getAPIURL() throws PortalException;
+
 	public String getBackURL() throws PortalException;
+
+	public String getMethod() throws PortalException;
 
 	public ObjectDefinition getObjectDefinition1();
 
@@ -43,7 +47,7 @@ public interface ObjectEntryDisplayContext {
 
 	public String getObjectRelationshipERCObjectFieldName();
 
-	public String getParentObjectEntryId();
+	public String getParentObjectEntryERC();
 
 	public CreationMenu getRelatedModelCreationMenu(
 			ObjectRelationship objectRelationship)
@@ -56,6 +60,8 @@ public interface ObjectEntryDisplayContext {
 	public Map<String, String> getRelationshipContextParams()
 		throws PortalException;
 
+	public Map<String, Object> getScheduleProperties() throws PortalException;
+
 	public default String getURLSeparator() {
 		return FriendlyURLResolverConstants.URL_SEPARATOR_OBJECT_ENTRY;
 	}
@@ -65,6 +71,8 @@ public interface ObjectEntryDisplayContext {
 	public boolean isReadOnly();
 
 	public boolean isShowObjectEntryForm() throws PortalException;
+
+	public boolean isShowScreenNavigation() throws PortalException;
 
 	public String renderDDMForm(PageContext pageContext) throws PortalException;
 

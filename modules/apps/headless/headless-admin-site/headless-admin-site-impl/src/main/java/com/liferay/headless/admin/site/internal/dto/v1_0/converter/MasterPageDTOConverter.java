@@ -5,13 +5,15 @@
 
 package com.liferay.headless.admin.site.internal.dto.v1_0.converter;
 
-import com.liferay.headless.admin.site.dto.v1_0.ItemExternalReference;
 import com.liferay.headless.admin.site.dto.v1_0.MasterPage;
+import com.liferay.headless.admin.site.internal.dto.v1_0.util.AssetUtil;
+import com.liferay.headless.admin.site.internal.dto.v1_0.util.ThumbnailUtil;
+import com.liferay.headless.admin.user.dto.v1_0.Creator;
 import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.portal.kernel.model.Layout;
-import com.liferay.portal.kernel.portletfilerepository.PortletFileRepository;
-import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.LayoutLocalService;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 
@@ -44,39 +46,43 @@ public class MasterPageDTOConverter
 
 		return new MasterPage() {
 			{
+				setCreator(
+					() -> {
+						User user = _userLocalService.fetchUser(
+							layoutPageTemplateEntry.getUserId());
+
+						if (user == null) {
+							return null;
+						}
+
+						return new Creator() {
+							{
+								setExternalReferenceCode(
+									user::getExternalReferenceCode);
+							}
+						};
+					});
 				setDateCreated(layoutPageTemplateEntry::getCreateDate);
 				setDateModified(layoutPageTemplateEntry::getModifiedDate);
 				setDatePublished(layout::getPublishDate);
 				setExternalReferenceCode(
 					layoutPageTemplateEntry::getExternalReferenceCode);
 				setKey(layoutPageTemplateEntry::getLayoutPageTemplateEntryKey);
+				setKeywords(
+					() -> AssetUtil.getKeywords(
+						Layout.class.getName(),
+						layoutPageTemplateEntry.getPlid()));
 				setMarkedAsDefault(layoutPageTemplateEntry::isDefaultTemplate);
 				setName(layoutPageTemplateEntry::getName);
+				setTaxonomyCategoryItemExternalReferences(
+					() -> AssetUtil.getTaxonomyCategoryItemExternalReferences(
+						Layout.class.getName(),
+						layoutPageTemplateEntry.getPlid(),
+						layoutPageTemplateEntry.getGroupId()));
 				setThumbnail(
-					() -> {
-						if (layoutPageTemplateEntry.getPreviewFileEntryId() <=
-								0) {
-
-							return null;
-						}
-
-						FileEntry fileEntry =
-							_portletFileRepository.getPortletFileEntry(
-								layoutPageTemplateEntry.
-									getPreviewFileEntryId());
-
-						if (fileEntry == null) {
-							return null;
-						}
-
-						return new ItemExternalReference() {
-							{
-								setClassName(() -> FileEntry.class.getName());
-								setExternalReferenceCode(
-									fileEntry::getExternalReferenceCode);
-							}
-						};
-					});
+					() ->
+						ThumbnailUtil.getPortletFileEntryItemExternalReference(
+							layoutPageTemplateEntry.getPreviewFileEntryId()));
 				setUuid(layoutPageTemplateEntry::getUuid);
 			}
 		};
@@ -86,6 +92,6 @@ public class MasterPageDTOConverter
 	private LayoutLocalService _layoutLocalService;
 
 	@Reference
-	private PortletFileRepository _portletFileRepository;
+	private UserLocalService _userLocalService;
 
 }

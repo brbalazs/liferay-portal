@@ -40,13 +40,13 @@ import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.UnicodePropertiesBuilder;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.impl.LayoutSetImpl;
 import com.liferay.portal.service.base.LayoutSetLocalServiceBaseImpl;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.util.ThemeFactoryUtil;
 import com.liferay.sites.kernel.util.Sites;
 
@@ -189,9 +189,8 @@ public class LayoutSetLocalServiceImpl extends LayoutSetLocalServiceBaseImpl {
 			return null;
 		}
 
-		if (layoutSets.size() > 1) {
-			_log.error(
-				"Logo ID " + logoId + " is used by more than one layout set");
+		if ((layoutSets.size() > 1) && _log.isWarnEnabled()) {
+			_log.error("More than one layout set uses logo ID " + logoId);
 		}
 
 		return layoutSets.get(layoutSets.size() - 1);

@@ -24,6 +24,7 @@ import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -33,17 +34,22 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -59,10 +65,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -186,7 +189,7 @@ public abstract class BaseChannelResourceTestCase {
 	@Test
 	public void testGetChannelsPage() throws Exception {
 		Page<Channel> page = channelResource.getChannelsPage(
-			RandomTestUtil.randomString(), Pagination.of(1, 10), null);
+			null, Pagination.of(1, 10), null);
 
 		long totalCount = page.getTotalCount();
 
@@ -215,10 +218,10 @@ public abstract class BaseChannelResourceTestCase {
 
 	@Test
 	public void testGetChannelsPageWithPagination() throws Exception {
-		Page<Channel> channelPage = channelResource.getChannelsPage(
+		Page<Channel> channelsPage = channelResource.getChannelsPage(
 			null, null, null);
 
-		int totalCount = GetterUtil.getInteger(channelPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(channelsPage.getTotalCount());
 
 		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
 
@@ -420,7 +423,65 @@ public abstract class BaseChannelResourceTestCase {
 
 	@Test
 	public void testGraphQLGetChannelsPage() throws Exception {
-		Assert.assertTrue(false);
+		GraphQLField graphQLField = new GraphQLField(
+			"channels",
+			new HashMap<String, Object>() {
+				{
+					put("keywords", null);
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		// No namespace
+
+		JSONObject channelsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/channels");
+
+		long totalCount = channelsJSONObject.getLong("totalCount");
+
+		Channel channel1 = testGraphQLChannel_addChannel(randomChannel());
+
+		Channel channel2 = testGraphQLChannel_addChannel(randomChannel());
+
+		channelsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/channels");
+
+		Assert.assertEquals(
+			totalCount + 2, channelsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			channel1,
+			Arrays.asList(
+				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
+		assertContains(
+			channel2,
+			Arrays.asList(
+				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
+
+		// Using the namespace analyticsSettings_v1_0
+
+		channelsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField("analyticsSettings_v1_0", graphQLField)),
+			"JSONObject/data", "JSONObject/analyticsSettings_v1_0",
+			"JSONObject/channels");
+
+		Assert.assertEquals(
+			totalCount + 2, channelsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			channel1,
+			Arrays.asList(
+				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
+		assertContains(
+			channel2,
+			Arrays.asList(
+				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
 	}
 
 	@Test
@@ -443,6 +504,125 @@ public abstract class BaseChannelResourceTestCase {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostChannel() throws Exception {
+		Channel randomChannel = randomChannel();
+
+		Channel channel = testGraphQLChannel_addChannel(randomChannel);
+
+		Assert.assertTrue(equals(randomChannel, channel));
+	}
+
+	protected Channel testGraphQLChannel_addChannel() throws Exception {
+		return testGraphQLChannel_addChannel(randomChannel());
+	}
+
+	protected Channel testGraphQLChannel_addChannel(Channel channel)
+		throws Exception {
+
+		JSONDeserializer<Channel> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field : getDeclaredFields(Channel.class)) {
+			if (getGraphQLValue(field.get(channel)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(channel)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createChannel",
+						new HashMap<String, Object>() {
+							{
+								put("channel", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createChannel"),
+			Channel.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(Channel channel, List<Channel> channels) {
@@ -509,6 +689,10 @@ public abstract class BaseChannelResourceTestCase {
 
 	protected void assertValid(Channel channel) throws Exception {
 		boolean valid = true;
+
+		if (channel.getChannelId() == null) {
+			valid = false;
+		}
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
@@ -611,6 +795,8 @@ public abstract class BaseChannelResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("channelId"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

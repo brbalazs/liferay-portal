@@ -26,6 +26,7 @@ import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalService;
 import com.liferay.dynamic.data.mapping.util.DefaultDDMStructureHelper;
 import com.liferay.expando.kernel.service.ExpandoValueLocalService;
 import com.liferay.fragment.importer.FragmentsImporter;
+import com.liferay.fragment.service.FragmentEntryLinkLocalService;
 import com.liferay.headless.admin.list.type.resource.v1_0.ListTypeDefinitionResource;
 import com.liferay.headless.admin.list.type.resource.v1_0.ListTypeEntryResource;
 import com.liferay.headless.admin.taxonomy.resource.v1_0.KeywordResource;
@@ -67,7 +68,6 @@ import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.LayoutSetLocalService;
 import com.liferay.portal.kernel.service.OrganizationLocalService;
-import com.liferay.portal.kernel.service.PortletPreferencesLocalService;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.RoleLocalService;
@@ -78,12 +78,12 @@ import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalService;
 import com.liferay.portal.kernel.settings.ArchivedSettingsFactory;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.zip.ZipWriterFactory;
 import com.liferay.portal.language.override.service.PLOEntryLocalService;
 import com.liferay.portal.security.service.access.policy.service.SAPEntryLocalService;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.segments.service.SegmentsEntryLocalService;
 import com.liferay.segments.service.SegmentsExperienceLocalService;
 import com.liferay.site.configuration.manager.MenuAccessConfigurationManager;
@@ -95,14 +95,14 @@ import com.liferay.site.navigation.type.SiteNavigationMenuItemTypeRegistry;
 import com.liferay.style.book.zip.processor.StyleBookEntryZipProcessor;
 import com.liferay.template.service.TemplateEntryLocalService;
 
+import jakarta.servlet.ServletContext;
+
 import java.io.File;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.ServletContext;
 
 import org.apache.felix.dm.DependencyManager;
 
@@ -155,8 +155,9 @@ public class SiteInitializerExtender
 				_depotEntryGroupRelLocalService, _depotEntryLocalService,
 				_dlFileEntryTypeLocalService, _dlURLHelper,
 				_documentFolderResourceFactory, _documentResourceFactory,
-				_expandoValueLocalService, _fragmentsImporter,
-				_groupLocalService, _journalArticleLocalService, _jsonFactory,
+				_expandoValueLocalService, _fragmentEntryLinkLocalService,
+				_fragmentsImporter, _groupLocalService,
+				_journalArticleLocalService, _jsonFactory,
 				_keywordResourceFactory, _knowledgeBaseArticleResourceFactory,
 				_knowledgeBaseFolderResourceFactory, _layoutLocalService,
 				_layoutPageTemplateEntryLocalService,
@@ -174,11 +175,11 @@ public class SiteInitializerExtender
 				_objectFolderResourceFactory, _objectRelationshipLocalService,
 				_objectRelationshipResourceFactory, _organizationLocalService,
 				_organizationResourceFactory, _ploEntryLocalService, _portal,
-				_portletPreferencesLocalService, _resourceActionLocalService,
-				_resourcePermissionLocalService, _roleLocalService,
-				_sapEntryLocalService, _segmentsEntryLocalService,
-				_segmentsExperienceLocalService, null, bundle,
-				_bundleContext.getBundle(), _siteNavigationMenuItemLocalService,
+				_resourceActionLocalService, _resourcePermissionLocalService,
+				_roleLocalService, _sapEntryLocalService,
+				_segmentsEntryLocalService, _segmentsExperienceLocalService,
+				null, bundle, _bundleContext.getBundle(),
+				_siteNavigationMenuItemLocalService,
 				_siteNavigationMenuItemTypeRegistry,
 				_siteNavigationMenuLocalService,
 				_structuredContentFolderResourceFactory,
@@ -276,8 +277,9 @@ public class SiteInitializerExtender
 				_depotEntryGroupRelLocalService, _depotEntryLocalService,
 				_dlFileEntryTypeLocalService, _dlURLHelper,
 				_documentFolderResourceFactory, _documentResourceFactory,
-				_expandoValueLocalService, _fragmentsImporter,
-				_groupLocalService, _journalArticleLocalService, _jsonFactory,
+				_expandoValueLocalService, _fragmentEntryLinkLocalService,
+				_fragmentsImporter, _groupLocalService,
+				_journalArticleLocalService, _jsonFactory,
 				_keywordResourceFactory, _knowledgeBaseArticleResourceFactory,
 				_knowledgeBaseFolderResourceFactory, _layoutLocalService,
 				_layoutPageTemplateEntryLocalService,
@@ -295,10 +297,9 @@ public class SiteInitializerExtender
 				_objectFolderResourceFactory, _objectRelationshipLocalService,
 				_objectRelationshipResourceFactory, _organizationLocalService,
 				_organizationResourceFactory, _ploEntryLocalService, _portal,
-				_portletPreferencesLocalService, _resourceActionLocalService,
-				_resourcePermissionLocalService, _roleLocalService,
-				_sapEntryLocalService, _segmentsEntryLocalService,
-				_segmentsExperienceLocalService,
+				_resourceActionLocalService, _resourcePermissionLocalService,
+				_roleLocalService, _sapEntryLocalService,
+				_segmentsEntryLocalService, _segmentsExperienceLocalService,
 				ProxyUtil.newDelegateProxyInstance(
 					ServletContext.class.getClassLoader(), ServletContext.class,
 					new FileBackedServletContextDelegate(
@@ -420,6 +421,9 @@ public class SiteInitializerExtender
 		_fileSiteInitializerExtensions = new ArrayList<>();
 
 	@Reference
+	private FragmentEntryLinkLocalService _fragmentEntryLinkLocalService;
+
+	@Reference
 	private FragmentsImporter _fragmentsImporter;
 
 	@Reference
@@ -532,9 +536,6 @@ public class SiteInitializerExtender
 
 	@Reference
 	private Portal _portal;
-
-	@Reference
-	private PortletPreferencesLocalService _portletPreferencesLocalService;
 
 	@Reference
 	private ResourceActionLocalService _resourceActionLocalService;

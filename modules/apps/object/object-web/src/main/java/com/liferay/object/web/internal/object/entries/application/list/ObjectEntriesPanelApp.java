@@ -18,12 +18,12 @@ import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import jakarta.portlet.PortletURL;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.Locale;
 import java.util.function.Supplier;
-
-import javax.portlet.PortletURL;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Marco Leo
@@ -84,9 +84,8 @@ public class ObjectEntriesPanelApp extends BasePanelApp {
 	public boolean isShow(PermissionChecker permissionChecker, Group group)
 		throws PortalException {
 
-		if ((permissionChecker.getCompanyId() !=
-				_objectDefinition.getCompanyId()) ||
-			_objectDefinition.isRootDescendantNode()) {
+		if (permissionChecker.getCompanyId() !=
+				_objectDefinition.getCompanyId()) {
 
 			return false;
 		}

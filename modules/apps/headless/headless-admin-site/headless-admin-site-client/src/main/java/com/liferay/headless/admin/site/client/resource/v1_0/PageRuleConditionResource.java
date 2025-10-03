@@ -11,6 +11,8 @@ import com.liferay.headless.admin.site.client.pagination.Page;
 import com.liferay.headless.admin.site.client.problem.Problem;
 import com.liferay.headless.admin.site.client.serdes.v1_0.PageRuleConditionSerDes;
 
+import jakarta.annotation.Generated;
+
 import java.net.URL;
 
 import java.util.LinkedHashMap;
@@ -19,8 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.annotation.Generated;
 
 /**
  * @author Rubén Pulido
@@ -33,81 +33,72 @@ public interface PageRuleConditionResource {
 		return new Builder();
 	}
 
-	public void deleteSiteSiteByExternalReferenceCodePageRuleCondition(
+	public void deleteSitePageRuleCondition(
 			String siteExternalReferenceCode,
 			String pageRuleConditionExternalReferenceCode)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			deleteSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-				String siteExternalReferenceCode,
-				String pageRuleConditionExternalReferenceCode)
+	public HttpInvoker.HttpResponse deleteSitePageRuleConditionHttpResponse(
+			String siteExternalReferenceCode,
+			String pageRuleConditionExternalReferenceCode)
 		throws Exception;
 
-	public PageRuleCondition
-			getSiteSiteByExternalReferenceCodePageRuleCondition(
-				String siteExternalReferenceCode,
-				String pageRuleConditionExternalReferenceCode)
+	public PageRuleCondition getSitePageRuleCondition(
+			String siteExternalReferenceCode,
+			String pageRuleConditionExternalReferenceCode)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			getSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-				String siteExternalReferenceCode,
-				String pageRuleConditionExternalReferenceCode)
+	public HttpInvoker.HttpResponse getSitePageRuleConditionHttpResponse(
+			String siteExternalReferenceCode,
+			String pageRuleConditionExternalReferenceCode)
 		throws Exception;
 
-	public PageRuleCondition
-			patchSiteSiteByExternalReferenceCodePageRuleCondition(
-				String siteExternalReferenceCode,
-				String pageRuleConditionExternalReferenceCode,
-				PageRuleCondition pageRuleCondition)
+	public Page<PageRuleCondition> getSitePageRulePageRuleConditionsPage(
+			String siteExternalReferenceCode,
+			String pageRuleExternalReferenceCode, Boolean flatten)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			patchSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-				String siteExternalReferenceCode,
-				String pageRuleConditionExternalReferenceCode,
-				PageRuleCondition pageRuleCondition)
-		throws Exception;
-
-	public PageRuleCondition
-			putSiteSiteByExternalReferenceCodePageRuleCondition(
-				String siteExternalReferenceCode,
-				String pageRuleConditionExternalReferenceCode,
-				PageRuleCondition pageRuleCondition)
-		throws Exception;
-
-	public HttpInvoker.HttpResponse
-			putSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-				String siteExternalReferenceCode,
-				String pageRuleConditionExternalReferenceCode,
-				PageRuleCondition pageRuleCondition)
-		throws Exception;
-
-	public Page<PageRuleCondition>
-			getSiteSiteByExternalReferenceCodePageRulePageRuleConditionsPage(
+			getSitePageRulePageRuleConditionsPageHttpResponse(
 				String siteExternalReferenceCode,
 				String pageRuleExternalReferenceCode, Boolean flatten)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			getSiteSiteByExternalReferenceCodePageRulePageRuleConditionsPageHttpResponse(
-				String siteExternalReferenceCode,
-				String pageRuleExternalReferenceCode, Boolean flatten)
+	public PageRuleCondition patchSitePageRuleCondition(
+			String siteExternalReferenceCode,
+			String pageRuleConditionExternalReferenceCode,
+			PageRuleCondition pageRuleCondition)
 		throws Exception;
 
-	public PageRuleCondition
-			postSiteSiteByExternalReferenceCodePageRulePageRuleCondition(
+	public HttpInvoker.HttpResponse patchSitePageRuleConditionHttpResponse(
+			String siteExternalReferenceCode,
+			String pageRuleConditionExternalReferenceCode,
+			PageRuleCondition pageRuleCondition)
+		throws Exception;
+
+	public PageRuleCondition postSitePageRulePageRuleCondition(
+			String siteExternalReferenceCode,
+			String pageRuleExternalReferenceCode,
+			PageRuleCondition pageRuleCondition)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			postSitePageRulePageRuleConditionHttpResponse(
 				String siteExternalReferenceCode,
 				String pageRuleExternalReferenceCode,
 				PageRuleCondition pageRuleCondition)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			postSiteSiteByExternalReferenceCodePageRulePageRuleConditionHttpResponse(
-				String siteExternalReferenceCode,
-				String pageRuleExternalReferenceCode,
-				PageRuleCondition pageRuleCondition)
+	public PageRuleCondition putSitePageRuleCondition(
+			String siteExternalReferenceCode,
+			String pageRuleConditionExternalReferenceCode,
+			PageRuleCondition pageRuleCondition)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putSitePageRuleConditionHttpResponse(
+			String siteExternalReferenceCode,
+			String pageRuleConditionExternalReferenceCode,
+			PageRuleCondition pageRuleCondition)
 		throws Exception;
 
 	public static class Builder {
@@ -219,13 +210,13 @@ public interface PageRuleConditionResource {
 	public static class PageRuleConditionResourceImpl
 		implements PageRuleConditionResource {
 
-		public void deleteSiteSiteByExternalReferenceCodePageRuleCondition(
+		public void deleteSitePageRuleCondition(
 				String siteExternalReferenceCode,
 				String pageRuleConditionExternalReferenceCode)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
+				deleteSitePageRuleConditionHttpResponse(
 					siteExternalReferenceCode,
 					pageRuleConditionExternalReferenceCode);
 
@@ -288,10 +279,9 @@ public interface PageRuleConditionResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse
-				deleteSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-					String siteExternalReferenceCode,
-					String pageRuleConditionExternalReferenceCode)
+		public HttpInvoker.HttpResponse deleteSitePageRuleConditionHttpResponse(
+				String siteExternalReferenceCode,
+				String pageRuleConditionExternalReferenceCode)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -334,14 +324,13 @@ public interface PageRuleConditionResource {
 			return httpInvoker.invoke();
 		}
 
-		public PageRuleCondition
-				getSiteSiteByExternalReferenceCodePageRuleCondition(
-					String siteExternalReferenceCode,
-					String pageRuleConditionExternalReferenceCode)
+		public PageRuleCondition getSitePageRuleCondition(
+				String siteExternalReferenceCode,
+				String pageRuleConditionExternalReferenceCode)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
+				getSitePageRuleConditionHttpResponse(
 					siteExternalReferenceCode,
 					pageRuleConditionExternalReferenceCode);
 
@@ -404,10 +393,9 @@ public interface PageRuleConditionResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse
-				getSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-					String siteExternalReferenceCode,
-					String pageRuleConditionExternalReferenceCode)
+		public HttpInvoker.HttpResponse getSitePageRuleConditionHttpResponse(
+				String siteExternalReferenceCode,
+				String pageRuleConditionExternalReferenceCode)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -450,254 +438,13 @@ public interface PageRuleConditionResource {
 			return httpInvoker.invoke();
 		}
 
-		public PageRuleCondition
-				patchSiteSiteByExternalReferenceCodePageRuleCondition(
-					String siteExternalReferenceCode,
-					String pageRuleConditionExternalReferenceCode,
-					PageRuleCondition pageRuleCondition)
+		public Page<PageRuleCondition> getSitePageRulePageRuleConditionsPage(
+				String siteExternalReferenceCode,
+				String pageRuleExternalReferenceCode, Boolean flatten)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				patchSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-					siteExternalReferenceCode,
-					pageRuleConditionExternalReferenceCode, pageRuleCondition);
-
-			String content = httpResponse.getContent();
-
-			if ((httpResponse.getStatusCode() / 100) != 2) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response content: " + content);
-				_logger.log(
-					Level.WARNING,
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.log(
-					Level.WARNING,
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-
-				Problem.ProblemException problemException = null;
-
-				if (Objects.equals(
-						httpResponse.getContentType(), "application/json")) {
-
-					problemException = new Problem.ProblemException(
-						Problem.toDTO(content));
-				}
-				else {
-					_logger.log(
-						Level.WARNING,
-						"Unable to process content type: " +
-							httpResponse.getContentType());
-
-					Problem problem = new Problem();
-
-					problem.setStatus(
-						String.valueOf(httpResponse.getStatusCode()));
-
-					problemException = new Problem.ProblemException(problem);
-				}
-
-				throw problemException;
-			}
-			else {
-				_logger.fine("HTTP response content: " + content);
-				_logger.fine(
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.fine(
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-			}
-
-			try {
-				return PageRuleConditionSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				patchSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-					String siteExternalReferenceCode,
-					String pageRuleConditionExternalReferenceCode,
-					PageRuleCondition pageRuleCondition)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(pageRuleCondition.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PATCH);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + _builder._contextPath +
-						"/o/headless-admin-site/v1.0/sites/{siteExternalReferenceCode}/page-rule-conditions/{pageRuleConditionExternalReferenceCode}");
-
-			httpInvoker.path(
-				"siteExternalReferenceCode", siteExternalReferenceCode);
-			httpInvoker.path(
-				"pageRuleConditionExternalReferenceCode",
-				pageRuleConditionExternalReferenceCode);
-
-			if ((_builder._login != null) && (_builder._password != null)) {
-				httpInvoker.userNameAndPassword(
-					_builder._login + ":" + _builder._password);
-			}
-
-			return httpInvoker.invoke();
-		}
-
-		public PageRuleCondition
-				putSiteSiteByExternalReferenceCodePageRuleCondition(
-					String siteExternalReferenceCode,
-					String pageRuleConditionExternalReferenceCode,
-					PageRuleCondition pageRuleCondition)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				putSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-					siteExternalReferenceCode,
-					pageRuleConditionExternalReferenceCode, pageRuleCondition);
-
-			String content = httpResponse.getContent();
-
-			if ((httpResponse.getStatusCode() / 100) != 2) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response content: " + content);
-				_logger.log(
-					Level.WARNING,
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.log(
-					Level.WARNING,
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-
-				Problem.ProblemException problemException = null;
-
-				if (Objects.equals(
-						httpResponse.getContentType(), "application/json")) {
-
-					problemException = new Problem.ProblemException(
-						Problem.toDTO(content));
-				}
-				else {
-					_logger.log(
-						Level.WARNING,
-						"Unable to process content type: " +
-							httpResponse.getContentType());
-
-					Problem problem = new Problem();
-
-					problem.setStatus(
-						String.valueOf(httpResponse.getStatusCode()));
-
-					problemException = new Problem.ProblemException(problem);
-				}
-
-				throw problemException;
-			}
-			else {
-				_logger.fine("HTTP response content: " + content);
-				_logger.fine(
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.fine(
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-			}
-
-			try {
-				return PageRuleConditionSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				putSiteSiteByExternalReferenceCodePageRuleConditionHttpResponse(
-					String siteExternalReferenceCode,
-					String pageRuleConditionExternalReferenceCode,
-					PageRuleCondition pageRuleCondition)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(pageRuleCondition.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + _builder._contextPath +
-						"/o/headless-admin-site/v1.0/sites/{siteExternalReferenceCode}/page-rule-conditions/{pageRuleConditionExternalReferenceCode}");
-
-			httpInvoker.path(
-				"siteExternalReferenceCode", siteExternalReferenceCode);
-			httpInvoker.path(
-				"pageRuleConditionExternalReferenceCode",
-				pageRuleConditionExternalReferenceCode);
-
-			if ((_builder._login != null) && (_builder._password != null)) {
-				httpInvoker.userNameAndPassword(
-					_builder._login + ":" + _builder._password);
-			}
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<PageRuleCondition>
-				getSiteSiteByExternalReferenceCodePageRulePageRuleConditionsPage(
-					String siteExternalReferenceCode,
-					String pageRuleExternalReferenceCode, Boolean flatten)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getSiteSiteByExternalReferenceCodePageRulePageRuleConditionsPageHttpResponse(
+				getSitePageRulePageRuleConditionsPageHttpResponse(
 					siteExternalReferenceCode, pageRuleExternalReferenceCode,
 					flatten);
 
@@ -761,7 +508,7 @@ public interface PageRuleConditionResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getSiteSiteByExternalReferenceCodePageRulePageRuleConditionsPageHttpResponse(
+				getSitePageRulePageRuleConditionsPageHttpResponse(
 					String siteExternalReferenceCode,
 					String pageRuleExternalReferenceCode, Boolean flatten)
 			throws Exception {
@@ -809,15 +556,132 @@ public interface PageRuleConditionResource {
 			return httpInvoker.invoke();
 		}
 
-		public PageRuleCondition
-				postSiteSiteByExternalReferenceCodePageRulePageRuleCondition(
-					String siteExternalReferenceCode,
-					String pageRuleExternalReferenceCode,
-					PageRuleCondition pageRuleCondition)
+		public PageRuleCondition patchSitePageRuleCondition(
+				String siteExternalReferenceCode,
+				String pageRuleConditionExternalReferenceCode,
+				PageRuleCondition pageRuleCondition)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postSiteSiteByExternalReferenceCodePageRulePageRuleConditionHttpResponse(
+				patchSitePageRuleConditionHttpResponse(
+					siteExternalReferenceCode,
+					pageRuleConditionExternalReferenceCode, pageRuleCondition);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				Problem.ProblemException problemException = null;
+
+				if (Objects.equals(
+						httpResponse.getContentType(), "application/json")) {
+
+					problemException = new Problem.ProblemException(
+						Problem.toDTO(content));
+				}
+				else {
+					_logger.log(
+						Level.WARNING,
+						"Unable to process content type: " +
+							httpResponse.getContentType());
+
+					Problem problem = new Problem();
+
+					problem.setStatus(
+						String.valueOf(httpResponse.getStatusCode()));
+
+					problemException = new Problem.ProblemException(problem);
+				}
+
+				throw problemException;
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return PageRuleConditionSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse patchSitePageRuleConditionHttpResponse(
+				String siteExternalReferenceCode,
+				String pageRuleConditionExternalReferenceCode,
+				PageRuleCondition pageRuleCondition)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(pageRuleCondition.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PATCH);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port + _builder._contextPath +
+						"/o/headless-admin-site/v1.0/sites/{siteExternalReferenceCode}/page-rule-conditions/{pageRuleConditionExternalReferenceCode}");
+
+			httpInvoker.path(
+				"siteExternalReferenceCode", siteExternalReferenceCode);
+			httpInvoker.path(
+				"pageRuleConditionExternalReferenceCode",
+				pageRuleConditionExternalReferenceCode);
+
+			if ((_builder._login != null) && (_builder._password != null)) {
+				httpInvoker.userNameAndPassword(
+					_builder._login + ":" + _builder._password);
+			}
+
+			return httpInvoker.invoke();
+		}
+
+		public PageRuleCondition postSitePageRulePageRuleCondition(
+				String siteExternalReferenceCode,
+				String pageRuleExternalReferenceCode,
+				PageRuleCondition pageRuleCondition)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postSitePageRulePageRuleConditionHttpResponse(
 					siteExternalReferenceCode, pageRuleExternalReferenceCode,
 					pageRuleCondition);
 
@@ -881,7 +745,7 @@ public interface PageRuleConditionResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				postSiteSiteByExternalReferenceCodePageRulePageRuleConditionHttpResponse(
+				postSitePageRulePageRuleConditionHttpResponse(
 					String siteExternalReferenceCode,
 					String pageRuleExternalReferenceCode,
 					PageRuleCondition pageRuleCondition)
@@ -919,6 +783,124 @@ public interface PageRuleConditionResource {
 				"siteExternalReferenceCode", siteExternalReferenceCode);
 			httpInvoker.path(
 				"pageRuleExternalReferenceCode", pageRuleExternalReferenceCode);
+
+			if ((_builder._login != null) && (_builder._password != null)) {
+				httpInvoker.userNameAndPassword(
+					_builder._login + ":" + _builder._password);
+			}
+
+			return httpInvoker.invoke();
+		}
+
+		public PageRuleCondition putSitePageRuleCondition(
+				String siteExternalReferenceCode,
+				String pageRuleConditionExternalReferenceCode,
+				PageRuleCondition pageRuleCondition)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putSitePageRuleConditionHttpResponse(
+					siteExternalReferenceCode,
+					pageRuleConditionExternalReferenceCode, pageRuleCondition);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				Problem.ProblemException problemException = null;
+
+				if (Objects.equals(
+						httpResponse.getContentType(), "application/json")) {
+
+					problemException = new Problem.ProblemException(
+						Problem.toDTO(content));
+				}
+				else {
+					_logger.log(
+						Level.WARNING,
+						"Unable to process content type: " +
+							httpResponse.getContentType());
+
+					Problem problem = new Problem();
+
+					problem.setStatus(
+						String.valueOf(httpResponse.getStatusCode()));
+
+					problemException = new Problem.ProblemException(problem);
+				}
+
+				throw problemException;
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return PageRuleConditionSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse putSitePageRuleConditionHttpResponse(
+				String siteExternalReferenceCode,
+				String pageRuleConditionExternalReferenceCode,
+				PageRuleCondition pageRuleCondition)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(pageRuleCondition.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port + _builder._contextPath +
+						"/o/headless-admin-site/v1.0/sites/{siteExternalReferenceCode}/page-rule-conditions/{pageRuleConditionExternalReferenceCode}");
+
+			httpInvoker.path(
+				"siteExternalReferenceCode", siteExternalReferenceCode);
+			httpInvoker.path(
+				"pageRuleConditionExternalReferenceCode",
+				pageRuleConditionExternalReferenceCode);
 
 			if ((_builder._login != null) && (_builder._password != null)) {
 				httpInvoker.userNameAndPassword(

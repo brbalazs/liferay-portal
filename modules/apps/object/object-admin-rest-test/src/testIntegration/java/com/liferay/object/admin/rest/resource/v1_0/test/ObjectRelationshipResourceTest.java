@@ -7,6 +7,7 @@ package com.liferay.object.admin.rest.resource.v1_0.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.object.admin.rest.client.dto.v1_0.ObjectRelationship;
+import com.liferay.object.admin.rest.client.problem.Problem;
 import com.liferay.object.admin.rest.resource.v1_0.test.util.ObjectDefinitionTestUtil;
 import com.liferay.object.constants.ObjectDefinitionConstants;
 import com.liferay.object.model.ObjectDefinition;
@@ -15,7 +16,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.test.rule.FeatureFlags;
+import com.liferay.portal.test.rule.FeatureFlag;
 import com.liferay.portal.test.rule.Inject;
 
 import org.junit.After;
@@ -29,7 +30,7 @@ import org.junit.runner.RunWith;
  * @author Javier Gamarra
  * @author Murilo Stodolni
  */
-@FeatureFlags("LPD-34594")
+@FeatureFlag("LPD-34594")
 @RunWith(Arquillian.class)
 public class ObjectRelationshipResourceTest
 	extends BaseObjectRelationshipResourceTestCase {
@@ -170,6 +171,38 @@ public class ObjectRelationshipResourceTest
 		Assert.assertEquals(
 			newObjectRelationship.getExternalReferenceCode(),
 			putObjectRelationship.getExternalReferenceCode());
+
+		randomObjectRelationship = randomObjectRelationship();
+
+		randomObjectRelationship.setObjectDefinitionId1((Long)null);
+
+		putObjectRelationship =
+			objectRelationshipResource.
+				putObjectRelationshipByExternalReferenceCode(
+					postObjectRelationship.getExternalReferenceCode(),
+					randomObjectRelationship);
+
+		Assert.assertEquals(
+			Long.valueOf(_objectDefinition1.getObjectDefinitionId()),
+			putObjectRelationship.getObjectDefinitionId1());
+
+		randomObjectRelationship.setObjectDefinitionExternalReferenceCode1(
+			(String)null);
+
+		try {
+			objectRelationshipResource.
+				putObjectRelationshipByExternalReferenceCode(
+					postObjectRelationship.getExternalReferenceCode(),
+					randomObjectRelationship);
+
+			Assert.fail();
+		}
+		catch (Problem.ProblemException problemException) {
+			Problem problem = problemException.getProblem();
+
+			Assert.assertEquals("NOT_FOUND", problem.getStatus());
+			Assert.assertNull(problem.getTitle());
+		}
 	}
 
 	@Override
@@ -249,11 +282,36 @@ public class ObjectRelationshipResourceTest
 
 	@Override
 	protected ObjectRelationship
+			testGraphQLGetObjectDefinitionByExternalReferenceCodeObjectRelationshipsPageObjectDefinitionObjectRelationship_addObjectRelationship(
+				String externalReferenceCode,
+				ObjectRelationship objectRelationship)
+		throws Exception {
+
+		return testPostObjectDefinitionObjectRelationship_addObjectRelationship(
+			randomObjectRelationship());
+	}
+
+	@Override
+	protected ObjectRelationship
 			testGraphQLObjectRelationship_addObjectRelationship()
 		throws Exception {
 
 		return testPostObjectDefinitionObjectRelationship_addObjectRelationship(
 			randomObjectRelationship());
+	}
+
+	@Override
+	protected Long
+		testGraphQLPostObjectDefinitionByExternalReferenceCodeObjectRelationship_getObjectDefinitionId() {
+
+		return _objectDefinition1.getObjectDefinitionId();
+	}
+
+	@Override
+	protected Long
+		testGraphQLPostObjectDefinitionObjectRelationship_getObjectDefinitionId() {
+
+		return _objectDefinition1.getObjectDefinitionId();
 	}
 
 	@Override

@@ -81,9 +81,10 @@ public class ObjectRelationshipServiceTest {
 
 		_objectDefinition1 =
 			_objectDefinitionLocalService.addCustomObjectDefinition(
-				TestPropsValues.getUserId(), 0, null, false, false, true, false,
-				false, LocalizedMapUtil.getLocalizedMap("Able"), "Able", null,
-				null, LocalizedMapUtil.getLocalizedMap("Ables"), true,
+				TestPropsValues.getUserId(), 0, null, false, true, false, true,
+				false, false, false, false, false, null,
+				LocalizedMapUtil.getLocalizedMap("Able"), "Able", null, null,
+				LocalizedMapUtil.getLocalizedMap("Ables"), true,
 				ObjectDefinitionConstants.SCOPE_COMPANY,
 				ObjectDefinitionConstants.STORAGE_TYPE_DEFAULT,
 				Collections.emptyList(),
@@ -91,7 +92,8 @@ public class ObjectRelationshipServiceTest {
 					ObjectFieldUtil.createObjectField(
 						ObjectFieldConstants.BUSINESS_TYPE_TEXT,
 						ObjectFieldConstants.DB_TYPE_STRING,
-						RandomTestUtil.randomString(), StringUtil.randomId())));
+						RandomTestUtil.randomString(), StringUtil.randomId())),
+				Collections.emptyList());
 
 		_objectDefinition1 =
 			_objectDefinitionLocalService.publishCustomObjectDefinition(
@@ -100,9 +102,10 @@ public class ObjectRelationshipServiceTest {
 
 		_objectDefinition2 =
 			_objectDefinitionLocalService.addCustomObjectDefinition(
-				TestPropsValues.getUserId(), 0, null, false, false, true, false,
-				false, LocalizedMapUtil.getLocalizedMap("Baker"), "Baker", null,
-				null, LocalizedMapUtil.getLocalizedMap("Bakers"), true,
+				TestPropsValues.getUserId(), 0, null, false, true, false, true,
+				false, false, false, false, false, null,
+				LocalizedMapUtil.getLocalizedMap("Baker"), "Baker", null, null,
+				LocalizedMapUtil.getLocalizedMap("Bakers"), true,
 				ObjectDefinitionConstants.SCOPE_COMPANY,
 				ObjectDefinitionConstants.STORAGE_TYPE_DEFAULT,
 				Collections.emptyList(),
@@ -110,7 +113,8 @@ public class ObjectRelationshipServiceTest {
 					ObjectFieldUtil.createObjectField(
 						ObjectFieldConstants.BUSINESS_TYPE_TEXT,
 						ObjectFieldConstants.DB_TYPE_STRING,
-						RandomTestUtil.randomString(), StringUtil.randomId())));
+						RandomTestUtil.randomString(), StringUtil.randomId())),
+				Collections.emptyList());
 
 		_objectDefinition2 =
 			_objectDefinitionLocalService.publishCustomObjectDefinition(
@@ -292,13 +296,13 @@ public class ObjectRelationshipServiceTest {
 				StringUtil.randomId(), false, type, null);
 
 		ObjectEntry objectEntry1 = _objectEntryLocalService.addObjectEntry(
-			TestPropsValues.getUserId(), 0,
+			0, TestPropsValues.getUserId(),
 			objectDefinition1.getObjectDefinitionId(),
 			ObjectEntryFolderConstants.PARENT_OBJECT_ENTRY_FOLDER_ID_DEFAULT,
 			null, Collections.emptyMap(),
 			ServiceContextTestUtil.getServiceContext());
 		ObjectEntry objectEntry2 = _objectEntryLocalService.addObjectEntry(
-			TestPropsValues.getUserId(), 0,
+			0, TestPropsValues.getUserId(),
 			objectDefinition2.getObjectDefinitionId(),
 			ObjectEntryFolderConstants.PARENT_OBJECT_ENTRY_FOLDER_ID_DEFAULT,
 			null, Collections.emptyMap(),

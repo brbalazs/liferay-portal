@@ -34,13 +34,17 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -56,10 +60,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -256,11 +256,11 @@ public abstract class BaseCategoryResourceTestCase {
 		String externalReferenceCode =
 			testGetProductByExternalReferenceCodeCategoriesPage_getExternalReferenceCode();
 
-		Page<Category> categoryPage =
+		Page<Category> categoriesPage =
 			categoryResource.getProductByExternalReferenceCodeCategoriesPage(
 				externalReferenceCode, null);
 
-		int totalCount = GetterUtil.getInteger(categoryPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(categoriesPage.getTotalCount());
 
 		Category category1 =
 			testGetProductByExternalReferenceCodeCategoriesPage_addCategory(
@@ -372,13 +372,6 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
-	public void testPatchProductByExternalReferenceCodeCategory()
-		throws Exception {
-
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testGetProductIdCategoriesPage() throws Exception {
 		Long id = testGetProductIdCategoriesPage_getId();
 		Long irrelevantId = testGetProductIdCategoriesPage_getIrrelevantId();
@@ -437,10 +430,10 @@ public abstract class BaseCategoryResourceTestCase {
 
 		Long id = testGetProductIdCategoriesPage_getId();
 
-		Page<Category> categoryPage =
+		Page<Category> categoriesPage =
 			categoryResource.getProductIdCategoriesPage(id, null);
 
-		int totalCount = GetterUtil.getInteger(categoryPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(categoriesPage.getTotalCount());
 
 		Category category1 = testGetProductIdCategoriesPage_addCategory(
 			id, randomCategory());
@@ -529,13 +522,20 @@ public abstract class BaseCategoryResourceTestCase {
 	}
 
 	@Test
+	public void testPatchProductByExternalReferenceCodeCategory()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
+	@Test
 	public void testPatchProductIdCategory() throws Exception {
 		Assert.assertTrue(false);
 	}
 
-	protected Category testGraphQLCategory_addCategory() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	protected void assertContains(
@@ -707,6 +707,10 @@ public abstract class BaseCategoryResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		graphQLFields.add(new GraphQLField("siteId"));
 

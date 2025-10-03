@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.util.UnicodeProperties;
@@ -40,7 +41,6 @@ import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.SAXReader;
 import com.liferay.portal.util.LayoutTypeControllerTracker;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.site.configuration.manager.SitemapConfigurationManager;
 import com.liferay.site.manager.SitemapManager;
 import com.liferay.site.provider.SitemapURLProvider;
@@ -350,16 +350,9 @@ public class SitemapManagerImpl implements SitemapManager {
 	}
 
 	private List<SitemapURLProvider> _getSitemapURLProviders() {
-		Set<String> classNames = _serviceTrackerMap.keySet();
-
-		List<SitemapURLProvider> sitemapURLProviders = new ArrayList<>(
-			classNames.size());
-
-		for (String className : classNames) {
-			sitemapURLProviders.add(_serviceTrackerMap.getService(className));
-		}
-
-		return sitemapURLProviders;
+		return TransformUtil.transform(
+			_serviceTrackerMap.keySet(),
+			className -> _serviceTrackerMap.getService(className));
 	}
 
 	private int _getSize(Element element) {

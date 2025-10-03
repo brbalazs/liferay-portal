@@ -8,13 +8,13 @@ package com.liferay.headless.admin.site.client.serdes.v1_0;
 import com.liferay.headless.admin.site.client.dto.v1_0.FragmentViewport;
 import com.liferay.headless.admin.site.client.json.BaseJSONParser;
 
+import jakarta.annotation.Generated;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-
-import javax.annotation.Generated;
 
 /**
  * @author Rubén Pulido
@@ -45,6 +45,20 @@ public class FragmentViewportSerDes {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("{");
+
+		if (fragmentViewport.getCustomCSS() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"customCSS\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(fragmentViewport.getCustomCSS()));
+
+			sb.append("\"");
+		}
 
 		if (fragmentViewport.getFragmentViewportStyle() != null) {
 			if (sb.length() > 1) {
@@ -90,6 +104,14 @@ public class FragmentViewportSerDes {
 
 		Map<String, String> map = new TreeMap<>();
 
+		if (fragmentViewport.getCustomCSS() == null) {
+			map.put("customCSS", null);
+		}
+		else {
+			map.put(
+				"customCSS", String.valueOf(fragmentViewport.getCustomCSS()));
+		}
+
 		if (fragmentViewport.getFragmentViewportStyle() == null) {
 			map.put("fragmentViewportStyle", null);
 		}
@@ -124,7 +146,12 @@ public class FragmentViewportSerDes {
 
 		@Override
 		protected boolean parseMaps(String jsonParserFieldName) {
-			if (Objects.equals(jsonParserFieldName, "fragmentViewportStyle")) {
+			if (Objects.equals(jsonParserFieldName, "customCSS")) {
+				return false;
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "fragmentViewportStyle")) {
+
 				return false;
 			}
 			else if (Objects.equals(jsonParserFieldName, "id")) {
@@ -139,7 +166,14 @@ public class FragmentViewportSerDes {
 			FragmentViewport fragmentViewport, String jsonParserFieldName,
 			Object jsonParserFieldValue) {
 
-			if (Objects.equals(jsonParserFieldName, "fragmentViewportStyle")) {
+			if (Objects.equals(jsonParserFieldName, "customCSS")) {
+				if (jsonParserFieldValue != null) {
+					fragmentViewport.setCustomCSS((String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "fragmentViewportStyle")) {
+
 				if (jsonParserFieldValue != null) {
 					fragmentViewport.setFragmentViewportStyle(
 						FragmentViewportStyleSerDes.toDTO(

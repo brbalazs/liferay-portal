@@ -8,11 +8,11 @@ package com.liferay.headless.asset.library.client.dto.v1_0;
 import com.liferay.headless.asset.library.client.function.UnsafeSupplier;
 import com.liferay.headless.asset.library.client.serdes.v1_0.SettingsSerDes;
 
+import jakarta.annotation.Generated;
+
 import java.io.Serializable;
 
 import java.util.Objects;
-
-import javax.annotation.Generated;
 
 /**
  * @author Roberto Díaz
@@ -152,6 +152,48 @@ public class Settings implements Cloneable, Serializable {
 	}
 
 	protected Boolean sharingEnabled;
+
+	public Boolean getTrashEnabled() {
+		return trashEnabled;
+	}
+
+	public void setTrashEnabled(Boolean trashEnabled) {
+		this.trashEnabled = trashEnabled;
+	}
+
+	public void setTrashEnabled(
+		UnsafeSupplier<Boolean, Exception> trashEnabledUnsafeSupplier) {
+
+		try {
+			trashEnabled = trashEnabledUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Boolean trashEnabled;
+
+	public Integer getTrashEntriesMaxAge() {
+		return trashEntriesMaxAge;
+	}
+
+	public void setTrashEntriesMaxAge(Integer trashEntriesMaxAge) {
+		this.trashEntriesMaxAge = trashEntriesMaxAge;
+	}
+
+	public void setTrashEntriesMaxAge(
+		UnsafeSupplier<Integer, Exception> trashEntriesMaxAgeUnsafeSupplier) {
+
+		try {
+			trashEntriesMaxAge = trashEntriesMaxAgeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer trashEntriesMaxAge;
 
 	public Boolean getUseCustomLanguages() {
 		return useCustomLanguages;

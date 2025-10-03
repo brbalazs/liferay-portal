@@ -32,13 +32,17 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -54,10 +58,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -202,22 +202,126 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 	}
 
 	@Test
-	public void testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage()
+	public void testDeleteSiteSitePageWidgetInstance() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		WidgetPageWidgetInstance widgetPageWidgetInstance =
+			testDeleteSiteSitePageWidgetInstance_addWidgetPageWidgetInstance();
+
+		assertHttpResponseStatusCode(
+			204,
+			widgetPageWidgetInstanceResource.
+				deleteSiteSitePageWidgetInstanceHttpResponse(
+					testDeleteSiteSitePageWidgetInstance_getSiteExternalReferenceCode(),
+					testDeleteSiteSitePageWidgetInstance_getSitePageExternalReferenceCode(),
+					testDeleteSiteSitePageWidgetInstance_getWidgetInstanceExternalReferenceCode()));
+
+		assertHttpResponseStatusCode(
+			404,
+			widgetPageWidgetInstanceResource.
+				getSiteSitePageWidgetInstanceHttpResponse(
+					testDeleteSiteSitePageWidgetInstance_getSiteExternalReferenceCode(),
+					testDeleteSiteSitePageWidgetInstance_getSitePageExternalReferenceCode(),
+					testDeleteSiteSitePageWidgetInstance_getWidgetInstanceExternalReferenceCode()));
+		assertHttpResponseStatusCode(
+			404,
+			widgetPageWidgetInstanceResource.
+				getSiteSitePageWidgetInstanceHttpResponse(
+					testDeleteSiteSitePageWidgetInstance_getSiteExternalReferenceCode(),
+					testDeleteSiteSitePageWidgetInstance_getSitePageExternalReferenceCode(),
+					testDeleteSiteSitePageWidgetInstance_getWidgetInstanceExternalReferenceCode()));
+	}
+
+	protected WidgetPageWidgetInstance
+			testDeleteSiteSitePageWidgetInstance_addWidgetPageWidgetInstance()
 		throws Exception {
 
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testDeleteSiteSitePageWidgetInstance_getSiteExternalReferenceCode()
+		throws Exception {
+
+		return testGroup.getExternalReferenceCode();
+	}
+
+	protected String
+			testDeleteSiteSitePageWidgetInstance_getSitePageExternalReferenceCode()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testDeleteSiteSitePageWidgetInstance_getWidgetInstanceExternalReferenceCode()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGetSiteSitePageWidgetInstance() throws Exception {
+		WidgetPageWidgetInstance postWidgetPageWidgetInstance =
+			testGetSiteSitePageWidgetInstance_addWidgetPageWidgetInstance();
+
+		WidgetPageWidgetInstance getWidgetPageWidgetInstance =
+			widgetPageWidgetInstanceResource.getSiteSitePageWidgetInstance(
+				testGetSiteSitePageWidgetInstance_getSiteExternalReferenceCode(),
+				testGetSiteSitePageWidgetInstance_getSitePageExternalReferenceCode(),
+				testGetSiteSitePageWidgetInstance_getWidgetInstanceExternalReferenceCode());
+
+		assertEquals(postWidgetPageWidgetInstance, getWidgetPageWidgetInstance);
+		assertValid(getWidgetPageWidgetInstance);
+	}
+
+	protected WidgetPageWidgetInstance
+			testGetSiteSitePageWidgetInstance_addWidgetPageWidgetInstance()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetSiteSitePageWidgetInstance_getSiteExternalReferenceCode()
+		throws Exception {
+
+		return testGroup.getExternalReferenceCode();
+	}
+
+	protected String
+			testGetSiteSitePageWidgetInstance_getSitePageExternalReferenceCode()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetSiteSitePageWidgetInstance_getWidgetInstanceExternalReferenceCode()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGetSiteSitePageWidgetInstancesPage() throws Exception {
 		String siteExternalReferenceCode =
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getSiteExternalReferenceCode();
+			testGetSiteSitePageWidgetInstancesPage_getSiteExternalReferenceCode();
 		String irrelevantSiteExternalReferenceCode =
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getIrrelevantSiteExternalReferenceCode();
+			testGetSiteSitePageWidgetInstancesPage_getIrrelevantSiteExternalReferenceCode();
 		String sitePageExternalReferenceCode =
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getSitePageExternalReferenceCode();
+			testGetSiteSitePageWidgetInstancesPage_getSitePageExternalReferenceCode();
 		String irrelevantSitePageExternalReferenceCode =
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getIrrelevantSitePageExternalReferenceCode();
+			testGetSiteSitePageWidgetInstancesPage_getIrrelevantSitePageExternalReferenceCode();
 
 		Page<WidgetPageWidgetInstance> page =
-			widgetPageWidgetInstanceResource.
-				getSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage(
-					siteExternalReferenceCode, sitePageExternalReferenceCode);
+			widgetPageWidgetInstanceResource.getSiteSitePageWidgetInstancesPage(
+				siteExternalReferenceCode, sitePageExternalReferenceCode);
 
 		long totalCount = page.getTotalCount();
 
@@ -225,14 +329,14 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 			(irrelevantSitePageExternalReferenceCode != null)) {
 
 			WidgetPageWidgetInstance irrelevantWidgetPageWidgetInstance =
-				testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_addWidgetPageWidgetInstance(
+				testGetSiteSitePageWidgetInstancesPage_addWidgetPageWidgetInstance(
 					irrelevantSiteExternalReferenceCode,
 					irrelevantSitePageExternalReferenceCode,
 					randomIrrelevantWidgetPageWidgetInstance());
 
 			page =
 				widgetPageWidgetInstanceResource.
-					getSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage(
+					getSiteSitePageWidgetInstancesPage(
 						irrelevantSiteExternalReferenceCode,
 						irrelevantSitePageExternalReferenceCode);
 
@@ -243,25 +347,24 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 				(List<WidgetPageWidgetInstance>)page.getItems());
 			assertValid(
 				page,
-				testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getExpectedActions(
+				testGetSiteSitePageWidgetInstancesPage_getExpectedActions(
 					irrelevantSiteExternalReferenceCode,
 					irrelevantSitePageExternalReferenceCode));
 		}
 
 		WidgetPageWidgetInstance widgetPageWidgetInstance1 =
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_addWidgetPageWidgetInstance(
+			testGetSiteSitePageWidgetInstancesPage_addWidgetPageWidgetInstance(
 				siteExternalReferenceCode, sitePageExternalReferenceCode,
 				randomWidgetPageWidgetInstance());
 
 		WidgetPageWidgetInstance widgetPageWidgetInstance2 =
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_addWidgetPageWidgetInstance(
+			testGetSiteSitePageWidgetInstancesPage_addWidgetPageWidgetInstance(
 				siteExternalReferenceCode, sitePageExternalReferenceCode,
 				randomWidgetPageWidgetInstance());
 
 		page =
-			widgetPageWidgetInstanceResource.
-				getSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage(
-					siteExternalReferenceCode, sitePageExternalReferenceCode);
+			widgetPageWidgetInstanceResource.getSiteSitePageWidgetInstancesPage(
+				siteExternalReferenceCode, sitePageExternalReferenceCode);
 
 		Assert.assertEquals(totalCount + 2, page.getTotalCount());
 
@@ -273,12 +376,12 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 			(List<WidgetPageWidgetInstance>)page.getItems());
 		assertValid(
 			page,
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getExpectedActions(
+			testGetSiteSitePageWidgetInstancesPage_getExpectedActions(
 				siteExternalReferenceCode, sitePageExternalReferenceCode));
 	}
 
 	protected Map<String, Map<String, String>>
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getExpectedActions(
+			testGetSiteSitePageWidgetInstancesPage_getExpectedActions(
 				String siteExternalReferenceCode,
 				String sitePageExternalReferenceCode)
 		throws Exception {
@@ -289,7 +392,7 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 	}
 
 	protected WidgetPageWidgetInstance
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_addWidgetPageWidgetInstance(
+			testGetSiteSitePageWidgetInstancesPage_addWidgetPageWidgetInstance(
 				String siteExternalReferenceCode,
 				String sitePageExternalReferenceCode,
 				WidgetPageWidgetInstance widgetPageWidgetInstance)
@@ -300,7 +403,21 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 	}
 
 	protected String
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getSiteExternalReferenceCode()
+			testGetSiteSitePageWidgetInstancesPage_getSiteExternalReferenceCode()
+		throws Exception {
+
+		return testGroup.getExternalReferenceCode();
+	}
+
+	protected String
+			testGetSiteSitePageWidgetInstancesPage_getIrrelevantSiteExternalReferenceCode()
+		throws Exception {
+
+		return irrelevantGroup.getExternalReferenceCode();
+	}
+
+	protected String
+			testGetSiteSitePageWidgetInstancesPage_getSitePageExternalReferenceCode()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -308,36 +425,56 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 	}
 
 	protected String
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getIrrelevantSiteExternalReferenceCode()
-		throws Exception {
-
-		return null;
-	}
-
-	protected String
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getSitePageExternalReferenceCode()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String
-			testGetSiteSiteByExternalReferenceCodeSitePageWidgetInstancesPage_getIrrelevantSitePageExternalReferenceCode()
+			testGetSiteSitePageWidgetInstancesPage_getIrrelevantSitePageExternalReferenceCode()
 		throws Exception {
 
 		return null;
 	}
 
 	@Test
-	public void testPostSiteSiteByExternalReferenceCodeSitePageWidgetInstance()
+	public void testPatchSiteSitePageWidgetInstance() throws Exception {
+		WidgetPageWidgetInstance postWidgetPageWidgetInstance =
+			testPatchSiteSitePageWidgetInstance_addWidgetPageWidgetInstance();
+
+		WidgetPageWidgetInstance randomPatchWidgetPageWidgetInstance =
+			randomPatchWidgetPageWidgetInstance();
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		WidgetPageWidgetInstance patchWidgetPageWidgetInstance =
+			widgetPageWidgetInstanceResource.patchSiteSitePageWidgetInstance(
+				null, null, null, randomPatchWidgetPageWidgetInstance);
+
+		WidgetPageWidgetInstance expectedPatchWidgetPageWidgetInstance =
+			postWidgetPageWidgetInstance.clone();
+
+		BeanTestUtil.copyProperties(
+			randomPatchWidgetPageWidgetInstance,
+			expectedPatchWidgetPageWidgetInstance);
+
+		WidgetPageWidgetInstance getWidgetPageWidgetInstance =
+			widgetPageWidgetInstanceResource.getSiteSitePageWidgetInstance(
+				null, null, null);
+
+		assertEquals(
+			expectedPatchWidgetPageWidgetInstance, getWidgetPageWidgetInstance);
+		assertValid(getWidgetPageWidgetInstance);
+	}
+
+	protected WidgetPageWidgetInstance
+			testPatchSiteSitePageWidgetInstance_addWidgetPageWidgetInstance()
 		throws Exception {
 
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPostSiteSitePageWidgetInstance() throws Exception {
 		WidgetPageWidgetInstance randomWidgetPageWidgetInstance =
 			randomWidgetPageWidgetInstance();
 
 		WidgetPageWidgetInstance postWidgetPageWidgetInstance =
-			testPostSiteSiteByExternalReferenceCodeSitePageWidgetInstance_addWidgetPageWidgetInstance(
+			testPostSiteSitePageWidgetInstance_addWidgetPageWidgetInstance(
 				randomWidgetPageWidgetInstance);
 
 		assertEquals(
@@ -346,7 +483,7 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 	}
 
 	protected WidgetPageWidgetInstance
-			testPostSiteSiteByExternalReferenceCodeSitePageWidgetInstance_addWidgetPageWidgetInstance(
+			testPostSiteSitePageWidgetInstance_addWidgetPageWidgetInstance(
 				WidgetPageWidgetInstance widgetPageWidgetInstance)
 		throws Exception {
 
@@ -355,45 +492,69 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 	}
 
 	@Test
-	public void testDeleteSiteSiteByExternalReferenceCodeWidgetInstanceWidgetInstanceExternalReferenceCode()
+	public void testPutSiteSitePageWidgetInstance() throws Exception {
+		WidgetPageWidgetInstance postWidgetPageWidgetInstance =
+			testPutSiteSitePageWidgetInstance_addWidgetPageWidgetInstance();
+
+		WidgetPageWidgetInstance randomWidgetPageWidgetInstance =
+			randomWidgetPageWidgetInstance();
+
+		WidgetPageWidgetInstance putWidgetPageWidgetInstance =
+			widgetPageWidgetInstanceResource.putSiteSitePageWidgetInstance(
+				testPutSiteSitePageWidgetInstance_getSiteExternalReferenceCode(),
+				testPutSiteSitePageWidgetInstance_getSitePageExternalReferenceCode(),
+				testPutSiteSitePageWidgetInstance_getWidgetInstanceExternalReferenceCode(),
+				randomWidgetPageWidgetInstance);
+
+		assertEquals(
+			randomWidgetPageWidgetInstance, putWidgetPageWidgetInstance);
+		assertValid(putWidgetPageWidgetInstance);
+
+		WidgetPageWidgetInstance getWidgetPageWidgetInstance =
+			widgetPageWidgetInstanceResource.getSiteSitePageWidgetInstance(
+				testPutSiteSitePageWidgetInstance_getSiteExternalReferenceCode(),
+				testPutSiteSitePageWidgetInstance_getSitePageExternalReferenceCode(),
+				testPutSiteSitePageWidgetInstance_getWidgetInstanceExternalReferenceCode());
+
+		assertEquals(
+			randomWidgetPageWidgetInstance, getWidgetPageWidgetInstance);
+		assertValid(getWidgetPageWidgetInstance);
+	}
+
+	protected WidgetPageWidgetInstance
+			testPutSiteSitePageWidgetInstance_addWidgetPageWidgetInstance()
 		throws Exception {
 
-		Assert.assertTrue(false);
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testPutSiteSitePageWidgetInstance_getSiteExternalReferenceCode()
+		throws Exception {
+
+		return testGroup.getExternalReferenceCode();
+	}
+
+	protected String
+			testPutSiteSitePageWidgetInstance_getSitePageExternalReferenceCode()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testPutSiteSitePageWidgetInstance_getWidgetInstanceExternalReferenceCode()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
-	public void testGetSiteSiteByExternalReferenceCodeWidgetInstanceWidgetInstanceExternalReferenceCode()
-		throws Exception {
-
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testGraphQLGetSiteSiteByExternalReferenceCodeWidgetInstanceWidgetInstanceExternalReferenceCode()
-		throws Exception {
-
+	public void testBatchEngineDeleteImportTask() throws Exception {
 		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testGraphQLGetSiteSiteByExternalReferenceCodeWidgetInstanceWidgetInstanceExternalReferenceCodeNotFound()
-		throws Exception {
-
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testPatchSiteSiteByExternalReferenceCodeWidgetInstanceWidgetInstanceExternalReferenceCode()
-		throws Exception {
-
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testPutSiteSiteByExternalReferenceCodeWidgetInstanceWidgetInstanceExternalReferenceCode()
-		throws Exception {
-
-		Assert.assertTrue(false);
 	}
 
 	protected void assertContains(
@@ -639,6 +800,8 @@ public abstract class BaseWidgetPageWidgetInstanceResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

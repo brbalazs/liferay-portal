@@ -16,7 +16,7 @@ type MultiSelectProps<T> = {
 	label?: string;
 	localized?: boolean;
 	multiselectKey: string;
-	onChange: (values: T) => void;
+	onChange?: (values: T) => void;
 	onItemsChange: (values: T) => void;
 	placeholder?: string;
 	required?: boolean;
@@ -54,12 +54,12 @@ const MultiSelect: React.FC<MultiSelectProps<any>> = ({
 			tooltip={tooltip}
 		>
 			<ClayMultiSelect
-				{...{placeholder}}
 				inputName={inputName}
 				items={selectedItems}
 				key={multiselectKey}
 				onChange={onChange}
 				onItemsChange={onItemsChange}
+				placeholder={placeholder}
 				sourceItems={sourceItems}
 				spritemap={getIconSpriteMap()}
 				value={value}

@@ -34,13 +34,17 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -56,10 +60,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -243,10 +243,11 @@ public abstract class BaseSegmentUserResourceTestCase {
 
 		Long segmentId = testGetSegmentUserAccountsPage_getSegmentId();
 
-		Page<SegmentUser> segmentUserPage =
+		Page<SegmentUser> segmentUsersPage =
 			segmentUserResource.getSegmentUserAccountsPage(segmentId, null);
 
-		int totalCount = GetterUtil.getInteger(segmentUserPage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(
+			segmentUsersPage.getTotalCount());
 
 		SegmentUser segmentUser1 =
 			testGetSegmentUserAccountsPage_addSegmentUser(
@@ -348,11 +349,9 @@ public abstract class BaseSegmentUserResourceTestCase {
 		return null;
 	}
 
-	protected SegmentUser testGraphQLSegmentUser_addSegmentUser()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Assert.assertTrue(true);
 	}
 
 	protected void assertContains(
@@ -505,6 +504,8 @@ public abstract class BaseSegmentUserResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

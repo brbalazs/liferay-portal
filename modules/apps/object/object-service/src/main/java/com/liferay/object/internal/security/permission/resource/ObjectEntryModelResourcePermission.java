@@ -11,6 +11,7 @@ import com.liferay.account.model.AccountEntryOrganizationRel;
 import com.liferay.account.service.AccountEntryLocalService;
 import com.liferay.account.service.AccountEntryOrganizationRelLocalService;
 import com.liferay.object.constants.ObjectActionTriggerConstants;
+import com.liferay.object.constants.ObjectFieldConstants;
 import com.liferay.object.model.ObjectAction;
 import com.liferay.object.model.ObjectDefinition;
 import com.liferay.object.model.ObjectEntry;
@@ -22,29 +23,41 @@ import com.liferay.object.service.ObjectFieldLocalService;
 import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.feature.flag.FeatureFlagManagerUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.ResourcePermission;
+import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroupRole;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.UserBag;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionLogic;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.UserGroupRoleLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.MapUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.security.permission.UserBagFactoryUtil;
+
+import java.io.Serializable;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Supplier;
 
 /**
  * @author Marco Leo
@@ -61,6 +74,8 @@ public class ObjectEntryModelResourcePermission
 		ObjectActionLocalService objectActionLocalService,
 		ObjectDefinitionLocalService objectDefinitionLocalService,
 		ObjectEntryLocalService objectEntryLocalService,
+		Supplier<ModelResourcePermissionLogic<ObjectEntry>>
+			objectEntryModelResourcePermissionLogicSupplier,
 		ObjectFieldLocalService objectFieldLocalService,
 		PortletResourcePermission portletResourcePermission,
 		ResourcePermissionLocalService resourcePermissionLocalService,
@@ -74,6 +89,8 @@ public class ObjectEntryModelResourcePermission
 		_objectActionLocalService = objectActionLocalService;
 		_objectDefinitionLocalService = objectDefinitionLocalService;
 		_objectEntryLocalService = objectEntryLocalService;
+		_objectEntryModelResourcePermissionLogicSupplier =
+			objectEntryModelResourcePermissionLogicSupplier;
 		_objectFieldLocalService = objectFieldLocalService;
 		_portletResourcePermission = portletResourcePermission;
 		_resourcePermissionLocalService = resourcePermissionLocalService;
@@ -143,19 +160,46 @@ public class ObjectEntryModelResourcePermission
 			_objectDefinitionLocalService.getObjectDefinition(
 				objectEntry.getObjectDefinitionId());
 
+		if (_hasAssigneeUpdatePermission(
+				actionId, objectDefinition, objectEntry, user)) {
+
+			return true;
+		}
+
 		if (user.isGuestUser()) {
 			return permissionChecker.hasPermission(
 				objectEntry.getGroupId(), objectDefinition.getClassName(),
-				objectEntry.getObjectEntryId(), actionId);
+				objectEntry.getHeadObjectEntryId(), actionId);
 		}
 
 		if (permissionChecker.hasOwnerPermission(
 				permissionChecker.getCompanyId(),
-				objectDefinition.getClassName(), objectEntry.getObjectEntryId(),
-				objectEntry.getUserId(), actionId) ||
+				objectDefinition.getClassName(),
+				objectEntry.getHeadObjectEntryId(), objectEntry.getUserId(),
+				actionId) ||
 			permissionChecker.hasPermission(
 				objectEntry.getGroupId(), objectDefinition.getClassName(),
-				objectEntry.getObjectEntryId(), actionId)) {
+				objectEntry.getHeadObjectEntryId(), actionId)) {
+
+			return true;
+		}
+
+		ModelResourcePermissionLogic<ObjectEntry>
+			objectEntryModelResourcePermissionLogic =
+				_objectEntryModelResourcePermissionLogicSupplier.get();
+
+		if (!objectEntry.isHead()) {
+			objectEntry = _objectEntryLocalService.fetchObjectEntry(
+				objectEntry.getHeadObjectEntryId());
+		}
+
+		if ((!actionId.equals(ActionKeys.VIEW) || objectEntry.isApproved()) &&
+			(objectEntryModelResourcePermissionLogic != null) &&
+			Objects.equals(
+				objectEntryModelResourcePermissionLogic.contains(
+					permissionChecker, objectDefinition.getClassName(),
+					objectEntry, actionId),
+				Boolean.TRUE)) {
 
 			return true;
 		}
@@ -264,6 +308,67 @@ public class ObjectEntryModelResourcePermission
 		return _portletResourcePermission;
 	}
 
+	private boolean _hasAssigneeUpdatePermission(
+			String actionId, ObjectDefinition objectDefinition,
+			ObjectEntry objectEntry, User user)
+		throws PortalException {
+
+		if (!FeatureFlagManagerUtil.isEnabled(
+				objectDefinition.getCompanyId(), "LPD-6233") ||
+			!actionId.equals(ActionKeys.UPDATE)) {
+
+			return false;
+		}
+
+		ObjectField objectField =
+			_objectFieldLocalService.fetchObjectFieldByBusinessType(
+				objectDefinition.getObjectDefinitionId(),
+				ObjectFieldConstants.BUSINESS_TYPE_ASSIGNEE, null);
+
+		if (objectField == null) {
+			return false;
+		}
+
+		Map<String, Serializable> values = objectEntry.getValues();
+
+		Map<String, Long> assigneeMap = (Map<String, Long>)values.get(
+			objectField.getName());
+
+		if (MapUtil.isEmpty(assigneeMap)) {
+			return false;
+		}
+
+		String className = PortalUtil.fetchClassName(
+			GetterUtil.getLong(assigneeMap.get("classNameId")));
+		long classPK = GetterUtil.getLong(assigneeMap.get("classPK"));
+
+		if (StringUtil.equals(className, Role.class.getName())) {
+			UserBag userBag = UserBagFactoryUtil.create(user);
+
+			for (long roleId : userBag.getRoleIds()) {
+				if (roleId == classPK) {
+					return true;
+				}
+			}
+
+			for (UserGroupRole userGroupRole :
+					_userGroupRoleLocalService.getUserGroupRoles(
+						user.getUserId())) {
+
+				if (userGroupRole.getRoleId() == classPK) {
+					return true;
+				}
+			}
+		}
+		else if (StringUtil.equals(className, User.class.getName()) &&
+				 (user.getUserId() == classPK)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
 	private boolean _isObjectActionName(
 		String actionId, long objectDefinitionId) {
 
@@ -288,10 +393,18 @@ public class ObjectEntryModelResourcePermission
 		if (objectEntry.getRootObjectEntryId() != 0) {
 			objectEntry = _objectEntryLocalService.getObjectEntry(
 				objectEntry.getRootObjectEntryId());
+
+			ObjectDefinition objectDefinition =
+				_objectDefinitionLocalService.getObjectDefinition(
+					objectEntry.getObjectDefinitionId());
+
+			throw new PrincipalException.MustHavePermission(
+				permissionChecker, objectDefinition.getClassName(),
+				objectEntry.getHeadObjectEntryId(), actionId);
 		}
 
 		throw new PrincipalException.MustHavePermission(
-			permissionChecker, _modelName, objectEntry.getObjectEntryId(),
+			permissionChecker, _modelName, objectEntry.getHeadObjectEntryId(),
 			actionId);
 	}
 
@@ -303,6 +416,8 @@ public class ObjectEntryModelResourcePermission
 	private final ObjectActionLocalService _objectActionLocalService;
 	private final ObjectDefinitionLocalService _objectDefinitionLocalService;
 	private final ObjectEntryLocalService _objectEntryLocalService;
+	private final Supplier<ModelResourcePermissionLogic<ObjectEntry>>
+		_objectEntryModelResourcePermissionLogicSupplier;
 	private final ObjectFieldLocalService _objectFieldLocalService;
 	private final PortletResourcePermission _portletResourcePermission;
 	private final ResourcePermissionLocalService

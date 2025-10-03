@@ -5,7 +5,7 @@
  */
 --%>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
 
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
@@ -36,16 +36,16 @@ page import="com.liferay.portal.kernel.util.HashMapBuilder" %><%@
 page import="com.liferay.portal.kernel.util.ListUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.PortalUtil" %><%@
+page import="com.liferay.portal.kernel.util.PropsValues" %><%@
 page import="com.liferay.portal.kernel.util.UnicodeProperties" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
-page import="com.liferay.portal.util.PropsValues" %><%@
 page import="com.liferay.redirect.configuration.CrawlerUserAgentsConfiguration" %>
+
+<%@ page import="jakarta.portlet.PortletRequest" %>
 
 <%@ page import="java.util.ArrayList" %><%@
 page import="java.util.List" %>
-
-<%@ page import="javax.portlet.PortletRequest" %>
 
 <liferay-frontend:defineObjects />
 

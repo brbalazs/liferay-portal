@@ -17,19 +17,20 @@ import com.liferay.object.rest.manager.v1_0.ObjectEntryManagerRegistry;
 import com.liferay.object.service.ObjectEntryLocalService;
 import com.liferay.object.web.internal.util.ObjectEntryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -58,6 +59,16 @@ public class ObjectEntryInfoItemObjectProviderTest {
 
 	@Before
 	public void setUp() {
+		_groupLocalService = Mockito.mock(GroupLocalService.class);
+
+		_group = Mockito.mock(Group.class);
+
+		Mockito.when(
+			_groupLocalService.fetchGroup(Mockito.anyLong())
+		).thenReturn(
+			_group
+		);
+
 		_objectDefinition = Mockito.mock(ObjectDefinition.class);
 		_objectEntryLocalService = Mockito.mock(ObjectEntryLocalService.class);
 
@@ -73,6 +84,8 @@ public class ObjectEntryInfoItemObjectProviderTest {
 		);
 
 		_objectEntryUtilMockedStatic.reset();
+
+		_userLocalService = Mockito.mock(UserLocalService.class);
 	}
 
 	@Test
@@ -236,7 +249,7 @@ public class ObjectEntryInfoItemObjectProviderTest {
 
 		_assertGetInfoItemNoSuchInfoItemException(
 			infoItemIdentifier,
-			"Unsupported info item identifier type " + infoItemIdentifier);
+			"Unsupported info item identifier " + infoItemIdentifier);
 
 		Mockito.verifyNoInteractions(_objectEntryLocalService);
 		Mockito.verifyNoInteractions(_objectEntryManagerRegistry);
@@ -256,8 +269,8 @@ public class ObjectEntryInfoItemObjectProviderTest {
 
 		ObjectEntryInfoItemObjectProvider objectEntryInfoItemObjectProvider =
 			new ObjectEntryInfoItemObjectProvider(
-				_objectDefinition, _objectEntryLocalService,
-				_objectEntryManagerRegistry);
+				_groupLocalService, _objectDefinition, _objectEntryLocalService,
+				_objectEntryManagerRegistry, _userLocalService);
 
 		try {
 			_pushServiceContext(httpServletRequest);
@@ -406,20 +419,6 @@ public class ObjectEntryInfoItemObjectProviderTest {
 			httpServletRequest
 		);
 
-		ThemeDisplay themeDisplay = Mockito.mock(ThemeDisplay.class);
-
-		Mockito.when(
-			themeDisplay.getScopeGroup()
-		).thenReturn(
-			Mockito.mock(Group.class)
-		);
-
-		Mockito.when(
-			serviceContext.getThemeDisplay()
-		).thenReturn(
-			themeDisplay
-		);
-
 		ServiceContextThreadLocal.pushServiceContext(serviceContext);
 	}
 
@@ -455,9 +454,12 @@ public class ObjectEntryInfoItemObjectProviderTest {
 		_objectEntryUtilMockedStatic = Mockito.mockStatic(
 			ObjectEntryUtil.class);
 
+	private Group _group;
+	private GroupLocalService _groupLocalService;
 	private ObjectDefinition _objectDefinition;
 	private ObjectEntryLocalService _objectEntryLocalService;
 	private ObjectEntryManager _objectEntryManager;
 	private ObjectEntryManagerRegistry _objectEntryManagerRegistry;
+	private UserLocalService _userLocalService;
 
 }

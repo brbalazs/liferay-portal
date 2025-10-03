@@ -55,21 +55,21 @@ import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeFormatter;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
-import com.liferay.portal.util.PropsValues;
+
+import jakarta.portlet.PortletRequest;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
-import javax.portlet.PortletRequest;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Adolfo Pérez
@@ -571,13 +571,13 @@ public class BlogsEditEntryDisplayContext {
 			_assetCategoryIds = new long[0];
 		}
 		else {
-			List<Long> assetCategoryIdsList = ListUtil.fromArray(
+			List<Long> assetCategoryIds = ListUtil.fromArray(
 				assetEntry.getCategoryIds());
 
-			assetCategoryIdsList.removeAll(
+			assetCategoryIds.removeAll(
 				ListUtil.fromArray(_getCurrentFriendlyURLAssetCategoryIds()));
 
-			_assetCategoryIds = ArrayUtil.toLongArray(assetCategoryIdsList);
+			_assetCategoryIds = ArrayUtil.toLongArray(assetCategoryIds);
 		}
 
 		return _assetCategoryIds;

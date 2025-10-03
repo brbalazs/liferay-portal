@@ -1,6 +1,6 @@
 Bundle-Name: ${manifest.bundle.name}
 Bundle-SymbolicName: ${manifest.bundle.symbolic.name}
-Bundle-Version: 26.1.0
+Bundle-Version: 32.0.0
 Export-Package:\
 	com.liferay.portal.kernel.dao.db.test,\
 	com.liferay.portal.kernel.test,\
@@ -13,6 +13,7 @@ Export-Package:\
 	com.liferay.portal.kernel.test.rule,\
 	com.liferay.portal.kernel.test.util,\
 	com.liferay.portal.kernel.upgrade.test,\
+	com.liferay.portal.test.cluster.tomcat,\
 	com.liferay.portal.test.log,\
 	com.liferay.portal.test.mail,\
 	com.liferay.portal.test.randomizerbumpers,\
@@ -20,7 +21,6 @@ Export-Package:\
 	com.liferay.portlet.asset.service.persistence.test,\
 	com.liferay.portlet.passwordpoliciesadmin.util.test,\
 	com.liferay.portlet.test,\
-	com.liferay.portletmvc4spring.test.mock.web.portlet,\
 	\
 	junit.*,\
 	\
@@ -43,7 +43,6 @@ Include-Resource:\
 	@${project.dir}/../lib/development/osgi-service-cm.jar,\
 	@${project.dir}/../lib/development/osgi-service-component.jar,\
 	@${project.dir}/../lib/development/osgi-service-log.jar,\
-	@${project.dir}/../lib/development/portletmvc4spring-test.jar,\
 	@${project.dir}/../lib/development/reflections.jar,\
 	@${project.dir}/../lib/development/sling-commons-osgi.jar,\
 	@${project.dir}/../lib/development/sling-testing-osgi-mock-core.jar,\

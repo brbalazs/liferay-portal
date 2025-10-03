@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.headless.delivery.client.dto.v1_0.Field;
 import com.liferay.headless.delivery.client.dto.v1_0.WikiNode;
 import com.liferay.headless.delivery.client.http.HttpInvoker;
@@ -45,9 +48,11 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.RoleTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -56,11 +61,20 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -79,16 +93,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -135,6 +140,16 @@ public abstract class BaseWikiNodeResourceTestCase {
 			testCompany.getCompanyId());
 
 		wikiNodeResource = WikiNodeResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		importTaskResource = ImportTaskResource.builder(
 		).authentication(
 			_testCompanyAdminUser.getEmailAddress(),
 			PropsValues.DEFAULT_ADMIN_PASSWORD
@@ -214,6 +229,469 @@ public abstract class BaseWikiNodeResourceTestCase {
 		Assert.assertEquals(regex, wikiNode.getDescription());
 		Assert.assertEquals(regex, wikiNode.getExternalReferenceCode());
 		Assert.assertEquals(regex, wikiNode.getName());
+	}
+
+	@Test
+	public void testDeleteSiteWikiNodeByExternalReferenceCode()
+		throws Exception {
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		WikiNode wikiNode =
+			testDeleteSiteWikiNodeByExternalReferenceCode_addWikiNode();
+
+		assertHttpResponseStatusCode(
+			204,
+			wikiNodeResource.
+				deleteSiteWikiNodeByExternalReferenceCodeHttpResponse(
+					wikiNode.getSiteId(), wikiNode.getExternalReferenceCode()));
+
+		assertHttpResponseStatusCode(
+			404,
+			wikiNodeResource.getSiteWikiNodeByExternalReferenceCodeHttpResponse(
+				wikiNode.getSiteId(), wikiNode.getExternalReferenceCode()));
+		assertHttpResponseStatusCode(
+			404,
+			wikiNodeResource.getSiteWikiNodeByExternalReferenceCodeHttpResponse(
+				wikiNode.getSiteId(), "-"));
+	}
+
+	protected WikiNode
+			testDeleteSiteWikiNodeByExternalReferenceCode_addWikiNode()
+		throws Exception {
+
+		return wikiNodeResource.postSiteWikiNode(
+			testGroup.getGroupId(), randomWikiNode());
+	}
+
+	@Test
+	public void testGraphQLDeleteSiteWikiNodeByExternalReferenceCode()
+		throws Exception {
+
+		// No namespace
+
+		WikiNode wikiNode1 =
+			testGraphQLDeleteSiteWikiNodeByExternalReferenceCode_addWikiNode();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteSiteWikiNodeByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"siteKey",
+									"\"" + wikiNode1.getSiteId() + "\"");
+								put(
+									"externalReferenceCode",
+									"\"" +
+										wikiNode1.getExternalReferenceCode() +
+											"\"");
+							}
+						})),
+				"JSONObject/data",
+				"Object/deleteSiteWikiNodeByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"wikiNodeByExternalReferenceCode",
+					new HashMap<String, Object>() {
+						{
+							put("siteKey", "\"" + wikiNode1.getSiteId() + "\"");
+							put(
+								"externalReferenceCode",
+								"\"" + wikiNode1.getExternalReferenceCode() +
+									"\"");
+						}
+					},
+					getGraphQLFields())),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray1.length() > 0);
+
+		// Using the namespace headlessDelivery_v1_0
+
+		WikiNode wikiNode2 =
+			testGraphQLDeleteSiteWikiNodeByExternalReferenceCode_addWikiNode();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"headlessDelivery_v1_0",
+						new GraphQLField(
+							"deleteSiteWikiNodeByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"siteKey",
+										"\"" + wikiNode2.getSiteId() + "\"");
+									put(
+										"externalReferenceCode",
+										"\"" +
+											wikiNode2.
+												getExternalReferenceCode() +
+													"\"");
+								}
+							}))),
+				"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
+				"Object/deleteSiteWikiNodeByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessDelivery_v1_0",
+					new GraphQLField(
+						"wikiNodeByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"siteKey",
+									"\"" + wikiNode2.getSiteId() + "\"");
+								put(
+									"externalReferenceCode",
+									"\"" +
+										wikiNode2.getExternalReferenceCode() +
+											"\"");
+							}
+						},
+						getGraphQLFields()))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray2.length() > 0);
+	}
+
+	protected WikiNode
+			testGraphQLDeleteSiteWikiNodeByExternalReferenceCode_addWikiNode()
+		throws Exception {
+
+		return testGraphQLSiteWikiNode_addWikiNode();
+	}
+
+	@Test
+	public void testDeleteWikiNode() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		WikiNode wikiNode = testDeleteWikiNode_addWikiNode();
+
+		assertHttpResponseStatusCode(
+			204, wikiNodeResource.deleteWikiNodeHttpResponse(wikiNode.getId()));
+
+		assertHttpResponseStatusCode(
+			404, wikiNodeResource.getWikiNodeHttpResponse(wikiNode.getId()));
+		assertHttpResponseStatusCode(
+			404, wikiNodeResource.getWikiNodeHttpResponse(0L));
+	}
+
+	protected WikiNode testDeleteWikiNode_addWikiNode() throws Exception {
+		return wikiNodeResource.postSiteWikiNode(
+			testGroup.getGroupId(), randomWikiNode());
+	}
+
+	@Test
+	public void testGraphQLDeleteWikiNode() throws Exception {
+
+		// No namespace
+
+		WikiNode wikiNode1 = testGraphQLDeleteWikiNode_addWikiNode();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteWikiNode",
+						new HashMap<String, Object>() {
+							{
+								put("wikiNodeId", wikiNode1.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteWikiNode"));
+
+		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"wikiNode",
+					new HashMap<String, Object>() {
+						{
+							put("wikiNodeId", wikiNode1.getId());
+						}
+					},
+					getGraphQLFields())),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray1.length() > 0);
+
+		// Using the namespace headlessDelivery_v1_0
+
+		WikiNode wikiNode2 = testGraphQLDeleteWikiNode_addWikiNode();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"headlessDelivery_v1_0",
+						new GraphQLField(
+							"deleteWikiNode",
+							new HashMap<String, Object>() {
+								{
+									put("wikiNodeId", wikiNode2.getId());
+								}
+							}))),
+				"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
+				"Object/deleteWikiNode"));
+
+		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessDelivery_v1_0",
+					new GraphQLField(
+						"wikiNode",
+						new HashMap<String, Object>() {
+							{
+								put("wikiNodeId", wikiNode2.getId());
+							}
+						},
+						getGraphQLFields()))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray2.length() > 0);
+	}
+
+	protected WikiNode testGraphQLDeleteWikiNode_addWikiNode()
+		throws Exception {
+
+		return testGraphQLWikiNode_addWikiNode();
+	}
+
+	@Test
+	public void testDeleteWikiNodeBatch() throws Exception {
+		WikiNode wikiNode1 = testDeleteWikiNodeBatch_addWikiNode();
+
+		testDeleteWikiNodeBatch_deleteWikiNode(202, null, wikiNode1.getId());
+
+		assertHttpResponseStatusCode(
+			404, wikiNodeResource.getWikiNodeHttpResponse(wikiNode1.getId()));
+	}
+
+	protected WikiNode testDeleteWikiNodeBatch_addWikiNode() throws Exception {
+		return testDeleteWikiNode_addWikiNode();
+	}
+
+	protected void testDeleteWikiNodeBatch_deleteWikiNode(
+			int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			wikiNodeResource.deleteWikiNodeBatchHttpResponse(
+				null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+	}
+
+	@Test
+	public void testGetSiteWikiNodeByExternalReferenceCode() throws Exception {
+		WikiNode postWikiNode =
+			testGetSiteWikiNodeByExternalReferenceCode_addWikiNode();
+
+		WikiNode getWikiNode =
+			wikiNodeResource.getSiteWikiNodeByExternalReferenceCode(
+				postWikiNode.getSiteId(),
+				postWikiNode.getExternalReferenceCode());
+
+		assertEquals(postWikiNode, getWikiNode);
+		assertValid(getWikiNode);
+	}
+
+	protected WikiNode testGetSiteWikiNodeByExternalReferenceCode_addWikiNode()
+		throws Exception {
+
+		return wikiNodeResource.postSiteWikiNode(
+			testGroup.getGroupId(), randomWikiNode());
+	}
+
+	@Test
+	public void testGraphQLGetSiteWikiNodeByExternalReferenceCode()
+		throws Exception {
+
+		WikiNode wikiNode =
+			testGraphQLGetSiteWikiNodeByExternalReferenceCode_addWikiNode();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				wikiNode,
+				WikiNodeSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"wikiNodeByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"siteKey",
+											"\"" + wikiNode.getSiteId() + "\"");
+										put(
+											"externalReferenceCode",
+											"\"" +
+												wikiNode.
+													getExternalReferenceCode() +
+														"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/wikiNodeByExternalReferenceCode"))));
+
+		// Using the namespace headlessDelivery_v1_0
+
+		Assert.assertTrue(
+			equals(
+				wikiNode,
+				WikiNodeSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"headlessDelivery_v1_0",
+								new GraphQLField(
+									"wikiNodeByExternalReferenceCode",
+									new HashMap<String, Object>() {
+										{
+											put(
+												"siteKey",
+												"\"" + wikiNode.getSiteId() +
+													"\"");
+											put(
+												"externalReferenceCode",
+												"\"" +
+													wikiNode.
+														getExternalReferenceCode() +
+															"\"");
+										}
+									},
+									getGraphQLFields()))),
+						"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
+						"Object/wikiNodeByExternalReferenceCode"))));
+	}
+
+	@Test
+	public void testGraphQLGetSiteWikiNodeByExternalReferenceCodeNotFound()
+		throws Exception {
+
+		String irrelevantExternalReferenceCode =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"wikiNodeByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"siteKey",
+									"\"" + irrelevantGroup.getGroupId() + "\"");
+								put(
+									"externalReferenceCode",
+									irrelevantExternalReferenceCode);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace headlessDelivery_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"headlessDelivery_v1_0",
+						new GraphQLField(
+							"wikiNodeByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"siteKey",
+										"\"" + irrelevantGroup.getGroupId() +
+											"\"");
+									put(
+										"externalReferenceCode",
+										irrelevantExternalReferenceCode);
+								}
+							},
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected WikiNode
+			testGraphQLGetSiteWikiNodeByExternalReferenceCode_addWikiNode()
+		throws Exception {
+
+		return testGraphQLSiteWikiNode_addWikiNode();
+	}
+
+	@Test
+	public void testGetSiteWikiNodePermissionsPage() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		WikiNode postWikiNode =
+			testGetSiteWikiNodePermissionsPage_addWikiNode();
+
+		Page<Permission> page = wikiNodeResource.getSiteWikiNodePermissionsPage(
+			testGroup.getGroupId(), RoleConstants.GUEST);
+
+		Assert.assertNotNull(page);
+	}
+
+	protected WikiNode testGetSiteWikiNodePermissionsPage_addWikiNode()
+		throws Exception {
+
+		return wikiNodeResource.postSiteWikiNode(
+			testGroup.getGroupId(), randomWikiNode());
+	}
+
+	@Test
+	public void testGraphQLGetSiteWikiNodePermissionsPage() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		WikiNode postWikiNode =
+			testGraphQLGetSiteWikiNodePermissionsPage_addWikiNode();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"siteWikiNodePermissions",
+			new HashMap<String, Object>() {
+				{
+					put("siteKey", "\"" + postWikiNode.getSiteId() + "\"");
+				}
+			},
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		JSONObject siteWikiNodePermissionsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/siteWikiNodePermissions");
+
+		Assert.assertNotNull(siteWikiNodePermissionsJSONObject);
+	}
+
+	protected WikiNode testGraphQLGetSiteWikiNodePermissionsPage_addWikiNode()
+		throws Exception {
+
+		return testGraphQLSiteWikiNode_addWikiNode();
 	}
 
 	@Test
@@ -373,10 +851,10 @@ public abstract class BaseWikiNodeResourceTestCase {
 	public void testGetSiteWikiNodesPageWithPagination() throws Exception {
 		Long siteId = testGetSiteWikiNodesPage_getSiteId();
 
-		Page<WikiNode> wikiNodePage = wikiNodeResource.getSiteWikiNodesPage(
+		Page<WikiNode> wikiNodesPage = wikiNodeResource.getSiteWikiNodesPage(
 			siteId, null, null, null, null, null);
 
-		int totalCount = GetterUtil.getInteger(wikiNodePage.getTotalCount());
+		int totalCount = GetterUtil.getInteger(wikiNodesPage.getTotalCount());
 
 		WikiNode wikiNode1 = testGetSiteWikiNodesPage_addWikiNode(
 			siteId, randomWikiNode());
@@ -605,10 +1083,10 @@ public abstract class BaseWikiNodeResourceTestCase {
 			"wikiNodes",
 			new HashMap<String, Object>() {
 				{
+					put("siteKey", "\"" + siteId + "\"");
+					put("search", null);
 					put("page", 1);
 					put("pageSize", 10);
-
-					put("siteKey", "\"" + siteId + "\"");
 				}
 			},
 			new GraphQLField("items", getGraphQLFields()),
@@ -622,8 +1100,11 @@ public abstract class BaseWikiNodeResourceTestCase {
 
 		long totalCount = wikiNodesJSONObject.getLong("totalCount");
 
-		WikiNode wikiNode1 = testGraphQLGetSiteWikiNodesPage_addWikiNode();
-		WikiNode wikiNode2 = testGraphQLGetSiteWikiNodesPage_addWikiNode();
+		WikiNode wikiNode1 = testGraphQLSiteWikiNode_addWikiNode(
+			siteId, randomWikiNode());
+
+		WikiNode wikiNode2 = testGraphQLSiteWikiNode_addWikiNode(
+			siteId, randomWikiNode());
 
 		wikiNodesJSONObject = JSONUtil.getValueAsJSONObject(
 			invokeGraphQLQuery(graphQLField), "JSONObject/data",
@@ -660,472 +1141,6 @@ public abstract class BaseWikiNodeResourceTestCase {
 			wikiNode2,
 			Arrays.asList(
 				WikiNodeSerDes.toDTOs(wikiNodesJSONObject.getString("items"))));
-	}
-
-	protected WikiNode testGraphQLGetSiteWikiNodesPage_addWikiNode()
-		throws Exception {
-
-		return testGraphQLWikiNode_addWikiNode();
-	}
-
-	@Test
-	public void testPostSiteWikiNode() throws Exception {
-		WikiNode randomWikiNode = randomWikiNode();
-
-		WikiNode postWikiNode = testPostSiteWikiNode_addWikiNode(
-			randomWikiNode);
-
-		assertEquals(randomWikiNode, postWikiNode);
-		assertValid(postWikiNode);
-	}
-
-	protected WikiNode testPostSiteWikiNode_addWikiNode(WikiNode wikiNode)
-		throws Exception {
-
-		return wikiNodeResource.postSiteWikiNode(
-			testGetSiteWikiNodesPage_getSiteId(), wikiNode);
-	}
-
-	@Test
-	public void testGraphQLPostSiteWikiNode() throws Exception {
-		WikiNode randomWikiNode = randomWikiNode();
-
-		WikiNode wikiNode = testGraphQLWikiNode_addWikiNode(randomWikiNode);
-
-		Assert.assertTrue(equals(randomWikiNode, wikiNode));
-	}
-
-	@Test
-	public void testDeleteSiteWikiNodeByExternalReferenceCode()
-		throws Exception {
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		WikiNode wikiNode =
-			testDeleteSiteWikiNodeByExternalReferenceCode_addWikiNode();
-
-		assertHttpResponseStatusCode(
-			204,
-			wikiNodeResource.
-				deleteSiteWikiNodeByExternalReferenceCodeHttpResponse(
-					testDeleteSiteWikiNodeByExternalReferenceCode_getSiteId(
-						wikiNode),
-					wikiNode.getExternalReferenceCode()));
-
-		assertHttpResponseStatusCode(
-			404,
-			wikiNodeResource.getSiteWikiNodeByExternalReferenceCodeHttpResponse(
-				testDeleteSiteWikiNodeByExternalReferenceCode_getSiteId(
-					wikiNode),
-				wikiNode.getExternalReferenceCode()));
-
-		assertHttpResponseStatusCode(
-			404,
-			wikiNodeResource.getSiteWikiNodeByExternalReferenceCodeHttpResponse(
-				testDeleteSiteWikiNodeByExternalReferenceCode_getSiteId(
-					wikiNode),
-				wikiNode.getExternalReferenceCode()));
-	}
-
-	protected Long testDeleteSiteWikiNodeByExternalReferenceCode_getSiteId(
-			WikiNode wikiNode)
-		throws Exception {
-
-		return wikiNode.getSiteId();
-	}
-
-	protected WikiNode
-			testDeleteSiteWikiNodeByExternalReferenceCode_addWikiNode()
-		throws Exception {
-
-		return wikiNodeResource.postSiteWikiNode(
-			testGroup.getGroupId(), randomWikiNode());
-	}
-
-	@Test
-	public void testGetSiteWikiNodeByExternalReferenceCode() throws Exception {
-		WikiNode postWikiNode =
-			testGetSiteWikiNodeByExternalReferenceCode_addWikiNode();
-
-		WikiNode getWikiNode =
-			wikiNodeResource.getSiteWikiNodeByExternalReferenceCode(
-				testGetSiteWikiNodeByExternalReferenceCode_getSiteId(
-					postWikiNode),
-				postWikiNode.getExternalReferenceCode());
-
-		assertEquals(postWikiNode, getWikiNode);
-		assertValid(getWikiNode);
-	}
-
-	protected Long testGetSiteWikiNodeByExternalReferenceCode_getSiteId(
-			WikiNode wikiNode)
-		throws Exception {
-
-		return wikiNode.getSiteId();
-	}
-
-	protected WikiNode testGetSiteWikiNodeByExternalReferenceCode_addWikiNode()
-		throws Exception {
-
-		return wikiNodeResource.postSiteWikiNode(
-			testGroup.getGroupId(), randomWikiNode());
-	}
-
-	@Test
-	public void testGraphQLGetSiteWikiNodeByExternalReferenceCode()
-		throws Exception {
-
-		WikiNode wikiNode =
-			testGraphQLGetSiteWikiNodeByExternalReferenceCode_addWikiNode();
-
-		// No namespace
-
-		Assert.assertTrue(
-			equals(
-				wikiNode,
-				WikiNodeSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"wikiNodeByExternalReferenceCode",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"siteKey",
-											"\"" +
-												testGraphQLGetSiteWikiNodeByExternalReferenceCode_getSiteId(
-													wikiNode) + "\"");
-
-										put(
-											"externalReferenceCode",
-											"\"" +
-												wikiNode.
-													getExternalReferenceCode() +
-														"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/wikiNodeByExternalReferenceCode"))));
-
-		// Using the namespace headlessDelivery_v1_0
-
-		Assert.assertTrue(
-			equals(
-				wikiNode,
-				WikiNodeSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"headlessDelivery_v1_0",
-								new GraphQLField(
-									"wikiNodeByExternalReferenceCode",
-									new HashMap<String, Object>() {
-										{
-											put(
-												"siteKey",
-												"\"" +
-													testGraphQLGetSiteWikiNodeByExternalReferenceCode_getSiteId(
-														wikiNode) + "\"");
-
-											put(
-												"externalReferenceCode",
-												"\"" +
-													wikiNode.
-														getExternalReferenceCode() +
-															"\"");
-										}
-									},
-									getGraphQLFields()))),
-						"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
-						"Object/wikiNodeByExternalReferenceCode"))));
-	}
-
-	protected Long testGraphQLGetSiteWikiNodeByExternalReferenceCode_getSiteId(
-			WikiNode wikiNode)
-		throws Exception {
-
-		return wikiNode.getSiteId();
-	}
-
-	@Test
-	public void testGraphQLGetSiteWikiNodeByExternalReferenceCodeNotFound()
-		throws Exception {
-
-		String irrelevantExternalReferenceCode =
-			"\"" + RandomTestUtil.randomString() + "\"";
-
-		// No namespace
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"wikiNodeByExternalReferenceCode",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"siteKey",
-									"\"" + irrelevantGroup.getGroupId() + "\"");
-								put(
-									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-
-		// Using the namespace headlessDelivery_v1_0
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"headlessDelivery_v1_0",
-						new GraphQLField(
-							"wikiNodeByExternalReferenceCode",
-							new HashMap<String, Object>() {
-								{
-									put(
-										"siteKey",
-										"\"" + irrelevantGroup.getGroupId() +
-											"\"");
-									put(
-										"externalReferenceCode",
-										irrelevantExternalReferenceCode);
-								}
-							},
-							getGraphQLFields()))),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected WikiNode
-			testGraphQLGetSiteWikiNodeByExternalReferenceCode_addWikiNode()
-		throws Exception {
-
-		return testGraphQLWikiNode_addWikiNode();
-	}
-
-	@Test
-	public void testPutSiteWikiNodeByExternalReferenceCode() throws Exception {
-		WikiNode postWikiNode =
-			testPutSiteWikiNodeByExternalReferenceCode_addWikiNode();
-
-		WikiNode randomWikiNode = randomWikiNode();
-
-		WikiNode putWikiNode =
-			wikiNodeResource.putSiteWikiNodeByExternalReferenceCode(
-				testPutSiteWikiNodeByExternalReferenceCode_getSiteId(
-					postWikiNode),
-				postWikiNode.getExternalReferenceCode(), randomWikiNode);
-
-		assertEquals(randomWikiNode, putWikiNode);
-		assertValid(putWikiNode);
-
-		WikiNode getWikiNode =
-			wikiNodeResource.getSiteWikiNodeByExternalReferenceCode(
-				testPutSiteWikiNodeByExternalReferenceCode_getSiteId(
-					putWikiNode),
-				putWikiNode.getExternalReferenceCode());
-
-		assertEquals(randomWikiNode, getWikiNode);
-		assertValid(getWikiNode);
-
-		WikiNode newWikiNode =
-			testPutSiteWikiNodeByExternalReferenceCode_createWikiNode();
-
-		putWikiNode = wikiNodeResource.putSiteWikiNodeByExternalReferenceCode(
-			testPutSiteWikiNodeByExternalReferenceCode_getSiteId(newWikiNode),
-			newWikiNode.getExternalReferenceCode(), newWikiNode);
-
-		assertEquals(newWikiNode, putWikiNode);
-		assertValid(putWikiNode);
-
-		getWikiNode = wikiNodeResource.getSiteWikiNodeByExternalReferenceCode(
-			testPutSiteWikiNodeByExternalReferenceCode_getSiteId(putWikiNode),
-			putWikiNode.getExternalReferenceCode());
-
-		assertEquals(newWikiNode, getWikiNode);
-
-		Assert.assertEquals(
-			newWikiNode.getExternalReferenceCode(),
-			putWikiNode.getExternalReferenceCode());
-	}
-
-	protected Long testPutSiteWikiNodeByExternalReferenceCode_getSiteId(
-			WikiNode wikiNode)
-		throws Exception {
-
-		return wikiNode.getSiteId();
-	}
-
-	protected WikiNode
-			testPutSiteWikiNodeByExternalReferenceCode_createWikiNode()
-		throws Exception {
-
-		return randomWikiNode();
-	}
-
-	protected WikiNode testPutSiteWikiNodeByExternalReferenceCode_addWikiNode()
-		throws Exception {
-
-		return wikiNodeResource.postSiteWikiNode(
-			testGroup.getGroupId(), randomWikiNode());
-	}
-
-	@Test
-	public void testGetSiteWikiNodePermissionsPage() throws Exception {
-		Page<Permission> page = wikiNodeResource.getSiteWikiNodePermissionsPage(
-			testGroup.getGroupId(), RoleConstants.GUEST);
-
-		Assert.assertNotNull(page);
-	}
-
-	protected WikiNode testGetSiteWikiNodePermissionsPage_addWikiNode()
-		throws Exception {
-
-		return testPostSiteWikiNode_addWikiNode(randomWikiNode());
-	}
-
-	@Test
-	public void testPutSiteWikiNodePermissionsPage() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		WikiNode wikiNode = testPutSiteWikiNodePermissionsPage_addWikiNode();
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		com.liferay.portal.kernel.model.Role role = RoleTestUtil.addRole(
-			RoleConstants.TYPE_REGULAR);
-
-		assertHttpResponseStatusCode(
-			200,
-			wikiNodeResource.putSiteWikiNodePermissionsPageHttpResponse(
-				wikiNode.getSiteId(),
-				new Permission[] {
-					new Permission() {
-						{
-							setActionIds(new String[] {"PERMISSIONS"});
-							setRoleName(role.getName());
-						}
-					}
-				}));
-
-		assertHttpResponseStatusCode(
-			404,
-			wikiNodeResource.putSiteWikiNodePermissionsPageHttpResponse(
-				wikiNode.getSiteId(),
-				new Permission[] {
-					new Permission() {
-						{
-							setActionIds(new String[] {"-"});
-							setRoleName("-");
-						}
-					}
-				}));
-	}
-
-	protected WikiNode testPutSiteWikiNodePermissionsPage_addWikiNode()
-		throws Exception {
-
-		return wikiNodeResource.postSiteWikiNode(
-			testGroup.getGroupId(), randomWikiNode());
-	}
-
-	@Test
-	public void testDeleteWikiNode() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		WikiNode wikiNode = testDeleteWikiNode_addWikiNode();
-
-		assertHttpResponseStatusCode(
-			204, wikiNodeResource.deleteWikiNodeHttpResponse(wikiNode.getId()));
-
-		assertHttpResponseStatusCode(
-			404, wikiNodeResource.getWikiNodeHttpResponse(wikiNode.getId()));
-
-		assertHttpResponseStatusCode(
-			404, wikiNodeResource.getWikiNodeHttpResponse(0L));
-	}
-
-	protected WikiNode testDeleteWikiNode_addWikiNode() throws Exception {
-		return wikiNodeResource.postSiteWikiNode(
-			testGroup.getGroupId(), randomWikiNode());
-	}
-
-	@Test
-	public void testGraphQLDeleteWikiNode() throws Exception {
-
-		// No namespace
-
-		WikiNode wikiNode1 = testGraphQLDeleteWikiNode_addWikiNode();
-
-		Assert.assertTrue(
-			JSONUtil.getValueAsBoolean(
-				invokeGraphQLMutation(
-					new GraphQLField(
-						"deleteWikiNode",
-						new HashMap<String, Object>() {
-							{
-								put("wikiNodeId", wikiNode1.getId());
-							}
-						})),
-				"JSONObject/data", "Object/deleteWikiNode"));
-
-		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"wikiNode",
-					new HashMap<String, Object>() {
-						{
-							put("wikiNodeId", wikiNode1.getId());
-						}
-					},
-					new GraphQLField("id"))),
-			"JSONArray/errors");
-
-		Assert.assertTrue(errorsJSONArray1.length() > 0);
-
-		// Using the namespace headlessDelivery_v1_0
-
-		WikiNode wikiNode2 = testGraphQLDeleteWikiNode_addWikiNode();
-
-		Assert.assertTrue(
-			JSONUtil.getValueAsBoolean(
-				invokeGraphQLMutation(
-					new GraphQLField(
-						"headlessDelivery_v1_0",
-						new GraphQLField(
-							"deleteWikiNode",
-							new HashMap<String, Object>() {
-								{
-									put("wikiNodeId", wikiNode2.getId());
-								}
-							}))),
-				"JSONObject/data", "JSONObject/headlessDelivery_v1_0",
-				"Object/deleteWikiNode"));
-
-		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"headlessDelivery_v1_0",
-					new GraphQLField(
-						"wikiNode",
-						new HashMap<String, Object>() {
-							{
-								put("wikiNodeId", wikiNode2.getId());
-							}
-						},
-						new GraphQLField("id")))),
-			"JSONArray/errors");
-
-		Assert.assertTrue(errorsJSONArray2.length() > 0);
-	}
-
-	protected WikiNode testGraphQLDeleteWikiNode_addWikiNode()
-		throws Exception {
-
-		return testGraphQLWikiNode_addWikiNode();
 	}
 
 	@Test
@@ -1421,6 +1436,181 @@ public abstract class BaseWikiNodeResourceTestCase {
 	}
 
 	@Test
+	public void testGetWikiNodePermissionsPage() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		WikiNode postWikiNode = testGetWikiNodePermissionsPage_addWikiNode();
+
+		Page<Permission> page = wikiNodeResource.getWikiNodePermissionsPage(
+			postWikiNode.getId(), RoleConstants.GUEST);
+
+		Assert.assertNotNull(page);
+	}
+
+	protected WikiNode testGetWikiNodePermissionsPage_addWikiNode()
+		throws Exception {
+
+		return wikiNodeResource.postSiteWikiNode(
+			testGroup.getGroupId(), randomWikiNode());
+	}
+
+	@Test
+	public void testGraphQLGetWikiNodePermissionsPage() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		WikiNode postWikiNode =
+			testGraphQLGetWikiNodePermissionsPage_addWikiNode();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"wikiNodePermissions",
+			new HashMap<String, Object>() {
+				{
+					put("wikiNodeId", postWikiNode.getId());
+				}
+			},
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		JSONObject wikiNodePermissionsJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/wikiNodePermissions");
+
+		Assert.assertNotNull(wikiNodePermissionsJSONObject);
+	}
+
+	protected WikiNode testGraphQLGetWikiNodePermissionsPage_addWikiNode()
+		throws Exception {
+
+		return testGraphQLWikiNode_addWikiNode();
+	}
+
+	@Test
+	public void testPostSiteWikiNode() throws Exception {
+		WikiNode randomWikiNode = randomWikiNode();
+
+		WikiNode postWikiNode = testPostSiteWikiNode_addWikiNode(
+			randomWikiNode);
+
+		assertEquals(randomWikiNode, postWikiNode);
+		assertValid(postWikiNode);
+	}
+
+	protected WikiNode testPostSiteWikiNode_addWikiNode(WikiNode wikiNode)
+		throws Exception {
+
+		return wikiNodeResource.postSiteWikiNode(
+			testGetSiteWikiNodesPage_getSiteId(), wikiNode);
+	}
+
+	@Test
+	public void testGraphQLPostSiteWikiNode() throws Exception {
+		WikiNode randomWikiNode = randomWikiNode();
+
+		WikiNode wikiNode = testGraphQLSiteWikiNode_addWikiNode(
+			testGroup.getGroupId(), randomWikiNode);
+
+		Assert.assertTrue(equals(randomWikiNode, wikiNode));
+	}
+
+	@Test
+	public void testPutSiteWikiNodeByExternalReferenceCode() throws Exception {
+		WikiNode postWikiNode =
+			testPutSiteWikiNodeByExternalReferenceCode_addWikiNode();
+
+		WikiNode randomWikiNode = randomWikiNode();
+
+		WikiNode putWikiNode =
+			wikiNodeResource.putSiteWikiNodeByExternalReferenceCode(
+				postWikiNode.getSiteId(),
+				postWikiNode.getExternalReferenceCode(), randomWikiNode);
+
+		assertEquals(randomWikiNode, putWikiNode);
+		assertValid(putWikiNode);
+
+		WikiNode getWikiNode =
+			wikiNodeResource.getSiteWikiNodeByExternalReferenceCode(
+				putWikiNode.getSiteId(),
+				putWikiNode.getExternalReferenceCode());
+
+		assertEquals(randomWikiNode, getWikiNode);
+		assertValid(getWikiNode);
+
+		WikiNode newWikiNode =
+			testPutSiteWikiNodeByExternalReferenceCode_createWikiNode();
+
+		putWikiNode = wikiNodeResource.putSiteWikiNodeByExternalReferenceCode(
+			newWikiNode.getSiteId(), newWikiNode.getExternalReferenceCode(),
+			newWikiNode);
+
+		assertEquals(newWikiNode, putWikiNode);
+		assertValid(putWikiNode);
+
+		getWikiNode = wikiNodeResource.getSiteWikiNodeByExternalReferenceCode(
+			putWikiNode.getSiteId(), putWikiNode.getExternalReferenceCode());
+
+		assertEquals(newWikiNode, getWikiNode);
+
+		Assert.assertEquals(
+			newWikiNode.getExternalReferenceCode(),
+			putWikiNode.getExternalReferenceCode());
+	}
+
+	protected WikiNode testPutSiteWikiNodeByExternalReferenceCode_addWikiNode()
+		throws Exception {
+
+		return wikiNodeResource.postSiteWikiNode(
+			testGroup.getGroupId(), randomWikiNode());
+	}
+
+	protected WikiNode
+			testPutSiteWikiNodeByExternalReferenceCode_createWikiNode()
+		throws Exception {
+
+		return randomWikiNode();
+	}
+
+	@Test
+	public void testPutSiteWikiNodePermissionsPage() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		WikiNode wikiNode = testPutSiteWikiNodePermissionsPage_addWikiNode();
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		com.liferay.portal.kernel.model.Role role = RoleTestUtil.addRole(
+			RoleConstants.TYPE_REGULAR);
+
+		assertHttpResponseStatusCode(
+			200,
+			wikiNodeResource.putSiteWikiNodePermissionsPageHttpResponse(
+				testGroup.getGroupId(),
+				new Permission[] {
+					new Permission() {
+						{
+							setActionIds(new String[] {"PERMISSIONS"});
+							setRoleName(role.getName());
+						}
+					}
+				}));
+
+		assertHttpResponseStatusCode(
+			404,
+			wikiNodeResource.putSiteWikiNodePermissionsPageHttpResponse(
+				testGroup.getGroupId(),
+				new Permission[] {
+					new Permission() {
+						{
+							setActionIds(new String[] {"-"});
+							setRoleName("-");
+						}
+					}
+				}));
+	}
+
+	protected WikiNode testPutSiteWikiNodePermissionsPage_addWikiNode()
+		throws Exception {
+
+		return wikiNodeResource.postSiteWikiNode(
+			testGroup.getGroupId(), randomWikiNode());
+	}
+
+	@Test
 	public void testPutWikiNode() throws Exception {
 		WikiNode postWikiNode = testPutWikiNode_addWikiNode();
 
@@ -1442,22 +1632,6 @@ public abstract class BaseWikiNodeResourceTestCase {
 	protected WikiNode testPutWikiNode_addWikiNode() throws Exception {
 		return wikiNodeResource.postSiteWikiNode(
 			testGroup.getGroupId(), randomWikiNode());
-	}
-
-	@Test
-	public void testGetWikiNodePermissionsPage() throws Exception {
-		WikiNode postWikiNode = testGetWikiNodePermissionsPage_addWikiNode();
-
-		Page<Permission> page = wikiNodeResource.getWikiNodePermissionsPage(
-			postWikiNode.getId(), RoleConstants.GUEST);
-
-		Assert.assertNotNull(page);
-	}
-
-	protected WikiNode testGetWikiNodePermissionsPage_addWikiNode()
-		throws Exception {
-
-		return testPostSiteWikiNode_addWikiNode(randomWikiNode());
 	}
 
 	@Test
@@ -1543,59 +1717,68 @@ public abstract class BaseWikiNodeResourceTestCase {
 			testGroup.getGroupId(), randomWikiNode());
 	}
 
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		WikiNode wikiNode1 = testBatchEngineDeleteImportTask_addWikiNode();
+
+		testBatchEngineDeleteImportTask_deleteWikiNode(
+			200, null, wikiNode1.getId());
+
+		assertHttpResponseStatusCode(
+			404, wikiNodeResource.getWikiNodeHttpResponse(wikiNode1.getId()));
+	}
+
+	protected WikiNode testBatchEngineDeleteImportTask_addWikiNode()
+		throws Exception {
+
+		return testDeleteWikiNode_addWikiNode();
+	}
+
+	protected void testBatchEngineDeleteImportTask_deleteWikiNode(
+			int expectedStatusCode, String externalReferenceCode, Long id,
+			String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.headless.delivery.dto.v1_0.WikiNode", null, null,
+				null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
-	protected void appendGraphQLFieldValue(StringBuilder sb, Object value)
-		throws Exception {
-
-		if (value instanceof Object[]) {
-			StringBuilder arraySB = new StringBuilder("[");
-
-			for (Object object : (Object[])value) {
-				if (arraySB.length() > 1) {
-					arraySB.append(", ");
-				}
-
-				arraySB.append("{");
-
-				Class<?> clazz = object.getClass();
-
-				for (java.lang.reflect.Field field :
-						getDeclaredFields(clazz.getSuperclass())) {
-
-					arraySB.append(field.getName());
-					arraySB.append(": ");
-
-					appendGraphQLFieldValue(arraySB, field.get(object));
-
-					arraySB.append(", ");
-				}
-
-				arraySB.setLength(arraySB.length() - 2);
-
-				arraySB.append("}");
-			}
-
-			arraySB.append("]");
-
-			sb.append(arraySB.toString());
-		}
-		else if (value instanceof String) {
-			sb.append("\"");
-			sb.append(value);
-			sb.append("\"");
-		}
-		else {
-			sb.append(value);
-		}
+	protected WikiNode testGraphQLSiteWikiNode_addWikiNode() throws Exception {
+		return testGraphQLSiteWikiNode_addWikiNode(
+			testGroup.getGroupId(), randomWikiNode());
 	}
 
-	protected WikiNode testGraphQLWikiNode_addWikiNode() throws Exception {
-		return testGraphQLWikiNode_addWikiNode(randomWikiNode());
-	}
-
-	protected WikiNode testGraphQLWikiNode_addWikiNode(WikiNode wikiNode)
+	protected WikiNode testGraphQLSiteWikiNode_addWikiNode(
+			Long siteId, WikiNode wikiNode)
 		throws Exception {
 
 		JSONDeserializer<WikiNode> jsonDeserializer =
@@ -1606,29 +1789,20 @@ public abstract class BaseWikiNodeResourceTestCase {
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(WikiNode.class)) {
 
-			if (!ArrayUtil.contains(
-					getAdditionalAssertFieldNames(), field.getName())) {
+			if (getGraphQLValue(field.get(wikiNode)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
 
-				continue;
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(wikiNode)));
 			}
-
-			if (sb.length() > 1) {
-				sb.append(", ");
-			}
-
-			sb.append(field.getName());
-			sb.append(": ");
-
-			appendGraphQLFieldValue(sb, field.get(wikiNode));
 		}
 
 		sb.append("}");
 
 		List<GraphQLField> graphQLFields = getGraphQLFields();
-
-		graphQLFields.add(new GraphQLField("externalReferenceCode"));
-
-		graphQLFields.add(new GraphQLField("id"));
 
 		return jsonDeserializer.deserialize(
 			JSONUtil.getValueAsString(
@@ -1637,15 +1811,128 @@ public abstract class BaseWikiNodeResourceTestCase {
 						"createSiteWikiNode",
 						new HashMap<String, Object>() {
 							{
-								put(
-									"siteKey",
-									"\"" + testGroup.getGroupId() + "\"");
+								put("siteKey", "\"" + siteId + "\"");
 								put("wikiNode", sb.toString());
 							}
 						},
 						graphQLFields)),
 				"JSONObject/data", "JSONObject/createSiteWikiNode"),
 			WikiNode.class);
+	}
+
+	protected WikiNode testGraphQLWikiNode_addWikiNode() throws Exception {
+		return testGraphQLWikiNode_addWikiNode(
+			testGroup.getGroupId(), randomWikiNode());
+	}
+
+	protected WikiNode testGraphQLWikiNode_addWikiNode(
+			Long siteId, WikiNode wikiNode)
+		throws Exception {
+
+		JSONDeserializer<WikiNode> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field :
+				getDeclaredFields(WikiNode.class)) {
+
+			if (getGraphQLValue(field.get(wikiNode)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(wikiNode)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createSiteWikiNode",
+						new HashMap<String, Object>() {
+							{
+								put("siteKey", "\"" + siteId + "\"");
+								put("wikiNode", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createSiteWikiNode"),
+			WikiNode.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(WikiNode wikiNode, List<WikiNode> wikiNodes) {
@@ -1857,6 +2144,10 @@ public abstract class BaseWikiNodeResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		graphQLFields.add(new GraphQLField("siteId"));
 
@@ -2451,7 +2742,30 @@ public abstract class BaseWikiNodeResourceTestCase {
 		return randomWikiNode();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected WikiNodeResource wikiNodeResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

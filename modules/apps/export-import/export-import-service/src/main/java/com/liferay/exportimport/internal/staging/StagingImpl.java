@@ -26,6 +26,7 @@ import com.liferay.exportimport.kernel.exception.ExportImportIOException;
 import com.liferay.exportimport.kernel.exception.ExportImportRuntimeException;
 import com.liferay.exportimport.kernel.exception.LARFileException;
 import com.liferay.exportimport.kernel.exception.LARFileSizeException;
+import com.liferay.exportimport.kernel.exception.LARScopeException;
 import com.liferay.exportimport.kernel.exception.LARTypeException;
 import com.liferay.exportimport.kernel.exception.LayoutImportException;
 import com.liferay.exportimport.kernel.exception.MissingPortletDataHandlerException;
@@ -135,6 +136,7 @@ import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Tuple;
@@ -147,11 +149,14 @@ import com.liferay.portal.kernel.workflow.WorkflowTaskManagerUtil;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.service.http.GroupServiceHttp;
 import com.liferay.portal.service.http.LayoutServiceHttp;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.exportimport.service.http.StagingServiceHttp;
 import com.liferay.portlet.exportimport.staging.ProxiedLayoutsThreadLocal;
 import com.liferay.staging.StagingGroupHelper;
 import com.liferay.staging.configuration.StagingConfiguration;
+
+import jakarta.portlet.PortletRequest;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -173,10 +178,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
-
-import javax.portlet.PortletRequest;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -526,11 +527,10 @@ public class StagingImpl implements Staging {
 						missingReference.getClassPK(), false));
 			}
 			else if (referrers.size() == 1) {
-				Set<Map.Entry<String, String>> referrerDisplayNames =
-					referrers.entrySet();
+				Set<Map.Entry<String, String>> entries = referrers.entrySet();
 
 				Iterator<Map.Entry<String, String>> iterator =
-					referrerDisplayNames.iterator();
+					entries.iterator();
 
 				Map.Entry<String, String> entry = iterator.next();
 
@@ -590,6 +590,10 @@ public class StagingImpl implements Staging {
 		Locale locale, Exception exception,
 		ExportImportConfiguration exportImportConfiguration) {
 
+		if (_log.isDebugEnabled()) {
+			_log.debug(exception);
+		}
+
 		String errorMessage = StringPool.BLANK;
 		JSONArray errorMessagesJSONArray = null;
 		int errorType = 0;
@@ -600,7 +604,9 @@ public class StagingImpl implements Staging {
 
 		Throwable throwable = exception.getCause();
 
-		if (exception.getCause() instanceof ConnectException) {
+		if ((exportImportConfiguration != null) &&
+			(throwable instanceof ConnectException)) {
+
 			Map<String, Serializable> settingsMap =
 				exportImportConfiguration.getSettingsMap();
 
@@ -1128,8 +1134,13 @@ public class StagingImpl implements Staging {
 							"live-environment-and-the-staging-environment");
 			}
 			else {
-				long maxSize = _dlValidator.getMaxAllowableSize(
-					exportImportConfiguration.getGroupId(), null);
+				long groupId = 0L;
+
+				if (exportImportConfiguration != null) {
+					groupId = exportImportConfiguration.getGroupId();
+				}
+
+				long maxSize = _dlValidator.getMaxAllowableSize(groupId, null);
 
 				if (exception instanceof FileSizeException) {
 					FileSizeException fileSizeException =
@@ -1146,6 +1157,14 @@ public class StagingImpl implements Staging {
 			}
 
 			errorType = ServletResponseConstants.SC_FILE_SIZE_EXCEPTION;
+		}
+		else if (exception instanceof LARScopeException) {
+			errorMessage = _language.get(
+				locale,
+				"the-lar-file-contains-one-or-more-entities-with-a-different-" +
+					"scope");
+
+			errorType = ServletResponseConstants.SC_FILE_CUSTOM_EXCEPTION;
 		}
 		else if (exception instanceof LARTypeException) {
 			LARTypeException larTypeException = (LARTypeException)exception;
@@ -1695,6 +1714,8 @@ public class StagingImpl implements Staging {
 			errorType = ServletResponseConstants.SC_FILE_SIZE_EXCEPTION;
 		}
 		else {
+			_log.error("Unexpected error: " + exception.getMessage());
+
 			errorMessage = exception.getLocalizedMessage();
 			errorType = ServletResponseConstants.SC_FILE_CUSTOM_EXCEPTION;
 		}

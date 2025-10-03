@@ -203,6 +203,9 @@ public class UserResourceTest extends BaseUserResourceTestCase {
 				"externalId eq \"" + RandomTestUtil.randomString() + "\""),
 			0, 0);
 		_assertListResponse(
+			userResource.getV2Users(5, 0, "externalId eq \"" + _PREFIX + "\""),
+			0, 0);
+		_assertListResponse(
 			userResource.getV2Users(
 				5, 0, "externalId eq \"" + user1.getExternalId() + "\""),
 			1, 1, user1);
@@ -210,6 +213,9 @@ public class UserResourceTest extends BaseUserResourceTestCase {
 			userResource.getV2Users(
 				5, 0, "userName eq \"" + RandomTestUtil.randomString() + "\""),
 			0, 0);
+		_assertListResponse(
+			userResource.getV2Users(5, 0, "userName eq \"" + _PREFIX + "\""), 0,
+			0);
 		_assertListResponse(
 			userResource.getV2Users(
 				5, 0, "userName eq \"" + user1.getUserName() + "\""),
@@ -248,6 +254,7 @@ public class UserResourceTest extends BaseUserResourceTestCase {
 					}
 				}
 			});
+
 		patchOp.setSchemas(
 			new String[] {"\"urn:ietf:params:scim:api:messages:2.0:PatchOp\""});
 
@@ -485,6 +492,7 @@ public class UserResourceTest extends BaseUserResourceTestCase {
 					}
 				}
 			});
+		user.setExternalId(_PREFIX + user.getExternalId());
 		user.setId((String)null);
 		user.setName(
 			new Name() {
@@ -506,6 +514,7 @@ public class UserResourceTest extends BaseUserResourceTestCase {
 					male = true;
 				}
 			});
+		user.setUserName(_PREFIX + user.getUserName());
 
 		return user;
 	}
@@ -603,7 +612,8 @@ public class UserResourceTest extends BaseUserResourceTestCase {
 			com.liferay.portal.kernel.model.User.class.getName(), userId);
 	}
 
-	private static String _pid;
+	private static final String _PREFIX = StringUtil.toLowerCase(
+		RandomTestUtil.randomString());
 
 	@Inject
 	private ClassNameLocalService _classNameLocalService;
@@ -619,6 +629,8 @@ public class UserResourceTest extends BaseUserResourceTestCase {
 
 	@Inject
 	private JSONFactory _jsonFactory;
+
+	private String _pid;
 
 	@Inject
 	private UserLocalService _userLocalService;

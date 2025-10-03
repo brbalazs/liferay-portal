@@ -1814,7 +1814,7 @@ definition {
 		Click(locator1 = "WCEditWebContent#SCHEDULE_PUBLICATION_BUTTON");
 
 		Type.clickAtType(
-			locator1 = "TextInput#DISPLAY_DATE",
+			locator1 = "WCEditWebContent#SCHEDULE_DATE",
 			value1 = ${displayDate});
 
 		if (isSet(displayTime)) {
@@ -2156,23 +2156,6 @@ definition {
 		AssertTextEquals(
 			locator1 = "WC#ENTRY_TABLE_WORKFLOW_STATUS",
 			value1 = "APPROVED");
-	}
-
-	@summary = "Default summary"
-	macro viewAvailableLanguages(availableLanguageList = null, unavailableLanguageList = null) {
-		Click(locator1 = "Button#LOCALIZATION_TRANSLATED");
-
-		for (var availableLanguage : list ${availableLanguageList}) {
-			AssertElementPresent(
-				key_locale = ${availableLanguage},
-				locator1 = "Translation#LOCALIZATION_NAME");
-		}
-
-		for (var unavailableLanguage : list ${unavailableLanguageList}) {
-			AssertElementNotPresent(
-				key_locale = ${unavailableLanguage},
-				locator1 = "Translation#LOCALIZATION_NAME");
-		}
 	}
 
 	@summary = "Default summary"

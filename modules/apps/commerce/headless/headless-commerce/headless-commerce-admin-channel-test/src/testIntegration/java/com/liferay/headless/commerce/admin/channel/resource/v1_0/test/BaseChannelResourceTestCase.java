@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.headless.commerce.admin.channel.client.dto.v1_0.Channel;
 import com.liferay.headless.commerce.admin.channel.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.channel.client.pagination.Page;
@@ -25,6 +28,7 @@ import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -40,9 +44,11 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -51,11 +57,20 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -74,16 +89,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -130,6 +136,16 @@ public abstract class BaseChannelResourceTestCase {
 			testCompany.getCompanyId());
 
 		channelResource = ChannelResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		importTaskResource = ImportTaskResource.builder(
 		).authentication(
 			_testCompanyAdminUser.getEmailAddress(),
 			PropsValues.DEFAULT_ADMIN_PASSWORD
@@ -218,6 +234,280 @@ public abstract class BaseChannelResourceTestCase {
 	}
 
 	@Test
+	public void testDeleteChannel() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Channel channel = testDeleteChannel_addChannel();
+
+		assertHttpResponseStatusCode(
+			204, channelResource.deleteChannelHttpResponse(channel.getId()));
+
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(channel.getId()));
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(0L));
+	}
+
+	protected Channel testDeleteChannel_addChannel() throws Exception {
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLDeleteChannel() throws Exception {
+
+		// No namespace
+
+		Channel channel1 = testGraphQLDeleteChannel_addChannel();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteChannel",
+						new HashMap<String, Object>() {
+							{
+								put("channelId", channel1.getId());
+							}
+						})),
+				"JSONObject/data", "Object/deleteChannel"));
+
+		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"channel",
+					new HashMap<String, Object>() {
+						{
+							put("channelId", channel1.getId());
+						}
+					},
+					getGraphQLFields())),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray1.length() > 0);
+
+		// Using the namespace headlessCommerceAdminChannel_v1_0
+
+		Channel channel2 = testGraphQLDeleteChannel_addChannel();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"headlessCommerceAdminChannel_v1_0",
+						new GraphQLField(
+							"deleteChannel",
+							new HashMap<String, Object>() {
+								{
+									put("channelId", channel2.getId());
+								}
+							}))),
+				"JSONObject/data",
+				"JSONObject/headlessCommerceAdminChannel_v1_0",
+				"Object/deleteChannel"));
+
+		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessCommerceAdminChannel_v1_0",
+					new GraphQLField(
+						"channel",
+						new HashMap<String, Object>() {
+							{
+								put("channelId", channel2.getId());
+							}
+						},
+						getGraphQLFields()))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray2.length() > 0);
+	}
+
+	protected Channel testGraphQLDeleteChannel_addChannel() throws Exception {
+		return testGraphQLChannel_addChannel();
+	}
+
+	@Test
+	public void testDeleteChannelBatch() throws Exception {
+		Channel channel1 = testDeleteChannelBatch_addChannel();
+
+		testDeleteChannelBatch_deleteChannel(
+			202, channel1.getExternalReferenceCode(), null);
+
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(channel1.getId()));
+
+		channel1 = testDeleteChannelBatch_addChannel();
+
+		testDeleteChannelBatch_deleteChannel(202, null, channel1.getId());
+
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(channel1.getId()));
+
+		channel1 = testDeleteChannelBatch_addChannel();
+		Channel channel2 = testDeleteChannelBatch_addChannel();
+
+		testDeleteChannelBatch_deleteChannel(
+			202, channel2.getExternalReferenceCode(), channel1.getId());
+
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(channel1.getId()));
+		assertHttpResponseStatusCode(
+			200, channelResource.getChannelHttpResponse(channel2.getId()));
+
+		testDeleteChannelBatch_deleteChannel(
+			202, channel2.getExternalReferenceCode(), channel1.getId());
+
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(channel2.getId()));
+	}
+
+	protected Channel testDeleteChannelBatch_addChannel() throws Exception {
+		return testDeleteChannel_addChannel();
+	}
+
+	protected void testDeleteChannelBatch_deleteChannel(
+			int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			channelResource.deleteChannelBatchHttpResponse(
+				null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+	}
+
+	@Test
+	public void testDeleteChannelByExternalReferenceCode() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Channel channel = testDeleteChannelByExternalReferenceCode_addChannel();
+
+		assertHttpResponseStatusCode(
+			204,
+			channelResource.deleteChannelByExternalReferenceCodeHttpResponse(
+				channel.getExternalReferenceCode()));
+
+		assertHttpResponseStatusCode(
+			404,
+			channelResource.getChannelByExternalReferenceCodeHttpResponse(
+				channel.getExternalReferenceCode()));
+		assertHttpResponseStatusCode(
+			404,
+			channelResource.getChannelByExternalReferenceCodeHttpResponse("-"));
+	}
+
+	protected Channel testDeleteChannelByExternalReferenceCode_addChannel()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLDeleteChannelByExternalReferenceCode()
+		throws Exception {
+
+		// No namespace
+
+		Channel channel1 =
+			testGraphQLDeleteChannelByExternalReferenceCode_addChannel();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteChannelByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									"\"" + channel1.getExternalReferenceCode() +
+										"\"");
+							}
+						})),
+				"JSONObject/data",
+				"Object/deleteChannelByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"channelByExternalReferenceCode",
+					new HashMap<String, Object>() {
+						{
+							put(
+								"externalReferenceCode",
+								"\"" + channel1.getExternalReferenceCode() +
+									"\"");
+						}
+					},
+					getGraphQLFields())),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray1.length() > 0);
+
+		// Using the namespace headlessCommerceAdminChannel_v1_0
+
+		Channel channel2 =
+			testGraphQLDeleteChannelByExternalReferenceCode_addChannel();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"headlessCommerceAdminChannel_v1_0",
+						new GraphQLField(
+							"deleteChannelByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"externalReferenceCode",
+										"\"" +
+											channel2.
+												getExternalReferenceCode() +
+													"\"");
+								}
+							}))),
+				"JSONObject/data",
+				"JSONObject/headlessCommerceAdminChannel_v1_0",
+				"Object/deleteChannelByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessCommerceAdminChannel_v1_0",
+					new GraphQLField(
+						"channelByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									"\"" + channel2.getExternalReferenceCode() +
+										"\"");
+							}
+						},
+						getGraphQLFields()))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray2.length() > 0);
+	}
+
+	protected Channel
+			testGraphQLDeleteChannelByExternalReferenceCode_addChannel()
+		throws Exception {
+
+		return testGraphQLChannel_addChannel();
+	}
+
+	@Test
 	public void testGetAccountAddressChannelChannel() throws Exception {
 		Channel postChannel = testGetAccountAddressChannelChannel_addChannel();
 
@@ -228,15 +518,15 @@ public abstract class BaseChannelResourceTestCase {
 		assertValid(getChannel);
 	}
 
-	protected Long
-			testGetAccountAddressChannelChannel_getAccountAddressChannelId()
+	protected Channel testGetAccountAddressChannelChannel_addChannel()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
-	protected Channel testGetAccountAddressChannelChannel_addChannel()
+	protected Long
+			testGetAccountAddressChannelChannel_getAccountAddressChannelId()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
@@ -352,736 +642,6 @@ public abstract class BaseChannelResourceTestCase {
 	protected Channel testGraphQLGetAccountAddressChannelChannel_addChannel()
 		throws Exception {
 
-		return testGraphQLChannel_addChannel();
-	}
-
-	@Test
-	public void testGetChannelsPage() throws Exception {
-		Page<Channel> page = channelResource.getChannelsPage(
-			null, null, Pagination.of(1, 10), null);
-
-		long totalCount = page.getTotalCount();
-
-		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
-
-		Channel channel2 = testGetChannelsPage_addChannel(randomChannel());
-
-		page = channelResource.getChannelsPage(
-			null, null, Pagination.of(1, 10), null);
-
-		Assert.assertEquals(totalCount + 2, page.getTotalCount());
-
-		assertContains(channel1, (List<Channel>)page.getItems());
-		assertContains(channel2, (List<Channel>)page.getItems());
-		assertValid(page, testGetChannelsPage_getExpectedActions());
-
-		channelResource.deleteChannel(channel1.getId());
-
-		channelResource.deleteChannel(channel2.getId());
-	}
-
-	protected Map<String, Map<String, String>>
-			testGetChannelsPage_getExpectedActions()
-		throws Exception {
-
-		Map<String, Map<String, String>> expectedActions = new HashMap<>();
-
-		return expectedActions;
-	}
-
-	@Test
-	public void testGetChannelsPageWithFilterDateTimeEquals() throws Exception {
-		List<EntityField> entityFields = getEntityFields(
-			EntityField.Type.DATE_TIME);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		Channel channel1 = randomChannel();
-
-		channel1 = testGetChannelsPage_addChannel(channel1);
-
-		for (EntityField entityField : entityFields) {
-			Page<Channel> page = channelResource.getChannelsPage(
-				null, getFilterString(entityField, "between", channel1),
-				Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(channel1),
-				(List<Channel>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetChannelsPageWithFilterDoubleEquals() throws Exception {
-		testGetChannelsPageWithFilter("eq", EntityField.Type.DOUBLE);
-	}
-
-	@Test
-	public void testGetChannelsPageWithFilterStringContains() throws Exception {
-		testGetChannelsPageWithFilter("contains", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetChannelsPageWithFilterStringEquals() throws Exception {
-		testGetChannelsPageWithFilter("eq", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetChannelsPageWithFilterStringStartsWith()
-		throws Exception {
-
-		testGetChannelsPageWithFilter("startswith", EntityField.Type.STRING);
-	}
-
-	protected void testGetChannelsPageWithFilter(
-			String operator, EntityField.Type type)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Channel channel2 = testGetChannelsPage_addChannel(randomChannel());
-
-		for (EntityField entityField : entityFields) {
-			Page<Channel> page = channelResource.getChannelsPage(
-				null, getFilterString(entityField, operator, channel1),
-				Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(channel1),
-				(List<Channel>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetChannelsPageWithPagination() throws Exception {
-		Page<Channel> channelPage = channelResource.getChannelsPage(
-			null, null, null, null);
-
-		int totalCount = GetterUtil.getInteger(channelPage.getTotalCount());
-
-		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
-
-		Channel channel2 = testGetChannelsPage_addChannel(randomChannel());
-
-		Channel channel3 = testGetChannelsPage_addChannel(randomChannel());
-
-		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
-
-		int pageSizeLimit = 500;
-
-		if (totalCount >= (pageSizeLimit - 2)) {
-			Page<Channel> page1 = channelResource.getChannelsPage(
-				null, null,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
-					pageSizeLimit),
-				null);
-
-			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
-
-			assertContains(channel1, (List<Channel>)page1.getItems());
-
-			Page<Channel> page2 = channelResource.getChannelsPage(
-				null, null,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
-					pageSizeLimit),
-				null);
-
-			assertContains(channel2, (List<Channel>)page2.getItems());
-
-			Page<Channel> page3 = channelResource.getChannelsPage(
-				null, null,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
-					pageSizeLimit),
-				null);
-
-			assertContains(channel3, (List<Channel>)page3.getItems());
-		}
-		else {
-			Page<Channel> page1 = channelResource.getChannelsPage(
-				null, null, Pagination.of(1, totalCount + 2), null);
-
-			List<Channel> channels1 = (List<Channel>)page1.getItems();
-
-			Assert.assertEquals(
-				channels1.toString(), totalCount + 2, channels1.size());
-
-			Page<Channel> page2 = channelResource.getChannelsPage(
-				null, null, Pagination.of(2, totalCount + 2), null);
-
-			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
-
-			List<Channel> channels2 = (List<Channel>)page2.getItems();
-
-			Assert.assertEquals(channels2.toString(), 1, channels2.size());
-
-			Page<Channel> page3 = channelResource.getChannelsPage(
-				null, null, Pagination.of(1, (int)totalCount + 3), null);
-
-			assertContains(channel1, (List<Channel>)page3.getItems());
-			assertContains(channel2, (List<Channel>)page3.getItems());
-			assertContains(channel3, (List<Channel>)page3.getItems());
-		}
-	}
-
-	@Test
-	public void testGetChannelsPageWithSortDateTime() throws Exception {
-		testGetChannelsPageWithSort(
-			EntityField.Type.DATE_TIME,
-			(entityField, channel1, channel2) -> {
-				BeanTestUtil.setProperty(
-					channel1, entityField.getName(),
-					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
-			});
-	}
-
-	@Test
-	public void testGetChannelsPageWithSortDouble() throws Exception {
-		testGetChannelsPageWithSort(
-			EntityField.Type.DOUBLE,
-			(entityField, channel1, channel2) -> {
-				BeanTestUtil.setProperty(channel1, entityField.getName(), 0.1);
-				BeanTestUtil.setProperty(channel2, entityField.getName(), 0.5);
-			});
-	}
-
-	@Test
-	public void testGetChannelsPageWithSortInteger() throws Exception {
-		testGetChannelsPageWithSort(
-			EntityField.Type.INTEGER,
-			(entityField, channel1, channel2) -> {
-				BeanTestUtil.setProperty(channel1, entityField.getName(), 0);
-				BeanTestUtil.setProperty(channel2, entityField.getName(), 1);
-			});
-	}
-
-	@Test
-	public void testGetChannelsPageWithSortString() throws Exception {
-		testGetChannelsPageWithSort(
-			EntityField.Type.STRING,
-			(entityField, channel1, channel2) -> {
-				Class<?> clazz = channel1.getClass();
-
-				String entityFieldName = entityField.getName();
-
-				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
-
-				Class<?> returnType = method.getReturnType();
-
-				if (returnType.isAssignableFrom(Map.class)) {
-					BeanTestUtil.setProperty(
-						channel1, entityFieldName,
-						Collections.singletonMap("Aaa", "Aaa"));
-					BeanTestUtil.setProperty(
-						channel2, entityFieldName,
-						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanTestUtil.setProperty(
-						channel1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanTestUtil.setProperty(
-						channel2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-				}
-				else {
-					BeanTestUtil.setProperty(
-						channel1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-					BeanTestUtil.setProperty(
-						channel2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-				}
-			});
-	}
-
-	protected void testGetChannelsPageWithSort(
-			EntityField.Type type,
-			UnsafeTriConsumer<EntityField, Channel, Channel, Exception>
-				unsafeTriConsumer)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		Channel channel1 = randomChannel();
-		Channel channel2 = randomChannel();
-
-		for (EntityField entityField : entityFields) {
-			unsafeTriConsumer.accept(entityField, channel1, channel2);
-		}
-
-		channel1 = testGetChannelsPage_addChannel(channel1);
-
-		channel2 = testGetChannelsPage_addChannel(channel2);
-
-		Page<Channel> page = channelResource.getChannelsPage(
-			null, null, null, null);
-
-		for (EntityField entityField : entityFields) {
-			Page<Channel> ascPage = channelResource.getChannelsPage(
-				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
-				entityField.getName() + ":asc");
-
-			assertContains(channel1, (List<Channel>)ascPage.getItems());
-			assertContains(channel2, (List<Channel>)ascPage.getItems());
-
-			Page<Channel> descPage = channelResource.getChannelsPage(
-				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
-				entityField.getName() + ":desc");
-
-			assertContains(channel2, (List<Channel>)descPage.getItems());
-			assertContains(channel1, (List<Channel>)descPage.getItems());
-		}
-	}
-
-	protected Channel testGetChannelsPage_addChannel(Channel channel)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetChannelsPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"channels",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 10);
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
-		// No namespace
-
-		JSONObject channelsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/channels");
-
-		long totalCount = channelsJSONObject.getLong("totalCount");
-
-		Channel channel1 = testGraphQLGetChannelsPage_addChannel();
-		Channel channel2 = testGraphQLGetChannelsPage_addChannel();
-
-		channelsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/channels");
-
-		Assert.assertEquals(
-			totalCount + 2, channelsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			channel1,
-			Arrays.asList(
-				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
-		assertContains(
-			channel2,
-			Arrays.asList(
-				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
-
-		// Using the namespace headlessCommerceAdminChannel_v1_0
-
-		channelsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"headlessCommerceAdminChannel_v1_0", graphQLField)),
-			"JSONObject/data", "JSONObject/headlessCommerceAdminChannel_v1_0",
-			"JSONObject/channels");
-
-		Assert.assertEquals(
-			totalCount + 2, channelsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			channel1,
-			Arrays.asList(
-				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
-		assertContains(
-			channel2,
-			Arrays.asList(
-				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
-	}
-
-	protected Channel testGraphQLGetChannelsPage_addChannel() throws Exception {
-		return testGraphQLChannel_addChannel();
-	}
-
-	@Test
-	public void testPostChannel() throws Exception {
-		Channel randomChannel = randomChannel();
-
-		Channel postChannel = testPostChannel_addChannel(randomChannel);
-
-		assertEquals(randomChannel, postChannel);
-		assertValid(postChannel);
-	}
-
-	protected Channel testPostChannel_addChannel(Channel channel)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testDeleteChannelByExternalReferenceCode() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Channel channel = testDeleteChannelByExternalReferenceCode_addChannel();
-
-		assertHttpResponseStatusCode(
-			204,
-			channelResource.deleteChannelByExternalReferenceCodeHttpResponse(
-				channel.getExternalReferenceCode()));
-
-		assertHttpResponseStatusCode(
-			404,
-			channelResource.getChannelByExternalReferenceCodeHttpResponse(
-				channel.getExternalReferenceCode()));
-
-		assertHttpResponseStatusCode(
-			404,
-			channelResource.getChannelByExternalReferenceCodeHttpResponse(
-				channel.getExternalReferenceCode()));
-	}
-
-	protected Channel testDeleteChannelByExternalReferenceCode_addChannel()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGetChannelByExternalReferenceCode() throws Exception {
-		Channel postChannel =
-			testGetChannelByExternalReferenceCode_addChannel();
-
-		Channel getChannel = channelResource.getChannelByExternalReferenceCode(
-			postChannel.getExternalReferenceCode());
-
-		assertEquals(postChannel, getChannel);
-		assertValid(getChannel);
-	}
-
-	protected Channel testGetChannelByExternalReferenceCode_addChannel()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetChannelByExternalReferenceCode()
-		throws Exception {
-
-		Channel channel =
-			testGraphQLGetChannelByExternalReferenceCode_addChannel();
-
-		// No namespace
-
-		Assert.assertTrue(
-			equals(
-				channel,
-				ChannelSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"channelByExternalReferenceCode",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"externalReferenceCode",
-											"\"" +
-												channel.
-													getExternalReferenceCode() +
-														"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/channelByExternalReferenceCode"))));
-
-		// Using the namespace headlessCommerceAdminChannel_v1_0
-
-		Assert.assertTrue(
-			equals(
-				channel,
-				ChannelSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"headlessCommerceAdminChannel_v1_0",
-								new GraphQLField(
-									"channelByExternalReferenceCode",
-									new HashMap<String, Object>() {
-										{
-											put(
-												"externalReferenceCode",
-												"\"" +
-													channel.
-														getExternalReferenceCode() +
-															"\"");
-										}
-									},
-									getGraphQLFields()))),
-						"JSONObject/data",
-						"JSONObject/headlessCommerceAdminChannel_v1_0",
-						"Object/channelByExternalReferenceCode"))));
-	}
-
-	@Test
-	public void testGraphQLGetChannelByExternalReferenceCodeNotFound()
-		throws Exception {
-
-		String irrelevantExternalReferenceCode =
-			"\"" + RandomTestUtil.randomString() + "\"";
-
-		// No namespace
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"channelByExternalReferenceCode",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-
-		// Using the namespace headlessCommerceAdminChannel_v1_0
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"headlessCommerceAdminChannel_v1_0",
-						new GraphQLField(
-							"channelByExternalReferenceCode",
-							new HashMap<String, Object>() {
-								{
-									put(
-										"externalReferenceCode",
-										irrelevantExternalReferenceCode);
-								}
-							},
-							getGraphQLFields()))),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected Channel testGraphQLGetChannelByExternalReferenceCode_addChannel()
-		throws Exception {
-
-		return testGraphQLChannel_addChannel();
-	}
-
-	@Test
-	public void testPatchChannelByExternalReferenceCode() throws Exception {
-		Channel postChannel =
-			testPatchChannelByExternalReferenceCode_addChannel();
-
-		Channel randomPatchChannel = randomPatchChannel();
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Channel patchChannel =
-			channelResource.patchChannelByExternalReferenceCode(
-				postChannel.getExternalReferenceCode(), randomPatchChannel);
-
-		Channel expectedPatchChannel = postChannel.clone();
-
-		BeanTestUtil.copyProperties(randomPatchChannel, expectedPatchChannel);
-
-		Channel getChannel = channelResource.getChannelByExternalReferenceCode(
-			patchChannel.getExternalReferenceCode());
-
-		assertEquals(expectedPatchChannel, getChannel);
-		assertValid(getChannel);
-	}
-
-	protected Channel testPatchChannelByExternalReferenceCode_addChannel()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPutChannelByExternalReferenceCode() throws Exception {
-		Channel postChannel =
-			testPutChannelByExternalReferenceCode_addChannel();
-
-		Channel randomChannel = randomChannel();
-
-		Channel putChannel = channelResource.putChannelByExternalReferenceCode(
-			postChannel.getExternalReferenceCode(), randomChannel);
-
-		assertEquals(randomChannel, putChannel);
-		assertValid(putChannel);
-
-		Channel getChannel = channelResource.getChannelByExternalReferenceCode(
-			putChannel.getExternalReferenceCode());
-
-		assertEquals(randomChannel, getChannel);
-		assertValid(getChannel);
-
-		Channel newChannel =
-			testPutChannelByExternalReferenceCode_createChannel();
-
-		putChannel = channelResource.putChannelByExternalReferenceCode(
-			newChannel.getExternalReferenceCode(), newChannel);
-
-		assertEquals(newChannel, putChannel);
-		assertValid(putChannel);
-
-		getChannel = channelResource.getChannelByExternalReferenceCode(
-			putChannel.getExternalReferenceCode());
-
-		assertEquals(newChannel, getChannel);
-
-		Assert.assertEquals(
-			newChannel.getExternalReferenceCode(),
-			putChannel.getExternalReferenceCode());
-	}
-
-	protected Channel testPutChannelByExternalReferenceCode_createChannel()
-		throws Exception {
-
-		return randomChannel();
-	}
-
-	protected Channel testPutChannelByExternalReferenceCode_addChannel()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testDeleteChannel() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		Channel channel = testDeleteChannel_addChannel();
-
-		assertHttpResponseStatusCode(
-			204, channelResource.deleteChannelHttpResponse(channel.getId()));
-
-		assertHttpResponseStatusCode(
-			404, channelResource.getChannelHttpResponse(channel.getId()));
-
-		assertHttpResponseStatusCode(
-			404, channelResource.getChannelHttpResponse(0L));
-	}
-
-	protected Channel testDeleteChannel_addChannel() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLDeleteChannel() throws Exception {
-
-		// No namespace
-
-		Channel channel1 = testGraphQLDeleteChannel_addChannel();
-
-		Assert.assertTrue(
-			JSONUtil.getValueAsBoolean(
-				invokeGraphQLMutation(
-					new GraphQLField(
-						"deleteChannel",
-						new HashMap<String, Object>() {
-							{
-								put("channelId", channel1.getId());
-							}
-						})),
-				"JSONObject/data", "Object/deleteChannel"));
-
-		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"channel",
-					new HashMap<String, Object>() {
-						{
-							put("channelId", channel1.getId());
-						}
-					},
-					new GraphQLField("id"))),
-			"JSONArray/errors");
-
-		Assert.assertTrue(errorsJSONArray1.length() > 0);
-
-		// Using the namespace headlessCommerceAdminChannel_v1_0
-
-		Channel channel2 = testGraphQLDeleteChannel_addChannel();
-
-		Assert.assertTrue(
-			JSONUtil.getValueAsBoolean(
-				invokeGraphQLMutation(
-					new GraphQLField(
-						"headlessCommerceAdminChannel_v1_0",
-						new GraphQLField(
-							"deleteChannel",
-							new HashMap<String, Object>() {
-								{
-									put("channelId", channel2.getId());
-								}
-							}))),
-				"JSONObject/data",
-				"JSONObject/headlessCommerceAdminChannel_v1_0",
-				"Object/deleteChannel"));
-
-		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"headlessCommerceAdminChannel_v1_0",
-					new GraphQLField(
-						"channel",
-						new HashMap<String, Object>() {
-							{
-								put("channelId", channel2.getId());
-							}
-						},
-						new GraphQLField("id")))),
-			"JSONArray/errors");
-
-		Assert.assertTrue(errorsJSONArray2.length() > 0);
-	}
-
-	protected Channel testGraphQLDeleteChannel_addChannel() throws Exception {
 		return testGraphQLChannel_addChannel();
 	}
 
@@ -1378,6 +938,514 @@ public abstract class BaseChannelResourceTestCase {
 	}
 
 	@Test
+	public void testGetChannelByExternalReferenceCode() throws Exception {
+		Channel postChannel =
+			testGetChannelByExternalReferenceCode_addChannel();
+
+		Channel getChannel = channelResource.getChannelByExternalReferenceCode(
+			postChannel.getExternalReferenceCode());
+
+		assertEquals(postChannel, getChannel);
+		assertValid(getChannel);
+	}
+
+	protected Channel testGetChannelByExternalReferenceCode_addChannel()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetChannelByExternalReferenceCode()
+		throws Exception {
+
+		Channel channel =
+			testGraphQLGetChannelByExternalReferenceCode_addChannel();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				channel,
+				ChannelSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"channelByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											"\"" +
+												channel.
+													getExternalReferenceCode() +
+														"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/channelByExternalReferenceCode"))));
+
+		// Using the namespace headlessCommerceAdminChannel_v1_0
+
+		Assert.assertTrue(
+			equals(
+				channel,
+				ChannelSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"headlessCommerceAdminChannel_v1_0",
+								new GraphQLField(
+									"channelByExternalReferenceCode",
+									new HashMap<String, Object>() {
+										{
+											put(
+												"externalReferenceCode",
+												"\"" +
+													channel.
+														getExternalReferenceCode() +
+															"\"");
+										}
+									},
+									getGraphQLFields()))),
+						"JSONObject/data",
+						"JSONObject/headlessCommerceAdminChannel_v1_0",
+						"Object/channelByExternalReferenceCode"))));
+	}
+
+	@Test
+	public void testGraphQLGetChannelByExternalReferenceCodeNotFound()
+		throws Exception {
+
+		String irrelevantExternalReferenceCode =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"channelByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									irrelevantExternalReferenceCode);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace headlessCommerceAdminChannel_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"headlessCommerceAdminChannel_v1_0",
+						new GraphQLField(
+							"channelByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"externalReferenceCode",
+										irrelevantExternalReferenceCode);
+								}
+							},
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected Channel testGraphQLGetChannelByExternalReferenceCode_addChannel()
+		throws Exception {
+
+		return testGraphQLChannel_addChannel();
+	}
+
+	@Test
+	public void testGetChannelsPage() throws Exception {
+		Page<Channel> page = channelResource.getChannelsPage(
+			null, null, Pagination.of(1, 10), null);
+
+		long totalCount = page.getTotalCount();
+
+		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
+
+		Channel channel2 = testGetChannelsPage_addChannel(randomChannel());
+
+		page = channelResource.getChannelsPage(
+			null, null, Pagination.of(1, 10), null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(channel1, (List<Channel>)page.getItems());
+		assertContains(channel2, (List<Channel>)page.getItems());
+		assertValid(page, testGetChannelsPage_getExpectedActions());
+
+		channelResource.deleteChannel(channel1.getId());
+
+		channelResource.deleteChannel(channel2.getId());
+	}
+
+	protected Map<String, Map<String, String>>
+			testGetChannelsPage_getExpectedActions()
+		throws Exception {
+
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
+
+		return expectedActions;
+	}
+
+	@Test
+	public void testGetChannelsPageWithFilterDateTimeEquals() throws Exception {
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Channel channel1 = randomChannel();
+
+		channel1 = testGetChannelsPage_addChannel(channel1);
+
+		for (EntityField entityField : entityFields) {
+			Page<Channel> page = channelResource.getChannelsPage(
+				null, getFilterString(entityField, "between", channel1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(channel1),
+				(List<Channel>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetChannelsPageWithFilterDoubleEquals() throws Exception {
+		testGetChannelsPageWithFilter("eq", EntityField.Type.DOUBLE);
+	}
+
+	@Test
+	public void testGetChannelsPageWithFilterStringContains() throws Exception {
+		testGetChannelsPageWithFilter("contains", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetChannelsPageWithFilterStringEquals() throws Exception {
+		testGetChannelsPageWithFilter("eq", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetChannelsPageWithFilterStringStartsWith()
+		throws Exception {
+
+		testGetChannelsPageWithFilter("startswith", EntityField.Type.STRING);
+	}
+
+	protected void testGetChannelsPageWithFilter(
+			String operator, EntityField.Type type)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Channel channel2 = testGetChannelsPage_addChannel(randomChannel());
+
+		for (EntityField entityField : entityFields) {
+			Page<Channel> page = channelResource.getChannelsPage(
+				null, getFilterString(entityField, operator, channel1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(channel1),
+				(List<Channel>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetChannelsPageWithPagination() throws Exception {
+		Page<Channel> channelsPage = channelResource.getChannelsPage(
+			null, null, null, null);
+
+		int totalCount = GetterUtil.getInteger(channelsPage.getTotalCount());
+
+		Channel channel1 = testGetChannelsPage_addChannel(randomChannel());
+
+		Channel channel2 = testGetChannelsPage_addChannel(randomChannel());
+
+		Channel channel3 = testGetChannelsPage_addChannel(randomChannel());
+
+		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
+
+		int pageSizeLimit = 500;
+
+		if (totalCount >= (pageSizeLimit - 2)) {
+			Page<Channel> page1 = channelResource.getChannelsPage(
+				null, null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
+					pageSizeLimit),
+				null);
+
+			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
+
+			assertContains(channel1, (List<Channel>)page1.getItems());
+
+			Page<Channel> page2 = channelResource.getChannelsPage(
+				null, null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
+					pageSizeLimit),
+				null);
+
+			assertContains(channel2, (List<Channel>)page2.getItems());
+
+			Page<Channel> page3 = channelResource.getChannelsPage(
+				null, null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
+					pageSizeLimit),
+				null);
+
+			assertContains(channel3, (List<Channel>)page3.getItems());
+		}
+		else {
+			Page<Channel> page1 = channelResource.getChannelsPage(
+				null, null, Pagination.of(1, totalCount + 2), null);
+
+			List<Channel> channels1 = (List<Channel>)page1.getItems();
+
+			Assert.assertEquals(
+				channels1.toString(), totalCount + 2, channels1.size());
+
+			Page<Channel> page2 = channelResource.getChannelsPage(
+				null, null, Pagination.of(2, totalCount + 2), null);
+
+			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+			List<Channel> channels2 = (List<Channel>)page2.getItems();
+
+			Assert.assertEquals(channels2.toString(), 1, channels2.size());
+
+			Page<Channel> page3 = channelResource.getChannelsPage(
+				null, null, Pagination.of(1, (int)totalCount + 3), null);
+
+			assertContains(channel1, (List<Channel>)page3.getItems());
+			assertContains(channel2, (List<Channel>)page3.getItems());
+			assertContains(channel3, (List<Channel>)page3.getItems());
+		}
+	}
+
+	@Test
+	public void testGetChannelsPageWithSortDateTime() throws Exception {
+		testGetChannelsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, channel1, channel2) -> {
+				BeanTestUtil.setProperty(
+					channel1, entityField.getName(),
+					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
+			});
+	}
+
+	@Test
+	public void testGetChannelsPageWithSortDouble() throws Exception {
+		testGetChannelsPageWithSort(
+			EntityField.Type.DOUBLE,
+			(entityField, channel1, channel2) -> {
+				BeanTestUtil.setProperty(channel1, entityField.getName(), 0.1);
+				BeanTestUtil.setProperty(channel2, entityField.getName(), 0.5);
+			});
+	}
+
+	@Test
+	public void testGetChannelsPageWithSortInteger() throws Exception {
+		testGetChannelsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, channel1, channel2) -> {
+				BeanTestUtil.setProperty(channel1, entityField.getName(), 0);
+				BeanTestUtil.setProperty(channel2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetChannelsPageWithSortString() throws Exception {
+		testGetChannelsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, channel1, channel2) -> {
+				Class<?> clazz = channel1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanTestUtil.setProperty(
+						channel1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanTestUtil.setProperty(
+						channel2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanTestUtil.setProperty(
+						channel1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanTestUtil.setProperty(
+						channel2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanTestUtil.setProperty(
+						channel1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanTestUtil.setProperty(
+						channel2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetChannelsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, Channel, Channel, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		Channel channel1 = randomChannel();
+		Channel channel2 = randomChannel();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, channel1, channel2);
+		}
+
+		channel1 = testGetChannelsPage_addChannel(channel1);
+
+		channel2 = testGetChannelsPage_addChannel(channel2);
+
+		Page<Channel> page = channelResource.getChannelsPage(
+			null, null, null, null);
+
+		for (EntityField entityField : entityFields) {
+			Page<Channel> ascPage = channelResource.getChannelsPage(
+				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
+				entityField.getName() + ":asc");
+
+			assertContains(channel1, (List<Channel>)ascPage.getItems());
+			assertContains(channel2, (List<Channel>)ascPage.getItems());
+
+			Page<Channel> descPage = channelResource.getChannelsPage(
+				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
+				entityField.getName() + ":desc");
+
+			assertContains(channel2, (List<Channel>)descPage.getItems());
+			assertContains(channel1, (List<Channel>)descPage.getItems());
+		}
+	}
+
+	protected Channel testGetChannelsPage_addChannel(Channel channel)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetChannelsPage() throws Exception {
+		GraphQLField graphQLField = new GraphQLField(
+			"channels",
+			new HashMap<String, Object>() {
+				{
+					put("search", null);
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		// No namespace
+
+		JSONObject channelsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/channels");
+
+		long totalCount = channelsJSONObject.getLong("totalCount");
+
+		Channel channel1 = testGraphQLChannel_addChannel(randomChannel());
+
+		Channel channel2 = testGraphQLChannel_addChannel(randomChannel());
+
+		channelsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/channels");
+
+		Assert.assertEquals(
+			totalCount + 2, channelsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			channel1,
+			Arrays.asList(
+				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
+		assertContains(
+			channel2,
+			Arrays.asList(
+				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
+
+		// Using the namespace headlessCommerceAdminChannel_v1_0
+
+		channelsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessCommerceAdminChannel_v1_0", graphQLField)),
+			"JSONObject/data", "JSONObject/headlessCommerceAdminChannel_v1_0",
+			"JSONObject/channels");
+
+		Assert.assertEquals(
+			totalCount + 2, channelsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			channel1,
+			Arrays.asList(
+				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
+		assertContains(
+			channel2,
+			Arrays.asList(
+				ChannelSerDes.toDTOs(channelsJSONObject.getString("items"))));
+	}
+
+	@Test
 	public void testPatchChannel() throws Exception {
 		Channel postChannel = testPatchChannel_addChannel();
 
@@ -1403,6 +1471,62 @@ public abstract class BaseChannelResourceTestCase {
 	}
 
 	@Test
+	public void testPatchChannelByExternalReferenceCode() throws Exception {
+		Channel postChannel =
+			testPatchChannelByExternalReferenceCode_addChannel();
+
+		Channel randomPatchChannel = randomPatchChannel();
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		Channel patchChannel =
+			channelResource.patchChannelByExternalReferenceCode(
+				postChannel.getExternalReferenceCode(), randomPatchChannel);
+
+		Channel expectedPatchChannel = postChannel.clone();
+
+		BeanTestUtil.copyProperties(randomPatchChannel, expectedPatchChannel);
+
+		Channel getChannel = channelResource.getChannelByExternalReferenceCode(
+			patchChannel.getExternalReferenceCode());
+
+		assertEquals(expectedPatchChannel, getChannel);
+		assertValid(getChannel);
+	}
+
+	protected Channel testPatchChannelByExternalReferenceCode_addChannel()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testPostChannel() throws Exception {
+		Channel randomChannel = randomChannel();
+
+		Channel postChannel = testPostChannel_addChannel(randomChannel);
+
+		assertEquals(randomChannel, postChannel);
+		assertValid(postChannel);
+	}
+
+	protected Channel testPostChannel_addChannel(Channel channel)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostChannel() throws Exception {
+		Channel randomChannel = randomChannel();
+
+		Channel channel = testGraphQLChannel_addChannel(randomChannel);
+
+		Assert.assertTrue(equals(randomChannel, channel));
+	}
+
+	@Test
 	public void testPutChannel() throws Exception {
 		Channel postChannel = testPutChannel_addChannel();
 
@@ -1425,12 +1549,245 @@ public abstract class BaseChannelResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testPutChannelByExternalReferenceCode() throws Exception {
+		Channel postChannel =
+			testPutChannelByExternalReferenceCode_addChannel();
+
+		Channel randomChannel = randomChannel();
+
+		Channel putChannel = channelResource.putChannelByExternalReferenceCode(
+			postChannel.getExternalReferenceCode(), randomChannel);
+
+		assertEquals(randomChannel, putChannel);
+		assertValid(putChannel);
+
+		Channel getChannel = channelResource.getChannelByExternalReferenceCode(
+			putChannel.getExternalReferenceCode());
+
+		assertEquals(randomChannel, getChannel);
+		assertValid(getChannel);
+
+		Channel newChannel =
+			testPutChannelByExternalReferenceCode_createChannel();
+
+		putChannel = channelResource.putChannelByExternalReferenceCode(
+			newChannel.getExternalReferenceCode(), newChannel);
+
+		assertEquals(newChannel, putChannel);
+		assertValid(putChannel);
+
+		getChannel = channelResource.getChannelByExternalReferenceCode(
+			putChannel.getExternalReferenceCode());
+
+		assertEquals(newChannel, getChannel);
+
+		Assert.assertEquals(
+			newChannel.getExternalReferenceCode(),
+			putChannel.getExternalReferenceCode());
+	}
+
+	protected Channel testPutChannelByExternalReferenceCode_addChannel()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected Channel testPutChannelByExternalReferenceCode_createChannel()
+		throws Exception {
+
+		return randomChannel();
+	}
+
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		Channel channel1 = testBatchEngineDeleteImportTask_addChannel();
+
+		testBatchEngineDeleteImportTask_deleteChannel(
+			200, channel1.getExternalReferenceCode(), null);
+
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(channel1.getId()));
+
+		channel1 = testBatchEngineDeleteImportTask_addChannel();
+
+		testBatchEngineDeleteImportTask_deleteChannel(
+			200, null, channel1.getId());
+
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(channel1.getId()));
+
+		channel1 = testBatchEngineDeleteImportTask_addChannel();
+		Channel channel2 = testBatchEngineDeleteImportTask_addChannel();
+
+		testBatchEngineDeleteImportTask_deleteChannel(
+			200, channel2.getExternalReferenceCode(), channel1.getId());
+
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(channel1.getId()));
+		assertHttpResponseStatusCode(
+			200, channelResource.getChannelHttpResponse(channel2.getId()));
+
+		testBatchEngineDeleteImportTask_deleteChannel(
+			200, channel2.getExternalReferenceCode(), channel1.getId());
+
+		assertHttpResponseStatusCode(
+			404, channelResource.getChannelHttpResponse(channel2.getId()));
+	}
+
+	protected Channel testBatchEngineDeleteImportTask_addChannel()
+		throws Exception {
+
+		return testDeleteChannel_addChannel();
+	}
+
+	protected void testBatchEngineDeleteImportTask_deleteChannel(
+			int expectedStatusCode, String externalReferenceCode, Long id,
+			String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.headless.commerce.admin.channel.dto.v1_0.Channel",
+				null, null, null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
 
 	protected Channel testGraphQLChannel_addChannel() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return testGraphQLChannel_addChannel(randomChannel());
+	}
+
+	protected Channel testGraphQLChannel_addChannel(Channel channel)
+		throws Exception {
+
+		JSONDeserializer<Channel> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field : getDeclaredFields(Channel.class)) {
+			if (getGraphQLValue(field.get(channel)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(channel)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createChannel",
+						new HashMap<String, Object>() {
+							{
+								put("channel", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createChannel"),
+			Channel.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(Channel channel, List<Channel> channels) {
@@ -1641,6 +1998,10 @@ public abstract class BaseChannelResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -2287,7 +2648,30 @@ public abstract class BaseChannelResourceTestCase {
 		return randomChannel();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected ChannelResource channelResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

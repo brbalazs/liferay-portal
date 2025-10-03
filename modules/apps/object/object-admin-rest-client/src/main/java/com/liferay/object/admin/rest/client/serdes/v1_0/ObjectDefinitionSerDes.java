@@ -13,7 +13,10 @@ import com.liferay.object.admin.rest.client.dto.v1_0.ObjectLayout;
 import com.liferay.object.admin.rest.client.dto.v1_0.ObjectRelationship;
 import com.liferay.object.admin.rest.client.dto.v1_0.ObjectValidationRule;
 import com.liferay.object.admin.rest.client.dto.v1_0.ObjectView;
+import com.liferay.object.admin.rest.client.dto.v1_0.WorkflowDefinitionLink;
 import com.liferay.object.admin.rest.client.json.BaseJSONParser;
+
+import jakarta.annotation.Generated;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,8 +26,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-
-import javax.annotation.Generated;
 
 /**
  * @author Javier Gamarra
@@ -198,6 +199,16 @@ public class ObjectDefinitionSerDes {
 			sb.append(objectDefinition.getEnableComments());
 		}
 
+		if (objectDefinition.getEnableFormContainer() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"enableFormContainer\": ");
+
+			sb.append(objectDefinition.getEnableFormContainer());
+		}
+
 		if (objectDefinition.getEnableFriendlyURLCustomization() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -248,6 +259,36 @@ public class ObjectDefinitionSerDes {
 			sb.append(objectDefinition.getEnableObjectEntryHistory());
 		}
 
+		if (objectDefinition.getEnableObjectEntrySchedule() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"enableObjectEntrySchedule\": ");
+
+			sb.append(objectDefinition.getEnableObjectEntrySchedule());
+		}
+
+		if (objectDefinition.getEnableObjectEntrySubscription() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"enableObjectEntrySubscription\": ");
+
+			sb.append(objectDefinition.getEnableObjectEntrySubscription());
+		}
+
+		if (objectDefinition.getEnableObjectEntryVersioning() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"enableObjectEntryVersioning\": ");
+
+			sb.append(objectDefinition.getEnableObjectEntryVersioning());
+		}
+
 		if (objectDefinition.getExternalReferenceCode() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -258,6 +299,20 @@ public class ObjectDefinitionSerDes {
 			sb.append("\"");
 
 			sb.append(_escape(objectDefinition.getExternalReferenceCode()));
+
+			sb.append("\"");
+		}
+
+		if (objectDefinition.getFriendlyURLSeparator() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"friendlyURLSeparator\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(objectDefinition.getFriendlyURLSeparator()));
 
 			sb.append("\"");
 		}
@@ -643,6 +698,33 @@ public class ObjectDefinitionSerDes {
 			sb.append("\"");
 		}
 
+		if (objectDefinition.getWorkflowDefinitionLinks() != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"workflowDefinitionLinks\": ");
+
+			sb.append("[");
+
+			for (int i = 0;
+				 i < objectDefinition.getWorkflowDefinitionLinks().length;
+				 i++) {
+
+				sb.append(
+					String.valueOf(
+						objectDefinition.getWorkflowDefinitionLinks()[i]));
+
+				if ((i + 1) <
+						objectDefinition.getWorkflowDefinitionLinks().length) {
+
+					sb.append(", ");
+				}
+			}
+
+			sb.append("]");
+		}
+
 		sb.append("}");
 
 		return sb.toString();
@@ -763,6 +845,15 @@ public class ObjectDefinitionSerDes {
 				String.valueOf(objectDefinition.getEnableComments()));
 		}
 
+		if (objectDefinition.getEnableFormContainer() == null) {
+			map.put("enableFormContainer", null);
+		}
+		else {
+			map.put(
+				"enableFormContainer",
+				String.valueOf(objectDefinition.getEnableFormContainer()));
+		}
+
 		if (objectDefinition.getEnableFriendlyURLCustomization() == null) {
 			map.put("enableFriendlyURLCustomization", null);
 		}
@@ -809,6 +900,36 @@ public class ObjectDefinitionSerDes {
 				String.valueOf(objectDefinition.getEnableObjectEntryHistory()));
 		}
 
+		if (objectDefinition.getEnableObjectEntrySchedule() == null) {
+			map.put("enableObjectEntrySchedule", null);
+		}
+		else {
+			map.put(
+				"enableObjectEntrySchedule",
+				String.valueOf(
+					objectDefinition.getEnableObjectEntrySchedule()));
+		}
+
+		if (objectDefinition.getEnableObjectEntrySubscription() == null) {
+			map.put("enableObjectEntrySubscription", null);
+		}
+		else {
+			map.put(
+				"enableObjectEntrySubscription",
+				String.valueOf(
+					objectDefinition.getEnableObjectEntrySubscription()));
+		}
+
+		if (objectDefinition.getEnableObjectEntryVersioning() == null) {
+			map.put("enableObjectEntryVersioning", null);
+		}
+		else {
+			map.put(
+				"enableObjectEntryVersioning",
+				String.valueOf(
+					objectDefinition.getEnableObjectEntryVersioning()));
+		}
+
 		if (objectDefinition.getExternalReferenceCode() == null) {
 			map.put("externalReferenceCode", null);
 		}
@@ -816,6 +937,15 @@ public class ObjectDefinitionSerDes {
 			map.put(
 				"externalReferenceCode",
 				String.valueOf(objectDefinition.getExternalReferenceCode()));
+		}
+
+		if (objectDefinition.getFriendlyURLSeparator() == null) {
+			map.put("friendlyURLSeparator", null);
+		}
+		else {
+			map.put(
+				"friendlyURLSeparator",
+				String.valueOf(objectDefinition.getFriendlyURLSeparator()));
 		}
 
 		if (objectDefinition.getId() == null) {
@@ -1024,6 +1154,15 @@ public class ObjectDefinitionSerDes {
 				String.valueOf(objectDefinition.getTitleObjectFieldName()));
 		}
 
+		if (objectDefinition.getWorkflowDefinitionLinks() == null) {
+			map.put("workflowDefinitionLinks", null);
+		}
+		else {
+			map.put(
+				"workflowDefinitionLinks",
+				String.valueOf(objectDefinition.getWorkflowDefinitionLinks()));
+		}
+
 		return map;
 	}
 
@@ -1081,6 +1220,11 @@ public class ObjectDefinitionSerDes {
 				return false;
 			}
 			else if (Objects.equals(
+						jsonParserFieldName, "enableFormContainer")) {
+
+				return false;
+			}
+			else if (Objects.equals(
 						jsonParserFieldName,
 						"enableFriendlyURLCustomization")) {
 
@@ -1105,7 +1249,27 @@ public class ObjectDefinitionSerDes {
 				return false;
 			}
 			else if (Objects.equals(
+						jsonParserFieldName, "enableObjectEntrySchedule")) {
+
+				return false;
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "enableObjectEntrySubscription")) {
+
+				return false;
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "enableObjectEntryVersioning")) {
+
+				return false;
+			}
+			else if (Objects.equals(
 						jsonParserFieldName, "externalReferenceCode")) {
+
+				return false;
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "friendlyURLSeparator")) {
 
 				return false;
 			}
@@ -1195,6 +1359,11 @@ public class ObjectDefinitionSerDes {
 
 				return false;
 			}
+			else if (Objects.equals(
+						jsonParserFieldName, "workflowDefinitionLinks")) {
+
+				return false;
+			}
 
 			return false;
 		}
@@ -1274,6 +1443,14 @@ public class ObjectDefinitionSerDes {
 				}
 			}
 			else if (Objects.equals(
+						jsonParserFieldName, "enableFormContainer")) {
+
+				if (jsonParserFieldValue != null) {
+					objectDefinition.setEnableFormContainer(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
 						jsonParserFieldName,
 						"enableFriendlyURLCustomization")) {
 
@@ -1313,10 +1490,42 @@ public class ObjectDefinitionSerDes {
 				}
 			}
 			else if (Objects.equals(
+						jsonParserFieldName, "enableObjectEntrySchedule")) {
+
+				if (jsonParserFieldValue != null) {
+					objectDefinition.setEnableObjectEntrySchedule(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "enableObjectEntrySubscription")) {
+
+				if (jsonParserFieldValue != null) {
+					objectDefinition.setEnableObjectEntrySubscription(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "enableObjectEntryVersioning")) {
+
+				if (jsonParserFieldValue != null) {
+					objectDefinition.setEnableObjectEntryVersioning(
+						(Boolean)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
 						jsonParserFieldName, "externalReferenceCode")) {
 
 				if (jsonParserFieldValue != null) {
 					objectDefinition.setExternalReferenceCode(
+						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "friendlyURLSeparator")) {
+
+				if (jsonParserFieldValue != null) {
+					objectDefinition.setFriendlyURLSeparator(
 						(String)jsonParserFieldValue);
 				}
 			}
@@ -1554,6 +1763,29 @@ public class ObjectDefinitionSerDes {
 				if (jsonParserFieldValue != null) {
 					objectDefinition.setTitleObjectFieldName(
 						(String)jsonParserFieldValue);
+				}
+			}
+			else if (Objects.equals(
+						jsonParserFieldName, "workflowDefinitionLinks")) {
+
+				if (jsonParserFieldValue != null) {
+					Object[] jsonParserFieldValues =
+						(Object[])jsonParserFieldValue;
+
+					WorkflowDefinitionLink[] workflowDefinitionLinksArray =
+						new WorkflowDefinitionLink
+							[jsonParserFieldValues.length];
+
+					for (int i = 0; i < workflowDefinitionLinksArray.length;
+						 i++) {
+
+						workflowDefinitionLinksArray[i] =
+							WorkflowDefinitionLinkSerDes.toDTO(
+								(String)jsonParserFieldValues[i]);
+					}
+
+					objectDefinition.setWorkflowDefinitionLinks(
+						workflowDefinitionLinksArray);
 				}
 			}
 		}

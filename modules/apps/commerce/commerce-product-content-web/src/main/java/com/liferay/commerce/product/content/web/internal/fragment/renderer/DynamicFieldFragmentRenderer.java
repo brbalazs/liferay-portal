@@ -10,12 +10,12 @@ import com.liferay.commerce.context.CommerceContext;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.product.exception.CPDefinitionIgnoreSKUCombinationsException;
+import com.liferay.commerce.product.helper.CPInstanceHelper;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;
 import com.liferay.commerce.product.service.CommerceChannelLocalService;
-import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.commerce.util.CommerceUtil;
 import com.liferay.fragment.model.FragmentEntryLink;
@@ -44,17 +44,16 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 import java.math.BigDecimal;
 
 import java.util.Locale;
-import java.util.ResourceBundle;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -71,11 +70,8 @@ public class DynamicFieldFragmentRenderer implements FragmentRenderer {
 	}
 
 	@Override
-	public String getConfiguration(
+	public JSONObject getConfigurationJSONObject(
 		FragmentRendererContext fragmentRendererContext) {
-
-		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
-			"content.Language", getClass());
 
 		try {
 			JSONObject jsonObject = _jsonFactory.createJSONObject(
@@ -86,14 +82,15 @@ public class DynamicFieldFragmentRenderer implements FragmentRenderer {
 							"/configuration.json"));
 
 			return _fragmentEntryConfigurationParser.translateConfiguration(
-				jsonObject, resourceBundle);
+				jsonObject,
+				ResourceBundleUtil.getBundle("content.Language", getClass()));
 		}
 		catch (JSONException jsonException) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(jsonException);
 			}
 
-			return StringPool.BLANK;
+			return null;
 		}
 	}
 
@@ -114,42 +111,43 @@ public class DynamicFieldFragmentRenderer implements FragmentRenderer {
 			HttpServletResponse httpServletResponse)
 		throws IOException {
 
-		String field = _getConfigurationValue(
-			fragmentRendererContext.getFragmentEntryLink(), "field");
-
-		httpServletRequest.setAttribute(
-			"liferay-commerce:dynamic-field:field", field);
-
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)httpServletRequest.getAttribute(
-				WebKeys.THEME_DISPLAY);
-
-		httpServletRequest.setAttribute(
-			"liferay-commerce:dynamic-field:label",
-			_language.get(
-				themeDisplay.getLocale(),
-				_getConfigurationValue(
-					fragmentRendererContext.getFragmentEntryLink(), "label")));
-
-		httpServletRequest.setAttribute(
-			"liferay-commerce:dynamic-field:labelElementType",
-			_getConfigurationValue(
-				fragmentRendererContext.getFragmentEntryLink(),
-				"labelElementType"));
-		httpServletRequest.setAttribute(
-			"liferay-commerce:dynamic-field:valueElementType",
-			_getConfigurationValue(
-				fragmentRendererContext.getFragmentEntryLink(),
-				"valueElementType"));
-
-		RequestDispatcher requestDispatcher =
-			_servletContext.getRequestDispatcher(
-				"/fragment/renderer/dynamic_field/page.jsp");
-
-		Object infoItem = httpServletRequest.getAttribute(
-			InfoDisplayWebKeys.INFO_ITEM);
-
 		try {
+			RequestDispatcher requestDispatcher =
+				_servletContext.getRequestDispatcher(
+					"/fragment/renderer/dynamic_field/page.jsp");
+
+			String field = _getConfigurationValue(
+				fragmentRendererContext.getFragmentEntryLink(), "field");
+
+			httpServletRequest.setAttribute(
+				"liferay-commerce:dynamic-field:field", field);
+
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)httpServletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
+
+			httpServletRequest.setAttribute(
+				"liferay-commerce:dynamic-field:label",
+				_language.get(
+					themeDisplay.getLocale(),
+					_getConfigurationValue(
+						fragmentRendererContext.getFragmentEntryLink(),
+						"label")));
+
+			httpServletRequest.setAttribute(
+				"liferay-commerce:dynamic-field:labelElementType",
+				_getConfigurationValue(
+					fragmentRendererContext.getFragmentEntryLink(),
+					"labelElementType"));
+			httpServletRequest.setAttribute(
+				"liferay-commerce:dynamic-field:valueElementType",
+				_getConfigurationValue(
+					fragmentRendererContext.getFragmentEntryLink(),
+					"valueElementType"));
+
+			Object infoItem = httpServletRequest.getAttribute(
+				InfoDisplayWebKeys.INFO_ITEM);
+
 			if (!(infoItem instanceof CPDefinition)) {
 				if (_isEditMode(httpServletRequest)) {
 					httpServletRequest.setAttribute(
@@ -208,8 +206,8 @@ public class DynamicFieldFragmentRenderer implements FragmentRenderer {
 
 		return GetterUtil.getString(
 			_fragmentEntryConfigurationParser.getFieldValue(
-				fragmentEntryLink.getConfiguration(),
-				fragmentEntryLink.getEditableValues(),
+				fragmentEntryLink.getConfigurationJSONObject(),
+				fragmentEntryLink.getEditableValuesJSONObject(),
 				LocaleUtil.getMostRelevantLocale(), name));
 	}
 
@@ -269,41 +267,38 @@ public class DynamicFieldFragmentRenderer implements FragmentRenderer {
 	private String _getFieldLabel(
 		FragmentEntryLink fragmentEntryLink, String field) {
 
-		try {
-			JSONObject configurationJSONObject = _jsonFactory.createJSONObject(
-				fragmentEntryLink.getConfiguration());
+		JSONObject configurationJSONObject =
+			fragmentEntryLink.getConfigurationJSONObject();
 
-			JSONArray fieldSetsJSONArray = configurationJSONObject.getJSONArray(
-				"fieldSets");
-
-			JSONArray fieldsJSONArray = fieldSetsJSONArray.getJSONObject(
-				0
-			).getJSONArray(
-				"fields"
-			);
-
-			JSONObject typeOptionsJSONObject = fieldsJSONArray.getJSONObject(
-				0
-			).getJSONObject(
-				"typeOptions"
-			);
-
-			JSONArray validValuesJSONArray = typeOptionsJSONObject.getJSONArray(
-				"validValues");
-
-			for (Object validValueObject : validValuesJSONArray) {
-				JSONObject validValueJSONObject = (JSONObject)validValueObject;
-
-				String value = validValueJSONObject.getString("value");
-
-				if (value.equals(field)) {
-					return validValueJSONObject.getString("label");
-				}
-			}
+		if (configurationJSONObject == null) {
+			return StringPool.BLANK;
 		}
-		catch (JSONException jsonException) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(jsonException);
+
+		JSONArray fieldSetsJSONArray = configurationJSONObject.getJSONArray(
+			"fieldSets");
+
+		JSONArray fieldsJSONArray = fieldSetsJSONArray.getJSONObject(
+			0
+		).getJSONArray(
+			"fields"
+		);
+
+		JSONObject typeOptionsJSONObject = fieldsJSONArray.getJSONObject(
+			0
+		).getJSONObject(
+			"typeOptions"
+		);
+
+		JSONArray validValuesJSONArray = typeOptionsJSONObject.getJSONArray(
+			"validValues");
+
+		for (Object validValueObject : validValuesJSONArray) {
+			JSONObject validValueJSONObject = (JSONObject)validValueObject;
+
+			String value = validValueJSONObject.getString("value");
+
+			if (value.equals(field)) {
+				return validValueJSONObject.getString("label");
 			}
 		}
 

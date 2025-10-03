@@ -5,22 +5,32 @@
 
 package com.liferay.object.rest.internal.headless.batch.engine.resource.v1_0.test;
 
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.object.constants.ObjectDefinitionConstants;
 import com.liferay.object.constants.ObjectFieldConstants;
 import com.liferay.object.field.util.ObjectFieldUtil;
 import com.liferay.object.model.ObjectDefinition;
 import com.liferay.object.test.util.ObjectDefinitionTestUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.Company;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
+import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.HTTPTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
+import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.Http;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.Assert;
@@ -43,13 +53,43 @@ public abstract class BaseTaskResourceTestCase {
 	@Before
 	public void setUp() throws Exception {
 		objectDefinition = ObjectDefinitionTestUtil.publishObjectDefinition(
+			Arrays.asList(
+				ObjectFieldUtil.createObjectField(
+					ObjectFieldConstants.BUSINESS_TYPE_TEXT,
+					ObjectFieldConstants.DB_TYPE_STRING,
+					OBJECT_FIELD_NAME_TEXT_1),
+				ObjectFieldUtil.createObjectField(
+					ObjectFieldConstants.BUSINESS_TYPE_TEXT,
+					ObjectFieldConstants.DB_TYPE_STRING,
+					OBJECT_FIELD_NAME_TEXT_2)),
+			ObjectDefinitionConstants.SCOPE_COMPANY,
+			TestPropsValues.getUserId());
+
+		siteObjectDefinition = ObjectDefinitionTestUtil.publishObjectDefinition(
 			Collections.singletonList(
 				ObjectFieldUtil.createObjectField(
 					ObjectFieldConstants.BUSINESS_TYPE_TEXT,
 					ObjectFieldConstants.DB_TYPE_STRING,
-					OBJECT_FIELD_NAME_TEXT)),
-			ObjectDefinitionConstants.SCOPE_COMPANY,
-			TestPropsValues.getUserId());
+					OBJECT_FIELD_NAME_TEXT_1)),
+			ObjectDefinitionConstants.SCOPE_SITE, TestPropsValues.getUserId());
+
+		testGroup = GroupTestUtil.addGroup();
+
+		testCompany = CompanyLocalServiceUtil.getCompany(
+			testGroup.getCompanyId());
+
+		testCompanyAdminUser = UserTestUtil.getAdminUser(
+			testCompany.getCompanyId());
+
+		importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
 	}
 
 	protected JSONObject waitForFinish(
@@ -86,10 +126,22 @@ public abstract class BaseTaskResourceTestCase {
 	protected static final String ENDPOINT_IMPORT_TASK_BY_ERC =
 		"headless-batch-engine/v1.0/import-task/by-external-reference-code/";
 
-	protected static final String OBJECT_FIELD_NAME_TEXT =
+	protected static final String OBJECT_FIELD_NAME_TEXT_1 =
 		"x" + RandomTestUtil.randomString();
+
+	protected static final String OBJECT_FIELD_NAME_TEXT_2 =
+		"x" + RandomTestUtil.randomString();
+
+	protected ImportTaskResource importTaskResource;
 
 	@DeleteAfterTestRun
 	protected ObjectDefinition objectDefinition;
+
+	@DeleteAfterTestRun
+	protected ObjectDefinition siteObjectDefinition;
+
+	protected Company testCompany;
+	protected User testCompanyAdminUser;
+	protected Group testGroup;
 
 }

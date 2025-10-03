@@ -6,7 +6,7 @@
 import FormInput from '../../../../../../../components/Input/formInput';
 import i18n from '../../../../../../../i18n';
 import {useAppContext} from '../../AppContext/AppManageState';
-import {TYPES} from '../../AppContext/actionTypes';
+import {ActionTypes} from '../../AppContext/actionTypes';
 
 import './index.scss';
 
@@ -19,7 +19,7 @@ const ResourceRequirements = () => {
 				boldLabel
 				className="custom-input resource-requirements-content-input"
 				helpMessage={i18n.translate(
-					'enter-the-required-cpus-0-is-a-valid-value'
+					'enter-the-required-cpus-0-is-valid'
 				)}
 				label={i18n.translate('number-of-cpus')}
 				maxLength={2}
@@ -28,7 +28,7 @@ const ResourceRequirements = () => {
 					if (!isNaN(value as unknown as number)) {
 						dispatch({
 							payload: {key: 'cpu', value},
-							type: TYPES.UPDATE_RESOURCE_REQUIREMENTS,
+							type: ActionTypes.UPDATE_RESOURCE_REQUIREMENTS,
 						});
 					}
 				}}
@@ -40,7 +40,7 @@ const ResourceRequirements = () => {
 				boldLabel
 				className="custom-input resource-requirements-content-input"
 				helpMessage={i18n.translate(
-					'enter-the-required-ram-0-is-a-valid-value'
+					'enter-the-required-ram-0-is-valid'
 				)}
 				label={i18n.translate('ram-in-gbs')}
 				maxLength={2}
@@ -49,7 +49,7 @@ const ResourceRequirements = () => {
 					if (!isNaN(value as unknown as number)) {
 						dispatch({
 							payload: {key: 'ram', value},
-							type: TYPES.UPDATE_RESOURCE_REQUIREMENTS,
+							type: ActionTypes.UPDATE_RESOURCE_REQUIREMENTS,
 						});
 					}
 				}}

@@ -6,7 +6,7 @@
 package com.liferay.partner;
 
 import com.liferay.client.extension.util.spring.boot3.BaseRestController;
-import com.liferay.client.extension.util.spring.boot3.LiferayOAuth2AccessTokenManager;
+import com.liferay.client.extension.util.spring.boot3.client.LiferayOAuth2AccessTokenManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.DefaultUriBuilderFactory;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * @author Felipe França
@@ -91,8 +91,7 @@ public class ObjectActionMDFRequestStatusManagementRestController
 		JSONObject responseJSONObject = new JSONObject(
 			get(
 				_getAuthorization(),
-				_defaultUriBuilderFactory.builder(
-				).path(
+				UriComponentsBuilder.fromPath(
 					"/o/c/activities"
 				).queryParam(
 					"filter",
@@ -103,7 +102,7 @@ public class ObjectActionMDFRequestStatusManagementRestController
 				).queryParam(
 					"pageSize", "-1"
 				).build(
-				).toString()));
+				).toUri()));
 
 		JSONArray itemsJSONArray = responseJSONObject.getJSONArray("items");
 
@@ -122,19 +121,18 @@ public class ObjectActionMDFRequestStatusManagementRestController
 
 		put(
 			_getAuthorization(), itemsJSONArray.toString(),
-			"/o/c/activities/batch");
+			UriComponentsBuilder.fromPath(
+				"/o/c/activities/batch"
+			).build(
+			).toUri());
 
 		return new ResponseEntity<>(json, HttpStatus.OK);
 	}
 
 	private String _getAuthorization() {
 		return _liferayOAuth2AccessTokenManager.getAuthorization(
-			"liferay-partner-etc-spring-boot-oauth-application-headless-" +
-				"server");
+			"liferay-partner-etc-spring-boot-oahs");
 	}
-
-	private final DefaultUriBuilderFactory _defaultUriBuilderFactory =
-		new DefaultUriBuilderFactory();
 
 	@Autowired
 	private LiferayOAuth2AccessTokenManager _liferayOAuth2AccessTokenManager;

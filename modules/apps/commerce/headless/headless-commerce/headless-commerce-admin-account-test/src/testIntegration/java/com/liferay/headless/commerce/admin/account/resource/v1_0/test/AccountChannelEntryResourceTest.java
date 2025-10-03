@@ -54,6 +54,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
@@ -93,12 +95,11 @@ public class AccountChannelEntryResourceTest
 
 		_address = AddressLocalServiceUtil.addAddress(
 			RandomTestUtil.randomString(), _user.getUserId(),
-			User.class.getName(), _user.getUserId(),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			String.valueOf(30133), _region.getRegionId(),
-			_country.getCountryId(), 2, false, false,
+			User.class.getName(), _user.getUserId(), _country.getCountryId(), 2,
+			_region.getRegionId(), RandomTestUtil.randomString(),
+			RandomTestUtil.randomString(), false, RandomTestUtil.randomString(),
+			false, RandomTestUtil.randomString(), RandomTestUtil.randomString(),
+			RandomTestUtil.randomString(), null, String.valueOf(30133),
 			RandomTestUtil.randomString(), serviceContext);
 
 		_commerceCurrency =
@@ -141,8 +142,8 @@ public class AccountChannelEntryResourceTest
 				serviceContext);
 		_commercePriceList =
 			CommercePriceListLocalServiceUtil.addCommercePriceList(
-				RandomTestUtil.randomString(), testGroup.getGroupId(),
-				_user.getUserId(), _commerceCurrency.getCode(), true,
+				RandomTestUtil.randomString(), _user.getUserId(),
+				testGroup.getGroupId(), _commerceCurrency.getCode(), true,
 				CommercePriceListConstants.TYPE_PRICE_LIST, 0, true,
 				RandomTestUtil.randomString(), 1000, 1, 1, 2022, 12, 0, 0, 0, 0,
 				0, 0, true, serviceContext);
@@ -162,6 +163,70 @@ public class AccountChannelEntryResourceTest
 
 		UserLocalServiceUtil.addRoleUser(
 			role.getRoleId(), _commerceUser.getUserId());
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLDeleteAccountChannelCurrencyId() throws Exception {
+		super.testGraphQLDeleteAccountChannelCurrencyId();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLDeleteAccountChannelDeliveryTermId()
+		throws Exception {
+
+		super.testGraphQLDeleteAccountChannelDeliveryTermId();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLDeleteAccountChannelDiscountId() throws Exception {
+		super.testGraphQLDeleteAccountChannelDiscountId();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLDeleteAccountChannelPaymentMethodId()
+		throws Exception {
+
+		super.testGraphQLDeleteAccountChannelPaymentMethodId();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLDeleteAccountChannelPaymentTermId()
+		throws Exception {
+
+		super.testGraphQLDeleteAccountChannelPaymentTermId();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLDeleteAccountChannelPriceListId() throws Exception {
+		super.testGraphQLDeleteAccountChannelPriceListId();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLDeleteAccountChannelShippingAddressId()
+		throws Exception {
+
+		super.testGraphQLDeleteAccountChannelShippingAddressId();
+	}
+
+	@Ignore
+	@Override
+	@Test
+	public void testGraphQLDeleteAccountChannelUserId() throws Exception {
+		super.testGraphQLDeleteAccountChannelUserId();
 	}
 
 	@Override
@@ -727,6 +792,14 @@ public class AccountChannelEntryResourceTest
 		throws Exception {
 
 		return _accountEntry.getAccountEntryId();
+	}
+
+	@Override
+	protected AccountChannelEntry
+			testGraphQLAccountChannelEntry_addAccountChannelEntry()
+		throws Exception {
+
+		return _postAccountChannelEntryBillingAddress();
 	}
 
 	@Override

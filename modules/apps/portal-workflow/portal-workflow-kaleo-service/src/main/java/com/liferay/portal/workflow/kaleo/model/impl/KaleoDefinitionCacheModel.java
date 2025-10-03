@@ -6,6 +6,7 @@
 package com.liferay.portal.workflow.kaleo.model.impl;
 
 import com.liferay.petra.lang.HashUtil;
+import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.MVCCModel;
@@ -15,6 +16,9 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 
 import java.util.Date;
 
@@ -69,7 +73,7 @@ public class KaleoDefinitionCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(39);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -107,6 +111,8 @@ public class KaleoDefinitionCacheModel
 		sb.append(version);
 		sb.append(", active=");
 		sb.append(active);
+		sb.append(", status=");
+		sb.append(status);
 		sb.append("}");
 
 		return sb.toString();
@@ -196,10 +202,17 @@ public class KaleoDefinitionCacheModel
 
 		kaleoDefinitionImpl.setVersion(version);
 		kaleoDefinitionImpl.setActive(active);
+		kaleoDefinitionImpl.setStatus(status);
 
 		kaleoDefinitionImpl.resetOriginalValues();
 
-		kaleoDefinitionImpl.setContentAsXML(_contentAsXML);
+		try {
+			_contentAsXMLMethodHandle.invokeExact(
+				kaleoDefinitionImpl, contentAsXML);
+		}
+		catch (Throwable throwable) {
+			ReflectionUtil.throwException(throwable);
+		}
 
 		return kaleoDefinitionImpl;
 	}
@@ -234,7 +247,9 @@ public class KaleoDefinitionCacheModel
 
 		active = objectInput.readBoolean();
 
-		_contentAsXML = (String)objectInput.readObject();
+		status = objectInput.readInt();
+
+		contentAsXML = (String)objectInput.readObject();
 	}
 
 	@Override
@@ -314,7 +329,9 @@ public class KaleoDefinitionCacheModel
 
 		objectOutput.writeBoolean(active);
 
-		objectOutput.writeObject(_contentAsXML);
+		objectOutput.writeInt(status);
+
+		objectOutput.writeObject(contentAsXML);
 	}
 
 	public long mvccVersion;
@@ -335,6 +352,21 @@ public class KaleoDefinitionCacheModel
 	public String scope;
 	public int version;
 	public boolean active;
-	public String _contentAsXML;
+	public int status;
+	public volatile String contentAsXML;
+
+	private static final MethodHandle _contentAsXMLMethodHandle;
+
+	static {
+		MethodHandles.Lookup lookup = ReflectionUtil.getImplLookup();
+
+		try {
+			_contentAsXMLMethodHandle = lookup.findSetter(
+				KaleoDefinitionImpl.class, "_contentAsXML", String.class);
+		}
+		catch (ReflectiveOperationException reflectiveOperationException) {
+			throw new ExceptionInInitializerError(reflectiveOperationException);
+		}
+	}
 
 }

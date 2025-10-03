@@ -49,11 +49,11 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.util.LayoutTypeControllerTracker;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Carlos Lancha
@@ -444,6 +444,8 @@ public class MillerColumnsDisplayContext {
 		).put(
 			"hasChild", true
 		).put(
+			"hasGuestViewPermission", !privatePages
+		).put(
 			"hasScopeGroup", true
 		).put(
 			"id", LayoutConstants.DEFAULT_PLID
@@ -596,6 +598,15 @@ public class MillerColumnsDisplayContext {
 					"id", "pending"
 				).put(
 					"label", LanguageUtil.get(_httpServletRequest, "pending")
+				));
+		}
+
+		if (layout.isTypeEmpty()) {
+			jsonArray.put(
+				JSONUtil.put(
+					"id", "empty"
+				).put(
+					"label", LanguageUtil.get(_httpServletRequest, "empty")
 				));
 		}
 

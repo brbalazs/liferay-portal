@@ -29,7 +29,7 @@ interface EditObjectFieldContentProps
 	errors: ObjectFieldErrors;
 	handleChange: React.ChangeEventHandler<HTMLInputElement>;
 	modelBuilder?: boolean;
-	objectDefinitionExternalReferenceCode: string;
+	objectDefinition?: ObjectDefinition | ObjectDefinitionNodeData;
 	objectFieldId: number;
 	onSubmit?: (editedObjectField?: Partial<ObjectField>) => void;
 	setValues: (values: Partial<ObjectField>) => void;
@@ -49,7 +49,7 @@ export function EditObjectFieldContent({
 	isRootDescendantNode,
 	learnResources,
 	modelBuilder = false,
-	objectDefinitionExternalReferenceCode,
+	objectDefinition,
 	objectFieldId,
 	onSubmit,
 	readOnly,
@@ -61,8 +61,6 @@ export function EditObjectFieldContent({
 
 	const [dbObjectFieldRequired, setDbObjectFieldRequired] =
 		useState<boolean>();
-	const [objectDefinition, setObjectDefinition] =
-		useState<ObjectDefinition>();
 	const [objectFieldBusinessTypes, setObjectFieldBusinessTypes] = useState<
 		ObjectFieldBusinessType[]
 	>([]);
@@ -87,15 +85,6 @@ export function EditObjectFieldContent({
 
 			setDbObjectFieldRequired(objectFieldResponse.required);
 			setValues(objectFieldResponse);
-
-			if (objectDefinitionExternalReferenceCode) {
-				const objectDefinitionResponse =
-					await API.getObjectDefinitionByExternalReferenceCode(
-						objectDefinitionExternalReferenceCode
-					);
-
-				setObjectDefinition(objectDefinitionResponse);
-			}
 		};
 
 		makeFetch();
@@ -175,7 +164,7 @@ export function EditObjectFieldContent({
 								errors={errors}
 								filterOperators={filterOperators}
 								handleChange={handleChange}
-								isDefaultStorageType={isDefaultStorageType}
+								learnResources={learnResources}
 								modelBuilder={modelBuilder}
 								objectDefinition={objectDefinition}
 								objectFieldBusinessTypes={
@@ -227,7 +216,7 @@ export function EditObjectFieldContent({
 					errors={errors}
 					filterOperators={filterOperators}
 					handleChange={handleChange}
-					isDefaultStorageType={isDefaultStorageType}
+					learnResources={learnResources}
 					modelBuilder={modelBuilder}
 					objectDefinition={objectDefinition}
 					objectFieldBusinessTypes={objectFieldBusinessTypes}

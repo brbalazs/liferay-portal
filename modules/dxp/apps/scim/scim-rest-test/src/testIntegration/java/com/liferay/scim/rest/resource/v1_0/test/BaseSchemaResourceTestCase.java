@@ -27,12 +27,12 @@ import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.scim.rest.client.dto.v1_0.Group;
 import com.liferay.scim.rest.client.dto.v1_0.Schema;
@@ -41,6 +41,10 @@ import com.liferay.scim.rest.client.http.HttpInvoker;
 import com.liferay.scim.rest.client.pagination.Page;
 import com.liferay.scim.rest.client.resource.v1_0.SchemaResource;
 import com.liferay.scim.rest.client.serdes.v1_0.SchemaSerDes;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -56,10 +60,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -183,18 +183,13 @@ public abstract class BaseSchemaResourceTestCase {
 	}
 
 	@Test
-	public void testGetV2Schemas() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
 	public void testGetV2SchemaById() throws Exception {
 		Assert.assertTrue(false);
 	}
 
-	protected Schema testGraphQLSchema_addSchema() throws Exception {
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+	@Test
+	public void testGetV2Schemas() throws Exception {
+		Assert.assertTrue(false);
 	}
 
 	protected void assertContains(Schema schema, List<Schema> schemas) {
@@ -362,6 +357,8 @@ public abstract class BaseSchemaResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(

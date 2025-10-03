@@ -186,7 +186,7 @@
 		title="${(vocabularyNames?size == 1)?then(vocabularyNames[0]!'', 'category')}"
 	>
 		<#if vocabularyNames?has_content>
-			<ul class="treeview treeview-light treeview-nested treeview-vocabulary-display" role="tree">
+			<ul class="learn-treeview treeview treeview-light treeview-nested treeview-vocabulary-display" role="tree">
 				<#list vocabularyNames as vocabularyName>
 					<@treeview_item
 						cssClassTreeItem = "tree-item-vocabulary"
@@ -257,4 +257,50 @@
 			}
 		}
 	}
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const panels = document.querySelectorAll('.panel-group .panel');
+
+		panels.forEach(panel => {
+			if (window.innerWidth <= 768) {
+				const panelBody = panel.querySelector('.panel-collapse');
+
+				if (panelBody) {
+					panelBody.classList.remove('show');
+					panelBody.classList.add('collapse');
+				}
+
+				const panelHeaderButton = panel.querySelector('.panel-header-link');
+
+				if (panelHeaderButton) {
+					panelHeaderButton.classList.add('collapsed');
+					panelHeaderButton.setAttribute('aria-expanded', 'false');
+				}
+			}
+		});
+	});
 </@>
+
+<style>
+	.learn-treeview .custom-control-label::before {
+		border-color: var(--gray-600, #6b6c7e);
+	}
+
+	.learn-treeview .custom-control-label-text {
+		font-size: 13px;
+		font-weight: 400;
+	}
+
+	.learn-treeview.treeview .btn {
+		margin-right: 0.5rem;
+		padding: 0px;
+	}
+
+	.learn-treeview.treeview .custom-control {
+		margin: 0rem;
+	}
+
+	.search-facet-display-vocabulary .learn-treeview.treeview-vocabulary-display .tree-item-category {
+		padding-left: 0rem;
+	}
+</style>

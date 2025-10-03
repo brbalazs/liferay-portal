@@ -8,13 +8,13 @@ package com.liferay.headless.asset.library.client.dto.v1_0;
 import com.liferay.headless.asset.library.client.function.UnsafeSupplier;
 import com.liferay.headless.asset.library.client.serdes.v1_0.AssetLibrarySerDes;
 
+import jakarta.annotation.Generated;
+
 import java.io.Serializable;
 
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
-
-import javax.annotation.Generated;
 
 /**
  * @author Roberto Díaz
@@ -26,6 +26,92 @@ public class AssetLibrary implements Cloneable, Serializable {
 	public static AssetLibrary toDTO(String json) {
 		return AssetLibrarySerDes.toDTO(json);
 	}
+
+	public Map<String, Map<String, String>> getActions() {
+		return actions;
+	}
+
+	public void setActions(Map<String, Map<String, String>> actions) {
+		this.actions = actions;
+	}
+
+	public void setActions(
+		UnsafeSupplier<Map<String, Map<String, String>>, Exception>
+			actionsUnsafeSupplier) {
+
+		try {
+			actions = actionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Map<String, Map<String, String>> actions;
+
+	public String getAssetLibraryKey() {
+		return assetLibraryKey;
+	}
+
+	public void setAssetLibraryKey(String assetLibraryKey) {
+		this.assetLibraryKey = assetLibraryKey;
+	}
+
+	public void setAssetLibraryKey(
+		UnsafeSupplier<String, Exception> assetLibraryKeyUnsafeSupplier) {
+
+		try {
+			assetLibraryKey = assetLibraryKeyUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected String assetLibraryKey;
+
+	public ConnectedSite[] getConnectedSites() {
+		return connectedSites;
+	}
+
+	public void setConnectedSites(ConnectedSite[] connectedSites) {
+		this.connectedSites = connectedSites;
+	}
+
+	public void setConnectedSites(
+		UnsafeSupplier<ConnectedSite[], Exception>
+			connectedSitesUnsafeSupplier) {
+
+		try {
+			connectedSites = connectedSitesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected ConnectedSite[] connectedSites;
+
+	public Long getCreatorUserId() {
+		return creatorUserId;
+	}
+
+	public void setCreatorUserId(Long creatorUserId) {
+		this.creatorUserId = creatorUserId;
+	}
+
+	public void setCreatorUserId(
+		UnsafeSupplier<Long, Exception> creatorUserIdUnsafeSupplier) {
+
+		try {
+			creatorUserId = creatorUserIdUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Long creatorUserId;
 
 	public Date getDateCreated() {
 		return dateCreated;
@@ -193,6 +279,28 @@ public class AssetLibrary implements Cloneable, Serializable {
 
 	protected Map<String, String> name_i18n;
 
+	public Integer getNumberOfConnectedSites() {
+		return numberOfConnectedSites;
+	}
+
+	public void setNumberOfConnectedSites(Integer numberOfConnectedSites) {
+		this.numberOfConnectedSites = numberOfConnectedSites;
+	}
+
+	public void setNumberOfConnectedSites(
+		UnsafeSupplier<Integer, Exception>
+			numberOfConnectedSitesUnsafeSupplier) {
+
+		try {
+			numberOfConnectedSites = numberOfConnectedSitesUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Integer numberOfConnectedSites;
+
 	public Integer getNumberOfUserAccounts() {
 		return numberOfUserAccounts;
 	}
@@ -235,6 +343,35 @@ public class AssetLibrary implements Cloneable, Serializable {
 
 	protected Integer numberOfUserGroups;
 
+	public com.liferay.headless.asset.library.client.permission.Permission[]
+		getPermissions() {
+
+		return permissions;
+	}
+
+	public void setPermissions(
+		com.liferay.headless.asset.library.client.permission.Permission[]
+			permissions) {
+
+		this.permissions = permissions;
+	}
+
+	public void setPermissions(
+		UnsafeSupplier
+			<com.liferay.headless.asset.library.client.permission.Permission[],
+			 Exception> permissionsUnsafeSupplier) {
+
+		try {
+			permissions = permissionsUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected com.liferay.headless.asset.library.client.permission.Permission[]
+		permissions;
+
 	public Settings getSettings() {
 		return settings;
 	}
@@ -256,26 +393,53 @@ public class AssetLibrary implements Cloneable, Serializable {
 
 	protected Settings settings;
 
-	public Site[] getSites() {
-		return sites;
+	public Long getSiteId() {
+		return siteId;
 	}
 
-	public void setSites(Site[] sites) {
-		this.sites = sites;
+	public void setSiteId(Long siteId) {
+		this.siteId = siteId;
 	}
 
-	public void setSites(
-		UnsafeSupplier<Site[], Exception> sitesUnsafeSupplier) {
+	public void setSiteId(
+		UnsafeSupplier<Long, Exception> siteIdUnsafeSupplier) {
 
 		try {
-			sites = sitesUnsafeSupplier.get();
+			siteId = siteIdUnsafeSupplier.get();
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	protected Site[] sites;
+	protected Long siteId;
+
+	public Type getType() {
+		return type;
+	}
+
+	public String getTypeAsString() {
+		if (type == null) {
+			return null;
+		}
+
+		return type.toString();
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	public void setType(UnsafeSupplier<Type, Exception> typeUnsafeSupplier) {
+		try {
+			type = typeUnsafeSupplier.get();
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	protected Type type;
 
 	public UserAccount[] getUserAccounts() {
 		return userAccounts;
@@ -348,6 +512,39 @@ public class AssetLibrary implements Cloneable, Serializable {
 
 	public String toString() {
 		return AssetLibrarySerDes.toJSON(this);
+	}
+
+	public static enum Type {
+
+		ASSET_LIBRARY("AssetLibrary"), SPACE("Space");
+
+		public static Type create(String value) {
+			for (Type type : values()) {
+				if (Objects.equals(type.getValue(), value) ||
+					Objects.equals(type.name(), value)) {
+
+					return type;
+				}
+			}
+
+			return null;
+		}
+
+		public String getValue() {
+			return _value;
+		}
+
+		@Override
+		public String toString() {
+			return _value;
+		}
+
+		private Type(String value) {
+			_value = value;
+		}
+
+		private final String _value;
+
 	}
 
 }

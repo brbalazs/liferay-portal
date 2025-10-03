@@ -14,12 +14,12 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portlet.display.template.upgrade.BaseUpgradePortletPreferences;
 
+import jakarta.portlet.PortletPreferences;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.portlet.PortletPreferences;
 
 /**
  * @author Mikel Lorza
@@ -91,7 +91,7 @@ public class UpgradePortletPreferences extends BaseUpgradePortletPreferences {
 				groupAssetVocabularyExternalReferenceCodesMap.entrySet()) {
 
 			String scopeExternalReferenceCode = getScopeExternalReferenceCode(
-				companyId, plid, entries.getKey());
+				companyId, ownerId, ownerType, plid, entries.getKey());
 
 			if (Validator.isNull(scopeExternalReferenceCode)) {
 				portletPreferences.setValues(

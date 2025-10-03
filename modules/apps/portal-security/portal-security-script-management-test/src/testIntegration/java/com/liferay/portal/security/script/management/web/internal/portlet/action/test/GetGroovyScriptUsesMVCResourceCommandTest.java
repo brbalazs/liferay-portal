@@ -81,7 +81,7 @@ public class GetGroovyScriptUsesMVCResourceCommandTest {
 		_mockLiferayResourceRequest = new MockLiferayResourceRequest();
 
 		_mockLiferayResourceRequest.setAttribute(
-			JavaConstants.JAVAX_PORTLET_CONFIG,
+			JavaConstants.JAKARTA_PORTLET_CONFIG,
 			PortletConfigFactoryUtil.create(
 				_portletLocalService.getPortletById(
 					ConfigurationAdminPortletKeys.SYSTEM_SETTINGS),
@@ -273,7 +273,8 @@ public class GetGroovyScriptUsesMVCResourceCommandTest {
 
 		ObjectDefinition objectDefinition =
 			_objectDefinitionLocalService.addCustomObjectDefinition(
-				userId, 0, null, false, false, true, false, false,
+				userId, 0, null, false, true, false, true, false, false, false,
+				false, false, null,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
 				ObjectDefinitionTestUtil.getRandomName(), null, null,
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
@@ -287,7 +288,8 @@ public class GetGroovyScriptUsesMVCResourceCommandTest {
 							RandomTestUtil.randomString())
 					).name(
 						"textObjectField"
-					).build()));
+					).build()),
+				Collections.emptyList());
 
 		return _objectDefinitionLocalService.publishCustomObjectDefinition(
 			TestPropsValues.getUserId(),

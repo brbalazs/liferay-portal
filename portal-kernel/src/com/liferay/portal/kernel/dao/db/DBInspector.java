@@ -7,8 +7,10 @@ package com.liferay.portal.kernel.dao.db;
 
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.instance.PortalInstancePool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -17,6 +19,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -273,6 +276,32 @@ public class DBInspector {
 		}
 	}
 
+	public boolean isNumeric(String tableName, String columnName)
+		throws Exception {
+
+		try (ResultSet resultSet = _getColumnsResultSet(
+				tableName, columnName)) {
+
+			if (!resultSet.next()) {
+				return false;
+			}
+
+			int columnType = resultSet.getInt("DATA_TYPE");
+
+			if ((columnType == Types.BIGINT) || (columnType == Types.DECIMAL) ||
+				(columnType == Types.DOUBLE) || (columnType == Types.FLOAT) ||
+				(columnType == Types.INTEGER) ||
+				(columnType == Types.NUMERIC) || (columnType == Types.REAL) ||
+				(columnType == Types.SMALLINT) ||
+				(columnType == Types.TINYINT)) {
+
+				return true;
+			}
+
+			return false;
+		}
+	}
+
 	public boolean isObjectTable(List<Long> companyIds, String tableName) {
 		String lowerCaseTableName = StringUtil.toLowerCase(tableName);
 
@@ -291,6 +320,11 @@ public class DBInspector {
 		}
 
 		return false;
+	}
+
+	public boolean isObjectTable(String tableName) {
+		return isObjectTable(
+			ListUtil.fromArray(PortalInstancePool.getCompanyIds()), tableName);
 	}
 
 	public boolean isPartitionedControlTable(String tableName) {

@@ -7,11 +7,12 @@ import ClayLoadingIndicator from '@clayui/loading-indicator';
 import {loadModule} from 'frontend-js-web';
 import React, {ReactElement, useContext, useEffect, useState} from 'react';
 
+import FrontendDataSetContext from '../../../FrontendDataSetContext';
+import {activateFilter} from '../../../utils/filters/activateFilter';
 import ViewsContext from '../../../views/ViewsContext';
 
 // @ts-ignore
 
-import {VIEWS_ACTION_TYPES} from '../../../views/viewsReducer';
 import clientExtensionFilterImplementation from './implementation/ClientExtensionFilter';
 import dateRangeFilterImplementation from './implementation/DateRangeFilter';
 import selectionFilterImplementation from './implementation/SelectionFilter';
@@ -25,6 +26,7 @@ export interface FilterImplementation<
 }
 
 export interface FilterImplementationArgs<T> {
+	active: boolean;
 	id: string;
 	selectedData: T;
 	setFilter: (args: SetFilterArgs) => void;
@@ -44,6 +46,7 @@ interface FilterConfiguration {
 interface FilterComponentArgs {
 	id: string;
 	moduleURL: string;
+	onClose: () => void;
 	type: 'clientExtension' | 'dateRange' | 'selection';
 }
 
@@ -53,7 +56,14 @@ const FILTER_IMPLEMENTATIONS = {
 	selection: selectionFilterImplementation,
 };
 
-const Filter = ({id, moduleURL, type, ...otherProps}: FilterComponentArgs) => {
+const Filter = ({
+	id,
+	moduleURL,
+	onClose,
+	type,
+	...otherProps
+}: FilterComponentArgs) => {
+	const {setSearching, updateFilters} = useContext(FrontendDataSetContext);
 	const [{filters}, viewsDispatch] = useContext(ViewsContext);
 
 	const filterImplementation = FILTER_IMPLEMENTATIONS[type];
@@ -87,26 +97,30 @@ const Filter = ({id, moduleURL, type, ...otherProps}: FilterComponentArgs) => {
 			...filters.find(
 				(filter: FilterConfiguration) => filter.id === filterId
 			),
-			selectedData,
 			...otherProps,
 		};
 
-		newFilter.odataFilterString =
-			filterImplementation.getOdataString(newFilter);
-		newFilter.selectedItemsLabel =
-			filterImplementation.getSelectedItemsLabel(newFilter);
+		activateFilter({filter: newFilter, selectedData});
 
-		viewsDispatch({
-			type: VIEWS_ACTION_TYPES.UPDATE_FILTERS,
-			value: filters.map((filter: FilterConfiguration) =>
-				filter.id === filterId ? newFilter : filter
-			),
-		});
+		setSearching(true);
+
+		viewsDispatch(
+			updateFilters(
+				filters.map((filter: FilterConfiguration) =>
+					filter.id === filterId ? newFilter : filter
+				)
+			)
+		);
 	};
 
 	return Component ? (
 		<div className="data-set-filter">
-			<Component id={id} setFilter={setFilter} {...otherProps} />
+			<Component
+				id={id}
+				onClose={onClose}
+				setFilter={setFilter}
+				{...otherProps}
+			/>
 		</div>
 	) : (
 		<ClayLoadingIndicator size="sm" />

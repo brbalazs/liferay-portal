@@ -18,7 +18,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portlet.display.template.upgrade.BaseUpgradePortletPreferences;
 
-import javax.portlet.PortletPreferences;
+import jakarta.portlet.PortletPreferences;
 
 /**
  * @author Lourdes Fernández Besada
@@ -87,7 +87,7 @@ public class UpgradePortletPreferences extends BaseUpgradePortletPreferences {
 			assetListEntry.getExternalReferenceCode());
 
 		String scopeExternalReferenceCode = getScopeExternalReferenceCode(
-			companyId, plid, assetListEntry.getGroupId());
+			companyId, ownerId, ownerType, plid, assetListEntry.getGroupId());
 
 		if (Validator.isNotNull(scopeExternalReferenceCode)) {
 			portletPreferences.setValue(

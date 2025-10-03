@@ -68,7 +68,7 @@ public class ObjectEntryCacheModel
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(51);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -90,6 +90,8 @@ public class ObjectEntryCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", headObjectEntryId=");
+		sb.append(headObjectEntryId);
 		sb.append(", objectDefinitionId=");
 		sb.append(objectDefinitionId);
 		sb.append(", objectEntryFolderId=");
@@ -98,6 +100,12 @@ public class ObjectEntryCacheModel
 		sb.append(rootObjectEntryId);
 		sb.append(", defaultLanguageId=");
 		sb.append(defaultLanguageId);
+		sb.append(", displayDate=");
+		sb.append(displayDate);
+		sb.append(", expirationDate=");
+		sb.append(expirationDate);
+		sb.append(", reviewDate=");
+		sb.append(reviewDate);
 		sb.append(", treePath=");
 		sb.append(treePath);
 		sb.append(", version=");
@@ -163,6 +171,7 @@ public class ObjectEntryCacheModel
 			objectEntryImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		objectEntryImpl.setHeadObjectEntryId(headObjectEntryId);
 		objectEntryImpl.setObjectDefinitionId(objectDefinitionId);
 		objectEntryImpl.setObjectEntryFolderId(objectEntryFolderId);
 		objectEntryImpl.setRootObjectEntryId(rootObjectEntryId);
@@ -172,6 +181,27 @@ public class ObjectEntryCacheModel
 		}
 		else {
 			objectEntryImpl.setDefaultLanguageId(defaultLanguageId);
+		}
+
+		if (displayDate == Long.MIN_VALUE) {
+			objectEntryImpl.setDisplayDate(null);
+		}
+		else {
+			objectEntryImpl.setDisplayDate(new Date(displayDate));
+		}
+
+		if (expirationDate == Long.MIN_VALUE) {
+			objectEntryImpl.setExpirationDate(null);
+		}
+		else {
+			objectEntryImpl.setExpirationDate(new Date(expirationDate));
+		}
+
+		if (reviewDate == Long.MIN_VALUE) {
+			objectEntryImpl.setReviewDate(null);
+		}
+		else {
+			objectEntryImpl.setReviewDate(new Date(reviewDate));
 		}
 
 		if (treePath == null) {
@@ -229,12 +259,17 @@ public class ObjectEntryCacheModel
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 
+		headObjectEntryId = objectInput.readLong();
+
 		objectDefinitionId = objectInput.readLong();
 
 		objectEntryFolderId = objectInput.readLong();
 
 		rootObjectEntryId = objectInput.readLong();
 		defaultLanguageId = objectInput.readUTF();
+		displayDate = objectInput.readLong();
+		expirationDate = objectInput.readLong();
+		reviewDate = objectInput.readLong();
 		treePath = objectInput.readUTF();
 
 		version = objectInput.readInt();
@@ -283,6 +318,8 @@ public class ObjectEntryCacheModel
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+		objectOutput.writeLong(headObjectEntryId);
+
 		objectOutput.writeLong(objectDefinitionId);
 
 		objectOutput.writeLong(objectEntryFolderId);
@@ -295,6 +332,10 @@ public class ObjectEntryCacheModel
 		else {
 			objectOutput.writeUTF(defaultLanguageId);
 		}
+
+		objectOutput.writeLong(displayDate);
+		objectOutput.writeLong(expirationDate);
+		objectOutput.writeLong(reviewDate);
 
 		if (treePath == null) {
 			objectOutput.writeUTF("");
@@ -330,10 +371,14 @@ public class ObjectEntryCacheModel
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public long headObjectEntryId;
 	public long objectDefinitionId;
 	public long objectEntryFolderId;
 	public long rootObjectEntryId;
 	public String defaultLanguageId;
+	public long displayDate;
+	public long expirationDate;
+	public long reviewDate;
 	public String treePath;
 	public int version;
 	public long lastPublishDate;

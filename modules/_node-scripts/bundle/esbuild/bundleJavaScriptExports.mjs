@@ -12,8 +12,8 @@ import {
 } from '../../util/constants.mjs';
 import getFlatName from '../../util/getFlatName.mjs';
 import getEntryPoint from './getEntryPoint.mjs';
-import getExternals from './getExternals.mjs';
 import getExactAliasPlugin from './plugins/getExactAliasPlugin.mjs';
+import getExternalsPlugin from './plugins/getExternalsPlugin.mjs';
 import getImportBridgesPlugin from './plugins/getImportBridgesPlugin.mjs';
 import relocateSourcemap from './relocateSourcemap.mjs';
 import runEsbuild from './runEsbuild.mjs';
@@ -22,6 +22,7 @@ import writeExportBridge from './writeExportBridge.mjs';
 export default async function bundleJavaScriptExports(
 	globalImports,
 	overridenPackageSymbols,
+	projectAlias,
 	projectExports,
 	projectWebContextPath
 ) {
@@ -36,6 +37,7 @@ export default async function bundleJavaScriptExports(
 				bundle(
 					globalImports,
 					overridenPackageSymbols,
+					projectAlias,
 					projectWebContextPath,
 					moduleName
 				)
@@ -46,19 +48,21 @@ export default async function bundleJavaScriptExports(
 async function bundle(
 	globalImports,
 	overridenPackageSymbols,
+	projectAlias,
 	projectWebContextPath,
 	moduleName
 ) {
 	const entryPoint = getEntryPoint(moduleName);
 
 	const esbuildConfig = {
+		alias: projectAlias,
 		bundle: true,
 		entryPoints: [entryPoint],
-		external: getExternals(globalImports, projectWebContextPath, 'exports'),
 		format: 'esm',
 		outdir: BUILD_MAIN_EXPORTS_PATH,
 		plugins: [
 			getExactAliasPlugin(globalImports, 'exports', [moduleName]),
+			getExternalsPlugin(),
 			getImportBridgesPlugin(globalImports, overridenPackageSymbols),
 		],
 		sourcemap: true,

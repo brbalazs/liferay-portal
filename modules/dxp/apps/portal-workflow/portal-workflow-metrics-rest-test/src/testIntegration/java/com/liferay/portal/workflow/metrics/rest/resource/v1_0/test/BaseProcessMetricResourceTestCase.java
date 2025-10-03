@@ -29,13 +29,13 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
 import com.liferay.portal.workflow.metrics.rest.client.dto.v1_0.ProcessMetric;
 import com.liferay.portal.workflow.metrics.rest.client.http.HttpInvoker;
@@ -43,6 +43,10 @@ import com.liferay.portal.workflow.metrics.rest.client.pagination.Page;
 import com.liferay.portal.workflow.metrics.rest.client.pagination.Pagination;
 import com.liferay.portal.workflow.metrics.rest.client.resource.v1_0.ProcessMetricResource;
 import com.liferay.portal.workflow.metrics.rest.client.serdes.v1_0.ProcessMetricSerDes;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -58,10 +62,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -177,6 +177,21 @@ public abstract class BaseProcessMetricResourceTestCase {
 	}
 
 	@Test
+	public void testGetProcessMetric() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGraphQLGetProcessMetric() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGraphQLGetProcessMetricNotFound() throws Exception {
+		Assert.assertTrue(true);
+	}
+
+	@Test
 	public void testGetProcessMetricsPage() throws Exception {
 		Page<ProcessMetric> page = processMetricResource.getProcessMetricsPage(
 			RandomTestUtil.randomString(), Pagination.of(1, 10), null);
@@ -210,11 +225,11 @@ public abstract class BaseProcessMetricResourceTestCase {
 
 	@Test
 	public void testGetProcessMetricsPageWithPagination() throws Exception {
-		Page<ProcessMetric> processMetricPage =
+		Page<ProcessMetric> processMetricsPage =
 			processMetricResource.getProcessMetricsPage(null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			processMetricPage.getTotalCount());
+			processMetricsPage.getTotalCount());
 
 		ProcessMetric processMetric1 =
 			testGetProcessMetricsPage_addProcessMetric(randomProcessMetric());
@@ -450,22 +465,7 @@ public abstract class BaseProcessMetricResourceTestCase {
 	}
 
 	@Test
-	public void testGraphQLGetProcessMetricsPage() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testGetProcessMetric() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testGraphQLGetProcessMetric() throws Exception {
-		Assert.assertTrue(true);
-	}
-
-	@Test
-	public void testGraphQLGetProcessMetricNotFound() throws Exception {
+	public void testBatchEngineDeleteImportTask() throws Exception {
 		Assert.assertTrue(true);
 	}
 

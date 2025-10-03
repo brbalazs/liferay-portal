@@ -5,7 +5,7 @@
 
 package com.liferay.marketplace.service;
 
-import com.liferay.client.extension.util.spring.boot3.LiferayOAuth2AccessTokenManager;
+import com.liferay.client.extension.util.spring.boot3.client.LiferayOAuth2AccessTokenManager;
 import com.liferay.client.extension.util.spring.boot3.service.BaseService;
 import com.liferay.headless.admin.user.client.dto.v1_0.UserAccount;
 import com.liferay.headless.admin.user.client.resource.v1_0.AccountResource;
@@ -22,7 +22,9 @@ import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.CatalogR
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.ProductResource;
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.ProductSpecificationResource;
 import com.liferay.headless.commerce.admin.catalog.client.resource.v1_0.SkuResource;
+import com.liferay.headless.commerce.admin.order.client.dto.v1_0.BillingAddress;
 import com.liferay.headless.commerce.admin.order.client.dto.v1_0.Order;
+import com.liferay.headless.commerce.admin.order.client.resource.v1_0.BillingAddressResource;
 import com.liferay.headless.commerce.admin.order.client.resource.v1_0.OrderItemResource;
 import com.liferay.headless.commerce.admin.order.client.resource.v1_0.OrderResource;
 import com.liferay.marketplace.constants.MarketplaceConstants;
@@ -126,8 +128,25 @@ public class MarketplaceService extends BaseService {
 		).header(
 			HttpHeaders.AUTHORIZATION,
 			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server")
+				"liferay-marketplace-etc-spring-boot-oahs")
+		).endpoint(
+			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
+		).build();
+	}
+
+	public BillingAddress getBillingAddress(Long id) throws Exception {
+		BillingAddressResource billingAddressResource =
+			getBillingAddressResource();
+
+		return billingAddressResource.getOrderIdBillingAddress(id);
+	}
+
+	public BillingAddressResource getBillingAddressResource() throws Exception {
+		return BillingAddressResource.builder(
+		).header(
+			HttpHeaders.AUTHORIZATION,
+			_liferayOAuth2AccessTokenManager.getAuthorization(
+				"liferay-marketplace-etc-spring-boot-oahs")
 		).endpoint(
 			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
 		).build();
@@ -140,7 +159,7 @@ public class MarketplaceService extends BaseService {
 	}
 
 	public Order getOrder(Long id) throws Exception {
-		OrderResource orderResource = _getOrderResource();
+		OrderResource orderResource = getOrderResource();
 
 		return orderResource.getOrder(id);
 	}
@@ -150,10 +169,22 @@ public class MarketplaceService extends BaseService {
 		).header(
 			HttpHeaders.AUTHORIZATION,
 			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server")
+				"liferay-marketplace-etc-spring-boot-oahs")
 		).endpoint(
 			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
+		).build();
+	}
+
+	public OrderResource getOrderResource() throws Exception {
+		return OrderResource.builder(
+		).header(
+			HttpHeaders.AUTHORIZATION,
+			_liferayOAuth2AccessTokenManager.getAuthorization(
+				"liferay-marketplace-etc-spring-boot-oahs")
+		).endpoint(
+			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
+		).parameters(
+			"nestedFields", "account,billingAddress,orderItems"
 		).build();
 	}
 
@@ -162,8 +193,7 @@ public class MarketplaceService extends BaseService {
 		).header(
 			HttpHeaders.AUTHORIZATION,
 			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server")
+				"liferay-marketplace-etc-spring-boot-oahs")
 		).endpoint(
 			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
 		).build();
@@ -175,13 +205,18 @@ public class MarketplaceService extends BaseService {
 		return productResource.getProduct(id);
 	}
 
+	public Product getProductBySkuId(long skuId) throws Exception {
+		Sku sku = getSku(skuId);
+
+		return getProduct(sku.getProductId());
+	}
+
 	public ProductResource getProductResource() throws Exception {
 		return ProductResource.builder(
 		).header(
 			HttpHeaders.AUTHORIZATION,
 			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server")
+				"liferay-marketplace-etc-spring-boot-oahs")
 		).endpoint(
 			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
 		).build();
@@ -218,9 +253,7 @@ public class MarketplaceService extends BaseService {
 		String version = "1.0.0";
 
 		try {
-			SkuResource skuResource = getSkuResource();
-
-			Sku sku = skuResource.getSku(skuId);
+			Sku sku = getSku(skuId);
 
 			for (CustomField customField : sku.getCustomFields()) {
 				if (Objects.equals(customField.getName(), "Version")) {
@@ -238,6 +271,12 @@ public class MarketplaceService extends BaseService {
 		}
 
 		return version;
+	}
+
+	public Sku getSku(Long id) throws Exception {
+		SkuResource skuResource = getSkuResource();
+
+		return skuResource.getSku(id);
 	}
 
 	public String getSkuOptionValue(String key, SkuOption[] skuOptions) {
@@ -281,8 +320,7 @@ public class MarketplaceService extends BaseService {
 		).header(
 			HttpHeaders.AUTHORIZATION,
 			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server")
+				"liferay-marketplace-etc-spring-boot-oahs")
 		).endpoint(
 			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
 		).build();
@@ -301,8 +339,7 @@ public class MarketplaceService extends BaseService {
 
 		String authorization =
 			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server");
+				"liferay-marketplace-etc-spring-boot-oahs");
 		URL liferayDXPURL = new URL(
 			lxcDXPServerProtocol + "://" + lxcDXPMainDomain);
 
@@ -409,7 +446,7 @@ public class MarketplaceService extends BaseService {
 		order.setCustomFields(() -> customFields);
 		order.setOrderStatus(() -> orderStatus);
 
-		OrderResource orderResource = _getOrderResource();
+		OrderResource orderResource = getOrderResource();
 
 		orderResource.patchOrder(orderId, order);
 	}
@@ -419,8 +456,7 @@ public class MarketplaceService extends BaseService {
 		).header(
 			HttpHeaders.AUTHORIZATION,
 			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server")
+				"liferay-marketplace-etc-spring-boot-oahs")
 		).endpoint(
 			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
 		).build();
@@ -442,18 +478,6 @@ public class MarketplaceService extends BaseService {
 		return new JSONObject();
 	}
 
-	private OrderResource _getOrderResource() throws Exception {
-		return OrderResource.builder(
-		).header(
-			HttpHeaders.AUTHORIZATION,
-			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server")
-		).endpoint(
-			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
-		).build();
-	}
-
 	private ProductSpecificationResource _getProductSpecificationResource()
 		throws Exception {
 
@@ -461,8 +485,7 @@ public class MarketplaceService extends BaseService {
 		).header(
 			HttpHeaders.AUTHORIZATION,
 			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server")
+				"liferay-marketplace-etc-spring-boot-oahs")
 		).endpoint(
 			new URL(lxcDXPServerProtocol + "://" + lxcDXPMainDomain)
 		).build();
@@ -475,8 +498,7 @@ public class MarketplaceService extends BaseService {
 		).header(
 			org.apache.http.HttpHeaders.AUTHORIZATION,
 			_liferayOAuth2AccessTokenManager.getAuthorization(
-				"liferay-marketplace-etc-spring-boot-oauth-application-" +
-					"headless-server")
+				"liferay-marketplace-etc-spring-boot-oahs")
 		).build();
 	}
 

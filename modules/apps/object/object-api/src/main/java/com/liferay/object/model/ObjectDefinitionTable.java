@@ -58,10 +58,6 @@ public class ObjectDefinitionTable extends BaseTable<ObjectDefinitionTable> {
 	public final Column<ObjectDefinitionTable, Long> objectFolderId =
 		createColumn(
 			"objectFolderId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
-	public final Column<ObjectDefinitionTable, Long> rootObjectDefinitionId =
-		createColumn(
-			"rootObjectDefinitionId", Long.class, Types.BIGINT,
-			Column.FLAG_DEFAULT);
 	public final Column<ObjectDefinitionTable, Long> titleObjectFieldId =
 		createColumn(
 			"titleObjectFieldId", Long.class, Types.BIGINT,
@@ -85,6 +81,10 @@ public class ObjectDefinitionTable extends BaseTable<ObjectDefinitionTable> {
 		createColumn(
 			"enableComments", Boolean.class, Types.BOOLEAN,
 			Column.FLAG_DEFAULT);
+	public final Column<ObjectDefinitionTable, Boolean> enableFormContainer =
+		createColumn(
+			"enableFormContainer", Boolean.class, Types.BOOLEAN,
+			Column.FLAG_DEFAULT);
 	public final Column<ObjectDefinitionTable, Boolean>
 		enableFriendlyURLCustomization = createColumn(
 			"enableFriendlyURLCustomization", Boolean.class, Types.BOOLEAN,
@@ -104,6 +104,22 @@ public class ObjectDefinitionTable extends BaseTable<ObjectDefinitionTable> {
 	public final Column<ObjectDefinitionTable, Boolean>
 		enableObjectEntryHistory = createColumn(
 			"enableObjectEntryHistory", Boolean.class, Types.BOOLEAN,
+			Column.FLAG_DEFAULT);
+	public final Column<ObjectDefinitionTable, Boolean>
+		enableObjectEntrySchedule = createColumn(
+			"enableObjectEntrySchedule", Boolean.class, Types.BOOLEAN,
+			Column.FLAG_DEFAULT);
+	public final Column<ObjectDefinitionTable, Boolean>
+		enableObjectEntrySubscription = createColumn(
+			"enableObjectEntrySubscription", Boolean.class, Types.BOOLEAN,
+			Column.FLAG_DEFAULT);
+	public final Column<ObjectDefinitionTable, Boolean>
+		enableObjectEntryVersioning = createColumn(
+			"enableObjectEntryVersioning", Boolean.class, Types.BOOLEAN,
+			Column.FLAG_DEFAULT);
+	public final Column<ObjectDefinitionTable, String> friendlyURLSeparator =
+		createColumn(
+			"friendlyURLSeparator", String.class, Types.VARCHAR,
 			Column.FLAG_DEFAULT);
 	public final Column<ObjectDefinitionTable, String> label = createColumn(
 		"label", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);

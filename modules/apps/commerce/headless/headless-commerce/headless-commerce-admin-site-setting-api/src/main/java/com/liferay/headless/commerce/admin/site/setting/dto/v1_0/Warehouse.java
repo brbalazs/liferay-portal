@@ -16,6 +16,14 @@ import com.liferay.portal.vulcan.graphql.annotation.GraphQLField;
 import com.liferay.portal.vulcan.graphql.annotation.GraphQLName;
 import com.liferay.portal.vulcan.util.ObjectMapperUtil;
 
+import jakarta.annotation.Generated;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.io.Serializable;
 
 import java.util.Iterator;
@@ -23,14 +31,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
-
-import javax.annotation.Generated;
-
-import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
-
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Zoltán Takács
@@ -428,8 +428,7 @@ public class Warehouse implements Serializable {
 	private Supplier<Double> _longitudeSupplier;
 
 	@io.swagger.v3.oas.annotations.media.Schema(example = "0")
-	@Valid
-	public Number getMvccVersion() {
+	public Integer getMvccVersion() {
 		if (_mvccVersionSupplier != null) {
 			mvccVersion = _mvccVersionSupplier.get();
 
@@ -439,7 +438,7 @@ public class Warehouse implements Serializable {
 		return mvccVersion;
 	}
 
-	public void setMvccVersion(Number mvccVersion) {
+	public void setMvccVersion(Integer mvccVersion) {
 		this.mvccVersion = mvccVersion;
 
 		_mvccVersionSupplier = null;
@@ -447,7 +446,7 @@ public class Warehouse implements Serializable {
 
 	@JsonIgnore
 	public void setMvccVersion(
-		UnsafeSupplier<Number, Exception> mvccVersionUnsafeSupplier) {
+		UnsafeSupplier<Integer, Exception> mvccVersionUnsafeSupplier) {
 
 		_mvccVersionSupplier = () -> {
 			try {
@@ -464,10 +463,10 @@ public class Warehouse implements Serializable {
 
 	@GraphQLField
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
-	protected Number mvccVersion;
+	protected Integer mvccVersion;
 
 	@JsonIgnore
-	private Supplier<Number> _mvccVersionSupplier;
+	private Supplier<Integer> _mvccVersionSupplier;
 
 	@io.swagger.v3.oas.annotations.media.Schema(
 		example = "{en_US=Warehouse Name US, hr_HR=Warehouse Name HR, hu_HU=Warehouse Name HU}"
@@ -856,7 +855,7 @@ public class Warehouse implements Serializable {
 			sb.append(longitude);
 		}
 
-		Number mvccVersion = getMvccVersion();
+		Integer mvccVersion = getMvccVersion();
 
 		if (mvccVersion != null) {
 			if (sb.length() > 1) {

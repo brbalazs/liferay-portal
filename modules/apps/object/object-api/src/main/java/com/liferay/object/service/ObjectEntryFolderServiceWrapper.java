@@ -31,14 +31,14 @@ public class ObjectEntryFolderServiceWrapper
 	@Override
 	public com.liferay.object.model.ObjectEntryFolder addObjectEntryFolder(
 			String externalReferenceCode, long groupId,
-			long parentObjectEntryFolderId,
+			long parentObjectEntryFolderId, String description,
 			java.util.Map<java.util.Locale, String> labelMap, String name,
 			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _objectEntryFolderService.addObjectEntryFolder(
-			externalReferenceCode, groupId, parentObjectEntryFolderId, labelMap,
-			name, serviceContext);
+			externalReferenceCode, groupId, parentObjectEntryFolderId,
+			description, labelMap, name, serviceContext);
 	}
 
 	@Override
@@ -51,12 +51,54 @@ public class ObjectEntryFolderServiceWrapper
 	}
 
 	@Override
+	public com.liferay.object.model.ObjectEntryFolder
+			deleteObjectEntryFolderByExternalReferenceCode(
+				String externalReferenceCode, long groupId, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _objectEntryFolderService.
+			deleteObjectEntryFolderByExternalReferenceCode(
+				externalReferenceCode, groupId, companyId);
+	}
+
+	@Override
+	public com.liferay.object.model.ObjectEntryFolder fetchObjectEntryFolder(
+			long objectEntryFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _objectEntryFolderService.fetchObjectEntryFolder(
+			objectEntryFolderId);
+	}
+
+	@Override
+	public com.liferay.object.model.ObjectEntryFolder
+			fetchObjectEntryFolderByExternalReferenceCode(
+				String externalReferenceCode, long groupId, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _objectEntryFolderService.
+			fetchObjectEntryFolderByExternalReferenceCode(
+				externalReferenceCode, groupId, companyId);
+	}
+
+	@Override
 	public com.liferay.object.model.ObjectEntryFolder getObjectEntryFolder(
 			long objectEntryFolderId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _objectEntryFolderService.getObjectEntryFolder(
 			objectEntryFolderId);
+	}
+
+	@Override
+	public com.liferay.object.model.ObjectEntryFolder
+			getObjectEntryFolderByExternalReferenceCode(
+				String externalReferenceCode, long groupId, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _objectEntryFolderService.
+			getObjectEntryFolderByExternalReferenceCode(
+				externalReferenceCode, groupId, companyId);
 	}
 
 	@Override
@@ -79,6 +121,17 @@ public class ObjectEntryFolderServiceWrapper
 			groupId, companyId, parentObjectEntryFolderId);
 	}
 
+	@Override
+	public com.liferay.object.model.ObjectEntryFolder
+			getOrAddEmptyObjectEntryFolder(
+				String externalReferenceCode, long groupId, long companyId,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _objectEntryFolderService.getOrAddEmptyObjectEntryFolder(
+			externalReferenceCode, groupId, companyId, serviceContext);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -90,13 +143,56 @@ public class ObjectEntryFolderServiceWrapper
 	}
 
 	@Override
+	public com.liferay.object.model.ObjectEntryFolder
+			moveObjectEntryFolderToTrash(
+				com.liferay.object.model.ObjectEntryFolder objectEntryFolder,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _objectEntryFolderService.moveObjectEntryFolderToTrash(
+			objectEntryFolder, serviceContext);
+	}
+
+	@Override
+	public com.liferay.object.model.ObjectEntryFolder
+			restoreObjectEntryFolderFromTrash(
+				com.liferay.object.model.ObjectEntryFolder objectEntryFolder,
+				com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _objectEntryFolderService.restoreObjectEntryFolderFromTrash(
+			objectEntryFolder, serviceContext);
+	}
+
+	@Override
+	public void subscribeObjectEntryFolder(
+			long groupId, long objectEntryFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_objectEntryFolderService.subscribeObjectEntryFolder(
+			groupId, objectEntryFolderId);
+	}
+
+	@Override
+	public void unsubscribeObjectEntryFolder(
+			long groupId, long objectEntryFolderId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_objectEntryFolderService.unsubscribeObjectEntryFolder(
+			groupId, objectEntryFolderId);
+	}
+
+	@Override
 	public com.liferay.object.model.ObjectEntryFolder updateObjectEntryFolder(
 			long objectEntryFolderId, long parentObjectEntryFolderId,
-			java.util.Map<java.util.Locale, String> labelMap, String name)
+			String description,
+			java.util.Map<java.util.Locale, String> labelMap, String name,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _objectEntryFolderService.updateObjectEntryFolder(
-			objectEntryFolderId, parentObjectEntryFolderId, labelMap, name);
+			objectEntryFolderId, parentObjectEntryFolderId, description,
+			labelMap, name, serviceContext);
 	}
 
 	@Override

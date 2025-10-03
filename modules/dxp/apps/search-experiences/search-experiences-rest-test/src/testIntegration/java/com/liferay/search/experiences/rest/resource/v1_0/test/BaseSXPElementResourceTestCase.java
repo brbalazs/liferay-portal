@@ -13,12 +13,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.oauth2.provider.scope.ScopeChecker;
 import com.liferay.petra.function.UnsafeTriConsumer;
 import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -34,9 +38,11 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -45,7 +51,6 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
@@ -57,6 +62,16 @@ import com.liferay.search.experiences.rest.client.pagination.Page;
 import com.liferay.search.experiences.rest.client.pagination.Pagination;
 import com.liferay.search.experiences.rest.client.resource.v1_0.SXPElementResource;
 import com.liferay.search.experiences.rest.client.serdes.v1_0.SXPElementSerDes;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -75,16 +90,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -131,6 +137,16 @@ public abstract class BaseSXPElementResourceTestCase {
 			testCompany.getCompanyId());
 
 		sxpElementResource = SXPElementResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		importTaskResource = ImportTaskResource.builder(
 		).authentication(
 			_testCompanyAdminUser.getEmailAddress(),
 			PropsValues.DEFAULT_ADMIN_PASSWORD
@@ -223,582 +239,6 @@ public abstract class BaseSXPElementResourceTestCase {
 	}
 
 	@Test
-	public void testGetSXPElementsPage() throws Exception {
-		Page<SXPElement> page = sxpElementResource.getSXPElementsPage(
-			null, null, Pagination.of(1, 10), null);
-
-		long totalCount = page.getTotalCount();
-
-		SXPElement sxpElement1 = testGetSXPElementsPage_addSXPElement(
-			randomSXPElement());
-
-		SXPElement sxpElement2 = testGetSXPElementsPage_addSXPElement(
-			randomSXPElement());
-
-		page = sxpElementResource.getSXPElementsPage(
-			null, null, Pagination.of(1, 10), null);
-
-		Assert.assertEquals(totalCount + 2, page.getTotalCount());
-
-		assertContains(sxpElement1, (List<SXPElement>)page.getItems());
-		assertContains(sxpElement2, (List<SXPElement>)page.getItems());
-		assertValid(page, testGetSXPElementsPage_getExpectedActions());
-
-		sxpElementResource.deleteSXPElement(sxpElement1.getId());
-
-		sxpElementResource.deleteSXPElement(sxpElement2.getId());
-	}
-
-	protected Map<String, Map<String, String>>
-			testGetSXPElementsPage_getExpectedActions()
-		throws Exception {
-
-		Map<String, Map<String, String>> expectedActions = new HashMap<>();
-
-		return expectedActions;
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithFilterDateTimeEquals()
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(
-			EntityField.Type.DATE_TIME);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		SXPElement sxpElement1 = randomSXPElement();
-
-		sxpElement1 = testGetSXPElementsPage_addSXPElement(sxpElement1);
-
-		for (EntityField entityField : entityFields) {
-			Page<SXPElement> page = sxpElementResource.getSXPElementsPage(
-				null, getFilterString(entityField, "between", sxpElement1),
-				Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(sxpElement1),
-				(List<SXPElement>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithFilterDoubleEquals()
-		throws Exception {
-
-		testGetSXPElementsPageWithFilter("eq", EntityField.Type.DOUBLE);
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithFilterStringContains()
-		throws Exception {
-
-		testGetSXPElementsPageWithFilter("contains", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithFilterStringEquals()
-		throws Exception {
-
-		testGetSXPElementsPageWithFilter("eq", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithFilterStringStartsWith()
-		throws Exception {
-
-		testGetSXPElementsPageWithFilter("startswith", EntityField.Type.STRING);
-	}
-
-	protected void testGetSXPElementsPageWithFilter(
-			String operator, EntityField.Type type)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		SXPElement sxpElement1 = testGetSXPElementsPage_addSXPElement(
-			randomSXPElement());
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		SXPElement sxpElement2 = testGetSXPElementsPage_addSXPElement(
-			randomSXPElement());
-
-		for (EntityField entityField : entityFields) {
-			Page<SXPElement> page = sxpElementResource.getSXPElementsPage(
-				null, getFilterString(entityField, operator, sxpElement1),
-				Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(sxpElement1),
-				(List<SXPElement>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithPagination() throws Exception {
-		Page<SXPElement> sxpElementPage = sxpElementResource.getSXPElementsPage(
-			null, null, null, null);
-
-		int totalCount = GetterUtil.getInteger(sxpElementPage.getTotalCount());
-
-		SXPElement sxpElement1 = testGetSXPElementsPage_addSXPElement(
-			randomSXPElement());
-
-		SXPElement sxpElement2 = testGetSXPElementsPage_addSXPElement(
-			randomSXPElement());
-
-		SXPElement sxpElement3 = testGetSXPElementsPage_addSXPElement(
-			randomSXPElement());
-
-		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
-
-		int pageSizeLimit = 500;
-
-		if (totalCount >= (pageSizeLimit - 2)) {
-			Page<SXPElement> page1 = sxpElementResource.getSXPElementsPage(
-				null, null,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
-					pageSizeLimit),
-				null);
-
-			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
-
-			assertContains(sxpElement1, (List<SXPElement>)page1.getItems());
-
-			Page<SXPElement> page2 = sxpElementResource.getSXPElementsPage(
-				null, null,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
-					pageSizeLimit),
-				null);
-
-			assertContains(sxpElement2, (List<SXPElement>)page2.getItems());
-
-			Page<SXPElement> page3 = sxpElementResource.getSXPElementsPage(
-				null, null,
-				Pagination.of(
-					(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
-					pageSizeLimit),
-				null);
-
-			assertContains(sxpElement3, (List<SXPElement>)page3.getItems());
-		}
-		else {
-			Page<SXPElement> page1 = sxpElementResource.getSXPElementsPage(
-				null, null, Pagination.of(1, totalCount + 2), null);
-
-			List<SXPElement> sxpElements1 = (List<SXPElement>)page1.getItems();
-
-			Assert.assertEquals(
-				sxpElements1.toString(), totalCount + 2, sxpElements1.size());
-
-			Page<SXPElement> page2 = sxpElementResource.getSXPElementsPage(
-				null, null, Pagination.of(2, totalCount + 2), null);
-
-			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
-
-			List<SXPElement> sxpElements2 = (List<SXPElement>)page2.getItems();
-
-			Assert.assertEquals(
-				sxpElements2.toString(), 1, sxpElements2.size());
-
-			Page<SXPElement> page3 = sxpElementResource.getSXPElementsPage(
-				null, null, Pagination.of(1, (int)totalCount + 3), null);
-
-			assertContains(sxpElement1, (List<SXPElement>)page3.getItems());
-			assertContains(sxpElement2, (List<SXPElement>)page3.getItems());
-			assertContains(sxpElement3, (List<SXPElement>)page3.getItems());
-		}
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithSortDateTime() throws Exception {
-		testGetSXPElementsPageWithSort(
-			EntityField.Type.DATE_TIME,
-			(entityField, sxpElement1, sxpElement2) -> {
-				BeanTestUtil.setProperty(
-					sxpElement1, entityField.getName(),
-					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
-			});
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithSortDouble() throws Exception {
-		testGetSXPElementsPageWithSort(
-			EntityField.Type.DOUBLE,
-			(entityField, sxpElement1, sxpElement2) -> {
-				BeanTestUtil.setProperty(
-					sxpElement1, entityField.getName(), 0.1);
-				BeanTestUtil.setProperty(
-					sxpElement2, entityField.getName(), 0.5);
-			});
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithSortInteger() throws Exception {
-		testGetSXPElementsPageWithSort(
-			EntityField.Type.INTEGER,
-			(entityField, sxpElement1, sxpElement2) -> {
-				BeanTestUtil.setProperty(sxpElement1, entityField.getName(), 0);
-				BeanTestUtil.setProperty(sxpElement2, entityField.getName(), 1);
-			});
-	}
-
-	@Test
-	public void testGetSXPElementsPageWithSortString() throws Exception {
-		testGetSXPElementsPageWithSort(
-			EntityField.Type.STRING,
-			(entityField, sxpElement1, sxpElement2) -> {
-				Class<?> clazz = sxpElement1.getClass();
-
-				String entityFieldName = entityField.getName();
-
-				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
-
-				Class<?> returnType = method.getReturnType();
-
-				if (returnType.isAssignableFrom(Map.class)) {
-					BeanTestUtil.setProperty(
-						sxpElement1, entityFieldName,
-						Collections.singletonMap("Aaa", "Aaa"));
-					BeanTestUtil.setProperty(
-						sxpElement2, entityFieldName,
-						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanTestUtil.setProperty(
-						sxpElement1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanTestUtil.setProperty(
-						sxpElement2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-				}
-				else {
-					BeanTestUtil.setProperty(
-						sxpElement1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-					BeanTestUtil.setProperty(
-						sxpElement2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-				}
-			});
-	}
-
-	protected void testGetSXPElementsPageWithSort(
-			EntityField.Type type,
-			UnsafeTriConsumer<EntityField, SXPElement, SXPElement, Exception>
-				unsafeTriConsumer)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		SXPElement sxpElement1 = randomSXPElement();
-		SXPElement sxpElement2 = randomSXPElement();
-
-		for (EntityField entityField : entityFields) {
-			unsafeTriConsumer.accept(entityField, sxpElement1, sxpElement2);
-		}
-
-		sxpElement1 = testGetSXPElementsPage_addSXPElement(sxpElement1);
-
-		sxpElement2 = testGetSXPElementsPage_addSXPElement(sxpElement2);
-
-		Page<SXPElement> page = sxpElementResource.getSXPElementsPage(
-			null, null, null, null);
-
-		for (EntityField entityField : entityFields) {
-			Page<SXPElement> ascPage = sxpElementResource.getSXPElementsPage(
-				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
-				entityField.getName() + ":asc");
-
-			assertContains(sxpElement1, (List<SXPElement>)ascPage.getItems());
-			assertContains(sxpElement2, (List<SXPElement>)ascPage.getItems());
-
-			Page<SXPElement> descPage = sxpElementResource.getSXPElementsPage(
-				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
-				entityField.getName() + ":desc");
-
-			assertContains(sxpElement2, (List<SXPElement>)descPage.getItems());
-			assertContains(sxpElement1, (List<SXPElement>)descPage.getItems());
-		}
-	}
-
-	protected SXPElement testGetSXPElementsPage_addSXPElement(
-			SXPElement sxpElement)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPostSXPElement() throws Exception {
-		SXPElement randomSXPElement = randomSXPElement();
-
-		SXPElement postSXPElement = testPostSXPElement_addSXPElement(
-			randomSXPElement);
-
-		assertEquals(randomSXPElement, postSXPElement);
-		assertValid(postSXPElement);
-	}
-
-	protected SXPElement testPostSXPElement_addSXPElement(SXPElement sxpElement)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGetSXPElementByExternalReferenceCode() throws Exception {
-		SXPElement postSXPElement =
-			testGetSXPElementByExternalReferenceCode_addSXPElement();
-
-		SXPElement getSXPElement =
-			sxpElementResource.getSXPElementByExternalReferenceCode(
-				postSXPElement.getExternalReferenceCode());
-
-		assertEquals(postSXPElement, getSXPElement);
-		assertValid(getSXPElement);
-	}
-
-	protected SXPElement
-			testGetSXPElementByExternalReferenceCode_addSXPElement()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetSXPElementByExternalReferenceCode()
-		throws Exception {
-
-		SXPElement sxpElement =
-			testGraphQLGetSXPElementByExternalReferenceCode_addSXPElement();
-
-		// No namespace
-
-		Assert.assertTrue(
-			equals(
-				sxpElement,
-				SXPElementSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"sXPElementByExternalReferenceCode",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"externalReferenceCode",
-											"\"" +
-												sxpElement.
-													getExternalReferenceCode() +
-														"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/sXPElementByExternalReferenceCode"))));
-
-		// Using the namespace searchExperiences_v1_0
-
-		Assert.assertTrue(
-			equals(
-				sxpElement,
-				SXPElementSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"searchExperiences_v1_0",
-								new GraphQLField(
-									"sXPElementByExternalReferenceCode",
-									new HashMap<String, Object>() {
-										{
-											put(
-												"externalReferenceCode",
-												"\"" +
-													sxpElement.
-														getExternalReferenceCode() +
-															"\"");
-										}
-									},
-									getGraphQLFields()))),
-						"JSONObject/data", "JSONObject/searchExperiences_v1_0",
-						"Object/sXPElementByExternalReferenceCode"))));
-	}
-
-	@Test
-	public void testGraphQLGetSXPElementByExternalReferenceCodeNotFound()
-		throws Exception {
-
-		String irrelevantExternalReferenceCode =
-			"\"" + RandomTestUtil.randomString() + "\"";
-
-		// No namespace
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"sXPElementByExternalReferenceCode",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-
-		// Using the namespace searchExperiences_v1_0
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"searchExperiences_v1_0",
-						new GraphQLField(
-							"sXPElementByExternalReferenceCode",
-							new HashMap<String, Object>() {
-								{
-									put(
-										"externalReferenceCode",
-										irrelevantExternalReferenceCode);
-								}
-							},
-							getGraphQLFields()))),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected SXPElement
-			testGraphQLGetSXPElementByExternalReferenceCode_addSXPElement()
-		throws Exception {
-
-		return testGraphQLSXPElement_addSXPElement();
-	}
-
-	@Test
-	public void testPutSXPElementByExternalReferenceCode() throws Exception {
-		SXPElement postSXPElement =
-			testPutSXPElementByExternalReferenceCode_addSXPElement();
-
-		SXPElement randomSXPElement = randomSXPElement();
-
-		SXPElement putSXPElement =
-			sxpElementResource.putSXPElementByExternalReferenceCode(
-				postSXPElement.getExternalReferenceCode(), randomSXPElement);
-
-		assertEquals(randomSXPElement, putSXPElement);
-		assertValid(putSXPElement);
-
-		SXPElement getSXPElement =
-			sxpElementResource.getSXPElementByExternalReferenceCode(
-				putSXPElement.getExternalReferenceCode());
-
-		assertEquals(randomSXPElement, getSXPElement);
-		assertValid(getSXPElement);
-
-		SXPElement newSXPElement =
-			testPutSXPElementByExternalReferenceCode_createSXPElement();
-
-		putSXPElement = sxpElementResource.putSXPElementByExternalReferenceCode(
-			newSXPElement.getExternalReferenceCode(), newSXPElement);
-
-		assertEquals(newSXPElement, putSXPElement);
-		assertValid(putSXPElement);
-
-		getSXPElement = sxpElementResource.getSXPElementByExternalReferenceCode(
-			putSXPElement.getExternalReferenceCode());
-
-		assertEquals(newSXPElement, getSXPElement);
-
-		Assert.assertEquals(
-			newSXPElement.getExternalReferenceCode(),
-			putSXPElement.getExternalReferenceCode());
-	}
-
-	protected SXPElement
-			testPutSXPElementByExternalReferenceCode_createSXPElement()
-		throws Exception {
-
-		return randomSXPElement();
-	}
-
-	protected SXPElement
-			testPutSXPElementByExternalReferenceCode_addSXPElement()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPostSXPElementPreview() throws Exception {
-		SXPElement randomSXPElement = randomSXPElement();
-
-		SXPElement postSXPElement = testPostSXPElementPreview_addSXPElement(
-			randomSXPElement);
-
-		assertEquals(randomSXPElement, postSXPElement);
-		assertValid(postSXPElement);
-	}
-
-	protected SXPElement testPostSXPElementPreview_addSXPElement(
-			SXPElement sxpElement)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testPostSXPElementValidate() throws Exception {
-		SXPElement randomSXPElement = randomSXPElement();
-
-		SXPElement postSXPElement = testPostSXPElementValidate_addSXPElement(
-			randomSXPElement);
-
-		assertEquals(randomSXPElement, postSXPElement);
-		assertValid(postSXPElement);
-	}
-
-	protected SXPElement testPostSXPElementValidate_addSXPElement(
-			SXPElement sxpElement)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
 	public void testDeleteSXPElement() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		SXPElement sxpElement = testDeleteSXPElement_addSXPElement();
@@ -811,7 +251,6 @@ public abstract class BaseSXPElementResourceTestCase {
 		assertHttpResponseStatusCode(
 			404,
 			sxpElementResource.getSXPElementHttpResponse(sxpElement.getId()));
-
 		assertHttpResponseStatusCode(
 			404, sxpElementResource.getSXPElementHttpResponse(0L));
 	}
@@ -849,7 +288,7 @@ public abstract class BaseSXPElementResourceTestCase {
 							put("sxpElementId", sxpElement1.getId());
 						}
 					},
-					new GraphQLField("id"))),
+					getGraphQLFields())),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray1.length() > 0);
@@ -884,7 +323,7 @@ public abstract class BaseSXPElementResourceTestCase {
 								put("sxpElementId", sxpElement2.getId());
 							}
 						},
-						new GraphQLField("id")))),
+						getGraphQLFields()))),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray2.length() > 0);
@@ -894,6 +333,45 @@ public abstract class BaseSXPElementResourceTestCase {
 		throws Exception {
 
 		return testGraphQLSXPElement_addSXPElement();
+	}
+
+	@Test
+	public void testDeleteSXPElementBatch() throws Exception {
+		SXPElement sxpElement1 = testDeleteSXPElementBatch_addSXPElement();
+
+		testDeleteSXPElementBatch_deleteSXPElement(
+			202, null, sxpElement1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			sxpElementResource.getSXPElementHttpResponse(sxpElement1.getId()));
+	}
+
+	protected SXPElement testDeleteSXPElementBatch_addSXPElement()
+		throws Exception {
+
+		return testDeleteSXPElement_addSXPElement();
+	}
+
+	protected void testDeleteSXPElementBatch_deleteSXPElement(
+			int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			sxpElementResource.deleteSXPElementBatchHttpResponse(
+				null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
 	}
 
 	@Test
@@ -1194,6 +672,545 @@ public abstract class BaseSXPElementResourceTestCase {
 	}
 
 	@Test
+	public void testGetSXPElementByExternalReferenceCode() throws Exception {
+		SXPElement postSXPElement =
+			testGetSXPElementByExternalReferenceCode_addSXPElement();
+
+		SXPElement getSXPElement =
+			sxpElementResource.getSXPElementByExternalReferenceCode(
+				postSXPElement.getExternalReferenceCode());
+
+		assertEquals(postSXPElement, getSXPElement);
+		assertValid(getSXPElement);
+	}
+
+	protected SXPElement
+			testGetSXPElementByExternalReferenceCode_addSXPElement()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetSXPElementByExternalReferenceCode()
+		throws Exception {
+
+		SXPElement sxpElement =
+			testGraphQLGetSXPElementByExternalReferenceCode_addSXPElement();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				sxpElement,
+				SXPElementSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"sXPElementByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											"\"" +
+												sxpElement.
+													getExternalReferenceCode() +
+														"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/sXPElementByExternalReferenceCode"))));
+
+		// Using the namespace searchExperiences_v1_0
+
+		Assert.assertTrue(
+			equals(
+				sxpElement,
+				SXPElementSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"searchExperiences_v1_0",
+								new GraphQLField(
+									"sXPElementByExternalReferenceCode",
+									new HashMap<String, Object>() {
+										{
+											put(
+												"externalReferenceCode",
+												"\"" +
+													sxpElement.
+														getExternalReferenceCode() +
+															"\"");
+										}
+									},
+									getGraphQLFields()))),
+						"JSONObject/data", "JSONObject/searchExperiences_v1_0",
+						"Object/sXPElementByExternalReferenceCode"))));
+	}
+
+	@Test
+	public void testGraphQLGetSXPElementByExternalReferenceCodeNotFound()
+		throws Exception {
+
+		String irrelevantExternalReferenceCode =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"sXPElementByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									irrelevantExternalReferenceCode);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace searchExperiences_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"searchExperiences_v1_0",
+						new GraphQLField(
+							"sXPElementByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"externalReferenceCode",
+										irrelevantExternalReferenceCode);
+								}
+							},
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected SXPElement
+			testGraphQLGetSXPElementByExternalReferenceCode_addSXPElement()
+		throws Exception {
+
+		return testGraphQLSXPElement_addSXPElement();
+	}
+
+	@Test
+	public void testGetSXPElementExport() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testGetSXPElementsPage() throws Exception {
+		Page<SXPElement> page = sxpElementResource.getSXPElementsPage(
+			null, null, Pagination.of(1, 10), null);
+
+		long totalCount = page.getTotalCount();
+
+		SXPElement sxpElement1 = testGetSXPElementsPage_addSXPElement(
+			randomSXPElement());
+
+		SXPElement sxpElement2 = testGetSXPElementsPage_addSXPElement(
+			randomSXPElement());
+
+		page = sxpElementResource.getSXPElementsPage(
+			null, null, Pagination.of(1, 10), null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(sxpElement1, (List<SXPElement>)page.getItems());
+		assertContains(sxpElement2, (List<SXPElement>)page.getItems());
+		assertValid(page, testGetSXPElementsPage_getExpectedActions());
+
+		sxpElementResource.deleteSXPElement(sxpElement1.getId());
+
+		sxpElementResource.deleteSXPElement(sxpElement2.getId());
+	}
+
+	protected Map<String, Map<String, String>>
+			testGetSXPElementsPage_getExpectedActions()
+		throws Exception {
+
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
+
+		return expectedActions;
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		SXPElement sxpElement1 = randomSXPElement();
+
+		sxpElement1 = testGetSXPElementsPage_addSXPElement(sxpElement1);
+
+		for (EntityField entityField : entityFields) {
+			Page<SXPElement> page = sxpElementResource.getSXPElementsPage(
+				null, getFilterString(entityField, "between", sxpElement1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(sxpElement1),
+				(List<SXPElement>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithFilterDoubleEquals()
+		throws Exception {
+
+		testGetSXPElementsPageWithFilter("eq", EntityField.Type.DOUBLE);
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithFilterStringContains()
+		throws Exception {
+
+		testGetSXPElementsPageWithFilter("contains", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithFilterStringEquals()
+		throws Exception {
+
+		testGetSXPElementsPageWithFilter("eq", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithFilterStringStartsWith()
+		throws Exception {
+
+		testGetSXPElementsPageWithFilter("startswith", EntityField.Type.STRING);
+	}
+
+	protected void testGetSXPElementsPageWithFilter(
+			String operator, EntityField.Type type)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		SXPElement sxpElement1 = testGetSXPElementsPage_addSXPElement(
+			randomSXPElement());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		SXPElement sxpElement2 = testGetSXPElementsPage_addSXPElement(
+			randomSXPElement());
+
+		for (EntityField entityField : entityFields) {
+			Page<SXPElement> page = sxpElementResource.getSXPElementsPage(
+				null, getFilterString(entityField, operator, sxpElement1),
+				Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(sxpElement1),
+				(List<SXPElement>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithPagination() throws Exception {
+		Page<SXPElement> sxpElementsPage =
+			sxpElementResource.getSXPElementsPage(null, null, null, null);
+
+		int totalCount = GetterUtil.getInteger(sxpElementsPage.getTotalCount());
+
+		SXPElement sxpElement1 = testGetSXPElementsPage_addSXPElement(
+			randomSXPElement());
+
+		SXPElement sxpElement2 = testGetSXPElementsPage_addSXPElement(
+			randomSXPElement());
+
+		SXPElement sxpElement3 = testGetSXPElementsPage_addSXPElement(
+			randomSXPElement());
+
+		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
+
+		int pageSizeLimit = 500;
+
+		if (totalCount >= (pageSizeLimit - 2)) {
+			Page<SXPElement> page1 = sxpElementResource.getSXPElementsPage(
+				null, null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
+					pageSizeLimit),
+				null);
+
+			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
+
+			assertContains(sxpElement1, (List<SXPElement>)page1.getItems());
+
+			Page<SXPElement> page2 = sxpElementResource.getSXPElementsPage(
+				null, null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
+					pageSizeLimit),
+				null);
+
+			assertContains(sxpElement2, (List<SXPElement>)page2.getItems());
+
+			Page<SXPElement> page3 = sxpElementResource.getSXPElementsPage(
+				null, null,
+				Pagination.of(
+					(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
+					pageSizeLimit),
+				null);
+
+			assertContains(sxpElement3, (List<SXPElement>)page3.getItems());
+		}
+		else {
+			Page<SXPElement> page1 = sxpElementResource.getSXPElementsPage(
+				null, null, Pagination.of(1, totalCount + 2), null);
+
+			List<SXPElement> sxpElements1 = (List<SXPElement>)page1.getItems();
+
+			Assert.assertEquals(
+				sxpElements1.toString(), totalCount + 2, sxpElements1.size());
+
+			Page<SXPElement> page2 = sxpElementResource.getSXPElementsPage(
+				null, null, Pagination.of(2, totalCount + 2), null);
+
+			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+			List<SXPElement> sxpElements2 = (List<SXPElement>)page2.getItems();
+
+			Assert.assertEquals(
+				sxpElements2.toString(), 1, sxpElements2.size());
+
+			Page<SXPElement> page3 = sxpElementResource.getSXPElementsPage(
+				null, null, Pagination.of(1, (int)totalCount + 3), null);
+
+			assertContains(sxpElement1, (List<SXPElement>)page3.getItems());
+			assertContains(sxpElement2, (List<SXPElement>)page3.getItems());
+			assertContains(sxpElement3, (List<SXPElement>)page3.getItems());
+		}
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithSortDateTime() throws Exception {
+		testGetSXPElementsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, sxpElement1, sxpElement2) -> {
+				BeanTestUtil.setProperty(
+					sxpElement1, entityField.getName(),
+					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
+			});
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithSortDouble() throws Exception {
+		testGetSXPElementsPageWithSort(
+			EntityField.Type.DOUBLE,
+			(entityField, sxpElement1, sxpElement2) -> {
+				BeanTestUtil.setProperty(
+					sxpElement1, entityField.getName(), 0.1);
+				BeanTestUtil.setProperty(
+					sxpElement2, entityField.getName(), 0.5);
+			});
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithSortInteger() throws Exception {
+		testGetSXPElementsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, sxpElement1, sxpElement2) -> {
+				BeanTestUtil.setProperty(sxpElement1, entityField.getName(), 0);
+				BeanTestUtil.setProperty(sxpElement2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetSXPElementsPageWithSortString() throws Exception {
+		testGetSXPElementsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, sxpElement1, sxpElement2) -> {
+				Class<?> clazz = sxpElement1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanTestUtil.setProperty(
+						sxpElement1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanTestUtil.setProperty(
+						sxpElement2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanTestUtil.setProperty(
+						sxpElement1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanTestUtil.setProperty(
+						sxpElement2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanTestUtil.setProperty(
+						sxpElement1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanTestUtil.setProperty(
+						sxpElement2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetSXPElementsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer<EntityField, SXPElement, SXPElement, Exception>
+				unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		SXPElement sxpElement1 = randomSXPElement();
+		SXPElement sxpElement2 = randomSXPElement();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(entityField, sxpElement1, sxpElement2);
+		}
+
+		sxpElement1 = testGetSXPElementsPage_addSXPElement(sxpElement1);
+
+		sxpElement2 = testGetSXPElementsPage_addSXPElement(sxpElement2);
+
+		Page<SXPElement> page = sxpElementResource.getSXPElementsPage(
+			null, null, null, null);
+
+		for (EntityField entityField : entityFields) {
+			Page<SXPElement> ascPage = sxpElementResource.getSXPElementsPage(
+				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
+				entityField.getName() + ":asc");
+
+			assertContains(sxpElement1, (List<SXPElement>)ascPage.getItems());
+			assertContains(sxpElement2, (List<SXPElement>)ascPage.getItems());
+
+			Page<SXPElement> descPage = sxpElementResource.getSXPElementsPage(
+				null, null, Pagination.of(1, (int)page.getTotalCount() + 1),
+				entityField.getName() + ":desc");
+
+			assertContains(sxpElement2, (List<SXPElement>)descPage.getItems());
+			assertContains(sxpElement1, (List<SXPElement>)descPage.getItems());
+		}
+	}
+
+	protected SXPElement testGetSXPElementsPage_addSXPElement(
+			SXPElement sxpElement)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetSXPElementsPage() throws Exception {
+		GraphQLField graphQLField = new GraphQLField(
+			"sXPElements",
+			new HashMap<String, Object>() {
+				{
+					put("search", null);
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		// No namespace
+
+		JSONObject sXPElementsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/sXPElements");
+
+		long totalCount = sXPElementsJSONObject.getLong("totalCount");
+
+		SXPElement sxpElement1 = testGraphQLSXPElement_addSXPElement(
+			randomSXPElement());
+
+		SXPElement sxpElement2 = testGraphQLSXPElement_addSXPElement(
+			randomSXPElement());
+
+		sXPElementsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/sXPElements");
+
+		Assert.assertEquals(
+			totalCount + 2, sXPElementsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			sxpElement1,
+			Arrays.asList(
+				SXPElementSerDes.toDTOs(
+					sXPElementsJSONObject.getString("items"))));
+		assertContains(
+			sxpElement2,
+			Arrays.asList(
+				SXPElementSerDes.toDTOs(
+					sXPElementsJSONObject.getString("items"))));
+
+		// Using the namespace searchExperiences_v1_0
+
+		sXPElementsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField("searchExperiences_v1_0", graphQLField)),
+			"JSONObject/data", "JSONObject/searchExperiences_v1_0",
+			"JSONObject/sXPElements");
+
+		Assert.assertEquals(
+			totalCount + 2, sXPElementsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			sxpElement1,
+			Arrays.asList(
+				SXPElementSerDes.toDTOs(
+					sXPElementsJSONObject.getString("items"))));
+		assertContains(
+			sxpElement2,
+			Arrays.asList(
+				SXPElementSerDes.toDTOs(
+					sXPElementsJSONObject.getString("items"))));
+	}
+
+	@Test
 	public void testPatchSXPElement() throws Exception {
 		SXPElement postSXPElement = testPatchSXPElement_addSXPElement();
 
@@ -1221,6 +1238,121 @@ public abstract class BaseSXPElementResourceTestCase {
 	}
 
 	@Test
+	public void testPostSXPElement() throws Exception {
+		SXPElement randomSXPElement = randomSXPElement();
+
+		SXPElement postSXPElement = testPostSXPElement_addSXPElement(
+			randomSXPElement);
+
+		assertEquals(randomSXPElement, postSXPElement);
+		assertValid(postSXPElement);
+	}
+
+	protected SXPElement testPostSXPElement_addSXPElement(SXPElement sxpElement)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostSXPElement() throws Exception {
+		SXPElement randomSXPElement = randomSXPElement();
+
+		SXPElement sxpElement = testGraphQLSXPElement_addSXPElement(
+			randomSXPElement);
+
+		Assert.assertTrue(equals(randomSXPElement, sxpElement));
+	}
+
+	@Test
+	public void testPostSXPElementCopy() throws Exception {
+		SXPElement randomSXPElement = randomSXPElement();
+
+		SXPElement postSXPElement = testPostSXPElementCopy_addSXPElement(
+			randomSXPElement);
+
+		assertEquals(randomSXPElement, postSXPElement);
+		assertValid(postSXPElement);
+	}
+
+	protected SXPElement testPostSXPElementCopy_addSXPElement(
+			SXPElement sxpElement)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostSXPElementCopy() throws Exception {
+		SXPElement randomSXPElement = randomSXPElement();
+
+		SXPElement sxpElement = testGraphQLSXPElement_addSXPElement(
+			randomSXPElement);
+
+		Assert.assertTrue(equals(randomSXPElement, sxpElement));
+	}
+
+	@Test
+	public void testPostSXPElementPreview() throws Exception {
+		SXPElement randomSXPElement = randomSXPElement();
+
+		SXPElement postSXPElement = testPostSXPElementPreview_addSXPElement(
+			randomSXPElement);
+
+		assertEquals(randomSXPElement, postSXPElement);
+		assertValid(postSXPElement);
+	}
+
+	protected SXPElement testPostSXPElementPreview_addSXPElement(
+			SXPElement sxpElement)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostSXPElementPreview() throws Exception {
+		SXPElement randomSXPElement = randomSXPElement();
+
+		SXPElement sxpElement = testGraphQLSXPElement_addSXPElement(
+			randomSXPElement);
+
+		Assert.assertTrue(equals(randomSXPElement, sxpElement));
+	}
+
+	@Test
+	public void testPostSXPElementValidate() throws Exception {
+		SXPElement randomSXPElement = randomSXPElement();
+
+		SXPElement postSXPElement = testPostSXPElementValidate_addSXPElement(
+			randomSXPElement);
+
+		assertEquals(randomSXPElement, postSXPElement);
+		assertValid(postSXPElement);
+	}
+
+	protected SXPElement testPostSXPElementValidate_addSXPElement(
+			SXPElement sxpElement)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostSXPElementValidate() throws Exception {
+		SXPElement randomSXPElement = randomSXPElement();
+
+		SXPElement sxpElement = testGraphQLSXPElement_addSXPElement(
+			randomSXPElement);
+
+		Assert.assertTrue(equals(randomSXPElement, sxpElement));
+	}
+
+	@Test
 	public void testPutSXPElement() throws Exception {
 		SXPElement postSXPElement = testPutSXPElement_addSXPElement();
 
@@ -1245,27 +1377,112 @@ public abstract class BaseSXPElementResourceTestCase {
 	}
 
 	@Test
-	public void testPostSXPElementCopy() throws Exception {
+	public void testPutSXPElementByExternalReferenceCode() throws Exception {
+		SXPElement postSXPElement =
+			testPutSXPElementByExternalReferenceCode_addSXPElement();
+
 		SXPElement randomSXPElement = randomSXPElement();
 
-		SXPElement postSXPElement = testPostSXPElementCopy_addSXPElement(
-			randomSXPElement);
+		SXPElement putSXPElement =
+			sxpElementResource.putSXPElementByExternalReferenceCode(
+				postSXPElement.getExternalReferenceCode(), randomSXPElement);
 
-		assertEquals(randomSXPElement, postSXPElement);
-		assertValid(postSXPElement);
+		assertEquals(randomSXPElement, putSXPElement);
+		assertValid(putSXPElement);
+
+		SXPElement getSXPElement =
+			sxpElementResource.getSXPElementByExternalReferenceCode(
+				putSXPElement.getExternalReferenceCode());
+
+		assertEquals(randomSXPElement, getSXPElement);
+		assertValid(getSXPElement);
+
+		SXPElement newSXPElement =
+			testPutSXPElementByExternalReferenceCode_createSXPElement();
+
+		putSXPElement = sxpElementResource.putSXPElementByExternalReferenceCode(
+			newSXPElement.getExternalReferenceCode(), newSXPElement);
+
+		assertEquals(newSXPElement, putSXPElement);
+		assertValid(putSXPElement);
+
+		getSXPElement = sxpElementResource.getSXPElementByExternalReferenceCode(
+			putSXPElement.getExternalReferenceCode());
+
+		assertEquals(newSXPElement, getSXPElement);
+
+		Assert.assertEquals(
+			newSXPElement.getExternalReferenceCode(),
+			putSXPElement.getExternalReferenceCode());
 	}
 
-	protected SXPElement testPostSXPElementCopy_addSXPElement(
-			SXPElement sxpElement)
+	protected SXPElement
+			testPutSXPElementByExternalReferenceCode_addSXPElement()
 		throws Exception {
 
 		throw new UnsupportedOperationException(
 			"This method needs to be implemented");
 	}
 
+	protected SXPElement
+			testPutSXPElementByExternalReferenceCode_createSXPElement()
+		throws Exception {
+
+		return randomSXPElement();
+	}
+
 	@Test
-	public void testGetSXPElementExport() throws Exception {
-		Assert.assertTrue(false);
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		SXPElement sxpElement1 =
+			testBatchEngineDeleteImportTask_addSXPElement();
+
+		testBatchEngineDeleteImportTask_deleteSXPElement(
+			200, null, sxpElement1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			sxpElementResource.getSXPElementHttpResponse(sxpElement1.getId()));
+	}
+
+	protected SXPElement testBatchEngineDeleteImportTask_addSXPElement()
+		throws Exception {
+
+		return testDeleteSXPElement_addSXPElement();
+	}
+
+	protected void testBatchEngineDeleteImportTask_deleteSXPElement(
+			int expectedStatusCode, String externalReferenceCode, Long id,
+			String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.search.experiences.rest.dto.v1_0.SXPElement", null,
+				null, null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
 	}
 
 	@Rule
@@ -1274,8 +1491,116 @@ public abstract class BaseSXPElementResourceTestCase {
 	protected SXPElement testGraphQLSXPElement_addSXPElement()
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return testGraphQLSXPElement_addSXPElement(randomSXPElement());
+	}
+
+	protected SXPElement testGraphQLSXPElement_addSXPElement(
+			SXPElement sxpElement)
+		throws Exception {
+
+		JSONDeserializer<SXPElement> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field :
+				getDeclaredFields(SXPElement.class)) {
+
+			if (getGraphQLValue(field.get(sxpElement)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(sxpElement)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createSXPElement",
+						new HashMap<String, Object>() {
+							{
+								put("sxpElement", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createSXPElement"),
+			SXPElement.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(
@@ -1554,6 +1879,10 @@ public abstract class BaseSXPElementResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -2464,7 +2793,30 @@ public abstract class BaseSXPElementResourceTestCase {
 		return randomSXPElement();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected SXPElementResource sxpElementResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

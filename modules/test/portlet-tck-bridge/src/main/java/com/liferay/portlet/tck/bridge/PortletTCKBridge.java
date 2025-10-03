@@ -26,11 +26,11 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.servlet.InitialRequestSyncUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.tck.bridge.configuration.PortletTCKBridgeConfiguration;
 
 import java.io.File;
@@ -63,6 +63,12 @@ public class PortletTCKBridge {
 
 	@Activate
 	protected void activate(Map<String, String> properties) throws Exception {
+		PortletTCKBridgeConfiguration portletTCKBridgeConfiguration =
+			ConfigurableUtil.createConfigurable(
+				PortletTCKBridgeConfiguration.class, properties);
+
+		_setUpCookies(portletTCKBridgeConfiguration.cookieNames());
+
 		Company company = _companyLocalService.getCompanyByWebId(
 			PropsValues.COMPANY_DEFAULT_WEB_ID);
 
@@ -73,16 +79,10 @@ public class PortletTCKBridge {
 			return;
 		}
 
-		PortletTCKBridgeConfiguration portletTCKBridgeConfiguration =
-			ConfigurableUtil.createConfigurable(
-				PortletTCKBridgeConfiguration.class, properties);
-
 		InitialRequestSyncUtil.registerSyncCallable(
 			() -> {
 				_setUpPortletTCKSite(
 					company, portletTCKBridgeConfiguration.configFile());
-
-				_setUpCookies(portletTCKBridgeConfiguration.cookieNames());
 
 				return null;
 			});
@@ -91,13 +91,17 @@ public class PortletTCKBridge {
 	private void _setUpCookies(String[] cookieNames) {
 		try {
 			Field field = ReflectionUtil.getDeclaredField(
-				_cookiesManager.getClass(), "_knownCookies");
+				_cookiesManager.getClass(), "_internalCookies");
 
-			Map<String, Integer> knownCookies = (Map<String, Integer>)field.get(
-				_cookiesManager);
+			Map<String, Integer> internalCookies =
+				(Map<String, Integer>)field.get(_cookiesManager);
 
 			for (String cookieName : cookieNames) {
-				knownCookies.put(
+				if (_log.isInfoEnabled()) {
+					_log.info("Added cookie " + cookieName);
+				}
+
+				internalCookies.put(
 					cookieName, CookiesConstants.CONSENT_TYPE_NECESSARY);
 			}
 		}

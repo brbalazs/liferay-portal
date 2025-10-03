@@ -112,7 +112,6 @@ describe('CurrencySelector', () => {
 		commerceChannelId: 24324,
 		commerceOrderDetailBaseURL: 'http://order-detail.url',
 		commerceOrderId: 0,
-		commerceOrderTypes: [],
 	};
 
 	const {Liferay: originalLiferay, location: originalLocation} = window;
@@ -294,7 +293,7 @@ describe('CurrencySelector', () => {
 			jest.spyOn(CurrencySelectorUtils, 'storeCommerceCurrency');
 
 			const {getByText} = render(
-				<CurrencySelector {...{...BASE_PROPS, commerceOrderId: 123}} />
+				<CurrencySelector {...BASE_PROPS} commerceOrderId={123} />
 			);
 
 			await waitFor(() => {
@@ -323,7 +322,6 @@ describe('CurrencySelector', () => {
 					currencyCode: 'CNY',
 					onCancel: expect.any(Function),
 					orderDetailURL: BASE_PROPS.commerceOrderDetailBaseURL,
-					orderTypes: BASE_PROPS.commerceOrderTypes,
 				});
 			});
 		});

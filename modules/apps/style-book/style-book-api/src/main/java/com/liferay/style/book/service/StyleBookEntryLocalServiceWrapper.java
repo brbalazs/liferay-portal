@@ -126,6 +126,13 @@ public class StyleBookEntryLocalServiceWrapper
 		return _styleBookEntryLocalService.deletePersistedModel(persistedModel);
 	}
 
+	@Override
+	public void deleteStyleBookEntries(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		_styleBookEntryLocalService.deleteStyleBookEntries(groupId);
+	}
+
 	/**
 	 * Deletes the style book entry with the primary key from the database. Also notifies the appropriate model listeners.
 	 *
@@ -334,6 +341,24 @@ public class StyleBookEntryLocalServiceWrapper
 	}
 
 	@Override
+	public StyleBookEntry fetchStyleBookEntryByExternalReferenceCode(
+		String externalReferenceCode, long groupId) {
+
+		return _styleBookEntryLocalService.
+			fetchStyleBookEntryByExternalReferenceCode(
+				externalReferenceCode, groupId);
+	}
+
+	@Override
+	public StyleBookEntry fetchStyleBookEntryByExternalReferenceCode(
+		String externalReferenceCode, long groupId, boolean head) {
+
+		return _styleBookEntryLocalService.
+			fetchStyleBookEntryByExternalReferenceCode(
+				externalReferenceCode, groupId, head);
+	}
+
+	@Override
 	public StyleBookEntry fetchStyleBookEntryByUuidAndGroupId(
 		String uuid, long groupId) {
 
@@ -493,6 +518,26 @@ public class StyleBookEntryLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _styleBookEntryLocalService.getStyleBookEntry(styleBookEntryId);
+	}
+
+	@Override
+	public StyleBookEntry getStyleBookEntryByExternalReferenceCode(
+			String externalReferenceCode, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _styleBookEntryLocalService.
+			getStyleBookEntryByExternalReferenceCode(
+				externalReferenceCode, groupId);
+	}
+
+	@Override
+	public StyleBookEntry getStyleBookEntryByExternalReferenceCode(
+			String externalReferenceCode, long groupId, boolean head)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _styleBookEntryLocalService.
+			getStyleBookEntryByExternalReferenceCode(
+				externalReferenceCode, groupId, head);
 	}
 
 	@Override

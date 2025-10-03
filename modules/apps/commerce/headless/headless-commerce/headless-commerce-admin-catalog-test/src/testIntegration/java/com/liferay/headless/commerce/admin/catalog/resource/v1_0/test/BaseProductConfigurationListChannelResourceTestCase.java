@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.headless.commerce.admin.catalog.client.dto.v1_0.ProductConfigurationListChannel;
 import com.liferay.headless.commerce.admin.catalog.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.catalog.client.pagination.Page;
@@ -35,6 +38,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -42,8 +46,11 @@ import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
 
 import java.lang.reflect.Method;
 
@@ -59,10 +66,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.ws.rs.core.MultivaluedHashMap;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -113,6 +116,16 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 			).locale(
 				LocaleUtil.getDefault()
 			).build();
+
+		importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
 	}
 
 	@After
@@ -204,14 +217,124 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 
 	@Test
 	public void testDeleteProductConfigurationListChannel() throws Exception {
-		Assert.assertTrue(false);
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		ProductConfigurationListChannel productConfigurationListChannel =
+			testDeleteProductConfigurationListChannel_addProductConfigurationListChannel();
+
+		assertHttpResponseStatusCode(
+			204,
+			productConfigurationListChannelResource.
+				deleteProductConfigurationListChannelHttpResponse(
+					productConfigurationListChannel.
+						getProductConfigurationListChannelId()));
+	}
+
+	protected ProductConfigurationListChannel
+			testDeleteProductConfigurationListChannel_addProductConfigurationListChannel()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
 	}
 
 	@Test
 	public void testGraphQLDeleteProductConfigurationListChannel()
 		throws Exception {
 
-		Assert.assertTrue(false);
+		// No namespace
+
+		ProductConfigurationListChannel productConfigurationListChannel1 =
+			testGraphQLDeleteProductConfigurationListChannel_addProductConfigurationListChannel();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteProductConfigurationListChannel",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"productConfigurationListChannelId",
+									productConfigurationListChannel1.
+										getProductConfigurationListChannelId());
+							}
+						})),
+				"JSONObject/data",
+				"Object/deleteProductConfigurationListChannel"));
+
+		// Using the namespace headlessCommerceAdminCatalog_v1_0
+
+		ProductConfigurationListChannel productConfigurationListChannel2 =
+			testGraphQLDeleteProductConfigurationListChannel_addProductConfigurationListChannel();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"headlessCommerceAdminCatalog_v1_0",
+						new GraphQLField(
+							"deleteProductConfigurationListChannel",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"productConfigurationListChannelId",
+										productConfigurationListChannel2.
+											getProductConfigurationListChannelId());
+								}
+							}))),
+				"JSONObject/data",
+				"JSONObject/headlessCommerceAdminCatalog_v1_0",
+				"Object/deleteProductConfigurationListChannel"));
+	}
+
+	protected ProductConfigurationListChannel
+			testGraphQLDeleteProductConfigurationListChannel_addProductConfigurationListChannel()
+		throws Exception {
+
+		return testGraphQLProductConfigurationListChannel_addProductConfigurationListChannel();
+	}
+
+	@Test
+	public void testDeleteProductConfigurationListChannelBatch()
+		throws Exception {
+
+		ProductConfigurationListChannel productConfigurationListChannel1 =
+			testDeleteProductConfigurationListChannelBatch_addProductConfigurationListChannel();
+
+		testDeleteProductConfigurationListChannelBatch_deleteProductConfigurationListChannel(
+			202, null,
+			productConfigurationListChannel1.
+				getProductConfigurationListChannelId());
+	}
+
+	protected ProductConfigurationListChannel
+			testDeleteProductConfigurationListChannelBatch_addProductConfigurationListChannel()
+		throws Exception {
+
+		return testDeleteProductConfigurationListChannel_addProductConfigurationListChannel();
+	}
+
+	protected void
+			testDeleteProductConfigurationListChannelBatch_deleteProductConfigurationListChannel(
+				int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			productConfigurationListChannelResource.
+				deleteProductConfigurationListChannelBatchHttpResponse(
+					null,
+					JSONUtil.putAll(
+						JSONUtil.put(
+							"externalReferenceCode", () -> externalReferenceCode
+						).put(
+							"productConfigurationListChannelId", () -> id
+						)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
 	}
 
 	@Test
@@ -279,6 +402,16 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 			page,
 			testGetProductConfigurationListByExternalReferenceCodeProductConfigurationListChannelsPage_getExpectedActions(
 				externalReferenceCode));
+
+		productConfigurationListChannelResource.
+			deleteProductConfigurationListChannel(
+				productConfigurationListChannel1.
+					getProductConfigurationListChannelId());
+
+		productConfigurationListChannelResource.
+			deleteProductConfigurationListChannel(
+				productConfigurationListChannel2.
+					getProductConfigurationListChannelId());
 	}
 
 	protected Map<String, Map<String, String>>
@@ -299,13 +432,13 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 			testGetProductConfigurationListByExternalReferenceCodeProductConfigurationListChannelsPage_getExternalReferenceCode();
 
 		Page<ProductConfigurationListChannel>
-			productConfigurationListChannelPage =
+			productConfigurationListChannelsPage =
 				productConfigurationListChannelResource.
 					getProductConfigurationListByExternalReferenceCodeProductConfigurationListChannelsPage(
 						externalReferenceCode, null);
 
 		int totalCount = GetterUtil.getInteger(
-			productConfigurationListChannelPage.getTotalCount());
+			productConfigurationListChannelsPage.getTotalCount());
 
 		ProductConfigurationListChannel productConfigurationListChannel1 =
 			testGetProductConfigurationListByExternalReferenceCodeProductConfigurationListChannelsPage_addProductConfigurationListChannel(
@@ -437,32 +570,6 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 	}
 
 	@Test
-	public void testPostProductConfigurationListByExternalReferenceCodeProductConfigurationListChannel()
-		throws Exception {
-
-		ProductConfigurationListChannel randomProductConfigurationListChannel =
-			randomProductConfigurationListChannel();
-
-		ProductConfigurationListChannel postProductConfigurationListChannel =
-			testPostProductConfigurationListByExternalReferenceCodeProductConfigurationListChannel_addProductConfigurationListChannel(
-				randomProductConfigurationListChannel);
-
-		assertEquals(
-			randomProductConfigurationListChannel,
-			postProductConfigurationListChannel);
-		assertValid(postProductConfigurationListChannel);
-	}
-
-	protected ProductConfigurationListChannel
-			testPostProductConfigurationListByExternalReferenceCodeProductConfigurationListChannel_addProductConfigurationListChannel(
-				ProductConfigurationListChannel productConfigurationListChannel)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
 	public void testGetProductConfigurationListIdProductConfigurationListChannelsPage()
 		throws Exception {
 
@@ -527,6 +634,16 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 			page,
 			testGetProductConfigurationListIdProductConfigurationListChannelsPage_getExpectedActions(
 				id));
+
+		productConfigurationListChannelResource.
+			deleteProductConfigurationListChannel(
+				productConfigurationListChannel1.
+					getProductConfigurationListChannelId());
+
+		productConfigurationListChannelResource.
+			deleteProductConfigurationListChannel(
+				productConfigurationListChannel2.
+					getProductConfigurationListChannelId());
 	}
 
 	protected Map<String, Map<String, String>>
@@ -655,13 +772,13 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 			testGetProductConfigurationListIdProductConfigurationListChannelsPage_getId();
 
 		Page<ProductConfigurationListChannel>
-			productConfigurationListChannelPage =
+			productConfigurationListChannelsPage =
 				productConfigurationListChannelResource.
 					getProductConfigurationListIdProductConfigurationListChannelsPage(
 						id, null, null, null, null);
 
 		int totalCount = GetterUtil.getInteger(
-			productConfigurationListChannelPage.getTotalCount());
+			productConfigurationListChannelsPage.getTotalCount());
 
 		ProductConfigurationListChannel productConfigurationListChannel1 =
 			testGetProductConfigurationListIdProductConfigurationListChannelsPage_addProductConfigurationListChannel(
@@ -971,6 +1088,32 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 	}
 
 	@Test
+	public void testPostProductConfigurationListByExternalReferenceCodeProductConfigurationListChannel()
+		throws Exception {
+
+		ProductConfigurationListChannel randomProductConfigurationListChannel =
+			randomProductConfigurationListChannel();
+
+		ProductConfigurationListChannel postProductConfigurationListChannel =
+			testPostProductConfigurationListByExternalReferenceCodeProductConfigurationListChannel_addProductConfigurationListChannel(
+				randomProductConfigurationListChannel);
+
+		assertEquals(
+			randomProductConfigurationListChannel,
+			postProductConfigurationListChannel);
+		assertValid(postProductConfigurationListChannel);
+	}
+
+	protected ProductConfigurationListChannel
+			testPostProductConfigurationListByExternalReferenceCodeProductConfigurationListChannel_addProductConfigurationListChannel(
+				ProductConfigurationListChannel productConfigurationListChannel)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
 	public void testPostProductConfigurationListIdProductConfigurationListChannel()
 		throws Exception {
 
@@ -996,8 +1139,70 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 			"This method needs to be implemented");
 	}
 
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		ProductConfigurationListChannel productConfigurationListChannel1 =
+			testBatchEngineDeleteImportTask_addProductConfigurationListChannel();
+
+		testBatchEngineDeleteImportTask_deleteProductConfigurationListChannel(
+			200, null,
+			productConfigurationListChannel1.
+				getProductConfigurationListChannelId());
+	}
+
+	protected ProductConfigurationListChannel
+			testBatchEngineDeleteImportTask_addProductConfigurationListChannel()
+		throws Exception {
+
+		return testDeleteProductConfigurationListChannel_addProductConfigurationListChannel();
+	}
+
+	protected void
+			testBatchEngineDeleteImportTask_deleteProductConfigurationListChannel(
+				int expectedStatusCode, String externalReferenceCode, Long id,
+				String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.headless.commerce.admin.catalog.dto.v1_0.ProductConfigurationListChannel",
+				null, null, null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"productConfigurationListChannelId", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
+	}
+
 	@Rule
 	public SearchTestRule searchTestRule = new SearchTestRule();
+
+	protected ProductConfigurationListChannel
+			testGraphQLProductConfigurationListChannel_addProductConfigurationListChannel()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
 
 	protected void assertContains(
 		ProductConfigurationListChannel productConfigurationListChannel,
@@ -1103,6 +1308,12 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 		throws Exception {
 
 		boolean valid = true;
+
+		if (productConfigurationListChannel.
+				getProductConfigurationListChannelId() == null) {
+
+			valid = false;
+		}
 
 		for (String additionalAssertFieldName :
 				getAdditionalAssertFieldNames()) {
@@ -1249,6 +1460,9 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(
+			new GraphQLField("productConfigurationListChannelId"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -1739,8 +1953,31 @@ public abstract class BaseProductConfigurationListChannelResourceTestCase {
 		return randomProductConfigurationListChannel();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected ProductConfigurationListChannelResource
 		productConfigurationListChannelResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

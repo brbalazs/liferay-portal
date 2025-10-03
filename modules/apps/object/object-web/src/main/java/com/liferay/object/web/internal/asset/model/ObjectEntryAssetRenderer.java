@@ -7,6 +7,9 @@ package com.liferay.object.web.internal.asset.model;
 
 import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
 import com.liferay.asset.kernel.model.BaseJSPAssetRenderer;
+import com.liferay.depot.constants.DepotConstants;
+import com.liferay.depot.model.DepotEntry;
+import com.liferay.depot.service.DepotEntryLocalService;
 import com.liferay.info.item.ClassPKInfoItemIdentifier;
 import com.liferay.info.item.InfoItemReference;
 import com.liferay.object.constants.ObjectWebKeys;
@@ -14,11 +17,13 @@ import com.liferay.object.display.context.ObjectEntryDisplayContextFactory;
 import com.liferay.object.model.ObjectDefinition;
 import com.liferay.object.model.ObjectEntry;
 import com.liferay.object.service.ObjectEntryService;
+import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder;
@@ -26,27 +31,31 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.trash.TrashRenderer;
+import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
+import jakarta.portlet.PortletRequest;
+import jakarta.portlet.PortletResponse;
+import jakarta.portlet.PortletURL;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.Locale;
-
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletResponse;
-import javax.portlet.PortletURL;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Feliphe Marinho
  */
 public class ObjectEntryAssetRenderer
-	extends BaseJSPAssetRenderer<ObjectEntry> {
+	extends BaseJSPAssetRenderer<ObjectEntry> implements TrashRenderer {
 
 	public ObjectEntryAssetRenderer(
 			AssetDisplayPageFriendlyURLProvider
 				assetDisplayPageFriendlyURLProvider,
+			DepotEntryLocalService depotEntryLocalService,
 			ObjectDefinition objectDefinition, ObjectEntry objectEntry,
 			ObjectEntryDisplayContextFactory objectEntryDisplayContextFactory,
 			ObjectEntryService objectEntryService)
@@ -54,6 +63,7 @@ public class ObjectEntryAssetRenderer
 
 		_assetDisplayPageFriendlyURLProvider =
 			assetDisplayPageFriendlyURLProvider;
+		_depotEntryLocalService = depotEntryLocalService;
 		_objectDefinition = objectDefinition;
 		_objectEntry = objectEntry;
 		_objectEntryDisplayContextFactory = objectEntryDisplayContextFactory;
@@ -94,6 +104,11 @@ public class ObjectEntryAssetRenderer
 	}
 
 	@Override
+	public String getPortletId() {
+		return _objectDefinition.getPortletId();
+	}
+
+	@Override
 	public String getSummary(
 		PortletRequest portletRequest, PortletResponse portletResponse) {
 
@@ -103,7 +118,8 @@ public class ObjectEntryAssetRenderer
 	@Override
 	public String getTitle(Locale locale) {
 		try {
-			return _objectEntry.getTitleValue();
+			return _objectEntry.getTitleValue(
+				LocaleUtil.toLanguageId(locale), true);
 		}
 		catch (PortalException portalException) {
 			if (_log.isWarnEnabled()) {
@@ -112,6 +128,11 @@ public class ObjectEntryAssetRenderer
 		}
 
 		return StringPool.BLANK;
+	}
+
+	@Override
+	public String getType() {
+		return _objectDefinition.getName();
 	}
 
 	@Override
@@ -167,10 +188,7 @@ public class ObjectEntryAssetRenderer
 			return null;
 		}
 
-		return _assetDisplayPageFriendlyURLProvider.getFriendlyURL(
-			new InfoItemReference(
-				getClassName(), new ClassPKInfoItemIdentifier(getClassPK())),
-			themeDisplay);
+		return getURLViewInContext(themeDisplay, noSuchEntryRedirect);
 	}
 
 	@Override
@@ -182,10 +200,25 @@ public class ObjectEntryAssetRenderer
 			return null;
 		}
 
-		return _assetDisplayPageFriendlyURLProvider.getFriendlyURL(
-			new InfoItemReference(
-				getClassName(), new ClassPKInfoItemIdentifier(getClassPK())),
-			themeDisplay);
+		DepotEntry depotEntry = _depotEntryLocalService.fetchGroupDepotEntry(
+			_objectEntry.getGroupId());
+
+		if ((depotEntry == null) ||
+			(depotEntry.getType() != DepotConstants.TYPE_SPACE)) {
+
+			return _assetDisplayPageFriendlyURLProvider.getFriendlyURL(
+				new InfoItemReference(
+					getClassName(),
+					new ClassPKInfoItemIdentifier(getClassPK())),
+				themeDisplay);
+		}
+
+		return StringBundler.concat(
+			themeDisplay.getPortalURL(), themeDisplay.getPathMain(),
+			GroupConstants.CMS_FRIENDLY_URL,
+			"/edit_content_item?objectEntryId=",
+			_objectEntry.getObjectEntryId(), "&p_l_mode=read&redirect=",
+			HtmlUtil.escapeURL(themeDisplay.getURLCurrent()));
 	}
 
 	@Override
@@ -250,6 +283,8 @@ public class ObjectEntryAssetRenderer
 			_objectEntry.getExternalReferenceCode());
 		httpServletRequest.setAttribute(
 			ObjectWebKeys.OBJECT_ENTRY_READ_ONLY, Boolean.TRUE);
+		httpServletRequest.setAttribute(WebKeys.TEMPLATE, template);
+
 		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
 			_objectEntryDisplayContextFactory.create(httpServletRequest));
@@ -267,6 +302,7 @@ public class ObjectEntryAssetRenderer
 
 	private final AssetDisplayPageFriendlyURLProvider
 		_assetDisplayPageFriendlyURLProvider;
+	private final DepotEntryLocalService _depotEntryLocalService;
 	private final ObjectDefinition _objectDefinition;
 	private final ObjectEntry _objectEntry;
 	private final ObjectEntryDisplayContextFactory

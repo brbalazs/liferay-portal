@@ -8,6 +8,7 @@ package com.liferay.layout.content.page.editor.web.internal.manager.test;
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
+import com.liferay.layout.manager.ContentManager;
 import com.liferay.layout.service.LayoutClassedModelUsageLocalService;
 import com.liferay.layout.test.util.ContentLayoutTestUtil;
 import com.liferay.layout.test.util.LayoutTestUtil;
@@ -36,8 +37,8 @@ import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
 import com.liferay.segments.service.SegmentsExperienceLocalService;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -84,23 +85,23 @@ public class ContentManagerTest {
 				TestPropsValues.getGroupId()));
 
 		_layoutClassedModelUsageLocalService.addLayoutClassedModelUsage(
-			_group.getGroupId(),
+			_group.getGroupId(), StringPool.BLANK,
 			_portal.getClassNameId(FileEntry.class.getName()),
-			fileEntry.getFileEntryId(), StringPool.BLANK,
-			RandomTestUtil.randomString(), RandomTestUtil.randomLong(),
-			_layout.getPlid(), new ServiceContext());
+			fileEntry.getFileEntryId(), RandomTestUtil.randomString(),
+			RandomTestUtil.randomLong(), _layout.getPlid(),
+			new ServiceContext());
 		_layoutClassedModelUsageLocalService.addLayoutClassedModelUsage(
-			_group.getGroupId(),
+			_group.getGroupId(), StringPool.BLANK,
 			_portal.getClassNameId(FileEntry.class.getName()),
-			fileEntry.getFileEntryId(), StringPool.BLANK,
-			RandomTestUtil.randomString(), RandomTestUtil.randomLong(),
-			_layout.getPlid(), new ServiceContext());
+			fileEntry.getFileEntryId(), RandomTestUtil.randomString(),
+			RandomTestUtil.randomLong(), _layout.getPlid(),
+			new ServiceContext());
 
 		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
 		mockHttpServletRequest.setAttribute(
-			JavaConstants.JAVAX_PORTLET_RESPONSE,
+			JavaConstants.JAKARTA_PORTLET_RESPONSE,
 			new MockLiferayResourceResponse());
 		mockHttpServletRequest.setAttribute(
 			WebKeys.THEME_DISPLAY,
@@ -126,11 +127,8 @@ public class ContentManagerTest {
 	@Inject
 	private CompanyLocalService _companyLocalService;
 
-	@Inject(
-		filter = "component.name=com.liferay.layout.content.page.editor.web.internal.manager.ContentManager",
-		type = Inject.NoType.class
-	)
-	private Object _contentManager;
+	@Inject
+	private ContentManager _contentManager;
 
 	@Inject
 	private DLAppLocalService _dlAppLocalService;

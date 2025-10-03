@@ -7,11 +7,14 @@ package com.liferay.roles.service.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.layout.test.util.LayoutTestUtil;
+import com.liferay.petra.lang.SafeCloseable;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.test.util.ConfigurationTemporarySwapper;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.NoSuchGroupException;
+import com.liferay.portal.kernel.exception.NoSuchRoleException;
 import com.liferay.portal.kernel.exception.RoleNameException;
+import com.liferay.portal.kernel.lazy.referencing.LazyReferencingThreadLocal;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.OrganizationConstants;
@@ -24,6 +27,8 @@ import com.liferay.portal.kernel.model.Team;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserGroup;
 import com.liferay.portal.kernel.model.role.RoleConstants;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.OrganizationLocalService;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
@@ -142,6 +147,36 @@ public class RoleLocalServiceTest {
 			RoleConstants.TYPE_REGULAR, null, null);
 
 		Assert.assertNotNull(_role.getExternalReferenceCode());
+	}
+
+	@Test
+	public void testCopyRole() throws Exception {
+		PermissionThreadLocal.setPermissionChecker(
+			PermissionCheckerFactoryUtil.create(TestPropsValues.getUser()));
+
+		String name = RandomTestUtil.randomString();
+		Role sourceRole = _roleLocalService.getRole(
+			TestPropsValues.getCompanyId(), RoleConstants.ADMINISTRATOR);
+
+		Role targetRole = _roleLocalService.copyRole(
+			TestPropsValues.getUserId(), name, sourceRole.getRoleId(),
+			new ServiceContext());
+
+		Assert.assertNotEquals(sourceRole.getRoleId(), targetRole.getRoleId());
+		Assert.assertEquals(name, targetRole.getName());
+
+		List<ResourcePermission> sourceRoleResourcePermissions =
+			_resourcePermissionLocalService.getRoleResourcePermissions(
+				sourceRole.getRoleId());
+
+		List<ResourcePermission> targetRoleResourcePermissions =
+			_resourcePermissionLocalService.getRoleResourcePermissions(
+				targetRole.getRoleId());
+
+		Assert.assertEquals(
+			targetRoleResourcePermissions.toString(),
+			sourceRoleResourcePermissions.size(),
+			targetRoleResourcePermissions.size());
 	}
 
 	@Test
@@ -465,6 +500,38 @@ public class RoleLocalServiceTest {
 	}
 
 	@Test
+	public void testGetOrAddEmptyRole() throws Exception {
+
+		// Lazy referencing disabled
+
+		try {
+			_roleLocalService.getOrAddEmptyRole(
+				RandomTestUtil.randomString(), TestPropsValues.getCompanyId(),
+				TestPropsValues.getUserId(), Role.class.getName(), 0,
+				RandomTestUtil.randomString(), RoleConstants.TYPE_REGULAR);
+
+			Assert.fail();
+		}
+		catch (NoSuchRoleException noSuchRoleException) {
+			Assert.assertNotNull(noSuchRoleException);
+		}
+
+		// Lazy referencing enabled
+
+		try (SafeCloseable safeCloseable =
+				LazyReferencingThreadLocal.setEnabledWithSafeCloseable(true)) {
+
+			Role role = _roleLocalService.getOrAddEmptyRole(
+				RandomTestUtil.randomString(), TestPropsValues.getCompanyId(),
+				TestPropsValues.getUserId(), Role.class.getName(), 0,
+				RandomTestUtil.randomString(), RoleConstants.TYPE_REGULAR);
+
+			Assert.assertEquals(
+				WorkflowConstants.STATUS_EMPTY, role.getStatus());
+		}
+	}
+
+	@Test
 	public void testGetResourceActionRoles() {
 		List<Role> roles = _roleLocalService.getResourceRoles(
 			_resourcePermission.getCompanyId(), _resourcePermission.getName(),
@@ -708,6 +775,29 @@ public class RoleLocalServiceTest {
 		}
 		finally {
 			System.setOut(printStream);
+		}
+	}
+
+	@Test
+	public void testUpdateRoleWithLazyReferencingEnabled() throws Exception {
+		try (SafeCloseable safeCloseable =
+				LazyReferencingThreadLocal.setEnabledWithSafeCloseable(true)) {
+
+			Role role = _roleLocalService.getOrAddEmptyRole(
+				RandomTestUtil.randomString(), TestPropsValues.getCompanyId(),
+				TestPropsValues.getUserId(), Role.class.getName(), 0,
+				RandomTestUtil.randomString(), RoleConstants.TYPE_REGULAR);
+
+			Assert.assertEquals(
+				WorkflowConstants.STATUS_EMPTY, role.getStatus());
+
+			role = _roleLocalService.updateRole(
+				role.getExternalReferenceCode(), role.getRoleId(),
+				role.getName(), role.getTitleMap(), role.getDescriptionMap(),
+				role.getSubtype(), null);
+
+			Assert.assertEquals(
+				WorkflowConstants.STATUS_APPROVED, role.getStatus());
 		}
 	}
 

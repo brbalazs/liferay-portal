@@ -5,6 +5,7 @@
 
 package com.liferay.object.internal.field.business.type;
 
+import com.liferay.object.constants.ObjectDefinitionConstants;
 import com.liferay.object.constants.ObjectFieldConstants;
 import com.liferay.object.constants.ObjectFieldSettingConstants;
 import com.liferay.object.constants.ObjectRelationshipConstants;
@@ -21,13 +22,16 @@ import com.liferay.object.service.ObjectEntryService;
 import com.liferay.object.service.ObjectRelationshipLocalService;
 import com.liferay.object.system.SystemObjectDefinitionManager;
 import com.liferay.object.system.SystemObjectDefinitionManagerRegistry;
+import com.liferay.petra.sql.dsl.Column;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringUtil;
+import com.liferay.portal.kernel.exception.NoSuchModelException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.SetUtil;
@@ -89,7 +93,8 @@ public class RelationshipObjectFieldBusinessType
 
 	@Override
 	public Object getValue(
-			ObjectField objectField, long userId, Map<String, Object> values)
+			Long groupId, ObjectField objectField, long userId,
+			Map<String, Object> values)
 		throws PortalException {
 
 		String relationshipName = StringUtil.split(
@@ -133,11 +138,11 @@ public class RelationshipObjectFieldBusinessType
 			try {
 				if (objectDefinition.isUnmodifiableSystemObject()) {
 					return _getPrimaryKeyObj(
-						externalReferenceCode, objectDefinition, 0L);
+						externalReferenceCode, objectDefinition, 0L, userId);
 				}
 
 				ObjectEntry objectEntry = _objectEntryService.getObjectEntry(
-					externalReferenceCode,
+					externalReferenceCode, groupId,
 					objectDefinition.getObjectDefinitionId());
 
 				if (!Objects.equals(
@@ -164,6 +169,10 @@ public class RelationshipObjectFieldBusinessType
 		if (values.containsKey(objectField.getName())) {
 			Object value = values.get(objectField.getName());
 
+			if (value == null) {
+				return 0;
+			}
+
 			long valueLong = GetterUtil.getLong(value);
 
 			if (valueLong == 0) {
@@ -175,7 +184,8 @@ public class RelationshipObjectFieldBusinessType
 
 			try {
 				if (objectDefinition.isUnmodifiableSystemObject()) {
-					return _getPrimaryKeyObj(null, objectDefinition, valueLong);
+					return _getPrimaryKeyObj(
+						null, objectDefinition, valueLong, userId);
 				}
 
 				ObjectEntry objectEntry = _objectEntryService.getObjectEntry(
@@ -197,6 +207,12 @@ public class RelationshipObjectFieldBusinessType
 				}
 
 				portalException1 = portalException2;
+
+				if (portalException1 instanceof NoSuchModelException) {
+					portalException1 =
+						new ObjectEntryValuesException.NoSuchRelatedObjectEntry(
+							objectField.getName());
+				}
 			}
 		}
 
@@ -210,17 +226,44 @@ public class RelationshipObjectFieldBusinessType
 			String externalReferenceCode = MapUtil.getString(
 				values, objectRelationshipERCObjectFieldName);
 
-			ObjectDefinition objectDefinition = _getObjectDefinition(
-				objectField);
-
-			if (objectDefinition.isUnmodifiableSystemObject()) {
-				return _getPrimaryKeyObj(
-					externalReferenceCode, objectDefinition, 0L);
+			if (Validator.isNull(externalReferenceCode)) {
+				return 0;
 			}
 
-			ObjectEntry objectEntry = _objectEntryService.getObjectEntry(
-				externalReferenceCode,
-				objectDefinition.getObjectDefinitionId());
+			ObjectRelationship objectRelationship =
+				_objectRelationshipLocalService.
+					fetchObjectRelationshipByObjectFieldId2(
+						objectField.getObjectFieldId());
+
+			ObjectDefinition objectDefinition1 =
+				_objectDefinitionLocalService.getObjectDefinition(
+					objectRelationship.getObjectDefinitionId1());
+
+			if (objectDefinition1.isUnmodifiableSystemObject()) {
+				return _getPrimaryKeyObj(
+					externalReferenceCode, objectDefinition1, 0L, userId);
+			}
+
+			long objectDefinition1GroupId = 0;
+
+			ObjectDefinition objectDefinition2 =
+				_objectDefinitionLocalService.getObjectDefinition(
+					objectRelationship.getObjectDefinitionId2());
+
+			if (Objects.equals(
+					objectDefinition1.getScope(),
+					ObjectDefinitionConstants.SCOPE_SITE) &&
+				Objects.equals(
+					objectDefinition2.getScope(),
+					ObjectDefinitionConstants.SCOPE_SITE)) {
+
+				objectDefinition1GroupId = GetterUtil.getLong(groupId);
+			}
+
+			ObjectEntry objectEntry =
+				_objectEntryService.getOrAddEmptyObjectEntry(
+					externalReferenceCode, objectDefinition1GroupId,
+					objectDefinition1.getObjectDefinitionId());
 
 			return objectEntry.getObjectEntryId();
 		}
@@ -230,6 +273,11 @@ public class RelationshipObjectFieldBusinessType
 		}
 
 		return null;
+	}
+
+	@Override
+	public boolean isLocalizationSupported(ObjectField objectField) {
+		return false;
 	}
 
 	private ObjectDefinition _getObjectDefinition(ObjectField objectField)
@@ -246,7 +294,7 @@ public class RelationshipObjectFieldBusinessType
 
 	private Object _getPrimaryKeyObj(
 			String externalReferenceCode, ObjectDefinition objectDefinition,
-			Long primaryKey)
+			Long primaryKey, long userId)
 		throws PortalException {
 
 		SystemObjectDefinitionManager systemObjectDefinitionManager =
@@ -260,10 +308,15 @@ public class RelationshipObjectFieldBusinessType
 		}
 
 		BaseModel<?> baseModel =
-			systemObjectDefinitionManager.getBaseModelByExternalReferenceCode(
-				externalReferenceCode, objectDefinition.getCompanyId());
+			systemObjectDefinitionManager.getOrAddEmptyBaseModel(
+				externalReferenceCode, _userLocalService.getUserById(userId));
 
-		return baseModel.getPrimaryKeyObj();
+		Map<String, Object> modelAttributes = baseModel.getModelAttributes();
+
+		Column<?, Long> primaryKeyColumn =
+			systemObjectDefinitionManager.getPrimaryKeyColumn();
+
+		return modelAttributes.get(primaryKeyColumn.getName());
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
@@ -284,5 +337,8 @@ public class RelationshipObjectFieldBusinessType
 	@Reference
 	private SystemObjectDefinitionManagerRegistry
 		_systemObjectDefinitionManagerRegistry;
+
+	@Reference
+	private UserLocalService _userLocalService;
 
 }

@@ -6,40 +6,91 @@
 import {HashRouter, Route, Routes} from 'react-router-dom';
 
 import {useMarketplaceContext} from '../../context/MarketplaceContext';
+import {MarketplaceCategories} from '../../enums/Categories';
 import {
-	PRODUCT_CATEGORIES,
-	PRODUCT_SPECIFICATION_KEY,
-	PRODUCT_TYPE_VOCABULARY,
-	SOLUTION_TYPES,
+	ProductSpecificationKey,
+	ProductTypeVocabulary,
+	SolutionTypes,
 } from '../../enums/Product';
 import withProviders from '../../hoc/withProviders';
 import {useDeliveryProduct} from '../../hooks/data/useProduct';
 import i18n from '../../i18n';
 import {
 	getProductCategoriesByVocabularyName,
-	getSpecificationByKey,
+	getProductPriceModel,
+	getProductSpecification,
 } from '../../utils/productUtils';
 import ProductPurchaseOutlet from './ProductPurchaseOutlet';
-import ProductPurchaseAccountSelection from './steps/AccountSelection';
-import SolutionProvisioningForm from './steps/Solution';
-import ThankYou from './steps/ThankYou';
+import ProductPurchaseAccountSelection from './pages/AccountSelection';
+import AppAccountSelection from './pages/App/AccountSelection';
+import {InsuficientResources} from './pages/App/InsuficientResources';
+import ContactSalesPage from './pages/App/InsuficientResources/ContactSales';
+import ContactSalesForm from './pages/App/InsuficientResources/ContactSalesForm';
+import License from './pages/App/License';
+import PaymentMethod from './pages/App/PaymentMethod';
+import OrderSummary from './pages/App/PaymentMethod/OrderSummary/OrderSummary';
+import NextSteps from './pages/NextSteps';
+import SolutionProvisioningForm from './pages/Solution';
 
-const productTypeRoutes = {
-	[PRODUCT_TYPE_VOCABULARY.SOLUTION]: [
-		{
-			element: ProductPurchaseAccountSelection,
-			index: true,
-			title: i18n.translate('account-selection'),
+export const productTypeRoutes = {
+	[ProductTypeVocabulary.APP]: {
+		metadata: {
+			tinyStepsDisplay: true,
+			useCart: true,
 		},
-		{
-			element: SolutionProvisioningForm,
-			path: 'form',
-			title: 'Form',
+		routes: (product: DeliveryProduct) => {
+			const {isPaidApp} = getProductPriceModel(product);
+
+			return [
+				{
+					element: AppAccountSelection,
+					index: true,
+					title: i18n.translate('account'),
+				},
+				{
+					element: License,
+					isPaidOnly: true,
+					path: 'license',
+					title: i18n.translate('licenses'),
+				},
+				{
+					element: PaymentMethod,
+					isPaidOnly: true,
+					path: 'payment-method',
+					title: i18n.translate('payment'),
+				},
+				{
+					element: OrderSummary,
+					path: 'summary',
+					title: i18n.translate('summary'),
+				},
+			].filter((route) => {
+				if (isPaidApp) {
+					return true;
+				}
+
+				return !route.isPaidOnly;
+			});
 		},
-	],
-	[PRODUCT_TYPE_VOCABULARY.APP]: [
-		{element: ProductPurchaseAccountSelection, index: true, title: 'Setup'},
-	],
+	},
+	[ProductTypeVocabulary.SOLUTION]: {
+		metadata: {
+			skipSingleAccountSelection: true,
+			tinyStepsDisplay: false,
+		},
+		routes: [
+			{
+				element: ProductPurchaseAccountSelection,
+				index: true,
+				title: i18n.translate('account-selection'),
+			},
+			{
+				element: SolutionProvisioningForm,
+				path: 'form',
+				title: i18n.translate('form'),
+			},
+		],
+	},
 };
 
 const ProductPurchaseRouter = () => {
@@ -64,20 +115,27 @@ const ProductPurchaseRouter = () => {
 
 	const productTypes = getProductCategoriesByVocabularyName(
 		product?.categories || [],
-		PRODUCT_CATEGORIES.MARKETPLACE_PRODUCT_TYPE
+		MarketplaceCategories.MARKETPLACE_PRODUCT_TYPE
 	);
 
-	const productTypeCategory = productTypes[0] as PRODUCT_TYPE_VOCABULARY;
+	const productTypeCategory = productTypes[0] as ProductTypeVocabulary;
 
-	const solutionTypeSpecification = getSpecificationByKey(
-		PRODUCT_SPECIFICATION_KEY.SOLUTION_TYPE,
+	const solutionTypeSpecification = getProductSpecification(
+		ProductSpecificationKey.SOLUTION_TYPE,
 		product as DeliveryProduct
 	);
 
 	const solutionTypeSpecificationValue =
-		solutionTypeSpecification?.value as SOLUTION_TYPES;
+		solutionTypeSpecification?.value as SolutionTypes;
 
-	const routes = productTypeRoutes[productTypeCategory] || [];
+	const productTypeRoute = productTypeRoutes[productTypeCategory];
+
+	const {routes: _routes = []} = productTypeRoute || {};
+
+	const routes =
+		typeof _routes === 'function'
+			? _routes(product as DeliveryProduct)
+			: _routes;
 
 	return (
 		<HashRouter>
@@ -86,7 +144,9 @@ const ProductPurchaseRouter = () => {
 					element={
 						<ProductPurchaseOutlet
 							product={product as DeliveryProduct}
-							routes={routes}
+							productTypeRoute={
+								{...productTypeRoute, routes} as any
+							}
 							solutionTypeSpecificationValue={
 								solutionTypeSpecificationValue
 							}
@@ -108,7 +168,19 @@ const ProductPurchaseRouter = () => {
 
 				<Route
 					element={
-						<ThankYou
+						<InsuficientResources
+							product={product as DeliveryProduct}
+						/>
+					}
+					path="insuficient-resources/:projectId/:accountId"
+				>
+					<Route element={<ContactSalesPage />} index />
+					<Route element={<ContactSalesForm />} path="form" />
+				</Route>
+
+				<Route
+					element={
+						<NextSteps
 							product={product as DeliveryProduct}
 							productTypeCategory={productTypeCategory}
 							solutionTypeSpecificationValue={
@@ -116,7 +188,7 @@ const ProductPurchaseRouter = () => {
 							}
 						/>
 					}
-					path="thank-you"
+					path="next-steps"
 				/>
 			</Routes>
 		</HashRouter>

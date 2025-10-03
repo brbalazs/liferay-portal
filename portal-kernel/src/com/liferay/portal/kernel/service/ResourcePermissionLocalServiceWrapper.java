@@ -538,14 +538,6 @@ public class ResourcePermissionLocalServiceWrapper
 			getIndexableActionableDynamicQuery();
 	}
 
-	@Override
-	public java.util.Map<String, java.util.List<ResourcePermission>>
-		getIndividualPortletResourcePermissions(long companyId) {
-
-		return _resourcePermissionLocalService.
-			getIndividualPortletResourcePermissions(companyId);
-	}
-
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -621,6 +613,14 @@ public class ResourcePermissionLocalServiceWrapper
 
 		return _resourcePermissionLocalService.getResourcePermissions(
 			start, end);
+	}
+
+	@Override
+	public java.util.List<ResourcePermission> getResourcePermissions(
+		long companyId, String name, int scope) {
+
+		return _resourcePermissionLocalService.getResourcePermissions(
+			companyId, name, scope);
 	}
 
 	@Override

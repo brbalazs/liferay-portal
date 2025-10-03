@@ -6,30 +6,36 @@
 package com.liferay.headless.admin.user.internal.resource.v1_0;
 
 import com.liferay.account.constants.AccountActionKeys;
-import com.liferay.account.exception.NoSuchGroupException;
+import com.liferay.account.constants.AccountPortletKeys;
+import com.liferay.account.exception.DuplicateAccountGroupRelException;
 import com.liferay.account.model.AccountEntry;
 import com.liferay.account.model.AccountGroupRel;
-import com.liferay.account.service.AccountEntryLocalService;
+import com.liferay.account.service.AccountEntryService;
 import com.liferay.account.service.AccountGroupRelService;
 import com.liferay.account.service.AccountGroupService;
 import com.liferay.expando.kernel.service.ExpandoColumnLocalService;
 import com.liferay.expando.kernel.service.ExpandoTableLocalService;
+import com.liferay.exportimport.vulcan.batch.engine.ExportImportVulcanBatchEngineTaskItemDelegate;
 import com.liferay.headless.admin.user.dto.v1_0.Account;
 import com.liferay.headless.admin.user.dto.v1_0.AccountBrief;
 import com.liferay.headless.admin.user.dto.v1_0.AccountGroup;
 import com.liferay.headless.admin.user.internal.dto.v1_0.converter.constants.DTOConverterConstants;
-import com.liferay.headless.admin.user.internal.dto.v1_0.util.CustomFieldsUtil;
 import com.liferay.headless.admin.user.internal.odata.entity.v1_0.AccountGroupEntityModel;
+import com.liferay.headless.admin.user.internal.util.v1_0.ResourcePermissionUtil;
 import com.liferay.headless.admin.user.resource.v1_0.AccountGroupResource;
 import com.liferay.headless.common.spi.odata.entity.EntityFieldsUtil;
 import com.liferay.headless.common.spi.service.context.ServiceContextBuilder;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.feature.flag.FeatureFlagManagerUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
+import com.liferay.portal.kernel.service.RoleService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -39,6 +45,7 @@ import com.liferay.portal.kernel.util.PortletKeys;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.search.expando.ExpandoBridgeIndexer;
+import com.liferay.portal.vulcan.custom.field.CustomFieldsUtil;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
 import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
@@ -46,10 +53,12 @@ import com.liferay.portal.vulcan.dto.converter.util.DTOConverterUtil;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.SearchUtil;
+import com.liferay.roles.admin.role.type.contributor.provider.RoleTypeContributorProvider;
 
+import jakarta.ws.rs.core.MultivaluedMap;
+
+import java.util.List;
 import java.util.Map;
-
-import javax.ws.rs.core.MultivaluedMap;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -60,9 +69,12 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/account-group.properties",
+	property = "export.import.vulcan.batch.engine.task.item.delegate=true",
 	scope = ServiceScope.PROTOTYPE, service = AccountGroupResource.class
 )
-public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
+public class AccountGroupResourceImpl
+	extends BaseAccountGroupResourceImpl
+	implements ExportImportVulcanBatchEngineTaskItemDelegate<AccountGroup> {
 
 	@Override
 	public void deleteAccountGroup(Long accountGroupId) throws Exception {
@@ -191,6 +203,33 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 	}
 
 	@Override
+	public ExportImportDescriptor getExportImportDescriptor() {
+		return new ExportImportDescriptor() {
+
+			@Override
+			public String getItemClassName() {
+				return com.liferay.account.model.AccountGroup.class.getName();
+			}
+
+			@Override
+			public List<String> getNestedFields() {
+				return List.of("accountBriefs", "creator");
+			}
+
+			@Override
+			public String getPortletId() {
+				return AccountPortletKeys.ACCOUNT_GROUPS_ADMIN;
+			}
+
+			@Override
+			public Scope getScope() {
+				return Scope.COMPANY;
+			}
+
+		};
+	}
+
+	@Override
 	public AccountGroup patchAccountGroup(
 			Long accountGroupId, AccountGroup accountGroup)
 		throws Exception {
@@ -207,12 +246,8 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 		throws Exception {
 
 		com.liferay.account.model.AccountGroup serviceBuilderAccountGroup =
-			_accountGroupService.fetchAccountGroupByExternalReferenceCode(
+			_accountGroupService.getAccountGroupByExternalReferenceCode(
 				externalReferenceCode, contextCompany.getCompanyId());
-
-		if (serviceBuilderAccountGroup == null) {
-			throw new NoSuchGroupException();
-		}
 
 		return _updateAccountGroup(accountGroup, serviceBuilderAccountGroup);
 	}
@@ -223,13 +258,9 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 
 		com.liferay.account.model.AccountGroup serviceBuilderAccountGroup =
 			_accountGroupService.addAccountGroup(
+				accountGroup.getExternalReferenceCode(),
 				contextUser.getUserId(), accountGroup.getDescription(),
 				accountGroup.getName(), _createServiceContext(accountGroup));
-
-		serviceBuilderAccountGroup =
-			_accountGroupService.updateExternalReferenceCode(
-				serviceBuilderAccountGroup.getAccountGroupId(),
-				accountGroup.getExternalReferenceCode());
 
 		return _toAccountGroup(
 			_updateNestedResources(accountGroup, serviceBuilderAccountGroup));
@@ -258,27 +289,22 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 		if (accountGroupId <= 0) {
 			com.liferay.account.model.AccountGroup serviceBuilderAccountGroup =
 				_accountGroupService.addAccountGroup(
+					accountGroup.getExternalReferenceCode(),
 					contextUser.getUserId(), accountGroup.getDescription(),
 					accountGroup.getName(),
 					_createServiceContext(accountGroup));
 
 			return _toAccountGroup(
 				_updateNestedResources(
-					accountGroup,
-					_accountGroupService.updateExternalReferenceCode(
-						serviceBuilderAccountGroup.getAccountGroupId(),
-						accountGroup.getExternalReferenceCode())));
+					accountGroup, serviceBuilderAccountGroup));
 		}
-
-		_accountGroupService.updateExternalReferenceCode(
-			accountGroupId, accountGroup.getExternalReferenceCode());
 
 		return _toAccountGroup(
 			_updateNestedResources(
 				accountGroup,
 				_accountGroupService.updateAccountGroup(
-					accountGroupId, accountGroup.getDescription(),
-					accountGroup.getName(),
+					accountGroup.getExternalReferenceCode(), accountGroupId,
+					accountGroup.getDescription(), accountGroup.getName(),
 					_createServiceContext(accountGroup))));
 	}
 
@@ -311,15 +337,22 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 			return serviceBuilderAccountGroup;
 		}
 
-		AccountEntry accountEntry =
-			_accountEntryLocalService.getOrAddIncompleteAccountEntry(
-				externalReferenceCode,
-				serviceBuilderAccountGroup.getCompanyId(),
-				contextUser.getUserId(), accountBrief.getName(), type);
+		try {
+			AccountEntry accountEntry =
+				_accountEntryService.getOrAddEmptyAccountEntry(
+					externalReferenceCode, accountBrief.getName(), type);
 
-		_accountGroupRelService.addAccountGroupRel(
-			serviceBuilderAccountGroup.getAccountGroupId(),
-			AccountEntry.class.getName(), accountEntry.getAccountEntryId());
+			_accountGroupRelService.addAccountGroupRel(
+				serviceBuilderAccountGroup.getAccountGroupId(),
+				AccountEntry.class.getName(), accountEntry.getAccountEntryId());
+		}
+		catch (DuplicateAccountGroupRelException
+					duplicateAccountGroupRelException) {
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(duplicateAccountGroupRelException);
+			}
+		}
 
 		return serviceBuilderAccountGroup;
 	}
@@ -440,6 +473,9 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 		throws Exception {
 
 		serviceBuilderAccountGroup = _accountGroupService.updateAccountGroup(
+			GetterUtil.getString(
+				accountGroup.getExternalReferenceCode(),
+				serviceBuilderAccountGroup.getExternalReferenceCode()),
 			serviceBuilderAccountGroup.getAccountGroupId(),
 			GetterUtil.getString(
 				accountGroup.getDescription(),
@@ -449,11 +485,7 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 			_createServiceContext(accountGroup));
 
 		return _toAccountGroup(
-			_updateNestedResources(
-				accountGroup,
-				_accountGroupService.updateExternalReferenceCode(
-					serviceBuilderAccountGroup.getAccountGroupId(),
-					accountGroup.getExternalReferenceCode())));
+			_updateNestedResources(accountGroup, serviceBuilderAccountGroup));
 	}
 
 	private com.liferay.account.model.AccountGroup _updateNestedResources(
@@ -461,7 +493,7 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 			com.liferay.account.model.AccountGroup serviceBuilderAccountGroup)
 		throws Exception {
 
-		if (!FeatureFlagManagerUtil.isEnabled("LPD-47858")) {
+		if (!FeatureFlagManagerUtil.isEnabled("LPD-35914")) {
 			return serviceBuilderAccountGroup;
 		}
 
@@ -474,11 +506,18 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 			}
 		}
 
-		return serviceBuilderAccountGroup;
+		return ResourcePermissionUtil.setResourcePermissions(
+			serviceBuilderAccountGroup,
+			serviceBuilderAccountGroup.getCompanyId(),
+			accountGroup.getPermissions(), _resourcePermissionLocalService,
+			_roleService, _roleTypeContributorProvider);
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		AccountGroupResourceImpl.class);
+
 	@Reference
-	private AccountEntryLocalService _accountEntryLocalService;
+	private AccountEntryService _accountEntryService;
 
 	@Reference(
 		target = "(model.class.name=com.liferay.account.model.AccountGroup)"
@@ -512,5 +551,14 @@ public class AccountGroupResourceImpl extends BaseAccountGroupResourceImpl {
 
 	@Reference
 	private Portal _portal;
+
+	@Reference
+	private ResourcePermissionLocalService _resourcePermissionLocalService;
+
+	@Reference
+	private RoleService _roleService;
+
+	@Reference
+	private RoleTypeContributorProvider _roleTypeContributorProvider;
 
 }

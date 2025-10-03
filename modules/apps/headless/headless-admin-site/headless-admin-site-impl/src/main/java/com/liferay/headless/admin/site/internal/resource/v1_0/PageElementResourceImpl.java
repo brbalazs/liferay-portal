@@ -6,10 +6,8 @@
 package com.liferay.headless.admin.site.internal.resource.v1_0;
 
 import com.liferay.headless.admin.site.dto.v1_0.PageElement;
-import com.liferay.headless.admin.site.internal.resource.v1_0.layout.structure.item.importer.LayoutStructureItemImporter;
 import com.liferay.headless.admin.site.internal.resource.v1_0.layout.structure.item.importer.context.LayoutStructureItemImporterContext;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.GroupUtil;
-import com.liferay.headless.admin.site.internal.resource.v1_0.util.LayoutStructureItemImporterUtil;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.LayoutStructureUtil;
 import com.liferay.headless.admin.site.resource.v1_0.PageElementResource;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructure;
@@ -28,9 +26,6 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.segments.model.SegmentsExperience;
 import com.liferay.segments.service.SegmentsExperienceLocalService;
 
-import java.util.List;
-import java.util.Objects;
-
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -45,7 +40,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class PageElementResourceImpl extends BasePageElementResourceImpl {
 
 	@Override
-	public void deleteSiteSiteByExternalReferenceCodePageElement(
+	public void deleteSitePageSpecificationPageExperiencePageElement(
 			String siteExternalReferenceCode,
 			String pageSpecificationExternalReferenceCode,
 			String pageExperienceExternalReferenceCode,
@@ -97,12 +92,12 @@ public class PageElementResourceImpl extends BasePageElementResourceImpl {
 
 		_layoutPageTemplateStructureLocalService.
 			updateLayoutPageTemplateStructureData(
-				layout.getGroupId(), layout.getPlid(),
+				contextUser.getUserId(), layout.getGroupId(), layout.getPlid(),
 				layoutStructure.toString());
 	}
 
 	@Override
-	public PageElement getSiteSiteByExternalReferenceCodePageElement(
+	public PageElement getSitePageSpecificationPageExperiencePageElement(
 			String siteExternalReferenceCode,
 			String pageSpecificationExternalReferenceCode,
 			String pageExperienceExternalReferenceCode,
@@ -155,7 +150,7 @@ public class PageElementResourceImpl extends BasePageElementResourceImpl {
 
 	@Override
 	public Page<PageElement>
-			getSiteSiteByExternalReferenceCodePageElementPageElementsPage(
+			getSitePageSpecificationPageExperiencePageElementPageElementsPage(
 				String siteExternalReferenceCode,
 				String pageSpecificationExternalReferenceCode,
 				String pageExperienceExternalReferenceCode,
@@ -209,7 +204,7 @@ public class PageElementResourceImpl extends BasePageElementResourceImpl {
 
 	@Override
 	public Page<PageElement>
-			getSiteSiteByExternalReferenceCodePageExperiencePageElementsPage(
+			getSitePageSpecificationPageExperiencePageElementsPage(
 				String siteExternalReferenceCode,
 				String pageSpecificationExternalReferenceCode,
 				String pageExperienceExternalReferenceCode, Boolean flatten)
@@ -257,12 +252,10 @@ public class PageElementResourceImpl extends BasePageElementResourceImpl {
 	}
 
 	@Override
-	public PageElement
-			postSiteSiteByExternalReferenceCodePageExperiencePageElement(
-				String siteExternalReferenceCode,
-				String pageSpecificationExternalReferenceCode,
-				String pageExperienceExternalReferenceCode,
-				PageElement pageElement)
+	public PageElement postSitePageSpecificationPageExperiencePageElement(
+			String siteExternalReferenceCode,
+			String pageSpecificationExternalReferenceCode,
+			String pageExperienceExternalReferenceCode, PageElement pageElement)
 		throws Exception {
 
 		if (!FeatureFlagManagerUtil.isEnabled("LPD-35443")) {
@@ -297,13 +290,21 @@ public class PageElementResourceImpl extends BasePageElementResourceImpl {
 			layoutPageTemplateStructure.getData(
 				segmentsExperience.getSegmentsExperienceId()));
 
-		return _addPageElement(
+		LayoutStructureItem layoutStructureItem =
+			layoutStructure.getLayoutStructureItem(
+				pageElement.getExternalReferenceCode());
+
+		if (layoutStructureItem != null) {
+			throw new UnsupportedOperationException();
+		}
+
+		return _addOrUpdatePageElement(
 			groupId, layout, layoutStructure, pageElement,
 			segmentsExperience.getSegmentsExperienceId());
 	}
 
 	@Override
-	public PageElement putSiteSiteByExternalReferenceCodePageElement(
+	public PageElement putSitePageSpecificationPageExperiencePageElement(
 			String siteExternalReferenceCode,
 			String pageSpecificationExternalReferenceCode,
 			String pageExperienceExternalReferenceCode,
@@ -338,88 +339,30 @@ public class PageElementResourceImpl extends BasePageElementResourceImpl {
 				fetchLayoutPageTemplateStructure(
 					layout.getGroupId(), layout.getPlid());
 
-		LayoutStructure layoutStructure = LayoutStructure.of(
-			layoutPageTemplateStructure.getData(
-				segmentsExperience.getSegmentsExperienceId()));
-
-		LayoutStructureItem layoutStructureItem =
-			layoutStructure.getLayoutStructureItem(
-				pageElementExternalReferenceCode);
-
-		if (layoutStructureItem == null) {
-			return _addPageElement(
-				groupId, layout, layoutStructure, pageElement,
-				segmentsExperience.getSegmentsExperienceId());
-		}
-
-		LayoutStructureItem parentLayoutStructureItem =
-			layoutStructure.getLayoutStructureItem(
-				layoutStructureItem.getParentItemId());
-
-		List<String> childrenItemIds =
-			parentLayoutStructureItem.getChildrenItemIds();
-
-		if (!Objects.equals(
-				layoutStructureItem.getParentItemId(),
-				pageElement.getParentExternalReferenceCode()) ||
-			(childrenItemIds.indexOf(layoutStructureItem.getItemId()) !=
-				pageElement.getPosition())) {
-
-			layoutStructure.moveLayoutStructureItem(
-				layoutStructureItem.getItemId(),
-				LayoutStructureUtil.getParentExternalReferenceCode(
-					pageElement, layoutStructure),
-				pageElement.getPosition());
-
-			_layoutPageTemplateStructureLocalService.
-				updateLayoutPageTemplateStructureData(
-					layout.getGroupId(), layout.getPlid(),
-					layoutStructure.toString());
-		}
-
-		return _pageElementDTOConverter.toDTO(
-			_getDTOConverterContext(layoutStructure), layoutStructureItem);
+		return _addOrUpdatePageElement(
+			groupId, layout,
+			LayoutStructure.of(
+				layoutPageTemplateStructure.getData(
+					segmentsExperience.getSegmentsExperienceId())),
+			pageElement, segmentsExperience.getSegmentsExperienceId());
 	}
 
-	private LayoutStructureItem _addLayoutStructureItem(
-			LayoutStructure layoutStructure,
-			LayoutStructureItemImporterContext
-				layoutStructureItemImporterContext,
-			PageElement pageElement)
-		throws Exception {
-
-		LayoutStructureItemImporter layoutStructureItemImporter =
-			LayoutStructureItemImporterUtil.getLayoutStructureItemImporter(
-				pageElement.getType());
-
-		LayoutStructureItem layoutStructureItem =
-			layoutStructureItemImporter.addLayoutStructureItem(
-				layoutStructure, layoutStructureItemImporterContext,
-				pageElement);
-
-		for (PageElement childPageElement : pageElement.getPageElements()) {
-			_addLayoutStructureItem(
-				layoutStructure, layoutStructureItemImporterContext,
-				childPageElement);
-		}
-
-		return layoutStructureItem;
-	}
-
-	private PageElement _addPageElement(
+	private PageElement _addOrUpdatePageElement(
 			long groupId, Layout layout, LayoutStructure layoutStructure,
 			PageElement pageElement, long segmentsExperienceId)
 		throws Exception {
 
-		LayoutStructureItem layoutStructureItem = _addLayoutStructureItem(
-			layoutStructure,
-			new LayoutStructureItemImporterContext(
-				groupId, layout, segmentsExperienceId, contextUser.getUserId()),
-			pageElement);
+		LayoutStructureItem layoutStructureItem =
+			LayoutStructureUtil.addLayoutStructureItem(
+				layoutStructure,
+				new LayoutStructureItemImporterContext(
+					contextCompany.getCompanyId(), groupId, layout,
+					segmentsExperienceId, contextUser.getUserId()),
+				pageElement);
 
 		_layoutPageTemplateStructureLocalService.
 			updateLayoutPageTemplateStructureData(
-				layout.getGroupId(), layout.getPlid(),
+				contextUser.getUserId(), layout.getGroupId(), layout.getPlid(),
 				layoutStructure.toString());
 
 		return _pageElementDTOConverter.toDTO(

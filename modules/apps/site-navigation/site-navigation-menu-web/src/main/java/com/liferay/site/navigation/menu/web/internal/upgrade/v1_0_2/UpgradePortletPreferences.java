@@ -14,7 +14,7 @@ import com.liferay.site.navigation.model.SiteNavigationMenuItem;
 import com.liferay.site.navigation.service.SiteNavigationMenuItemLocalService;
 import com.liferay.site.navigation.service.SiteNavigationMenuLocalService;
 
-import javax.portlet.PortletPreferences;
+import jakarta.portlet.PortletPreferences;
 
 /**
  * @author Javier Moral
@@ -63,7 +63,8 @@ public class UpgradePortletPreferences extends BaseUpgradePortletPreferences {
 			siteNavigationMenu.getExternalReferenceCode());
 
 		String scopeExternalReferenceCode = getScopeExternalReferenceCode(
-			companyId, plid, siteNavigationMenu.getGroupId());
+			companyId, ownerId, ownerType, plid,
+			siteNavigationMenu.getGroupId());
 
 		if (Validator.isNotNull(scopeExternalReferenceCode)) {
 			portletPreferences.setValue(

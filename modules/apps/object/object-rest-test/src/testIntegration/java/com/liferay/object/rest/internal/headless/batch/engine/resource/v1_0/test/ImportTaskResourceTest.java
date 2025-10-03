@@ -6,19 +6,34 @@
 package com.liferay.object.rest.internal.headless.batch.engine.resource.v1_0.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
+import com.liferay.object.constants.ObjectDefinitionConstants;
+import com.liferay.object.model.ObjectDefinition;
 import com.liferay.object.model.ObjectEntry;
 import com.liferay.object.rest.test.util.ObjectEntryTestUtil;
+import com.liferay.object.service.ObjectDefinitionLocalService;
 import com.liferay.petra.string.StringBundler;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.role.RoleConstants;
+import com.liferay.portal.kernel.test.TestInfo;
 import com.liferay.portal.kernel.test.util.HTTPTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.RoleTestUtil;
 import com.liferay.portal.kernel.util.Http;
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.test.rule.FeatureFlag;
+import com.liferay.portal.test.rule.Inject;
 
+import java.util.Collections;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,6 +46,14 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
 @RunWith(Arquillian.class)
 public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 
+	@FeatureFlag("LPD-45945")
+	@Test
+	@TestInfo("LPD-46121")
+	public void testDeleteImportTask() throws Exception {
+		_testDeleteImportTask(objectDefinition);
+		_testDeleteImportTask(siteObjectDefinition);
+	}
+
 	@Test
 	public void testPostImportTask() throws Exception {
 
@@ -39,7 +62,7 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 		Role role = RoleTestUtil.addRole(RoleConstants.TYPE_REGULAR);
 
 		ObjectEntry objectEntry = ObjectEntryTestUtil.addObjectEntry(
-			objectDefinition, OBJECT_FIELD_NAME_TEXT, "TestObject");
+			objectDefinition, OBJECT_FIELD_NAME_TEXT_1, "TestObject");
 
 		JSONObject beforeImportJSONObject = _getJSONObject(
 			objectEntry.getExternalReferenceCode());
@@ -63,7 +86,8 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 				StringBundler.concat(
 					"headless-batch-engine/v1.0/import-task",
 					"/com.liferay.object.rest.dto.v1_0.ObjectEntry",
-					"?batchRestrictFields=permissions,", OBJECT_FIELD_NAME_TEXT,
+					"?batchRestrictFields=permissions,",
+					OBJECT_FIELD_NAME_TEXT_1,
 					"&createStrategy=UPSERT&taskItemDelegateName=",
 					objectDefinition.getName()),
 				Http.Method.POST));
@@ -85,10 +109,42 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 			).toString(),
 			JSONCompareMode.LENIENT);
 
+		// With "createStrategy" UPSERT
+
+		objectEntry = ObjectEntryTestUtil.addObjectEntry(
+			objectDefinition, OBJECT_FIELD_NAME_TEXT_1,
+			RandomTestUtil.randomString());
+
+		waitForFinish(
+			"COMPLETED", true,
+			HTTPTestUtil.invokeToJSONObject(
+				JSONUtil.putAll(
+					JSONUtil.put(
+						OBJECT_FIELD_NAME_TEXT_2, RandomTestUtil.randomString()
+					).put(
+						"externalReferenceCode",
+						objectEntry.getExternalReferenceCode()
+					)
+				).toString(),
+				StringBundler.concat(
+					"headless-batch-engine/v1.0/import-task",
+					"/com.liferay.object.rest.dto.v1_0.ObjectEntry",
+					"?createStrategy=UPSERT&taskItemDelegateName=",
+					objectDefinition.getName()),
+				Http.Method.POST));
+
+		Assert.assertEquals(
+			StringPool.BLANK,
+			_getJSONObject(
+				objectEntry.getExternalReferenceCode()
+			).getString(
+				OBJECT_FIELD_NAME_TEXT_1
+			));
+
 		// With "permissions" and "createStrategy" INSERT
 
 		beforeImportJSONObject = JSONUtil.put(
-			OBJECT_FIELD_NAME_TEXT, RandomTestUtil.randomString()
+			OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()
 		).put(
 			"externalReferenceCode", RandomTestUtil.randomString()
 		).put(
@@ -135,7 +191,7 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 
 		beforeImportJSONObject = HTTPTestUtil.invokeToJSONObject(
 			JSONUtil.put(
-				OBJECT_FIELD_NAME_TEXT, RandomTestUtil.randomString()
+				OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()
 			).put(
 				"externalReferenceCode", RandomTestUtil.randomString()
 			).toString(),
@@ -197,7 +253,7 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 		// With empty "permissions" and "createStrategy" INSERT
 
 		beforeImportJSONObject = JSONUtil.put(
-			OBJECT_FIELD_NAME_TEXT, RandomTestUtil.randomString()
+			OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()
 		).put(
 			"externalReferenceCode", RandomTestUtil.randomString()
 		).put(
@@ -231,7 +287,7 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 
 		beforeImportJSONObject = HTTPTestUtil.invokeToJSONObject(
 			JSONUtil.put(
-				OBJECT_FIELD_NAME_TEXT, RandomTestUtil.randomString()
+				OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()
 			).put(
 				"externalReferenceCode", RandomTestUtil.randomString()
 			).toString(),
@@ -267,10 +323,44 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 			).toString(),
 			JSONCompareMode.LENIENT);
 
+		// With "updateStrategy" PARTIAL_UPDATE
+
+		String expectedFieldValue = RandomTestUtil.randomString();
+
+		objectEntry = ObjectEntryTestUtil.addObjectEntry(
+			objectDefinition, OBJECT_FIELD_NAME_TEXT_1, expectedFieldValue);
+
+		waitForFinish(
+			"COMPLETED", true,
+			HTTPTestUtil.invokeToJSONObject(
+				JSONUtil.putAll(
+					JSONUtil.put(
+						OBJECT_FIELD_NAME_TEXT_2, RandomTestUtil.randomString()
+					).put(
+						"externalReferenceCode",
+						objectEntry.getExternalReferenceCode()
+					)
+				).toString(),
+				StringBundler.concat(
+					"headless-batch-engine/v1.0/import-task",
+					"/com.liferay.object.rest.dto.v1_0.ObjectEntry",
+					"?createStrategy=UPSERT&taskItemDelegateName=",
+					objectDefinition.getName(),
+					"&updateStrategy=PARTIAL_UPDATE"),
+				Http.Method.POST));
+
+		Assert.assertEquals(
+			expectedFieldValue,
+			_getJSONObject(
+				objectEntry.getExternalReferenceCode()
+			).getString(
+				OBJECT_FIELD_NAME_TEXT_1
+			));
+
 		// With no "permissions" and "createStrategy" INSERT
 
 		beforeImportJSONObject = JSONUtil.put(
-			OBJECT_FIELD_NAME_TEXT, RandomTestUtil.randomString()
+			OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()
 		).put(
 			"externalReferenceCode", RandomTestUtil.randomString()
 		);
@@ -311,7 +401,7 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 
 		beforeImportJSONObject = HTTPTestUtil.invokeToJSONObject(
 			JSONUtil.put(
-				OBJECT_FIELD_NAME_TEXT, RandomTestUtil.randomString()
+				OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()
 			).put(
 				"externalReferenceCode", RandomTestUtil.randomString()
 			).toString(),
@@ -359,7 +449,7 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 		// Without "batchRestrictFields" query parameter
 
 		objectEntry = ObjectEntryTestUtil.addObjectEntry(
-			objectDefinition, OBJECT_FIELD_NAME_TEXT, "TestObject");
+			objectDefinition, OBJECT_FIELD_NAME_TEXT_1, "TestObject");
 
 		beforeImportJSONObject = _getJSONObject(
 			objectEntry.getExternalReferenceCode());
@@ -410,6 +500,30 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 			JSONCompareMode.LENIENT);
 	}
 
+	private int _getHttpCode(ObjectEntry objectEntry) throws Exception {
+		String endpoint = StringBundler.concat(
+			objectDefinition.getRESTContextPath(),
+			"/by-external-reference-code/",
+			objectEntry.getExternalReferenceCode());
+
+		ObjectDefinition objectDefinition =
+			_objectDefinitionLocalService.getObjectDefinition(
+				objectEntry.getObjectDefinitionId());
+
+		if (StringUtil.equals(
+				objectDefinition.getScope(),
+				ObjectDefinitionConstants.SCOPE_SITE)) {
+
+			endpoint = StringBundler.concat(
+				objectDefinition.getRESTContextPath(), "/scopes/",
+				testGroup.getExternalReferenceCode(),
+				"/by-external-reference-code/",
+				objectEntry.getExternalReferenceCode());
+		}
+
+		return HTTPTestUtil.invokeToHttpCode(null, endpoint, Http.Method.GET);
+	}
+
 	private JSONObject _getJSONObject(String externalReferenceCode)
 		throws Exception {
 
@@ -421,5 +535,102 @@ public class ImportTaskResourceTest extends BaseTaskResourceTestCase {
 				"?nestedFields=permissions"),
 			Http.Method.GET);
 	}
+
+	private void _testDeleteImportTask(ObjectDefinition objectDefinition)
+		throws Exception {
+
+		long groupId = 0;
+
+		if (StringUtil.equals(
+				objectDefinition.getScope(),
+				ObjectDefinitionConstants.SCOPE_SITE)) {
+
+			groupId = testGroup.getGroupId();
+
+			importTaskResource = ImportTaskResource.builder(
+			).authentication(
+				testCompanyAdminUser.getEmailAddress(),
+				PropsValues.DEFAULT_ADMIN_PASSWORD
+			).endpoint(
+				testCompany.getVirtualHostname(), 8080, "http"
+			).locale(
+				LocaleUtil.getDefault()
+			).parameters(
+				"siteExternalReferenceCode",
+				testGroup.getExternalReferenceCode()
+			).build();
+		}
+
+		ObjectEntry objectEntry1 = ObjectEntryTestUtil.addObjectEntry(
+			groupId, objectDefinition,
+			Collections.singletonMap(
+				OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()));
+		ObjectEntry objectEntry2 = ObjectEntryTestUtil.addObjectEntry(
+			groupId, objectDefinition,
+			Collections.singletonMap(
+				OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()));
+
+		HttpInvoker.HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.object.rest.dto.v1_0.ObjectEntry", null, null,
+				null, objectDefinition.getName(),
+				JSONUtil.putAll(
+					JSONUtil.put("id", objectEntry1.getObjectEntryId())
+				).toString());
+
+		waitForFinish(
+			"COMPLETED", true,
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+
+		Assert.assertEquals(404, _getHttpCode(objectEntry1));
+
+		httpResponse = importTaskResource.deleteImportTaskHttpResponse(
+			"com.liferay.object.rest.dto.v1_0.ObjectEntry", null, null, null,
+			objectDefinition.getName(),
+			JSONUtil.putAll(
+				JSONUtil.put(
+					"externalReferenceCode",
+					objectEntry2.getExternalReferenceCode())
+			).toString());
+
+		waitForFinish(
+			"COMPLETED", true,
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+
+		Assert.assertEquals(404, _getHttpCode(objectEntry2));
+
+		objectEntry1 = ObjectEntryTestUtil.addObjectEntry(
+			groupId, objectDefinition,
+			Collections.singletonMap(
+				OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()));
+
+		objectEntry2 = ObjectEntryTestUtil.addObjectEntry(
+			groupId, objectDefinition,
+			Collections.singletonMap(
+				OBJECT_FIELD_NAME_TEXT_1, RandomTestUtil.randomString()));
+
+		httpResponse = importTaskResource.deleteImportTaskHttpResponse(
+			"com.liferay.object.rest.dto.v1_0.ObjectEntry", null, null, null,
+			objectDefinition.getName(),
+			JSONUtil.putAll(
+				JSONUtil.put(
+					"externalReferenceCode",
+					objectEntry2.getExternalReferenceCode()
+				).put(
+					"id", objectEntry1.getObjectEntryId()
+				)
+			).toString());
+
+		waitForFinish(
+			"COMPLETED", true,
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+
+		Assert.assertEquals(404, _getHttpCode(objectEntry1));
+
+		Assert.assertEquals(200, _getHttpCode(objectEntry2));
+	}
+
+	@Inject
+	private ObjectDefinitionLocalService _objectDefinitionLocalService;
 
 }

@@ -46,10 +46,14 @@ public class ObjectEntryWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("headObjectEntryId", getHeadObjectEntryId());
 		attributes.put("objectDefinitionId", getObjectDefinitionId());
 		attributes.put("objectEntryFolderId", getObjectEntryFolderId());
 		attributes.put("rootObjectEntryId", getRootObjectEntryId());
 		attributes.put("defaultLanguageId", getDefaultLanguageId());
+		attributes.put("displayDate", getDisplayDate());
+		attributes.put("expirationDate", getExpirationDate());
+		attributes.put("reviewDate", getReviewDate());
 		attributes.put("treePath", getTreePath());
 		attributes.put("version", getVersion());
 		attributes.put("lastPublishDate", getLastPublishDate());
@@ -124,6 +128,12 @@ public class ObjectEntryWrapper
 			setModifiedDate(modifiedDate);
 		}
 
+		Long headObjectEntryId = (Long)attributes.get("headObjectEntryId");
+
+		if (headObjectEntryId != null) {
+			setHeadObjectEntryId(headObjectEntryId);
+		}
+
 		Long objectDefinitionId = (Long)attributes.get("objectDefinitionId");
 
 		if (objectDefinitionId != null) {
@@ -146,6 +156,24 @@ public class ObjectEntryWrapper
 
 		if (defaultLanguageId != null) {
 			setDefaultLanguageId(defaultLanguageId);
+		}
+
+		Date displayDate = (Date)attributes.get("displayDate");
+
+		if (displayDate != null) {
+			setDisplayDate(displayDate);
+		}
+
+		Date expirationDate = (Date)attributes.get("expirationDate");
+
+		if (expirationDate != null) {
+			setExpirationDate(expirationDate);
+		}
+
+		Date reviewDate = (Date)attributes.get("reviewDate");
+
+		if (reviewDate != null) {
+			setReviewDate(reviewDate);
 		}
 
 		String treePath = (String)attributes.get("treePath");
@@ -234,6 +262,26 @@ public class ObjectEntryWrapper
 	}
 
 	/**
+	 * Returns the display date of this object entry.
+	 *
+	 * @return the display date of this object entry
+	 */
+	@Override
+	public Date getDisplayDate() {
+		return model.getDisplayDate();
+	}
+
+	/**
+	 * Returns the expiration date of this object entry.
+	 *
+	 * @return the expiration date of this object entry
+	 */
+	@Override
+	public Date getExpirationDate() {
+		return model.getExpirationDate();
+	}
+
+	/**
 	 * Returns the external reference code of this object entry.
 	 *
 	 * @return the external reference code of this object entry
@@ -251,6 +299,16 @@ public class ObjectEntryWrapper
 	@Override
 	public long getGroupId() {
 		return model.getGroupId();
+	}
+
+	/**
+	 * Returns the head object entry ID of this object entry.
+	 *
+	 * @return the head object entry ID of this object entry
+	 */
+	@Override
+	public long getHeadObjectEntryId() {
+		return model.getHeadObjectEntryId();
 	}
 
 	/**
@@ -336,6 +394,16 @@ public class ObjectEntryWrapper
 	}
 
 	/**
+	 * Returns the review date of this object entry.
+	 *
+	 * @return the review date of this object entry
+	 */
+	@Override
+	public Date getReviewDate() {
+		return model.getReviewDate();
+	}
+
+	/**
 	 * Returns the root object entry ID of this object entry.
 	 *
 	 * @return the root object entry ID of this object entry
@@ -414,6 +482,23 @@ public class ObjectEntryWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return model.getTitleValue(languageId);
+	}
+
+	@Override
+	public String getTitleValue(String languageId, boolean useDefault)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return model.getTitleValue(languageId, useDefault);
+	}
+
+	/**
+	 * Returns the class primary key of the trash entry for this object entry.
+	 *
+	 * @return the class primary key of the trash entry for this object entry
+	 */
+	@Override
+	public long getTrashEntryClassPK() {
+		return model.getTrashEntryClassPK();
 	}
 
 	/**
@@ -531,6 +616,11 @@ public class ObjectEntryWrapper
 		return model.isExpired();
 	}
 
+	@Override
+	public boolean isHead() {
+		return model.isHead();
+	}
+
 	/**
 	 * Returns <code>true</code> if this object entry is inactive.
 	 *
@@ -552,6 +642,16 @@ public class ObjectEntryWrapper
 	}
 
 	/**
+	 * Returns <code>true</code> if this object entry is in the Recycle Bin.
+	 *
+	 * @return <code>true</code> if this object entry is in the Recycle Bin; <code>false</code> otherwise
+	 */
+	@Override
+	public boolean isInTrash() {
+		return model.isInTrash();
+	}
+
+	/**
 	 * Returns <code>true</code> if this object entry is pending.
 	 *
 	 * @return <code>true</code> if this object entry is pending; <code>false</code> otherwise
@@ -559,6 +659,11 @@ public class ObjectEntryWrapper
 	@Override
 	public boolean isPending() {
 		return model.isPending();
+	}
+
+	@Override
+	public boolean isRootDescendantNode() {
+		return model.isRootDescendantNode();
 	}
 
 	/**
@@ -607,6 +712,26 @@ public class ObjectEntryWrapper
 	}
 
 	/**
+	 * Sets the display date of this object entry.
+	 *
+	 * @param displayDate the display date of this object entry
+	 */
+	@Override
+	public void setDisplayDate(Date displayDate) {
+		model.setDisplayDate(displayDate);
+	}
+
+	/**
+	 * Sets the expiration date of this object entry.
+	 *
+	 * @param expirationDate the expiration date of this object entry
+	 */
+	@Override
+	public void setExpirationDate(Date expirationDate) {
+		model.setExpirationDate(expirationDate);
+	}
+
+	/**
 	 * Sets the external reference code of this object entry.
 	 *
 	 * @param externalReferenceCode the external reference code of this object entry
@@ -624,6 +749,16 @@ public class ObjectEntryWrapper
 	@Override
 	public void setGroupId(long groupId) {
 		model.setGroupId(groupId);
+	}
+
+	/**
+	 * Sets the head object entry ID of this object entry.
+	 *
+	 * @param headObjectEntryId the head object entry ID of this object entry
+	 */
+	@Override
+	public void setHeadObjectEntryId(long headObjectEntryId) {
+		model.setHeadObjectEntryId(headObjectEntryId);
 	}
 
 	/**
@@ -694,6 +829,16 @@ public class ObjectEntryWrapper
 	@Override
 	public void setPrimaryKey(long primaryKey) {
 		model.setPrimaryKey(primaryKey);
+	}
+
+	/**
+	 * Sets the review date of this object entry.
+	 *
+	 * @param reviewDate the review date of this object entry
+	 */
+	@Override
+	public void setReviewDate(Date reviewDate) {
+		model.setReviewDate(reviewDate);
 	}
 
 	/**

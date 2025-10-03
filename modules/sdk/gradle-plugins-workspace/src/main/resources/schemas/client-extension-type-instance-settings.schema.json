@@ -653,13 +653,29 @@
 				"captchaName": {
 					"type": "string"
 				},
+				"captchaResponseParameterName": {
+					"type": "string"
+				},
+				"customElementExternalReferenceCode": {
+					"type": "string"
+				},
+				"oAuth2ApplicationExternalReferenceCode": {
+					"type": "string"
+				},
 				"pid": {
 					"const": "com.liferay.captcha.internal.configuration.FunctionCaptchaImplConfiguration"
+				},
+				"resourcePath": {
+					"type": "string"
 				}
 			},
 			"required": [
 				"pid",
-				"captchaName"
+				"captchaName",
+				"captchaResponseParameterName",
+				"customElementExternalReferenceCode",
+				"oAuth2ApplicationExternalReferenceCode",
+				"resourcePath"
 			]
 		},
 		{
@@ -700,34 +716,17 @@
 		},
 		{
 			"properties": {
-				"modificationDeletionConflictCheckEnabled": {
-					"default": false,
-					"description": "Check this option to automatically check all modification deletion conflicts by default. This will let you review any deletion conflicts and prevent Liferay from overwriting deletions made in a publication when updating production.",
-					"title": "Modification Deletion Conflict Check Enabled",
-					"type": "boolean"
-				},
-				"pid": {
-					"const": "com.liferay.change.tracking.configuration.CTConflictConfiguration",
-					"title": "Publications Conflicts"
-				},
-				"schemaVersionCheckEnabled": {
-					"default": false,
-					"description": "Enabling the schema version check will allow unpublished publications to go out-of-date after an upgrade.",
-					"title": "Schema Version Check Enabled",
-					"type": "boolean"
-				}
-			},
-			"required": [
-				"pid"
-			],
-			"title": "Publications Conflicts"
-		},
-		{
-			"properties": {
 				"defaultCTCollectionTemplateId": {
 					"default": 0,
 					"title": "Default Publication Template ID",
 					"type": "number"
+				},
+				"defaultOwnerActionIds": {
+					"items": {
+						"type": "string"
+					},
+					"title": "Defaults Owner Action IDs",
+					"type": "array"
 				},
 				"defaultSandboxCTCollectionTemplateId": {
 					"default": 0,
@@ -737,6 +736,12 @@
 				"enabled": {
 					"default": false,
 					"title": "Enabled",
+					"type": "boolean"
+				},
+				"modificationDeletionConflictCheckEnabled": {
+					"default": false,
+					"description": "Check this option to automatically check all modification deletion conflicts by default. This will let you review any deletion conflicts and prevent Liferay from overwriting deletions made in a publication when updating production.",
+					"title": "Modification Deletion Conflict Check Enabled",
 					"type": "boolean"
 				},
 				"pid": {
@@ -759,6 +764,12 @@
 				"sandboxEnabled": {
 					"default": false,
 					"title": "Sandbox Enabled",
+					"type": "boolean"
+				},
+				"schemaVersionCheckEnabled": {
+					"default": false,
+					"description": "Enabling the schema version check will allow unpublished publications to go out of date after an upgrade.",
+					"title": "Schema Version Check Enabled",
 					"type": "boolean"
 				},
 				"unapprovedChangesAllowed": {
@@ -1007,6 +1018,29 @@
 				"pid"
 			],
 			"title": "Friendly URL"
+		},
+		{
+			"properties": {
+				"enabled": {
+					"default": false,
+					"title": "Enabled",
+					"type": "boolean"
+				},
+				"pid": {
+					"const": "com.liferay.commerce.product.configuration.CProductVersionConfiguration",
+					"title": "Product Versioning"
+				},
+				"versionThreshold": {
+					"default": 5,
+					"min": 0,
+					"title": "Versions to Retain",
+					"type": "number"
+				}
+			},
+			"required": [
+				"pid"
+			],
+			"title": "Product Versioning"
 		},
 		{
 			"properties": {
@@ -1883,6 +1917,67 @@
 			]
 		},
 		{
+			"description": "For changes made here to take effect, you must reload the browser page after saving.",
+			"properties": {
+				"cacheExpirationTime": {
+					"default": -1,
+					"description": "Define the time, in minutes, in which the SPA cache is cleared. Use a zero value if the cache should never expire during SPA navigation. Use a negative value if the cache should be disabled.",
+					"title": "Cache Expiration Time",
+					"type": "number"
+				},
+				"customExcludedPaths": {
+					"description": "Define the custom paths that SPA should ignore.",
+					"items": {
+						"type": "string"
+					},
+					"title": "Custom Excluded Paths",
+					"type": "array"
+				},
+				"enabled": {
+					"default": true,
+					"description": "If this is checked, the single page application framework will allow for faster navigation between pages.",
+					"title": "Enable Single Page Application",
+					"type": "boolean"
+				},
+				"navigationExceptionSelectors": {
+					"default": ":not([target=\\",
+					"description": "Define the CSS selectors that SPA should ignore.",
+					"items": {
+						"type": "string"
+					},
+					"title": "Navigation Exception Selectors",
+					"type": "array"
+				},
+				"pid": {
+					"const": "com.liferay.frontend.js.spa.web.internal.configuration.SPAConfiguration",
+					"description": "For changes made here to take effect, you must reload the browser page after saving.",
+					"title": "Frontend SPA Infrastructure"
+				},
+				"preloadCSS": {
+					"default": false,
+					"description": "Preload CSS resources before applying UI changes. This will prevent FOUC (flash of unstyled content) at the expense of making UI updates slower.",
+					"title": "Preload CSS",
+					"type": "boolean"
+				},
+				"requestTimeout": {
+					"default": 0,
+					"description": "Define the time, in milliseconds, in which a SPA request times out. Use a zero value if the request should never timeout.",
+					"title": "Request Timeout Time",
+					"type": "number"
+				},
+				"userNotificationTimeout": {
+					"default": 30000,
+					"description": "Define the time, in milliseconds, in which a notification is shown to the user stating that the request is taking longer than expected. Set to 0 if no notification should be shown.",
+					"title": "User Notification Timeout",
+					"type": "number"
+				}
+			},
+			"required": [
+				"pid"
+			],
+			"title": "Frontend SPA Infrastructure"
+		},
+		{
 			"properties": {
 				"enabled": {
 					"default": false,
@@ -1898,6 +1993,42 @@
 				"pid"
 			],
 			"title": "Custom Dialogs"
+		},
+		{
+			"properties": {
+				"cssStyleSheetsMaxAge": {
+					"default": 86400,
+					"description": "Set the value of the \"max-age\" directive in the \"Cache-Control\" header for CSS style sheets.",
+					"title": "CSS Style Sheets Max Age Directive Value",
+					"type": "number"
+				},
+				"esModulesMaxAge": {
+					"default": 86400,
+					"description": "Set the value of the \"max-age\" directive in the \"Cache-Control\" header for ES modules.",
+					"title": "ES Modules Max Age Directive Value",
+					"type": "number"
+				},
+				"pid": {
+					"const": "com.liferay.frontend.js.web.internal.configuration.FrontendCachingConfiguration",
+					"title": "Frontend Caching"
+				},
+				"sendNoCacheForCSSStyleSheets": {
+					"default": false,
+					"description": "If checked, a \"no-cache\" directive (instead of \"must-revalidate\") will be sent in the \"Cache-Control\" header for CSS style sheets.",
+					"title": "Send No Cache Directive For CSS Style Sheets",
+					"type": "boolean"
+				},
+				"sendNoCacheForESModules": {
+					"default": false,
+					"description": "If checked, a \"no-cache\" directive (instead of \"must-revalidate\") will be sent in the \"Cache-Control\" header for ES modules.",
+					"title": "Send No Cache Directive For ES Modules",
+					"type": "boolean"
+				}
+			},
+			"required": [
+				"pid"
+			],
+			"title": "Frontend Caching"
 		},
 		{
 			"properties": {
@@ -2121,7 +2252,7 @@
 				},
 				"enableLayoutTranslatedLanguages": {
 					"default": false,
-					"description": "Generate Hreflang meta data only for languages with translated content.",
+					"description": "Generate Hreflang metadata only for languages with translated content.",
 					"title": "Enable Only Translated Hreflangs",
 					"type": "boolean"
 				},
@@ -2211,6 +2342,84 @@
 				"tenantId"
 			],
 			"title": "Outlook Auth Connector"
+		},
+		{
+			"properties": {
+				"additionalJavaMailProperties": {
+					"default": "",
+					"description": "Manually specify additional JavaMail properties to override the existing configuration.",
+					"title": "Additional Java Mail Properties",
+					"type": "string"
+				},
+				"enablePOPServerNotifications": {
+					"default": false,
+					"title": "Enable POP Server Notifications",
+					"type": "boolean"
+				},
+				"enableStartTLS": {
+					"default": true,
+					"title": "Enable StartTLS",
+					"type": "boolean"
+				},
+				"incomingPOPPort": {
+					"default": "110",
+					"title": "Incoming Port",
+					"type": "string"
+				},
+				"incomingPOPServer": {
+					"default": "localhost",
+					"title": "Incoming POP Server",
+					"type": "string"
+				},
+				"outgoingSMTPPort": {
+					"default": "25",
+					"title": "Outgoing Port",
+					"type": "string"
+				},
+				"outgoingSMTPServer": {
+					"default": "localhost",
+					"title": "Outgoing SMTP Server",
+					"type": "string"
+				},
+				"pid": {
+					"const": "com.liferay.mail.settings.configuration.MailSettingCompanyConfiguration",
+					"title": "Mail Settings"
+				},
+				"popPassword": {
+					"default": "",
+					"title": "POP Password",
+					"type": "string"
+				},
+				"popUserName": {
+					"default": "",
+					"title": "POP User Name",
+					"type": "string"
+				},
+				"smtpPassword": {
+					"default": "",
+					"title": "SMTP Password",
+					"type": "string"
+				},
+				"smtpUserName": {
+					"default": "",
+					"title": "SMTP User Name",
+					"type": "string"
+				},
+				"storeProtocol": {
+					"default": "pop3",
+					"title": "Store Protocol",
+					"type": "string"
+				},
+				"transportProtocol": {
+					"default": "smtp",
+					"title": "Transport Protocol",
+					"type": "string"
+				}
+			},
+			"required": [
+				"pid"
+			],
+			"title": "Mail Settings"
 		},
 		{
 			"properties": {
@@ -2552,6 +2761,387 @@
 		},
 		{
 			"properties": {
+				"checkInterval": {
+					"default": 15,
+					"description": "Set the interval (in minutes) to check for expiration, publishing, and review of object entries.",
+					"min": 1,
+					"title": "Object Entry Check Interval",
+					"type": "number"
+				},
+				"pid": {
+					"const": "com.liferay.object.configuration.ObjectEntryScheduleConfiguration",
+					"title": "Schedule"
+				}
+			},
+			"required": [
+				"pid"
+			],
+			"title": "Schedule"
+		},
+		{
+			"properties": {
+				"maximumRetentionPeriod": {
+					"default": 0,
+					"description": "Define the maximum retention period for entry versions. Once this period expires, the system will automatically delete the oldest versions to optimize storage space.",
+					"title": "Maximum Retention Period",
+					"type": "number"
+				},
+				"maximumVersionsPerEntry": {
+					"default": 0,
+					"description": "Define the maximum number of entries to be stored per object. Once this limit is reached, the oldest versions will be automatically deleted to optimize storage space.",
+					"title": "Maximum Versions per Entry",
+					"type": "number"
+				},
+				"pid": {
+					"const": "com.liferay.object.configuration.ObjectEntryVersionConfiguration",
+					"title": "Versioning for Entries"
+				}
+			},
+			"required": [
+				"pid",
+				"maximumRetentionPeriod"
+			],
+			"title": "Versioning for Entries"
+		},
+		{
+			"properties": {
+				"githubURL": {
+					"default": "",
+					"type": "string"
+				},
+				"helpCenterApiPassword": {
+					"default": "",
+					"type": "string"
+				},
+				"helpCenterApiUserName": {
+					"default": "",
+					"type": "string"
+				},
+				"helpCenterFileRepoId": {
+					"default": "",
+					"type": "string"
+				},
+				"helpCenterFileRepoURL": {
+					"default": "",
+					"type": "string"
+				},
+				"helpCenterGetAccountApiEndpoint": {
+					"default": "",
+					"type": "string"
+				},
+				"helpCenterJsonwsURL": {
+					"default": "",
+					"type": "string"
+				},
+				"helpCenterTicketAttachmentApiEndpoint": {
+					"default": "",
+					"type": "string"
+				},
+				"helpCenterTokenTicketDir": {
+					"default": "",
+					"type": "string"
+				},
+				"helpCenterURL": {
+					"default": "",
+					"type": "string"
+				},
+				"hotfixMountPath": {
+					"default": "",
+					"type": "string"
+				},
+				"infoModifyTicketsListURL": {
+					"default": "",
+					"type": "string"
+				},
+				"jenkinsAdminUserName": {
+					"default": "",
+					"type": "string"
+				},
+				"jenkinsAdminUserToken": {
+					"default": "",
+					"type": "string"
+				},
+				"jenkinsBuildWithParametersPath": {
+					"default": "",
+					"type": "string"
+				},
+				"jenkinsLoadBalancerBaseInvocationURL": {
+					"default": "",
+					"type": "string"
+				},
+				"jenkinsLoadBalancerEnabled": {
+					"default": false,
+					"type": "boolean"
+				},
+				"jenkinsToken": {
+					"default": "",
+					"type": "string"
+				},
+				"jenkinsURL": {
+					"default": "",
+					"type": "string"
+				},
+				"jiraURL": {
+					"default": "",
+					"type": "string"
+				},
+				"lesaURL": {
+					"default": "",
+					"type": "string"
+				},
+				"liferayUsersProfileURL": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherAccountWhitelist": {
+					"default": "",
+					"items": {
+						"type": "string"
+					},
+					"type": "array"
+				},
+				"patcherAgentJenkinsURL": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherBuildDownloadURL": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherGitTagPrefix": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherJenkinsRequestsEnabled": {
+					"default": false,
+					"type": "boolean"
+				},
+				"patcherLiferayPortalRepository": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherPubsubCredentialFilePath": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherPubsubProjectId": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherPubsubSubscriptionId": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherScanningEnabled": {
+					"default": false,
+					"type": "boolean"
+				},
+				"patcherSharedRequestAddFixPatcherType": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherSharedRequestBuildPatchPatcherType": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherStatusBuildJenkinsPath": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherStatusBuildJenkinsTestPath": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherStatusBuildPath": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherStatusFixPath": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherStatusPath": {
+					"default": "",
+					"type": "string"
+				},
+				"patcherTestsEnabled": {
+					"default": false,
+					"type": "boolean"
+				},
+				"pid": {
+					"const": "com.liferay.osb.patcher.configuration.PatcherConfiguration"
+				},
+				"troubleshootingURL": {
+					"default": "",
+					"type": "string"
+				}
+			},
+			"required": [
+				"pid"
+			]
+		},
+		{
+			"properties": {
+				"emailPatcherBuildCompleteBody": {
+					"properties": {
+					},
+					"title": "email-patcher-build-complete-body",
+					"type": "object"
+				},
+				"emailPatcherBuildCompleteSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-build-complete-subject",
+					"type": "object"
+				},
+				"emailPatcherBuildConflictBody": {
+					"properties": {
+					},
+					"title": "email-patcher-build-conflict-body",
+					"type": "object"
+				},
+				"emailPatcherBuildConflictSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-build-conflict-subject",
+					"type": "object"
+				},
+				"emailPatcherBuildFailedBody": {
+					"properties": {
+					},
+					"title": "email-patcher-build-failed-body",
+					"type": "object"
+				},
+				"emailPatcherBuildFailedSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-build-failed-subject",
+					"type": "object"
+				},
+				"emailPatcherBuildQAAnalysisNeededBody": {
+					"properties": {
+					},
+					"title": "email-patcher-build-qa-analysis-needed-body",
+					"type": "object"
+				},
+				"emailPatcherBuildQAAnalysisNeededSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-build-qa-analysis-needed-subject",
+					"type": "object"
+				},
+				"emailPatcherBuildQAAutomationPassedBody": {
+					"properties": {
+					},
+					"title": "email-patcher-build-qa-automation-passed-body",
+					"type": "object"
+				},
+				"emailPatcherBuildQAAutomationPassedSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-build-qa-automation-passed-subject",
+					"type": "object"
+				},
+				"emailPatcherBuildQAFailedManuallyBody": {
+					"properties": {
+					},
+					"title": "email-patcher-build-qa-failed-manually-body",
+					"type": "object"
+				},
+				"emailPatcherBuildQAFailedManuallySubject": {
+					"properties": {
+					},
+					"title": "email-patcher-build-qa-failed-manually-subject",
+					"type": "object"
+				},
+				"emailPatcherBuildQAPassedManuallyBody": {
+					"properties": {
+					},
+					"title": "email-patcher-build-qa-passed-manually-body",
+					"type": "object"
+				},
+				"emailPatcherBuildQAPassedManuallySubject": {
+					"properties": {
+					},
+					"title": "email-patcher-build-qa-passed-manually-subject",
+					"type": "object"
+				},
+				"emailPatcherBuildRebaseConflictBody": {
+					"properties": {
+					},
+					"title": "email-patcher-build-rebase-conflict-body",
+					"type": "object"
+				},
+				"emailPatcherBuildRebaseConflictSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-build-rebase-conflict-subject",
+					"type": "object"
+				},
+				"emailPatcherBuildTimeoutBody": {
+					"properties": {
+					},
+					"title": "email-patcher-build-timeout-body",
+					"type": "object"
+				},
+				"emailPatcherBuildTimeoutSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-build-timeout-subject",
+					"type": "object"
+				},
+				"emailPatcherFixCompleteBody": {
+					"properties": {
+					},
+					"title": "email-patcher-fix-complete-body",
+					"type": "object"
+				},
+				"emailPatcherFixCompleteSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-fix-complete-subject",
+					"type": "object"
+				},
+				"emailPatcherFixFailedBody": {
+					"properties": {
+					},
+					"title": "email-patcher-fix-failed-body",
+					"type": "object"
+				},
+				"emailPatcherFixFailedSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-fix-failed-subject",
+					"type": "object"
+				},
+				"emailPatcherFixTimeoutBody": {
+					"properties": {
+					},
+					"title": "email-patcher-fix-timeout-body",
+					"type": "object"
+				},
+				"emailPatcherFixTimeoutSubject": {
+					"properties": {
+					},
+					"title": "email-patcher-fix-timeout-subject",
+					"type": "object"
+				},
+				"emailQAComments": {
+					"properties": {
+					},
+					"title": "email-qa-comments",
+					"type": "object"
+				},
+				"pid": {
+					"const": "com.liferay.osb.patcher.configuration.PatcherEmailConfiguration"
+				}
+			},
+			"required": [
+				"pid"
+			]
+		},
+		{
+			"properties": {
 				"configurationName": {
 					"description": "Set hash provider configuration name.",
 					"title": "Hash Provider Configuration Name",
@@ -2638,7 +3228,7 @@
 					"type": "array"
 				},
 				"headers": {
-					"default": "Access-Control-Allow-Credentials: true|Access-Control-Allow-Headers: *|Access-Control-Allow-Methods: *|Access-Control-Allow-Origin: *",
+					"default": "Access-Control-Allow-Credentials: true|Access-Control-Allow-Headers: *|Access-Control-Allow-Methods: *|Access-Control-Allow-Origin: http://localhost:8080 http://127.0.0.1:8080 ::1",
 					"description": "Set the headers to be sent in response to CORS requests in the form of \"Name: Value\".",
 					"items": {
 						"type": "string"
@@ -3109,14 +3699,6 @@
 					"title": "Connection Properties",
 					"type": "array"
 				},
-				"errorPasswordAgeKeywords": {
-					"default": "age",
-					"items": {
-						"type": "string"
-					},
-					"title": "Error Password Age Keywords",
-					"type": "array"
-				},
 				"errorPasswordExpiredKeywords": {
 					"default": "expired",
 					"items": {
@@ -3131,30 +3713,6 @@
 						"type": "string"
 					},
 					"title": "Error Password History Keywords",
-					"type": "array"
-				},
-				"errorPasswordNotChangeableKeywords": {
-					"default": "not allowed to change",
-					"items": {
-						"type": "string"
-					},
-					"title": "Error Password Not Changeable Keywords",
-					"type": "array"
-				},
-				"errorPasswordSyntaxKeywords": {
-					"default": "syntax",
-					"items": {
-						"type": "string"
-					},
-					"title": "Error Password Syntax Keywords",
-					"type": "array"
-				},
-				"errorPasswordTrivialTextKeywords": {
-					"default": "trivial",
-					"items": {
-						"type": "string"
-					},
-					"title": "Error Password Trivial Text Keywords",
 					"type": "array"
 				},
 				"errorUserLockoutKeywords": {
@@ -3318,7 +3876,7 @@
 		},
 		{
 			"properties": {
-				"authorizationEndPoint": {
+				"authorizationEndpoint": {
 					"default": "",
 					"description": "Set the authorization endpoint for the OpenID Connect provider.",
 					"title": "Authorization Endpoint",
@@ -3333,6 +3891,15 @@
 					"title": "Custom Authorization Request Parameters",
 					"type": "array"
 				},
+				"customClaims": {
+					"default": "",
+					"description": "Map the custom claims from the OpenId Connect provider to custom fields.",
+					"items": {
+						"type": "string"
+					},
+					"title": "Custom Claims",
+					"type": "array"
+				},
 				"customTokenRequestParameters": {
 					"default": "",
 					"description": "Add custom token request parameters, e.g.: resource=https://contacts.google.com https://maps.google.com",
@@ -3342,13 +3909,13 @@
 					"title": "Custom Token Request Parameters",
 					"type": "array"
 				},
-				"discoveryEndPoint": {
+				"discoveryEndpoint": {
 					"default": "",
 					"description": "Set the discovery endpoint for the OpenID Connect provider. If this is set, manually set endpoints will be ignored.",
 					"title": "Discovery Endpoint",
 					"type": "string"
 				},
-				"discoveryEndPointCacheInMillis": {
+				"discoveryEndpointCacheInMillis": {
 					"default": 360000,
 					"description": "Discovery endpoint metadata will be cached on this interval in milliseconds. If set to 0, Ehcache's default time to live value of 600 seconds will be used.",
 					"title": "Discovery Endpoint Cache in Milliseconds",
@@ -3424,13 +3991,13 @@
 					"title": "Token Connection Timeout in Milliseconds",
 					"type": "number"
 				},
-				"tokenEndPoint": {
+				"tokenEndpoint": {
 					"default": "",
 					"description": "Set the token endpoint for the OpenID Connect provider.",
 					"title": "Token Endpoint",
 					"type": "string"
 				},
-				"userInfoEndPoint": {
+				"userInfoEndpoint": {
 					"default": "",
 					"description": "Set the user information endpoint for the OpenID Connect provider.",
 					"title": "User Information Endpoint",
@@ -3927,12 +4494,39 @@
 		},
 		{
 			"properties": {
+				"checkInterval": {
+					"default": 15,
+					"description": "Set the check interval in minutes.",
+					"min": 1,
+					"title": "Check Interval",
+					"type": "number"
+				},
+				"pid": {
+					"const": "com.liferay.site.cms.site.initializer.configuration.BulkActionTaskConfiguration",
+					"title": "Bulk Action Task Configuration"
+				}
+			},
+			"required": [
+				"pid"
+			],
+			"title": "Bulk Action Task Configuration"
+		},
+		{
+			"properties": {
 				"companySitemapGroupIds": {
 					"default": "",
 					"items": {
 						"type": "string"
 					},
 					"title": "Sites Included in the XML Sitemap",
+					"type": "array"
+				},
+				"companySitemapObjectDefinitionIds": {
+					"default": "",
+					"items": {
+						"type": "string"
+					},
+					"title": "Objects and CMS Structures Included in the XML Sitemap",
 					"type": "array"
 				},
 				"includeCategories": {
@@ -4221,7 +4815,6 @@
 				"com.liferay.captcha.configuration.CaptchaConfiguration",
 				"com.liferay.captcha.internal.configuration.FunctionCaptchaImplConfiguration",
 				"com.liferay.change.tracking.configuration.CTCollectionEmailConfiguration",
-				"com.liferay.change.tracking.configuration.CTConflictConfiguration",
 				"com.liferay.change.tracking.configuration.CTSettingsConfiguration",
 				"com.liferay.change.tracking.web.internal.configuration.CTConfiguration",
 				"com.liferay.click.to.chat.web.internal.configuration.ClickToChatConfiguration",
@@ -4231,6 +4824,7 @@
 				"com.liferay.commerce.product.configuration.CPConfigurationListRelConfiguration",
 				"com.liferay.commerce.product.configuration.CPDefinitionOptionRelConfiguration",
 				"com.liferay.commerce.product.configuration.CPFriendlyURLConfiguration",
+				"com.liferay.commerce.product.configuration.CProductVersionConfiguration",
 				"com.liferay.commerce.qualifier.configuration.AccountEntryCommerceQualifierConfiguration",
 				"com.liferay.commerce.qualifier.configuration.AccountGroupCommerceQualifierConfiguration",
 				"com.liferay.commerce.qualifier.configuration.AddressCommerceQualifierConfiguration",
@@ -4262,7 +4856,9 @@
 				"com.liferay.fragment.web.internal.configuration.FragmentPortletConfiguration",
 				"com.liferay.friendly.url.configuration.FriendlyURLRedirectionConfiguration",
 				"com.liferay.friendly.url.configuration.FriendlyURLSeparatorCompanyConfiguration",
+				"com.liferay.frontend.js.spa.web.internal.configuration.SPAConfiguration",
 				"com.liferay.frontend.js.web.internal.configuration.CustomDialogsSettingsConfiguration",
+				"com.liferay.frontend.js.web.internal.configuration.FrontendCachingConfiguration",
 				"com.liferay.journal.configuration.JournalServiceConfiguration",
 				"com.liferay.layout.content.page.editor.web.internal.configuration.PageEditorConfiguration",
 				"com.liferay.layout.locked.layouts.web.internal.configuration.LockedLayoutsCompanyConfiguration",
@@ -4270,6 +4866,7 @@
 				"com.liferay.layout.seo.internal.configuration.LayoutSEOCompanyConfiguration",
 				"com.liferay.layout.set.prototype.configuration.LayoutSetPrototypeConfiguration",
 				"com.liferay.mail.outlook.auth.connector.provider.internal.configuration.MailOutlookAuthConnectorCompanyConfiguration",
+				"com.liferay.mail.settings.configuration.MailSettingCompanyConfiguration",
 				"com.liferay.multi.factor.authentication.email.otp.configuration.MFAEmailOTPConfiguration",
 				"com.liferay.multi.factor.authentication.fido2.web.internal.configuration.MFAFIDO2Configuration",
 				"com.liferay.multi.factor.authentication.ip.address.internal.configuration.MFAIPAddressConfiguration",
@@ -4278,6 +4875,10 @@
 				"com.liferay.oauth2.provider.rest.internal.configuration.OAuth2InAssertionConfiguration",
 				"com.liferay.oauth2.provider.rest.internal.endpoint.authorize.configuration.AuthorizeScreenConfiguration",
 				"com.liferay.object.configuration.ObjectConfiguration",
+				"com.liferay.object.configuration.ObjectEntryScheduleConfiguration",
+				"com.liferay.object.configuration.ObjectEntryVersionConfiguration",
+				"com.liferay.osb.patcher.configuration.PatcherConfiguration",
+				"com.liferay.osb.patcher.configuration.PatcherEmailConfiguration",
 				"com.liferay.portal.crypto.hash.provider.bcrypt.internal.configuration.BCryptCryptoHashProviderConfiguration",
 				"com.liferay.portal.crypto.hash.provider.message.digest.internal.configuration.MessageDigestCryptoHashProviderConfiguration",
 				"com.liferay.portal.defaultpermissions.configuration.PortalDefaultPermissionsCompanyConfiguration",
@@ -4310,6 +4911,7 @@
 				"com.liferay.segments.context.vocabulary.internal.configuration.SegmentsContextVocabularyCompanyConfiguration",
 				"com.liferay.sharepoint.rest.repository.internal.configuration.SharepointRepositoryConfiguration",
 				"com.liferay.sharing.internal.configuration.SharingCompanyConfiguration",
+				"com.liferay.site.cms.site.initializer.configuration.BulkActionTaskConfiguration",
 				"com.liferay.site.internal.configuration.SitemapCompanyConfiguration",
 				"com.liferay.social.activity.internal.configuration.SocialActivityCompanyConfiguration",
 				"com.liferay.staging.configuration.StagingConfiguration",

@@ -64,6 +64,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -71,7 +72,6 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.service.base.UserGroupLocalServiceBaseImpl;
 import com.liferay.portal.service.persistence.constants.UserGroupFinderConstants;
 import com.liferay.portal.util.PortalInstances;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portlet.usersadmin.util.UsersAdminUtil;
 
 import java.io.File;
@@ -111,6 +111,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 		}
 
 		try {
+			reindexUserGroup(getUserGroup(userGroupId));
 			reindexUsers(userGroupId);
 		}
 		catch (PortalException portalException) {
@@ -135,6 +136,7 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 		}
 
 		try {
+			reindexUserGroup(userGroup);
 			reindexUsers(userGroup);
 		}
 		catch (PortalException portalException) {
@@ -162,6 +164,10 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 		}
 
 		try {
+			for (UserGroup userGroup : userGroups) {
+				reindexUserGroup(userGroup);
+			}
+
 			reindexUsers(userGroups);
 		}
 		catch (PortalException portalException) {
@@ -187,6 +193,10 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 		}
 
 		try {
+			for (long userGroupId : userGroupIds) {
+				reindexUserGroup(getUserGroup(userGroupId));
+			}
+
 			reindexUsers(userGroupIds);
 		}
 		catch (PortalException portalException) {
@@ -964,6 +974,10 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 
 		_userPersistence.setUserGroups(userId, userGroupIds);
 
+		for (long userGroupId : userGroupIds) {
+			reindexUserGroup(getUserGroup(userGroupId));
+		}
+
 		Indexer<User> indexer = IndexerRegistryUtil.nullSafeGetIndexer(
 			User.class);
 
@@ -990,6 +1004,10 @@ public class UserGroupLocalServiceImpl extends UserGroupLocalServiceBaseImpl {
 		_groupPersistence.removeUserGroups(groupId, userGroupIds);
 
 		try {
+			for (long userGroupId : userGroupIds) {
+				reindexUserGroup(getUserGroup(userGroupId));
+			}
+
 			reindexUsers(userGroupIds);
 		}
 		catch (PortalException portalException) {

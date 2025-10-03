@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 
+import com.liferay.headless.batch.engine.client.dto.v1_0.ImportTask;
+import com.liferay.headless.batch.engine.client.http.HttpInvoker.HttpResponse;
+import com.liferay.headless.batch.engine.client.resource.v1_0.ImportTaskResource;
 import com.liferay.headless.commerce.admin.site.setting.client.dto.v1_0.MeasurementUnit;
 import com.liferay.headless.commerce.admin.site.setting.client.http.HttpInvoker;
 import com.liferay.headless.commerce.admin.site.setting.client.pagination.Page;
@@ -25,6 +28,7 @@ import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONDeserializer;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
@@ -40,9 +44,11 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.odata.entity.EntityField;
@@ -51,11 +57,20 @@ import com.liferay.portal.search.test.rule.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegate;
 import com.liferay.portal.vulcan.crud.VulcanCRUDItemDelegateBuilderRegistry;
 import com.liferay.portal.vulcan.resource.EntityModelResource;
+
+import jakarta.annotation.Generated;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import jakarta.ws.rs.core.MultivaluedHashMap;
+import jakarta.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.PathSegment;
+import jakarta.ws.rs.core.UriBuilder;
+import jakarta.ws.rs.core.UriInfo;
 
 import java.lang.reflect.Method;
 
@@ -74,16 +89,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Generated;
-
-import javax.servlet.http.HttpServletRequest;
-
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.PathSegment;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
+import java.util.TimeZone;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -130,6 +136,16 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 			testCompany.getCompanyId());
 
 		measurementUnitResource = MeasurementUnitResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		importTaskResource = ImportTaskResource.builder(
 		).authentication(
 			_testCompanyAdminUser.getEmailAddress(),
 			PropsValues.DEFAULT_ADMIN_PASSWORD
@@ -212,1217 +228,6 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 	}
 
 	@Test
-	public void testGetMeasurementUnitsPage() throws Exception {
-		Page<MeasurementUnit> page =
-			measurementUnitResource.getMeasurementUnitsPage(
-				null, Pagination.of(1, 10), null);
-
-		long totalCount = page.getTotalCount();
-
-		MeasurementUnit measurementUnit1 =
-			testGetMeasurementUnitsPage_addMeasurementUnit(
-				randomMeasurementUnit());
-
-		MeasurementUnit measurementUnit2 =
-			testGetMeasurementUnitsPage_addMeasurementUnit(
-				randomMeasurementUnit());
-
-		page = measurementUnitResource.getMeasurementUnitsPage(
-			null, Pagination.of(1, 10), null);
-
-		Assert.assertEquals(totalCount + 2, page.getTotalCount());
-
-		assertContains(
-			measurementUnit1, (List<MeasurementUnit>)page.getItems());
-		assertContains(
-			measurementUnit2, (List<MeasurementUnit>)page.getItems());
-		assertValid(page, testGetMeasurementUnitsPage_getExpectedActions());
-
-		measurementUnitResource.deleteMeasurementUnit(measurementUnit1.getId());
-
-		measurementUnitResource.deleteMeasurementUnit(measurementUnit2.getId());
-	}
-
-	protected Map<String, Map<String, String>>
-			testGetMeasurementUnitsPage_getExpectedActions()
-		throws Exception {
-
-		Map<String, Map<String, String>> expectedActions = new HashMap<>();
-
-		return expectedActions;
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithFilterDateTimeEquals()
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(
-			EntityField.Type.DATE_TIME);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		MeasurementUnit measurementUnit1 = randomMeasurementUnit();
-
-		measurementUnit1 = testGetMeasurementUnitsPage_addMeasurementUnit(
-			measurementUnit1);
-
-		for (EntityField entityField : entityFields) {
-			Page<MeasurementUnit> page =
-				measurementUnitResource.getMeasurementUnitsPage(
-					getFilterString(entityField, "between", measurementUnit1),
-					Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(measurementUnit1),
-				(List<MeasurementUnit>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithFilterDoubleEquals()
-		throws Exception {
-
-		testGetMeasurementUnitsPageWithFilter("eq", EntityField.Type.DOUBLE);
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithFilterStringContains()
-		throws Exception {
-
-		testGetMeasurementUnitsPageWithFilter(
-			"contains", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithFilterStringEquals()
-		throws Exception {
-
-		testGetMeasurementUnitsPageWithFilter("eq", EntityField.Type.STRING);
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithFilterStringStartsWith()
-		throws Exception {
-
-		testGetMeasurementUnitsPageWithFilter(
-			"startswith", EntityField.Type.STRING);
-	}
-
-	protected void testGetMeasurementUnitsPageWithFilter(
-			String operator, EntityField.Type type)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		MeasurementUnit measurementUnit1 =
-			testGetMeasurementUnitsPage_addMeasurementUnit(
-				randomMeasurementUnit());
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		MeasurementUnit measurementUnit2 =
-			testGetMeasurementUnitsPage_addMeasurementUnit(
-				randomMeasurementUnit());
-
-		for (EntityField entityField : entityFields) {
-			Page<MeasurementUnit> page =
-				measurementUnitResource.getMeasurementUnitsPage(
-					getFilterString(entityField, operator, measurementUnit1),
-					Pagination.of(1, 2), null);
-
-			assertEquals(
-				Collections.singletonList(measurementUnit1),
-				(List<MeasurementUnit>)page.getItems());
-		}
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithPagination() throws Exception {
-		Page<MeasurementUnit> measurementUnitPage =
-			measurementUnitResource.getMeasurementUnitsPage(null, null, null);
-
-		int totalCount = GetterUtil.getInteger(
-			measurementUnitPage.getTotalCount());
-
-		MeasurementUnit measurementUnit1 =
-			testGetMeasurementUnitsPage_addMeasurementUnit(
-				randomMeasurementUnit());
-
-		MeasurementUnit measurementUnit2 =
-			testGetMeasurementUnitsPage_addMeasurementUnit(
-				randomMeasurementUnit());
-
-		MeasurementUnit measurementUnit3 =
-			testGetMeasurementUnitsPage_addMeasurementUnit(
-				randomMeasurementUnit());
-
-		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
-
-		int pageSizeLimit = 500;
-
-		if (totalCount >= (pageSizeLimit - 2)) {
-			Page<MeasurementUnit> page1 =
-				measurementUnitResource.getMeasurementUnitsPage(
-					null,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
-
-			assertContains(
-				measurementUnit1, (List<MeasurementUnit>)page1.getItems());
-
-			Page<MeasurementUnit> page2 =
-				measurementUnitResource.getMeasurementUnitsPage(
-					null,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			assertContains(
-				measurementUnit2, (List<MeasurementUnit>)page2.getItems());
-
-			Page<MeasurementUnit> page3 =
-				measurementUnitResource.getMeasurementUnitsPage(
-					null,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			assertContains(
-				measurementUnit3, (List<MeasurementUnit>)page3.getItems());
-		}
-		else {
-			Page<MeasurementUnit> page1 =
-				measurementUnitResource.getMeasurementUnitsPage(
-					null, Pagination.of(1, totalCount + 2), null);
-
-			List<MeasurementUnit> measurementUnits1 =
-				(List<MeasurementUnit>)page1.getItems();
-
-			Assert.assertEquals(
-				measurementUnits1.toString(), totalCount + 2,
-				measurementUnits1.size());
-
-			Page<MeasurementUnit> page2 =
-				measurementUnitResource.getMeasurementUnitsPage(
-					null, Pagination.of(2, totalCount + 2), null);
-
-			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
-
-			List<MeasurementUnit> measurementUnits2 =
-				(List<MeasurementUnit>)page2.getItems();
-
-			Assert.assertEquals(
-				measurementUnits2.toString(), 1, measurementUnits2.size());
-
-			Page<MeasurementUnit> page3 =
-				measurementUnitResource.getMeasurementUnitsPage(
-					null, Pagination.of(1, (int)totalCount + 3), null);
-
-			assertContains(
-				measurementUnit1, (List<MeasurementUnit>)page3.getItems());
-			assertContains(
-				measurementUnit2, (List<MeasurementUnit>)page3.getItems());
-			assertContains(
-				measurementUnit3, (List<MeasurementUnit>)page3.getItems());
-		}
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithSortDateTime() throws Exception {
-		testGetMeasurementUnitsPageWithSort(
-			EntityField.Type.DATE_TIME,
-			(entityField, measurementUnit1, measurementUnit2) -> {
-				BeanTestUtil.setProperty(
-					measurementUnit1, entityField.getName(),
-					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
-			});
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithSortDouble() throws Exception {
-		testGetMeasurementUnitsPageWithSort(
-			EntityField.Type.DOUBLE,
-			(entityField, measurementUnit1, measurementUnit2) -> {
-				BeanTestUtil.setProperty(
-					measurementUnit1, entityField.getName(), 0.1);
-				BeanTestUtil.setProperty(
-					measurementUnit2, entityField.getName(), 0.5);
-			});
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithSortInteger() throws Exception {
-		testGetMeasurementUnitsPageWithSort(
-			EntityField.Type.INTEGER,
-			(entityField, measurementUnit1, measurementUnit2) -> {
-				BeanTestUtil.setProperty(
-					measurementUnit1, entityField.getName(), 0);
-				BeanTestUtil.setProperty(
-					measurementUnit2, entityField.getName(), 1);
-			});
-	}
-
-	@Test
-	public void testGetMeasurementUnitsPageWithSortString() throws Exception {
-		testGetMeasurementUnitsPageWithSort(
-			EntityField.Type.STRING,
-			(entityField, measurementUnit1, measurementUnit2) -> {
-				Class<?> clazz = measurementUnit1.getClass();
-
-				String entityFieldName = entityField.getName();
-
-				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
-
-				Class<?> returnType = method.getReturnType();
-
-				if (returnType.isAssignableFrom(Map.class)) {
-					BeanTestUtil.setProperty(
-						measurementUnit1, entityFieldName,
-						Collections.singletonMap("Aaa", "Aaa"));
-					BeanTestUtil.setProperty(
-						measurementUnit2, entityFieldName,
-						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanTestUtil.setProperty(
-						measurementUnit1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanTestUtil.setProperty(
-						measurementUnit2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-				}
-				else {
-					BeanTestUtil.setProperty(
-						measurementUnit1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-					BeanTestUtil.setProperty(
-						measurementUnit2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-				}
-			});
-	}
-
-	protected void testGetMeasurementUnitsPageWithSort(
-			EntityField.Type type,
-			UnsafeTriConsumer
-				<EntityField, MeasurementUnit, MeasurementUnit, Exception>
-					unsafeTriConsumer)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		MeasurementUnit measurementUnit1 = randomMeasurementUnit();
-		MeasurementUnit measurementUnit2 = randomMeasurementUnit();
-
-		for (EntityField entityField : entityFields) {
-			unsafeTriConsumer.accept(
-				entityField, measurementUnit1, measurementUnit2);
-		}
-
-		measurementUnit1 = testGetMeasurementUnitsPage_addMeasurementUnit(
-			measurementUnit1);
-
-		measurementUnit2 = testGetMeasurementUnitsPage_addMeasurementUnit(
-			measurementUnit2);
-
-		Page<MeasurementUnit> page =
-			measurementUnitResource.getMeasurementUnitsPage(null, null, null);
-
-		for (EntityField entityField : entityFields) {
-			Page<MeasurementUnit> ascPage =
-				measurementUnitResource.getMeasurementUnitsPage(
-					null, Pagination.of(1, (int)page.getTotalCount() + 1),
-					entityField.getName() + ":asc");
-
-			assertContains(
-				measurementUnit1, (List<MeasurementUnit>)ascPage.getItems());
-			assertContains(
-				measurementUnit2, (List<MeasurementUnit>)ascPage.getItems());
-
-			Page<MeasurementUnit> descPage =
-				measurementUnitResource.getMeasurementUnitsPage(
-					null, Pagination.of(1, (int)page.getTotalCount() + 1),
-					entityField.getName() + ":desc");
-
-			assertContains(
-				measurementUnit2, (List<MeasurementUnit>)descPage.getItems());
-			assertContains(
-				measurementUnit1, (List<MeasurementUnit>)descPage.getItems());
-		}
-	}
-
-	protected MeasurementUnit testGetMeasurementUnitsPage_addMeasurementUnit(
-			MeasurementUnit measurementUnit)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetMeasurementUnitsPage() throws Exception {
-		GraphQLField graphQLField = new GraphQLField(
-			"measurementUnits",
-			new HashMap<String, Object>() {
-				{
-					put("page", 1);
-					put("pageSize", 10);
-				}
-			},
-			new GraphQLField("items", getGraphQLFields()),
-			new GraphQLField("page"), new GraphQLField("totalCount"));
-
-		// No namespace
-
-		JSONObject measurementUnitsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/measurementUnits");
-
-		long totalCount = measurementUnitsJSONObject.getLong("totalCount");
-
-		MeasurementUnit measurementUnit1 =
-			testGraphQLGetMeasurementUnitsPage_addMeasurementUnit();
-		MeasurementUnit measurementUnit2 =
-			testGraphQLGetMeasurementUnitsPage_addMeasurementUnit();
-
-		measurementUnitsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(graphQLField), "JSONObject/data",
-			"JSONObject/measurementUnits");
-
-		Assert.assertEquals(
-			totalCount + 2, measurementUnitsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			measurementUnit1,
-			Arrays.asList(
-				MeasurementUnitSerDes.toDTOs(
-					measurementUnitsJSONObject.getString("items"))));
-		assertContains(
-			measurementUnit2,
-			Arrays.asList(
-				MeasurementUnitSerDes.toDTOs(
-					measurementUnitsJSONObject.getString("items"))));
-
-		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
-
-		measurementUnitsJSONObject = JSONUtil.getValueAsJSONObject(
-			invokeGraphQLQuery(
-				new GraphQLField(
-					"headlessCommerceAdminSiteSetting_v1_0", graphQLField)),
-			"JSONObject/data",
-			"JSONObject/headlessCommerceAdminSiteSetting_v1_0",
-			"JSONObject/measurementUnits");
-
-		Assert.assertEquals(
-			totalCount + 2, measurementUnitsJSONObject.getLong("totalCount"));
-
-		assertContains(
-			measurementUnit1,
-			Arrays.asList(
-				MeasurementUnitSerDes.toDTOs(
-					measurementUnitsJSONObject.getString("items"))));
-		assertContains(
-			measurementUnit2,
-			Arrays.asList(
-				MeasurementUnitSerDes.toDTOs(
-					measurementUnitsJSONObject.getString("items"))));
-	}
-
-	protected MeasurementUnit
-			testGraphQLGetMeasurementUnitsPage_addMeasurementUnit()
-		throws Exception {
-
-		return testGraphQLMeasurementUnit_addMeasurementUnit();
-	}
-
-	@Test
-	public void testPostMeasurementUnit() throws Exception {
-		MeasurementUnit randomMeasurementUnit = randomMeasurementUnit();
-
-		MeasurementUnit postMeasurementUnit =
-			testPostMeasurementUnit_addMeasurementUnit(randomMeasurementUnit);
-
-		assertEquals(randomMeasurementUnit, postMeasurementUnit);
-		assertValid(postMeasurementUnit);
-	}
-
-	protected MeasurementUnit testPostMeasurementUnit_addMeasurementUnit(
-			MeasurementUnit measurementUnit)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testDeleteMeasurementUnitByExternalReferenceCode()
-		throws Exception {
-
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		MeasurementUnit measurementUnit =
-			testDeleteMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
-
-		assertHttpResponseStatusCode(
-			204,
-			measurementUnitResource.
-				deleteMeasurementUnitByExternalReferenceCodeHttpResponse(
-					measurementUnit.getExternalReferenceCode()));
-
-		assertHttpResponseStatusCode(
-			404,
-			measurementUnitResource.
-				getMeasurementUnitByExternalReferenceCodeHttpResponse(
-					measurementUnit.getExternalReferenceCode()));
-
-		assertHttpResponseStatusCode(
-			404,
-			measurementUnitResource.
-				getMeasurementUnitByExternalReferenceCodeHttpResponse(
-					measurementUnit.getExternalReferenceCode()));
-	}
-
-	protected MeasurementUnit
-			testDeleteMeasurementUnitByExternalReferenceCode_addMeasurementUnit()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGetMeasurementUnitByExternalReferenceCode()
-		throws Exception {
-
-		MeasurementUnit postMeasurementUnit =
-			testGetMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
-
-		MeasurementUnit getMeasurementUnit =
-			measurementUnitResource.getMeasurementUnitByExternalReferenceCode(
-				postMeasurementUnit.getExternalReferenceCode());
-
-		assertEquals(postMeasurementUnit, getMeasurementUnit);
-		assertValid(getMeasurementUnit);
-	}
-
-	protected MeasurementUnit
-			testGetMeasurementUnitByExternalReferenceCode_addMeasurementUnit()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetMeasurementUnitByExternalReferenceCode()
-		throws Exception {
-
-		MeasurementUnit measurementUnit =
-			testGraphQLGetMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
-
-		// No namespace
-
-		Assert.assertTrue(
-			equals(
-				measurementUnit,
-				MeasurementUnitSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"measurementUnitByExternalReferenceCode",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"externalReferenceCode",
-											"\"" +
-												measurementUnit.
-													getExternalReferenceCode() +
-														"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data",
-						"Object/measurementUnitByExternalReferenceCode"))));
-
-		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
-
-		Assert.assertTrue(
-			equals(
-				measurementUnit,
-				MeasurementUnitSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"headlessCommerceAdminSiteSetting_v1_0",
-								new GraphQLField(
-									"measurementUnitByExternalReferenceCode",
-									new HashMap<String, Object>() {
-										{
-											put(
-												"externalReferenceCode",
-												"\"" +
-													measurementUnit.
-														getExternalReferenceCode() +
-															"\"");
-										}
-									},
-									getGraphQLFields()))),
-						"JSONObject/data",
-						"JSONObject/headlessCommerceAdminSiteSetting_v1_0",
-						"Object/measurementUnitByExternalReferenceCode"))));
-	}
-
-	@Test
-	public void testGraphQLGetMeasurementUnitByExternalReferenceCodeNotFound()
-		throws Exception {
-
-		String irrelevantExternalReferenceCode =
-			"\"" + RandomTestUtil.randomString() + "\"";
-
-		// No namespace
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"measurementUnitByExternalReferenceCode",
-						new HashMap<String, Object>() {
-							{
-								put(
-									"externalReferenceCode",
-									irrelevantExternalReferenceCode);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-
-		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"headlessCommerceAdminSiteSetting_v1_0",
-						new GraphQLField(
-							"measurementUnitByExternalReferenceCode",
-							new HashMap<String, Object>() {
-								{
-									put(
-										"externalReferenceCode",
-										irrelevantExternalReferenceCode);
-								}
-							},
-							getGraphQLFields()))),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected MeasurementUnit
-			testGraphQLGetMeasurementUnitByExternalReferenceCode_addMeasurementUnit()
-		throws Exception {
-
-		return testGraphQLMeasurementUnit_addMeasurementUnit();
-	}
-
-	@Test
-	public void testPatchMeasurementUnitByExternalReferenceCode()
-		throws Exception {
-
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testPutMeasurementUnitByExternalReferenceCode()
-		throws Exception {
-
-		MeasurementUnit postMeasurementUnit =
-			testPutMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
-
-		MeasurementUnit randomMeasurementUnit = randomMeasurementUnit();
-
-		MeasurementUnit putMeasurementUnit =
-			measurementUnitResource.putMeasurementUnitByExternalReferenceCode(
-				postMeasurementUnit.getExternalReferenceCode(),
-				randomMeasurementUnit);
-
-		assertEquals(randomMeasurementUnit, putMeasurementUnit);
-		assertValid(putMeasurementUnit);
-
-		MeasurementUnit getMeasurementUnit =
-			measurementUnitResource.getMeasurementUnitByExternalReferenceCode(
-				putMeasurementUnit.getExternalReferenceCode());
-
-		assertEquals(randomMeasurementUnit, getMeasurementUnit);
-		assertValid(getMeasurementUnit);
-
-		MeasurementUnit newMeasurementUnit =
-			testPutMeasurementUnitByExternalReferenceCode_createMeasurementUnit();
-
-		putMeasurementUnit =
-			measurementUnitResource.putMeasurementUnitByExternalReferenceCode(
-				newMeasurementUnit.getExternalReferenceCode(),
-				newMeasurementUnit);
-
-		assertEquals(newMeasurementUnit, putMeasurementUnit);
-		assertValid(putMeasurementUnit);
-
-		getMeasurementUnit =
-			measurementUnitResource.getMeasurementUnitByExternalReferenceCode(
-				putMeasurementUnit.getExternalReferenceCode());
-
-		assertEquals(newMeasurementUnit, getMeasurementUnit);
-
-		Assert.assertEquals(
-			newMeasurementUnit.getExternalReferenceCode(),
-			putMeasurementUnit.getExternalReferenceCode());
-	}
-
-	protected MeasurementUnit
-			testPutMeasurementUnitByExternalReferenceCode_createMeasurementUnit()
-		throws Exception {
-
-		return randomMeasurementUnit();
-	}
-
-	protected MeasurementUnit
-			testPutMeasurementUnitByExternalReferenceCode_addMeasurementUnit()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testDeleteMeasurementUnitByKey() throws Exception {
-		@SuppressWarnings("PMD.UnusedLocalVariable")
-		MeasurementUnit measurementUnit =
-			testDeleteMeasurementUnitByKey_addMeasurementUnit();
-
-		assertHttpResponseStatusCode(
-			204,
-			measurementUnitResource.deleteMeasurementUnitByKeyHttpResponse(
-				measurementUnit.getKey()));
-
-		assertHttpResponseStatusCode(
-			404,
-			measurementUnitResource.getMeasurementUnitByKeyHttpResponse(
-				measurementUnit.getKey()));
-
-		assertHttpResponseStatusCode(
-			404,
-			measurementUnitResource.getMeasurementUnitByKeyHttpResponse(
-				measurementUnit.getKey()));
-	}
-
-	protected MeasurementUnit
-			testDeleteMeasurementUnitByKey_addMeasurementUnit()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGetMeasurementUnitByKey() throws Exception {
-		MeasurementUnit postMeasurementUnit =
-			testGetMeasurementUnitByKey_addMeasurementUnit();
-
-		MeasurementUnit getMeasurementUnit =
-			measurementUnitResource.getMeasurementUnitByKey(
-				postMeasurementUnit.getKey());
-
-		assertEquals(postMeasurementUnit, getMeasurementUnit);
-		assertValid(getMeasurementUnit);
-	}
-
-	protected MeasurementUnit testGetMeasurementUnitByKey_addMeasurementUnit()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	@Test
-	public void testGraphQLGetMeasurementUnitByKey() throws Exception {
-		MeasurementUnit measurementUnit =
-			testGraphQLGetMeasurementUnitByKey_addMeasurementUnit();
-
-		// No namespace
-
-		Assert.assertTrue(
-			equals(
-				measurementUnit,
-				MeasurementUnitSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"measurementUnitByKey",
-								new HashMap<String, Object>() {
-									{
-										put(
-											"key",
-											"\"" + measurementUnit.getKey() +
-												"\"");
-									}
-								},
-								getGraphQLFields())),
-						"JSONObject/data", "Object/measurementUnitByKey"))));
-
-		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
-
-		Assert.assertTrue(
-			equals(
-				measurementUnit,
-				MeasurementUnitSerDes.toDTO(
-					JSONUtil.getValueAsString(
-						invokeGraphQLQuery(
-							new GraphQLField(
-								"headlessCommerceAdminSiteSetting_v1_0",
-								new GraphQLField(
-									"measurementUnitByKey",
-									new HashMap<String, Object>() {
-										{
-											put(
-												"key",
-												"\"" +
-													measurementUnit.getKey() +
-														"\"");
-										}
-									},
-									getGraphQLFields()))),
-						"JSONObject/data",
-						"JSONObject/headlessCommerceAdminSiteSetting_v1_0",
-						"Object/measurementUnitByKey"))));
-	}
-
-	@Test
-	public void testGraphQLGetMeasurementUnitByKeyNotFound() throws Exception {
-		String irrelevantKey = "\"" + RandomTestUtil.randomString() + "\"";
-
-		// No namespace
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"measurementUnitByKey",
-						new HashMap<String, Object>() {
-							{
-								put("key", irrelevantKey);
-							}
-						},
-						getGraphQLFields())),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-
-		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
-
-		Assert.assertEquals(
-			"Not Found",
-			JSONUtil.getValueAsString(
-				invokeGraphQLQuery(
-					new GraphQLField(
-						"headlessCommerceAdminSiteSetting_v1_0",
-						new GraphQLField(
-							"measurementUnitByKey",
-							new HashMap<String, Object>() {
-								{
-									put("key", irrelevantKey);
-								}
-							},
-							getGraphQLFields()))),
-				"JSONArray/errors", "Object/0", "JSONObject/extensions",
-				"Object/code"));
-	}
-
-	protected MeasurementUnit
-			testGraphQLGetMeasurementUnitByKey_addMeasurementUnit()
-		throws Exception {
-
-		return testGraphQLMeasurementUnit_addMeasurementUnit();
-	}
-
-	@Test
-	public void testPatchMeasurementUnitByKey() throws Exception {
-		Assert.assertTrue(false);
-	}
-
-	@Test
-	public void testGetMeasurementUnitsByType() throws Exception {
-		String measurementUnitType =
-			testGetMeasurementUnitsByType_getMeasurementUnitType();
-		String irrelevantMeasurementUnitType =
-			testGetMeasurementUnitsByType_getIrrelevantMeasurementUnitType();
-
-		Page<MeasurementUnit> page =
-			measurementUnitResource.getMeasurementUnitsByType(
-				measurementUnitType, Pagination.of(1, 10), null);
-
-		long totalCount = page.getTotalCount();
-
-		if (irrelevantMeasurementUnitType != null) {
-			MeasurementUnit irrelevantMeasurementUnit =
-				testGetMeasurementUnitsByType_addMeasurementUnit(
-					irrelevantMeasurementUnitType,
-					randomIrrelevantMeasurementUnit());
-
-			page = measurementUnitResource.getMeasurementUnitsByType(
-				irrelevantMeasurementUnitType,
-				Pagination.of(1, (int)totalCount + 1), null);
-
-			Assert.assertEquals(totalCount + 1, page.getTotalCount());
-
-			assertContains(
-				irrelevantMeasurementUnit,
-				(List<MeasurementUnit>)page.getItems());
-			assertValid(
-				page,
-				testGetMeasurementUnitsByType_getExpectedActions(
-					irrelevantMeasurementUnitType));
-		}
-
-		MeasurementUnit measurementUnit1 =
-			testGetMeasurementUnitsByType_addMeasurementUnit(
-				measurementUnitType, randomMeasurementUnit());
-
-		MeasurementUnit measurementUnit2 =
-			testGetMeasurementUnitsByType_addMeasurementUnit(
-				measurementUnitType, randomMeasurementUnit());
-
-		page = measurementUnitResource.getMeasurementUnitsByType(
-			measurementUnitType, Pagination.of(1, 10), null);
-
-		Assert.assertEquals(totalCount + 2, page.getTotalCount());
-
-		assertContains(
-			measurementUnit1, (List<MeasurementUnit>)page.getItems());
-		assertContains(
-			measurementUnit2, (List<MeasurementUnit>)page.getItems());
-		assertValid(
-			page,
-			testGetMeasurementUnitsByType_getExpectedActions(
-				measurementUnitType));
-
-		measurementUnitResource.deleteMeasurementUnit(measurementUnit1.getId());
-
-		measurementUnitResource.deleteMeasurementUnit(measurementUnit2.getId());
-	}
-
-	protected Map<String, Map<String, String>>
-			testGetMeasurementUnitsByType_getExpectedActions(
-				String measurementUnitType)
-		throws Exception {
-
-		Map<String, Map<String, String>> expectedActions = new HashMap<>();
-
-		return expectedActions;
-	}
-
-	@Test
-	public void testGetMeasurementUnitsByTypeWithPagination() throws Exception {
-		String measurementUnitType =
-			testGetMeasurementUnitsByType_getMeasurementUnitType();
-
-		Page<MeasurementUnit> measurementUnitPage =
-			measurementUnitResource.getMeasurementUnitsByType(
-				measurementUnitType, null, null);
-
-		int totalCount = GetterUtil.getInteger(
-			measurementUnitPage.getTotalCount());
-
-		MeasurementUnit measurementUnit1 =
-			testGetMeasurementUnitsByType_addMeasurementUnit(
-				measurementUnitType, randomMeasurementUnit());
-
-		MeasurementUnit measurementUnit2 =
-			testGetMeasurementUnitsByType_addMeasurementUnit(
-				measurementUnitType, randomMeasurementUnit());
-
-		MeasurementUnit measurementUnit3 =
-			testGetMeasurementUnitsByType_addMeasurementUnit(
-				measurementUnitType, randomMeasurementUnit());
-
-		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
-
-		int pageSizeLimit = 500;
-
-		if (totalCount >= (pageSizeLimit - 2)) {
-			Page<MeasurementUnit> page1 =
-				measurementUnitResource.getMeasurementUnitsByType(
-					measurementUnitType,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
-
-			assertContains(
-				measurementUnit1, (List<MeasurementUnit>)page1.getItems());
-
-			Page<MeasurementUnit> page2 =
-				measurementUnitResource.getMeasurementUnitsByType(
-					measurementUnitType,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			assertContains(
-				measurementUnit2, (List<MeasurementUnit>)page2.getItems());
-
-			Page<MeasurementUnit> page3 =
-				measurementUnitResource.getMeasurementUnitsByType(
-					measurementUnitType,
-					Pagination.of(
-						(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
-						pageSizeLimit),
-					null);
-
-			assertContains(
-				measurementUnit3, (List<MeasurementUnit>)page3.getItems());
-		}
-		else {
-			Page<MeasurementUnit> page1 =
-				measurementUnitResource.getMeasurementUnitsByType(
-					measurementUnitType, Pagination.of(1, totalCount + 2),
-					null);
-
-			List<MeasurementUnit> measurementUnits1 =
-				(List<MeasurementUnit>)page1.getItems();
-
-			Assert.assertEquals(
-				measurementUnits1.toString(), totalCount + 2,
-				measurementUnits1.size());
-
-			Page<MeasurementUnit> page2 =
-				measurementUnitResource.getMeasurementUnitsByType(
-					measurementUnitType, Pagination.of(2, totalCount + 2),
-					null);
-
-			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
-
-			List<MeasurementUnit> measurementUnits2 =
-				(List<MeasurementUnit>)page2.getItems();
-
-			Assert.assertEquals(
-				measurementUnits2.toString(), 1, measurementUnits2.size());
-
-			Page<MeasurementUnit> page3 =
-				measurementUnitResource.getMeasurementUnitsByType(
-					measurementUnitType, Pagination.of(1, (int)totalCount + 3),
-					null);
-
-			assertContains(
-				measurementUnit1, (List<MeasurementUnit>)page3.getItems());
-			assertContains(
-				measurementUnit2, (List<MeasurementUnit>)page3.getItems());
-			assertContains(
-				measurementUnit3, (List<MeasurementUnit>)page3.getItems());
-		}
-	}
-
-	@Test
-	public void testGetMeasurementUnitsByTypeWithSortDateTime()
-		throws Exception {
-
-		testGetMeasurementUnitsByTypeWithSort(
-			EntityField.Type.DATE_TIME,
-			(entityField, measurementUnit1, measurementUnit2) -> {
-				BeanTestUtil.setProperty(
-					measurementUnit1, entityField.getName(),
-					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
-			});
-	}
-
-	@Test
-	public void testGetMeasurementUnitsByTypeWithSortDouble() throws Exception {
-		testGetMeasurementUnitsByTypeWithSort(
-			EntityField.Type.DOUBLE,
-			(entityField, measurementUnit1, measurementUnit2) -> {
-				BeanTestUtil.setProperty(
-					measurementUnit1, entityField.getName(), 0.1);
-				BeanTestUtil.setProperty(
-					measurementUnit2, entityField.getName(), 0.5);
-			});
-	}
-
-	@Test
-	public void testGetMeasurementUnitsByTypeWithSortInteger()
-		throws Exception {
-
-		testGetMeasurementUnitsByTypeWithSort(
-			EntityField.Type.INTEGER,
-			(entityField, measurementUnit1, measurementUnit2) -> {
-				BeanTestUtil.setProperty(
-					measurementUnit1, entityField.getName(), 0);
-				BeanTestUtil.setProperty(
-					measurementUnit2, entityField.getName(), 1);
-			});
-	}
-
-	@Test
-	public void testGetMeasurementUnitsByTypeWithSortString() throws Exception {
-		testGetMeasurementUnitsByTypeWithSort(
-			EntityField.Type.STRING,
-			(entityField, measurementUnit1, measurementUnit2) -> {
-				Class<?> clazz = measurementUnit1.getClass();
-
-				String entityFieldName = entityField.getName();
-
-				Method method = clazz.getMethod(
-					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
-
-				Class<?> returnType = method.getReturnType();
-
-				if (returnType.isAssignableFrom(Map.class)) {
-					BeanTestUtil.setProperty(
-						measurementUnit1, entityFieldName,
-						Collections.singletonMap("Aaa", "Aaa"));
-					BeanTestUtil.setProperty(
-						measurementUnit2, entityFieldName,
-						Collections.singletonMap("Bbb", "Bbb"));
-				}
-				else if (entityFieldName.contains("email")) {
-					BeanTestUtil.setProperty(
-						measurementUnit1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-					BeanTestUtil.setProperty(
-						measurementUnit2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()) +
-									"@liferay.com");
-				}
-				else {
-					BeanTestUtil.setProperty(
-						measurementUnit1, entityFieldName,
-						"aaa" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-					BeanTestUtil.setProperty(
-						measurementUnit2, entityFieldName,
-						"bbb" +
-							StringUtil.toLowerCase(
-								RandomTestUtil.randomString()));
-				}
-			});
-	}
-
-	protected void testGetMeasurementUnitsByTypeWithSort(
-			EntityField.Type type,
-			UnsafeTriConsumer
-				<EntityField, MeasurementUnit, MeasurementUnit, Exception>
-					unsafeTriConsumer)
-		throws Exception {
-
-		List<EntityField> entityFields = getEntityFields(type);
-
-		if (entityFields.isEmpty()) {
-			return;
-		}
-
-		String measurementUnitType =
-			testGetMeasurementUnitsByType_getMeasurementUnitType();
-
-		MeasurementUnit measurementUnit1 = randomMeasurementUnit();
-		MeasurementUnit measurementUnit2 = randomMeasurementUnit();
-
-		for (EntityField entityField : entityFields) {
-			unsafeTriConsumer.accept(
-				entityField, measurementUnit1, measurementUnit2);
-		}
-
-		measurementUnit1 = testGetMeasurementUnitsByType_addMeasurementUnit(
-			measurementUnitType, measurementUnit1);
-
-		measurementUnit2 = testGetMeasurementUnitsByType_addMeasurementUnit(
-			measurementUnitType, measurementUnit2);
-
-		Page<MeasurementUnit> page =
-			measurementUnitResource.getMeasurementUnitsByType(
-				measurementUnitType, null, null);
-
-		for (EntityField entityField : entityFields) {
-			Page<MeasurementUnit> ascPage =
-				measurementUnitResource.getMeasurementUnitsByType(
-					measurementUnitType,
-					Pagination.of(1, (int)page.getTotalCount() + 1),
-					entityField.getName() + ":asc");
-
-			assertContains(
-				measurementUnit1, (List<MeasurementUnit>)ascPage.getItems());
-			assertContains(
-				measurementUnit2, (List<MeasurementUnit>)ascPage.getItems());
-
-			Page<MeasurementUnit> descPage =
-				measurementUnitResource.getMeasurementUnitsByType(
-					measurementUnitType,
-					Pagination.of(1, (int)page.getTotalCount() + 1),
-					entityField.getName() + ":desc");
-
-			assertContains(
-				measurementUnit2, (List<MeasurementUnit>)descPage.getItems());
-			assertContains(
-				measurementUnit1, (List<MeasurementUnit>)descPage.getItems());
-		}
-	}
-
-	protected MeasurementUnit testGetMeasurementUnitsByType_addMeasurementUnit(
-			String measurementUnitType, MeasurementUnit measurementUnit)
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String testGetMeasurementUnitsByType_getMeasurementUnitType()
-		throws Exception {
-
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
-	}
-
-	protected String
-			testGetMeasurementUnitsByType_getIrrelevantMeasurementUnitType()
-		throws Exception {
-
-		return null;
-	}
-
-	@Test
 	public void testDeleteMeasurementUnit() throws Exception {
 		@SuppressWarnings("PMD.UnusedLocalVariable")
 		MeasurementUnit measurementUnit =
@@ -1437,11 +242,8 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 			404,
 			measurementUnitResource.getMeasurementUnitHttpResponse(
 				measurementUnit.getId()));
-
 		assertHttpResponseStatusCode(
-			404,
-			measurementUnitResource.getMeasurementUnitHttpResponse(
-				measurementUnit.getId()));
+			404, measurementUnitResource.getMeasurementUnitHttpResponse(0L));
 	}
 
 	protected MeasurementUnit testDeleteMeasurementUnit_addMeasurementUnit()
@@ -1480,7 +282,7 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 							put("id", measurementUnit1.getId());
 						}
 					},
-					new GraphQLField("id"))),
+					getGraphQLFields())),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray1.length() > 0);
@@ -1517,7 +319,7 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 								put("id", measurementUnit2.getId());
 							}
 						},
-						new GraphQLField("id")))),
+						getGraphQLFields()))),
 			"JSONArray/errors");
 
 		Assert.assertTrue(errorsJSONArray2.length() > 0);
@@ -1525,6 +327,330 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 
 	protected MeasurementUnit
 			testGraphQLDeleteMeasurementUnit_addMeasurementUnit()
+		throws Exception {
+
+		return testGraphQLMeasurementUnit_addMeasurementUnit();
+	}
+
+	@Test
+	public void testDeleteMeasurementUnitBatch() throws Exception {
+		MeasurementUnit measurementUnit1 =
+			testDeleteMeasurementUnitBatch_addMeasurementUnit();
+
+		testDeleteMeasurementUnitBatch_deleteMeasurementUnit(
+			202, measurementUnit1.getExternalReferenceCode(), null);
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit1.getId()));
+
+		measurementUnit1 = testDeleteMeasurementUnitBatch_addMeasurementUnit();
+
+		testDeleteMeasurementUnitBatch_deleteMeasurementUnit(
+			202, null, measurementUnit1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit1.getId()));
+
+		measurementUnit1 = testDeleteMeasurementUnitBatch_addMeasurementUnit();
+		MeasurementUnit measurementUnit2 =
+			testDeleteMeasurementUnitBatch_addMeasurementUnit();
+
+		testDeleteMeasurementUnitBatch_deleteMeasurementUnit(
+			202, measurementUnit2.getExternalReferenceCode(),
+			measurementUnit1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit1.getId()));
+		assertHttpResponseStatusCode(
+			200,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit2.getId()));
+
+		testDeleteMeasurementUnitBatch_deleteMeasurementUnit(
+			202, measurementUnit2.getExternalReferenceCode(),
+			measurementUnit1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit2.getId()));
+	}
+
+	protected MeasurementUnit
+			testDeleteMeasurementUnitBatch_addMeasurementUnit()
+		throws Exception {
+
+		return testDeleteMeasurementUnit_addMeasurementUnit();
+	}
+
+	protected void testDeleteMeasurementUnitBatch_deleteMeasurementUnit(
+			int expectedStatusCode, String externalReferenceCode, Long id)
+		throws Exception {
+
+		HttpInvoker.HttpResponse httpResponse =
+			measurementUnitResource.deleteMeasurementUnitBatchHttpResponse(
+				null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		waitForFinish(
+			"COMPLETED",
+			JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+	}
+
+	@Test
+	public void testDeleteMeasurementUnitByExternalReferenceCode()
+		throws Exception {
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		MeasurementUnit measurementUnit =
+			testDeleteMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
+
+		assertHttpResponseStatusCode(
+			204,
+			measurementUnitResource.
+				deleteMeasurementUnitByExternalReferenceCodeHttpResponse(
+					measurementUnit.getExternalReferenceCode()));
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.
+				getMeasurementUnitByExternalReferenceCodeHttpResponse(
+					measurementUnit.getExternalReferenceCode()));
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.
+				getMeasurementUnitByExternalReferenceCodeHttpResponse("-"));
+	}
+
+	protected MeasurementUnit
+			testDeleteMeasurementUnitByExternalReferenceCode_addMeasurementUnit()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLDeleteMeasurementUnitByExternalReferenceCode()
+		throws Exception {
+
+		// No namespace
+
+		MeasurementUnit measurementUnit1 =
+			testGraphQLDeleteMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteMeasurementUnitByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									"\"" +
+										measurementUnit1.
+											getExternalReferenceCode() + "\"");
+							}
+						})),
+				"JSONObject/data",
+				"Object/deleteMeasurementUnitByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"measurementUnitByExternalReferenceCode",
+					new HashMap<String, Object>() {
+						{
+							put(
+								"externalReferenceCode",
+								"\"" +
+									measurementUnit1.
+										getExternalReferenceCode() + "\"");
+						}
+					},
+					getGraphQLFields())),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray1.length() > 0);
+
+		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
+
+		MeasurementUnit measurementUnit2 =
+			testGraphQLDeleteMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"headlessCommerceAdminSiteSetting_v1_0",
+						new GraphQLField(
+							"deleteMeasurementUnitByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"externalReferenceCode",
+										"\"" +
+											measurementUnit2.
+												getExternalReferenceCode() +
+													"\"");
+								}
+							}))),
+				"JSONObject/data",
+				"JSONObject/headlessCommerceAdminSiteSetting_v1_0",
+				"Object/deleteMeasurementUnitByExternalReferenceCode"));
+
+		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessCommerceAdminSiteSetting_v1_0",
+					new GraphQLField(
+						"measurementUnitByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									"\"" +
+										measurementUnit2.
+											getExternalReferenceCode() + "\"");
+							}
+						},
+						getGraphQLFields()))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray2.length() > 0);
+	}
+
+	protected MeasurementUnit
+			testGraphQLDeleteMeasurementUnitByExternalReferenceCode_addMeasurementUnit()
+		throws Exception {
+
+		return testGraphQLMeasurementUnit_addMeasurementUnit();
+	}
+
+	@Test
+	public void testDeleteMeasurementUnitByKey() throws Exception {
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		MeasurementUnit measurementUnit =
+			testDeleteMeasurementUnitByKey_addMeasurementUnit();
+
+		assertHttpResponseStatusCode(
+			204,
+			measurementUnitResource.deleteMeasurementUnitByKeyHttpResponse(
+				measurementUnit.getKey()));
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitByKeyHttpResponse(
+				measurementUnit.getKey()));
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitByKeyHttpResponse(
+				measurementUnit.getKey()));
+	}
+
+	protected MeasurementUnit
+			testDeleteMeasurementUnitByKey_addMeasurementUnit()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLDeleteMeasurementUnitByKey() throws Exception {
+
+		// No namespace
+
+		MeasurementUnit measurementUnit1 =
+			testGraphQLDeleteMeasurementUnitByKey_addMeasurementUnit();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"deleteMeasurementUnitByKey",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"key",
+									"\"" + measurementUnit1.getKey() + "\"");
+							}
+						})),
+				"JSONObject/data", "Object/deleteMeasurementUnitByKey"));
+
+		JSONArray errorsJSONArray1 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"measurementUnitByKey",
+					new HashMap<String, Object>() {
+						{
+							put("key", "\"" + measurementUnit1.getKey() + "\"");
+						}
+					},
+					getGraphQLFields())),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray1.length() > 0);
+
+		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
+
+		MeasurementUnit measurementUnit2 =
+			testGraphQLDeleteMeasurementUnitByKey_addMeasurementUnit();
+
+		Assert.assertTrue(
+			JSONUtil.getValueAsBoolean(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"headlessCommerceAdminSiteSetting_v1_0",
+						new GraphQLField(
+							"deleteMeasurementUnitByKey",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"key",
+										"\"" + measurementUnit2.getKey() +
+											"\"");
+								}
+							}))),
+				"JSONObject/data",
+				"JSONObject/headlessCommerceAdminSiteSetting_v1_0",
+				"Object/deleteMeasurementUnitByKey"));
+
+		JSONArray errorsJSONArray2 = JSONUtil.getValueAsJSONArray(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessCommerceAdminSiteSetting_v1_0",
+					new GraphQLField(
+						"measurementUnitByKey",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"key",
+									"\"" + measurementUnit2.getKey() + "\"");
+							}
+						},
+						getGraphQLFields()))),
+			"JSONArray/errors");
+
+		Assert.assertTrue(errorsJSONArray2.length() > 0);
+	}
+
+	protected MeasurementUnit
+			testGraphQLDeleteMeasurementUnitByKey_addMeasurementUnit()
 		throws Exception {
 
 		return testGraphQLMeasurementUnit_addMeasurementUnit();
@@ -1836,8 +962,1344 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 	}
 
 	@Test
+	public void testGetMeasurementUnitByExternalReferenceCode()
+		throws Exception {
+
+		MeasurementUnit postMeasurementUnit =
+			testGetMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
+
+		MeasurementUnit getMeasurementUnit =
+			measurementUnitResource.getMeasurementUnitByExternalReferenceCode(
+				postMeasurementUnit.getExternalReferenceCode());
+
+		assertEquals(postMeasurementUnit, getMeasurementUnit);
+		assertValid(getMeasurementUnit);
+	}
+
+	protected MeasurementUnit
+			testGetMeasurementUnitByExternalReferenceCode_addMeasurementUnit()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetMeasurementUnitByExternalReferenceCode()
+		throws Exception {
+
+		MeasurementUnit measurementUnit =
+			testGraphQLGetMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				measurementUnit,
+				MeasurementUnitSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"measurementUnitByExternalReferenceCode",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"externalReferenceCode",
+											"\"" +
+												measurementUnit.
+													getExternalReferenceCode() +
+														"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data",
+						"Object/measurementUnitByExternalReferenceCode"))));
+
+		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
+
+		Assert.assertTrue(
+			equals(
+				measurementUnit,
+				MeasurementUnitSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"headlessCommerceAdminSiteSetting_v1_0",
+								new GraphQLField(
+									"measurementUnitByExternalReferenceCode",
+									new HashMap<String, Object>() {
+										{
+											put(
+												"externalReferenceCode",
+												"\"" +
+													measurementUnit.
+														getExternalReferenceCode() +
+															"\"");
+										}
+									},
+									getGraphQLFields()))),
+						"JSONObject/data",
+						"JSONObject/headlessCommerceAdminSiteSetting_v1_0",
+						"Object/measurementUnitByExternalReferenceCode"))));
+	}
+
+	@Test
+	public void testGraphQLGetMeasurementUnitByExternalReferenceCodeNotFound()
+		throws Exception {
+
+		String irrelevantExternalReferenceCode =
+			"\"" + RandomTestUtil.randomString() + "\"";
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"measurementUnitByExternalReferenceCode",
+						new HashMap<String, Object>() {
+							{
+								put(
+									"externalReferenceCode",
+									irrelevantExternalReferenceCode);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"headlessCommerceAdminSiteSetting_v1_0",
+						new GraphQLField(
+							"measurementUnitByExternalReferenceCode",
+							new HashMap<String, Object>() {
+								{
+									put(
+										"externalReferenceCode",
+										irrelevantExternalReferenceCode);
+								}
+							},
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected MeasurementUnit
+			testGraphQLGetMeasurementUnitByExternalReferenceCode_addMeasurementUnit()
+		throws Exception {
+
+		return testGraphQLMeasurementUnit_addMeasurementUnit();
+	}
+
+	@Test
+	public void testGetMeasurementUnitByKey() throws Exception {
+		MeasurementUnit postMeasurementUnit =
+			testGetMeasurementUnitByKey_addMeasurementUnit();
+
+		MeasurementUnit getMeasurementUnit =
+			measurementUnitResource.getMeasurementUnitByKey(
+				postMeasurementUnit.getKey());
+
+		assertEquals(postMeasurementUnit, getMeasurementUnit);
+		assertValid(getMeasurementUnit);
+	}
+
+	protected MeasurementUnit testGetMeasurementUnitByKey_addMeasurementUnit()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetMeasurementUnitByKey() throws Exception {
+		MeasurementUnit measurementUnit =
+			testGraphQLGetMeasurementUnitByKey_addMeasurementUnit();
+
+		// No namespace
+
+		Assert.assertTrue(
+			equals(
+				measurementUnit,
+				MeasurementUnitSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"measurementUnitByKey",
+								new HashMap<String, Object>() {
+									{
+										put(
+											"key",
+											"\"" + measurementUnit.getKey() +
+												"\"");
+									}
+								},
+								getGraphQLFields())),
+						"JSONObject/data", "Object/measurementUnitByKey"))));
+
+		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
+
+		Assert.assertTrue(
+			equals(
+				measurementUnit,
+				MeasurementUnitSerDes.toDTO(
+					JSONUtil.getValueAsString(
+						invokeGraphQLQuery(
+							new GraphQLField(
+								"headlessCommerceAdminSiteSetting_v1_0",
+								new GraphQLField(
+									"measurementUnitByKey",
+									new HashMap<String, Object>() {
+										{
+											put(
+												"key",
+												"\"" +
+													measurementUnit.getKey() +
+														"\"");
+										}
+									},
+									getGraphQLFields()))),
+						"JSONObject/data",
+						"JSONObject/headlessCommerceAdminSiteSetting_v1_0",
+						"Object/measurementUnitByKey"))));
+	}
+
+	@Test
+	public void testGraphQLGetMeasurementUnitByKeyNotFound() throws Exception {
+		String irrelevantKey = "\"" + RandomTestUtil.randomString() + "\"";
+
+		// No namespace
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"measurementUnitByKey",
+						new HashMap<String, Object>() {
+							{
+								put("key", irrelevantKey);
+							}
+						},
+						getGraphQLFields())),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
+		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
+
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invokeGraphQLQuery(
+					new GraphQLField(
+						"headlessCommerceAdminSiteSetting_v1_0",
+						new GraphQLField(
+							"measurementUnitByKey",
+							new HashMap<String, Object>() {
+								{
+									put("key", irrelevantKey);
+								}
+							},
+							getGraphQLFields()))),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+	}
+
+	protected MeasurementUnit
+			testGraphQLGetMeasurementUnitByKey_addMeasurementUnit()
+		throws Exception {
+
+		return testGraphQLMeasurementUnit_addMeasurementUnit();
+	}
+
+	@Test
+	public void testGetMeasurementUnitsByType() throws Exception {
+		String measurementUnitType =
+			testGetMeasurementUnitsByType_getMeasurementUnitType();
+		String irrelevantMeasurementUnitType =
+			testGetMeasurementUnitsByType_getIrrelevantMeasurementUnitType();
+
+		Page<MeasurementUnit> page =
+			measurementUnitResource.getMeasurementUnitsByType(
+				measurementUnitType, Pagination.of(1, 10), null);
+
+		long totalCount = page.getTotalCount();
+
+		if (irrelevantMeasurementUnitType != null) {
+			MeasurementUnit irrelevantMeasurementUnit =
+				testGetMeasurementUnitsByType_addMeasurementUnit(
+					irrelevantMeasurementUnitType,
+					randomIrrelevantMeasurementUnit());
+
+			page = measurementUnitResource.getMeasurementUnitsByType(
+				irrelevantMeasurementUnitType,
+				Pagination.of(1, (int)totalCount + 1), null);
+
+			Assert.assertEquals(totalCount + 1, page.getTotalCount());
+
+			assertContains(
+				irrelevantMeasurementUnit,
+				(List<MeasurementUnit>)page.getItems());
+			assertValid(
+				page,
+				testGetMeasurementUnitsByType_getExpectedActions(
+					irrelevantMeasurementUnitType));
+		}
+
+		MeasurementUnit measurementUnit1 =
+			testGetMeasurementUnitsByType_addMeasurementUnit(
+				measurementUnitType, randomMeasurementUnit());
+
+		MeasurementUnit measurementUnit2 =
+			testGetMeasurementUnitsByType_addMeasurementUnit(
+				measurementUnitType, randomMeasurementUnit());
+
+		page = measurementUnitResource.getMeasurementUnitsByType(
+			measurementUnitType, Pagination.of(1, 10), null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(
+			measurementUnit1, (List<MeasurementUnit>)page.getItems());
+		assertContains(
+			measurementUnit2, (List<MeasurementUnit>)page.getItems());
+		assertValid(
+			page,
+			testGetMeasurementUnitsByType_getExpectedActions(
+				measurementUnitType));
+
+		measurementUnitResource.deleteMeasurementUnit(measurementUnit1.getId());
+
+		measurementUnitResource.deleteMeasurementUnit(measurementUnit2.getId());
+	}
+
+	protected Map<String, Map<String, String>>
+			testGetMeasurementUnitsByType_getExpectedActions(
+				String measurementUnitType)
+		throws Exception {
+
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
+
+		return expectedActions;
+	}
+
+	@Test
+	public void testGetMeasurementUnitsByTypeWithPagination() throws Exception {
+		String measurementUnitType =
+			testGetMeasurementUnitsByType_getMeasurementUnitType();
+
+		Page<MeasurementUnit> measurementUnitsPage =
+			measurementUnitResource.getMeasurementUnitsByType(
+				measurementUnitType, null, null);
+
+		int totalCount = GetterUtil.getInteger(
+			measurementUnitsPage.getTotalCount());
+
+		MeasurementUnit measurementUnit1 =
+			testGetMeasurementUnitsByType_addMeasurementUnit(
+				measurementUnitType, randomMeasurementUnit());
+
+		MeasurementUnit measurementUnit2 =
+			testGetMeasurementUnitsByType_addMeasurementUnit(
+				measurementUnitType, randomMeasurementUnit());
+
+		MeasurementUnit measurementUnit3 =
+			testGetMeasurementUnitsByType_addMeasurementUnit(
+				measurementUnitType, randomMeasurementUnit());
+
+		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
+
+		int pageSizeLimit = 500;
+
+		if (totalCount >= (pageSizeLimit - 2)) {
+			Page<MeasurementUnit> page1 =
+				measurementUnitResource.getMeasurementUnitsByType(
+					measurementUnitType,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
+
+			assertContains(
+				measurementUnit1, (List<MeasurementUnit>)page1.getItems());
+
+			Page<MeasurementUnit> page2 =
+				measurementUnitResource.getMeasurementUnitsByType(
+					measurementUnitType,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			assertContains(
+				measurementUnit2, (List<MeasurementUnit>)page2.getItems());
+
+			Page<MeasurementUnit> page3 =
+				measurementUnitResource.getMeasurementUnitsByType(
+					measurementUnitType,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			assertContains(
+				measurementUnit3, (List<MeasurementUnit>)page3.getItems());
+		}
+		else {
+			Page<MeasurementUnit> page1 =
+				measurementUnitResource.getMeasurementUnitsByType(
+					measurementUnitType, Pagination.of(1, totalCount + 2),
+					null);
+
+			List<MeasurementUnit> measurementUnits1 =
+				(List<MeasurementUnit>)page1.getItems();
+
+			Assert.assertEquals(
+				measurementUnits1.toString(), totalCount + 2,
+				measurementUnits1.size());
+
+			Page<MeasurementUnit> page2 =
+				measurementUnitResource.getMeasurementUnitsByType(
+					measurementUnitType, Pagination.of(2, totalCount + 2),
+					null);
+
+			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+			List<MeasurementUnit> measurementUnits2 =
+				(List<MeasurementUnit>)page2.getItems();
+
+			Assert.assertEquals(
+				measurementUnits2.toString(), 1, measurementUnits2.size());
+
+			Page<MeasurementUnit> page3 =
+				measurementUnitResource.getMeasurementUnitsByType(
+					measurementUnitType, Pagination.of(1, (int)totalCount + 3),
+					null);
+
+			assertContains(
+				measurementUnit1, (List<MeasurementUnit>)page3.getItems());
+			assertContains(
+				measurementUnit2, (List<MeasurementUnit>)page3.getItems());
+			assertContains(
+				measurementUnit3, (List<MeasurementUnit>)page3.getItems());
+		}
+	}
+
+	@Test
+	public void testGetMeasurementUnitsByTypeWithSortDateTime()
+		throws Exception {
+
+		testGetMeasurementUnitsByTypeWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, measurementUnit1, measurementUnit2) -> {
+				BeanTestUtil.setProperty(
+					measurementUnit1, entityField.getName(),
+					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
+			});
+	}
+
+	@Test
+	public void testGetMeasurementUnitsByTypeWithSortDouble() throws Exception {
+		testGetMeasurementUnitsByTypeWithSort(
+			EntityField.Type.DOUBLE,
+			(entityField, measurementUnit1, measurementUnit2) -> {
+				BeanTestUtil.setProperty(
+					measurementUnit1, entityField.getName(), 0.1);
+				BeanTestUtil.setProperty(
+					measurementUnit2, entityField.getName(), 0.5);
+			});
+	}
+
+	@Test
+	public void testGetMeasurementUnitsByTypeWithSortInteger()
+		throws Exception {
+
+		testGetMeasurementUnitsByTypeWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, measurementUnit1, measurementUnit2) -> {
+				BeanTestUtil.setProperty(
+					measurementUnit1, entityField.getName(), 0);
+				BeanTestUtil.setProperty(
+					measurementUnit2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetMeasurementUnitsByTypeWithSortString() throws Exception {
+		testGetMeasurementUnitsByTypeWithSort(
+			EntityField.Type.STRING,
+			(entityField, measurementUnit1, measurementUnit2) -> {
+				Class<?> clazz = measurementUnit1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanTestUtil.setProperty(
+						measurementUnit1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanTestUtil.setProperty(
+						measurementUnit2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanTestUtil.setProperty(
+						measurementUnit1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanTestUtil.setProperty(
+						measurementUnit2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanTestUtil.setProperty(
+						measurementUnit1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanTestUtil.setProperty(
+						measurementUnit2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetMeasurementUnitsByTypeWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, MeasurementUnit, MeasurementUnit, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		String measurementUnitType =
+			testGetMeasurementUnitsByType_getMeasurementUnitType();
+
+		MeasurementUnit measurementUnit1 = randomMeasurementUnit();
+		MeasurementUnit measurementUnit2 = randomMeasurementUnit();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, measurementUnit1, measurementUnit2);
+		}
+
+		measurementUnit1 = testGetMeasurementUnitsByType_addMeasurementUnit(
+			measurementUnitType, measurementUnit1);
+
+		measurementUnit2 = testGetMeasurementUnitsByType_addMeasurementUnit(
+			measurementUnitType, measurementUnit2);
+
+		Page<MeasurementUnit> page =
+			measurementUnitResource.getMeasurementUnitsByType(
+				measurementUnitType, null, null);
+
+		for (EntityField entityField : entityFields) {
+			Page<MeasurementUnit> ascPage =
+				measurementUnitResource.getMeasurementUnitsByType(
+					measurementUnitType,
+					Pagination.of(1, (int)page.getTotalCount() + 1),
+					entityField.getName() + ":asc");
+
+			assertContains(
+				measurementUnit1, (List<MeasurementUnit>)ascPage.getItems());
+			assertContains(
+				measurementUnit2, (List<MeasurementUnit>)ascPage.getItems());
+
+			Page<MeasurementUnit> descPage =
+				measurementUnitResource.getMeasurementUnitsByType(
+					measurementUnitType,
+					Pagination.of(1, (int)page.getTotalCount() + 1),
+					entityField.getName() + ":desc");
+
+			assertContains(
+				measurementUnit2, (List<MeasurementUnit>)descPage.getItems());
+			assertContains(
+				measurementUnit1, (List<MeasurementUnit>)descPage.getItems());
+		}
+	}
+
+	protected MeasurementUnit testGetMeasurementUnitsByType_addMeasurementUnit(
+			String measurementUnitType, MeasurementUnit measurementUnit)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String testGetMeasurementUnitsByType_getMeasurementUnitType()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected String
+			testGetMeasurementUnitsByType_getIrrelevantMeasurementUnitType()
+		throws Exception {
+
+		return null;
+	}
+
+	@Test
+	public void testGraphQLGetMeasurementUnitsByType() throws Exception {
+		String measurementUnitType =
+			testGetMeasurementUnitsByType_getMeasurementUnitType();
+
+		GraphQLField graphQLField = new GraphQLField(
+			"measurementUnitsByType",
+			new HashMap<String, Object>() {
+				{
+					put(
+						"measurementUnitType",
+						"\"" + measurementUnitType + "\"");
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		// No namespace
+
+		JSONObject measurementUnitsByTypeJSONObject =
+			JSONUtil.getValueAsJSONObject(
+				invokeGraphQLQuery(graphQLField), "JSONObject/data",
+				"JSONObject/measurementUnitsByType");
+
+		long totalCount = measurementUnitsByTypeJSONObject.getLong(
+			"totalCount");
+
+		MeasurementUnit measurementUnit1 =
+			testGraphQLGetMeasurementUnitsByTypeMeasurementUnit_addMeasurementUnit(
+				measurementUnitType, randomMeasurementUnit());
+
+		MeasurementUnit measurementUnit2 =
+			testGraphQLGetMeasurementUnitsByTypeMeasurementUnit_addMeasurementUnit(
+				measurementUnitType, randomMeasurementUnit());
+
+		measurementUnitsByTypeJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/measurementUnitsByType");
+
+		Assert.assertEquals(
+			totalCount + 2,
+			measurementUnitsByTypeJSONObject.getLong("totalCount"));
+
+		assertContains(
+			measurementUnit1,
+			Arrays.asList(
+				MeasurementUnitSerDes.toDTOs(
+					measurementUnitsByTypeJSONObject.getString("items"))));
+		assertContains(
+			measurementUnit2,
+			Arrays.asList(
+				MeasurementUnitSerDes.toDTOs(
+					measurementUnitsByTypeJSONObject.getString("items"))));
+
+		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
+
+		measurementUnitsByTypeJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessCommerceAdminSiteSetting_v1_0", graphQLField)),
+			"JSONObject/data",
+			"JSONObject/headlessCommerceAdminSiteSetting_v1_0",
+			"JSONObject/measurementUnitsByType");
+
+		Assert.assertEquals(
+			totalCount + 2,
+			measurementUnitsByTypeJSONObject.getLong("totalCount"));
+
+		assertContains(
+			measurementUnit1,
+			Arrays.asList(
+				MeasurementUnitSerDes.toDTOs(
+					measurementUnitsByTypeJSONObject.getString("items"))));
+		assertContains(
+			measurementUnit2,
+			Arrays.asList(
+				MeasurementUnitSerDes.toDTOs(
+					measurementUnitsByTypeJSONObject.getString("items"))));
+	}
+
+	protected MeasurementUnit
+			testGraphQLGetMeasurementUnitsByTypeMeasurementUnit_addMeasurementUnit(
+				String measurementUnitType, MeasurementUnit measurementUnit)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPage() throws Exception {
+		Page<MeasurementUnit> page =
+			measurementUnitResource.getMeasurementUnitsPage(
+				null, Pagination.of(1, 10), null);
+
+		long totalCount = page.getTotalCount();
+
+		MeasurementUnit measurementUnit1 =
+			testGetMeasurementUnitsPage_addMeasurementUnit(
+				randomMeasurementUnit());
+
+		MeasurementUnit measurementUnit2 =
+			testGetMeasurementUnitsPage_addMeasurementUnit(
+				randomMeasurementUnit());
+
+		page = measurementUnitResource.getMeasurementUnitsPage(
+			null, Pagination.of(1, 10), null);
+
+		Assert.assertEquals(totalCount + 2, page.getTotalCount());
+
+		assertContains(
+			measurementUnit1, (List<MeasurementUnit>)page.getItems());
+		assertContains(
+			measurementUnit2, (List<MeasurementUnit>)page.getItems());
+		assertValid(page, testGetMeasurementUnitsPage_getExpectedActions());
+
+		measurementUnitResource.deleteMeasurementUnit(measurementUnit1.getId());
+
+		measurementUnitResource.deleteMeasurementUnit(measurementUnit2.getId());
+	}
+
+	protected Map<String, Map<String, String>>
+			testGetMeasurementUnitsPage_getExpectedActions()
+		throws Exception {
+
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
+
+		return expectedActions;
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithFilterDateTimeEquals()
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(
+			EntityField.Type.DATE_TIME);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		MeasurementUnit measurementUnit1 = randomMeasurementUnit();
+
+		measurementUnit1 = testGetMeasurementUnitsPage_addMeasurementUnit(
+			measurementUnit1);
+
+		for (EntityField entityField : entityFields) {
+			Page<MeasurementUnit> page =
+				measurementUnitResource.getMeasurementUnitsPage(
+					getFilterString(entityField, "between", measurementUnit1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(measurementUnit1),
+				(List<MeasurementUnit>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithFilterDoubleEquals()
+		throws Exception {
+
+		testGetMeasurementUnitsPageWithFilter("eq", EntityField.Type.DOUBLE);
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithFilterStringContains()
+		throws Exception {
+
+		testGetMeasurementUnitsPageWithFilter(
+			"contains", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithFilterStringEquals()
+		throws Exception {
+
+		testGetMeasurementUnitsPageWithFilter("eq", EntityField.Type.STRING);
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithFilterStringStartsWith()
+		throws Exception {
+
+		testGetMeasurementUnitsPageWithFilter(
+			"startswith", EntityField.Type.STRING);
+	}
+
+	protected void testGetMeasurementUnitsPageWithFilter(
+			String operator, EntityField.Type type)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		MeasurementUnit measurementUnit1 =
+			testGetMeasurementUnitsPage_addMeasurementUnit(
+				randomMeasurementUnit());
+
+		@SuppressWarnings("PMD.UnusedLocalVariable")
+		MeasurementUnit measurementUnit2 =
+			testGetMeasurementUnitsPage_addMeasurementUnit(
+				randomMeasurementUnit());
+
+		for (EntityField entityField : entityFields) {
+			Page<MeasurementUnit> page =
+				measurementUnitResource.getMeasurementUnitsPage(
+					getFilterString(entityField, operator, measurementUnit1),
+					Pagination.of(1, 2), null);
+
+			assertEquals(
+				Collections.singletonList(measurementUnit1),
+				(List<MeasurementUnit>)page.getItems());
+		}
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithPagination() throws Exception {
+		Page<MeasurementUnit> measurementUnitsPage =
+			measurementUnitResource.getMeasurementUnitsPage(null, null, null);
+
+		int totalCount = GetterUtil.getInteger(
+			measurementUnitsPage.getTotalCount());
+
+		MeasurementUnit measurementUnit1 =
+			testGetMeasurementUnitsPage_addMeasurementUnit(
+				randomMeasurementUnit());
+
+		MeasurementUnit measurementUnit2 =
+			testGetMeasurementUnitsPage_addMeasurementUnit(
+				randomMeasurementUnit());
+
+		MeasurementUnit measurementUnit3 =
+			testGetMeasurementUnitsPage_addMeasurementUnit(
+				randomMeasurementUnit());
+
+		// See com.liferay.portal.vulcan.internal.configuration.HeadlessAPICompanyConfiguration#pageSizeLimit
+
+		int pageSizeLimit = 500;
+
+		if (totalCount >= (pageSizeLimit - 2)) {
+			Page<MeasurementUnit> page1 =
+				measurementUnitResource.getMeasurementUnitsPage(
+					null,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 1.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			Assert.assertEquals(totalCount + 3, page1.getTotalCount());
+
+			assertContains(
+				measurementUnit1, (List<MeasurementUnit>)page1.getItems());
+
+			Page<MeasurementUnit> page2 =
+				measurementUnitResource.getMeasurementUnitsPage(
+					null,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 2.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			assertContains(
+				measurementUnit2, (List<MeasurementUnit>)page2.getItems());
+
+			Page<MeasurementUnit> page3 =
+				measurementUnitResource.getMeasurementUnitsPage(
+					null,
+					Pagination.of(
+						(int)Math.ceil((totalCount + 3.0) / pageSizeLimit),
+						pageSizeLimit),
+					null);
+
+			assertContains(
+				measurementUnit3, (List<MeasurementUnit>)page3.getItems());
+		}
+		else {
+			Page<MeasurementUnit> page1 =
+				measurementUnitResource.getMeasurementUnitsPage(
+					null, Pagination.of(1, totalCount + 2), null);
+
+			List<MeasurementUnit> measurementUnits1 =
+				(List<MeasurementUnit>)page1.getItems();
+
+			Assert.assertEquals(
+				measurementUnits1.toString(), totalCount + 2,
+				measurementUnits1.size());
+
+			Page<MeasurementUnit> page2 =
+				measurementUnitResource.getMeasurementUnitsPage(
+					null, Pagination.of(2, totalCount + 2), null);
+
+			Assert.assertEquals(totalCount + 3, page2.getTotalCount());
+
+			List<MeasurementUnit> measurementUnits2 =
+				(List<MeasurementUnit>)page2.getItems();
+
+			Assert.assertEquals(
+				measurementUnits2.toString(), 1, measurementUnits2.size());
+
+			Page<MeasurementUnit> page3 =
+				measurementUnitResource.getMeasurementUnitsPage(
+					null, Pagination.of(1, (int)totalCount + 3), null);
+
+			assertContains(
+				measurementUnit1, (List<MeasurementUnit>)page3.getItems());
+			assertContains(
+				measurementUnit2, (List<MeasurementUnit>)page3.getItems());
+			assertContains(
+				measurementUnit3, (List<MeasurementUnit>)page3.getItems());
+		}
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithSortDateTime() throws Exception {
+		testGetMeasurementUnitsPageWithSort(
+			EntityField.Type.DATE_TIME,
+			(entityField, measurementUnit1, measurementUnit2) -> {
+				BeanTestUtil.setProperty(
+					measurementUnit1, entityField.getName(),
+					new Date(System.currentTimeMillis() - (2 * Time.MINUTE)));
+			});
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithSortDouble() throws Exception {
+		testGetMeasurementUnitsPageWithSort(
+			EntityField.Type.DOUBLE,
+			(entityField, measurementUnit1, measurementUnit2) -> {
+				BeanTestUtil.setProperty(
+					measurementUnit1, entityField.getName(), 0.1);
+				BeanTestUtil.setProperty(
+					measurementUnit2, entityField.getName(), 0.5);
+			});
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithSortInteger() throws Exception {
+		testGetMeasurementUnitsPageWithSort(
+			EntityField.Type.INTEGER,
+			(entityField, measurementUnit1, measurementUnit2) -> {
+				BeanTestUtil.setProperty(
+					measurementUnit1, entityField.getName(), 0);
+				BeanTestUtil.setProperty(
+					measurementUnit2, entityField.getName(), 1);
+			});
+	}
+
+	@Test
+	public void testGetMeasurementUnitsPageWithSortString() throws Exception {
+		testGetMeasurementUnitsPageWithSort(
+			EntityField.Type.STRING,
+			(entityField, measurementUnit1, measurementUnit2) -> {
+				Class<?> clazz = measurementUnit1.getClass();
+
+				String entityFieldName = entityField.getName();
+
+				Method method = clazz.getMethod(
+					"get" + StringUtil.upperCaseFirstLetter(entityFieldName));
+
+				Class<?> returnType = method.getReturnType();
+
+				if (returnType.isAssignableFrom(Map.class)) {
+					BeanTestUtil.setProperty(
+						measurementUnit1, entityFieldName,
+						Collections.singletonMap("Aaa", "Aaa"));
+					BeanTestUtil.setProperty(
+						measurementUnit2, entityFieldName,
+						Collections.singletonMap("Bbb", "Bbb"));
+				}
+				else if (entityFieldName.contains("email")) {
+					BeanTestUtil.setProperty(
+						measurementUnit1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+					BeanTestUtil.setProperty(
+						measurementUnit2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()) +
+									"@liferay.com");
+				}
+				else {
+					BeanTestUtil.setProperty(
+						measurementUnit1, entityFieldName,
+						"aaa" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+					BeanTestUtil.setProperty(
+						measurementUnit2, entityFieldName,
+						"bbb" +
+							StringUtil.toLowerCase(
+								RandomTestUtil.randomString()));
+				}
+			});
+	}
+
+	protected void testGetMeasurementUnitsPageWithSort(
+			EntityField.Type type,
+			UnsafeTriConsumer
+				<EntityField, MeasurementUnit, MeasurementUnit, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		List<EntityField> entityFields = getEntityFields(type);
+
+		if (entityFields.isEmpty()) {
+			return;
+		}
+
+		MeasurementUnit measurementUnit1 = randomMeasurementUnit();
+		MeasurementUnit measurementUnit2 = randomMeasurementUnit();
+
+		for (EntityField entityField : entityFields) {
+			unsafeTriConsumer.accept(
+				entityField, measurementUnit1, measurementUnit2);
+		}
+
+		measurementUnit1 = testGetMeasurementUnitsPage_addMeasurementUnit(
+			measurementUnit1);
+
+		measurementUnit2 = testGetMeasurementUnitsPage_addMeasurementUnit(
+			measurementUnit2);
+
+		Page<MeasurementUnit> page =
+			measurementUnitResource.getMeasurementUnitsPage(null, null, null);
+
+		for (EntityField entityField : entityFields) {
+			Page<MeasurementUnit> ascPage =
+				measurementUnitResource.getMeasurementUnitsPage(
+					null, Pagination.of(1, (int)page.getTotalCount() + 1),
+					entityField.getName() + ":asc");
+
+			assertContains(
+				measurementUnit1, (List<MeasurementUnit>)ascPage.getItems());
+			assertContains(
+				measurementUnit2, (List<MeasurementUnit>)ascPage.getItems());
+
+			Page<MeasurementUnit> descPage =
+				measurementUnitResource.getMeasurementUnitsPage(
+					null, Pagination.of(1, (int)page.getTotalCount() + 1),
+					entityField.getName() + ":desc");
+
+			assertContains(
+				measurementUnit2, (List<MeasurementUnit>)descPage.getItems());
+			assertContains(
+				measurementUnit1, (List<MeasurementUnit>)descPage.getItems());
+		}
+	}
+
+	protected MeasurementUnit testGetMeasurementUnitsPage_addMeasurementUnit(
+			MeasurementUnit measurementUnit)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLGetMeasurementUnitsPage() throws Exception {
+		GraphQLField graphQLField = new GraphQLField(
+			"measurementUnits",
+			new HashMap<String, Object>() {
+				{
+					put("page", 1);
+					put("pageSize", 10);
+				}
+			},
+			new GraphQLField("items", getGraphQLFields()),
+			new GraphQLField("page"), new GraphQLField("totalCount"));
+
+		// No namespace
+
+		JSONObject measurementUnitsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/measurementUnits");
+
+		long totalCount = measurementUnitsJSONObject.getLong("totalCount");
+
+		MeasurementUnit measurementUnit1 =
+			testGraphQLMeasurementUnit_addMeasurementUnit(
+				randomMeasurementUnit());
+
+		MeasurementUnit measurementUnit2 =
+			testGraphQLMeasurementUnit_addMeasurementUnit(
+				randomMeasurementUnit());
+
+		measurementUnitsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(graphQLField), "JSONObject/data",
+			"JSONObject/measurementUnits");
+
+		Assert.assertEquals(
+			totalCount + 2, measurementUnitsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			measurementUnit1,
+			Arrays.asList(
+				MeasurementUnitSerDes.toDTOs(
+					measurementUnitsJSONObject.getString("items"))));
+		assertContains(
+			measurementUnit2,
+			Arrays.asList(
+				MeasurementUnitSerDes.toDTOs(
+					measurementUnitsJSONObject.getString("items"))));
+
+		// Using the namespace headlessCommerceAdminSiteSetting_v1_0
+
+		measurementUnitsJSONObject = JSONUtil.getValueAsJSONObject(
+			invokeGraphQLQuery(
+				new GraphQLField(
+					"headlessCommerceAdminSiteSetting_v1_0", graphQLField)),
+			"JSONObject/data",
+			"JSONObject/headlessCommerceAdminSiteSetting_v1_0",
+			"JSONObject/measurementUnits");
+
+		Assert.assertEquals(
+			totalCount + 2, measurementUnitsJSONObject.getLong("totalCount"));
+
+		assertContains(
+			measurementUnit1,
+			Arrays.asList(
+				MeasurementUnitSerDes.toDTOs(
+					measurementUnitsJSONObject.getString("items"))));
+		assertContains(
+			measurementUnit2,
+			Arrays.asList(
+				MeasurementUnitSerDes.toDTOs(
+					measurementUnitsJSONObject.getString("items"))));
+	}
+
+	@Test
 	public void testPatchMeasurementUnit() throws Exception {
 		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPatchMeasurementUnitByExternalReferenceCode()
+		throws Exception {
+
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPatchMeasurementUnitByKey() throws Exception {
+		Assert.assertTrue(false);
+	}
+
+	@Test
+	public void testPostMeasurementUnit() throws Exception {
+		MeasurementUnit randomMeasurementUnit = randomMeasurementUnit();
+
+		MeasurementUnit postMeasurementUnit =
+			testPostMeasurementUnit_addMeasurementUnit(randomMeasurementUnit);
+
+		assertEquals(randomMeasurementUnit, postMeasurementUnit);
+		assertValid(postMeasurementUnit);
+	}
+
+	protected MeasurementUnit testPostMeasurementUnit_addMeasurementUnit(
+			MeasurementUnit measurementUnit)
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	@Test
+	public void testGraphQLPostMeasurementUnit() throws Exception {
+		MeasurementUnit randomMeasurementUnit = randomMeasurementUnit();
+
+		MeasurementUnit measurementUnit =
+			testGraphQLMeasurementUnit_addMeasurementUnit(
+				randomMeasurementUnit);
+
+		Assert.assertTrue(equals(randomMeasurementUnit, measurementUnit));
+	}
+
+	@Test
+	public void testPutMeasurementUnitByExternalReferenceCode()
+		throws Exception {
+
+		MeasurementUnit postMeasurementUnit =
+			testPutMeasurementUnitByExternalReferenceCode_addMeasurementUnit();
+
+		MeasurementUnit randomMeasurementUnit = randomMeasurementUnit();
+
+		MeasurementUnit putMeasurementUnit =
+			measurementUnitResource.putMeasurementUnitByExternalReferenceCode(
+				postMeasurementUnit.getExternalReferenceCode(),
+				randomMeasurementUnit);
+
+		assertEquals(randomMeasurementUnit, putMeasurementUnit);
+		assertValid(putMeasurementUnit);
+
+		MeasurementUnit getMeasurementUnit =
+			measurementUnitResource.getMeasurementUnitByExternalReferenceCode(
+				putMeasurementUnit.getExternalReferenceCode());
+
+		assertEquals(randomMeasurementUnit, getMeasurementUnit);
+		assertValid(getMeasurementUnit);
+
+		MeasurementUnit newMeasurementUnit =
+			testPutMeasurementUnitByExternalReferenceCode_createMeasurementUnit();
+
+		putMeasurementUnit =
+			measurementUnitResource.putMeasurementUnitByExternalReferenceCode(
+				newMeasurementUnit.getExternalReferenceCode(),
+				newMeasurementUnit);
+
+		assertEquals(newMeasurementUnit, putMeasurementUnit);
+		assertValid(putMeasurementUnit);
+
+		getMeasurementUnit =
+			measurementUnitResource.getMeasurementUnitByExternalReferenceCode(
+				putMeasurementUnit.getExternalReferenceCode());
+
+		assertEquals(newMeasurementUnit, getMeasurementUnit);
+
+		Assert.assertEquals(
+			newMeasurementUnit.getExternalReferenceCode(),
+			putMeasurementUnit.getExternalReferenceCode());
+	}
+
+	protected MeasurementUnit
+			testPutMeasurementUnitByExternalReferenceCode_addMeasurementUnit()
+		throws Exception {
+
+		throw new UnsupportedOperationException(
+			"This method needs to be implemented");
+	}
+
+	protected MeasurementUnit
+			testPutMeasurementUnitByExternalReferenceCode_createMeasurementUnit()
+		throws Exception {
+
+		return randomMeasurementUnit();
+	}
+
+	@Test
+	public void testBatchEngineDeleteImportTask() throws Exception {
+		MeasurementUnit measurementUnit1 =
+			testBatchEngineDeleteImportTask_addMeasurementUnit();
+
+		testBatchEngineDeleteImportTask_deleteMeasurementUnit(
+			200, measurementUnit1.getExternalReferenceCode(), null);
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit1.getId()));
+
+		measurementUnit1 = testBatchEngineDeleteImportTask_addMeasurementUnit();
+
+		testBatchEngineDeleteImportTask_deleteMeasurementUnit(
+			200, null, measurementUnit1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit1.getId()));
+
+		measurementUnit1 = testBatchEngineDeleteImportTask_addMeasurementUnit();
+		MeasurementUnit measurementUnit2 =
+			testBatchEngineDeleteImportTask_addMeasurementUnit();
+
+		testBatchEngineDeleteImportTask_deleteMeasurementUnit(
+			200, measurementUnit2.getExternalReferenceCode(),
+			measurementUnit1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit1.getId()));
+		assertHttpResponseStatusCode(
+			200,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit2.getId()));
+
+		testBatchEngineDeleteImportTask_deleteMeasurementUnit(
+			200, measurementUnit2.getExternalReferenceCode(),
+			measurementUnit1.getId());
+
+		assertHttpResponseStatusCode(
+			404,
+			measurementUnitResource.getMeasurementUnitHttpResponse(
+				measurementUnit2.getId()));
+	}
+
+	protected MeasurementUnit
+			testBatchEngineDeleteImportTask_addMeasurementUnit()
+		throws Exception {
+
+		return testDeleteMeasurementUnit_addMeasurementUnit();
+	}
+
+	protected void testBatchEngineDeleteImportTask_deleteMeasurementUnit(
+			int expectedStatusCode, String externalReferenceCode, Long id,
+			String... parameters)
+		throws Exception {
+
+		ImportTaskResource importTaskResource = ImportTaskResource.builder(
+		).authentication(
+			_testCompanyAdminUser.getEmailAddress(),
+			PropsValues.DEFAULT_ADMIN_PASSWORD
+		).endpoint(
+			testCompany.getVirtualHostname(), 8080, "http"
+		).parameters(
+			parameters
+		).build();
+
+		HttpResponse httpResponse =
+			importTaskResource.deleteImportTaskHttpResponse(
+				"com.liferay.headless.commerce.admin.site.setting.dto.v1_0.MeasurementUnit",
+				null, null, null, null,
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"externalReferenceCode", () -> externalReferenceCode
+					).put(
+						"id", () -> id
+					)));
+
+		Assert.assertEquals(expectedStatusCode, httpResponse.getStatusCode());
+
+		if (expectedStatusCode == 200) {
+			waitForFinish(
+				"COMPLETED",
+				JSONFactoryUtil.createJSONObject(httpResponse.getContent()));
+		}
 	}
 
 	@Rule
@@ -1846,8 +2308,117 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 	protected MeasurementUnit testGraphQLMeasurementUnit_addMeasurementUnit()
 		throws Exception {
 
-		throw new UnsupportedOperationException(
-			"This method needs to be implemented");
+		return testGraphQLMeasurementUnit_addMeasurementUnit(
+			randomMeasurementUnit());
+	}
+
+	protected MeasurementUnit testGraphQLMeasurementUnit_addMeasurementUnit(
+			MeasurementUnit measurementUnit)
+		throws Exception {
+
+		JSONDeserializer<MeasurementUnit> jsonDeserializer =
+			JSONFactoryUtil.createJSONDeserializer();
+
+		StringBuilder sb = new StringBuilder("{");
+
+		for (java.lang.reflect.Field field :
+				getDeclaredFields(MeasurementUnit.class)) {
+
+			if (getGraphQLValue(field.get(measurementUnit)) != null) {
+				if (sb.length() > 1) {
+					sb.append(", ");
+				}
+
+				sb.append(field.getName());
+				sb.append(": ");
+				sb.append(getGraphQLValue(field.get(measurementUnit)));
+			}
+		}
+
+		sb.append("}");
+
+		List<GraphQLField> graphQLFields = getGraphQLFields();
+
+		return jsonDeserializer.deserialize(
+			JSONUtil.getValueAsString(
+				invokeGraphQLMutation(
+					new GraphQLField(
+						"createMeasurementUnit",
+						new HashMap<String, Object>() {
+							{
+								put("measurementUnit", sb.toString());
+							}
+						},
+						graphQLFields)),
+				"JSONObject/data", "JSONObject/createMeasurementUnit"),
+			MeasurementUnit.class);
+	}
+
+	protected String getGraphQLValue(Object value) throws Exception {
+		if (value == null) {
+			return null;
+		}
+		else if (value instanceof Boolean || value instanceof Number) {
+			return value.toString();
+		}
+		else if (value instanceof Date date) {
+			return "\"" +
+				DateUtil.getDate(
+					date, "yyyy-MM-dd'T'HH:mm:ss'Z'", LocaleUtil.getDefault(),
+					TimeZone.getTimeZone("UTC")) + "\"";
+		}
+		else if (value instanceof Enum<?> enm) {
+			return enm.name();
+		}
+		else if (value instanceof Map<?, ?> map) {
+			List<String> entries = new ArrayList<>();
+
+			for (Map.Entry<?, ?> entry : map.entrySet()) {
+				String graphQLValue = getGraphQLValue(entry.getValue());
+
+				if (graphQLValue != null) {
+					entries.add(entry.getKey() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
+		else if (value instanceof Object[] array) {
+			List<String> entries = new ArrayList<>();
+
+			for (Object entry : array) {
+				String graphQLValue = getGraphQLValue(entry);
+
+				if (graphQLValue != null) {
+					entries.add(graphQLValue);
+				}
+			}
+
+			return "[" + String.join(", ", entries) + "]";
+		}
+		else if (value instanceof String) {
+			return "\"" + value + "\"";
+		}
+		else {
+			List<String> entries = new ArrayList<>();
+
+			Class<?> clazz = value.getClass();
+			java.lang.reflect.Field[] declaredFields = getDeclaredFields(clazz);
+
+			if (declaredFields.length == 0) {
+				declaredFields = getDeclaredFields(clazz.getSuperclass());
+			}
+
+			for (java.lang.reflect.Field field : declaredFields) {
+				String graphQLValue = getGraphQLValue(field.get(value));
+
+				if (graphQLValue != null) {
+					entries.add(field.getName() + ": " + graphQLValue);
+				}
+			}
+
+			return "{" + String.join(", ", entries) + "}";
+		}
 	}
 
 	protected void assertContains(
@@ -2058,6 +2629,10 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 
 	protected List<GraphQLField> getGraphQLFields() throws Exception {
 		List<GraphQLField> graphQLFields = new ArrayList<>();
+
+		graphQLFields.add(new GraphQLField("externalReferenceCode"));
+
+		graphQLFields.add(new GraphQLField("id"));
 
 		for (java.lang.reflect.Field field :
 				getDeclaredFields(
@@ -2568,7 +3143,30 @@ public abstract class BaseMeasurementUnitResourceTestCase {
 		return randomMeasurementUnit();
 	}
 
+	protected final JSONObject waitForFinish(
+			String expectedExecuteStatus, JSONObject jsonObject)
+		throws Exception {
+
+		while (true) {
+			ImportTask importTask = importTaskResource.getImportTask(
+				jsonObject.getLong("id"));
+
+			ImportTask.ExecuteStatus executeStatus =
+				importTask.getExecuteStatus();
+
+			if (StringUtil.equals(executeStatus.getValue(), "COMPLETED") ||
+				StringUtil.equals(executeStatus.getValue(), "FAILED")) {
+
+				Assert.assertEquals(
+					expectedExecuteStatus, executeStatus.getValue());
+
+				return jsonObject;
+			}
+		}
+	}
+
 	protected MeasurementUnitResource measurementUnitResource;
+	protected ImportTaskResource importTaskResource;
 	protected com.liferay.portal.kernel.model.Group irrelevantGroup;
 	protected com.liferay.portal.kernel.model.Company testCompany;
 	protected com.liferay.portal.kernel.model.Group testGroup;

@@ -74,16 +74,17 @@ import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.portal.security.service.access.policy.model.SAPEntry;
 import com.liferay.portal.security.service.access.policy.service.SAPEntryLocalService;
 import com.liferay.portal.test.log.LogCapture;
 import com.liferay.portal.test.log.LoggerTestUtil;
-import com.liferay.portal.test.rule.FeatureFlags;
+import com.liferay.portal.test.rule.FeatureFlag;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
-import com.liferay.portal.util.PropsValues;
+import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
 import com.liferay.portal.vulcan.util.LocalizedMapUtil;
 
 import java.io.File;
@@ -111,13 +112,15 @@ import org.skyscreamer.jsonassert.JSONCompareMode;
  * @author Luis Miguel Barcos
  */
 @DataGuard(scope = DataGuard.Scope.METHOD)
-@FeatureFlags("LPS-178642")
+@FeatureFlag("LPS-178642")
 public class HeadlessBuilderResourceTest extends BaseTestCase {
 
 	@ClassRule
 	@Rule
 	public static final AggregateTestRule aggregateTestRule =
-		new LiferayIntegrationTestRule();
+		new AggregateTestRule(
+			new LiferayIntegrationTestRule(),
+			PermissionCheckerMethodTestRule.INSTANCE);
 
 	@BeforeClass
 	public static void setUpClass() {
@@ -1525,7 +1528,7 @@ public class HeadlessBuilderResourceTest extends BaseTestCase {
 			JSONCompareMode.LENIENT);
 	}
 
-	@FeatureFlags("LPD-10964")
+	@FeatureFlag("LPD-10964")
 	@Test
 	public void testGetWithRecordProperty() throws Exception {
 		_addAPIApplicationWithRecordProperty(
@@ -2646,7 +2649,7 @@ public class HeadlessBuilderResourceTest extends BaseTestCase {
 		Assert.assertEquals(textPropertyValue, values.get("textField"));
 	}
 
-	@FeatureFlags("LPD-10964")
+	@FeatureFlag("LPD-10964")
 	@Test
 	public void testPostWithRecordProperty() throws Exception {
 		_addAPIApplicationWithRecordProperty(

@@ -3,11 +3,20 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-import {IInternalRenderer} from '@liferay/frontend-data-set-web';
+import {
+	EConfigInURLBehavior,
+	IInternalRenderer,
+	IItemsActions,
+} from '@liferay/frontend-data-set-web';
 
 import CarouselView from './CarouselView';
 
-export default function propsTransformer({...otherProps}: any) {
+export default function propsTransformer({
+	itemsActions,
+	...otherProps
+}: {
+	itemsActions: IItemsActions[];
+}) {
 	const carouselViewRenderer: IInternalRenderer = {
 		component: CarouselView,
 		default: true,
@@ -27,9 +36,22 @@ export default function propsTransformer({...otherProps}: any) {
 
 	return {
 		...otherProps,
+		configInURLSettings: EConfigInURLBehavior.REPLACE,
 		customRenderers: {
 			views: [carouselViewRenderer],
 		},
+		itemsActions: itemsActions.map((action) => {
+			const key = action?.data?.id as string;
+
+			if (!key || key !== 'turnGreen') {
+				return action;
+			}
+
+			return {
+				...action,
+				isVisible: (item: any) => item?.color !== 'Green',
+			};
+		}),
 		views: [
 			{
 				contentRenderer: 'table',

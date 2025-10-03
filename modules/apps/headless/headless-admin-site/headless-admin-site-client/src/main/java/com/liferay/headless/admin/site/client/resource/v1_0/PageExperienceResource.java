@@ -11,6 +11,8 @@ import com.liferay.headless.admin.site.client.pagination.Page;
 import com.liferay.headless.admin.site.client.problem.Problem;
 import com.liferay.headless.admin.site.client.serdes.v1_0.PageExperienceSerDes;
 
+import jakarta.annotation.Generated;
+
 import java.net.URL;
 
 import java.util.LinkedHashMap;
@@ -19,8 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.annotation.Generated;
 
 /**
  * @author Rubén Pulido
@@ -33,78 +33,72 @@ public interface PageExperienceResource {
 		return new Builder();
 	}
 
-	public void deleteSiteSiteByExternalReferenceCodePageExperience(
+	public void deleteSitePageExperience(
 			String siteExternalReferenceCode,
 			String pageExperienceExternalReferenceCode)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			deleteSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-				String siteExternalReferenceCode,
-				String pageExperienceExternalReferenceCode)
-		throws Exception;
-
-	public PageExperience getSiteSiteByExternalReferenceCodePageExperience(
+	public HttpInvoker.HttpResponse deleteSitePageExperienceHttpResponse(
 			String siteExternalReferenceCode,
 			String pageExperienceExternalReferenceCode)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			getSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-				String siteExternalReferenceCode,
-				String pageExperienceExternalReferenceCode)
+	public PageExperience getSitePageExperience(
+			String siteExternalReferenceCode,
+			String pageExperienceExternalReferenceCode)
 		throws Exception;
 
-	public PageExperience patchSiteSiteByExternalReferenceCodePageExperience(
+	public HttpInvoker.HttpResponse getSitePageExperienceHttpResponse(
+			String siteExternalReferenceCode,
+			String pageExperienceExternalReferenceCode)
+		throws Exception;
+
+	public Page<PageExperience> getSitePageSpecificationPageExperiencesPage(
+			String siteExternalReferenceCode,
+			String pageSpecificationExternalReferenceCode)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse
+			getSitePageSpecificationPageExperiencesPageHttpResponse(
+				String siteExternalReferenceCode,
+				String pageSpecificationExternalReferenceCode)
+		throws Exception;
+
+	public PageExperience patchSitePageExperience(
 			String siteExternalReferenceCode,
 			String pageExperienceExternalReferenceCode,
 			PageExperience pageExperience)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			patchSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-				String siteExternalReferenceCode,
-				String pageExperienceExternalReferenceCode,
-				PageExperience pageExperience)
-		throws Exception;
-
-	public PageExperience putSiteSiteByExternalReferenceCodePageExperience(
+	public HttpInvoker.HttpResponse patchSitePageExperienceHttpResponse(
 			String siteExternalReferenceCode,
 			String pageExperienceExternalReferenceCode,
 			PageExperience pageExperience)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			putSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-				String siteExternalReferenceCode,
-				String pageExperienceExternalReferenceCode,
-				PageExperience pageExperience)
-		throws Exception;
-
-	public Page<PageExperience>
-			getSiteSiteByExternalReferenceCodePageSpecificationPageExperiencesPage(
-				String siteExternalReferenceCode,
-				String pageSpecificationExternalReferenceCode)
+	public PageExperience postSitePageSpecificationPageExperience(
+			String siteExternalReferenceCode,
+			String pageSpecificationExternalReferenceCode,
+			PageExperience pageExperience)
 		throws Exception;
 
 	public HttpInvoker.HttpResponse
-			getSiteSiteByExternalReferenceCodePageSpecificationPageExperiencesPageHttpResponse(
-				String siteExternalReferenceCode,
-				String pageSpecificationExternalReferenceCode)
-		throws Exception;
-
-	public PageExperience
-			postSiteSiteByExternalReferenceCodePageSpecificationPageExperience(
+			postSitePageSpecificationPageExperienceHttpResponse(
 				String siteExternalReferenceCode,
 				String pageSpecificationExternalReferenceCode,
 				PageExperience pageExperience)
 		throws Exception;
 
-	public HttpInvoker.HttpResponse
-			postSiteSiteByExternalReferenceCodePageSpecificationPageExperienceHttpResponse(
-				String siteExternalReferenceCode,
-				String pageSpecificationExternalReferenceCode,
-				PageExperience pageExperience)
+	public PageExperience putSitePageExperience(
+			String siteExternalReferenceCode,
+			String pageExperienceExternalReferenceCode,
+			PageExperience pageExperience)
+		throws Exception;
+
+	public HttpInvoker.HttpResponse putSitePageExperienceHttpResponse(
+			String siteExternalReferenceCode,
+			String pageExperienceExternalReferenceCode,
+			PageExperience pageExperience)
 		throws Exception;
 
 	public static class Builder {
@@ -216,13 +210,13 @@ public interface PageExperienceResource {
 	public static class PageExperienceResourceImpl
 		implements PageExperienceResource {
 
-		public void deleteSiteSiteByExternalReferenceCodePageExperience(
+		public void deleteSitePageExperience(
 				String siteExternalReferenceCode,
 				String pageExperienceExternalReferenceCode)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				deleteSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
+				deleteSitePageExperienceHttpResponse(
 					siteExternalReferenceCode,
 					pageExperienceExternalReferenceCode);
 
@@ -285,10 +279,9 @@ public interface PageExperienceResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse
-				deleteSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-					String siteExternalReferenceCode,
-					String pageExperienceExternalReferenceCode)
+		public HttpInvoker.HttpResponse deleteSitePageExperienceHttpResponse(
+				String siteExternalReferenceCode,
+				String pageExperienceExternalReferenceCode)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -331,13 +324,13 @@ public interface PageExperienceResource {
 			return httpInvoker.invoke();
 		}
 
-		public PageExperience getSiteSiteByExternalReferenceCodePageExperience(
+		public PageExperience getSitePageExperience(
 				String siteExternalReferenceCode,
 				String pageExperienceExternalReferenceCode)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				getSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
+				getSitePageExperienceHttpResponse(
 					siteExternalReferenceCode,
 					pageExperienceExternalReferenceCode);
 
@@ -400,10 +393,9 @@ public interface PageExperienceResource {
 			}
 		}
 
-		public HttpInvoker.HttpResponse
-				getSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-					String siteExternalReferenceCode,
-					String pageExperienceExternalReferenceCode)
+		public HttpInvoker.HttpResponse getSitePageExperienceHttpResponse(
+				String siteExternalReferenceCode,
+				String pageExperienceExternalReferenceCode)
 			throws Exception {
 
 			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
@@ -446,253 +438,13 @@ public interface PageExperienceResource {
 			return httpInvoker.invoke();
 		}
 
-		public PageExperience
-				patchSiteSiteByExternalReferenceCodePageExperience(
-					String siteExternalReferenceCode,
-					String pageExperienceExternalReferenceCode,
-					PageExperience pageExperience)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				patchSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-					siteExternalReferenceCode,
-					pageExperienceExternalReferenceCode, pageExperience);
-
-			String content = httpResponse.getContent();
-
-			if ((httpResponse.getStatusCode() / 100) != 2) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response content: " + content);
-				_logger.log(
-					Level.WARNING,
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.log(
-					Level.WARNING,
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-
-				Problem.ProblemException problemException = null;
-
-				if (Objects.equals(
-						httpResponse.getContentType(), "application/json")) {
-
-					problemException = new Problem.ProblemException(
-						Problem.toDTO(content));
-				}
-				else {
-					_logger.log(
-						Level.WARNING,
-						"Unable to process content type: " +
-							httpResponse.getContentType());
-
-					Problem problem = new Problem();
-
-					problem.setStatus(
-						String.valueOf(httpResponse.getStatusCode()));
-
-					problemException = new Problem.ProblemException(problem);
-				}
-
-				throw problemException;
-			}
-			else {
-				_logger.fine("HTTP response content: " + content);
-				_logger.fine(
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.fine(
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-			}
-
-			try {
-				return PageExperienceSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				patchSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-					String siteExternalReferenceCode,
-					String pageExperienceExternalReferenceCode,
-					PageExperience pageExperience)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(pageExperience.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PATCH);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + _builder._contextPath +
-						"/o/headless-admin-site/v1.0/sites/{siteExternalReferenceCode}/page-experiences/{pageExperienceExternalReferenceCode}");
-
-			httpInvoker.path(
-				"siteExternalReferenceCode", siteExternalReferenceCode);
-			httpInvoker.path(
-				"pageExperienceExternalReferenceCode",
-				pageExperienceExternalReferenceCode);
-
-			if ((_builder._login != null) && (_builder._password != null)) {
-				httpInvoker.userNameAndPassword(
-					_builder._login + ":" + _builder._password);
-			}
-
-			return httpInvoker.invoke();
-		}
-
-		public PageExperience putSiteSiteByExternalReferenceCodePageExperience(
+		public Page<PageExperience> getSitePageSpecificationPageExperiencesPage(
 				String siteExternalReferenceCode,
-				String pageExperienceExternalReferenceCode,
-				PageExperience pageExperience)
+				String pageSpecificationExternalReferenceCode)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				putSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-					siteExternalReferenceCode,
-					pageExperienceExternalReferenceCode, pageExperience);
-
-			String content = httpResponse.getContent();
-
-			if ((httpResponse.getStatusCode() / 100) != 2) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response content: " + content);
-				_logger.log(
-					Level.WARNING,
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.log(
-					Level.WARNING,
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-
-				Problem.ProblemException problemException = null;
-
-				if (Objects.equals(
-						httpResponse.getContentType(), "application/json")) {
-
-					problemException = new Problem.ProblemException(
-						Problem.toDTO(content));
-				}
-				else {
-					_logger.log(
-						Level.WARNING,
-						"Unable to process content type: " +
-							httpResponse.getContentType());
-
-					Problem problem = new Problem();
-
-					problem.setStatus(
-						String.valueOf(httpResponse.getStatusCode()));
-
-					problemException = new Problem.ProblemException(problem);
-				}
-
-				throw problemException;
-			}
-			else {
-				_logger.fine("HTTP response content: " + content);
-				_logger.fine(
-					"HTTP response message: " + httpResponse.getMessage());
-				_logger.fine(
-					"HTTP response status code: " +
-						httpResponse.getStatusCode());
-			}
-
-			try {
-				return PageExperienceSerDes.toDTO(content);
-			}
-			catch (Exception e) {
-				_logger.log(
-					Level.WARNING,
-					"Unable to process HTTP response: " + content, e);
-
-				throw new Problem.ProblemException(Problem.toDTO(content));
-			}
-		}
-
-		public HttpInvoker.HttpResponse
-				putSiteSiteByExternalReferenceCodePageExperienceHttpResponse(
-					String siteExternalReferenceCode,
-					String pageExperienceExternalReferenceCode,
-					PageExperience pageExperience)
-			throws Exception {
-
-			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
-
-			httpInvoker.body(pageExperience.toString(), "application/json");
-
-			if (_builder._locale != null) {
-				httpInvoker.header(
-					"Accept-Language", _builder._locale.toLanguageTag());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._headers.entrySet()) {
-
-				httpInvoker.header(entry.getKey(), entry.getValue());
-			}
-
-			for (Map.Entry<String, String> entry :
-					_builder._parameters.entrySet()) {
-
-				httpInvoker.parameter(entry.getKey(), entry.getValue());
-			}
-
-			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
-
-			httpInvoker.path(
-				_builder._scheme + "://" + _builder._host + ":" +
-					_builder._port + _builder._contextPath +
-						"/o/headless-admin-site/v1.0/sites/{siteExternalReferenceCode}/page-experiences/{pageExperienceExternalReferenceCode}");
-
-			httpInvoker.path(
-				"siteExternalReferenceCode", siteExternalReferenceCode);
-			httpInvoker.path(
-				"pageExperienceExternalReferenceCode",
-				pageExperienceExternalReferenceCode);
-
-			if ((_builder._login != null) && (_builder._password != null)) {
-				httpInvoker.userNameAndPassword(
-					_builder._login + ":" + _builder._password);
-			}
-
-			return httpInvoker.invoke();
-		}
-
-		public Page<PageExperience>
-				getSiteSiteByExternalReferenceCodePageSpecificationPageExperiencesPage(
-					String siteExternalReferenceCode,
-					String pageSpecificationExternalReferenceCode)
-			throws Exception {
-
-			HttpInvoker.HttpResponse httpResponse =
-				getSiteSiteByExternalReferenceCodePageSpecificationPageExperiencesPageHttpResponse(
+				getSitePageSpecificationPageExperiencesPageHttpResponse(
 					siteExternalReferenceCode,
 					pageSpecificationExternalReferenceCode);
 
@@ -756,7 +508,7 @@ public interface PageExperienceResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				getSiteSiteByExternalReferenceCodePageSpecificationPageExperiencesPageHttpResponse(
+				getSitePageSpecificationPageExperiencesPageHttpResponse(
 					String siteExternalReferenceCode,
 					String pageSpecificationExternalReferenceCode)
 			throws Exception {
@@ -801,15 +553,132 @@ public interface PageExperienceResource {
 			return httpInvoker.invoke();
 		}
 
-		public PageExperience
-				postSiteSiteByExternalReferenceCodePageSpecificationPageExperience(
-					String siteExternalReferenceCode,
-					String pageSpecificationExternalReferenceCode,
-					PageExperience pageExperience)
+		public PageExperience patchSitePageExperience(
+				String siteExternalReferenceCode,
+				String pageExperienceExternalReferenceCode,
+				PageExperience pageExperience)
 			throws Exception {
 
 			HttpInvoker.HttpResponse httpResponse =
-				postSiteSiteByExternalReferenceCodePageSpecificationPageExperienceHttpResponse(
+				patchSitePageExperienceHttpResponse(
+					siteExternalReferenceCode,
+					pageExperienceExternalReferenceCode, pageExperience);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				Problem.ProblemException problemException = null;
+
+				if (Objects.equals(
+						httpResponse.getContentType(), "application/json")) {
+
+					problemException = new Problem.ProblemException(
+						Problem.toDTO(content));
+				}
+				else {
+					_logger.log(
+						Level.WARNING,
+						"Unable to process content type: " +
+							httpResponse.getContentType());
+
+					Problem problem = new Problem();
+
+					problem.setStatus(
+						String.valueOf(httpResponse.getStatusCode()));
+
+					problemException = new Problem.ProblemException(problem);
+				}
+
+				throw problemException;
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return PageExperienceSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse patchSitePageExperienceHttpResponse(
+				String siteExternalReferenceCode,
+				String pageExperienceExternalReferenceCode,
+				PageExperience pageExperience)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(pageExperience.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PATCH);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port + _builder._contextPath +
+						"/o/headless-admin-site/v1.0/sites/{siteExternalReferenceCode}/page-experiences/{pageExperienceExternalReferenceCode}");
+
+			httpInvoker.path(
+				"siteExternalReferenceCode", siteExternalReferenceCode);
+			httpInvoker.path(
+				"pageExperienceExternalReferenceCode",
+				pageExperienceExternalReferenceCode);
+
+			if ((_builder._login != null) && (_builder._password != null)) {
+				httpInvoker.userNameAndPassword(
+					_builder._login + ":" + _builder._password);
+			}
+
+			return httpInvoker.invoke();
+		}
+
+		public PageExperience postSitePageSpecificationPageExperience(
+				String siteExternalReferenceCode,
+				String pageSpecificationExternalReferenceCode,
+				PageExperience pageExperience)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				postSitePageSpecificationPageExperienceHttpResponse(
 					siteExternalReferenceCode,
 					pageSpecificationExternalReferenceCode, pageExperience);
 
@@ -873,7 +742,7 @@ public interface PageExperienceResource {
 		}
 
 		public HttpInvoker.HttpResponse
-				postSiteSiteByExternalReferenceCodePageSpecificationPageExperienceHttpResponse(
+				postSitePageSpecificationPageExperienceHttpResponse(
 					String siteExternalReferenceCode,
 					String pageSpecificationExternalReferenceCode,
 					PageExperience pageExperience)
@@ -912,6 +781,124 @@ public interface PageExperienceResource {
 			httpInvoker.path(
 				"pageSpecificationExternalReferenceCode",
 				pageSpecificationExternalReferenceCode);
+
+			if ((_builder._login != null) && (_builder._password != null)) {
+				httpInvoker.userNameAndPassword(
+					_builder._login + ":" + _builder._password);
+			}
+
+			return httpInvoker.invoke();
+		}
+
+		public PageExperience putSitePageExperience(
+				String siteExternalReferenceCode,
+				String pageExperienceExternalReferenceCode,
+				PageExperience pageExperience)
+			throws Exception {
+
+			HttpInvoker.HttpResponse httpResponse =
+				putSitePageExperienceHttpResponse(
+					siteExternalReferenceCode,
+					pageExperienceExternalReferenceCode, pageExperience);
+
+			String content = httpResponse.getContent();
+
+			if ((httpResponse.getStatusCode() / 100) != 2) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response content: " + content);
+				_logger.log(
+					Level.WARNING,
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.log(
+					Level.WARNING,
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+
+				Problem.ProblemException problemException = null;
+
+				if (Objects.equals(
+						httpResponse.getContentType(), "application/json")) {
+
+					problemException = new Problem.ProblemException(
+						Problem.toDTO(content));
+				}
+				else {
+					_logger.log(
+						Level.WARNING,
+						"Unable to process content type: " +
+							httpResponse.getContentType());
+
+					Problem problem = new Problem();
+
+					problem.setStatus(
+						String.valueOf(httpResponse.getStatusCode()));
+
+					problemException = new Problem.ProblemException(problem);
+				}
+
+				throw problemException;
+			}
+			else {
+				_logger.fine("HTTP response content: " + content);
+				_logger.fine(
+					"HTTP response message: " + httpResponse.getMessage());
+				_logger.fine(
+					"HTTP response status code: " +
+						httpResponse.getStatusCode());
+			}
+
+			try {
+				return PageExperienceSerDes.toDTO(content);
+			}
+			catch (Exception e) {
+				_logger.log(
+					Level.WARNING,
+					"Unable to process HTTP response: " + content, e);
+
+				throw new Problem.ProblemException(Problem.toDTO(content));
+			}
+		}
+
+		public HttpInvoker.HttpResponse putSitePageExperienceHttpResponse(
+				String siteExternalReferenceCode,
+				String pageExperienceExternalReferenceCode,
+				PageExperience pageExperience)
+			throws Exception {
+
+			HttpInvoker httpInvoker = HttpInvoker.newHttpInvoker();
+
+			httpInvoker.body(pageExperience.toString(), "application/json");
+
+			if (_builder._locale != null) {
+				httpInvoker.header(
+					"Accept-Language", _builder._locale.toLanguageTag());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._headers.entrySet()) {
+
+				httpInvoker.header(entry.getKey(), entry.getValue());
+			}
+
+			for (Map.Entry<String, String> entry :
+					_builder._parameters.entrySet()) {
+
+				httpInvoker.parameter(entry.getKey(), entry.getValue());
+			}
+
+			httpInvoker.httpMethod(HttpInvoker.HttpMethod.PUT);
+
+			httpInvoker.path(
+				_builder._scheme + "://" + _builder._host + ":" +
+					_builder._port + _builder._contextPath +
+						"/o/headless-admin-site/v1.0/sites/{siteExternalReferenceCode}/page-experiences/{pageExperienceExternalReferenceCode}");
+
+			httpInvoker.path(
+				"siteExternalReferenceCode", siteExternalReferenceCode);
+			httpInvoker.path(
+				"pageExperienceExternalReferenceCode",
+				pageExperienceExternalReferenceCode);
 
 			if ((_builder._login != null) && (_builder._password != null)) {
 				httpInvoker.userNameAndPassword(

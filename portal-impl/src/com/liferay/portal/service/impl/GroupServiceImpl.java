@@ -11,6 +11,7 @@ import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.asset.kernel.service.AssetTagLocalService;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.exportimport.kernel.staging.StagingUtil;
+import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
@@ -734,7 +735,7 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 		if (ArrayUtil.contains(classNames, Group.class.getName()) ||
 			ArrayUtil.contains(classNames, Organization.class.getName())) {
 
-			UserBag userBag = UserBagFactoryUtil.create(userId);
+			UserBag userBag = UserBagFactoryUtil.create(user);
 
 			if (ArrayUtil.contains(classNames, Group.class.getName())) {
 				for (Group group : userBag.getUserGroups()) {
@@ -1164,19 +1165,19 @@ public class GroupServiceImpl extends GroupServiceBaseImpl {
 	protected List<Group> filterGroups(List<Group> groups)
 		throws PortalException {
 
-		List<Group> filteredGroups = new ArrayList<>();
-
 		PermissionChecker permissionChecker = getPermissionChecker();
 
-		for (Group group : groups) {
-			if (GroupPermissionUtil.contains(
-					permissionChecker, group, ActionKeys.VIEW)) {
+		return TransformUtil.transform(
+			groups,
+			group -> {
+				if (GroupPermissionUtil.contains(
+						permissionChecker, group, ActionKeys.VIEW)) {
 
-				filteredGroups.add(group);
-			}
-		}
+					return group;
+				}
 
-		return filteredGroups;
+				return null;
+			});
 	}
 
 	protected Map<Locale, String> getLocalizationMap(String value) {

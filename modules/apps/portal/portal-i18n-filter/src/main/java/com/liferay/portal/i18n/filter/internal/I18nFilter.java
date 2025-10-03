@@ -25,21 +25,21 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsValues;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.servlet.filters.BasePortalFilter;
-import com.liferay.portal.util.PropsValues;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Objects;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -216,7 +216,7 @@ public class I18nFilter extends BasePortalFilter {
 
 		if (Validator.isNull(queryString)) {
 			queryString = (String)httpServletRequest.getAttribute(
-				JavaConstants.JAVAX_SERVLET_FORWARD_QUERY_STRING);
+				JavaConstants.JAKARTA_SERVLET_FORWARD_QUERY_STRING);
 		}
 
 		if (Validator.isNotNull(queryString)) {
@@ -432,13 +432,8 @@ public class I18nFilter extends BasePortalFilter {
 	}
 
 	private boolean _isPermanentRedirect(long companyId) {
-		if (Objects.equals(
-				_getFriendlyURLRedirectionType(companyId), "permanent")) {
-
-			return true;
-		}
-
-		return false;
+		return Objects.equals(
+			_getFriendlyURLRedirectionType(companyId), "permanent");
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(I18nFilter.class);
