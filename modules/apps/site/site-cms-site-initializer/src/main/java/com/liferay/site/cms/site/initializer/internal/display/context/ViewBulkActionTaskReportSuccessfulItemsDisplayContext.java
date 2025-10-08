@@ -34,8 +34,8 @@ public class ViewBulkActionTaskReportSuccessfulItemsDisplayContext {
 		return StringBundler.concat(
 			"/o/cms/bulk-action-task-items?filter=executionStatus eq '",
 			BulkActionExecutionStatusConstants.COMPLETED,
-			"' and r_bulkActionTaskToBulkActionTaskItems_c_bulkActionTaskId ",
-			"eq '", objectEntry.getObjectEntryId(), "'");
+			"' and r_cmsBulkActionTaskToCMSBulkActionTaskItems_c_",
+			"cmsBulkActionTaskId eq '", objectEntry.getObjectEntryId(), "'");
 	}
 
 	private final HttpServletRequest _httpServletRequest;
