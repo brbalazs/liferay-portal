@@ -1,5 +1,14 @@
 components:
     schemas:
+        AssetPermission:
+            properties:
+                className:
+                    type: string
+                externalReferenceCode:
+                    type: string
+                id:
+                    format: int64
+                    type: integer
         AssetUsage:
             properties:
                 name:
@@ -140,6 +149,25 @@ info:
     version: v1.0
 openapi: 3.0.1
 paths:
+    "/asset-permissions/reset":
+        put:
+            operationId: putAssetPermissionReset
+            parameters:
+                -   in: query
+                    name: assetId
+                    schema:
+                        format: int64
+                        type: integer
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AssetPermission"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/AssetPermission"
+            tags: ["AssetPermission"]
     "/asset-usages/{assetId}":
         get:
             operationId: getAssetUsagesAssetPage
