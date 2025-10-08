@@ -5,9 +5,11 @@
 
 package com.liferay.headless.cms.internal.graphql.mutation.v1_0;
 
+import com.liferay.headless.cms.dto.v1_0.AssetPermission;
 import com.liferay.headless.cms.dto.v1_0.BulkAction;
 import com.liferay.headless.cms.dto.v1_0.BulkActionItem;
 import com.liferay.headless.cms.dto.v1_0.BulkActionTask;
+import com.liferay.headless.cms.resource.v1_0.AssetPermissionResource;
 import com.liferay.headless.cms.resource.v1_0.BulkActionResource;
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.function.UnsafeFunction;
@@ -37,12 +39,32 @@ import org.osgi.service.component.ComponentServiceObjects;
 @Generated("")
 public class Mutation {
 
+	public static void setAssetPermissionResourceComponentServiceObjects(
+		ComponentServiceObjects<AssetPermissionResource>
+			assetPermissionResourceComponentServiceObjects) {
+
+		_assetPermissionResourceComponentServiceObjects =
+			assetPermissionResourceComponentServiceObjects;
+	}
+
 	public static void setBulkActionResourceComponentServiceObjects(
 		ComponentServiceObjects<BulkActionResource>
 			bulkActionResourceComponentServiceObjects) {
 
 		_bulkActionResourceComponentServiceObjects =
 			bulkActionResourceComponentServiceObjects;
+	}
+
+	@GraphQLField
+	public AssetPermission updateAssetPermissionReset(
+			@GraphQLName("assetId") Long assetId)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_assetPermissionResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			assetPermissionResource ->
+				assetPermissionResource.putAssetPermissionReset(assetId));
 	}
 
 	@GraphQLField(description = "Execute a bulk action")
@@ -129,6 +151,22 @@ public class Mutation {
 		}
 	}
 
+	private void _populateResourceContext(
+			AssetPermissionResource assetPermissionResource)
+		throws Exception {
+
+		assetPermissionResource.setContextAcceptLanguage(_acceptLanguage);
+		assetPermissionResource.setContextCompany(_company);
+		assetPermissionResource.setContextHttpServletRequest(
+			_httpServletRequest);
+		assetPermissionResource.setContextHttpServletResponse(
+			_httpServletResponse);
+		assetPermissionResource.setContextUriInfo(_uriInfo);
+		assetPermissionResource.setContextUser(_user);
+		assetPermissionResource.setGroupLocalService(_groupLocalService);
+		assetPermissionResource.setRoleLocalService(_roleLocalService);
+	}
+
 	private void _populateResourceContext(BulkActionResource bulkActionResource)
 		throws Exception {
 
@@ -142,6 +180,8 @@ public class Mutation {
 		bulkActionResource.setRoleLocalService(_roleLocalService);
 	}
 
+	private static ComponentServiceObjects<AssetPermissionResource>
+		_assetPermissionResourceComponentServiceObjects;
 	private static ComponentServiceObjects<BulkActionResource>
 		_bulkActionResourceComponentServiceObjects;
 
