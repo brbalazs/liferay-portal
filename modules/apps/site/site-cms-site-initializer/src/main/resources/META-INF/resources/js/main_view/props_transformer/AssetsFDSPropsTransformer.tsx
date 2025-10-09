@@ -214,7 +214,41 @@ export default function AssetsFDSPropsTransformer({
 					size: 'full-screen',
 				});
 			}
-			else if (action?.data?.id === 'delete') {
+            else if (action?.data?.id === 'reset-permissions') {
+                try {
+                    const response = await fetch(
+                        `/o/headless-cms/v1.0/asset-permissions/reset?assetId=${itemData.embedded.id}`,
+                        {
+                            credentials: 'include',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-Token': Liferay.authToken,
+                            },
+                            method: 'PUT',
+                        }
+                    );
+
+                    if (!response.ok) {
+                        throw new Error('Failed to reset permissions');
+                    }
+
+                    Liferay.Util.openToast({
+                        message: Liferay.Language.get('permissions-reset-successfully'),
+                        type: 'success',
+                    });
+
+                    loadData();
+                }
+                catch (error) {
+                    console.error('Error resetting permissions:', error);
+
+                    Liferay.Util.openToast({
+                        message: Liferay.Language.get('an-error-occurred'),
+                        type: 'danger',
+                    });
+                }
+            }
+            else if (action?.data?.id === 'delete') {
 				if (additionalProps.brokenLinksCheckerEnabled) {
 					openAssetUsageListModal({
 						itemsData: [itemData],
@@ -317,7 +351,7 @@ export default function AssetsFDSPropsTransformer({
 					selectedData,
 				});
 			}
-			else if (action?.data?.id === 'delete') {
+            else if (action?.data?.id === 'delete') {
 				if (additionalProps.brokenLinksCheckerEnabled) {
 					openAssetUsageListModal({
 						apiURL: otherProps.apiURL,
