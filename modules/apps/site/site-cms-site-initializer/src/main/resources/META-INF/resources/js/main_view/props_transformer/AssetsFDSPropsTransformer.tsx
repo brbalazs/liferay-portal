@@ -23,6 +23,7 @@ import deleteAssetEntriesBulkAction, {
 } from './actions/deleteAssetEntriesBulkAction';
 import deleteItemAction from './actions/deleteItemAction';
 import multipleFilesUploadAction from './actions/multipleFilesUploadAction';
+import resetAssetPermissionAction from './actions/resetAssetPermissionAction';
 import shareAction from './actions/shareAction';
 import {triggerAssetBulkAction} from './actions/triggerAssetBulkAction';
 import AuthorRenderer from './cell_renderers/AuthorRenderer';
@@ -213,6 +214,13 @@ export default function AssetsFDSPropsTransformer({
 						}),
 					size: 'full-screen',
 				});
+			}
+			else if (action?.data?.id === 'reset-permissions') {
+                resetAssetPermissionAction({
+                    className: itemData.entryClassName,
+                    classPK: itemData.embedded.id,
+                    loadData,
+                });
 			}
 			else if (action?.data?.id === 'delete') {
 				if (additionalProps.brokenLinksCheckerEnabled) {
