@@ -493,6 +493,10 @@ public abstract class BaseSectionDisplayContext {
 				LanguageUtil.get(httpServletRequest, "default-permissions"),
 				null, "permissions", null),
 			new FDSActionDropdownItem(
+				StringPool.BLANK, "password-policies", "reset-permissions",
+				LanguageUtil.get(httpServletRequest, "reset-permissions"), null,
+				null, null),
+			new FDSActionDropdownItem(
 				null, "trash", "delete",
 				language.get(httpServletRequest, "delete"), null, "delete",
 				null));
