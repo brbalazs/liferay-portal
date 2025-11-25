@@ -293,7 +293,13 @@ public abstract class BaseSectionDisplayContext {
 			new FDSActionDropdownItem(
 				"#", "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), null, null,
-				null));
+				null),
+			new FDSActionDropdownItem(
+				StringPool.BLANK, "password-policies",
+				"reset-to-default-permissions",
+				LanguageUtil.get(
+					httpServletRequest, "reset-to-default-permissions"),
+				null, "permissions", null));
 	}
 
 	public CreationMenu getCreationMenu() {
