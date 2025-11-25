@@ -105,6 +105,7 @@ export interface IBulkActionTaskType {
 	PermissionBulkAction: {
 		configuration: string;
 	};
+	ResetPermissionBulkAction: {};
 	TaxonomyCategoryBulkAction: {
 		taxonomyCategoryIds: number[];
 	};
