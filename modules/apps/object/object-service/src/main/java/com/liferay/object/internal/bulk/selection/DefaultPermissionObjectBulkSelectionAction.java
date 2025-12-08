@@ -13,6 +13,8 @@ import com.liferay.object.model.ObjectEntry;
 import com.liferay.object.service.ObjectDefinitionLocalService;
 import com.liferay.object.service.ObjectEntryLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONFactory;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
@@ -20,6 +22,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.MapUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
 
@@ -80,9 +83,54 @@ public class DefaultPermissionObjectBulkSelectionAction
 						Map<String, Serializable> objectObjectEntryValues =
 							objectObjectEntry.getValues();
 
-						objectObjectEntryValues.put(
-							"defaultPermissions",
-							MapUtil.getString(inputMap, "defaultPermissions"));
+						String roleKey = (String)inputMap.get("roleKey");
+
+						if (Validator.isBlank(roleKey)) {
+							objectObjectEntryValues.put(
+								"defaultPermissions",
+								MapUtil.getString(
+									inputMap, "defaultPermissions"));
+						}
+						else {
+							JSONObject existingDefaultPermissionsJSONObject =
+								_jsonFactory.createJSONObject(
+									GetterUtil.getString(
+										objectObjectEntryValues.get(
+											"defaultPermissions"),
+										"{}"));
+
+							JSONObject newDefaultPermissionsJSONObject =
+								_jsonFactory.createJSONObject(
+									MapUtil.getString(
+										inputMap, "defaultPermissions"));
+
+							existingDefaultPermissionsJSONObject =
+								_mergeDefaultPermissionsForAssetType(
+									existingDefaultPermissionsJSONObject,
+									newDefaultPermissionsJSONObject,
+									ObjectEntryFolderConstants.
+										EXTERNAL_REFERENCE_CODE_CONTENTS,
+									roleKey);
+
+							existingDefaultPermissionsJSONObject =
+								_mergeDefaultPermissionsForAssetType(
+									existingDefaultPermissionsJSONObject,
+									newDefaultPermissionsJSONObject,
+									ObjectEntryFolderConstants.
+										EXTERNAL_REFERENCE_CODE_FILES,
+									roleKey);
+
+							existingDefaultPermissionsJSONObject =
+								_mergeDefaultPermissionsForAssetType(
+									existingDefaultPermissionsJSONObject,
+									newDefaultPermissionsJSONObject,
+									"OBJECT_ENTRY_FOLDERS", roleKey);
+
+							objectObjectEntryValues.put(
+								"defaultPermissions",
+								existingDefaultPermissionsJSONObject.
+									toString());
+						}
 
 						_partialUpdateObjectEntry(
 							objectObjectEntry, objectObjectEntryValues);
@@ -145,6 +193,32 @@ public class DefaultPermissionObjectBulkSelectionAction
 		return objectDefinition.getObjectDefinitionId();
 	}
 
+	private JSONObject _mergeDefaultPermissionsForAssetType(
+		JSONObject existingDefaultPermissionsJSONObject,
+		JSONObject newDefaultPermissionsJSONObject, String assetType,
+		String roleKey) {
+
+		JSONObject jsonObject2 = newDefaultPermissionsJSONObject.getJSONObject(
+			assetType);
+
+		if (jsonObject2 == null) {
+			return existingDefaultPermissionsJSONObject;
+		}
+
+		JSONObject jsonObject1 =
+			existingDefaultPermissionsJSONObject.getJSONObject(assetType);
+
+		if (jsonObject1 == null) {
+			jsonObject1 = _jsonFactory.createJSONObject();
+		}
+
+		jsonObject1.put(roleKey, jsonObject2.getJSONArray(roleKey));
+
+		existingDefaultPermissionsJSONObject.put(assetType, jsonObject1);
+
+		return existingDefaultPermissionsJSONObject;
+	}
+
 	private ObjectEntry _partialUpdateObjectEntry(
 			ObjectEntry objectEntry, Map<String, Serializable> values)
 		throws PortalException {
@@ -156,6 +230,9 @@ public class DefaultPermissionObjectBulkSelectionAction
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DefaultPermissionObjectBulkSelectionAction.class);
+
+	@Reference
+	private JSONFactory _jsonFactory;
 
 	@Reference
 	private ObjectDefinitionLocalService _objectDefinitionLocalService;
