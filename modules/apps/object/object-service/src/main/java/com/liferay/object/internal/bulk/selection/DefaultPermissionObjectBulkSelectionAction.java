@@ -92,44 +92,48 @@ public class DefaultPermissionObjectBulkSelectionAction
 									inputMap, "defaultPermissions"));
 						}
 						else {
-							JSONObject existingDefaultPermissionsJSONObject =
+							JSONObject existingJSONObject =
 								_jsonFactory.createJSONObject(
 									GetterUtil.getString(
 										objectObjectEntryValues.get(
 											"defaultPermissions"),
 										"{}"));
-
-							JSONObject newDefaultPermissionsJSONObject =
+							JSONObject newJSONObject =
 								_jsonFactory.createJSONObject(
-									MapUtil.getString(
-										inputMap, "defaultPermissions"));
+									GetterUtil.getString(
+										MapUtil.getString(
+											inputMap, "defaultPermissions"), "{}"));
 
-							existingDefaultPermissionsJSONObject =
-								_mergeDefaultPermissionsForAssetType(
-									existingDefaultPermissionsJSONObject,
-									newDefaultPermissionsJSONObject,
-									ObjectEntryFolderConstants.
-										EXTERNAL_REFERENCE_CODE_CONTENTS,
-									roleKey);
-
-							existingDefaultPermissionsJSONObject =
-								_mergeDefaultPermissionsForAssetType(
-									existingDefaultPermissionsJSONObject,
-									newDefaultPermissionsJSONObject,
-									ObjectEntryFolderConstants.
-										EXTERNAL_REFERENCE_CODE_FILES,
-									roleKey);
-
-							existingDefaultPermissionsJSONObject =
-								_mergeDefaultPermissionsForAssetType(
-									existingDefaultPermissionsJSONObject,
-									newDefaultPermissionsJSONObject,
-									"OBJECT_ENTRY_FOLDERS", roleKey);
+							existingJSONObject.put(
+								ObjectEntryFolderConstants.
+									EXTERNAL_REFERENCE_CODE_CONTENTS,
+								_getJSONObject(
+									existingJSONObject.getJSONObject(ObjectEntryFolderConstants.EXTERNAL_REFERENCE_CODE_CONTENTS),
+									newJSONObject.getJSONObject(ObjectEntryFolderConstants.EXTERNAL_REFERENCE_CODE_CONTENTS),
+									roleKey
+								)
+							);
+							existingJSONObject.put(
+								ObjectEntryFolderConstants.
+									EXTERNAL_REFERENCE_CODE_FILES,
+								_getJSONObject(
+									existingJSONObject.getJSONObject(ObjectEntryFolderConstants.EXTERNAL_REFERENCE_CODE_FILES),
+									newJSONObject.getJSONObject(ObjectEntryFolderConstants.EXTERNAL_REFERENCE_CODE_FILES),
+									roleKey
+								)
+							);
+							existingJSONObject.put(
+									"OBJECT_ENTRY_FOLDERS",
+								_getJSONObject(
+									existingJSONObject.getJSONObject("OBJECT_ENTRY_FOLDERS"),
+									newJSONObject.getJSONObject("OBJECT_ENTRY_FOLDERS"),
+									roleKey
+								)
+							);
 
 							objectObjectEntryValues.put(
 								"defaultPermissions",
-								existingDefaultPermissionsJSONObject.
-									toString());
+								existingJSONObject.toString());
 						}
 
 						_partialUpdateObjectEntry(
@@ -193,30 +197,21 @@ public class DefaultPermissionObjectBulkSelectionAction
 		return objectDefinition.getObjectDefinitionId();
 	}
 
-	private JSONObject _mergeDefaultPermissionsForAssetType(
-		JSONObject existingDefaultPermissionsJSONObject,
-		JSONObject newDefaultPermissionsJSONObject, String assetType,
-		String roleKey) {
-
-		JSONObject jsonObject2 = newDefaultPermissionsJSONObject.getJSONObject(
-			assetType);
-
-		if (jsonObject2 == null) {
-			return existingDefaultPermissionsJSONObject;
-		}
-
-		JSONObject jsonObject1 =
-			existingDefaultPermissionsJSONObject.getJSONObject(assetType);
+	private JSONObject _getJSONObject(
+		JSONObject jsonObject1,
+		JSONObject jsonObject2, String roleKey) {
 
 		if (jsonObject1 == null) {
 			jsonObject1 = _jsonFactory.createJSONObject();
 		}
 
-		jsonObject1.put(roleKey, jsonObject2.getJSONArray(roleKey));
+		if (jsonObject2 == null || jsonObject2.get(roleKey) == null) {
+			return jsonObject1;
+		}
 
-		existingDefaultPermissionsJSONObject.put(assetType, jsonObject1);
+		jsonObject1.put(roleKey, jsonObject2.get(roleKey));
 
-		return existingDefaultPermissionsJSONObject;
+		return jsonObject1;
 	}
 
 	private ObjectEntry _partialUpdateObjectEntry(
