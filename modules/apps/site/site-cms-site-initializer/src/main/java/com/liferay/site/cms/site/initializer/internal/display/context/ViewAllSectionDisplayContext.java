@@ -13,6 +13,7 @@ import com.liferay.frontend.data.set.action.FDSItemsActions;
 import com.liferay.frontend.data.set.model.FDSActionDropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.object.model.ObjectEntryFolder;
 import com.liferay.object.service.ObjectDefinitionService;
 import com.liferay.object.service.ObjectDefinitionSettingLocalService;
@@ -66,8 +67,8 @@ public class ViewAllSectionDisplayContext extends BaseSectionDisplayContext {
 	}
 
 	@Override
-	public List<DropdownItem> getBulkActionDropdownItems() {
-		List<DropdownItem> fdsBulkActionDropdownItems =
+	public DropdownItemList getBulkActionDropdownItems() {
+        DropdownItemList fdsBulkActionDropdownItems =
 			super.getBulkActionDropdownItems();
 
 		fdsBulkActionDropdownItems.add(

@@ -9,6 +9,7 @@ import com.liferay.depot.service.DepotEntryLocalService;
 import com.liferay.document.library.configuration.DLConfiguration;
 import com.liferay.frontend.data.set.model.FDSActionDropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.object.constants.ObjectEntryFolderConstants;
 import com.liferay.object.constants.ObjectFolderConstants;
 import com.liferay.object.model.ObjectEntryFolder;
@@ -54,8 +55,8 @@ public abstract class BaseFilesSectionDisplayContext
 	}
 
 	@Override
-	public List<DropdownItem> getBulkActionDropdownItems() {
-		List<DropdownItem> fdsBulkActionDropdownItems =
+	public DropdownItemList getBulkActionDropdownItems() {
+        DropdownItemList fdsBulkActionDropdownItems =
 			super.getBulkActionDropdownItems();
 
 		fdsBulkActionDropdownItems.add(

@@ -9,6 +9,8 @@ import com.liferay.depot.constants.DepotConstants;
 import com.liferay.depot.model.DepotEntry;
 import com.liferay.depot.service.DepotEntryLocalService;
 import com.liferay.frontend.data.set.model.FDSActionDropdownItem;
+import com.liferay.frontend.data.set.model.FDSActionDropdownItemBuilder;
+import com.liferay.frontend.data.set.model.FDSActionDropdownItemList;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.info.constants.InfoDisplayWebKeys;
@@ -40,7 +42,6 @@ import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
-import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -195,78 +196,153 @@ public class SectionDisplayContextHelper {
 			(ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 
-		return ListUtil.fromArray(
-			new FDSActionDropdownItem(
-				ActionUtil.getBaseViewFolderURL(themeDisplay) + "{embedded.id}",
-				"view", "actionLinkFolder",
-				LanguageUtil.get(httpServletRequest, "view-folder"), "get",
-				"update", null,
+		return FDSActionDropdownItemList.of(
+			FDSActionDropdownItemBuilder.setHref(
+				ActionUtil.getBaseViewFolderURL(themeDisplay) + "{embedded.id}"
+			).setIcon(
+				"view"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "view-folder")
+			).setMethod(
+				"get"
+			).setPermissionKey(
+				"update"
+			).setVisibilityFilters(
 				HashMapBuilder.<String, Object>put(
 					"entryClassName", ObjectEntryFolder.class.getName()
-				).build()),
-			new FDSActionDropdownItem(
+				).build()
+			).build(
+				"actionLinkFolder"
+			),
+			FDSActionDropdownItemBuilder.setHref(
 				StringBundler.concat(
 					themeDisplay.getPathFriendlyURLPublic(),
 					GroupConstants.CMS_FRIENDLY_URL, "/e/edit-folder/",
 					_portal.getClassNameId(ObjectEntryFolder.class),
-					"/{embedded.id}?redirect=", themeDisplay.getURLCurrent()),
-				"pencil", "editFolder",
-				LanguageUtil.get(httpServletRequest, "edit"), "get", "update",
-				null,
+					"/{embedded.id}?redirect=", themeDisplay.getURLCurrent())
+			).setIcon(
+				"pencil"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "edit")
+			).setMethod(
+				"get"
+			).setPermissionKey(
+				"update"
+			).setVisibilityFilters(
 				HashMapBuilder.<String, Object>put(
 					"entryClassName", ObjectEntryFolder.class.getName()
-				).build()),
-			new FDSActionDropdownItem(
+				).build()
+			).build(
+				"editFolder"
+			),
+			FDSActionDropdownItemBuilder.setHref(
 				StringBundler.concat(
 					themeDisplay.getPortalURL(), themeDisplay.getPathMain(),
 					GroupConstants.CMS_FRIENDLY_URL,
 					"/edit_content_item?objectEntryId={embedded.id}&",
-					"redirect=", themeDisplay.getURLCurrent()),
-				"pencil", "actionLink",
-				LanguageUtil.get(httpServletRequest, "edit"), "get", "update",
-				null),
-			new FDSActionDropdownItem(
-				null, "share", "share",
-				LanguageUtil.get(httpServletRequest, "share"), "get", "share",
-				"link"),
-			new FDSActionDropdownItem(
+					"redirect=", themeDisplay.getURLCurrent())
+			).setIcon(
+				"pencil"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "edit")
+			).setMethod(
+				"get"
+			).setPermissionKey(
+				"update"
+			).build(
+				"actionLink"
+			),
+			FDSActionDropdownItemBuilder.setIcon(
+				"share"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "share")
+			).setMethod(
+				"get"
+			).setPermissionKey(
+				"share"
+			).setTarget(
+				"link"
+			).build(
+				"share"
+			),
+			FDSActionDropdownItemBuilder.setHref(
 				StringBundler.concat(
 					themeDisplay.getPortalURL(), themeDisplay.getPathMain(),
 					GroupConstants.CMS_FRIENDLY_URL,
 					"/translate_content_item?objectEntryId={embedded.id}&",
-					"redirect=", themeDisplay.getURLCurrent()),
-				"automatic-translate", "translate",
-				LanguageUtil.get(httpServletRequest, "translate"), "get",
-				"update", null),
-			new FDSActionDropdownItem(
-				"{actions.expire.href}", "time", "expire",
-				LanguageUtil.get(httpServletRequest, "expire"), "post",
-				"expire", "headless"),
-			new FDSActionDropdownItem(
+					"redirect=", themeDisplay.getURLCurrent())
+			).setIcon(
+				"automatic-translate"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "translate")
+			).setMethod(
+				"get"
+			).setPermissionKey(
+				"update"
+			).build(
+				"translate"
+			),
+			FDSActionDropdownItemBuilder.setHref(
+				"{actions.expire.href}"
+			).setIcon(
+				"time"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "expire")
+			).setMethod(
+				"post"
+			).setPermissionKey(
+				"expire"
+			).setTarget(
+				"headless"
+			).build(
+				"expire"
+			),
+			FDSActionDropdownItemBuilder.setHref(
 				StringBundler.concat(
 					themeDisplay.getPortalURL(), themeDisplay.getPathMain(),
 					GroupConstants.CMS_FRIENDLY_URL,
 					"/edit_content_item?&p_l_mode=read&p_p_state=",
 					LiferayWindowState.POP_UP, "&redirect=",
 					themeDisplay.getURLCurrent(),
-					"&objectEntryId={embedded.id}"),
-				"view", "view-content",
-				LanguageUtil.get(httpServletRequest, "view"), null, "get",
-				null),
-			new FDSActionDropdownItem(
-				StringPool.BLANK, "view", "view-file",
-				LanguageUtil.get(httpServletRequest, "view"), null, "get",
-				null),
-			new FDSActionDropdownItem(
+					"&objectEntryId={embedded.id}")
+			).setIcon(
+				"view"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "view")
+			).setMethod(
+				"get"
+			).build(
+				"view-content"
+			),
+			FDSActionDropdownItemBuilder.setHref(
+				StringPool.BLANK
+			).setIcon(
+				"view"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "view")
+			).setMethod(
+				"get"
+			).build(
+				"view-file"
+			),
+			FDSActionDropdownItemBuilder.setHref(
 				StringBundler.concat(
 					themeDisplay.getPathFriendlyURLPublic(),
 					GroupConstants.CMS_FRIENDLY_URL,
 					"/version-history?objectEntryId={embedded.id}&backURL=",
-					themeDisplay.getURLCurrent()),
-				"date-time", "version-history",
-				LanguageUtil.get(httpServletRequest, "view-history"), "get",
-				"versions", null),
-			new FDSActionDropdownItem(
+					themeDisplay.getURLCurrent())
+			).setIcon(
+				"date-time"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "view-history")
+			).setMethod(
+				"get"
+			).setPermissionKey(
+				"versions"
+			).build(
+				"version-history"
+			),
+			FDSActionDropdownItemBuilder.setHref(
 				PortletURLBuilder.create(
 					_portal.getControlPanelPortletURL(
 						httpServletRequest, TranslationPortletKeys.TRANSLATION,
@@ -281,11 +357,17 @@ public class SectionDisplayContextHelper {
 					"groupId", "{embedded.scopeId}"
 				).setWindowState(
 					LiferayWindowState.POP_UP
-				).buildString(),
-				"upload", "export-for-translation",
-				LanguageUtil.get(httpServletRequest, "export-for-translation"),
-				null, "get", null),
-			new FDSActionDropdownItem(
+				).buildString()
+			).setIcon(
+				"upload"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "export-for-translation")
+			).setMethod(
+				"get"
+			).build(
+				"export-for-translation"
+			),
+			FDSActionDropdownItemBuilder.setHref(
 				PortletURLBuilder.create(
 					_portal.getControlPanelPortletURL(
 						httpServletRequest, TranslationPortletKeys.TRANSLATION,
@@ -300,62 +382,125 @@ public class SectionDisplayContextHelper {
 					"groupId", "{embedded.scopeId}"
 				).setWindowState(
 					LiferayWindowState.POP_UP
-				).buildString(),
-				"download", "import-translation",
-				LanguageUtil.get(httpServletRequest, "import-translation"),
-				null, "update", null),
-			new FDSActionDropdownItem(
-				null, "copy", "copy",
-				_language.get(httpServletRequest, "copy-to"), null, null, null),
-			new FDSActionDropdownItem(
-				null, "move", "move", _language.get(httpServletRequest, "move"),
-				null, null, null),
-			new FDSActionDropdownItem(
-				PortletURLBuilder.create(
-					_portal.getControlPanelPortletURL(
-						httpServletRequest,
-						"com_liferay_portlet_configuration_web_portlet_" +
-							"PortletConfigurationPortlet",
-						ActionRequest.RENDER_PHASE)
-				).setMVCPath(
-					"/edit_permissions.jsp"
-				).setRedirect(
-					themeDisplay.getURLCurrent()
-				).setParameter(
-					"modelResource", "{entryClassName}"
-				).setParameter(
-					"modelResourceDescription", "{embedded.name}"
-				).setParameter(
-					"resourceGroupId", "{embedded.scopeId}"
-				).setParameter(
-					"resourcePrimKey", "{embedded.id}"
-				).setWindowState(
-					LiferayWindowState.POP_UP
-				).buildString(),
-				"password-policies", "permissions",
-				_language.get(httpServletRequest, "permissions"), "get",
-				"permissions", "modal-permissions"),
-			new FDSActionDropdownItem(
-				StringPool.BLANK, "password-policies", "default-permissions",
-				LanguageUtil.get(httpServletRequest, "default-permissions"),
-				null, "permissions", null),
-			new FDSActionDropdownItem(
-				StringPool.BLANK, "password-policies",
-				"edit-and-propagate-default-permissions",
-				LanguageUtil.get(
-					httpServletRequest,
-					"edit-and-propagate-default-permissions"),
-				null, "permissions", null),
-			new FDSActionDropdownItem(
-				StringPool.BLANK, "password-policies",
-				"reset-to-default-permissions",
-				LanguageUtil.get(
-					httpServletRequest, "reset-to-default-permissions"),
-				null, "permissions", null),
-			new FDSActionDropdownItem(
-				null, "trash", "delete",
-				_language.get(httpServletRequest, "delete"), null, "delete",
-				null));
+				).buildString()
+			).setIcon(
+				"download"
+			).setLabel(
+				LanguageUtil.get(httpServletRequest, "import-translation")
+			).setMethod(
+				"get"
+			).setPermissionKey(
+				"update"
+			).build(
+				"import-translation"
+			),
+			FDSActionDropdownItemBuilder.setIcon(
+				"copy"
+			).setLabel(
+				_language.get(httpServletRequest, "copy-to")
+			).build(
+				"copy"
+			),
+			FDSActionDropdownItemBuilder.setIcon(
+				"move"
+			).setLabel(
+				_language.get(httpServletRequest, "move")
+			).build(
+				"move"
+			),
+			FDSActionDropdownItemBuilder.setIcon(
+				"trash"
+			).setLabel(
+				_language.get(httpServletRequest, "delete")
+			).setPermissionKey(
+				"delete"
+			).build(
+				"delete"
+			),
+			FDSActionDropdownItemBuilder.setFDSActionDropdownItems(
+				FDSActionDropdownItemList.of(
+					FDSActionDropdownItemBuilder.setHref(
+						PortletURLBuilder.create(
+							_portal.getControlPanelPortletURL(
+								httpServletRequest,
+								"com_liferay_portlet_configuration_web_portlet_" +
+									"PortletConfigurationPortlet",
+								ActionRequest.RENDER_PHASE)
+						).setMVCPath(
+							"/edit_permissions.jsp"
+						).setRedirect(
+							themeDisplay.getURLCurrent()
+						).setParameter(
+							"modelResource", "{entryClassName}"
+						).setParameter(
+							"modelResourceDescription", "{embedded.name}"
+						).setParameter(
+							"resourceGroupId", "{embedded.scopeId}"
+						).setParameter(
+							"resourcePrimKey", "{embedded.id}"
+						).setWindowState(
+							LiferayWindowState.POP_UP
+						).buildString()
+					).setIcon(
+						"password-policies"
+					).setLabel(
+						_language.get(httpServletRequest, "permissions")
+					).setMethod(
+						"get"
+					).setPermissionKey(
+						"permissions"
+					).setTarget(
+						"modal-permissions"
+					).build(
+						"permissions"
+					),
+					FDSActionDropdownItemBuilder.setHref(
+						StringPool.BLANK
+					).setIcon(
+						"password-policies"
+					).setLabel(
+						LanguageUtil.get(httpServletRequest, "default-permissions")
+					).setPermissionKey(
+						"permissions"
+					).build(
+						"default-permissions"
+					),
+					FDSActionDropdownItemBuilder.setHref(
+						StringPool.BLANK
+					).setIcon(
+						"password-policies"
+					).setLabel(
+						LanguageUtil.get(
+							httpServletRequest,
+							"edit-and-propagate-default-permissions")
+					).setPermissionKey(
+						"permissions"
+					).build(
+						"edit-and-propagate-default-permissions"
+					),
+					FDSActionDropdownItemBuilder.setHref(
+						StringPool.BLANK
+					).setIcon(
+						"password-policies"
+					).setLabel(
+						LanguageUtil.get(
+							httpServletRequest, "reset-to-default-permissions")
+					).setPermissionKey(
+						"permissions"
+					).build(
+						"reset-to-default-permissions"
+					))
+			).setIcon(
+				"password-policies"
+			).setLabel(
+				_language.get(httpServletRequest, "permissions")
+			).setPermissionKey(
+				"permissions"
+            ).setType(
+                "contextual"
+			).build(
+				"permissions-parent"
+			));
 	}
 
 	private List<Long> _getAcceptedGroupIds(long objectDefinitionId) {
@@ -493,6 +638,7 @@ public class SectionDisplayContextHelper {
 
 		return null;
 	}
+
 
 	private boolean _hasAddEntryPermission(
 		HttpServletRequest httpServletRequest,

@@ -6,8 +6,10 @@
 package com.liferay.site.cms.site.initializer.internal.display.context;
 
 import com.liferay.depot.service.DepotEntryLocalService;
-import com.liferay.frontend.data.set.model.FDSActionDropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemBuilder;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
+import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemListBuilder;
 import com.liferay.object.constants.ObjectEntryFolderConstants;
 import com.liferay.object.constants.ObjectFolderConstants;
 import com.liferay.object.model.ObjectEntryFolder;
@@ -50,55 +52,45 @@ public abstract class BaseContentsSectionDisplayContext
 			objectEntryFolderModelResourcePermission, portal);
 	}
 
-	@Override
-	public List<DropdownItem> getBulkActionDropdownItems() {
-		List<DropdownItem> fdsBulkActionDropdownItems =
-			super.getBulkActionDropdownItems();
+    @Override
+    public DropdownItemList getBulkActionDropdownItems() {
+        return DropdownItemList.of(
+                DropdownItemBuilder.putData("method", "post")
+//                        .putData("permissionKey", "edit-categories")
+                        .setIcon("pencil")
+                        .setLabel(LanguageUtil.get(httpServletRequest, "edit-categories"))
+                        .build(),
+                DropdownItemBuilder.putData("method", "post")
+//                        .putData("permissionKey", "edit-tags")
+                        .setIcon("pencil")
+                        .setLabel(LanguageUtil.get(httpServletRequest, "edit-tags"))
+                        .build(),
+                DropdownItemBuilder.setDropdownItems(
+                        DropdownItemListBuilder.add(
+                                        _getPermissionItem("permissions")
+                                ).add(
+                                        _getPermissionItem("edit-permissions-by-role")
+                                ).add(
+                                        _getPermissionItem("default-permissions")
+                                ).add(
+                                        _getPermissionItem("edit-default-permissions-by-role")
+                                ).add(
+                                        _getPermissionItem("reset-to-default-permissions")
+                                ).build()
+                        ).setIcon("password-policies")
+                        .setLabel(LanguageUtil.get(httpServletRequest, "permissions"))
+                        .setType("contextual")
+                        .build()
+        );
+    }
 
-		fdsBulkActionDropdownItems.add(
-			new FDSActionDropdownItem(
-				null, "pencil", "edit-categories",
-				LanguageUtil.get(httpServletRequest, "edit-categories"), "post",
-				"edit-categories", null));
-		fdsBulkActionDropdownItems.add(
-			new FDSActionDropdownItem(
-				null, "pencil", "edit-tags",
-				LanguageUtil.get(httpServletRequest, "edit-tags"), "post",
-				"edit-tags", null));
-		fdsBulkActionDropdownItems.add(
-			new FDSActionDropdownItem(
-				"#", "password-policies", "permissions",
-				LanguageUtil.get(httpServletRequest, "permissions"), null, null,
-				null));
-		fdsBulkActionDropdownItems.add(
-			new FDSActionDropdownItem(
-				"#", "password-policies", "default-permissions",
-				LanguageUtil.get(httpServletRequest, "default-permissions"),
-				null, null, null));
-		fdsBulkActionDropdownItems.add(
-			new FDSActionDropdownItem(
-				StringPool.BLANK, "password-policies",
-				"edit-default-permissions-by-role",
-				LanguageUtil.get(
-					httpServletRequest, "edit-default-permissions-by-role"),
-				null, null, null));
-		fdsBulkActionDropdownItems.add(
-			new FDSActionDropdownItem(
-				StringPool.BLANK, "password-policies",
-				"edit-permissions-by-role",
-				LanguageUtil.get(
-					httpServletRequest, "edit-permissions-by-role"),
-				null, null, null));
-		fdsBulkActionDropdownItems.add(
-			new FDSActionDropdownItem(
-				StringPool.BLANK, "password-policies",
-				"reset-to-default-permissions",
-				LanguageUtil.get(
-					httpServletRequest, "reset-to-default-permissions"),
-				null, null, null));
-
-		return fdsBulkActionDropdownItems;
-	}
+    private DropdownItem _getPermissionItem(String labelKey) {
+        return DropdownItemBuilder
+                .setHref(StringPool.BLANK)
+                .setIcon("password-policies")
+                .setLabel(LanguageUtil.get(httpServletRequest, labelKey))
+                .build();
+    }
 
 	@Override
 	public List<DropdownItem> getCreationMenuDropdownItems() {
