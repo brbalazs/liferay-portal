@@ -6,4 +6,5 @@
 import '../css/main.scss';
 
 export {default as RoomComments} from './components/RoomComments';
+export {default as RoomShareButton} from './components/RoomShareButton';
 export {default as RoomsFDSPropsTransformer} from './components/props_transformer/RoomsFDSPropsTransformer';
