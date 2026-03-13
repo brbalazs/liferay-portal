@@ -5,14 +5,18 @@
 
 package com.liferay.digital.sales.room.web.internal.portlet.action;
 
+import com.liferay.account.service.AccountEntryUserRelLocalService;
 import com.liferay.digital.sales.room.constants.DigitalSalesRoomPortletKeys;
 import com.liferay.digital.sales.room.constants.DigitalSalesRoomTicketConstants;
 import com.liferay.digital.sales.room.web.internal.display.context.InviteMemberDisplayContext;
+import com.liferay.object.model.ObjectEntry;
+import com.liferay.object.service.ObjectEntryLocalService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.exception.NoSuchTicketException;
 import com.liferay.portal.kernel.exception.RoleAssignmentException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.Ticket;
 import com.liferay.portal.kernel.model.User;
@@ -29,6 +33,7 @@ import com.liferay.portal.kernel.service.UserService;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -42,6 +47,10 @@ import com.liferay.portal.liveusers.LiveUsers;
 
 import jakarta.portlet.ActionRequest;
 import jakarta.portlet.ActionResponse;
+
+import java.io.Serializable;
+
+import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -153,6 +162,21 @@ public class InviteMemberMVCActionCommand
 
 		_userLocalService.addGroupUser(digitalSalesRoomId, user.getUserId());
 
+		Group group = _groupLocalService.getGroup(digitalSalesRoomId);
+
+		ObjectEntry objectEntry = _objectEntryLocalService.getObjectEntry(
+			group.getClassPK());
+
+		Map<String, Serializable> values = objectEntry.getValues();
+
+		long accountEntryId = GetterUtil.getLong(
+			values.get("r_accountToDSRRooms_accountEntryId"));
+
+		if (accountEntryId > 0) {
+			_accountEntryUserRelLocalService.addAccountEntryUserRel(
+				accountEntryId, user.getUserId());
+		}
+
 		if (Validator.isNotNull(roleKey)) {
 			Role role = _roleLocalService.fetchRole(
 				themeDisplay.getCompanyId(), roleKey);
@@ -202,10 +226,16 @@ public class InviteMemberMVCActionCommand
 	}
 
 	@Reference
+	private AccountEntryUserRelLocalService _accountEntryUserRelLocalService;
+
+	@Reference
 	private GroupLocalService _groupLocalService;
 
 	@Reference
 	private JSONFactory _jsonFactory;
+
+	@Reference
+	private ObjectEntryLocalService _objectEntryLocalService;
 
 	@Reference
 	private Portal _portal;
