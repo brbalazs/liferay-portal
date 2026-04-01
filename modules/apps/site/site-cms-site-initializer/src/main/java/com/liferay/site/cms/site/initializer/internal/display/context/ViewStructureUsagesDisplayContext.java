@@ -54,9 +54,9 @@ public class ViewStructureUsagesDisplayContext {
 	public String getAPIURL() {
 		return StringBundler.concat(
 			"/o/search/v1.0/search?emptySearch=true&",
-			"filter=(folderId ne 0 and objectDefinitionId eq ",
+			"filter=(folderId ne 0 and cmsKind eq '",
 			ParamUtil.getLong(_httpServletRequest, "objectDefinitionId"),
-			" and status in (", _STATUSES, "))&nestedFields=embedded");
+			"' and status in (", _STATUSES, "))&nestedFields=embedded");
 	}
 
 	public Map<String, Object> getBreadcrumbProps() throws PortalException {

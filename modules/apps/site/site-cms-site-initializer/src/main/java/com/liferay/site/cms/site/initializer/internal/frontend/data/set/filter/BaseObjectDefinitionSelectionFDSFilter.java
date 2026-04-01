@@ -10,6 +10,7 @@ import com.liferay.frontend.data.set.filter.BaseSelectionFDSFilter;
 import com.liferay.frontend.data.set.filter.SelectionFDSFilterItem;
 import com.liferay.object.model.ObjectDefinition;
 import com.liferay.object.service.ObjectDefinitionService;
+import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
 
 import java.util.ArrayList;
@@ -26,12 +27,12 @@ public abstract class BaseObjectDefinitionSelectionFDSFilter
 
 	@Override
 	public String getEntityFieldType() {
-		return FDSEntityFieldTypes.INTEGER;
+		return FDSEntityFieldTypes.STRING;
 	}
 
 	@Override
 	public String getId() {
-		return "objectDefinitionId";
+		return "cmsKind";
 	}
 
 	@Override
@@ -46,28 +47,35 @@ public abstract class BaseObjectDefinitionSelectionFDSFilter
 		List<SelectionFDSFilterItem> selectionFDSFilterItems =
 			new ArrayList<>();
 
+		if (isFolderFilterItemIncluded()) {
+			selectionFDSFilterItems.add(
+				new SelectionFDSFilterItem(
+					language.get(locale, "folder"), "folder"));
+		}
+
 		List<ObjectDefinition> objectDefinitions =
 			objectDefinitionService.getCMSObjectDefinitions(
 				CompanyThreadLocal.getCompanyId(),
 				getObjectFolderExternalReferenceCodes());
 
-		if (objectDefinitions.isEmpty()) {
-			return selectionFDSFilterItems;
-		}
-
 		for (ObjectDefinition objectDefinition : objectDefinitions) {
-			objectDefinition.getLabel(locale);
-
 			selectionFDSFilterItems.add(
 				new SelectionFDSFilterItem(
 					objectDefinition.getLabel(locale),
-					objectDefinition.getObjectDefinitionId()));
+					String.valueOf(objectDefinition.getObjectDefinitionId())));
 		}
 
 		return selectionFDSFilterItems;
 	}
 
 	protected abstract String[] getObjectFolderExternalReferenceCodes();
+
+	protected boolean isFolderFilterItemIncluded() {
+		return true;
+	}
+
+	@Reference
+	protected Language language;
 
 	@Reference
 	protected ObjectDefinitionService objectDefinitionService;

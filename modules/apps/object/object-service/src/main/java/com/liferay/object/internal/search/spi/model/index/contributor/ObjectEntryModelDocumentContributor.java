@@ -402,7 +402,8 @@ public class ObjectEntryModelDocumentContributor
 			document.addDate(Field.DISPLAY_DATE, objectEntry.getDisplayDate());
 
 			_contributeObjectEntryFolder(
-				document, objectEntry.getObjectEntryFolderId());
+				document, objectEntry.getObjectDefinitionId(),
+				objectEntry.getObjectEntryFolderId());
 
 			if (values == null) {
 				values = objectEntry.getIndexedValues();
@@ -458,7 +459,7 @@ public class ObjectEntryModelDocumentContributor
 	}
 
 	private void _contributeObjectEntryFolder(
-		Document document, long objectEntryFolderId) {
+		Document document, long objectDefinitionId, long objectEntryFolderId) {
 
 		document.addKeyword(Field.FOLDER_ID, objectEntryFolderId);
 
@@ -484,7 +485,9 @@ public class ObjectEntryModelDocumentContributor
 			return;
 		}
 
-		document.addKeyword("cms_kind", "object");
+		document.addKeyword(
+			"cms_kind",
+			new String[] {"object", String.valueOf(objectDefinitionId)});
 		document.addKeyword(
 			"cms_root",
 			rootObjectEntryFolder.getObjectEntryFolderId() ==

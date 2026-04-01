@@ -12,17 +12,16 @@ import com.liferay.site.cms.site.initializer.internal.constants.CMSSiteInitializ
 import org.osgi.service.component.annotations.Component;
 
 /**
- * @author Roberto Díaz
+ * @author Balazs Breier
  */
 @Component(
 	property = {
-		"frontend.data.set.name=" + CMSSiteInitializerFDSNames.ALL_RELATED_ASSETS_SECTION,
-		"frontend.data.set.name=" + CMSSiteInitializerFDSNames.ALL_SECTION,
+		"frontend.data.set.name=" + CMSSiteInitializerFDSNames.RECYCLE_BIN_SECTION,
 		"service.ranking:Integer=100"
 	},
 	service = FDSFilter.class
 )
-public class ObjectDefinitionSelectionAllFDSFilter
+public class ObjectDefinitionSelectionRecycleBinFDSFilter
 	extends BaseObjectDefinitionSelectionFDSFilter {
 
 	@Override
@@ -31,11 +30,6 @@ public class ObjectDefinitionSelectionAllFDSFilter
 			ObjectFolderConstants.EXTERNAL_REFERENCE_CODE_CONTENT_STRUCTURES,
 			ObjectFolderConstants.EXTERNAL_REFERENCE_CODE_FILE_TYPES
 		};
-	}
-
-	@Override
-	protected boolean isFolderFilterItemIncluded() {
-		return false;
 	}
 
 }
