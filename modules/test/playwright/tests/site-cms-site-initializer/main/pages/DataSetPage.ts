@@ -10,9 +10,14 @@ import {expectToPass} from '../../../../utils/expectToPass';
 
 export class DataSetPage {
 	readonly activeViewSelector: Locator;
+	readonly addFilterButton: Locator;
 	readonly assetLink: (assetName: string) => Locator;
+	readonly filterButton: Locator;
+	readonly filterCheckbox: (name: string) => Locator;
+	readonly filterMenuItem: (name: string) => Locator;
 	readonly loading: Locator;
 	readonly page: Page;
+	readonly removeFilterButton: Locator;
 	readonly searchInput: Locator;
 	readonly table: {
 		bodyRows: Locator;
@@ -23,12 +28,21 @@ export class DataSetPage {
 
 	constructor(page: Page) {
 		this.activeViewSelector = page.getByLabel(/View Selected/);
+		this.addFilterButton = page.getByRole('button', {name: 'Add Filter'});
 		this.assetLink = (assetName) => {
 			return page.getByRole('link', {
 				exact: true,
 				name: assetName,
 			});
 		};
+		this.filterButton = page.getByRole('button', {
+			exact: true,
+			name: 'Filter',
+		});
+		this.filterCheckbox = (name: string) =>
+			page.getByRole('checkbox', {name});
+		this.filterMenuItem = (name: string) =>
+			page.getByRole('menuitem', {name});
 
 		const tableContainer = page.locator('.fds table');
 		this.table = {
@@ -38,6 +52,9 @@ export class DataSetPage {
 		};
 		this.loading = page.locator('.data-set .loading-animation');
 		this.page = page;
+		this.removeFilterButton = page.getByRole('button', {
+			name: 'Remove Filter',
+		});
 		this.searchInput = this.page.getByPlaceholder('Search');
 		this.selectAllLink = page.getByRole('button', {
 			exact: true,
@@ -101,6 +118,32 @@ export class DataSetPage {
 			.getByRole('listbox')
 			.getByRole('option', {name: visualizationMode})
 			.click();
+	}
+
+	async filterByType(typeName: string, setMainType: boolean) {
+		if (setMainType) {
+			await this.openFilterPanel('Type');
+		}
+		else {
+			await this.filterButton.click();
+
+			const checkedCheckboxes = await this.page
+				.locator('.data-set-filter')
+				.getByRole('checkbox', {checked: true})
+				.all();
+
+			for (const checkbox of checkedCheckboxes) {
+				await checkbox.uncheck();
+			}
+		}
+
+		await this.filterCheckbox(typeName).check();
+		await this.addFilterButton.click();
+	}
+
+	async openFilterPanel(filterName: string) {
+		await this.filterButton.click();
+		await this.filterMenuItem(filterName).click();
 	}
 
 	async search(value: string) {

@@ -170,3 +170,80 @@ test(
 		}
 	}
 );
+
+test(
+	'Can filter by Folder type in Contents section',
+	{tag: '@LPD-83022'},
+	async ({apiHelpers, assetsPage, dataSetPage, page}) => {
+		const folderTitle = getRandomString();
+		const contentTitle = getRandomString();
+
+		const checkLinksVisibility = async (
+			folderVisible: boolean,
+			contentVisible: boolean
+		) => {
+			await expect(
+				page.getByRole('link', {exact: true, name: folderTitle})
+			)[folderVisible ? 'toBeVisible' : 'toBeHidden']();
+			await expect(
+				page.getByRole('link', {exact: true, name: contentTitle})
+			)[contentVisible ? 'toBeVisible' : 'toBeHidden']();
+		};
+
+		const folder = await apiHelpers.objectFolder.createObjectEntryFolder({
+			parentObjectEntryFolderExternalReferenceCode: 'L_CONTENTS',
+			scopeKey: 'Default',
+			title: folderTitle,
+		});
+
+		const objectEntry = await apiHelpers.objectEntry.postObjectEntry(
+			{
+				objectEntryFolderExternalReferenceCode: 'L_CONTENTS',
+				title: contentTitle,
+			},
+			'cms/basic-web-contents',
+			'Default'
+		);
+
+		try {
+			await assetsPage.gotoContents();
+			await assetsPage.changeVisualizationMode('Table');
+
+			await checkLinksVisibility(true, true);
+
+			await dataSetPage.filterByType('Folder', true);
+
+			await checkLinksVisibility(true, false);
+
+			await dataSetPage.removeFilterButton.click();
+
+			await checkLinksVisibility(true, true);
+
+			await dataSetPage.filterByType('Basic Web Content', false);
+
+			await checkLinksVisibility(false, true);
+		}
+		finally {
+			await apiHelpers.objectEntry.deleteObjectEntry(
+				'cms/basic-web-contents',
+				String(objectEntry.id)
+			);
+
+			await apiHelpers.objectFolder.deleteObjectEntryFolder(folder.id);
+		}
+	}
+);
+
+test(
+	'Folder type filter is not available in All section',
+	{tag: '@LPD-83022'},
+	async ({assetsPage, dataSetPage}) => {
+		await assetsPage.gotoAll();
+		await dataSetPage.openFilterPanel('Type');
+
+		await expect(
+			dataSetPage.filterCheckbox('Basic Web Content')
+		).toBeVisible();
+		await expect(dataSetPage.filterCheckbox('Folder')).toBeHidden();
+	}
+);
