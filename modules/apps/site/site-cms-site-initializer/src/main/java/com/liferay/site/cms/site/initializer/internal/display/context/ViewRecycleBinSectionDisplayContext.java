@@ -6,6 +6,7 @@
 package com.liferay.site.cms.site.initializer.internal.display.context;
 
 import com.liferay.depot.constants.DepotConstants;
+import com.liferay.depot.constants.DepotRolesConstants;
 import com.liferay.depot.service.DepotEntryLocalService;
 import com.liferay.depot.service.DepotEntryServiceUtil;
 import com.liferay.frontend.data.set.model.FDSActionDropdownItem;
@@ -17,13 +18,17 @@ import com.liferay.object.service.ObjectEntryFolderLocalService;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.UserGroupRoleLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
@@ -60,7 +65,8 @@ public class ViewRecycleBinSectionDisplayContext
 		Portal portal,
 		TranslationInfoItemFieldValuesExporterRegistry
 			translationInfoItemFieldValuesExporterRegistry,
-		TrashHelper trashHelper) {
+		TrashHelper trashHelper,
+		UserGroupRoleLocalService userGroupRoleLocalService) {
 
 		super(
 			depotEntryLocalService, null, groupLocalService, httpServletRequest,
@@ -76,6 +82,7 @@ public class ViewRecycleBinSectionDisplayContext
 
 		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
+		_userGroupRoleLocalService = userGroupRoleLocalService;
 	}
 
 	public Map<String, Object> getBreadcrumbProps() {
@@ -91,8 +98,7 @@ public class ViewRecycleBinSectionDisplayContext
 			).put(
 				"hideSpace", true
 			).put(
-				"isSpaceAdministrator",
-				themeDisplay.getPermissionChecker().isGroupAdmin(_groupId)
+				"isSpaceAdministrator", _isSpaceAdministrator()
 			).build();
 		}
 
@@ -214,10 +220,40 @@ public class ViewRecycleBinSectionDisplayContext
 			WorkflowConstants.STATUS_IN_TRASH);
 	}
 
+	private boolean _isSpaceAdministrator() {
+		for (long groupId :
+				DepotEntryServiceUtil.getDepotEntryGroupIds(
+					themeDisplay.getCompanyId(), themeDisplay.getUserId(),
+					DepotConstants.TYPE_SPACE)) {
+
+			try {
+				if (_userGroupRoleLocalService.hasUserGroupRole(
+						themeDisplay.getUserId(), groupId,
+						DepotRolesConstants.ASSET_LIBRARY_ADMINISTRATOR,
+						true) ||
+					_userGroupRoleLocalService.hasUserGroupRole(
+						themeDisplay.getUserId(), groupId,
+						DepotRolesConstants.ASSET_LIBRARY_OWNER, true)) {
+
+					return true;
+				}
+			}
+			catch (PortalException portalException) {
+				_log.error(portalException);
+			}
+		}
+
+		return false;
+	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		ViewRecycleBinSectionDisplayContext.class);
+
 	private final AssetLibraryResource.Factory _assetLibraryResourceFactory;
 	private final long _groupId;
 	private final ObjectEntryFolderLocalService _objectEntryFolderLocalService;
 	private final ThemeDisplay _themeDisplay;
 	private final TrashHelper _trashHelper;
+	private final UserGroupRoleLocalService _userGroupRoleLocalService;
 
 }
