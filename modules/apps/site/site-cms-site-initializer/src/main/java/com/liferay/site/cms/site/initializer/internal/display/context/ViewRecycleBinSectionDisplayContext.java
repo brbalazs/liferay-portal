@@ -90,6 +90,9 @@ public class ViewRecycleBinSectionDisplayContext
 				"breadcrumbItems", jsonArray
 			).put(
 				"hideSpace", true
+			).put(
+				"isSpaceAdministrator",
+				themeDisplay.getPermissionChecker().isGroupAdmin(_groupId)
 			).build();
 		}
 
