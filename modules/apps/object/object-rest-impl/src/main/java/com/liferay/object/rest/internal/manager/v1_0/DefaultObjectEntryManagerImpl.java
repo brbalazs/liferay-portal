@@ -103,6 +103,8 @@ import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.search.filter.TermFilter;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
+import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
@@ -154,6 +156,7 @@ import com.liferay.portal.vulcan.util.SearchUtil;
 import com.liferay.roles.admin.role.type.contributor.provider.RoleTypeContributorProvider;
 import com.liferay.sharing.configuration.SharingConfiguration;
 import com.liferay.sharing.configuration.SharingConfigurationFactory;
+import com.liferay.sharing.security.permission.SharingPermission;
 import com.liferay.subscription.service.SubscriptionLocalService;
 import com.liferay.trash.TrashHelper;
 
@@ -3462,7 +3465,14 @@ public class DefaultObjectEntryManagerImpl
 						_sharingConfigurationFactory.
 							getGroupSharingConfiguration(group);
 
-					if (!sharingConfiguration.isEnabled()) {
+					if (!sharingConfiguration.isEnabled() ||
+						!_sharingPermission.containsSharePermission(
+							PermissionThreadLocal.getPermissionChecker(),
+							_classNameLocalService.getClassNameId(
+								serviceBuilderObjectEntry.getModelClassName()),
+							serviceBuilderObjectEntry.getObjectEntryId(),
+							group.getGroupId())) {
+
 						return null;
 					}
 
@@ -3855,6 +3865,9 @@ public class DefaultObjectEntryManagerImpl
 	private AttachmentManager _attachmentManager;
 
 	@Reference
+	private ClassNameLocalService _classNameLocalService;
+
+	@Reference
 	private DepotEntryLocalService _depotEntryLocalService;
 
 	@Reference
@@ -3972,6 +3985,9 @@ public class DefaultObjectEntryManagerImpl
 
 	@Reference
 	private SharingConfigurationFactory _sharingConfigurationFactory;
+
+	@Reference
+	private SharingPermission _sharingPermission;
 
 	@Reference
 	private SubscriptionLocalService _subscriptionLocalService;
