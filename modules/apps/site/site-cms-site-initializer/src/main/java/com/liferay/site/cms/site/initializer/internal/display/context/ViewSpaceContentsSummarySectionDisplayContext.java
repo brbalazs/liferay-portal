@@ -80,8 +80,10 @@ public class ViewSpaceContentsSummarySectionDisplayContext
 	@Override
 	public String getAPIURL() {
 		return HttpComponentsUtil.addParameters(
-			super.getAPIURL(), "page", CMSSpaceConstants.SPACE_SUMMARY_PAGE,
-			"pageSize", CMSSpaceConstants.SPACE_SUMMARY_PAGE_SIZE, "sort",
+			super.getAPIURL(), "emptySearch", true, "filter",
+			getCMSSectionFilterString(), "page",
+			CMSSpaceConstants.SPACE_SUMMARY_PAGE, "pageSize",
+			CMSSpaceConstants.SPACE_SUMMARY_PAGE_SIZE, "sort",
 			"dateModified:desc");
 	}
 
