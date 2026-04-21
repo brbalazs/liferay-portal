@@ -228,6 +228,57 @@ test(
 );
 
 test(
+	'View All Content and View All Files links are shown when items exist in both sections',
+	{tag: '@LPD-86501'},
+	async ({apiHelpers, spaceSummaryPage}) => {
+		const spaceName = 'Default';
+
+		const contentApplicationName = 'cms/basic-web-contents';
+		const filesApplicationName = 'cms/basic-documents';
+
+		const contentObjectEntry = await apiHelpers.objectEntry.postObjectEntry(
+			{
+				objectEntryFolderExternalReferenceCode: 'L_CONTENTS',
+				title: `content ${getRandomString()}`,
+			},
+			contentApplicationName,
+			spaceName
+		);
+
+		const fileObjectEntry = await apiHelpers.objectEntry.postObjectEntry(
+			{
+				file: {
+					fileBase64: 'R0lGODlhAQABAAAAACw=',
+					name: `file_${getRandomString()}.png`,
+				},
+				objectEntryFolderExternalReferenceCode: 'L_FILES',
+				title: `file ${getRandomString()}`,
+			},
+			filesApplicationName,
+			spaceName
+		);
+
+		try {
+			await spaceSummaryPage.goto(spaceName);
+
+			await expect(spaceSummaryPage.viewAllContentLink).toBeVisible();
+			await expect(spaceSummaryPage.viewAllFilesLink).toBeVisible();
+		}
+		finally {
+			await apiHelpers.objectEntry.deleteObjectEntry(
+				contentApplicationName,
+				String(contentObjectEntry.id)
+			);
+
+			await apiHelpers.objectEntry.deleteObjectEntry(
+				filesApplicationName,
+				String(fileObjectEntry.id)
+			);
+		}
+	}
+);
+
+test(
 	'Can add and delete a user group as a member of the space',
 	{tag: '@LPD-61617'},
 	async ({apiHelpers, page, spaceSummaryPage}) => {
