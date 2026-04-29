@@ -135,6 +135,17 @@ public class ObjectEntryFolderResourceTest
 	@Test
 	@TestInfo("LPD-83639")
 	public void testGetObjectEntryFolderShareAction() throws Exception {
+		DepotEntry spaceDepotEntry = _depotEntryLocalService.addDepotEntry(
+			Collections.singletonMap(
+				LocaleUtil.getDefault(), RandomTestUtil.randomString()),
+			null, DepotConstants.TYPE_SPACE,
+			new ServiceContext() {
+				{
+					setCompanyId(testGroup.getCompanyId());
+					setUserId(TestPropsValues.getUserId());
+				}
+			});
+
 		String password = RandomTestUtil.randomString();
 
 		User user = UserTestUtil.addUser(
@@ -146,9 +157,9 @@ public class ObjectEntryFolderResourceTest
 
 		com.liferay.object.model.ObjectEntryFolder objectEntryFolder =
 			_addObjectEntryFolder(
-				_testDepotEntry, _testDepotEntry.getUserId(),
+				spaceDepotEntry, spaceDepotEntry.getUserId(),
 				ServiceContextTestUtil.getServiceContext(
-					_testDepotEntry.getGroupId()));
+					spaceDepotEntry.getGroupId()));
 
 		// With asset library administrator role
 
@@ -158,7 +169,7 @@ public class ObjectEntryFolderResourceTest
 
 		UserGroupRole userGroupRole =
 			_userGroupRoleLocalService.addUserGroupRole(
-				user.getUserId(), _testDepotEntry.getGroupId(),
+				user.getUserId(), spaceDepotEntry.getGroupId(),
 				role.getRoleId());
 
 		JSONObject jsonObject = _getObjectEntryFolderActionsJSONObject(
@@ -175,7 +186,7 @@ public class ObjectEntryFolderResourceTest
 			DepotRolesConstants.ASSET_LIBRARY_CONTENT_REVIEWER);
 
 		userGroupRole = _userGroupRoleLocalService.addUserGroupRole(
-			user.getUserId(), _testDepotEntry.getGroupId(), role.getRoleId());
+			user.getUserId(), spaceDepotEntry.getGroupId(), role.getRoleId());
 
 		jsonObject = _getObjectEntryFolderActionsJSONObject(
 			objectEntryFolder, user, password);
@@ -192,17 +203,17 @@ public class ObjectEntryFolderResourceTest
 			DepotRolesConstants.ASSET_LIBRARY_CONTENT_REVIEWER);
 
 		userGroupRole = _userGroupRoleLocalService.addUserGroupRole(
-			user.getUserId(), _testDepotEntry.getGroupId(), role.getRoleId());
+			user.getUserId(), spaceDepotEntry.getGroupId(), role.getRoleId());
 
 		SharingEntry sharingEntry = _sharingEntryLocalService.addSharingEntry(
 			null, TestPropsValues.getUserId(), 0, user.getUserId(),
 			_classNameLocalService.getClassNameId(
 				objectEntryFolder.getModelClassName()),
 			objectEntryFolder.getObjectEntryFolderId(),
-			_testDepotEntry.getGroupId(), true,
+			spaceDepotEntry.getGroupId(), true,
 			List.of(SharingEntryAction.VIEW), null,
 			ServiceContextTestUtil.getServiceContext(
-				_testDepotEntry.getGroupId(), TestPropsValues.getUserId()));
+				spaceDepotEntry.getGroupId(), TestPropsValues.getUserId()));
 
 		jsonObject = _getObjectEntryFolderActionsJSONObject(
 			objectEntryFolder, user, password);
@@ -238,9 +249,9 @@ public class ObjectEntryFolderResourceTest
 		// With user as creator
 
 		objectEntryFolder = _addObjectEntryFolder(
-			_testDepotEntry, user.getUserId(),
+			spaceDepotEntry, user.getUserId(),
 			ServiceContextTestUtil.getServiceContext(
-				_testDepotEntry.getGroupId(), user.getUserId()));
+				spaceDepotEntry.getGroupId(), user.getUserId()));
 
 		jsonObject = _getObjectEntryFolderActionsJSONObject(
 			objectEntryFolder, user, password);

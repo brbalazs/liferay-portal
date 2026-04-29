@@ -316,8 +316,6 @@ public class ObjectEntryResourceTest {
 	public static void setUpClass() throws Exception {
 		_testGroupId = TestPropsValues.getGroupId();
 
-		_setUpCMSTestEnvironment();
-
 		_assetVocabulary = AssetVocabularyLocalServiceUtil.addVocabulary(
 			UserLocalServiceUtil.getGuestUserId(TestPropsValues.getCompanyId()),
 			_testGroupId, RandomTestUtil.randomString(), new ServiceContext());
@@ -7269,6 +7267,8 @@ public class ObjectEntryResourceTest {
 	@Test
 	@TestInfo("LPD-83639")
 	public void testGetObjectEntryShareAction() throws Exception {
+		_setUpCMSTestEnvironment();
+
 		// With asset library administrator role
 
 		Role role = _roleLocalService.fetchRole(
