@@ -755,6 +755,21 @@ public class PortalUpgradeProcessRegistryImpl
 			new Version(38, 3, 0),
 			UpgradeProcessFactory.addColumns("UserGroup", "status INTEGER"),
 			UpgradeProcessFactory.runSQL("update UserGroup set status = 0"));
+
+		upgradeVersionTreeMap.put(
+			new Version(38, 4, 0),
+			UpgradeProcessFactory.addColumns("Country", "status INTEGER"),
+			UpgradeProcessFactory.runSQL("update Country set status = 0"),
+			UpgradeProcessFactory.addColumns("Region", "status INTEGER"),
+			UpgradeProcessFactory.runSQL("update Region set status = 0"));
+
+		upgradeVersionTreeMap.put(
+			new Version(38, 4, 1),
+			new CountryExternalReferenceCodeUpgradeProcess());
+
+		upgradeVersionTreeMap.put(
+			new Version(38, 4, 2),
+			new RegionExternalReferenceCodeUpgradeProcess());
 	}
 
 }
