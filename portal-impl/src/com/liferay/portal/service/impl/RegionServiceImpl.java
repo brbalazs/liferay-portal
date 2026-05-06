@@ -60,6 +60,22 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 	}
 
 	@Override
+	public Region fetchRegionByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException {
+
+		Region region = regionLocalService.fetchRegionByExternalReferenceCode(
+			externalReferenceCode, companyId);
+
+		if (region != null) {
+			CountryPermissionUtil.check(
+				getPermissionChecker(), region.getCountryId(), ActionKeys.VIEW);
+		}
+
+		return region;
+	}
+
+	@Override
 	public Region getRegion(long regionId) throws PortalException {
 		return regionPersistence.findByPrimaryKey(regionId);
 	}
@@ -69,6 +85,20 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 		throws PortalException {
 
 		return regionPersistence.findByC_R(countryId, regionCode);
+	}
+
+	@Override
+	public Region getRegionByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException {
+
+		Region region = regionLocalService.getRegionByExternalReferenceCode(
+			externalReferenceCode, companyId);
+
+		CountryPermissionUtil.check(
+			getPermissionChecker(), region.getCountryId(), ActionKeys.VIEW);
+
+		return region;
 	}
 
 	@Override

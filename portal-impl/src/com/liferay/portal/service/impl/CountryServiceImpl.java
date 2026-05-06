@@ -107,6 +107,24 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 	}
 
 	@Override
+	public Country fetchCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException {
+
+		Country country =
+			countryLocalService.fetchCountryByExternalReferenceCode(
+				externalReferenceCode, companyId);
+
+		if (country != null) {
+			CountryPermissionUtil.check(
+				getPermissionChecker(), country.getCountryId(),
+				ActionKeys.VIEW);
+		}
+
+		return country;
+	}
+
+	@Override
 	public List<Country> getCompanyCountries(long companyId) {
 		return countryLocalService.getCompanyCountries(companyId);
 	}
@@ -200,6 +218,20 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 	@Override
 	public Country getCountryByA3(String a3) throws PortalException {
 		return getCountryByA3(PortalInstancePool.getDefaultCompanyId(), a3);
+	}
+
+	@Override
+	public Country getCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException {
+
+		Country country = countryLocalService.getCountryByExternalReferenceCode(
+			externalReferenceCode, companyId);
+
+		CountryPermissionUtil.check(
+			getPermissionChecker(), country.getCountryId(), ActionKeys.VIEW);
+
+		return country;
 	}
 
 	@Override

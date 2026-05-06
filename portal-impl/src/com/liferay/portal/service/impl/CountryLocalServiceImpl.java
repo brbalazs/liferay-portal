@@ -5,6 +5,7 @@
 
 package com.liferay.portal.service.impl;
 
+import com.liferay.exportimport.kernel.empty.model.EmptyModelManagerUtil;
 import com.liferay.petra.sql.dsl.Column;
 import com.liferay.petra.sql.dsl.DSLFunctionFactoryUtil;
 import com.liferay.petra.sql.dsl.DSLQueryFactoryUtil;
@@ -23,6 +24,7 @@ import com.liferay.portal.kernel.exception.CountryNumberException;
 import com.liferay.portal.kernel.exception.CountryTitleException;
 import com.liferay.portal.kernel.exception.DuplicateCountryException;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.lazy.referencing.LazyReferencingThreadLocal;
 import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.model.CountryLocalization;
 import com.liferay.portal.kernel.model.CountryLocalizationTable;
@@ -44,6 +46,7 @@ import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.service.base.CountryLocalServiceBaseImpl;
 import com.liferay.util.dao.orm.CustomSQLUtil;
 
@@ -78,6 +81,7 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 		country.setUserId(user.getUserId());
 		country.setUserName(user.getFullName());
 
+		country.setExternalReferenceCode(a2);
 		country.setDefaultLanguageId(
 			LocaleUtil.toLanguageId(LocaleUtil.getDefault()));
 		country.setA2(a2);
@@ -92,6 +96,7 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 		country.setShippingAllowed(shippingAllowed);
 		country.setSubjectToVAT(subjectToVAT);
 		country.setZipRequired(zipRequired);
+		country.setStatus(WorkflowConstants.STATUS_APPROVED);
 
 		country = countryPersistence.update(country);
 
@@ -235,6 +240,42 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 	}
 
 	@Override
+	public Country getOrAddEmptyCountry(
+			String externalReferenceCode, long companyId, long userId,
+			String name)
+		throws PortalException {
+
+		return EmptyModelManagerUtil.getOrAddEmptyModel(
+			Country.class, companyId, externalReferenceCode,
+			this::fetchCountryByExternalReferenceCode,
+			this::getCountryByExternalReferenceCode,
+			() -> {
+				String countryName =
+					(fetchCountryByName(companyId, name) != null) ?
+						externalReferenceCode : name;
+				String paddedExternalReferenceCode =
+					externalReferenceCode + "00";
+
+				ServiceContext serviceContext = new ServiceContext();
+
+				serviceContext.setCompanyId(companyId);
+				serviceContext.setUserId(userId);
+
+				Country country = countryLocalService.addCountry(
+					paddedExternalReferenceCode.substring(0, 2),
+					paddedExternalReferenceCode.substring(0, 3), false, false,
+					null, countryName, externalReferenceCode, 0D, false, false,
+					false, serviceContext);
+
+				country.setExternalReferenceCode(externalReferenceCode);
+				country.setStatus(WorkflowConstants.STATUS_EMPTY);
+
+				return countryPersistence.update(country);
+			},
+			"country");
+	}
+
+	@Override
 	public BaseModelSearchResult<Country> searchCountries(
 			long companyId, Boolean active, String keywords, int start, int end,
 			OrderByComparator<Country> orderByComparator)
@@ -289,6 +330,11 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 		country.setNumber(number);
 		country.setPosition(position);
 		country.setShippingAllowed(shippingAllowed);
+
+		if (country.getStatus() == WorkflowConstants.STATUS_EMPTY) {
+			country.setStatus(WorkflowConstants.STATUS_APPROVED);
+		}
+
 		country.setSubjectToVAT(subjectToVAT);
 
 		return countryPersistence.update(country);
@@ -433,7 +479,9 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 			throw new CountryNumberException("Missing number");
 		}
 
-		if (CompanyThreadLocal.isInitializingPortalInstance()) {
+		if (CompanyThreadLocal.isInitializingPortalInstance() ||
+			LazyReferencingThreadLocal.isEnabled()) {
+
 			return;
 		}
 
