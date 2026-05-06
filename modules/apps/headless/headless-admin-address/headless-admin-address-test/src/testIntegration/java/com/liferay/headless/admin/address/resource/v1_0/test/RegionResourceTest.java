@@ -190,6 +190,13 @@ public class RegionResourceTest extends BaseRegionResourceTestCase {
 	}
 
 	@Override
+	protected Region testDeleteRegionByExternalReferenceCode_addRegion()
+		throws Exception {
+
+		return _addRegion(randomRegion());
+	}
+
+	@Override
 	protected Region testGetCountryRegionByRegionCode_addRegion()
 		throws Exception {
 
@@ -233,6 +240,13 @@ public class RegionResourceTest extends BaseRegionResourceTestCase {
 
 	@Override
 	protected Region testGetRegion_addRegion() throws Exception {
+		return _addRegion(randomRegion());
+	}
+
+	@Override
+	protected Region testGetRegionByExternalReferenceCode_addRegion()
+		throws Exception {
+
 		return _addRegion(randomRegion());
 	}
 
@@ -322,7 +336,21 @@ public class RegionResourceTest extends BaseRegionResourceTestCase {
 	}
 
 	@Override
+	protected Region testPatchRegionByExternalReferenceCode_addRegion()
+		throws Exception {
+
+		return _addRegion(randomRegion());
+	}
+
+	@Override
 	protected Region testPutRegion_addRegion() throws Exception {
+		return _addRegion(randomRegion());
+	}
+
+	@Override
+	protected Region testPutRegionByExternalReferenceCode_addRegion()
+		throws Exception {
+
 		return _addRegion(randomRegion());
 	}
 

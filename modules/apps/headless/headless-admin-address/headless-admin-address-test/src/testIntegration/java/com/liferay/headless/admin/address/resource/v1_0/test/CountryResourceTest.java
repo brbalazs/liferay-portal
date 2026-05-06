@@ -282,6 +282,13 @@ public class CountryResourceTest extends BaseCountryResourceTestCase {
 	}
 
 	@Override
+	protected Country testDeleteCountryByExternalReferenceCode_addCountry()
+		throws Exception {
+
+		return _addCountry(randomCountry());
+	}
+
+	@Override
 	protected Country testGetCountriesPage_addCountry(Country country)
 		throws Exception {
 
@@ -353,6 +360,13 @@ public class CountryResourceTest extends BaseCountryResourceTestCase {
 	}
 
 	@Override
+	protected Country testGetCountryByExternalReferenceCode_addCountry()
+		throws Exception {
+
+		return _addCountry(randomCountry());
+	}
+
+	@Override
 	protected Country testGetCountryByName_addCountry() throws Exception {
 		return _addCountry(randomCountry());
 	}
@@ -402,6 +416,13 @@ public class CountryResourceTest extends BaseCountryResourceTestCase {
 	}
 
 	@Override
+	protected Country testPatchCountryByExternalReferenceCode_addCountry()
+		throws Exception {
+
+		return _addCountry(randomCountry());
+	}
+
+	@Override
 	protected Country testPostCountry_addCountry(Country country)
 		throws Exception {
 
@@ -410,6 +431,13 @@ public class CountryResourceTest extends BaseCountryResourceTestCase {
 
 	@Override
 	protected Country testPutCountry_addCountry() throws Exception {
+		return _addCountry(randomCountry());
+	}
+
+	@Override
+	protected Country testPutCountryByExternalReferenceCode_addCountry()
+		throws Exception {
+
 		return _addCountry(randomCountry());
 	}
 
