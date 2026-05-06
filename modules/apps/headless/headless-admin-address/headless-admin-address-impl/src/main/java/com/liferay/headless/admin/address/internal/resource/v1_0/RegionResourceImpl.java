@@ -5,22 +5,28 @@
 
 package com.liferay.headless.admin.address.internal.resource.v1_0;
 
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
+import com.liferay.exportimport.vulcan.batch.engine.ExportImportVulcanBatchEngineTaskItemDelegate;
 import com.liferay.headless.admin.address.dto.v1_0.Region;
 import com.liferay.headless.admin.address.internal.dto.v1_0.converter.constants.DTOConverterConstants;
 import com.liferay.headless.admin.address.resource.v1_0.RegionResource;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.Language;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.RegionTable;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.CountryService;
 import com.liferay.portal.kernel.service.RegionLocalService;
 import com.liferay.portal.kernel.service.RegionService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.odata.entity.DoubleEntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.odata.entity.StringEntityField;
@@ -45,13 +51,28 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/region.properties",
+	property = "export.import.vulcan.batch.engine.task.item.delegate=true",
 	scope = ServiceScope.PROTOTYPE, service = RegionResource.class
 )
-public class RegionResourceImpl extends BaseRegionResourceImpl {
+public class RegionResourceImpl
+	extends BaseRegionResourceImpl
+	implements ExportImportVulcanBatchEngineTaskItemDelegate<Region> {
 
 	@Override
 	public void deleteRegion(Long regionId) throws Exception {
 		_regionService.deleteRegion(regionId);
+	}
+
+	@Override
+	public void deleteRegionByExternalReferenceCode(
+			String externalReferenceCode)
+		throws Exception {
+
+		com.liferay.portal.kernel.model.Region serviceBuilderRegion =
+			_regionService.getRegionByExternalReferenceCode(
+				externalReferenceCode, contextCompany.getCompanyId());
+
+		_regionService.deleteRegion(serviceBuilderRegion.getRegionId());
 	}
 
 	@Override
@@ -92,8 +113,64 @@ public class RegionResourceImpl extends BaseRegionResourceImpl {
 	}
 
 	@Override
+	public ExportImportDescriptor<? extends BaseModel<?>>
+		getExportImportDescriptor() {
+
+		return new ExportImportDescriptor
+			<com.liferay.portal.kernel.model.Region>() {
+
+			@Override
+			public String getKey() {
+				return RegionResourceImpl.class.getName();
+			}
+
+			@Override
+			public String getLabelLanguageKey() {
+				return "regions";
+			}
+
+			@Override
+			public Class<com.liferay.portal.kernel.model.Region>
+				getModelClass() {
+
+				return com.liferay.portal.kernel.model.Region.class;
+			}
+
+			@Override
+			public List<String> getNestedFields() {
+				return List.of("creator");
+			}
+
+			@Override
+			public String getPortletId() {
+				return _COUNTRIES_MANAGEMENT_ADMIN_PORTLET_ID;
+			}
+
+			@Override
+			public Scope getScope() {
+				return Scope.COMPANY;
+			}
+
+			@Override
+			public boolean isActive(PortletDataContext portletDataContext) {
+				return false;
+			}
+
+		};
+	}
+
+	@Override
 	public Region getRegion(Long regionId) throws Exception {
 		return _toRegion(_regionService.getRegion(regionId));
+	}
+
+	@Override
+	public Region getRegionByExternalReferenceCode(String externalReferenceCode)
+		throws Exception {
+
+		return _toRegion(
+			_regionService.getRegionByExternalReferenceCode(
+				externalReferenceCode, contextCompany.getCompanyId()));
 	}
 
 	@Override
@@ -113,6 +190,37 @@ public class RegionResourceImpl extends BaseRegionResourceImpl {
 	}
 
 	@Override
+	public Region patchRegion(Long regionId, Region region) throws Exception {
+		com.liferay.portal.kernel.model.Region serviceBuilderRegion =
+			_regionService.getRegion(regionId);
+
+		return _toRegion(
+			_regionService.updateRegion(
+				regionId,
+				GetterUtil.getBoolean(
+					region.getActive(), serviceBuilderRegion.isActive()),
+				GetterUtil.getString(
+					region.getName(), serviceBuilderRegion.getName()),
+				GetterUtil.getDouble(
+					region.getPosition(), serviceBuilderRegion.getPosition()),
+				GetterUtil.getString(
+					region.getRegionCode(),
+					serviceBuilderRegion.getRegionCode())));
+	}
+
+	@Override
+	public Region patchRegionByExternalReferenceCode(
+			String externalReferenceCode, Region region)
+		throws Exception {
+
+		com.liferay.portal.kernel.model.Region serviceBuilderRegion =
+			_regionService.getRegionByExternalReferenceCode(
+				externalReferenceCode, contextCompany.getCompanyId());
+
+		return patchRegion(serviceBuilderRegion.getRegionId(), region);
+	}
+
+	@Override
 	public Region postCountryRegion(Long countryId, Region region)
 		throws Exception {
 
@@ -122,9 +230,15 @@ public class RegionResourceImpl extends BaseRegionResourceImpl {
 			_regionService.addRegion(
 				countryId, GetterUtil.get(region.getActive(), true),
 				region.getName(), GetterUtil.getDouble(region.getPosition()),
-				region.getRegionCode(),
-				ServiceContextFactory.getInstance(
-					Region.class.getName(), contextHttpServletRequest));
+				region.getRegionCode(), _createServiceContext());
+
+		if (Validator.isNotNull(region.getExternalReferenceCode())) {
+			serviceBuilderRegion.setExternalReferenceCode(
+				region.getExternalReferenceCode());
+
+			serviceBuilderRegion = _regionLocalService.updateRegion(
+				serviceBuilderRegion);
+		}
 
 		_regionLocalService.updateRegionLocalizations(
 			serviceBuilderRegion, region.getTitle_i18n());
@@ -146,6 +260,49 @@ public class RegionResourceImpl extends BaseRegionResourceImpl {
 			serviceBuilderRegion, region.getTitle_i18n());
 
 		return _toRegion(serviceBuilderRegion);
+	}
+
+	@Override
+	public Region putRegionByExternalReferenceCode(
+			String externalReferenceCode, Region region)
+		throws Exception {
+
+		com.liferay.portal.kernel.model.Region serviceBuilderRegion =
+			_regionLocalService.fetchRegionByExternalReferenceCode(
+				externalReferenceCode, contextCompany.getCompanyId());
+
+		if (serviceBuilderRegion == null) {
+			if (region.getCountryId() == null) {
+				throw new PortalException(
+					"countryId is required when creating a region by " +
+						"external reference code");
+			}
+
+			region.setExternalReferenceCode(() -> externalReferenceCode);
+
+			return postCountryRegion(region.getCountryId(), region);
+		}
+
+		return putRegion(serviceBuilderRegion.getRegionId(), region);
+	}
+
+	private ServiceContext _createServiceContext() throws Exception {
+		if (contextHttpServletRequest != null) {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(
+				com.liferay.portal.kernel.model.Region.class.getName(),
+				contextHttpServletRequest);
+
+			if (serviceContext.getUserId() != 0) {
+				return serviceContext;
+			}
+		}
+
+		ServiceContext serviceContext = new ServiceContext();
+
+		serviceContext.setCompanyId(contextCompany.getCompanyId());
+		serviceContext.setUserId(contextUser.getUserId());
+
+		return serviceContext;
 	}
 
 	private void _setTitleMap(Region region) {
@@ -187,6 +344,10 @@ public class RegionResourceImpl extends BaseRegionResourceImpl {
 
 		return _regionResourceDTOConverter.toDTO(serviceBuilderRegion);
 	}
+
+	private static final String _COUNTRIES_MANAGEMENT_ADMIN_PORTLET_ID =
+		"com_liferay_address_web_internal_portlet_" +
+			"CountriesManagementAdminPortlet";
 
 	private static final EntityModel _entityModel =
 		() -> EntityModel.toEntityFieldsMap(

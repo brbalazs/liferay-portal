@@ -5,19 +5,28 @@
 
 package com.liferay.headless.admin.address.internal.resource.v1_0;
 
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
+import com.liferay.exportimport.vulcan.batch.engine.ExportImportVulcanBatchEngineTaskItemDelegate;
 import com.liferay.headless.admin.address.dto.v1_0.Country;
+import com.liferay.headless.admin.address.dto.v1_0.Region;
 import com.liferay.headless.admin.address.resource.v1_0.CountryResource;
 import com.liferay.portal.kernel.language.Language;
+import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.CountryTable;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.CountryLocalService;
 import com.liferay.portal.kernel.service.CountryService;
+import com.liferay.portal.kernel.service.RegionLocalService;
+import com.liferay.portal.kernel.service.RegionService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.odata.entity.DoubleEntityField;
 import com.liferay.portal.odata.entity.EntityModel;
 import com.liferay.portal.odata.entity.StringEntityField;
@@ -26,6 +35,8 @@ import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 
 import jakarta.ws.rs.core.MultivaluedMap;
+
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,13 +54,28 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/country.properties",
+	property = "export.import.vulcan.batch.engine.task.item.delegate=true",
 	scope = ServiceScope.PROTOTYPE, service = CountryResource.class
 )
-public class CountryResourceImpl extends BaseCountryResourceImpl {
+public class CountryResourceImpl
+	extends BaseCountryResourceImpl
+	implements ExportImportVulcanBatchEngineTaskItemDelegate<Country> {
 
 	@Override
 	public void deleteCountry(Long countryId) throws Exception {
 		_countryService.deleteCountry(countryId);
+	}
+
+	@Override
+	public void deleteCountryByExternalReferenceCode(
+			String externalReferenceCode)
+		throws Exception {
+
+		com.liferay.portal.kernel.model.Country serviceBuilderCountry =
+			_countryService.getCountryByExternalReferenceCode(
+				externalReferenceCode, contextCompany.getCompanyId());
+
+		_countryService.deleteCountry(serviceBuilderCountry.getCountryId());
 	}
 
 	@Override
@@ -86,6 +112,16 @@ public class CountryResourceImpl extends BaseCountryResourceImpl {
 	}
 
 	@Override
+	public Country getCountryByExternalReferenceCode(
+			String externalReferenceCode)
+		throws Exception {
+
+		return _toCountry(
+			_countryService.getCountryByExternalReferenceCode(
+				externalReferenceCode, contextCompany.getCompanyId()));
+	}
+
+	@Override
 	public Country getCountryByName(String name) throws Exception {
 		return _toCountry(
 			_countryService.getCountryByName(
@@ -107,6 +143,109 @@ public class CountryResourceImpl extends BaseCountryResourceImpl {
 	}
 
 	@Override
+	public ExportImportDescriptor<? extends BaseModel<?>>
+		getExportImportDescriptor() {
+
+		return new ExportImportDescriptor
+			<com.liferay.portal.kernel.model.Country>() {
+
+			@Override
+			public String getKey() {
+				return CountryResourceImpl.class.getName();
+			}
+
+			@Override
+			public String getLabelLanguageKey() {
+				return "countries";
+			}
+
+			@Override
+			public Class<com.liferay.portal.kernel.model.Country>
+				getModelClass() {
+
+				return com.liferay.portal.kernel.model.Country.class;
+			}
+
+			@Override
+			public List<String> getNestedFields() {
+				return List.of("creator", "regions");
+			}
+
+			@Override
+			public Map<String, Serializable> getParameters(
+				PortletDataContext portletDataContext) {
+
+				return HashMapBuilder.<String, Serializable>put(
+					"sort", "name:asc"
+				).build();
+			}
+
+			@Override
+			public String getPortletId() {
+				return _COUNTRIES_MANAGEMENT_ADMIN_PORTLET_ID;
+			}
+
+			@Override
+			public Scope getScope() {
+				return Scope.COMPANY;
+			}
+
+		};
+	}
+
+	@Override
+	public Country patchCountry(Long countryId, Country country)
+		throws Exception {
+
+		com.liferay.portal.kernel.model.Country serviceBuilderCountry =
+			_countryService.getCountry(countryId);
+
+		return _toCountry(
+			_updateNestedResources(
+				country,
+				_countryService.updateCountry(
+					countryId,
+					GetterUtil.getString(
+						country.getA2(), serviceBuilderCountry.getA2()),
+					GetterUtil.getString(
+						country.getA3(), serviceBuilderCountry.getA3()),
+					GetterUtil.getBoolean(
+						country.getActive(), serviceBuilderCountry.isActive()),
+					GetterUtil.getBoolean(
+						country.getBillingAllowed(),
+						serviceBuilderCountry.isBillingAllowed()),
+					(country.getIdd() != null) ?
+						String.valueOf(country.getIdd()) :
+							serviceBuilderCountry.getIdd(),
+					GetterUtil.getString(
+						country.getName(), serviceBuilderCountry.getName()),
+					(country.getNumber() != null) ?
+						String.valueOf(country.getNumber()) :
+							serviceBuilderCountry.getNumber(),
+					GetterUtil.getDouble(
+						country.getPosition(),
+						serviceBuilderCountry.getPosition()),
+					GetterUtil.getBoolean(
+						country.getShippingAllowed(),
+						serviceBuilderCountry.isShippingAllowed()),
+					GetterUtil.getBoolean(
+						country.getSubjectToVAT(),
+						serviceBuilderCountry.isSubjectToVAT()))));
+	}
+
+	@Override
+	public Country patchCountryByExternalReferenceCode(
+			String externalReferenceCode, Country country)
+		throws Exception {
+
+		com.liferay.portal.kernel.model.Country serviceBuilderCountry =
+			_countryService.getCountryByExternalReferenceCode(
+				externalReferenceCode, contextCompany.getCompanyId());
+
+		return patchCountry(serviceBuilderCountry.getCountryId(), country);
+	}
+
+	@Override
 	public Country postCountry(Country country) throws Exception {
 		com.liferay.portal.kernel.model.Country serviceBuilderCountry =
 			_countryService.addCountry(
@@ -119,26 +258,27 @@ public class CountryResourceImpl extends BaseCountryResourceImpl {
 				GetterUtil.getBoolean(country.getShippingAllowed(), true),
 				GetterUtil.getBoolean(country.getSubjectToVAT()),
 				GetterUtil.getBoolean(country.getZipRequired(), true),
-				ServiceContextFactory.getInstance(
-					Country.class.getName(), contextHttpServletRequest));
+				_createServiceContext());
 
-		if (country.getTitle_i18n() == null) {
-			Map<String, String> titleMap = new HashMap<>();
+		if (Validator.isNotNull(country.getExternalReferenceCode())) {
+			serviceBuilderCountry.setExternalReferenceCode(
+				country.getExternalReferenceCode());
 
-			for (Locale locale : _language.getAvailableLocales()) {
-				titleMap.put(_language.getLanguageId(locale), null);
-			}
-
-			country.setTitle_i18n(() -> titleMap);
+			serviceBuilderCountry = _countryLocalService.updateCountry(
+				serviceBuilderCountry);
 		}
+
+		_setTitleMap(country);
 
 		_countryLocalService.updateCountryLocalizations(
 			serviceBuilderCountry, country.getTitle_i18n());
 
 		return _toCountry(
-			_countryLocalService.updateGroupFilterEnabled(
-				serviceBuilderCountry.getCountryId(),
-				GetterUtil.getBoolean(country.getGroupFilterEnabled())));
+			_updateNestedResources(
+				country,
+				_countryLocalService.updateGroupFilterEnabled(
+					serviceBuilderCountry.getCountryId(),
+					GetterUtil.getBoolean(country.getGroupFilterEnabled()))));
 	}
 
 	@Override
@@ -156,6 +296,57 @@ public class CountryResourceImpl extends BaseCountryResourceImpl {
 				GetterUtil.getBoolean(country.getShippingAllowed(), true),
 				GetterUtil.getBoolean(country.getSubjectToVAT()));
 
+		_setTitleMap(country);
+
+		_countryLocalService.updateCountryLocalizations(
+			serviceBuilderCountry, country.getTitle_i18n());
+
+		return _toCountry(
+			_updateNestedResources(
+				country,
+				_countryService.updateGroupFilterEnabled(
+					serviceBuilderCountry.getCountryId(),
+					GetterUtil.getBoolean(country.getGroupFilterEnabled()))));
+	}
+
+	@Override
+	public Country putCountryByExternalReferenceCode(
+			String externalReferenceCode, Country country)
+		throws Exception {
+
+		com.liferay.portal.kernel.model.Country serviceBuilderCountry =
+			_countryLocalService.fetchCountryByExternalReferenceCode(
+				externalReferenceCode, contextCompany.getCompanyId());
+
+		if (serviceBuilderCountry == null) {
+			country.setExternalReferenceCode(() -> externalReferenceCode);
+
+			return postCountry(country);
+		}
+
+		return putCountry(serviceBuilderCountry.getCountryId(), country);
+	}
+
+	private ServiceContext _createServiceContext() throws Exception {
+		if (contextHttpServletRequest != null) {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(
+				com.liferay.portal.kernel.model.Country.class.getName(),
+				contextHttpServletRequest);
+
+			if (serviceContext.getUserId() != 0) {
+				return serviceContext;
+			}
+		}
+
+		ServiceContext serviceContext = new ServiceContext();
+
+		serviceContext.setCompanyId(contextCompany.getCompanyId());
+		serviceContext.setUserId(contextUser.getUserId());
+
+		return serviceContext;
+	}
+
+	private void _setTitleMap(Country country) {
 		if (country.getTitle_i18n() == null) {
 			Map<String, String> titleMap = new HashMap<>();
 
@@ -165,14 +356,6 @@ public class CountryResourceImpl extends BaseCountryResourceImpl {
 
 			country.setTitle_i18n(() -> titleMap);
 		}
-
-		_countryLocalService.updateCountryLocalizations(
-			serviceBuilderCountry, country.getTitle_i18n());
-
-		return _toCountry(
-			_countryService.updateGroupFilterEnabled(
-				serviceBuilderCountry.getCountryId(),
-				GetterUtil.getBoolean(country.getGroupFilterEnabled())));
 	}
 
 	private Country _toCountry(
@@ -201,6 +384,57 @@ public class CountryResourceImpl extends BaseCountryResourceImpl {
 			objects.toArray(new Object[0]));
 	}
 
+	private com.liferay.portal.kernel.model.Country _updateNestedResources(
+			Country country,
+			com.liferay.portal.kernel.model.Country serviceBuilderCountry)
+		throws Exception {
+
+		if (country.getRegions() == null) {
+			return serviceBuilderCountry;
+		}
+
+		for (Region region : country.getRegions()) {
+			com.liferay.portal.kernel.model.Region serviceBuilderRegion =
+				_regionLocalService.fetchRegionByExternalReferenceCode(
+					region.getExternalReferenceCode(),
+					contextCompany.getCompanyId());
+
+			if (serviceBuilderRegion != null) {
+				serviceBuilderRegion = _regionService.updateRegion(
+					serviceBuilderRegion.getRegionId(),
+					GetterUtil.get(region.getActive(), true), region.getName(),
+					GetterUtil.getDouble(region.getPosition()),
+					region.getRegionCode());
+			}
+			else {
+				serviceBuilderRegion = _regionService.addRegion(
+					serviceBuilderCountry.getCountryId(),
+					GetterUtil.get(region.getActive(), true), region.getName(),
+					GetterUtil.getDouble(region.getPosition()),
+					region.getRegionCode(), _createServiceContext());
+
+				if (Validator.isNotNull(region.getExternalReferenceCode())) {
+					serviceBuilderRegion.setExternalReferenceCode(
+						region.getExternalReferenceCode());
+
+					serviceBuilderRegion = _regionLocalService.updateRegion(
+						serviceBuilderRegion);
+				}
+			}
+
+			if (region.getTitle_i18n() != null) {
+				_regionLocalService.updateRegionLocalizations(
+					serviceBuilderRegion, region.getTitle_i18n());
+			}
+		}
+
+		return serviceBuilderCountry;
+	}
+
+	private static final String _COUNTRIES_MANAGEMENT_ADMIN_PORTLET_ID =
+		"com_liferay_address_web_internal_portlet_" +
+			"CountriesManagementAdminPortlet";
+
 	private static final EntityModel _entityModel =
 		() -> EntityModel.toEntityFieldsMap(
 			new DoubleEntityField("position", locale -> "position"),
@@ -220,5 +454,11 @@ public class CountryResourceImpl extends BaseCountryResourceImpl {
 
 	@Reference
 	private Language _language;
+
+	@Reference
+	private RegionLocalService _regionLocalService;
+
+	@Reference
+	private RegionService _regionService;
 
 }
