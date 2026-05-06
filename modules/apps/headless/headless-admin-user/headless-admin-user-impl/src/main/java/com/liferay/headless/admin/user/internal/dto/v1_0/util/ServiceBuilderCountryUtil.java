@@ -11,9 +11,11 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
+import com.liferay.portal.kernel.service.CountryLocalServiceUtil;
 import com.liferay.portal.kernel.service.CountryServiceUtil;
 import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.impl.CountryImpl;
 
 import java.util.List;
@@ -69,6 +71,23 @@ public class ServiceBuilderCountryUtil {
 
 	public static long toServiceBuilderCountryId(
 		long companyId, String addressCountry) {
+
+		return toServiceBuilderCountryId(companyId, addressCountry, null);
+	}
+
+	public static long toServiceBuilderCountryId(
+		long companyId, String addressCountry,
+		String addressCountryExternalReferenceCode) {
+
+		if (Validator.isNotNull(addressCountryExternalReferenceCode)) {
+			Country country =
+				CountryLocalServiceUtil.fetchCountryByExternalReferenceCode(
+					addressCountryExternalReferenceCode, companyId);
+
+			if (country != null) {
+				return country.getCountryId();
+			}
+		}
 
 		if (addressCountry == null) {
 			return 0;

@@ -6,6 +6,8 @@
 package com.liferay.headless.admin.user.internal.dto.v1_0.util;
 
 import com.liferay.portal.kernel.model.Region;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.service.RegionLocalServiceUtil;
 import com.liferay.portal.kernel.service.RegionServiceUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -19,6 +21,24 @@ public class ServiceBuilderRegionUtil {
 
 	public static long getServiceBuilderRegionId(
 		String addressRegion, long countryId) {
+
+		return getServiceBuilderRegionId(addressRegion, null, countryId);
+	}
+
+	public static long getServiceBuilderRegionId(
+		String addressRegion, String addressRegionExternalReferenceCode,
+		long countryId) {
+
+		if (Validator.isNotNull(addressRegionExternalReferenceCode)) {
+			Region region =
+				RegionLocalServiceUtil.fetchRegionByExternalReferenceCode(
+					addressRegionExternalReferenceCode,
+					CompanyThreadLocal.getCompanyId());
+
+			if (region != null) {
+				return region.getRegionId();
+			}
+		}
 
 		if (Validator.isNull(addressRegion) || (countryId <= 0)) {
 			return 0;
