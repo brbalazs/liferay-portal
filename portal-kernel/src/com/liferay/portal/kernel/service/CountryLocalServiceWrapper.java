@@ -249,6 +249,14 @@ public class CountryLocalServiceWrapper
 	}
 
 	@Override
+	public Country fetchCountryByExternalReferenceCode(
+		String externalReferenceCode, long companyId) {
+
+		return _countryLocalService.fetchCountryByExternalReferenceCode(
+			externalReferenceCode, companyId);
+	}
+
+	@Override
 	public Country fetchCountryByName(long companyId, String name) {
 		return _countryLocalService.fetchCountryByName(companyId, name);
 	}
@@ -383,6 +391,15 @@ public class CountryLocalServiceWrapper
 	}
 
 	@Override
+	public Country getCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _countryLocalService.getCountryByExternalReferenceCode(
+			externalReferenceCode, companyId);
+	}
+
+	@Override
 	public Country getCountryByName(long companyId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -443,6 +460,16 @@ public class CountryLocalServiceWrapper
 		getIndexableActionableDynamicQuery() {
 
 		return _countryLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	@Override
+	public Country getOrAddEmptyCountry(
+			String externalReferenceCode, long companyId, long userId,
+			String name)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _countryLocalService.getOrAddEmptyCountry(
+			externalReferenceCode, companyId, userId, name);
 	}
 
 	/**
@@ -579,4 +606,4 @@ public class CountryLocalServiceWrapper
 	private CountryLocalService _countryLocalService;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:-455478230
+// LIFERAY-SERVICE-BUILDER-HASH:-9677837

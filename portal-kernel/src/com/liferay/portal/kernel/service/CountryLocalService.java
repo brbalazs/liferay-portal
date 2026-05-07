@@ -222,6 +222,10 @@ public interface CountryLocalService
 	public Country fetchCountryByA3(long companyId, String a3);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Country fetchCountryByExternalReferenceCode(
+		String externalReferenceCode, long companyId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Country fetchCountryByName(long companyId, String name);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -307,6 +311,11 @@ public interface CountryLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Country getCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Country getCountryByName(long companyId, String name)
 		throws PortalException;
 
@@ -340,6 +349,12 @@ public interface CountryLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Country getOrAddEmptyCountry(
+			String externalReferenceCode, long companyId, long userId,
+			String name)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -411,4 +426,4 @@ public interface CountryLocalService
 		throws E;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:-766498133
+// LIFERAY-SERVICE-BUILDER-HASH:-126393319

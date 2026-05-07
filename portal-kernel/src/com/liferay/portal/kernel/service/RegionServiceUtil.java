@@ -51,6 +51,14 @@ public class RegionServiceUtil {
 		return getService().fetchRegion(countryId, regionCode);
 	}
 
+	public static Region fetchRegionByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException {
+
+		return getService().fetchRegionByExternalReferenceCode(
+			externalReferenceCode, companyId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -68,6 +76,14 @@ public class RegionServiceUtil {
 		throws PortalException {
 
 		return getService().getRegion(countryId, regionCode);
+	}
+
+	public static Region getRegionByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException {
+
+		return getService().getRegionByExternalReferenceCode(
+			externalReferenceCode, companyId);
 	}
 
 	public static List<Region> getRegions() {
@@ -154,4 +170,4 @@ public class RegionServiceUtil {
 	private static volatile RegionService _service;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:102498410
+// LIFERAY-SERVICE-BUILDER-HASH:129101092

@@ -52,6 +52,15 @@ public class RegionServiceWrapper
 		return _regionService.fetchRegion(countryId, regionCode);
 	}
 
+	@Override
+	public Region fetchRegionByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _regionService.fetchRegionByExternalReferenceCode(
+			externalReferenceCode, companyId);
+	}
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -74,6 +83,15 @@ public class RegionServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _regionService.getRegion(countryId, regionCode);
+	}
+
+	@Override
+	public Region getRegionByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _regionService.getRegionByExternalReferenceCode(
+			externalReferenceCode, companyId);
 	}
 
 	@Override
@@ -178,4 +196,4 @@ public class RegionServiceWrapper
 	private RegionService _regionService;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:1860298099
+// LIFERAY-SERVICE-BUILDER-HASH:-356898157

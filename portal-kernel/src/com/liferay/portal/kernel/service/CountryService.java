@@ -88,6 +88,11 @@ public interface CountryService extends BaseService {
 	public Country fetchCountryByA3(String a3);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Country fetchCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Country> getCompanyCountries(long companyId);
 
 	@AccessControlled(guestAccessEnabled = true)
@@ -151,6 +156,11 @@ public interface CountryService extends BaseService {
 	public Country getCountryByA3(String a3) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Country getCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Country getCountryByName(long companyId, String name)
 		throws PortalException;
 
@@ -193,4 +203,4 @@ public interface CountryService extends BaseService {
 		throws PortalException;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:1132614518
+// LIFERAY-SERVICE-BUILDER-HASH:335282041

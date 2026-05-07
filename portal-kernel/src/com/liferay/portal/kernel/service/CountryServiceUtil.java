@@ -86,6 +86,14 @@ public class CountryServiceUtil {
 		return getService().fetchCountryByA3(a3);
 	}
 
+	public static Country fetchCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException {
+
+		return getService().fetchCountryByExternalReferenceCode(
+			externalReferenceCode, companyId);
+	}
+
 	public static List<Country> getCompanyCountries(long companyId) {
 		return getService().getCompanyCountries(companyId);
 	}
@@ -168,6 +176,14 @@ public class CountryServiceUtil {
 		return getService().getCountryByA3(a3);
 	}
 
+	public static Country getCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException {
+
+		return getService().getCountryByExternalReferenceCode(
+			externalReferenceCode, companyId);
+	}
+
 	public static Country getCountryByName(long companyId, String name)
 		throws PortalException {
 
@@ -243,4 +259,4 @@ public class CountryServiceUtil {
 	private static volatile CountryService _service;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:-1320345040
+// LIFERAY-SERVICE-BUILDER-HASH:-709024772

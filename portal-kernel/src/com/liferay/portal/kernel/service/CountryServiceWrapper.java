@@ -92,6 +92,15 @@ public class CountryServiceWrapper
 	}
 
 	@Override
+	public Country fetchCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _countryService.fetchCountryByExternalReferenceCode(
+			externalReferenceCode, companyId);
+	}
+
+	@Override
 	public java.util.List<Country> getCompanyCountries(long companyId) {
 		return _countryService.getCompanyCountries(companyId);
 	}
@@ -195,6 +204,15 @@ public class CountryServiceWrapper
 	}
 
 	@Override
+	public Country getCountryByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _countryService.getCountryByExternalReferenceCode(
+			externalReferenceCode, companyId);
+	}
+
+	@Override
 	public Country getCountryByName(long companyId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -283,4 +301,4 @@ public class CountryServiceWrapper
 	private CountryService _countryService;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:-1266978697
+// LIFERAY-SERVICE-BUILDER-HASH:883376189

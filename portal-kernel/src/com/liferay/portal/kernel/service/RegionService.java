@@ -60,6 +60,11 @@ public interface RegionService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Region fetchRegion(long countryId, String regionCode);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Region fetchRegionByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
+		throws PortalException;
+
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -72,6 +77,11 @@ public interface RegionService extends BaseService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Region getRegion(long countryId, String regionCode)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Region getRegionByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -124,4 +134,4 @@ public interface RegionService extends BaseService {
 		throws PortalException;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:-920159411
+// LIFERAY-SERVICE-BUILDER-HASH:1808906378

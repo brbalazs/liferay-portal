@@ -215,6 +215,10 @@ public interface RegionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Region fetchRegion(long countryId, String regionCode);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Region fetchRegionByExternalReferenceCode(
+		String externalReferenceCode, long companyId);
+
 	/**
 	 * Returns the region with the matching UUID and company.
 	 *
@@ -238,6 +242,12 @@ public interface RegionLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Region getOrAddEmptyRegion(
+			String externalReferenceCode, long companyId, long userId,
+			long countryId, String regionCode, String name)
+		throws PortalException;
 
 	/**
 	 * Returns the OSGi service identifier.
@@ -266,6 +276,11 @@ public interface RegionLocalService
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Region getRegion(long countryId, String regionCode)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Region getRegionByExternalReferenceCode(
+			String externalReferenceCode, long companyId)
 		throws PortalException;
 
 	/**
@@ -385,4 +400,4 @@ public interface RegionLocalService
 		throws E;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:-1658666474
+// LIFERAY-SERVICE-BUILDER-HASH:1630703087

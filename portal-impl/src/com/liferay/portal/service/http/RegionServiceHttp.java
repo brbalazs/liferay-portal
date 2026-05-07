@@ -183,6 +183,48 @@ public class RegionServiceHttp {
 		}
 	}
 
+	public static com.liferay.portal.kernel.model.Region
+			fetchRegionByExternalReferenceCode(
+				HttpPrincipal httpPrincipal, String externalReferenceCode,
+				long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				RegionServiceUtil.class, "fetchRegionByExternalReferenceCode",
+				_fetchRegionByExternalReferenceCodeParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, externalReferenceCode, companyId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.portal.kernel.model.Region)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
 	public static com.liferay.portal.kernel.model.Region getRegion(
 			HttpPrincipal httpPrincipal, long regionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -190,7 +232,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegion",
-				_getRegionParameterTypes4);
+				_getRegionParameterTypes5);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, regionId);
@@ -230,10 +272,52 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegion",
-				_getRegionParameterTypes5);
+				_getRegionParameterTypes6);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId, regionCode);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(
+					exception);
+			}
+
+			return (com.liferay.portal.kernel.model.Region)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException
+					systemException) {
+
+			_log.error(systemException, systemException);
+
+			throw systemException;
+		}
+	}
+
+	public static com.liferay.portal.kernel.model.Region
+			getRegionByExternalReferenceCode(
+				HttpPrincipal httpPrincipal, String externalReferenceCode,
+				long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		try {
+			MethodKey methodKey = new MethodKey(
+				RegionServiceUtil.class, "getRegionByExternalReferenceCode",
+				_getRegionByExternalReferenceCodeParameterTypes7);
+
+			MethodHandler methodHandler = new MethodHandler(
+				methodKey, externalReferenceCode, companyId);
 
 			Object returnObj = null;
 
@@ -269,7 +353,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegions",
-				_getRegionsParameterTypes6);
+				_getRegionsParameterTypes8);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey);
 
@@ -301,7 +385,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegions",
-				_getRegionsParameterTypes7);
+				_getRegionsParameterTypes9);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey, active);
 
@@ -333,7 +417,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegions",
-				_getRegionsParameterTypes8);
+				_getRegionsParameterTypes10);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId);
@@ -367,7 +451,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegions",
-				_getRegionsParameterTypes9);
+				_getRegionsParameterTypes11);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId, active);
@@ -404,7 +488,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegions",
-				_getRegionsParameterTypes10);
+				_getRegionsParameterTypes12);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId, active, start, end, orderByComparator);
@@ -440,7 +524,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegions",
-				_getRegionsParameterTypes11);
+				_getRegionsParameterTypes13);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId, start, end, orderByComparator);
@@ -476,7 +560,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegions",
-				_getRegionsParameterTypes12);
+				_getRegionsParameterTypes14);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, a2, active);
@@ -516,7 +600,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegionsCount",
-				_getRegionsCountParameterTypes13);
+				_getRegionsCountParameterTypes15);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId);
@@ -548,7 +632,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "getRegionsCount",
-				_getRegionsCountParameterTypes14);
+				_getRegionsCountParameterTypes16);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, countryId, active);
@@ -586,7 +670,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "searchRegions",
-				_searchRegionsParameterTypes15);
+				_searchRegionsParameterTypes17);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, active, keywords, params, start, end,
@@ -628,7 +712,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "updateActive",
-				_updateActiveParameterTypes16);
+				_updateActiveParameterTypes18);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, regionId, active);
@@ -669,7 +753,7 @@ public class RegionServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				RegionServiceUtil.class, "updateRegion",
-				_updateRegionParameterTypes17);
+				_updateRegionParameterTypes19);
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, regionId, active, name, position, regionCode);
@@ -717,49 +801,57 @@ public class RegionServiceHttp {
 	private static final Class<?>[] _fetchRegionParameterTypes3 = new Class[] {
 		long.class, String.class
 	};
-	private static final Class<?>[] _getRegionParameterTypes4 = new Class[] {
+	private static final Class<?>[]
+		_fetchRegionByExternalReferenceCodeParameterTypes4 = new Class[] {
+			String.class, long.class
+		};
+	private static final Class<?>[] _getRegionParameterTypes5 = new Class[] {
 		long.class
 	};
-	private static final Class<?>[] _getRegionParameterTypes5 = new Class[] {
+	private static final Class<?>[] _getRegionParameterTypes6 = new Class[] {
 		long.class, String.class
 	};
-	private static final Class<?>[] _getRegionsParameterTypes6 = new Class[] {};
-	private static final Class<?>[] _getRegionsParameterTypes7 = new Class[] {
+	private static final Class<?>[]
+		_getRegionByExternalReferenceCodeParameterTypes7 = new Class[] {
+			String.class, long.class
+		};
+	private static final Class<?>[] _getRegionsParameterTypes8 = new Class[] {};
+	private static final Class<?>[] _getRegionsParameterTypes9 = new Class[] {
 		boolean.class
 	};
-	private static final Class<?>[] _getRegionsParameterTypes8 = new Class[] {
+	private static final Class<?>[] _getRegionsParameterTypes10 = new Class[] {
 		long.class
 	};
-	private static final Class<?>[] _getRegionsParameterTypes9 = new Class[] {
+	private static final Class<?>[] _getRegionsParameterTypes11 = new Class[] {
 		long.class, boolean.class
 	};
-	private static final Class<?>[] _getRegionsParameterTypes10 = new Class[] {
+	private static final Class<?>[] _getRegionsParameterTypes12 = new Class[] {
 		long.class, boolean.class, int.class, int.class,
 		com.liferay.portal.kernel.util.OrderByComparator.class
 	};
-	private static final Class<?>[] _getRegionsParameterTypes11 = new Class[] {
+	private static final Class<?>[] _getRegionsParameterTypes13 = new Class[] {
 		long.class, int.class, int.class,
 		com.liferay.portal.kernel.util.OrderByComparator.class
 	};
-	private static final Class<?>[] _getRegionsParameterTypes12 = new Class[] {
+	private static final Class<?>[] _getRegionsParameterTypes14 = new Class[] {
 		long.class, String.class, boolean.class
 	};
-	private static final Class<?>[] _getRegionsCountParameterTypes13 =
+	private static final Class<?>[] _getRegionsCountParameterTypes15 =
 		new Class[] {long.class};
-	private static final Class<?>[] _getRegionsCountParameterTypes14 =
+	private static final Class<?>[] _getRegionsCountParameterTypes16 =
 		new Class[] {long.class, boolean.class};
-	private static final Class<?>[] _searchRegionsParameterTypes15 =
+	private static final Class<?>[] _searchRegionsParameterTypes17 =
 		new Class[] {
 			long.class, Boolean.class, String.class,
 			java.util.LinkedHashMap.class, int.class, int.class,
 			com.liferay.portal.kernel.util.OrderByComparator.class
 		};
-	private static final Class<?>[] _updateActiveParameterTypes16 =
+	private static final Class<?>[] _updateActiveParameterTypes18 =
 		new Class[] {long.class, boolean.class};
-	private static final Class<?>[] _updateRegionParameterTypes17 =
+	private static final Class<?>[] _updateRegionParameterTypes19 =
 		new Class[] {
 			long.class, boolean.class, String.class, double.class, String.class
 		};
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:-142303530
+// LIFERAY-SERVICE-BUILDER-HASH:364788140
