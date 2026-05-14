@@ -185,11 +185,10 @@ public class CommerceTaxEngineTest {
 			CommerceTaxTestUtil.addByAddressCommerceTaxMethod(
 				_user.getUserId(), _commerceChannel.getGroupId(), false);
 
-		Country country1 = CommerceInventoryTestUtil.addCountry(
-			null, _serviceContext);
+		Country country1 = CommerceInventoryTestUtil.addCountry(_serviceContext);
 
 		Region region1 = CommerceInventoryTestUtil.addRegion(
-			null, country1.getCountryId(), _serviceContext);
+			country1.getCountryId(), _serviceContext);
 
 		String zip1 = RandomTestUtil.randomString();
 
@@ -202,11 +201,10 @@ public class CommerceTaxEngineTest {
 				_cpTaxCategory.getCPTaxCategoryId(), country1.getCountryId(),
 				region1.getRegionId(), zip1, rate.doubleValue());
 
-		Country country2 = CommerceInventoryTestUtil.addCountry(
-			null, _serviceContext);
+		Country country2 = CommerceInventoryTestUtil.addCountry(_serviceContext);
 
 		Region region2 = CommerceInventoryTestUtil.addRegion(
-			null, country2.getCountryId(), _serviceContext);
+			country2.getCountryId(), _serviceContext);
 
 		Address billingAddress = _addAddress(
 			country2, region2, RandomTestUtil.randomString());
@@ -232,11 +230,10 @@ public class CommerceTaxEngineTest {
 			CommerceTaxTestUtil.addByAddressCommerceTaxMethod(
 				_user.getUserId(), _commerceChannel.getGroupId(), false);
 
-		Country country1 = CommerceInventoryTestUtil.addCountry(
-			null, _serviceContext);
+		Country country1 = CommerceInventoryTestUtil.addCountry(_serviceContext);
 
 		Region region1 = CommerceInventoryTestUtil.addRegion(
-			null, country1.getCountryId(), _serviceContext);
+			country1.getCountryId(), _serviceContext);
 
 		BigDecimal rate = BigDecimal.TEN;
 
@@ -248,11 +245,10 @@ public class CommerceTaxEngineTest {
 				region1.getRegionId(), RandomTestUtil.randomString(),
 				rate.doubleValue());
 
-		Country country2 = CommerceInventoryTestUtil.addCountry(
-			null, _serviceContext);
+		Country country2 = CommerceInventoryTestUtil.addCountry(_serviceContext);
 
 		Region region2 = CommerceInventoryTestUtil.addRegion(
-			null, country2.getCountryId(), _serviceContext);
+			country2.getCountryId(), _serviceContext);
 
 		Address address = _addAddress(
 			country2, region2, RandomTestUtil.randomString());
@@ -276,11 +272,10 @@ public class CommerceTaxEngineTest {
 			CommerceTaxTestUtil.addByAddressCommerceTaxMethod(
 				_user.getUserId(), _commerceChannel.getGroupId(), false);
 
-		Country country1 = CommerceInventoryTestUtil.addCountry(
-			null, _serviceContext);
+		Country country1 = CommerceInventoryTestUtil.addCountry(_serviceContext);
 
 		Region region1 = CommerceInventoryTestUtil.addRegion(
-			null, country1.getCountryId(), _serviceContext);
+			country1.getCountryId(), _serviceContext);
 
 		String zip1 = RandomTestUtil.randomString();
 
@@ -293,11 +288,10 @@ public class CommerceTaxEngineTest {
 				_cpTaxCategory.getCPTaxCategoryId(), country1.getCountryId(),
 				region1.getRegionId(), zip1, rate.doubleValue());
 
-		Country country2 = CommerceInventoryTestUtil.addCountry(
-			null, _serviceContext);
+		Country country2 = CommerceInventoryTestUtil.addCountry(_serviceContext);
 
 		Region region2 = CommerceInventoryTestUtil.addRegion(
-			null, country2.getCountryId(), _serviceContext);
+			country2.getCountryId(), _serviceContext);
 
 		Address billingAddress = _addAddress(
 			country2, region2, RandomTestUtil.randomString());
@@ -329,7 +323,7 @@ public class CommerceTaxEngineTest {
 		Country country = CommerceInventoryTestUtil.addCountry(_serviceContext);
 
 		Region region = CommerceInventoryTestUtil.addRegion(
-			null, country.getCountryId(), _serviceContext);
+			country.getCountryId(), _serviceContext);
 
 		Address address = _addAddress(
 			country, region, RandomTestUtil.randomString());
