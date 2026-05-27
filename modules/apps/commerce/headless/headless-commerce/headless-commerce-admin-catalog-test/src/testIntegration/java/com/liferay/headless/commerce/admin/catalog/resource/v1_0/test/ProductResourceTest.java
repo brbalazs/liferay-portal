@@ -372,6 +372,7 @@ public class ProductResourceTest extends BaseProductResourceTestCase {
 		_testPostProductProductShippingConfigurationFromProductConfiguration();
 		_testPostProductProductTaxConfigurationFromProductConfiguration();
 		_testPostProductVirtual();
+		_testPostProductWithDuplicateProductAccountGroups();
 		_testPostProductWithProductAccountGroupExternalReferenceCode();
 		_testPostProductWithProductChannelExternalReferenceCode();
 		_testPostProductWithWorkflowSingleApprover();
@@ -898,6 +899,53 @@ public class ProductResourceTest extends BaseProductResourceTestCase {
 			productVirtualSettingsFileEntries[0];
 
 		Assert.assertNotNull(productVirtualSettingsFileEntry.getSrc());
+	}
+
+	private void _testPostProductWithDuplicateProductAccountGroups()
+		throws Exception {
+
+		User omniadminUser = UserTestUtil.addOmniadminUser();
+
+		String password = RandomTestUtil.randomString();
+
+		_userLocalService.updatePassword(
+			omniadminUser.getUserId(), password, password, false, true);
+
+		ProductResource productResource = ProductResource.builder(
+		).authentication(
+			omniadminUser.getEmailAddress(), password
+		).locale(
+			LocaleUtil.getDefault()
+		).parameters(
+			"nestedFields", "productAccountGroups"
+		).build();
+
+		Product randomProduct = _randomProductWithSku();
+
+		randomProduct.setProductAccountGroupFilter(true);
+		randomProduct.setProductAccountGroups(
+			new ProductAccountGroup[] {
+				new ProductAccountGroup() {
+					{
+						externalReferenceCode =
+							_accountGroup.getExternalReferenceCode();
+					}
+				},
+				new ProductAccountGroup() {
+					{
+						externalReferenceCode =
+							_accountGroup.getExternalReferenceCode();
+					}
+				}
+			});
+
+		Product postProduct = productResource.postProduct(randomProduct);
+
+		Assert.assertEquals(1, postProduct.getProductAccountGroups().length);
+		Assert.assertEquals(
+			_accountGroup.getAccountGroupId(),
+			GetterUtil.getLong(
+				postProduct.getProductAccountGroups()[0].getAccountGroupId()));
 	}
 
 	private void _testPostProductWithProductAccountGroupExternalReferenceCode()
