@@ -152,8 +152,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -1386,6 +1388,8 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 				CPDefinition.class.getName(),
 				new long[] {cpDefinition.getCPDefinitionId()});
 
+			Set<Long> accountGroupIds = new HashSet<>();
+
 			for (ProductAccountGroup productAccountGroup :
 					productAccountGroups) {
 
@@ -1404,6 +1408,10 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 					if (accountGroup == null) {
 						continue;
 					}
+				}
+
+				if (!accountGroupIds.add(accountGroup.getAccountGroupId())) {
+					continue;
 				}
 
 				_accountGroupRelService.addAccountGroupRel(
