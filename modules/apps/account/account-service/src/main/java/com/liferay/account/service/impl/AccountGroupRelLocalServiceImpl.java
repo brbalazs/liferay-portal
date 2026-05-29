@@ -6,7 +6,6 @@
 package com.liferay.account.service.impl;
 
 import com.liferay.account.constants.AccountConstants;
-import com.liferay.account.exception.DuplicateAccountGroupRelException;
 import com.liferay.account.model.AccountEntry;
 import com.liferay.account.model.AccountGroup;
 import com.liferay.account.model.AccountGroupRel;
@@ -60,7 +59,7 @@ public class AccountGroupRelLocalServiceImpl
 				accountGroupId, classNameId, classPK);
 
 		if (accountGroupRel != null) {
-			throw new DuplicateAccountGroupRelException();
+			return accountGroupRel;
 		}
 
 		if (Objects.equals(AccountEntry.class.getName(), className) &&
