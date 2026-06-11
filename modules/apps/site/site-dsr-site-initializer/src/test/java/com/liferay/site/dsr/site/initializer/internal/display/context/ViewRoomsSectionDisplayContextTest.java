@@ -66,6 +66,13 @@ public class ViewRoomsSectionDisplayContextTest {
 	public void setUp() throws PortalException {
 		_languageUtilMockedStatic.when(
 			() -> LanguageUtil.get(
+				Mockito.any(HttpServletRequest.class), Mockito.eq("archive"))
+		).thenReturn(
+			"Archive"
+		);
+
+		_languageUtilMockedStatic.when(
+			() -> LanguageUtil.get(
 				Mockito.any(HttpServletRequest.class), Mockito.eq("delete"))
 		).thenReturn(
 			"Delete"
@@ -84,6 +91,13 @@ public class ViewRoomsSectionDisplayContextTest {
 				Mockito.eq("new-digital-sales-room"))
 		).thenReturn(
 			"New Digital Sales Room"
+		);
+
+		_languageUtilMockedStatic.when(
+			() -> LanguageUtil.get(
+				Mockito.any(HttpServletRequest.class), Mockito.eq("restore"))
+		).thenReturn(
+			"Restore"
 		);
 
 		_languageUtilMockedStatic.when(
@@ -211,11 +225,7 @@ public class ViewRoomsSectionDisplayContextTest {
 				_objectDefinition, Mockito.mock(ObjectEntryService.class));
 
 		Assert.assertEquals(
-			StringBundler.concat(
-				"/o/search/v1.0/search?emptySearch=true&",
-				"filter=objectDefinitionId eq ",
-				_objectDefinition.getObjectDefinitionId(),
-				"&nestedFields=embedded,r_accountToDSRRooms_accountEntryId"),
+			"/o/digital-sales-room/rooms?nestedFields=creator",
 			viewRoomsSectionDisplayContext.getAPIURL());
 	}
 
@@ -230,12 +240,8 @@ public class ViewRoomsSectionDisplayContextTest {
 				Mockito.mock(ObjectEntryService.class));
 
 		Assert.assertEquals(
-			StringBundler.concat(
-				"/o/search/v1.0/search?emptySearch=true&",
-				"filter=objectDefinitionId eq ",
-				_objectDefinition.getObjectDefinitionId(),
-				"&nestedFields=embedded,r_accountToDSRRooms_accountEntryId",
-				"&pageSize=5&sort=dateModified:desc"),
+			"/o/digital-sales-room/rooms?nestedFields=creator&pageSize=5&sort" +
+				"=dateModified:desc",
 			viewRoomsSectionDisplayContext.getAPIURL());
 	}
 
@@ -323,27 +329,33 @@ public class ViewRoomsSectionDisplayContextTest {
 			viewRoomsSectionDisplayContext.getFDSActionDropdownItems();
 
 		Assert.assertEquals(
-			fdsActionDropdownItems.toString(), 4,
+			fdsActionDropdownItems.toString(), 6,
 			fdsActionDropdownItems.size());
 
 		_assertFDSActionDropdownItem(
 			StringBundler.concat(
 				DSRConstants.DSR_FRIENDLY_URL, "/view_room?siteId=",
-				"{embedded.siteId}"),
+				"{siteId}"),
 			"view", "view", "View", null, "get", null,
 			fdsActionDropdownItems.get(0));
 		_assertFDSActionDropdownItem(
 			StringBundler.concat(
 				DSRConstants.DSR_FRIENDLY_URL, "/view_room?mode=edit&siteId=",
-				"{embedded.siteId}"),
+				"{siteId}"),
 			"pencil", "edit", "Edit", null, "update", null,
 			fdsActionDropdownItems.get(1));
 		_assertFDSActionDropdownItem(
 			"#", "share", "share", "Share", null, "update", null,
 			fdsActionDropdownItems.get(2));
 		_assertFDSActionDropdownItem(
-			"#", "trash", "delete", "Delete", "delete", "delete", null,
+			"#", "archive", "archive", "Archive", null, "update", null,
 			fdsActionDropdownItems.get(3));
+		_assertFDSActionDropdownItem(
+			"#", "restore", "restore", "Restore", null, "update", null,
+			fdsActionDropdownItems.get(4));
+		_assertFDSActionDropdownItem(
+			"#", "trash", "delete", "Delete", "delete", "delete", null,
+			fdsActionDropdownItems.get(5));
 	}
 
 	@Test
