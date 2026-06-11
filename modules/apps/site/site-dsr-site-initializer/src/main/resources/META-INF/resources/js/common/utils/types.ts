@@ -107,6 +107,7 @@ export interface IRoomInitializerProps {
 
 export interface IRoomObjectEntry {
 	actions: any;
+	archiveDate: string;
 	creator: {
 		additionalName: string;
 		contentType: string;
@@ -131,6 +132,7 @@ export interface IRoomObjectEntry {
 		name: string;
 	};
 	r_accountToDSRRooms_accountEntryId: number;
+	roomStatus: number;
 	siteExternalReferenceCode: string;
 	siteId: number;
 	status: {
