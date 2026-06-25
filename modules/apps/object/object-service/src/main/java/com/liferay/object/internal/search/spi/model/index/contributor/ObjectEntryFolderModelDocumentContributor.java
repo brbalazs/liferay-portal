@@ -38,6 +38,7 @@ public class ObjectEntryFolderModelDocumentContributor
 		document.addText(Field.NAME, objectEntryFolder.getName());
 		document.addKeyword(Field.STATUS, objectEntryFolder.getStatus());
 		document.addText(Field.TITLE, objectEntryFolder.getName());
+		document.addKeyword("rootDescendantNode", false);
 
 		String[] parts = StringUtil.split(
 			objectEntryFolder.getTreePath(), CharPool.SLASH);

@@ -60,6 +60,8 @@ public class ObjectEntryFolderModelDocumentContributorTest {
 				"cms_root", "true"
 			).put(
 				"cms_section", "contents"
+			).put(
+				"rootDescendantNode", "false"
 			).build(),
 			ObjectEntryFolderConstants.EXTERNAL_REFERENCE_CODE_CONTENTS);
 		_testContribute(
@@ -69,6 +71,8 @@ public class ObjectEntryFolderModelDocumentContributorTest {
 				"cms_root", "true"
 			).put(
 				"cms_section", "files"
+			).put(
+				"rootDescendantNode", "false"
 			).build(),
 			ObjectEntryFolderConstants.EXTERNAL_REFERENCE_CODE_FILES);
 		_testContribute(
@@ -78,6 +82,8 @@ public class ObjectEntryFolderModelDocumentContributorTest {
 				"cms_root", StringPool.BLANK
 			).put(
 				"cms_section", StringPool.BLANK
+			).put(
+				"rootDescendantNode", "false"
 			).build(),
 			null);
 	}

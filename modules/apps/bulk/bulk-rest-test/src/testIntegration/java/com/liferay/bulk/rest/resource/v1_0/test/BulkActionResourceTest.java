@@ -626,7 +626,9 @@ public class BulkActionResourceTest extends BaseBulkActionResourceTestCase {
 		Page<BulkActionItem> page =
 			bulkActionResource.postBulkActionItemPreviewPage(
 				false, objectEntryFolder2.getName(),
-				"folderId eq " + objectEntryFolder1.getObjectEntryFolderId(),
+				StringBundler.concat(
+					"folderId eq ", objectEntryFolder1.getObjectEntryFolderId(),
+					" and rootDescendantNode eq false"),
 				Pagination.of(1, 10), null, bulkAction);
 
 		Assert.assertEquals(1, page.getTotalCount());
