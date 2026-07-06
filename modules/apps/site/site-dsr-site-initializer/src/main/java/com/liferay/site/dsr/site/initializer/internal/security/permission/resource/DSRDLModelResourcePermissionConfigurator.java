@@ -5,7 +5,7 @@
 
 package com.liferay.site.dsr.site.initializer.internal.security.permission.resource;
 
-import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
@@ -22,26 +22,29 @@ import org.osgi.service.component.annotations.Component;
  * @author Balazs Breier
  */
 @Component(
-	property = "model.class.name=com.liferay.document.library.kernel.model.DLFileEntry",
+	property = {
+		"model.class.name=com.liferay.document.library.kernel.model.DLFileEntry",
+		"model.class.name=com.liferay.document.library.kernel.model.DLFolder"
+	},
 	service = ModelResourcePermissionFactory.ModelResourcePermissionConfigurator.class
 )
-public class DSRDLFileEntryModelResourcePermissionConfigurator
+public class DSRDLModelResourcePermissionConfigurator
 	implements ModelResourcePermissionFactory.
-				   ModelResourcePermissionConfigurator<DLFileEntry> {
+				   ModelResourcePermissionConfigurator<GroupedModel> {
 
 	@Override
 	public void configureModelResourcePermissionLogics(
-		ModelResourcePermission<DLFileEntry> modelResourcePermission,
-		Consumer<ModelResourcePermissionLogic<DLFileEntry>> consumer) {
+		ModelResourcePermission<GroupedModel> modelResourcePermission,
+		Consumer<ModelResourcePermissionLogic<GroupedModel>> consumer) {
 
 		consumer.accept(
-			(permissionChecker, name, dlFileEntry, actionId) -> {
-				if (_delegableActionIds.contains(actionId)) {
+			(permissionChecker, name, groupedModel, actionId) -> {
+				if (_actionIds.contains(actionId)) {
 					return null;
 				}
 
 				if (DSRRoomUtil.isReadOnly(
-						dlFileEntry.getGroupId(), permissionChecker)) {
+						groupedModel.getGroupId(), permissionChecker)) {
 
 					return false;
 				}
@@ -50,7 +53,7 @@ public class DSRDLFileEntryModelResourcePermissionConfigurator
 			});
 	}
 
-	private static final Set<String> _delegableActionIds = SetUtil.fromArray(
+	private static final Set<String> _actionIds = SetUtil.fromArray(
 		ActionKeys.ACCESS, ActionKeys.VIEW);
 
 }

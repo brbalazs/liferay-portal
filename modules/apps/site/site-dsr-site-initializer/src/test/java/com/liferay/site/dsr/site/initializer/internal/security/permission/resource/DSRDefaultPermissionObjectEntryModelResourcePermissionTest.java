@@ -162,12 +162,12 @@ public class DSRDefaultPermissionObjectEntryModelResourcePermissionTest {
 			_dsrDefaultPermissionObjectEntryModelResourcePermission.contains(
 				_permissionChecker, _objectEntry, ActionKeys.UPDATE));
 
-		long approvedSiteId = RandomTestUtil.randomLong();
+		siteId = RandomTestUtil.randomLong();
 
-		_mockRoom(WorkflowConstants.STATUS_APPROVED, approvedSiteId);
+		_mockRoom(WorkflowConstants.STATUS_APPROVED, siteId);
 
 		Mockito.when(
-			_permissionChecker.isGroupMember(approvedSiteId)
+			_permissionChecker.isGroupMember(siteId)
 		).thenReturn(
 			true
 		);
