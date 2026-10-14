@@ -199,6 +199,8 @@ public class LinkReferenceResourceTest
 
 		Assert.assertEquals("DELETE", deleteAction.get("method"));
 
+		Assert.assertNotNull(actions.get("get"));
+
 		Status status = linkReference.getStatus();
 
 		Assert.assertEquals("approved", status.getLabel());
