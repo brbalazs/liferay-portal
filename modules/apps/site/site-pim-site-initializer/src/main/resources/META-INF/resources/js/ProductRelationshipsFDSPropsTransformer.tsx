@@ -19,12 +19,19 @@ const ACTIONS = {
 };
 
 export default function propsTransformer({
+	additionalProps,
 	creationMenu,
+	itemsActions,
 	...props
 }: {
+	additionalProps?: {objectEntryId: string};
 	creationMenu?: any;
+	itemsActions?: any[];
 	[key: string]: any;
 }) {
+	const isCurrent = (itemData: {id: number}) =>
+		String(itemData?.id) === additionalProps?.objectEntryId;
+
 	return {
 		...props,
 		creationMenu: creationMenu && {
@@ -37,7 +44,12 @@ export default function propsTransformer({
 		customRenderers: {
 			tableCell: [
 				{
-					component: ProductRelationshipSelectorTitleRenderer,
+					component: ({itemData, value}: any) => (
+						<ProductRelationshipSelectorTitleRenderer
+							current={isCurrent(itemData)}
+							value={value}
+						/>
+					),
 					name: 'titleTableCellRenderer',
 					type: 'internal',
 				},
@@ -51,6 +63,16 @@ export default function propsTransformer({
 			],
 		},
 		hideManagementBarInEmptyState: true,
+		itemsActions: itemsActions?.map((itemsAction) => {
+			if (itemsAction?.data?.id !== 'view') {
+				return itemsAction;
+			}
+
+			return {
+				...itemsAction,
+				isVisible: (itemData: {id: number}) => !isCurrent(itemData),
+			};
+		}),
 		onActionDropdownItemClick({
 			action,
 			event,

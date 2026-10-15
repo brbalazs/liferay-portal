@@ -40,6 +40,8 @@ public class ProductRelationshipsTableFDSView extends BaseTableFDSView {
 		).add(
 			"type", "type"
 		).add(
+			"primary", "primary"
+		).add(
 			"status", "status",
 			fdsTableSchemaField -> fdsTableSchemaField.setContentRenderer(
 				"statusTableCellRenderer")
