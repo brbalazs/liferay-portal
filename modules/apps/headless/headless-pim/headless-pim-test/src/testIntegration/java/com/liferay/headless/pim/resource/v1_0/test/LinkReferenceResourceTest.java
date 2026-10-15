@@ -113,12 +113,10 @@ public class LinkReferenceResourceTest
 
 		page = _getLinkReferencesPage(sourceObjectEntry, Pagination.of(1, 20));
 
-		Assert.assertEquals(2, page.getTotalCount());
+		Assert.assertEquals(3, page.getTotalCount());
 
 		List<LinkReference> linkReferences =
 			(List<LinkReference>)page.getItems();
-
-		Assert.assertNull(_getLinkReference(linkReferences, sourceObjectEntry));
 
 		_assertLinkReference(linkReferences, targetObjectEntry1);
 		_assertLinkReference(linkReferences, targetObjectEntry2);
@@ -149,6 +147,19 @@ public class LinkReferenceResourceTest
 			RandomTestUtil.randomString());
 
 		Assert.assertEquals(0, page.getTotalCount());
+
+		_pimLinkEngine.setPrimaryPIMLink(targetObjectEntry1, _TYPE);
+
+		page = _getLinkReferencesPage(sourceObjectEntry, Pagination.of(1, 20));
+
+		LinkReference linkReference = _getLinkReference(
+			(List<LinkReference>)page.getItems(), targetObjectEntry1);
+
+		Map<String, Map<String, String>> actions = linkReference.getActions();
+
+		Assert.assertNull(actions.get("setPrimary"));
+
+		Assert.assertTrue(linkReference.getPrimary());
 	}
 
 	@Override
@@ -174,7 +185,7 @@ public class LinkReferenceResourceTest
 		Page<LinkReference> page = _getLinkReferencesPage(
 			sourceObjectEntry, Pagination.of(1, 2));
 
-		Assert.assertEquals(3, page.getTotalCount());
+		Assert.assertEquals(4, page.getTotalCount());
 
 		List<LinkReference> linkReferences =
 			(List<LinkReference>)page.getItems();
@@ -200,6 +211,16 @@ public class LinkReferenceResourceTest
 		Assert.assertEquals("DELETE", deleteAction.get("method"));
 
 		Assert.assertNotNull(actions.get("get"));
+
+		Map<String, String> setPrimaryAction = actions.get("setPrimary");
+
+		href = setPrimaryAction.get("href");
+
+		Assert.assertTrue(href, href.contains("/links/primary?className="));
+
+		Assert.assertEquals("PUT", setPrimaryAction.get("method"));
+
+		Assert.assertFalse(linkReference.getPrimary());
 
 		Status status = linkReference.getStatus();
 
