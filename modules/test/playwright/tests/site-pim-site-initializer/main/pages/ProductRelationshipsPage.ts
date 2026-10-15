@@ -76,6 +76,14 @@ export class ProductRelationshipsPage {
 		await expect(this.getRelatedProduct(name)).toBeHidden();
 	}
 
+	getCurrentLabel(name: string) {
+		return this.getRelatedProduct(name).getByText('Current', {exact: true});
+	}
+
+	getPrimaryCell(name: string) {
+		return this.getRelatedProduct(name).locator('.cell-primary');
+	}
+
 	getRelatedProduct(name: string) {
 		return this.rows.filter({hasText: name});
 	}
