@@ -19,12 +19,14 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.util.FriendlyURLNormalizer;
 import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.kernel.util.HtmlParserUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.MapUtil;
@@ -116,6 +118,7 @@ public class LiferayCommercePIMConnectorTest {
 
 	@After
 	public void tearDown() {
+		_htmlParserUtilMockedStatic.close();
 		_listTypeEntryLocalServiceUtilMockedStatic.close();
 		_objectFieldLocalServiceUtilMockedStatic.close();
 	}
@@ -124,6 +127,8 @@ public class LiferayCommercePIMConnectorTest {
 	public void testExecute() throws Exception {
 		_testExecute();
 		_testExecuteWithBooleanProductType();
+		_testExecuteWithFieldMappingRules();
+		_testExecuteWithFirstNonemptySourceFieldMappingRule();
 		_testExecuteWithForeignStructureFixedValue();
 		_testExecuteWithInvalidStructureFieldMapping();
 		_testExecuteWithJoinedValues();
@@ -209,8 +214,17 @@ public class LiferayCommercePIMConnectorTest {
 	private JSONObject _execute(
 			String externalReferenceCode,
 			List<ObjectEntry> pimFieldMappingObjectEntries,
+			Map<String, ObjectEntry> pimFieldMappingRuleObjectEntriesMap,
 			ObjectEntry... pimProductObjectEntries)
 		throws Exception {
+
+		Mockito.doReturn(
+			pimFieldMappingRuleObjectEntriesMap
+		).when(
+			_liferayCommercePIMConnector
+		).getPIMFieldMappingRuleObjectEntriesMap(
+			_pimConnectorObjectEntry
+		);
 
 		Map<String, List<ObjectEntry>> objectEntriesMap = new HashMap<>();
 
@@ -246,6 +260,18 @@ public class LiferayCommercePIMConnectorTest {
 		Assert.assertEquals(jsonArray.toString(), 1, jsonArray.length());
 
 		return jsonArray.getJSONObject(0);
+	}
+
+	private JSONObject _execute(
+			String externalReferenceCode,
+			List<ObjectEntry> pimFieldMappingObjectEntries,
+			ObjectEntry... pimProductObjectEntries)
+		throws Exception {
+
+		return _execute(
+			externalReferenceCode, pimFieldMappingObjectEntries,
+			Collections.<String, ObjectEntry>emptyMap(),
+			pimProductObjectEntries);
 	}
 
 	private List<ObjectEntry> _getRequiredObjectEntries(
@@ -298,6 +324,20 @@ public class LiferayCommercePIMConnectorTest {
 			).put(
 				"value", value
 			).build()
+		);
+
+		return objectEntry;
+	}
+
+	private ObjectEntry _mockFieldMappingRule(
+		Map<String, Serializable> values) {
+
+		ObjectEntry objectEntry = Mockito.mock(ObjectEntry.class);
+
+		Mockito.when(
+			objectEntry.getValues()
+		).thenReturn(
+			values
 		);
 
 		return objectEntry;
@@ -423,6 +463,150 @@ public class LiferayCommercePIMConnectorTest {
 				).build()));
 
 		Assert.assertEquals("virtual", jsonObject.getString("productType"));
+	}
+
+	private void _testExecuteWithFieldMappingRules() throws Exception {
+		_htmlParserUtilMockedStatic.when(
+			() -> HtmlParserUtil.extractText("<br>")
+		).thenReturn(
+			StringPool.BLANK
+		);
+
+		JSONObject jsonObject = _execute(
+			"SKU-1",
+			_getRequiredObjectEntries(
+				_mockFieldMapping(
+					"description", StringPool.BLANK, "description",
+					"dynamicValue", StringPool.BLANK),
+				_mockFieldMapping(
+					"name", StringPool.BLANK, "sku", "dynamicValue",
+					StringPool.BLANK),
+				_mockFieldMapping(
+					"productOptions", StringPool.BLANK, "color", "dynamicValue",
+					StringPool.BLANK),
+				_mockFieldMapping(
+					"productSpecifications", StringPool.BLANK, "material",
+					"dynamicValue", StringPool.BLANK),
+				_mockFieldMapping(
+					"tags", StringPool.BLANK, StringPool.BLANK,
+					PIMConnectorFieldMappingsUtil.TYPE_FIXED_VALUE,
+					"Home Office"),
+				_mockFieldMapping(
+					"tags", StringPool.BLANK, StringPool.BLANK,
+					PIMConnectorFieldMappingsUtil.TYPE_FIXED_VALUE,
+					"Summer Sale")),
+			HashMapBuilder.put(
+				"description",
+				_mockFieldMappingRule(
+					HashMapBuilder.<String, Serializable>put(
+						"stripHTMLTags", true
+					).build())
+			).put(
+				"name",
+				_mockFieldMappingRule(
+					HashMapBuilder.<String, Serializable>put(
+						"textCase", "upper"
+					).build())
+			).put(
+				"productOptions",
+				_mockFieldMappingRule(
+					HashMapBuilder.<String, Serializable>put(
+						"trimWhitespace", true
+					).build())
+			).put(
+				"productSpecifications",
+				_mockFieldMappingRule(
+					HashMapBuilder.<String, Serializable>put(
+						"textCase", "upper"
+					).build())
+			).put(
+				"tags",
+				_mockFieldMappingRule(
+					HashMapBuilder.<String, Serializable>put(
+						"textCase", "lower"
+					).put(
+						"urlEncode", true
+					).build())
+			).build(),
+			_mockProductObjectEntry(
+				"SKU-1",
+				HashMapBuilder.<String, Serializable>put(
+					"color", " Red "
+				).put(
+					"description", "<br>"
+				).put(
+					"material", "Cotton"
+				).build()));
+
+		Assert.assertFalse(
+			jsonObject.toString(), jsonObject.has("description"));
+
+		JSONObject nameJSONObject = jsonObject.getJSONObject("name");
+
+		Assert.assertEquals(
+			"SKU-1 TITLE SKU-1", nameJSONObject.getString("en_US"));
+
+		JSONArray jsonArray = jsonObject.getJSONArray("productOptions");
+
+		JSONObject productOptionJSONObject = jsonArray.getJSONObject(0);
+
+		jsonArray = productOptionJSONObject.getJSONArray("productOptionValues");
+
+		JSONObject productOptionValueJSONObject = jsonArray.getJSONObject(0);
+
+		Assert.assertEquals(
+			"red", productOptionValueJSONObject.getString("key"));
+
+		nameJSONObject = productOptionValueJSONObject.getJSONObject("name");
+
+		Assert.assertEquals("Red", nameJSONObject.getString("en_US"));
+
+		jsonArray = jsonObject.getJSONArray("productSpecifications");
+
+		JSONObject productSpecificationJSONObject = jsonArray.getJSONObject(0);
+
+		JSONObject valueJSONObject =
+			productSpecificationJSONObject.getJSONObject("value");
+
+		Assert.assertEquals("COTTON", valueJSONObject.getString("en_US"));
+
+		Assert.assertEquals(
+			Arrays.asList("home%20office", "summer%20sale"),
+			JSONUtil.toStringList(jsonObject.getJSONArray("tags")));
+
+		jsonArray = _getSkuJSONObject(
+			0, jsonObject
+		).getJSONArray(
+			"skuOptions"
+		);
+
+		JSONObject skuOptionJSONObject = jsonArray.getJSONObject(0);
+
+		Assert.assertEquals("red", skuOptionJSONObject.getString("value"));
+	}
+
+	private void _testExecuteWithFirstNonemptySourceFieldMappingRule()
+		throws Exception {
+
+		JSONObject jsonObject = _execute(
+			"SKU-1",
+			_getRequiredObjectEntries(
+				_mockFieldMapping(
+					"name", StringPool.BLANK, "sku", "dynamicValue",
+					StringPool.BLANK)),
+			HashMapBuilder.put(
+				"name",
+				_mockFieldMappingRule(
+					HashMapBuilder.<String, Serializable>put(
+						"useFirstNonemptySource", true
+					).build())
+			).build(),
+			_mockProductObjectEntry(
+				"SKU-1", Collections.<String, Serializable>emptyMap()));
+
+		JSONObject nameJSONObject = jsonObject.getJSONObject("name");
+
+		Assert.assertEquals("SKU-1 title", nameJSONObject.getString("en_US"));
 	}
 
 	private void _testExecuteWithForeignStructureFixedValue() throws Exception {
@@ -697,6 +881,8 @@ public class LiferayCommercePIMConnectorTest {
 
 	private final FriendlyURLNormalizer _friendlyURLNormalizer = Mockito.mock(
 		FriendlyURLNormalizer.class);
+	private final MockedStatic<HtmlParserUtil> _htmlParserUtilMockedStatic =
+		Mockito.mockStatic(HtmlParserUtil.class);
 	private final Language _language = Mockito.mock(Language.class);
 	private final LiferayCommercePIMConnector _liferayCommercePIMConnector =
 		Mockito.spy(new LiferayCommercePIMConnector());

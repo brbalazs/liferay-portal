@@ -193,6 +193,24 @@ public class BasePIMConnectorTest {
 	}
 
 	@Test
+	public void testGetPIMFieldMappingRuleObjectEntriesMap() throws Exception {
+		ObjectEntry nameObjectEntry = _mockFieldMappingRule("name");
+		ObjectEntry tagsObjectEntry = _mockFieldMappingRule("tags");
+
+		_mockPIMFieldMappingObjectEntries(
+			ListUtil.fromArray(nameObjectEntry, tagsObjectEntry));
+
+		Assert.assertEquals(
+			HashMapBuilder.put(
+				"name", nameObjectEntry
+			).put(
+				"tags", tagsObjectEntry
+			).build(),
+			_pimConnector.getPIMFieldMappingRuleObjectEntriesMap(
+				_pimConnectorObjectEntry));
+	}
+
+	@Test
 	public void testGetPIMProductObjectEntriesMap() throws Exception {
 		_testGetPIMProductObjectEntriesMap();
 		_testGetPIMProductObjectEntriesMapWithFullSearchPage();
@@ -262,6 +280,20 @@ public class BasePIMConnectorTest {
 				}
 			).put(
 				"value", value
+			).build()
+		);
+
+		return objectEntry;
+	}
+
+	private ObjectEntry _mockFieldMappingRule(String channelFieldName) {
+		ObjectEntry objectEntry = Mockito.mock(ObjectEntry.class);
+
+		Mockito.when(
+			objectEntry.getValues()
+		).thenReturn(
+			HashMapBuilder.<String, Serializable>put(
+				"channelFieldName", channelFieldName
 			).build()
 		);
 
