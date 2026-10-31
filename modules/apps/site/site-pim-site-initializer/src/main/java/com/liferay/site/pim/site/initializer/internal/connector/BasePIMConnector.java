@@ -15,6 +15,7 @@ import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.sql.dsl.expression.Predicate;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -33,6 +34,7 @@ import com.liferay.site.pim.site.initializer.connector.PIMConnector;
 import com.liferay.site.pim.site.initializer.constants.PIMObjectDefinitionConstants;
 import com.liferay.site.pim.site.initializer.exception.PIMConnectorException;
 import com.liferay.site.pim.site.initializer.internal.link.VariantPIMLinkType;
+import com.liferay.site.pim.site.initializer.internal.util.PIMConnectorFieldMappingRulesUtil;
 import com.liferay.site.pim.site.initializer.internal.util.PIMConnectorFieldMappingsUtil;
 
 import java.io.Serializable;
@@ -80,6 +82,24 @@ public abstract class BasePIMConnector implements PIMConnector {
 				key -> new ArrayList<>());
 
 			objectEntries.add(objectEntry);
+		}
+
+		return objectEntriesMap;
+	}
+
+	protected Map<String, ObjectEntry> getPIMFieldMappingRuleObjectEntriesMap(
+			ObjectEntry pimConnectorObjectEntry)
+		throws PortalException {
+
+		Map<String, ObjectEntry> objectEntriesMap = new HashMap<>();
+
+		for (ObjectEntry objectEntry :
+				PIMConnectorFieldMappingRulesUtil.getObjectEntries(
+					pimConnectorObjectEntry)) {
+
+			objectEntriesMap.put(
+				MapUtil.getString(objectEntry.getValues(), "channelFieldName"),
+				objectEntry);
 		}
 
 		return objectEntriesMap;

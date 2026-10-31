@@ -102,7 +102,12 @@ public class PIMConnectorFieldMappingsUtil {
 		ObjectDefinition objectDefinition,
 		Map<String, List<ObjectEntry>> objectEntriesMap,
 		PIMConnectorChannelField pimConnectorChannelField,
+		Map<String, ObjectEntry> pimFieldMappingRuleObjectEntriesMap,
 		Map<String, Serializable> values) {
+
+		ObjectEntry pimFieldMappingRuleObjectEntry =
+			pimFieldMappingRuleObjectEntriesMap.get(
+				pimConnectorChannelField.getName());
 
 		List<String> channelFieldValues = TransformUtil.transform(
 			filterObjectEntries(
@@ -110,6 +115,11 @@ public class PIMConnectorFieldMappingsUtil {
 				objectEntriesMap.get(pimConnectorChannelField.getName())),
 			objectEntry -> {
 				String value = getValue(objectDefinition, objectEntry, values);
+
+				if (pimConnectorChannelField.isMultiple()) {
+					value = PIMConnectorFieldMappingRulesUtil.getValue(
+						pimFieldMappingRuleObjectEntry, value);
+				}
 
 				if (Validator.isNull(value)) {
 					return null;
@@ -134,7 +144,24 @@ public class PIMConnectorFieldMappingsUtil {
 		}
 
 		if (Objects.equals(type, ObjectFieldConstants.BUSINESS_TYPE_TEXT)) {
-			return StringUtil.merge(channelFieldValues, StringPool.SPACE);
+			String value = channelFieldValues.get(0);
+
+			if ((pimFieldMappingRuleObjectEntry == null) ||
+				!MapUtil.getBoolean(
+					pimFieldMappingRuleObjectEntry.getValues(),
+					"useFirstNonemptySource")) {
+
+				value = StringUtil.merge(channelFieldValues, StringPool.SPACE);
+			}
+
+			value = PIMConnectorFieldMappingRulesUtil.getValue(
+				pimFieldMappingRuleObjectEntry, value);
+
+			if (Validator.isNull(value)) {
+				return null;
+			}
+
+			return value;
 		}
 
 		return _toObject(pimConnectorChannelField, channelFieldValues.get(0));
