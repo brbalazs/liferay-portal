@@ -44,6 +44,7 @@ import com.liferay.site.pim.site.initializer.exception.PIMConnectorException;
 import com.liferay.site.pim.site.initializer.internal.util.PIMConnectorConfigurationUtil;
 import com.liferay.site.pim.site.initializer.internal.util.PIMConnectorDispatchTriggerUtil;
 import com.liferay.site.pim.site.initializer.internal.util.PIMConnectorFieldMappingRulesUtil;
+import com.liferay.site.pim.site.initializer.internal.util.PIMConnectorFieldMappingsUtil;
 import com.liferay.site.pim.site.initializer.internal.util.PIMLinkUtil;
 import com.liferay.site.pim.site.initializer.internal.util.PIMObjectEntryFolderUtil;
 import com.liferay.site.pim.site.initializer.link.PIMLinkType;
@@ -531,11 +532,14 @@ public class ObjectEntryModelListener extends BaseModelListener<ObjectEntry> {
 				"\"channelFieldName\" is invalid", "x-is-invalid");
 		}
 
-		List<String> allowedFieldMappingTypes =
-			pimConnectorChannelField.getAllowedFieldMappingTypes();
+		List<String> additionalFieldMappingTypes =
+			pimConnectorChannelField.getAdditionalFieldMappingTypes();
+		String type = MapUtil.getString(values, "type");
 
-		if (!allowedFieldMappingTypes.contains(
-				MapUtil.getString(values, "type"))) {
+		if (!additionalFieldMappingTypes.contains(type) &&
+			!Objects.equals(type, "dynamicValue") &&
+			!Objects.equals(
+				type, PIMConnectorFieldMappingsUtil.TYPE_FIXED_VALUE)) {
 
 			throw new ObjectEntryValuesException.InvalidObjectField(
 				Collections.singletonList("type"), "\"type\" is invalid",
